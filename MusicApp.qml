@@ -13,7 +13,42 @@ MainView {
         id: tabs
         anchors.fill: parent
 
-        // First tab begins here
+        // 0 tab
+        /*
+        Tab {
+            objectName: "Playlist tab"
+
+            title: i18n.tr("Playlists")
+            page: Page {
+                anchors.margins: units.gu(2)
+
+                tools: ToolbarActions {
+                    Action {
+                        objectName: "action"
+
+                        iconSource: Qt.resolvedUrl("avatar.png")
+                        text: i18n.tr("Create new")
+
+                        onTriggered: {
+                            label.text = i18n.tr("New playlist tapped")
+                        }
+                    }
+                }
+
+                Column {
+                    anchors.centerIn: parent
+                    Label {
+                        id: toolbar_playlist
+                        objectName: "Playlist Toolbar"
+
+                        text: i18n.tr("List all playlists.")
+                    }
+                }
+            }
+        }
+        */
+
+        // First tab begins here - should be the primary tab
         Tab {
             objectName: "Tab1"
 
@@ -95,6 +130,7 @@ MainView {
                     }
                     spacing: units.gu(1)
 
+                    // placeholder
                     Row {
                         spacing: units.gu(1)
                     }
@@ -111,6 +147,26 @@ MainView {
                                 horizontalAlignment: Image.AlignHCenter
                                 verticalAlignment: Image.AlignVCenter
                             }
+                        }
+                    }
+
+                    // track progress
+                    Row {
+                        width: units.gu(40)
+                        ProgressBar {
+                            indeterminate: true
+                        }
+                    }
+                    // merge with this slider
+                    Row {
+                        Slider {
+                            id: defaultSlider
+                        }
+                        Label {
+                            color: "#757373"
+                            style: Text.Raised
+                            styleColor: "white"
+                            text: i18n.tr("\'value\' is %1").arg(defaultSlider.formatValue(defaultSlider.value))
                         }
                     }
                 }
