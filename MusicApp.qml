@@ -1,7 +1,27 @@
+/*
+ * Copyleft Daniel Holm.
+ *
+ * Authors:
+ *  Daniel Holm <d.holmen@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
 MainView {
     objectName: i18n.tr("Music Player")
@@ -63,11 +83,11 @@ MainView {
                     Action {
                         objectName: "share"
 
-                        iconSource: Qt.resolvedUrl("images/share-app.png")
+                        iconSource: Qt.resolvedUrl("images/icon_share@20.png")
                         text: i18n.tr("Share")
 
                         onTriggered: {
-                            label.text = i18n.tr("Share pressed")
+                            print = i18n.tr("Share pressed")
                         }
                     }
 
@@ -75,7 +95,7 @@ MainView {
                     Action {
                         objectName: "prev"
 
-                        iconSource: Qt.resolvedUrl("prev.png")
+                        iconSource: Qt.resolvedUrl("images/prev.png")
                         text: i18n.tr("Previous")
 
                         onTriggered: {
@@ -87,7 +107,7 @@ MainView {
                     Action {
                         objectName: "plaus"
 
-                        iconSource: Qt.resolvedUrl("prev.png")
+                        iconSource: Qt.resolvedUrl("images/icon_play@20.png")
                         text: i18n.tr("Play")
 
                         onTriggered: {
@@ -100,7 +120,7 @@ MainView {
                     Action {
                         objectName: "next"
 
-                        iconSource: Qt.resolvedUrl("next.png")
+                        iconSource: Qt.resolvedUrl("images/next.png")
                         text: i18n.tr("Next")
 
                         onTriggered: {
@@ -112,7 +132,7 @@ MainView {
                     Action {
                         objectName: "settings"
 
-                        iconSource: Qt.resolvedUrl("settings.png")
+                        iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
                         text: i18n.tr("Settings")
 
                         onTriggered: {
@@ -135,6 +155,9 @@ MainView {
                     // placeholder
                     Row {
                         spacing: units.gu(1)
+                        Label {
+                            text: "Press album art once to pause, \ndoubble tap to next track, hold to previous."
+                        }
                     }
 
                     Row {
@@ -159,18 +182,6 @@ MainView {
                             indeterminate: true
                         }
                     }
-                    // merge with this slider
-                    Row {
-                        Slider {
-                            id: defaultSlider
-                        }
-                        Label {
-                            color: "#757373"
-                            style: Text.Raised
-                            styleColor: "white"
-                            text: i18n.tr("\'value\' is %1").arg(defaultSlider.formatValue(defaultSlider.value))
-                        }
-                    }
                 }
             }
         }
@@ -182,6 +193,18 @@ MainView {
             title: i18n.tr("Artists")
             page: Page {
                 anchors.margins: units.gu(2)
+
+            // foreach artist:
+            ListItem.Standard {
+                height: units.gu(4)
+                // when pressed on this row, change to albums of artist
+                Row {
+                    Label {
+                        text: i18n.tr("Artist 1")
+                        fontSize: large
+                    }
+                }
+            }
 
                 // toolbar
                 tools: ToolbarActions {
@@ -268,6 +291,23 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
+                ListItem.Standard {
+                    height: units.gu(10)
+                    // when pressed on this row, change to albums of artist
+                    Row {
+                        UbuntuShape {
+                            objectName: "coverart"
+                            image: Image {
+                                source: Qt.resolvedUrl("images/default-album.png") // code for automatic download of new cover art
+                            }
+                        }
+                        Label {
+                            text: i18n.tr("Album - Artist \nYear")
+                            fontSize: large
+                        }
+                    }
+                }
+
                 // toolbar
                 tools: ToolbarActions {
 
@@ -352,6 +392,18 @@ MainView {
             title: i18n.tr("Tracks")
             page: Page {
                 anchors.margins: units.gu(2)
+
+            ListItem.Standard {
+                height: units.gu(4)
+                // when pressed on this row, play track
+                Row {
+                    Label {
+                        text: i18n.tr("Track 1 - Artist X \nYear")
+                        fontSize: large
+                    }
+                }
+            }
+
 
                 // toolbar
                 tools: ToolbarActions {
