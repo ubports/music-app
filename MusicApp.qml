@@ -116,7 +116,9 @@ MainView {
                         text: i18n.tr("Settings")
 
                         onTriggered: {
-                            label.text = i18n.tr("Settings pressed")
+                            print("Settings pressed")
+                            // show settings page
+                            pageStack.push(Qt.resolvedUrl("MusicSettings.qml")) // resolce pageStack issue
                         }
                     }
                 }
@@ -139,8 +141,8 @@ MainView {
                         spacing: units.gu(1)
                         // Album cover here
                         UbuntuShape {
-                            width: units.gu(40)
-                            height: units.gu(40)
+                            width: units.gu(50)
+                            height: units.gu(50)
                             image: Image {
                                 source: "images/music.png"
                                 fillMode: Image.PreserveAspectCrop
@@ -181,15 +183,67 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
+                // toolbar
                 tools: ToolbarActions {
-                    Action {
-                        objectName: "action"
 
-                        iconSource: Qt.resolvedUrl("avatar.png")
-                        text: i18n.tr("Tap me!")
+                    // Share
+                    Action {
+                        objectName: "share"
+
+                        iconSource: Qt.resolvedUrl("images/share-app.png")
+                        text: i18n.tr("Share")
 
                         onTriggered: {
-                            label.text = i18n.tr("Toolbar tapped")
+                            label.text = i18n.tr("Share pressed")
+                        }
+                    }
+
+                    // prevous track
+                    Action {
+                        objectName: "prev"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Previous")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Prev track pressed")
+                        }
+                    }
+
+                    // Play or pause
+                    Action {
+                        objectName: "plaus"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Play")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Play pressed")
+                            // should also change button to pause icon
+                        }
+                    }
+
+                    // Next track
+                    Action {
+                        objectName: "next"
+
+                        iconSource: Qt.resolvedUrl("next.png")
+                        text: i18n.tr("Next")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Next track pressed")
+                        }
+                    }
+
+                    // Settings
+                    Action {
+                        objectName: "settings"
+
+                        iconSource: Qt.resolvedUrl("settings.png")
+                        text: i18n.tr("Settings")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Settings pressed")
                         }
                     }
                 }
@@ -214,15 +268,67 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
+                // toolbar
                 tools: ToolbarActions {
-                    Action {
-                        objectName: "action"
 
-                        iconSource: Qt.resolvedUrl("avatar.png")
-                        text: i18n.tr("Tap me!")
+                    // Share
+                    Action {
+                        objectName: "share"
+
+                        iconSource: Qt.resolvedUrl("images/share-app.png")
+                        text: i18n.tr("Share")
 
                         onTriggered: {
-                            label.text = i18n.tr("Toolbar tapped")
+                            label.text = i18n.tr("Share pressed")
+                        }
+                    }
+
+                    // prevous track
+                    Action {
+                        objectName: "prev"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Previous")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Prev track pressed")
+                        }
+                    }
+
+                    // Play or pause
+                    Action {
+                        objectName: "plaus"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Play")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Play pressed")
+                            // should also change button to pause icon
+                        }
+                    }
+
+                    // Next track
+                    Action {
+                        objectName: "next"
+
+                        iconSource: Qt.resolvedUrl("next.png")
+                        text: i18n.tr("Next")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Next track pressed")
+                        }
+                    }
+
+                    // Settings
+                    Action {
+                        objectName: "settings"
+
+                        iconSource: Qt.resolvedUrl("settings.png")
+                        text: i18n.tr("Settings")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Settings pressed")
                         }
                     }
                 }
@@ -247,15 +353,67 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
+                // toolbar
                 tools: ToolbarActions {
-                    Action {
-                        objectName: "action"
 
-                        iconSource: Qt.resolvedUrl("avatar.png")
-                        text: i18n.tr("Tap me!")
+                    // Share
+                    Action {
+                        objectName: "share"
+
+                        iconSource: Qt.resolvedUrl("images/share-app.png")
+                        text: i18n.tr("Share")
 
                         onTriggered: {
-                            label.text = i18n.tr("Toolbar tapped")
+                            label.text = i18n.tr("Share pressed")
+                        }
+                    }
+
+                    // prevous track
+                    Action {
+                        objectName: "prev"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Previous")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Prev track pressed")
+                        }
+                    }
+
+                    // Play or pause
+                    Action {
+                        objectName: "plaus"
+
+                        iconSource: Qt.resolvedUrl("prev.png")
+                        text: i18n.tr("Play")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Play pressed")
+                            // should also change button to pause icon
+                        }
+                    }
+
+                    // Next track
+                    Action {
+                        objectName: "next"
+
+                        iconSource: Qt.resolvedUrl("next.png")
+                        text: i18n.tr("Next")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Next track pressed")
+                        }
+                    }
+
+                    // Settings
+                    Action {
+                        objectName: "settings"
+
+                        iconSource: Qt.resolvedUrl("settings.png")
+                        text: i18n.tr("Settings")
+
+                        onTriggered: {
+                            label.text = i18n.tr("Settings pressed")
                         }
                     }
                 }
