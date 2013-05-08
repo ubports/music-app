@@ -22,51 +22,76 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Qt.labs.folderlistmodel 1.0
+import QtMultimedia 5.0
+//import Config
 
 MainView {
-    objectName: i18n.tr("Music Player")
+    objectName: i18n.tr("mainView")
+    applicationName: "Music player"
 
     width: units.gu(50)
     height: units.gu(75)
 
+    // variables
+    property string musicName: i18n.tr("Music")
+    property string musicDir: '/home/USERNAME/MUSICDIR/'
+    property string trackStatus: ''
+
+    // Functions
+    // play / pause function
+    function onTrackStatusChange(trackStatus) {
+        // when resumed signal is sent
+        if (trackStatus == 'Resume') {
+            console.debug('Debug: '+playTrack) // debug
+            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
+            playTrack.text = i18n.tr("Pause") // change toolbar text
+            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+            playMusic.play() // resume the plaback
+        }
+        // when pause signal is sent
+        if (trackStatus == 'Pause') {
+            console.debug('Debug: '+playTrack) // debug
+            playTrack.iconSource = Qt.resolvedUrl("images/icon_play@20.png") // change toollbar icon
+            playTrack.text = i18n.tr("Resume") // change toolbar text
+            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+            playMusic.pause() // pause track
+        }
+        // if anything else
+        else {
+            console.debug('Debug: '+playTrack)
+            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png")
+            playTrack.text = i18n.tr("Pause")
+            playMusic.play()
+        }
+
+    }
+
+    // previous and next track function
+
+    // Get song title
+    function getTrackInfo(source) {
+        console.debug('Debug: Got it. Trying to get meta data from: '+source) // debug
+        musicInfo.source = source
+        musicInfo.pause()
+        return musicInfo.metaData.title
+    }
+
+    // Music stuff
+    Audio {
+        id: playMusic
+        source: ""
+    }
+
+    // get file meta data
+    Audio {
+        id: musicInfo
+        source: ""
+    }
+
     Tabs {
         id: tabs
         anchors.fill: parent
-
-        // 0 tab
-        /*
-        Tab {
-            objectName: "Playlist tab"
-
-            title: i18n.tr("Playlists")
-            page: Page {
-                anchors.margins: units.gu(2)
-
-                tools: ToolbarActions {
-                    Action {
-                        objectName: "action"
-
-                        iconSource: Qt.resolvedUrl("avatar.png")
-                        text: i18n.tr("Create new")
-
-                        onTriggered: {
-                            label.text = i18n.tr("New playlist tapped")
-                        }
-                    }
-                }
-
-                Column {
-                    anchors.centerIn: parent
-                    Label {
-                        id: toolbar_playlist
-                        objectName: "Playlist Toolbar"
-
-                        text: i18n.tr("List all playlists.")
-                    }
-                }
-            }
-        }
-        */
 
         // First tab begins here - should be the primary tab
         Tab {
@@ -76,55 +101,90 @@ MainView {
 
             // Tab content begins here
             page: Page {
+
+                // Queue dialog
+                Component {
+                         id: queueDialog
+                         Dialog {
+                             id: dialogueQueue
+                             title: i18n.tr("Track queue")
+                             ListItem.Subtitled {
+                                 id: trackQInfo
+                                 text: i18n.tr("Title")
+                                 subText: "Artist"
+                                 width: units.gu(20)
+                             }
+                             Button {
+                                 text: i18n.tr("close")
+                                 onClicked: PopupUtils.close(dialogueQueue)
+                             }
+                         }
+                    }
+
                 // toolbar
                 tools: ToolbarActions {
 
                     // Share
                     Action {
+                        id: shareTrack
                         objectName: "share"
 
                         iconSource: Qt.resolvedUrl("images/icon_share@20.png")
                         text: i18n.tr("Share")
 
                         onTriggered: {
-                            print = i18n.tr("Share pressed")
+                            console.debug('Debug: Share pressed')
                         }
                     }
 
                     // prevous track
                     Action {
+                        id: prevTrack
                         objectName: "prev"
 
                         iconSource: Qt.resolvedUrl("images/prev.png")
                         text: i18n.tr("Previous")
 
                         onTriggered: {
-                            label.text = i18n.tr("Prev track pressed")
+                            console.debug('Debug: Prev track pressed')
                         }
                     }
 
-                    // Play or pause
+                    // Play
                     Action {
-                        objectName: "plaus"
+                        id: playTrack
+                        objectName: "play"
 
                         iconSource: Qt.resolvedUrl("images/icon_play@20.png")
                         text: i18n.tr("Play")
 
                         onTriggered: {
-                            label.text = i18n.tr("Play pressed")
-                            // should also change button to pause icon
+                            //trackStatus: 'pause' // this changes on press
+                            onTrackStatusChange(playTrack.text)
                         }
                     }
 
                     // Next track
                     Action {
+                        id: nextTrack
                         objectName: "next"
 
                         iconSource: Qt.resolvedUrl("images/next.png")
                         text: i18n.tr("Next")
 
                         onTriggered: {
-                            label.text = i18n.tr("Next track pressed")
+                            console.debug('Debug: next track pressed')
+                        }
+                    }
+
+                    // Queue
+                    Action {
+                        id: trackQueue
+                        objectName: "queuelist"
+                        iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
+                        text: i18n.tr("Queue")
+                        onTriggered: {
+                            PopupUtils.open(queueDialog, trackQueue)
                         }
                     }
 
@@ -136,50 +196,49 @@ MainView {
                         text: i18n.tr("Settings")
 
                         onTriggered: {
-                            print("Settings pressed")
+                            console.debug('Debug: Settings pressed')
                             // show settings page
-                            pageStack.push(Qt.resolvedUrl("MusicSettings.qml")) // resolce pageStack issue
+                            pageStack.push(Qt.resolvedUrl("MusicSettings.qml")) // resolve pageStack issue
                         }
                     }
                 }
                 Column {
                     id: pageLayout
 
-                    anchors {
-                        fill: parent
-                        margins: root.margins
-                        topMargin: title.height
-                    }
                     spacing: units.gu(1)
-
-                    // placeholder
-                    Row {
-                        spacing: units.gu(1)
-                        Label {
-                            text: "Press album art once to pause, \ndoubble tap to next track, hold to previous."
-                        }
-                    }
 
                     Row {
                         spacing: units.gu(1)
                         // Album cover here
                         UbuntuShape {
+                            id: trackCoverArt
                             width: units.gu(50)
                             height: units.gu(50)
+                            gradientColor: "blue" // test
                             image: Image {
                                 source: "images/music.png"
-                                fillMode: Image.PreserveAspectCrop
-                                horizontalAlignment: Image.AlignHCenter
-                                verticalAlignment: Image.AlignVCenter
                             }
                         }
                     }
 
                     // track progress
                     Row {
-                        width: units.gu(40)
+                        width: parent.width
                         ProgressBar {
-                            indeterminate: true
+                            id: trackProgress
+                            minimumValue: 0
+                            maximumValue: 100
+                            value: 25
+                        }
+                    }
+
+                    // Track info
+                    Row {
+                        spacing: units.gu(1)
+                        Label {
+                            id: trackInfo
+                            text: "Track title"
+                            //subText: "Artist: + Year:"
                         }
                     }
                 }
@@ -201,75 +260,11 @@ MainView {
                 Row {
                     Label {
                         text: i18n.tr("Artist 1")
-                        fontSize: large
                     }
                 }
             }
 
-                // toolbar
-                tools: ToolbarActions {
-
-                    // Share
-                    Action {
-                        objectName: "share"
-
-                        iconSource: Qt.resolvedUrl("images/share-app.png")
-                        text: i18n.tr("Share")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Share pressed")
-                        }
-                    }
-
-                    // prevous track
-                    Action {
-                        objectName: "prev"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Previous")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Prev track pressed")
-                        }
-                    }
-
-                    // Play or pause
-                    Action {
-                        objectName: "plaus"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Play")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Play pressed")
-                            // should also change button to pause icon
-                        }
-                    }
-
-                    // Next track
-                    Action {
-                        objectName: "next"
-
-                        iconSource: Qt.resolvedUrl("next.png")
-                        text: i18n.tr("Next")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Next track pressed")
-                        }
-                    }
-
-                    // Settings
-                    Action {
-                        objectName: "settings"
-
-                        iconSource: Qt.resolvedUrl("settings.png")
-                        text: i18n.tr("Settings")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Settings pressed")
-                        }
-                    }
-                }
+                // toolbar here
 
                 Column {
                     anchors.centerIn: parent
@@ -303,75 +298,11 @@ MainView {
                         }
                         Label {
                             text: i18n.tr("Album - Artist \nYear")
-                            fontSize: large
                         }
                     }
                 }
 
-                // toolbar
-                tools: ToolbarActions {
-
-                    // Share
-                    Action {
-                        objectName: "share"
-
-                        iconSource: Qt.resolvedUrl("images/share-app.png")
-                        text: i18n.tr("Share")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Share pressed")
-                        }
-                    }
-
-                    // prevous track
-                    Action {
-                        objectName: "prev"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Previous")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Prev track pressed")
-                        }
-                    }
-
-                    // Play or pause
-                    Action {
-                        objectName: "plaus"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Play")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Play pressed")
-                            // should also change button to pause icon
-                        }
-                    }
-
-                    // Next track
-                    Action {
-                        objectName: "next"
-
-                        iconSource: Qt.resolvedUrl("next.png")
-                        text: i18n.tr("Next")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Next track pressed")
-                        }
-                    }
-
-                    // Settings
-                    Action {
-                        objectName: "settings"
-
-                        iconSource: Qt.resolvedUrl("settings.png")
-                        text: i18n.tr("Settings")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Settings pressed")
-                        }
-                    }
-                }
+                // toolbar here
 
                 Column {
                     anchors.centerIn: parent
@@ -385,7 +316,7 @@ MainView {
             }
         }
 
-        // Fourth tab begins here
+        // Fourth tab - tracks in ~/Music
         Tab {
             objectName: "Tracks Tab"
 
@@ -393,90 +324,32 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
-            ListItem.Standard {
-                height: units.gu(4)
-                // when pressed on this row, play track
-                Row {
-                    Label {
-                        text: i18n.tr("Track 1 - Artist X \nYear")
-                        fontSize: large
-                    }
-                }
-            }
-
-
-                // toolbar
-                tools: ToolbarActions {
-
-                    // Share
-                    Action {
-                        objectName: "share"
-
-                        iconSource: Qt.resolvedUrl("images/share-app.png")
-                        text: i18n.tr("Share")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Share pressed")
-                        }
-                    }
-
-                    // prevous track
-                    Action {
-                        objectName: "prev"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Previous")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Prev track pressed")
-                        }
-                    }
-
-                    // Play or pause
-                    Action {
-                        objectName: "plaus"
-
-                        iconSource: Qt.resolvedUrl("prev.png")
-                        text: i18n.tr("Play")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Play pressed")
-                            // should also change button to pause icon
-                        }
-                    }
-
-                    // Next track
-                    Action {
-                        objectName: "next"
-
-                        iconSource: Qt.resolvedUrl("next.png")
-                        text: i18n.tr("Next")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Next track pressed")
-                        }
-                    }
-
-                    // Settings
-                    Action {
-                        objectName: "settings"
-
-                        iconSource: Qt.resolvedUrl("settings.png")
-                        text: i18n.tr("Settings")
-
-                        onTriggered: {
-                            label.text = i18n.tr("Settings pressed")
-                        }
-                    }
-                }
+                // toolbar here
 
                 Column {
                     anchors.centerIn: parent
-                    Label {
-                        id: toolbar_track
-                        objectName: "Track Toolbar"
-
-                        text: i18n.tr("List all tracks here.")
+                    anchors.fill: parent
+                    ListView {
+                        id: musicFolder
+                        FolderListModel {
+                            id: folderModel
+                            folder: musicDir
+                            showDirs: false
+                            nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
+                        }
+                        width: parent.width
+                        height: parent.height
+                        model: folderModel
+                        delegate: ListItem.Subtitled {
+                            text: fileName
+                            subText: "Artist: "
+                            onClicked: {
+                                console.debug('Debug: User pressed '+musicDir+fileName)
+                                playMusic.source = musicDir+fileName
+                                playMusic.play()
+                                trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                            }
+                        }
                     }
                 }
             }

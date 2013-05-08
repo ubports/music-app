@@ -1,0 +1,6 @@
+@qml-mapping(.frame, , FrameDelegate);
+@qml-import(Ubuntu.Components 0.1);
+
+.button {
+    color: "#c94212";
+}
