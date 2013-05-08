@@ -1,6 +1,31 @@
-tools: ToolbarActions {
+/*
+ * Copyleft Daniel Holm.
+ *
+ * Authors:
+ *  Daniel Holm <d.holmen@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Components.Popups 0.1
+
+Component {
     // Share
     Action {
+        id: shareTrack
         objectName: "share"
 
         iconSource: Qt.resolvedUrl("images/icon_share@20.png")
@@ -13,6 +38,7 @@ tools: ToolbarActions {
 
     // prevous track
     Action {
+        id: prevTrack
         objectName: "prev"
 
         iconSource: Qt.resolvedUrl("images/prev.png")
@@ -23,22 +49,23 @@ tools: ToolbarActions {
         }
     }
 
-    // Play or pause
+    // Play
     Action {
-        objectName: "plaus"
+        id: playTrack
+        objectName: "play"
 
         iconSource: Qt.resolvedUrl("images/icon_play@20.png")
         text: i18n.tr("Play")
 
         onTriggered: {
-            console.debug('Debug: Play pressed')
-            // should also change button to pause icon
-            plaus.iconSource = Qt.resolvedUrl("images/icon_pause@20.png")
+            //trackStatus: 'pause' // this changes on press
+            onTrackStatusChange(playTrack.text)
         }
     }
 
     // Next track
     Action {
+        id: nextTrack
         objectName: "next"
 
         iconSource: Qt.resolvedUrl("images/next.png")
@@ -46,6 +73,17 @@ tools: ToolbarActions {
 
         onTriggered: {
             console.debug('Debug: next track pressed')
+        }
+    }
+
+    // Queue
+    Action {
+        id: trackQueue
+        objectName: "queuelist"
+        iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
+        text: i18n.tr("Queue")
+        onTriggered: {
+            PopupUtils.open(queueDialog, trackQueue)
         }
     }
 
@@ -59,7 +97,7 @@ tools: ToolbarActions {
         onTriggered: {
             console.debug('Debug: Settings pressed')
             // show settings page
-            pageStack.push(Qt.resolvedUrl("MusicSettings.qml")) // resolce pageStack issue
+            //page: MusicSettings { id: musicSettings }
         }
     }
 }

@@ -24,7 +24,6 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
-//import Config
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -35,8 +34,9 @@ MainView {
 
     // variables
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/USERNAME/MUSICDIR/'
+    property string musicDir: '/home/USER/MUSICDIR/'
     property string trackStatus: ''
+    property string appVersion: '0.2'
 
     // Functions
     // play / pause function
@@ -99,27 +99,36 @@ MainView {
 
             title: i18n.tr("Playing")
 
+            // Queue dialog
+            Component {
+                     id: queueDialog
+                     Dialog {
+                         id: dialogueQueue
+                         title: i18n.tr("Track queue")
+                         /*
+                         ListView {
+                                 width: units.gu(40)
+                                 height: units.gu(50)
+                                 model: listQueue
+                                 delegate: ListItem.Standard {
+                                    text: trackArtist+" - "+trackTitle
+                                    onClicked: {
+                                         console.debug('Debug: Play this track')
+                                    }
+                                 }
+                         }*/
+
+                         Button {
+                             id: showQueue
+                             text: i18n.tr("close")
+                             onClicked: PopupUtils.close(dialogueQueue)
+                         }
+                     }
+                }
+
             // Tab content begins here
             page: Page {
-
-                // Queue dialog
-                Component {
-                         id: queueDialog
-                         Dialog {
-                             id: dialogueQueue
-                             title: i18n.tr("Track queue")
-                             ListItem.Subtitled {
-                                 id: trackQInfo
-                                 text: i18n.tr("Title")
-                                 subText: "Artist"
-                                 width: units.gu(20)
-                             }
-                             Button {
-                                 text: i18n.tr("close")
-                                 onClicked: PopupUtils.close(dialogueQueue)
-                             }
-                         }
-                    }
+                id: playingPage
 
                 // toolbar
                 tools: ToolbarActions {
@@ -184,12 +193,14 @@ MainView {
                         iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
                         text: i18n.tr("Queue")
                         onTriggered: {
-                            PopupUtils.open(queueDialog, trackQueue)
+                            PopupUtils.open(QueueDialog, trackQueue)
+                            //PopupUtils.open(queueDialog, trackQueue)
                         }
                     }
 
                     // Settings
                     Action {
+                        id: settingsAction
                         objectName: "settings"
 
                         iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
@@ -197,53 +208,61 @@ MainView {
 
                         onTriggered: {
                             console.debug('Debug: Settings pressed')
-                            // show settings page
-                            pageStack.push(Qt.resolvedUrl("MusicSettings.qml")) // resolve pageStack issue
+                            // show settings dialog
+                            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsAction,
+                                        {
+                                            title: i18n.tr("Settings")
+                                        } )
                         }
                     }
+
                 }
+
                 Column {
-                    id: pageLayout
+                        id: pageLayout
 
-                    spacing: units.gu(1)
-
-                    Row {
                         spacing: units.gu(1)
-                        // Album cover here
-                        UbuntuShape {
-                            id: trackCoverArt
-                            width: units.gu(50)
-                            height: units.gu(50)
-                            gradientColor: "blue" // test
-                            image: Image {
-                                source: "images/music.png"
+
+                        Row {
+                            spacing: units.gu(1)
+                            // Album cover here
+                            UbuntuShape {
+                                id: trackCoverArt
+                                width: units.gu(50)
+                                height: units.gu(50)
+                                gradientColor: "blue" // test
+                                image: Image {
+                                    source: "images/music.png"
+                                }
+                            }
+                        }
+
+                        // track progress
+                        Row {
+                            width: parent.width
+                            ProgressBar {
+                                id: trackProgress
+                                minimumValue: 0
+                                maximumValue: 100
+                                value: 25
+                            }
+                        }
+
+                        // Track info
+                        Row {
+                            spacing: units.gu(1)
+                            Label {
+                                id: trackInfo
+                                text: "Track title"
+                                //subText: "Artist: + Year:"
                             }
                         }
                     }
 
-                    // track progress
-                    Row {
-                        width: parent.width
-                        ProgressBar {
-                            id: trackProgress
-                            minimumValue: 0
-                            maximumValue: 100
-                            value: 25
-                        }
-                    }
 
-                    // Track info
-                    Row {
-                        spacing: units.gu(1)
-                        Label {
-                            id: trackInfo
-                            text: "Track title"
-                            //subText: "Artist: + Year:"
-                        }
-                    }
-                }
             }
         }
+
 
         // Second tab begins here
         Tab {
@@ -352,6 +371,16 @@ MainView {
                         }
                     }
                 }
+            }
+        }
+
+        Tab {
+            objectName: "QueuePage"
+
+            title: i18n.tr("Queue")
+
+            // Tab content begins here
+            page: QueuePage {
             }
         }
 

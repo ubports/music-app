@@ -22,108 +22,83 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 
-Rectangle {
+Dialog {
     id: root
-    width: units.gu(50)
-    height: units.gu(75)
-    color: "lightgray"
 
-    Label {
-       id: title
-       ItemStyle.class: "title"
-       text: i18n.tr("Music App Settings")
+    // lastfm
+    Row {
+        spacing: units.gu(2)
+        Label {
+            text: i18n.tr("Scrobble to Last.FM")
+            width: units.gu(35)
+        }
+        Switch {
+            checked: false
+        }
     }
 
-    Column {
-        id: pageLayout
-
-        anchors {
-            fill: parent
-            margins: root.margins
-            topMargin: title.height
+    Row {
+        Button {
+            id: lastfmlogin
+            text: i18n.tr("Login to Last.FM")
+            width: units.gu(20)
+            color: "#c94212"
+            onClicked: PopupUtils.open(lastfmButton, lastfmlogin)
         }
+    }
 
-        spacing: units.gu(4)
-
-        Row {
-            spacing: units.gu(2)
+    // headphones
+    Row {
+        spacing: units.gu(2)
+        Label {
+            text: i18n.tr("Pause when when headphones are un-plugged.")
+            width: units.gu(35)
         }
-
-        // lastfm
-        Row {
-            spacing: units.gu(2)
-            Label {
-                text: i18n.tr("Scrobble to Last.FM")
-                width: units.gu(35)
-            }
-            Switch {
-                checked: false
-            }
+        Switch {
+            checked: true
         }
-        Row {
-            Button {
-                id: lastfmlogin
-                text: i18n.tr("Login to Last.FM")
-                width: units.gu(20)
-                color: "#c94212"
-                onClicked: PopupUtils.open(lastfmButton, lastfmlogin)
-            }
+    }
+
+    // About this application
+    Row {
+        spacing: units.gu(2)
+        Button {
+            text: i18n.tr("About")
+            color: "#c94212"
+            width: units.gu(20)
+            onClicked: print("clicked About Button")
         }
+    } // close about row
 
-        // headphones
-        Row {
-            spacing: units.gu(2)
-            Label {
-                text: i18n.tr("Pause when when headphones are un-plugged.")
-                width: units.gu(35)
-            }
-            Switch {
-                checked: true
-            }
-        }
+    // LastFM settings
+    Component {
+        id: lastfmButton
+        DefaultSheet {
+            id: sheet
+            title: "Login to Last.FM"
+            doneButton: true
+            // I want them both! cancelButton: true
 
-        // About this application
-        Row {
-            spacing: units.gu(2)
-            Button {
-                text: i18n.tr("About")
-                color: "#c94212"
-                width: units.gu(20)
-                onClicked: print("clicked About Button")
-            }
-        } // close about row
-
-        // LastFM settings
-        Component {
-            id: lastfmButton
-            DefaultSheet {
-                id: sheet
-                title: "Login to Last.FM"
-                doneButton: true
-                // I want them both! cancelButton: true
-
-                // Username field
-                TextField {
-                        id: usernameField
-                        KeyNavigation.tab: passField
-                        hasClearButton: true
-                        placeholderText: i18n.tr("LastFM username")
-                        width: units.gu(40)
-                }
-
-                // add password field
-                TextField {
-                    id: passField
-                    KeyNavigation.backtab: usernameField
+            // Username field
+            TextField {
+                    id: usernameField
+                    KeyNavigation.tab: passField
                     hasClearButton: true
-                    placeholderText: i18n.tr("LastFM password")
-                    echoMode: TextInput.Password
+                    placeholderText: i18n.tr("LastFM username")
                     width: units.gu(40)
-
-                }
             }
-        }
 
+            // add password field
+            TextField {
+                id: passField
+                KeyNavigation.backtab: usernameField
+                hasClearButton: true
+                placeholderText: i18n.tr("LastFM password")
+                echoMode: TextInput.Password
+                width: units.gu(40)
+            }
+
+        }
     }
 
 }
