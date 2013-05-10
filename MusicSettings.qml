@@ -100,5 +100,9 @@ Dialog {
 
         }
     }
+    Button {
+        text: i18n.tr("Close")
+        onClicked: PopupUtils.close(root)
+    }
 
 }

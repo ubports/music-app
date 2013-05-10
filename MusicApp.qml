@@ -32,13 +32,14 @@ MainView {
     width: units.gu(50)
     height: units.gu(75)
 
-    // variables
+    // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/USER/MUSICDIR/'
+    property string musicDir: '/home/USERNAME/MUSICDIR/'
     property string trackStatus: ''
-    property string appVersion: '0.2'
+    property string appVersion: '0.3'
 
-    // Functions
+    // FUNCTIONS
+
     // play / pause function
     function onTrackStatusChange(trackStatus) {
         // when resumed signal is sent
@@ -69,6 +70,11 @@ MainView {
 
     // previous and next track function
 
+    // Queue function
+    function addToQueue(songTrack) {
+        console.debug("Debug: added "+songTrack+" to queue.")
+    }
+
     // Get song title
     function getTrackInfo(source) {
         console.debug('Debug: Got it. Trying to get meta data from: '+source) // debug
@@ -76,6 +82,7 @@ MainView {
         musicInfo.pause()
         return musicInfo.metaData.title
     }
+
 
     // Music stuff
     Audio {
@@ -87,6 +94,24 @@ MainView {
     Audio {
         id: musicInfo
         source: ""
+
+    ListModel {
+        id: trackQueue
+        ListElement {
+            title: "Dancing in the Moonlight"
+            artist: "Thin Lizzy"
+            file: "something"
+        }
+        ListElement {
+            title: "Rock and Roll"
+            artist: "Led Zeppelin"
+            file: "something else"
+        }
+        ListElement {
+            title: "Moonlight Serenade"
+            artist: "Frank Sinatra"
+            file: "something completely else"
+        }
     }
 
     Tabs {
@@ -98,33 +123,6 @@ MainView {
             objectName: "Tab1"
 
             title: i18n.tr("Playing")
-
-            // Queue dialog
-            Component {
-                     id: queueDialog
-                     Dialog {
-                         id: dialogueQueue
-                         title: i18n.tr("Track queue")
-                         /*
-                         ListView {
-                                 width: units.gu(40)
-                                 height: units.gu(50)
-                                 model: listQueue
-                                 delegate: ListItem.Standard {
-                                    text: trackArtist+" - "+trackTitle
-                                    onClicked: {
-                                         console.debug('Debug: Play this track')
-                                    }
-                                 }
-                         }*/
-
-                         Button {
-                             id: showQueue
-                             text: i18n.tr("close")
-                             onClicked: PopupUtils.close(dialogueQueue)
-                         }
-                     }
-                }
 
             // Tab content begins here
             page: Page {
@@ -188,13 +186,15 @@ MainView {
 
                     // Queue
                     Action {
-                        id: trackQueue
+                        id: trackQueueAction
                         objectName: "queuelist"
                         iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
                         text: i18n.tr("Queue")
                         onTriggered: {
-                            PopupUtils.open(QueueDialog, trackQueue)
-                            //PopupUtils.open(queueDialog, trackQueue)
+                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), pageLayout,
+                                        {
+                                            title: i18n.tr("Queue")
+                                        } )
                         }
                     }
 
@@ -209,7 +209,7 @@ MainView {
                         onTriggered: {
                             console.debug('Debug: Settings pressed')
                             // show settings dialog
-                            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsAction,
+                            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageLayout,
                                         {
                                             title: i18n.tr("Settings")
                                         } )
@@ -234,6 +234,13 @@ MainView {
                                 image: Image {
                                     source: "images/music.png"
                                 }
+                                /*
+                                onClicked: {
+                                    playMusic.pause()
+                                }
+                                onPressAndHold: {
+                                    playMusic.stop()
+                                } */
                             }
                         }
 
@@ -264,7 +271,7 @@ MainView {
         }
 
 
-        // Second tab begins here
+        // Second tab begins here - artists here
         Tab {
             objectName: "Artists Tab"
 
@@ -285,19 +292,37 @@ MainView {
 
                 // toolbar here
 
-                Column {
-                    anchors.centerIn: parent
-                    Label {
-                        id: toolbar_artist
-                        objectName: "Artist Toolbar"
-
-                        text: i18n.tr("List all artists on device here.")
+            Column {
+                anchors.centerIn: parent
+                anchors.fill: parent
+                ListView {
+                    id: artistFolder
+                    FolderListModel {
+                        id: artistModel
+                        folder: musicDir
+                        nameFilters: ["//\\"];
+                        showDirs: true;
+                    }
+                    width: parent.width
+                    height: parent.height
+                    model: artistModel
+                    delegate: ListItem.Subtitled {
+                        text: fileName
+                        subText: "totatl albums: "
+                        onClicked: {
+                            console.debug('Debug: User pressed '+musicDir+fileName)
+                        /*    playMusic.source = musicDir+dirName
+                            playMusic.play()
+                            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                            */
+                        }
                     }
                 }
             }
+            }
         }
 
-        // Third tab begins here
+        // Third tab begins here - albums here
         Tab {
             objectName: "Albums Tab"
 
@@ -305,18 +330,30 @@ MainView {
             page: Page {
                 anchors.margins: units.gu(2)
 
-                ListItem.Standard {
-                    height: units.gu(10)
-                    // when pressed on this row, change to albums of artist
-                    Row {
-                        UbuntuShape {
-                            objectName: "coverart"
-                            image: Image {
-                                source: Qt.resolvedUrl("images/default-album.png") // code for automatic download of new cover art
-                            }
+                Column {
+                    anchors.centerIn: parent
+                    anchors.fill: parent
+                    ListView {
+                        id: albumFolder
+                        FolderListModel {
+                            id: albumModel
+                            folder: musicDir
+                            nameFilters: ["//\\"];
+                            showDirs: true;
                         }
-                        Label {
-                            text: i18n.tr("Album - Artist \nYear")
+                        width: parent.width
+                        height: parent.height
+                        model: albumModel
+                        delegate: ListItem.Subtitled {
+                            text: fileName
+                            subText: "Year: "
+                            onClicked: {
+                                console.debug('Debug: User pressed '+musicDir+fileName)
+                            /*    playMusic.source = musicDir+dirName
+                                playMusic.play()
+                                trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                                */
+                            }
                         }
                     }
                 }
@@ -325,12 +362,6 @@ MainView {
 
                 Column {
                     anchors.centerIn: parent
-                    Label {
-                        id: toolbar_album
-                        objectName: "Album Toolbar"
-
-                        text: i18n.tr("List all albums on device here.")
-                    }
                 }
             }
         }
@@ -363,27 +394,20 @@ MainView {
                             text: fileName
                             subText: "Artist: "
                             onClicked: {
-                                console.debug('Debug: User pressed '+musicDir+fileName)
                                 playMusic.source = musicDir+fileName
                                 playMusic.play()
+                                console.debug('Debug: User pressed '+musicDir+fileName)
                                 trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                            }
+                            onPressAndHold: {
+                                console.debug('Debug: '+fileName+' added to queue.')
+                                trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": fileName})
                             }
                         }
                     }
                 }
             }
         }
-
-        Tab {
-            objectName: "QueuePage"
-
-            title: i18n.tr("Queue")
-
-            // Tab content begins here
-            page: QueuePage {
-            }
-        }
-
 
     } // tabs
 } // main view

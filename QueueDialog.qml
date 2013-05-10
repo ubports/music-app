@@ -20,18 +20,47 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
+
 
 Dialog {
-    id: root
+    id: queueDialog
 
-    ListItem.Standard {
-        text: "Works"
+    ListView {
+        id: queueList
+        width: units.gu(40)
+        height: units.gu(50)
+        model: trackQueue
+        delegate: ListItem.Standard {
+            //text: artist+" - "+title
+            text: file
+            removable: true
+            onClicked: {
+                console.debug("Debug: Play "+file+" instead - now.")
+                playMusic.source = musicDir+file
+                playMusic.play()
+                trackQueue.remove(index)
+            }
+            onItemRemoved: {
+                trackQueue.remove(index)
+            }
+        }
     }
 
+    // Clean whole queue button
+    Button {
+        text: i18n.tr("Clear")
+        onClicked: {
+            console.debug("Debug: Track queue cleared.")
+            trackQueue.clear()
+        }
+    }
+
+    // close dialog button
     Button {
         text: i18n.tr("Close")
         onClicked: {
-            PopupUtils.close(root)
+            PopupUtils.close(queueDialog)
         }
     }
 }
