@@ -34,45 +34,76 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/USERNAME/MUSICDIR/'
-    property string trackStatus: ''
+    property string musicDir: '/home/USER/MUSICDIR/'
+    property string trackStatus: "stopped"
     property string appVersion: '0.3'
 
     // FUNCTIONS
 
-    // play / pause function
-    function onTrackStatusChange(trackStatus) {
-        // when resumed signal is sent
-        if (trackStatus == 'Resume') {
-            console.debug('Debug: '+playTrack) // debug
+    // What is the state of the playback?
+    function stateChange() {
+
+        // state was stopped (0)
+        if (playMusic.playbackState == "0") {
+            console.debug("Debug: Music was stopped. Playing")
+            beenStopped() // run stop function
+            playMusic.play() // then play
+
             playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
             playTrack.text = i18n.tr("Pause") // change toolbar text
             trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-            playMusic.play() // resume the plaback
-        }
-        // when pause signal is sent
-        if (trackStatus == 'Pause') {
-            console.debug('Debug: '+playTrack) // debug
-            playTrack.iconSource = Qt.resolvedUrl("images/icon_play@20.png") // change toollbar icon
-            playTrack.text = i18n.tr("Resume") // change toolbar text
-            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-            playMusic.pause() // pause track
-        }
-        // if anything else
-        else {
-            console.debug('Debug: '+playTrack)
-            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png")
-            playTrack.text = i18n.tr("Pause")
-            playMusic.play()
         }
 
+        // if state was playing (1)
+        else if (playMusic.playbackState == "1") {
+            console.debug("Debug: Track was playing. Pause")
+            playMusic.pause() // pause the music then
+
+            playTrack.iconSource = Qt.resolvedUrl("images/icon_play@20.png") // change toolbar icon
+            playTrack.text = i18n.tr("Resume") // change toolbar text
+            trackInfo.text = i18n.tr("(Paused) ")+playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+        }
+
+        // if state is paused (2)
+        else if (playMusic.playbackState == "2") {
+            console.debug("Debug: Track was paused. Playing")
+            playMusic.play() // resume then
+
+            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
+            playTrack.text = i18n.tr("Pause") // change toolbar text
+            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+        }
+    }
+
+    // stop function
+    function beenStopped() {
+        console.debug("Debug: has a track been played before or did I just start?")
+
+        // track was just paused or stopped. Resume previous track
+        if (playMusic.source != "") {
+            console.debug("Debug: Resume previous song: "+playMusic.source)
+            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+        }
+
+        // app just started, play random
+        else {
+            playMusic.source = "/home/daniel/Musik/Cyndi Lauper - 80s music - Time After Time.mp3"
+            console.debug("Debug: I was just started. Play random track: "+playMusic.source)
+            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+        }
     }
 
     // previous and next track function
+    function hasTrackEnded() {
+        if (playMusic.status.EndOfMedia) {
+            console.debug("Debug: media ended.")
+        }
+    }
 
     // Queue function
     function addToQueue(songTrack) {
         console.debug("Debug: added "+songTrack+" to queue.")
+        // move down the automatically added tracks by using index
     }
 
     // Get song title
@@ -88,12 +119,17 @@ MainView {
     Audio {
         id: playMusic
         source: ""
+        status: {
+            EndOfMedia: console.debug("Färdig!")
+        }
     }
 
     // get file meta data
     Audio {
         id: musicInfo
         source: ""
+        volume: 0.0
+    }
 
     ListModel {
         id: trackQueue
@@ -166,8 +202,9 @@ MainView {
                         text: i18n.tr("Play")
 
                         onTriggered: {
-                            //trackStatus: 'pause' // this changes on press
-                            onTrackStatusChange(playTrack.text)
+                            console.debug("Debug: "+trackStatus+" pressed in toolbar.")
+                            console.debug(playMusic.playbackState)
+                            stateChange()
                         }
                     }
 
@@ -181,6 +218,7 @@ MainView {
 
                         onTriggered: {
                             console.debug('Debug: next track pressed')
+                            console.debug("Status: "+playMusic.status.EndOfMedia)
                         }
                     }
 
@@ -260,7 +298,7 @@ MainView {
                             spacing: units.gu(1)
                             Label {
                                 id: trackInfo
-                                text: "Track title"
+                                text: "Stopped. Press play."
                                 //subText: "Artist: + Year:"
                             }
                         }

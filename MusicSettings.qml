@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.ListItems 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Components.Popups 0.1
 
 Dialog {
@@ -62,13 +62,17 @@ Dialog {
     // About this application
     Row {
         spacing: units.gu(2)
-        Button {
+        Label {
             text: i18n.tr("About")
-            color: "#c94212"
             width: units.gu(20)
-            onClicked: print("clicked About Button")
         }
     } // close about row
+    Row {
+        ListItem.Subtitled {
+            text:  "Music "+appVersion
+            subText: i18n.tr("By Daniel Holm, Sweden")
+        }
+    }
 
     // LastFM settings
     Component {
@@ -79,23 +83,27 @@ Dialog {
             doneButton: true
             // I want them both! cancelButton: true
 
-            // Username field
-            TextField {
-                    id: usernameField
-                    KeyNavigation.tab: passField
-                    hasClearButton: true
-                    placeholderText: i18n.tr("LastFM username")
-                    width: units.gu(40)
+            Row {
+                // Username field
+                TextField {
+                        id: usernameField
+                        KeyNavigation.tab: passField
+                        hasClearButton: true
+                        placeholderText: i18n.tr("LastFM username")
+                        width: units.gu(40)
+                }
             }
 
-            // add password field
-            TextField {
-                id: passField
-                KeyNavigation.backtab: usernameField
-                hasClearButton: true
-                placeholderText: i18n.tr("LastFM password")
-                echoMode: TextInput.Password
-                width: units.gu(40)
+            Row {
+                // add password field
+                TextField {
+                    id: passField
+                    KeyNavigation.backtab: usernameField
+                    hasClearButton: true
+                    placeholderText: i18n.tr("LastFM password")
+                    echoMode: TextInput.Password
+                    width: units.gu(40)
+                }
             }
 
         }
