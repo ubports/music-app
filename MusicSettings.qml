@@ -25,12 +25,24 @@ import Ubuntu.Components.Popups 0.1
 Dialog {
     id: root
 
+    // Shuffle or not
+    Row {
+        spacing: units.gu(2)
+        Label {
+            text: i18n.tr("Shuffle")
+            width: units.gu(20)
+        }
+        Switch {
+            checked: true
+        }
+    }
+
     // lastfm
     Row {
         spacing: units.gu(2)
         Label {
             text: i18n.tr("Scrobble to Last.FM")
-            width: units.gu(35)
+            width: units.gu(20)
         }
         Switch {
             checked: false
@@ -52,7 +64,7 @@ Dialog {
         spacing: units.gu(2)
         Label {
             text: i18n.tr("Pause when when headphones are un-plugged.")
-            width: units.gu(35)
+            width: units.gu(20)
         }
         Switch {
             checked: true

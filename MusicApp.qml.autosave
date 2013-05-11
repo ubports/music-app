@@ -95,8 +95,8 @@ MainView {
 
     // previous and next track function
     function nextTrack() {
-        console.debug(index) // print next songs filename
-        playMusic.source = musicDir+trackQueue.get(index).file
+        console.debug() // print next songs filename
+        playMusic.source = musicDir+trackQueue.get(0).file
         playMusic.play()
         removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
         trackQueue.remove(index) // remove the track from queue
