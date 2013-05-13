@@ -24,6 +24,7 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
+import QtQuick.LocalStorage 2.0
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -95,11 +96,18 @@ MainView {
 
     // previous and next track function
     function nextTrack() {
-        console.debug(index) // print next songs filename
-        playMusic.source = musicDir+trackQueue.get(index).file
+        console.debug() // print next songs filename
+        playMusic.source = musicDir+trackQueue.get(0).file
         playMusic.play()
         removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
         trackQueue.remove(index) // remove the track from queue
+    }
+
+    function previousTrack() {
+        console.debug("Debug: Previous track was "+musicDir+removedTrackQueue.get(removedTrackQueue.count).file)
+        // play the previous track
+        playMusic.source = musicDir+removedTrackQueue.get(removedTrackQueue.count).file
+        playMusic.play()
     }
 
     // end of track
@@ -109,25 +117,60 @@ MainView {
         }
     }
 
-    // Queue function
-    function addToQueue(songTrack) {
-        console.debug("Debug: added "+songTrack+" to queue.")
-        // move down the automatically added tracks by using index
-    }
-
     // Get song title
-    function getTrackInfo(source) {
+    function getTrackInfo(source, type) {
         console.debug('Debug: Got it. Trying to get meta data from: '+source) // debug
         musicInfo.source = source
         musicInfo.pause()
-        return musicInfo.metaData.title
+
+        // if title
+        if (type == "title") {
+            return musicInfo.metaData.title
+        }
+
+        // if artist
+        else if (type == "artist") {
+            return musicInfo.metaData.albumArtist
+        }
+
+        // if album
+        else if (type == "album") {
+            return musicInfo.metaData.albumTitle
+        }
+
+        // year
+        else if (type == "year") {
+            return musicInfo.metaData.year
+        }
+
+        // cover
+        /*else if (type == "cover") {
+            return musicInfo.metaData.cover
+        }*/
     }
 
+    // add track to database
+    function addToDatabase(track) {
+        // get the needed info of track
+        title = getTrackInfo(track, title) // title
+        artist = getTrackInfo(track, artist) // artist
+        album = getTrackInfo(track, album) // album
+        cover = getTrackInfo(track, cover) // cover
+        year = getTrackInfo(track, year) // year of album relase
+
+        // push to database
+    }
+
+
+    // run code to check music dir for new stuff
 
     // Music stuff
     Audio {
         id: playMusic
         source: ""
+        /*onEndOfMedia: {
+            console.debug("Deub: Track ended. Play next.") //debug
+        }*/
     }
 
     // get file meta data
@@ -164,7 +207,7 @@ MainView {
         ListElement {
             title: "Dancing in the Moonlight"
             artist: "Thin Lizzy"
-            file: "something"
+            file: "dancing"
         }
     }
 
@@ -208,9 +251,10 @@ MainView {
 
                         onTriggered: {
                             console.debug('Debug: Prev track pressed')
-                            console.debug(musicDir+removedTrackQueue.get(0).file) // print next songs filename
-                            playMusic.source = musicDir+removedTrackQueue.get(0).file
-                            playMusic.play()
+                            //console.debug(musicDir+removedTrackQueue.get(0).file) // print next songs filename
+                            //playMusic.source = musicDir+removedTrackQueue.get(0).file
+                            //playMusic.play()
+                            previousTrack()
                         }
                     }
 

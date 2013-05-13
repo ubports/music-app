@@ -54,6 +54,7 @@ Dialog {
         onClicked: {
             console.debug("Debug: Track queue cleared.")
             trackQueue.clear()
+            PopupUtils.close(queueDialog)
         }
     }
 
