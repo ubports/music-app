@@ -35,9 +35,9 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/daniel/Musik/'
+    property string musicDir: '/home/USER/MUSICDIR'
     property string trackStatus: "stopped"
-    property string appVersion: '0.3'
+    property string appVersion: '0.4'
 
     // FUNCTIONS
 
@@ -53,6 +53,8 @@ MainView {
             playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
             playTrack.text = i18n.tr("Pause") // change toolbar text
             trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+
+            setProgressbar() // set progressbar
         }
 
         // if state was playing (1)
@@ -73,6 +75,8 @@ MainView {
             playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
             playTrack.text = i18n.tr("Pause") // change toolbar text
             trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+
+            setProgressbar() // set progressbar
         }
     }
 
@@ -89,6 +93,8 @@ MainView {
         // app just started, play random
         else {
             playMusic.source = "/home/daniel/Musik/Cyndi Lauper - 80s music - Time After Time.mp3"
+            //playMusic.source = musicDir+folderModel.get(0).file // this should play a dynamic track
+            //console.debug("Debug: First song is"+folderModel.get(0).file)
             console.debug("Debug: I was just started. Play random track: "+playMusic.source)
             trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
         }
@@ -96,11 +102,35 @@ MainView {
 
     // previous and next track function
     function nextTrack() {
-        console.debug() // print next songs filename
-        playMusic.source = musicDir+trackQueue.get(0).file
-        playMusic.play()
-        removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
-        trackQueue.remove(index) // remove the track from queue
+        //check if any queued songs
+        // if there are, play them
+        if (trackQueue > 1) {
+            console.debug() // print next songs filename
+            playMusic.source = musicDir+trackQueue.get(0).file
+            playMusic.play()
+            removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
+            trackQueue.remove(index) // remove the track from queue
+            setProgressbar() // set progressbar
+        }
+
+        // if not, play another
+        else {
+
+            // if shuffle, play random
+            if (settings.shuffle == 1) {
+                setProgressbar() // set progressbar
+            }
+
+            // if not shuffle, play next
+            else {
+                console.debug() // print next songs filename
+                playMusic.source = musicDir+trackQueue.get(0).file
+                playMusic.play()
+                removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
+                trackQueue.remove(index) // remove the track from queue
+                setProgressbar() // set progressbar
+            }
+        }
     }
 
     function previousTrack() {
@@ -108,13 +138,7 @@ MainView {
         // play the previous track
         playMusic.source = musicDir+removedTrackQueue.get(removedTrackQueue.count).file
         playMusic.play()
-    }
-
-    // end of track
-    function hasTrackEnded() {
-        if (playMusic.status.EndOfMedia) {
-            console.debug("Debug: media ended.")
-        }
+        setProgressbar() // set progressbar
     }
 
     // Get song title
@@ -164,13 +188,45 @@ MainView {
 
     // run code to check music dir for new stuff
 
+    // progressbar
+    function setProgressbar() {
+        console.debug("Debug: change progressvalue to "+playMusic.duration)
+        trackProgress.maximumValue = playMusic.duration
+    }
+
     // Music stuff
     Audio {
         id: playMusic
         source: ""
-        /*onEndOfMedia: {
-            console.debug("Deub: Track ended. Play next.") //debug
-        }*/
+        // get ready to change the progressbar
+
+    }
+
+    // when track ended
+    Connections {
+        target: playMusic
+        onStopped: {
+            console.debug("Debug: Track stopped.")
+        }
+
+        onStatusChanged: {
+            //console.debug("Debug: changed..."+playMusic.EndOfMedia)
+            console.debug("Debug: changed status: "+playMusic.status)
+
+            if (playMusic.status == "7") {
+                console.debug("Debug: End of track. Play next.")
+                nextTrack()
+            }
+        }
+    }
+
+    // while playing
+    Connections {
+        target: playMusic
+        onPlaying: {
+            trackProgress.value = playMusic.position
+            console.debug("Debug: change position to "+playMusic.position)
+        }
     }
 
     // get file meta data
@@ -238,6 +294,9 @@ MainView {
 
                         onTriggered: {
                             console.debug('Debug: Share pressed')
+                            // just to debug other stuff for a while
+                            console.debug("Debug: change progress to "+playMusic.position)
+                            trackProgress.value = playMusic.position
                         }
                     }
 
@@ -246,7 +305,7 @@ MainView {
                         id: prevTrack
                         objectName: "prev"
 
-                        iconSource: Qt.resolvedUrl("images/prev.png")
+                        iconSource: Qt.resolvedUrl("images/icon_prev@20.png")
                         text: i18n.tr("Previous")
 
                         onTriggered: {
@@ -278,7 +337,7 @@ MainView {
                         id: nextTrack
                         objectName: "next"
 
-                        iconSource: Qt.resolvedUrl("images/next.png")
+                        iconSource: Qt.resolvedUrl("images/icon_next@20.png")
                         text: i18n.tr("Next")
 
                         onTriggered: {
@@ -332,7 +391,7 @@ MainView {
 
                         spacing: units.gu(1)
 
-                        Row {
+                        Column {
                             spacing: units.gu(1)
                             // Album cover here
                             UbuntuShape {
@@ -343,29 +402,31 @@ MainView {
                                 image: Image {
                                     source: "images/music.png"
                                 }
-                                /*
-                                onClicked: {
-                                    playMusic.pause()
-                                }
-                                onPressAndHold: {
-                                    playMusic.stop()
-                                } */
                             }
+                            /*onClicked: {
+                                playMusic.pause()
+                            }
+                            onDoubbleTap: {
+                                nextTrack()
+                            }
+                            onPressAndHold: {
+                                playMusic.stop()
+                            }*/
                         }
 
                         // track progress
-                        Row {
-                            width: parent.width
+                        Column {
+                            width: units.gu(50)
                             ProgressBar {
                                 id: trackProgress
                                 minimumValue: 0
                                 maximumValue: 100
-                                value: 25
+                                value: 0
                             }
                         }
 
                         // Track info
-                        Row {
+                        Column {
                             spacing: units.gu(1)
                             Label {
                                 id: trackInfo
@@ -507,10 +568,12 @@ MainView {
                                 playMusic.play()
                                 console.debug('Debug: User pressed '+musicDir+fileName)
                                 trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                                // cool animation
                             }
                             onPressAndHold: {
                                 console.debug('Debug: '+fileName+' added to queue.')
                                 trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": fileName})
+                                // cool animation
                             }
                         }
                     }
