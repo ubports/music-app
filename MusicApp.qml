@@ -35,11 +35,16 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/USER/MUSICDIR'
+    property string musicDir: '/home/daniel/Musik/'
     property string trackStatus: "stopped"
     property string appVersion: '0.4'
 
     // FUNCTIONS
+
+    // digg deeper in the music folder
+    function subDirCheck(directory) {
+        // populate listmodel with meta data of tracks
+    }
 
     // What is the state of the playback?
     function stateChange() {
@@ -265,6 +270,18 @@ MainView {
             artist: "Thin Lizzy"
             file: "dancing"
         }
+    }
+
+    // list of single tracks
+    ListModel {
+        id: singleTracks
+    }
+
+    FolderListModel {
+        id: folderModel
+        folder: musicDir
+        showDirs: false
+        nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
     }
 
     Tabs {
@@ -519,10 +536,7 @@ MainView {
                             subText: "Year: "
                             onClicked: {
                                 console.debug('Debug: User pressed '+musicDir+fileName)
-                            /*    playMusic.source = musicDir+dirName
-                                playMusic.play()
-                                trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-                                */
+                                subDirCheck(fileName)
                             }
                         }
                     }
@@ -551,12 +565,6 @@ MainView {
                     anchors.fill: parent
                     ListView {
                         id: musicFolder
-                        FolderListModel {
-                            id: folderModel
-                            folder: musicDir
-                            showDirs: false
-                            nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
-                        }
                         width: parent.width
                         height: parent.height
                         model: folderModel
