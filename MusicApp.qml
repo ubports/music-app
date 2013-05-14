@@ -22,7 +22,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import Qt.labs.folderlistmodel 1.0
+import Qt.labs.folderlistmodel 1.0 // change from this
+//import org.nemomobile.folderlistmodel 1.0 //change to this
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 
@@ -48,41 +49,26 @@ MainView {
 
     // What is the state of the playback?
     function stateChange() {
-
         // state was stopped (0)
         if (playMusic.playbackState == "0") {
             console.debug("Debug: Music was stopped. Playing")
             beenStopped() // run stop function
             playMusic.play() // then play
-
-            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
-            playTrack.text = i18n.tr("Pause") // change toolbar text
-            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-
-            setProgressbar() // set progressbar
         }
 
         // if state was playing (1)
         else if (playMusic.playbackState == "1") {
             console.debug("Debug: Track was playing. Pause")
             playMusic.pause() // pause the music then
-
-            playTrack.iconSource = Qt.resolvedUrl("images/icon_play@20.png") // change toolbar icon
-            playTrack.text = i18n.tr("Resume") // change toolbar text
-            trackInfo.text = i18n.tr("(Paused) ")+playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
         }
 
         // if state is paused (2)
         else if (playMusic.playbackState == "2") {
             console.debug("Debug: Track was paused. Playing")
             playMusic.play() // resume then
-
-            playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
-            playTrack.text = i18n.tr("Pause") // change toolbar text
-            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-
-            setProgressbar() // set progressbar
         }
+
+        updateUI()
     }
 
     // stop function
@@ -92,7 +78,8 @@ MainView {
         // track was just paused or stopped. Resume previous track
         if (playMusic.source != "") {
             console.debug("Debug: Resume previous song: "+playMusic.source)
-            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+
+            updateUI()
         }
 
         // app just started, play random
@@ -101,7 +88,8 @@ MainView {
             //playMusic.source = musicDir+folderModel.get(0).file // this should play a dynamic track
             //console.debug("Debug: First song is"+folderModel.get(0).file)
             console.debug("Debug: I was just started. Play random track: "+playMusic.source)
-            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+
+            updateUI()
         }
     }
 
@@ -115,7 +103,8 @@ MainView {
             playMusic.play()
             removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
             trackQueue.remove(index) // remove the track from queue
-            setProgressbar() // set progressbar
+
+            updateUI()
         }
 
         // if not, play another
@@ -123,7 +112,7 @@ MainView {
 
             // if shuffle, play random
             if (settings.shuffle == 1) {
-                setProgressbar() // set progressbar
+                updateUI()
             }
 
             // if not shuffle, play next
@@ -133,7 +122,8 @@ MainView {
                 playMusic.play()
                 removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
                 trackQueue.remove(index) // remove the track from queue
-                setProgressbar() // set progressbar
+
+                updateUI()
             }
         }
     }
@@ -143,7 +133,8 @@ MainView {
         // play the previous track
         playMusic.source = musicDir+removedTrackQueue.get(removedTrackQueue.count).file
         playMusic.play()
-        setProgressbar() // set progressbar
+
+        updateUI()
     }
 
     // Get song title
@@ -199,28 +190,30 @@ MainView {
         trackProgress.maximumValue = playMusic.duration
     }
 
+    // update the UI things with meta data from track
+    function updateUI() {
+        playinTab.title = playMusic.metaData.title // show track title in tab header
+        playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
+        playTrack.text = i18n.tr("Pause") // change toolbar text
+        trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+        coverArt.source = playMusic.metaData.coverArtUrlLarge
+
+        setProgressbar() // set progressbar
+
+        console.debug("Debug: UI updated.")
+    }
+
     // Music stuff
     Audio {
         id: playMusic
         source: ""
-        // get ready to change the progressbar
-
-    }
-
-    // when track ended
-    Connections {
-        target: playMusic
-        onStopped: {
-            console.debug("Debug: Track stopped.")
-        }
-
         onStatusChanged: {
-            //console.debug("Debug: changed..."+playMusic.EndOfMedia)
-            console.debug("Debug: changed status: "+playMusic.status)
-
-            if (playMusic.status == "7") {
-                console.debug("Debug: End of track. Play next.")
-                nextTrack()
+             if (status === Audio.EndOfMedia || 7 ) {
+                 console.log("Deub: Track ended. Play next.") //debug
+                 //nextTrack()
+             }
+             else {
+                  console.log("the Music Players status = " + playMusic.status)
             }
         }
     }
@@ -241,6 +234,12 @@ MainView {
         volume: 0.0
         //Keys.onSpacePressed: stateChange()
     }
+
+    /*
+    FolderListModel {
+        id: pageModel
+        path: homePath()
+    }*/
 
     // list of tracks on startup. This is just during development
     ListModel {
@@ -290,6 +289,7 @@ MainView {
 
         // First tab begins here - should be the primary tab
         Tab {
+            id: playinTab
             objectName: "Tab1"
 
             title: i18n.tr("Playing")
@@ -314,6 +314,7 @@ MainView {
                             // just to debug other stuff for a while
                             console.debug("Debug: change progress to "+playMusic.position)
                             trackProgress.value = playMusic.position
+                            homePath()
                         }
                     }
 
@@ -417,6 +418,7 @@ MainView {
                                 height: units.gu(50)
                                 gradientColor: "blue" // test
                                 image: Image {
+                                    id: coverArt
                                     source: "images/music.png"
                                 }
                             }
@@ -575,7 +577,7 @@ MainView {
                                 playMusic.source = musicDir+fileName
                                 playMusic.play()
                                 console.debug('Debug: User pressed '+musicDir+fileName)
-                                trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
+                                // run UI changes
                                 // cool animation
                             }
                             onPressAndHold: {
