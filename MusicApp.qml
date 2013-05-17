@@ -22,10 +22,9 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import Qt.labs.folderlistmodel 1.0 // change from this
-//import org.nemomobile.folderlistmodel 1.0 //change to this
+import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
-import QtQuick.LocalStorage 2.0
+import QtQuick.LocalStorage 2.0 as LS
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -36,9 +35,12 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: '/home/daniel/Musik/'
+    //property string musicDir: homePath()+"/"+musicName+"/"
     property string trackStatus: "stopped"
     property string appVersion: '0.4'
+
+    // DATABASE
+    //db = Sql.openDatabaseSync(musiclibrary, 0.1, "Music collection", 40960, QSQLITE)
 
     // FUNCTIONS
 
@@ -276,11 +278,111 @@ MainView {
         id: singleTracks
     }
 
-    FolderListModel {
-        id: folderModel
-        folder: musicDir
-        showDirs: false
-        nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
+    // reusable toolbar
+    ToolbarActions {
+        id: defaultToolbar
+
+        // Share
+        Action {
+            id: shareTrack
+            objectName: "share"
+
+            iconSource: Qt.resolvedUrl("images/icon_share@20.png")
+            text: i18n.tr("Share")
+
+            onTriggered: {
+                console.debug('Debug: Share pressed')
+                // just to debug other stuff for a while
+                console.debug("Debug: change progress to "+playMusic.position)
+                trackProgress.value = playMusic.position
+                homePath()
+            }
+        }
+
+        // prevous track
+        Action {
+            id: prevTrack
+            objectName: "prev"
+
+            iconSource: Qt.resolvedUrl("images/icon_prev@20.png")
+            text: i18n.tr("Previous")
+
+            onTriggered: {
+                console.debug('Debug: Prev track pressed')
+                //console.debug(musicDir+removedTrackQueue.get(0).file) // print next songs filename
+                //playMusic.source = musicDir+removedTrackQueue.get(0).file
+                //playMusic.play()
+                previousTrack()
+            }
+        }
+
+        // Play
+        Action {
+            id: playTrack
+            objectName: "play"
+
+            iconSource: Qt.resolvedUrl("images/icon_play@20.png")
+            text: i18n.tr("Play")
+
+            onTriggered: {
+                console.debug("Debug: "+trackStatus+" pressed in toolbar.")
+                console.debug(playMusic.playbackState)
+                stateChange()
+            }
+        }
+
+        // Next track
+        Action {
+            id: nextTrack
+            objectName: "next"
+
+            iconSource: Qt.resolvedUrl("images/icon_next@20.png")
+            text: i18n.tr("Next")
+
+            onTriggered: {
+                console.debug('Debug: next track pressed')
+                console.debug(musicDir+trackQueue.get(0).file) // print next songs filename
+                playMusic.source = musicDir+trackQueue.get(0).file
+                playMusic.play()
+
+                // move track, which has been played from queue, to old queue so that prev button works
+                removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file})
+                trackQueue.remove(0)
+            }
+        }
+
+        // Queue
+        Action {
+            id: trackQueueAction
+            objectName: "queuelist"
+            iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
+            text: i18n.tr("Queue")
+            onTriggered: {
+                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), pageLayout,
+                            {
+                                title: i18n.tr("Queue")
+                            } )
+            }
+        }
+
+        // Settings
+        Action {
+            id: settingsAction
+            objectName: "settings"
+
+            iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
+            text: i18n.tr("Settings")
+
+            onTriggered: {
+                console.debug('Debug: Settings pressed')
+                // show settings page (not yet implemented)
+                //dialog
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageLayout,
+                            {
+                                title: i18n.tr("Settings")
+                            } )
+            }
+        }
     }
 
     Tabs {
@@ -299,110 +401,7 @@ MainView {
                 id: playingPage
 
                 // toolbar
-                tools: ToolbarActions {
-
-                    // Share
-                    Action {
-                        id: shareTrack
-                        objectName: "share"
-
-                        iconSource: Qt.resolvedUrl("images/icon_share@20.png")
-                        text: i18n.tr("Share")
-
-                        onTriggered: {
-                            console.debug('Debug: Share pressed')
-                            // just to debug other stuff for a while
-                            console.debug("Debug: change progress to "+playMusic.position)
-                            trackProgress.value = playMusic.position
-                            homePath()
-                        }
-                    }
-
-                    // prevous track
-                    Action {
-                        id: prevTrack
-                        objectName: "prev"
-
-                        iconSource: Qt.resolvedUrl("images/icon_prev@20.png")
-                        text: i18n.tr("Previous")
-
-                        onTriggered: {
-                            console.debug('Debug: Prev track pressed')
-                            //console.debug(musicDir+removedTrackQueue.get(0).file) // print next songs filename
-                            //playMusic.source = musicDir+removedTrackQueue.get(0).file
-                            //playMusic.play()
-                            previousTrack()
-                        }
-                    }
-
-                    // Play
-                    Action {
-                        id: playTrack
-                        objectName: "play"
-
-                        iconSource: Qt.resolvedUrl("images/icon_play@20.png")
-                        text: i18n.tr("Play")
-
-                        onTriggered: {
-                            console.debug("Debug: "+trackStatus+" pressed in toolbar.")
-                            console.debug(playMusic.playbackState)
-                            stateChange()
-                        }
-                    }
-
-                    // Next track
-                    Action {
-                        id: nextTrack
-                        objectName: "next"
-
-                        iconSource: Qt.resolvedUrl("images/icon_next@20.png")
-                        text: i18n.tr("Next")
-
-                        onTriggered: {
-                            console.debug('Debug: next track pressed')
-                            console.debug(musicDir+trackQueue.get(0).file) // print next songs filename
-                            playMusic.source = musicDir+trackQueue.get(0).file
-                            playMusic.play()
-
-                            // move track, which has been played from queue, to old queue so that prev button works
-                            removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file})
-                            trackQueue.remove(0)
-                        }
-                    }
-
-                    // Queue
-                    Action {
-                        id: trackQueueAction
-                        objectName: "queuelist"
-                        iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
-                        text: i18n.tr("Queue")
-                        onTriggered: {
-                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), pageLayout,
-                                        {
-                                            title: i18n.tr("Queue")
-                                        } )
-                        }
-                    }
-
-                    // Settings
-                    Action {
-                        id: settingsAction
-                        objectName: "settings"
-
-                        iconSource: Qt.resolvedUrl("images/icon_settings@20.png")
-                        text: i18n.tr("Settings")
-
-                        onTriggered: {
-                            console.debug('Debug: Settings pressed')
-                            // show settings dialog
-                            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageLayout,
-                                        {
-                                            title: i18n.tr("Settings")
-                                        } )
-                        }
-                    }
-
-                }
+                tools: defaultToolbar
 
                 Column {
                         id: pageLayout
@@ -479,34 +478,12 @@ MainView {
                 }
             }
 
-                // toolbar here
+            // toolbar
+            tools: defaultToolbar
 
             Column {
                 anchors.centerIn: parent
                 anchors.fill: parent
-                ListView {
-                    id: artistFolder
-                    FolderListModel {
-                        id: artistModel
-                        folder: musicDir
-                        nameFilters: ["//\\"];
-                        showDirs: true;
-                    }
-                    width: parent.width
-                    height: parent.height
-                    model: artistModel
-                    delegate: ListItem.Subtitled {
-                        text: fileName
-                        subText: "totatl albums: "
-                        onClicked: {
-                            console.debug('Debug: User pressed '+musicDir+fileName)
-                        /*    playMusic.source = musicDir+dirName
-                            playMusic.play()
-                            trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-                            */
-                        }
-                    }
-                }
             }
             }
         }
@@ -522,29 +499,10 @@ MainView {
                 Column {
                     anchors.centerIn: parent
                     anchors.fill: parent
-                    ListView {
-                        id: albumFolder
-                        FolderListModel {
-                            id: albumModel
-                            folder: musicDir
-                            nameFilters: ["//\\"];
-                            showDirs: true;
-                        }
-                        width: parent.width
-                        height: parent.height
-                        model: albumModel
-                        delegate: ListItem.Subtitled {
-                            text: fileName
-                            subText: "Year: "
-                            onClicked: {
-                                console.debug('Debug: User pressed '+musicDir+fileName)
-                                subDirCheck(fileName)
-                            }
-                        }
-                    }
                 }
 
-                // toolbar here
+                // toolbar
+                tools: defaultToolbar
 
                 Column {
                     anchors.centerIn: parent
@@ -557,10 +515,13 @@ MainView {
             objectName: "Tracks Tab"
 
             title: i18n.tr("Tracks")
+            page: MusicTracks { id: musicTracksPage }
+            /*
             page: Page {
                 anchors.margins: units.gu(2)
 
-                // toolbar here
+            // toolbar
+            tools: defaultToolbar
 
                 Column {
                     anchors.centerIn: parent
@@ -588,8 +549,8 @@ MainView {
                         }
                     }
                 }
-            }
-        }
+            }*/
+        } // 4th tab
 
     } // tabs
 } // main view
