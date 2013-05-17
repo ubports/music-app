@@ -22,9 +22,10 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import org.nemomobile.folderlistmodel 1.0
+import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
-import QtQuick.LocalStorage 2.0 as LS
+import QtQuick.LocalStorage 2.0
+import "storage.js" as Storage
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -35,12 +36,9 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    //property string musicDir: homePath()+"/"+musicName+"/"
+    property string musicDir: ""
     property string trackStatus: "stopped"
     property string appVersion: '0.4'
-
-    // DATABASE
-    //db = Sql.openDatabaseSync(musiclibrary, 0.1, "Music collection", 40960, QSQLITE)
 
     // FUNCTIONS
 
@@ -183,9 +181,6 @@ MainView {
         // push to database
     }
 
-
-    // run code to check music dir for new stuff
-
     // progressbar
     function setProgressbar() {
         console.debug("Debug: change progressvalue to "+playMusic.duration)
@@ -236,12 +231,6 @@ MainView {
         volume: 0.0
         //Keys.onSpacePressed: stateChange()
     }
-
-    /*
-    FolderListModel {
-        id: pageModel
-        path: homePath()
-    }*/
 
     // list of tracks on startup. This is just during development
     ListModel {
@@ -394,7 +383,7 @@ MainView {
             id: playinTab
             objectName: "Tab1"
 
-            title: i18n.tr("Playing")
+            title: musicName
 
             // Tab content begins here
             page: Page {
