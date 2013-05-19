@@ -25,7 +25,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "storage.js" as Storage
+import "settings.js" as Settings
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -38,7 +38,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
     property string trackStatus: "stopped"
-    property string appVersion: '0.4'
+    property string appVersion: '0.4.9'
 
     // FUNCTIONS
 
@@ -217,11 +217,12 @@ MainView {
 
     // while playing
     Connections {
+
         target: playMusic
         onPlaying: {
             trackProgress.value = playMusic.position
             console.debug("Debug: change position to "+playMusic.position)
-        }
+        }     
     }
 
     // get file meta data
@@ -366,6 +367,8 @@ MainView {
                 console.debug('Debug: Settings pressed')
                 // show settings page (not yet implemented)
                 //dialog
+                //Settings.initialize()
+                //musicDirField.text = Settings.getSetting("currentfolder")
                 PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageLayout,
                             {
                                 title: i18n.tr("Settings")

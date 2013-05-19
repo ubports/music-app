@@ -1,7 +1,7 @@
-//storage.js
+// meta-database.js
 // First, let's create a short helper function to get the database connection
 function getDatabase() {
-     return LocalStorage.openDatabaseSync("music-library", "1.0", "StorageDatabase", 1000000);
+     return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
 }
 
 // At the start of the application, we can initialize the tables we need if they haven't been created yet
@@ -9,21 +9,19 @@ function initialize() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            // Create the settings table if it doesn't already exist
+            // Create the table if it doesn't already exist
             // If the table exists, this is skipped
-            //tx.executeSql('DROP TABLE settings');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS settings(setting TEXT UNIQUE, value TEXT)');
+            //tx.executeSql('DROP TABLE metadata');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, year TEXT, tracknr TEXT, length TEXT)');
       });
 }
 
 // This function is used to write a setting into the database
-function setSetting(setting, value) {
-    // setting: string representing the setting name (eg: “username”)
-    // value: string representing the value of the setting (eg: “myUsername”)
+function setSetting(file, title, artist, album, year, tracknr, length) {
     var db = getDatabase();
     var res = "";
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO settings VALUES (?,?);', [setting,value]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?);', [file,title,artist,album,year,tracknr,length]);
               //console.log(rs.rowsAffected)
               if (rs.rowsAffected > 0) {
                 res = "OK";
@@ -36,13 +34,13 @@ function setSetting(setting, value) {
   return res;
 }
 // This function is used to retrieve a setting from the database
-function getSetting(setting) {
+function getSetting(file) {
    var db = getDatabase();
    var res="";
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT value FROM settings WHERE setting=?;', [setting]);
+         var rs = tx.executeSql('SELECT title FROM metadata WHERE file=?;', [file]); // tries to get the title of track
          if (rs.rows.length > 0) {
               res = rs.rows.item(0).value;
          } else {

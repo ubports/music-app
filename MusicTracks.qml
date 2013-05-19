@@ -25,7 +25,8 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "storage.js" as Storage
+import "settings.js" as Settings
+import "meta-database.js" as MetaDB
 
 
 PageStack {
@@ -33,18 +34,34 @@ PageStack {
     anchors.fill: parent
 
     Component.onCompleted: {
-        Storage.initialize()
-        console.debug("INITIALIZED")
-        if (Storage.getSetting("initialized") !== "true") {
+        // initialize settings db
+        Settings.initialize()
+        console.debug("INITIALIZED Settings")
+        if (Settings.getSetting("initialized") !== "true") {
             // initialize settings
             console.debug("reset settings")
-            Storage.setSetting("initialized", "true")
-            Storage.setSetting("currentfolder", "/")
+            Settings.setSetting("initialized", "true")
+            Settings.setSetting("currentfolder", "/")
         }
         else {
-            musicDir = Storage.getSetting("currentfolder")
-            console.debug("Debug: Music dir set to: "+Storage.getSetting("currentfolder"))
+            musicDir = Settings.getSetting("currentfolder")
+            console.debug("Debug: Music dir set to: "+Settings.getSetting("currentfolder"))
         }
+
+        // then go on to meta data db
+        MetaDB.initialize()
+        console.debug("INITIALIZED Meta data")
+        /*
+        if (MetaDB.getSetting("initialized") !== "true") {
+            // start adding tracks to db
+            title = getTrackInfo(file, title)
+            album = getTrackInfo(file, album)
+            year = getTrackInfo(file, year)
+            tracknr = getTrackInfo(file, tracknr)
+            length = getTrackInfo(file, length)
+            console.debug("file", "title", "artist", "album", "year", "tracknr", "length")
+            //MetaDB.setSetting("file", "title", "artist", "album", "year", "tracknr", "length")
+        }*/
     }
 
 //    property int  headerHeight:  units.gu(10); // needed?
