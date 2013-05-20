@@ -21,7 +21,7 @@ function setMetadata(file, title, artist, album, cover, year, tracknr, length) {
     var db = getDatabase();
     var res = "";
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?);', [file,title,artist,album,cover,year,tracknr,length]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?,?,?,?,?,?,?);', [file,title,artist,album,cover,year,tracknr,length]);
               //console.log(rs.rowsAffected)
               if (rs.rowsAffected > 0) {
                 res = "OK";
@@ -34,13 +34,13 @@ function setMetadata(file, title, artist, album, cover, year, tracknr, length) {
   return res;
 }
 // This function is used to retrieve a setting from the database
-function getMetadata(file) {
+function getMetadata(file,type) {
    var db = getDatabase();
    var res="";
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT title FROM metadata WHERE file=?;', [file]); // tries to get the title of track
+           var rs = tx.executeSql('SELECT type=?;',[type],' FROM metadata WHERE file=?;', [file]); // tries to get the title of track
          if (rs.rows.length > 0) {
               res = rs.rows.item(0).value;
          } else {

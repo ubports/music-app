@@ -207,7 +207,7 @@ MainView {
         playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
         playTrack.text = i18n.tr("Pause") // change toolbar text
         trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-//        coverArt.source = playMusic.metaData.coverArtUrlLarge
+//        coverArt.source = "HOMEDIR/.musicapp/coverart/"+MetaDatabase.getMetadata(playMusic.source,"cover") // get cover art filename
 
         setProgressbar() // set progressbar
 
@@ -221,7 +221,7 @@ MainView {
         /*
         onStatusChanged: {
              if (status === Audio.EndOfMedia || 7 ) {
-                 console.log("Deub: Track ended. Play next.") //debug
+                 console.log("Debug: Track ended. Play next.") //debug
                  //nextTrack()
              }
              else {
