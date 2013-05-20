@@ -33,7 +33,7 @@ Dialog {
             id: musicDirField
             placeholderText: "/home/username/Music"
             hasClearButton: false
-            text: ""
+            text: musicDir
         }
     }
 

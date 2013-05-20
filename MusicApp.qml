@@ -26,6 +26,7 @@ import Qt.labs.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
+import "meta-database.js" as MetaDatabase
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -38,7 +39,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
     property string trackStatus: "stopped"
-    property string appVersion: '0.4.9'
+    property string appVersion: '0.4.9.1'
 
     // FUNCTIONS
 
@@ -164,9 +165,19 @@ MainView {
         }
 
         // cover
-        /*else if (type == "cover") {
-            return musicInfo.metaData.cover
-        }*/
+        else if (type == "cover") {
+            // download cover art from last.fm
+            // save the file in a app dir in HOME
+            // return the value of the cover art file
+        }
+
+        // tracknr
+        else if (type == "tracknr") {
+        }
+
+        // lenght
+        else if (type == "length") {
+        }
     }
 
     // add track to database
@@ -177,8 +188,11 @@ MainView {
         album = getTrackInfo(track, album) // album
         cover = getTrackInfo(track, cover) // cover
         year = getTrackInfo(track, year) // year of album relase
+        //tracknr =
+        //length =
 
         // push to database
+        MetaDatabase.setMetadata(track, title, artist, album, cover, year, tracknr, length)
     }
 
     // progressbar
@@ -193,7 +207,7 @@ MainView {
         playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
         playTrack.text = i18n.tr("Pause") // change toolbar text
         trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-        coverArt.source = playMusic.metaData.coverArtUrlLarge
+//        coverArt.source = playMusic.metaData.coverArtUrlLarge
 
         setProgressbar() // set progressbar
 
@@ -204,6 +218,7 @@ MainView {
     Audio {
         id: playMusic
         source: ""
+        /*
         onStatusChanged: {
              if (status === Audio.EndOfMedia || 7 ) {
                  console.log("Deub: Track ended. Play next.") //debug
@@ -212,7 +227,7 @@ MainView {
              else {
                   console.log("the Music Players status = " + playMusic.status)
             }
-        }
+        }*/
     }
 
     // while playing
@@ -285,7 +300,6 @@ MainView {
                 // just to debug other stuff for a while
                 console.debug("Debug: change progress to "+playMusic.position)
                 trackProgress.value = playMusic.position
-                homePath()
             }
         }
 

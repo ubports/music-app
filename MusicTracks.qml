@@ -64,7 +64,6 @@ PageStack {
         }*/
     }
 
-//    property int  headerHeight:  units.gu(10); // needed?
 
     width: units.gu(50)
     height: units.gu(75)
@@ -91,13 +90,14 @@ PageStack {
                 width: parent.width
                 height: parent.height
                 model: folderModel
+                //delegate: databaseDelegate
                 delegate: ListItem.Subtitled {
                     text: fileName
                     subText: "Artist: "
                     onClicked: {
-                        playMusic.source = musicDir+"/"+fileName
+                        playMusic.source = filePath
                         playMusic.play()
-                        console.debug('Debug: User pressed '+musicDir+"/"+fileName)
+                        console.debug('Debug: User pressed '+filePath)
                         trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
                         // cool animation
                     }
