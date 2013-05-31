@@ -37,22 +37,31 @@ PageStack {
         // initialize settings db
         Settings.initialize()
         console.debug("INITIALIZED Settings")
+
+        // If there were no database
         if (Settings.getSetting("initialized") !== "true") {
             // initialize settings
             console.debug("reset settings")
-            Settings.setSetting("initialized", "true")
-            Settings.setSetting("currentfolder", "/")
+            Settings.setSetting("initialized", "true") // set that settings exists
+            Settings.setSetting("currentfolder", "/") // Music dir
+            // show dialog so that user can set the music dir manually, untill later
+            PopupUtils.open(Qt.resolvedUrl("FirstRun.qml"), pageLayout,
+                        {
+                            title: i18n.tr("First Run")
+                        } )
         }
+
+        // Run as usual
         else {
             musicDir = Settings.getSetting("currentfolder")
             console.debug("Debug: Music dir set to: "+Settings.getSetting("currentfolder"))
         }
 
         // then go on to meta data db
-        MetaDB.initialize()
+        MetaDB.initialize() // also create the metaDB
         console.debug("INITIALIZED Meta data")
         /*
-        if (MetaDB.getSetting("initialized") !== "true") {
+        if (Settings.getSetting("initialized") !== "true") {
             // start adding tracks to db
             title = getTrackInfo(file, title)
             album = getTrackInfo(file, album)

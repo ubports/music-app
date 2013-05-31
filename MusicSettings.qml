@@ -46,6 +46,7 @@ Dialog {
         }
         Switch {
             checked: true
+            enabled: false
         }
     }
 
@@ -58,6 +59,7 @@ Dialog {
         }
         Switch {
             checked: false
+            enabled: false
         }
     }
 
@@ -67,7 +69,7 @@ Dialog {
             text: i18n.tr("Login to Last.FM")
             width: units.gu(20)
             color: "#c94212"
-            onClicked: PopupUtils.open(lastfmButton, lastfmlogin)
+            //onClicked: PopupUtils.open(lastfmButton, lastfmlogin)
         }
     }
 
@@ -80,6 +82,7 @@ Dialog {
         }
         Switch {
             checked: true
+            enabled: false
         }
     }
 

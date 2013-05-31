@@ -39,7 +39,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
     property string trackStatus: "stopped"
-    property string appVersion: '0.4.9.1'
+    property string appVersion: '0.4.9.3'
 
     // FUNCTIONS
 
@@ -232,7 +232,6 @@ MainView {
 
     // while playing
     Connections {
-
         target: playMusic
         onPlaying: {
             trackProgress.value = playMusic.position
@@ -381,8 +380,6 @@ MainView {
                 console.debug('Debug: Settings pressed')
                 // show settings page (not yet implemented)
                 //dialog
-                //Settings.initialize()
-                //musicDirField.text = Settings.getSetting("currentfolder")
                 PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageLayout,
                             {
                                 title: i18n.tr("Settings")
