@@ -43,6 +43,8 @@ PageStack {
             // initialize settings
             console.debug("reset settings")
             Settings.setSetting("initialized", "true") // set that settings exists
+            Settings.setSetting("shuffle", "false") // set to not shuffle as default
+            Settings.setSetting("scrobble", "false") // no scrobble yet
             Settings.setSetting("currentfolder", "/") // Music dir
             // show dialog so that user can set the music dir manually, untill later
             PopupUtils.open(Qt.resolvedUrl("FirstRun.qml"), pageLayout,
@@ -54,7 +56,10 @@ PageStack {
         // Run as usual
         else {
             musicDir = Settings.getSetting("currentfolder")
-            console.debug("Debug: Music dir set to: "+Settings.getSetting("currentfolder"))
+            shuffleState = Settings.getSetting("shuffle")
+            console.debug("Debug: Music dir set to: "+musicDir)
+            console.debug("Debug: Shuffle state is: "+shuffleState)
+            //console.debug("Debug: Scrobble state is: "+scrobbleState)
         }
 
         // then go on to meta data db
@@ -77,14 +82,6 @@ PageStack {
     width: units.gu(50)
     height: units.gu(75)
 
-    // set the folder from where the music is
-    FolderListModel {
-        id: folderModel
-        folder: musicDir
-        showDirs: false
-        nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
-    }
-
     Page {
         id: singleTracksPage
 
@@ -102,7 +99,26 @@ PageStack {
                 //delegate: databaseDelegate
                 delegate: ListItem.Subtitled {
                     text: fileName
-                    subText: "Artist: "
+                    subText: "Artist: " // this should be selected from metaDB
+                    Loader {
+                            id: trackLoad
+                            //onLoaded:
+                            Component.onCompleted: {
+                                    console.debug("This one was found: "+index+"; "+fileName)
+                                    trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": filePath}) // just for dev
+                                    /* Insert them to database
+                                    // start adding tracks to db
+                                    title = getTrackInfo(file, title)
+                                    album = getTrackInfo(file, album)
+                                    year = getTrackInfo(file, year)
+                                    tracknr = getTrackInfo(file, tracknr)
+                                    length = getTrackInfo(file, length)
+                                    console.debug("file", "title", "artist", "album", "year", "tracknr", "length")
+                                    //MetaDB.setSetting("file", "title", "artist", "album", "year", "tracknr", "length")
+                                    */
+                            }
+                    }
+
                     onClicked: {
                         playMusic.source = filePath
                         playMusic.play()
@@ -111,8 +127,8 @@ PageStack {
                         // cool animation
                     }
                     onPressAndHold: {
-                        console.debug('Debug: '+fileName+' added to queue.')
-                        trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": fileName})
+                        console.debug('Debug: '+filePath+' added to queue.')
+                        trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": filePath})
                         // cool animation
                     }
                 }

@@ -45,8 +45,8 @@ Dialog {
             width: units.gu(20)
         }
         Switch {
-            checked: true
-            enabled: false
+            id: scrobbleSwitch
+            checked: shuffleState
         }
     }
 
@@ -141,8 +141,10 @@ Dialog {
             PopupUtils.close(root)
             // set new music dir
             Settings.initialize()
-            Settings.setSetting("currentfolder", musicDirField.text)
+            Settings.setSetting("currentfolder", musicDirField.text) // save music dir
+            Settings.setSetting("shuffle", scrobbleSwitch.checked) // save shuffle state
             console.debug("Debug: Set new music dir to: "+musicDirField.text)
+            console.debug("Debug: Shuffle: "+scrobbleSwitch.checked)
         }
     }
 

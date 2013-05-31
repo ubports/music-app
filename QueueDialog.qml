@@ -37,7 +37,7 @@ Dialog {
             removable: true
             onClicked: {
                 console.debug("Debug: Play "+file+" instead - now.")
-                playMusic.source = musicDir+file
+                playMusic.source = file
                 playMusic.play()
                 trackQueue.remove(index)
             }

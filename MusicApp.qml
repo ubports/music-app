@@ -38,8 +38,9 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
+    property string shuffleState: ""
     property string trackStatus: "stopped"
-    property string appVersion: '0.4.9.3'
+    property string appVersion: '0.5.2'
 
     // FUNCTIONS
 
@@ -83,14 +84,19 @@ MainView {
             updateUI()
         }
 
-        // app just started, play random
+        // app just started, play random or first track in list, depending on shuffle on or off
         else {
-            playMusic.source = "/home/daniel/Musik/Cyndi Lauper - 80s music - Time After Time.mp3"
-            //playMusic.source = musicDir+folderModel.get(0).file // this should play a dynamic track
-            //console.debug("Debug: First song is"+folderModel.get(0).file)
+            // is shuffle on?
+            // if shuffle on {
+            //}
+            // Shuffle not activated
+            //else {
+            playMusic.source = trackQueue.get(0).file // this should play a dynamic track
+            console.debug("Debug: First song is "+trackQueue.get(0).file)
             console.debug("Debug: I was just started. Play random track: "+playMusic.source)
 
             updateUI()
+            //}
         }
     }
 
@@ -100,7 +106,7 @@ MainView {
         // if there are, play them
         if (trackQueue > 1) {
             console.debug() // print next songs filename
-            playMusic.source = musicDir+trackQueue.get(0).file
+            playMusic.source = trackQueue.get(0).file
             playMusic.play()
             removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
             trackQueue.remove(index) // remove the track from queue
@@ -119,7 +125,7 @@ MainView {
             // if not shuffle, play next
             else {
                 console.debug() // print next songs filename
-                playMusic.source = musicDir+trackQueue.get(0).file
+                playMusic.source = trackQueue.get(0).file
                 playMusic.play()
                 removedTrackQueue.append({"title": trackQueue.get(0).title, "artist": trackQueue.get(0).artist, "file": trackQueue.get(0).file}) // move the track to a list of preious tracks
                 trackQueue.remove(index) // remove the track from queue
@@ -130,9 +136,9 @@ MainView {
     }
 
     function previousTrack() {
-        console.debug("Debug: Previous track was "+musicDir+removedTrackQueue.get(removedTrackQueue.count).file)
+        console.debug("Debug: Previous track was "+removedTrackQueue.get(removedTrackQueue.count).file)
         // play the previous track
-        playMusic.source = musicDir+removedTrackQueue.get(removedTrackQueue.count).file
+        playMusic.source = removedTrackQueue.get(removedTrackQueue.count).file
         playMusic.play()
 
         updateUI()
@@ -247,34 +253,29 @@ MainView {
         //Keys.onSpacePressed: stateChange()
     }
 
+    // set the folder from where the music is
+    FolderListModel {
+        id: folderModel
+        folder: musicDir
+        showDirs: false
+        nameFilters: ["*.ogg","*.mp3","*.oga","*.wav"]
+    }
+
+    /* this is how a queue looks like
+    ListElement {
+        title: "Dancing in the Moonlight"
+        artist: "Thin Lizzy"
+        file: "dancing"
+    }*/
+
     // list of tracks on startup. This is just during development
     ListModel {
         id: trackQueue
-        ListElement {
-            title: "Dancing in the Moonlight"
-            artist: "Thin Lizzy"
-            file: "something"
-        }
-        ListElement {
-            title: "Rock and Roll"
-            artist: "Led Zeppelin"
-            file: "something else"
-        }
-        ListElement {
-            title: "Moonlight Serenade"
-            artist: "Frank Sinatra"
-            file: "something completely else"
-        }
     }
 
     // list of songs, which has been removed.
     ListModel {
         id: removedTrackQueue
-        ListElement {
-            title: "Dancing in the Moonlight"
-            artist: "Thin Lizzy"
-            file: "dancing"
-        }
     }
 
     // list of single tracks
@@ -312,8 +313,8 @@ MainView {
 
             onTriggered: {
                 console.debug('Debug: Prev track pressed')
-                //console.debug(musicDir+removedTrackQueue.get(0).file) // print next songs filename
-                //playMusic.source = musicDir+removedTrackQueue.get(0).file
+                //console.debug(removedTrackQueue.get(0).file) // print next songs filename
+                //playMusic.source = removedTrackQueue.get(0).file
                 //playMusic.play()
                 previousTrack()
             }
@@ -344,8 +345,8 @@ MainView {
 
             onTriggered: {
                 console.debug('Debug: next track pressed')
-                console.debug(musicDir+trackQueue.get(0).file) // print next songs filename
-                playMusic.source = musicDir+trackQueue.get(0).file
+                console.debug(trackQueue.get(0).file) // print next songs filename
+                playMusic.source = trackQueue.get(0).file
                 playMusic.play()
 
                 // move track, which has been played from queue, to old queue so that prev button works
@@ -519,40 +520,6 @@ MainView {
 
             title: i18n.tr("Tracks")
             page: MusicTracks { id: musicTracksPage }
-            /*
-            page: Page {
-                anchors.margins: units.gu(2)
-
-            // toolbar
-            tools: defaultToolbar
-
-                Column {
-                    anchors.centerIn: parent
-                    anchors.fill: parent
-                    ListView {
-                        id: musicFolder
-                        width: parent.width
-                        height: parent.height
-                        model: folderModel
-                        delegate: ListItem.Subtitled {
-                            text: fileName
-                            subText: "Artist: "
-                            onClicked: {
-                                playMusic.source = musicDir+fileName
-                                playMusic.play()
-                                console.debug('Debug: User pressed '+musicDir+fileName)
-                                // run UI changes
-                                // cool animation
-                            }
-                            onPressAndHold: {
-                                console.debug('Debug: '+fileName+' added to queue.')
-                                trackQueue.append({"title": playMusic.metaData.title, "artist": playMusic.metaData.albumArtist, "file": fileName})
-                                // cool animation
-                            }
-                        }
-                    }
-                }
-            }*/
         } // 4th tab
 
     } // tabs
