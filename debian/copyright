@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: musicapp
-Source: https://launchpad.net/musicapp
+Upstream-Name: music-app
+Source: https://launchpad.net/music-app
 
 Files: *
 Copyright: Daniel Holm <d.holmen@gmail.com>
