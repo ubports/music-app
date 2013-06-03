@@ -1,12 +1,12 @@
-Source: musicapp
+Source: music-app
 Section: misc
 Priority: extra
 Maintainer: "Michael <mhall119@ubuntu.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
-Homepage: https://launchpad.net/musicapp
+Homepage: https://launchpad.net/music-app
 
-Package: musicapp
+Package: music-app
 Architecture: all
 Depends: ${misc:Depends},qtdeclarative5-folderlistmodel-plugin,qtdeclarative5-localstorage-plugin,qtdeclarative5-particles-plugin,qtdeclarative5-qtmultimedia-plugin,qtdeclarative5-qtquick2-plugin,qtdeclarative5-ubuntu-ui-toolkit-plugin|qt-components-ubuntu,qtdeclarative5-window-plugin,qtdeclarative5-xmllistmodel-plugin,${shlibs:Depends},qmlscene
 Description: Music player for Ubuntu Touch

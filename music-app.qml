@@ -213,7 +213,7 @@ MainView {
         playTrack.iconSource = Qt.resolvedUrl("images/icon_pause@20.png") // change toolbar icon
         playTrack.text = i18n.tr("Pause") // change toolbar text
         trackInfo.text = playMusic.metaData.albumArtist+" - "+playMusic.metaData.title // show track meta data
-//        coverArt.source = "HOMEDIR/.musicapp/coverart/"+MetaDatabase.getMetadata(playMusic.source,"cover") // get cover art filename
+//        coverArt.source = "HOMEDIR/.music-app/coverart/"+MetaDatabase.getMetadata(playMusic.source,"cover") // get cover art filename
 
         setProgressbar() // set progressbar
 

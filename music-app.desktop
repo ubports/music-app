@@ -2,8 +2,8 @@
 Version=1.0
 Name=Music
 Comment=Music Player
-Exec=/usr/bin/qmlscene /usr/share/musicapp/MusicApp.qml
-Icon=/usr/share/musicapp/images/music.png
+Exec=/usr/bin/qmlscene /usr/share/music-app/MusicApp.qml
+Icon=/usr/share/music-app/images/music.png
 Terminal=false
 Type=Application
 StartupNotify=true
