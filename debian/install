@@ -1,7 +1,6 @@
 Toolbar.qml /usr/share/music-app
 MusicSettings.qml /usr/share/music-app
 music-app.qml /usr/share/music-app
-music-app.qmlproject /usr/share/music-app
 QueueDialog.qml /usr/share/music-app
 settings.js /usr/share/music-app
 music-app /usr/share/music-app
