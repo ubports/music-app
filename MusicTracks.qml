@@ -379,6 +379,8 @@ PageStack {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        playindicator.source = "images/pause.png"
+                        playindicator_nowplaying.source = playindicator.source
                         nextSong()
                     }
                 }
@@ -523,6 +525,8 @@ PageStack {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
+                            playindicator.source = "images/pause.png"
+                            playindicator_nowplaying.source = playindicator.source
                             nextSong()
                         }
                     }
@@ -564,7 +568,7 @@ PageStack {
                     anchors.rightMargin: units.gu(2)
                     radius: "none"
                     image: Image {
-                        id: upindicator_nowplaying
+                        id: backindicator_nowplaying
                         source: "images/back.png"
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
@@ -573,6 +577,8 @@ PageStack {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
+                            playindicator.source = "images/pause.png"
+                            playindicator_nowplaying.source = playindicator.source
                             getSong(-1)
                         }
                     }
