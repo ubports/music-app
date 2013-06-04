@@ -117,7 +117,7 @@ PageStack {
                 ListItem.Standard {
                     id: file
                     progression: model.isDir
-                    icon: !model.isDir ? (trackCover === "" ? (fileName.match("\\.mp3") ? Qt.resolvedUrl("audio-x-mpeg.png") : Qt.resolvedUrl("audio-x-vorbis+ogg.png")) : "image://cover-art/"+filePath) : Qt.resolvedUrl("folder.png")
+                    icon: !model.isDir ? (trackCover === "" ? (fileName.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+filePath) : Qt.resolvedUrl("images/folder.png")
                     iconFrame: false
                     Label {
                         id: fileTitle
@@ -165,7 +165,7 @@ PageStack {
                             fileArtistAlbumBottom_nowplaying.text = fileArtistAlbum.text
                             fileTitleBottom_nowplaying.text = fileTitle.text
                             iconbottom.source = file.icon
-                            iconbottom_nowplaying.source = !model.isDir && trackCover !== "" ? "image://cover-art-full/" + filePath : "Blank_album.jpg"
+                            iconbottom_nowplaying.source = !model.isDir && trackCover !== "" ? "image://cover-art-full/" + filePath : "images/Blank_album.jpg"
                         }
                     }
                     MouseArea {
@@ -192,10 +192,10 @@ PageStack {
                                 console.log("fileName: " + fileName)
                                 if (filelist.currentIndex == index) {
                                     if (player.playbackState === MediaPlayer.PlayingState)  {
-                                        playindicator.source = "play.png"
+                                        playindicator.source = "images/play.png"
                                         player.pause()
                                     } else if (player.playbackState === MediaPlayer.PausedState) {
-                                        playindicator.source = "pause.png"
+                                        playindicator.source = "images/pause.png"
                                         player.play()
                                     }
                                 } else {
@@ -206,7 +206,7 @@ PageStack {
                                     console.log("Playing click: "+player.source)
                                     console.log("Index: " + filelist.currentIndex)
                                     player.play()
-                                    playindicator.source = "pause.png"
+                                    playindicator.source = "images/pause.png"
                                 }
                                 console.log("Source: " + player.source.toString())
                                 console.log("Length: " + trackLength.toString())
@@ -346,7 +346,7 @@ PageStack {
                 }
                 Image {
                     id: settingsImage
-                    source: "settings.png"
+                    source: "images/settings.png"
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: units.gu(1)
@@ -370,7 +370,7 @@ PageStack {
                 radius: "none"
                 image: Image {
                     id: forwardindicator
-                    source: "forward.png"
+                    source: "images/forward.png"
                     anchors.right: parent.right
                     anchors.centerIn: parent
                     opacity: .7
@@ -391,7 +391,7 @@ PageStack {
                 radius: "none"
                 image: Image {
                     id: playindicator
-                    source: "play.png"
+                    source: "images/play.png"
                     anchors.right: parent.right
                     anchors.centerIn: parent
                     opacity: .7
@@ -400,10 +400,10 @@ PageStack {
                     anchors.fill: parent
                     onClicked: {
                         if (player.playbackState === MediaPlayer.PlayingState)  {
-                            playindicator.source = "play.png"
+                            playindicator.source = "images/play.png"
                             player.pause()
                         } else {
-                            playindicator.source = "pause.png"
+                            playindicator.source = "images/pause.png"
                             player.play()
                         }
                         playindicator_nowplaying.source = playindicator.source
@@ -512,7 +512,7 @@ PageStack {
                     radius: "none"
                     image: Image {
                         id: forwardindicator_nowplaying
-                        source: "forward.png"
+                        source: "images/forward.png"
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         opacity: .7
@@ -533,7 +533,7 @@ PageStack {
                     radius: "none"
                     image: Image {
                         id: playindicator_nowplaying
-                        source: "play.png"
+                        source: "images/play.png"
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         opacity: .7
@@ -542,10 +542,10 @@ PageStack {
                         anchors.fill: parent
                         onClicked: {
                             if (player.playbackState === MediaPlayer.PlayingState)  {
-                                playindicator.source = "play.png"
+                                playindicator.source = "images/play.png"
                                 player.pause()
                             } else {
-                                playindicator.source = "pause.png"
+                                playindicator.source = "images/pause.png"
                                 player.play()
                             }
                             playindicator_nowplaying.source = playindicator.source
@@ -561,7 +561,7 @@ PageStack {
                     radius: "none"
                     image: Image {
                         id: upindicator_nowplaying
-                        source: "back.png"
+                        source: "images/back.png"
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         opacity: .7

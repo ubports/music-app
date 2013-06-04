@@ -42,7 +42,7 @@ Page {
                 radius: "none"
                 image: Image {
                     id: forwardindicator_nowplaying
-                    source: "forward.png"
+                    source: "images/forward.png"
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     opacity: .7
@@ -63,7 +63,7 @@ Page {
                 radius: "none"
                 image: Image {
                     id: playindicator_nowplaying
-                    source: "play.png"
+                    source: "images/play.png"
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     opacity: .7
@@ -72,10 +72,10 @@ Page {
                     anchors.fill: parent
                     onClicked: {
                         if (player.playbackState === MediaPlayer.PlayingState)  {
-                            playindicator.source = "play.png"
+                            playindicator.source = "images/play.png"
                             player.pause()
                         } else {
-                            playindicator.source = "pause.png"
+                            playindicator.source = "images/pause.png"
                             player.play()
                         }
                         playindicator_nowplaying.source = playindicator.source
@@ -91,7 +91,7 @@ Page {
                 radius: "none"
                 image: Image {
                     id: upindicator_nowplaying
-                    source: "back.png"
+                    source: "images/back.png"
                     anchors.right: parent.right
                     anchors.bottom: parent
                     opacity: .7
