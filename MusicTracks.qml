@@ -162,7 +162,7 @@ PageStack {
                             selected = false
                             fileArtistAlbumBottom.text = fileArtistAlbum.text
                             fileTitleBottom.text = fileTitle.text
-                            fileArtistAlbumBottom_nowplaying.text = fileArtistAlbum.text
+                            fileArtistAlbumBottom_nowplaying.text = trackArtist == "" ? "" : trackArtist + "\n" + trackAlbum
                             fileTitleBottom_nowplaying.text = fileTitle.text
                             iconbottom.source = file.icon
                             iconbottom_nowplaying.source = !model.isDir && trackCover !== "" ? "image://cover-art-full/" + filePath : "images/Blank_album.jpg"
@@ -613,7 +613,7 @@ PageStack {
                     width: units.gu(30)
                     wrapMode: Text.Wrap
                     color: "#FFFFFF"
-                    maximumLineCount: 1
+                    maximumLineCount: 2
                     font.pixelSize: 16
                     anchors.left: parent.left
                     anchors.top: fileTitleBottom_nowplaying.bottom
