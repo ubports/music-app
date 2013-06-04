@@ -363,10 +363,11 @@ PageStack {
             color: "#333333"
             UbuntuShape {
                 id: forwardshape
-                height: parent.height * .5
-                width: parent.height * .5
+                height: units.gu(5)
+                width: units.gu(5)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
                 radius: "none"
                 image: Image {
                     id: forwardindicator
@@ -384,10 +385,11 @@ PageStack {
             }
             UbuntuShape {
                 id: playshape
-                height: parent.height * .4
-                width: parent.height * .4
+                height: units.gu(5)
+                width: units.gu(5)
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: forwardshape.left
+                anchors.rightMargin: units.gu(1)
                 radius: "none"
                 image: Image {
                     id: playindicator
@@ -509,6 +511,7 @@ PageStack {
                     width: 50
                     anchors.bottom: parent.bottom
                     anchors.left: playshape_nowplaying.right
+                    anchors.leftMargin: units.gu(2)
                     radius: "none"
                     image: Image {
                         id: forwardindicator_nowplaying
@@ -558,6 +561,7 @@ PageStack {
                     width: 50
                     anchors.bottom: parent.bottom
                     anchors.right: playshape_nowplaying.left
+                    anchors.rightMargin: units.gu(2)
                     radius: "none"
                     image: Image {
                         id: upindicator_nowplaying
