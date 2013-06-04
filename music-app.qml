@@ -32,7 +32,7 @@ import "playing-list.js" as PlayingList
 
 MainView {
     objectName: i18n.tr("mainView")
-    applicationName: "Music player"
+    applicationName: i18n.tr("Ubuntu Music App")
 
     width: units.gu(50)
     height: units.gu(75)
@@ -44,7 +44,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.5.2'
+    property string appVersion: '0.2'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
@@ -120,7 +120,7 @@ MainView {
         //length =
 
         // push to database
-        Library.setMetadata(track, title, artist, album, cover, year, tracknr, length)
+        Library.setMetadata(track, title, artist, album, cover, year, tracknr, length) // all the data we need.
     }
 
     MediaPlayer {
@@ -141,8 +141,8 @@ MainView {
     FolderListModel {
         id: folderModel
         showDirectories: false
-        filterDirectories: false
-        nameFilters: ["*.mp3", "*.ogg", "*.flac", "*.wav", "*.oga"]
+        //filterDirectories: false
+        nameFilters: ["*.mp3", "*.ogg", "*.flac", "*.wav", "*.oga"] // file types suuported.
         path: Settings.getSetting("initialized") === "true" && Settings.getSetting("currentfolder") !== "" ? Settings.getSetting("currentfolder") : homePath() + "/Music"
     }
 
