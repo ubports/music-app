@@ -3,6 +3,7 @@
  *
  * Authors:
  *  Daniel Holm <d.holmen@gmail.com>
+ *  Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +33,7 @@ Dialog {
         height: units.gu(50)
         model: trackQueue
         delegate: ListItem.Standard {
-            //text: artist+" - "+title
-            text: file
+            text: artist+" - "+title
             removable: true
             onClicked: {
                 console.debug("Debug: Play "+file+" instead - now.")
@@ -50,7 +50,7 @@ Dialog {
     // Clean whole queue button
     Button {
         text: i18n.tr("Clear")
-        color: "orange"
+        color: "#DD4814"
         onClicked: {
             console.debug("Debug: Track queue cleared.")
             trackQueue.clear()
@@ -61,7 +61,7 @@ Dialog {
     // close dialog button
     Button {
         text: i18n.tr("Close")
-        color: "red"
+        color: "#DD4814"
         onClicked: {
             PopupUtils.close(queueDialog)
         }
