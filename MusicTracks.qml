@@ -579,7 +579,7 @@ PageStack {
                         onClicked: {
                             playindicator.source = "images/pause.png"
                             playindicator_nowplaying.source = playindicator.source
-                            getSong(-1)
+                            previousSong()
                         }
                     }
                 }
@@ -596,8 +596,34 @@ PageStack {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {
-                            pageStack.pop(nowPlaying)
+                        signal swipeRight;
+                        signal swipeLeft;
+                        signal swipeUp;
+                        signal swipeDown;
+
+                        property int startX;
+                        property int startY;
+
+                        onPressed: {
+                            startX = mouse.x;
+                            startY = mouse.y;
+                        }
+
+                        onReleased: {
+                            var deltax = mouse.x - startX;
+                            var deltay = mouse.y - startY;
+
+                            if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
+                                if (deltax > 30 && Math.abs(deltay) < 30) {
+                                    // swipe right
+                                    previousSong();
+                                } else if (deltax < -30 && Math.abs(deltay) < 30) {
+                                    // swipe left
+                                    nextSong();
+                                }
+                            } else {
+                                pageStack.pop(nowPlaying)
+                            }
                         }
                     }
                 }
