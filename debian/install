@@ -1,4 +1,3 @@
-Toolbar.qml /usr/share/music-app
 MusicSettings.qml /usr/share/music-app
 music-app.qml /usr/share/music-app
 QueueDialog.qml /usr/share/music-app
@@ -16,5 +15,14 @@ images/icon_next@20.png /usr/share/music-app
 images/icon_settings@20.png /usr/share/music-app
 images/music.png /usr/share/music-app
 images/icon_play@20.png /usr/share/music-app
+images/settings@8.png /usr/share/music-app
+images/play.png /usr/share/music-app
+images/pause.png /usr/share/music-app
+images/forward.png /usr/share/music-app
+images/Blank_album.jpg /usr/share/music-app
+images/back.png /usr/share/music-app
+images/audio-x-mpeg.png /usr/share/music-app
+images/audio-x-vorbis+ogg.png /usr/share/music-app
+playing-list.js /usr/share/music-app
 meta-database.js /usr/share/music-app
 music-app.desktop /usr/share/applications

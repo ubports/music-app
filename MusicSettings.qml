@@ -3,6 +3,7 @@
  *
  * Authors:
  *  Daniel Holm <d.holmen@gmail.com>
+ *  Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,9 +32,13 @@ Dialog {
         spacing: units.gu(2)
         TextField {
             id: musicDirField
-            placeholderText: "/home/username/Music"
+            placeholderText: folderModel.homePath() + "/Music"
             hasClearButton: false
-            text: musicDir
+            text: Settings.getSetting("currentfolder")
+
+            onTextChanged: {
+                Settings.setSetting("currentfolder", text)
+            }
         }
     }
 
@@ -45,8 +50,8 @@ Dialog {
             width: units.gu(20)
         }
         Switch {
-            id: scrobbleSwitch
-            checked: shuffleState
+            id: shuffleSwitch
+            checked: Settings.getSetting("shuffle") === "1"
         }
     }
 
@@ -97,7 +102,7 @@ Dialog {
     Row {
         ListItem.Subtitled {
             text:  "Music "+appVersion
-            subText: i18n.tr("By Daniel Holm, Sweden")
+            subText: i18n.tr("By Daniel Holm (Sweden) and\nVictor Thompson (USA)")
         }
     }
 
@@ -142,9 +147,10 @@ Dialog {
             // set new music dir
             Settings.initialize()
             Settings.setSetting("currentfolder", musicDirField.text) // save music dir
-            Settings.setSetting("shuffle", scrobbleSwitch.checked) // save shuffle state
+            Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+            random = shuffleSwitch.checked
             console.debug("Debug: Set new music dir to: "+musicDirField.text)
-            console.debug("Debug: Shuffle: "+scrobbleSwitch.checked)
+            console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
         }
     }
 
