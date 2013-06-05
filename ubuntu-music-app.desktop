@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=0.2
+Name=Music
+Comment=Ubuntu Touch Music Player
+Exec=/usr/bin/qmlscene /usr/share/ubuntu-music-app/music-app.qml
+Icon=/usr/share/ubuntu-music-app/images/ubuntu-music-app.png
+Terminal=false
+Type=Application
+StartupNotify=true
+X-Ubuntu-Touch=true
+X-Ubuntu-StageHint=SideStage
+Name[sv_SE]=ubuntu-music-app.desktop

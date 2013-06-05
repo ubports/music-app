@@ -1,9 +1,9 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: music-app
+Upstream-Name: ubuntu-music-app
 Source: https://launchpad.net/music-app
 
 Files: *
-Copyright: Daniel Holm <d.holmen@gmail.com>
+Copyright: Daniel Holm <d.holmen@gmail.com> and Victor Thompson <victor.thompson@gmail.com>
 License: GPL-3.0+
 
 Files: debian/*
