@@ -1,9 +1,6 @@
 /*
- * Copyleft Daniel Holm.
- *
- * Authors:
- *  Daniel Holm <d.holmen@gmail.com>
- *  Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ *                    Daniel Holm <d.holmen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,10 +33,6 @@ Dialog {
             width: units.gu(20)
             color: "#c94212"
             onClicked: {
-//                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
-//                            {
-//                                title: i18n.tr("Settings")
-//                            } )
                 pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
                 PopupUtils.close(root)
             }
@@ -92,21 +85,6 @@ Dialog {
         Switch {
             checked: true
             enabled: false
-        }
-    }
-
-    // About this application
-    Row {
-        spacing: units.gu(2)
-        Label {
-            text: i18n.tr("About")
-            width: units.gu(20)
-        }
-    } // close about row
-    Row {
-        ListItem.Subtitled {
-            text:  "Music "+appVersion
-            subText: i18n.tr("By Daniel Holm (Sweden) and\nVictor Thompson (USA)")
         }
     }
 
