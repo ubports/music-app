@@ -38,6 +38,7 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         header.visible = false
+        libraryModel.populate()
     }
 
 
@@ -108,21 +109,6 @@ MainView {
         player.play()
     }
 
-    // add track to database
-    function addToDatabase(track) {
-        // get the needed info of track
-        title = getTrackInfo(track, title) // title
-        artist = getTrackInfo(track, artist) // artist
-        album = getTrackInfo(track, album) // album
-        cover = getTrackInfo(track, cover) // cover
-        year = getTrackInfo(track, year) // year of album relase
-        //tracknr =
-        //length =
-
-        // push to database
-        Library.setMetadata(track, title, artist, album, cover, year, tracknr, length) // all the data we need.
-    }
-
     MediaPlayer {
         id: player
         muted: false
@@ -137,13 +123,31 @@ MainView {
         }
     }
 
-    // set the folder from where the music is
+    LibraryListModel {
+        id: libraryModel
+    }
+
     FolderListModel {
         id: folderModel
-        showDirectories: false
-        //filterDirectories: false
-        nameFilters: ["*.mp3", "*.ogg", "*.flac", "*.wav", "*.oga"] // file types suuported.
+        showDirectories: true
+        filterDirectories: false
+        nameFilters: [""] // file types supported.
         path: Settings.getSetting("initialized") === "true" && Settings.getSetting("currentfolder") !== "" ? Settings.getSetting("currentfolder") : homePath() + "/Music"
+        onPathChanged: {
+            console.log("Path changed: " + folderModel.path)
+        }
+    }
+
+    FolderListModel {
+        id: folderScannerModel
+        property int count: 0
+        //isRecursive: true
+        showDirectories: true
+        filterDirectories: false
+        nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
+        onPathChanged: {
+            console.log("Scanner Path changed: " + folderModel.path)
+        }
     }
 
     /* this is how a queue looks like

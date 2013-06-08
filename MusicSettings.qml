@@ -30,14 +30,18 @@ Dialog {
 
     Row {
         spacing: units.gu(2)
-        TextField {
-            id: musicDirField
-            placeholderText: folderModel.homePath() + "/Music"
-            hasClearButton: false
-            text: Settings.getSetting("currentfolder")
-
-            onTextChanged: {
-                Settings.setSetting("currentfolder", text)
+        Button {
+            id: selectdirectory
+            text: i18n.tr("Select Music folder")
+            width: units.gu(20)
+            color: "#c94212"
+            onClicked: {
+//                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
+//                            {
+//                                title: i18n.tr("Settings")
+//                            } )
+                pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
+                PopupUtils.close(root)
             }
         }
     }
@@ -146,7 +150,7 @@ Dialog {
             PopupUtils.close(root)
             // set new music dir
             Settings.initialize()
-            Settings.setSetting("currentfolder", musicDirField.text) // save music dir
+            //Settings.setSetting("currentfolder", musicDirField.text) // save music dir
             Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
             random = shuffleSwitch.checked
             console.debug("Debug: Set new music dir to: "+musicDirField.text)

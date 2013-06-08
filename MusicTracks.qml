@@ -41,7 +41,7 @@ PageStack {
     property int filelistCount: 0
 
     onFilelistCurrentIndexChanged: {
-        filelist.currentIndex = filelistCurrentIndex
+        tracklist.currentIndex = filelistCurrentIndex
     }
 
     onNeedsUpdateChanged: {
@@ -62,24 +62,23 @@ PageStack {
         }
     }
 
-    Component.onCompleted: {
-        pageStack.push(mainpage)
-        Settings.initialize()
-        console.debug("INITIALIZED")
-        if (Settings.getSetting("initialized") !== "true") {
-            // initialize settings
-            console.debug("reset settings")
-            Settings.setSetting("initialized", "true")
-            Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
-        }
-        random = Settings.getSetting("shuffle") == "1"
-        filelist.currentIndex = -1
-    }
-
     Page {
         id: mainpage
 
         title: i18n.tr("Music")
+        Component.onCompleted: {
+            pageStack.push(mainpage)
+            Settings.initialize()
+            Library.initialize()
+            console.debug("INITIALIZED")
+            if (Settings.getSetting("initialized") !== "true") {
+                // initialize settings
+                console.debug("reset settings")
+                Settings.setSetting("initialized", "true")
+                Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
+            }
+            random = Settings.getSetting("shuffle") == "1"
+        }
 
         Component {
             id: highlight
@@ -96,31 +95,41 @@ PageStack {
         }
 
         ListView {
-            id: filelist
+            id: tracklist
             width: parent.width
-            height: parent.height - units.gu(8)
-            anchors.top: tracksContext.bottom
+            anchors.top: appContext.bottom
+            anchors.bottom: playerControls.top
             highlight: highlight
             highlightFollowsCurrentItem: true
-            model: folderModel
-            delegate: fileDelegate
+            model: libraryModel.model
+            delegate: trackDelegate
             onCountChanged: {
-                filelistCount = filelist.count
+                console.log("onCountChanged: " + tracklist.count)
+                filelistCount = tracklist.count
             }
             onCurrentIndexChanged: {
-                filelistCurrentIndex = filelist.currentIndex
-                console.log("filelist.currentIndex = " + filelist.currentIndex)
+                filelistCurrentIndex = tracklist.currentIndex
+                console.log("tracklist.currentIndex = " + tracklist.currentIndex)
+            }
+            onModelChanged: {
+                console.log("PlayingList cleared")
+                PlayingList.clear()
             }
 
             Component {
-                id: fileDelegate
+                id: trackDelegate
                 ListItem.Standard {
-                    id: file
-                    progression: model.isDir
-                    icon: !model.isDir ? (trackCover === "" ? (fileName.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+filePath) : Qt.resolvedUrl("images/folder.png")
+                    id: track
+                    property string artist: model.artist
+                    property string album: model.album
+                    property string title: model.title
+                    property string cover: model.cover
+                    property string length: model.length
+                    property string file: model.file
+                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
                     iconFrame: false
                     Label {
-                        id: fileTitle
+                        id: trackTitle
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 1
@@ -129,28 +138,28 @@ PageStack {
                         anchors.leftMargin: 75
                         anchors.top: parent.top
                         anchors.topMargin: 5
-                        text: trackTitle == "" ? fileName : trackTitle
+                        text: track.title == "" ? track.file : track.title
                     }
                     Label {
-                        id: fileArtistAlbum
+                        id: trackArtistAlbum
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
                         font.pixelSize: 12
                         anchors.left: parent.left
                         anchors.leftMargin: 75
-                        anchors.top: fileTitle.bottom
-                        text: trackArtist == "" ? "" : trackArtist + " - " + trackAlbum
+                        anchors.top: trackTitle.bottom
+                        text: artist == "" ? "" : artist + " - " + album
                     }
                     Label {
-                        id: fileDuration
+                        id: trackDuration
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
                         font.pixelSize: 12
                         anchors.left: parent.left
                         anchors.leftMargin: 75
-                        anchors.top: fileArtistAlbum.bottom
+                        anchors.top: trackArtistAlbum.bottom
                         visible: false
                         text: ""
                     }
@@ -158,14 +167,14 @@ PageStack {
                     onFocusChanged: {
                         if (focus == false) {
                             selected = false
-                        } else if (file.progression == false){
+                        } else {
                             selected = false
-                            fileArtistAlbumBottom.text = fileArtistAlbum.text
-                            fileTitleBottom.text = fileTitle.text
-                            fileArtistAlbumBottom_nowplaying.text = trackArtist == "" ? "" : trackArtist + "\n" + trackAlbum
-                            fileTitleBottom_nowplaying.text = fileTitle.text
-                            iconbottom.source = file.icon
-                            iconbottom_nowplaying.source = !model.isDir && trackCover !== "" ? "image://cover-art-full/" + filePath : "images/Blank_album.jpg"
+                            fileArtistAlbumBottom.text = trackArtistAlbum.text
+                            fileTitleBottom.text = trackTitle.text
+                            fileArtistAlbumBottom_nowplaying.text = artist == "" ? "" : artist + "\n" + album
+                            fileTitleBottom_nowplaying.text = trackTitle.text
+                            iconbottom.source = track.icon
+                            iconbottom_nowplaying.source = cover !== "" ? "image://cover-art-full/" + file : "images/Blank_album.jpg"
                         }
                     }
                     MouseArea {
@@ -173,53 +182,47 @@ PageStack {
                         onDoubleClicked: {
                         }
                         onPressAndHold: {
-                            if (!model.isDir) {
-                                trackQueue.append({"title": trackTitle, "artist": trackArtist, "file": filePath})
-                            }
+                            trackQueue.append({"title": title, "artist": artist, "file": file})
                         }
                         onClicked: {
                             if (focus == false) {
                                 focus = true
                             }
-                            if (model.isDir) {
-                                PlayingList.clear()
-                                filelist.currentIndex = -1
-                                itemnum = 0
-                                playing = filelist.currentIndex
-                                console.log("Stored:" + Settings.getSetting("currentfolder"))
-                                folderModel.path = filePath
-                            } else {
-                                console.log("fileName: " + fileName)
-                                if (filelist.currentIndex == index) {
-                                    if (player.playbackState === MediaPlayer.PlayingState)  {
-                                        playindicator.source = "images/play.png"
-                                        player.pause()
-                                    } else if (player.playbackState === MediaPlayer.PausedState) {
-                                        playindicator.source = "images/pause.png"
-                                        player.play()
-                                    }
-                                } else {
-                                    player.stop()
-                                    player.source = Qt.resolvedUrl(filePath)
-                                    filelist.currentIndex = index
-                                    playing = PlayingList.indexOf(filePath)
-                                    console.log("Playing click: "+player.source)
-                                    console.log("Index: " + filelist.currentIndex)
-                                    player.play()
+                            console.log("fileName: " + file)
+                            if (tracklist.currentIndex == index) {
+                                if (player.playbackState === MediaPlayer.PlayingState)  {
+                                    playindicator.source = "images/play.png"
+                                    player.pause()
+                                } else if (player.playbackState === MediaPlayer.PausedState) {
                                     playindicator.source = "images/pause.png"
+                                    player.play()
                                 }
-                                console.log("Source: " + player.source.toString())
-                                console.log("Length: " + trackLength.toString())
+                            } else {
+                                player.stop()
+                                player.source = Qt.resolvedUrl(file)
+                                tracklist.currentIndex = index
+                                playing = PlayingList.indexOf(file)
+                                console.log("Playing click: "+player.source)
+                                console.log("Index: " + tracklist.currentIndex)
+                                player.play()
+                                playindicator.source = "images/pause.png"
                             }
+                            console.log("Source: " + player.source.toString())
+                            console.log("Length: " + length.toString())
                             playindicator_nowplaying.source = playindicator.source
                         }
                     }
                     Component.onCompleted: {
-                        if (!PlayingList.contains(filePath) && !model.isDir) {
-                            console.log("Adding file:" + filePath)
-                            PlayingList.addItem(filePath, itemnum)
+                        if (PlayingList.size() === 0) {
+                            player.source = file
+                        }
+
+                        if (!PlayingList.contains(file)) {
+                            console.log("Adding file:" + file)
+                            PlayingList.addItem(file, itemnum)
                             console.log(itemnum)
                         }
+                        console.log("Title:" + title + " Artist: " + artist)
                         itemnum++
                     }
                 }
@@ -244,6 +247,8 @@ PageStack {
                     artistsContext.font.underline = false
                     albumsContext.font.underline = false
                     listsContext.font.underline = false
+                    player.stop()
+                    libraryModel.populate()
                 }
                 Label {
                     id: tracksContext
@@ -270,6 +275,8 @@ PageStack {
                     artistsContext.font.underline = true
                     albumsContext.font.underline = false
                     listsContext.font.underline = false
+                    player.stop()
+                    libraryModel.filterArtists()
                 }
                 Label {
                     id: artistsContext
@@ -294,6 +301,8 @@ PageStack {
                     artistsContext.font.underline = false
                     albumsContext.font.underline = true
                     listsContext.font.underline = false
+                    player.stop()
+                    libraryModel.filterAlbums()
                 }
                 Label {
                     id: albumsContext
@@ -357,7 +366,8 @@ PageStack {
 
         Rectangle {
             id: playerControls
-            anchors.top: filelist.bottom
+            anchors.bottom: parent.bottom
+            //anchors.top: filelist.bottom
             height: units.gu(8)
             width: parent.width
             color: "#333333"
