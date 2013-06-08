@@ -56,6 +56,7 @@ Page {
                     Library.reset()
                     Library.initialize()
                     Settings.setSetting("currentfolder", folderModel.path)
+                    folderScannerModel.nameFilters = ["*.mp3","*.ogg","*.flac","*.wav","*.oga"]
                     folderScannerModel.path = folderModel.path
                     timer.start()
                 }

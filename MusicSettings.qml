@@ -33,6 +33,7 @@ Dialog {
             width: units.gu(20)
             color: "#c94212"
             onClicked: {
+                folderScannerModel.nameFilters = [""]
                 pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
                 PopupUtils.close(root)
             }

@@ -128,7 +128,7 @@ MainView {
         id: folderModel
         showDirectories: true
         filterDirectories: false
-        nameFilters: [""] // file types supported.
+        nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
         path: Settings.getSetting("initialized") === "true" && Settings.getSetting("currentfolder") !== "" ? Settings.getSetting("currentfolder") : homePath() + "/Music"
         onPathChanged: {
             console.log("Path changed: " + folderModel.path)
@@ -138,7 +138,8 @@ MainView {
     FolderListModel {
         id: folderScannerModel
         property int count: 0
-        //isRecursive: true
+        readsMediaMetadata: true
+        isRecursive: true
         showDirectories: true
         filterDirectories: false
         nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
