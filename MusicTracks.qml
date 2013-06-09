@@ -636,7 +636,7 @@ PageStack {
                 }
                 Label {
                     id: fileTitleBottom_nowplaying
-                    width: units.gu(30)
+                    width: units.gu(45)
                     wrapMode: Text.Wrap
                     color: "#FFFFFF"
                     maximumLineCount: 1
@@ -649,7 +649,7 @@ PageStack {
                 }
                 Label {
                     id: fileArtistAlbumBottom_nowplaying
-                    width: units.gu(30)
+                    width: units.gu(45)
                     wrapMode: Text.Wrap
                     color: "#FFFFFF"
                     maximumLineCount: 2
