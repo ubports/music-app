@@ -1,9 +1,6 @@
 /*
- * Copyleft Daniel Holm.
- *
- * Authors:
- *  Daniel Holm <d.holmen@gmail.com>
- *  Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ *                    Daniel Holm <d.holmen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,14 +27,15 @@ Dialog {
 
     Row {
         spacing: units.gu(2)
-        TextField {
-            id: musicDirField
-            placeholderText: folderModel.homePath() + "/Music"
-            hasClearButton: false
-            text: Settings.getSetting("currentfolder")
-
-            onTextChanged: {
-                Settings.setSetting("currentfolder", text)
+        Button {
+            id: selectdirectory
+            text: i18n.tr("Select Music folder")
+            width: units.gu(20)
+            color: "#c94212"
+            onClicked: {
+                folderScannerModel.nameFilters = [""]
+                pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
+                PopupUtils.close(root)
             }
         }
     }
@@ -91,21 +89,6 @@ Dialog {
         }
     }
 
-    // About this application
-    Row {
-        spacing: units.gu(2)
-        Label {
-            text: i18n.tr("About")
-            width: units.gu(20)
-        }
-    } // close about row
-    Row {
-        ListItem.Subtitled {
-            text:  "Music "+appVersion
-            subText: i18n.tr("By Daniel Holm (Sweden) and\nVictor Thompson (USA)")
-        }
-    }
-
     // LastFM settings
     Component {
         id: lastfmButton
@@ -146,7 +129,7 @@ Dialog {
             PopupUtils.close(root)
             // set new music dir
             Settings.initialize()
-            Settings.setSetting("currentfolder", musicDirField.text) // save music dir
+            //Settings.setSetting("currentfolder", musicDirField.text) // save music dir
             Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
             random = shuffleSwitch.checked
             console.debug("Debug: Set new music dir to: "+musicDirField.text)
