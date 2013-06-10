@@ -29,7 +29,7 @@ import "playing-list.js" as PlayingList
 
 MainView {
     objectName: i18n.tr("mainView")
-    applicationName: i18n.tr("Ubuntu Music App")
+    applicationName: i18n.tr("Music App")
 
     width: units.gu(50)
     height: units.gu(75)
@@ -42,7 +42,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.2'
+    property string appVersion: '0.2.2'
     property int playing: 0
     property int itemnum: 0
     property bool random: false

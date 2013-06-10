@@ -1,6 +1,6 @@
-ubuntu-music-app usr/bin/
-ubuntu-music-app.desktop usr/share/applications/
-*.qml usr/share/ubuntu-music-app/
-*.js usr/share/ubuntu-music-app/
-*.qmltheme usr/share/ubuntu-music-app/
-images usr/share/ubuntu-music-app/
+music-app usr/bin/
+music-app.desktop usr/share/applications/
+*.qml usr/share/music-app/
+*.js usr/share/music-app/
+*.qmltheme usr/share/music-app/
+images usr/share/music-app/

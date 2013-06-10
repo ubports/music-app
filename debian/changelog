@@ -1,16 +1,22 @@
-ubuntu-music-app (0.2.1) raring; urgency=low
+music-app (0.2.2) raring; urgency=low
 
-  * Changin name of application to ubuntu-music-app
+  * Changing name of application to music-app
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Sun, 09 Jun 2013 19:47:50 -0500
+
+music-app (0.2.1) raring; urgency=low
+
+  * Changing name of application to ubuntu-music-app
 
  -- Daniel Holm <daniel@daniel-laptop>  Tue, 04 Jun 2013 16:43:32 +0200
 
-ubuntu-music-app (0.2) raring; urgency=low
+music-app (0.2) raring; urgency=low
 
   * Merge of Daniel's and Victor's code
 
- -- Victor Thompson <victor.thompson@gmail.com>  Tue, 04 June 2013 11:45:00 -0400
+ -- Victor Thompson <victor.thompson@gmail.com>  Tue, 04 June 2013 11:45:00 -0500
 
-ubuntu-music-app (0.1) raring; urgency=low
+music-app (0.1) raring; urgency=low
 
   * Initial Release.
 
