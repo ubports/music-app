@@ -102,7 +102,7 @@ function getAll() {
     var db = getDatabase();
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM metadata");
-        for(var i = 0; i < rs.rows.length; i++) {
+        for(var i = rs.rows.length - 1; i >= 0; i--) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length});
