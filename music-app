@@ -1,3 +1,2 @@
 #!/bin/bash
-# run trough music dir and populate meta data database first, then run:
 qmlscene /usr/share/music-app/music-app.qml

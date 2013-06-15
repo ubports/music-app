@@ -98,7 +98,7 @@ PageStack {
             }
         }
 
-        title: i18n.tr("Music")
+        title: i18n.tr("Playlists")
         Component.onCompleted: {
             pageStack.push(mainpage)
             Settings.initialize()
@@ -267,6 +267,7 @@ PageStack {
             }
         }
 
+        // START OF OLD HEADER
         // context: albums? tracks?
         Rectangle {
             id: appContext
@@ -399,7 +400,7 @@ PageStack {
                 }
             }
 
-        }
+        } // END OF THE OLD HEADER
 
         Rectangle {
             id: playerControls

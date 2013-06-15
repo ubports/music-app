@@ -177,7 +177,7 @@ Page {
                 Rectangle {
                     Component.onCompleted: {
                         if (!model.isDir) {
-                            console.log("Scanner fileDelegate onComplete")
+                            console.log("Debug: Scanner fileDelegate onComplete")
                             Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
                         }
                     }

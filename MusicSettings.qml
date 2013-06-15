@@ -61,18 +61,23 @@ Dialog {
             width: units.gu(20)
         }
         Switch {
-            checked: false
-            enabled: false
+            id: scrobbleSwitch
+            checked: Settings.getSetting("scrobble") === "1"
         }
     }
 
     Row {
+        spacing: units.gu(2)
         Button {
-            id: lastfmlogin
-            text: i18n.tr("Login to Last.FM")
+            id: lastfmLogin
+            text: i18n.tr("Login to LastFM")
             width: units.gu(20)
             color: "#c94212"
-            //onClicked: PopupUtils.open(lastfmButton, lastfmlogin)
+            enabled: false
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("LoginLastFM.qml"))
+                PopupUtils.close(root)
+            }
         }
     }
 
@@ -89,49 +94,18 @@ Dialog {
         }
     }
 
-    // LastFM settings
-    Component {
-        id: lastfmButton
-        DefaultSheet {
-            id: sheet
-            title: "Login to Last.FM"
-            doneButton: true
-            // I want them both! cancelButton: true
-
-            Row {
-                // Username field
-                TextField {
-                        id: usernameField
-                        KeyNavigation.tab: passField
-                        hasClearButton: true
-                        placeholderText: i18n.tr("LastFM username")
-                        width: units.gu(40)
-                }
-            }
-
-            Row {
-                // add password field
-                TextField {
-                    id: passField
-                    KeyNavigation.backtab: usernameField
-                    hasClearButton: true
-                    placeholderText: i18n.tr("LastFM password")
-                    echoMode: TextInput.Password
-                    width: units.gu(40)
-                }
-            }
-
-        }
-    }
     Button {
         text: i18n.tr("Close")
         onClicked: {
             PopupUtils.close(root)
+            // push infront the tracks again
             // set new music dir
             Settings.initialize()
             //Settings.setSetting("currentfolder", musicDirField.text) // save music dir
             Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
-            random = shuffleSwitch.checked
+            random = shuffleSwitch.checked // set shuffle state variable
+            scrobble = scrobbleSwitch.checked // set scrobble state variable
+            // set function to set and load tracks in new map directly, whithout need of restart
             console.debug("Debug: Set new music dir to: "+musicDirField.text)
             console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
         }

@@ -34,7 +34,6 @@ MainView {
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
-        header.visible = false
         libraryModel.populate()
     }
 
@@ -42,14 +41,17 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.2.2'
+    property string appVersion: '0.3'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
+    property bool scrobble: false
     property string artist
     property string album
     property string song
     property string tracktitle
+    property string lastfmusername
+    property string lastfmpassword
 
     // FUNCTIONS
     function previousSong() {
@@ -170,6 +172,77 @@ MainView {
         id: singleTracks
     }
 
-    MusicTracks { id: musicTracksPage }
+    Tabs {
+        id: tabs
+        anchors.fill: parent
+
+        // First tab is all music
+        Tab {
+            id: musicTab
+            objectName: "musictab"
+            anchors.fill: parent
+            title: i18n.tr("Music")
+
+            // Tab content begins here
+            page: MusicTracks {
+                id: musicTracksPage
+            }
+        }
+
+        // Second tab is arists
+        Tab {
+            id: artistTab
+            objectName: "artisttab"
+            anchors.fill: parent
+            title: i18n.tr("Artist")
+
+            // tab content
+            page: Page {
+                id: musicaArtistPage
+            }
+        }
+
+        // third tab is albums
+        Tab {
+            id: albumTab
+            objectName: "albumtab"
+            anchors.fill: parent
+            title: i18n.tr("Albums")
+
+            // Tab content begins here
+            page: Page {
+                id: musicAlbumPage
+            }
+        }
+
+        // fourth tab is the playlists
+        Tab {
+            id: playlistTab
+            objectName: "playlisttab"
+            anchors.fill: parent
+            title: i18n.tr("Playlists")
+
+            // Tab content begins here
+            page: Page {
+                id: musicPlaylistPage
+            }
+        }
+
+        // Fifth is the settings
+        /* FIX LATER
+        Tab {
+            id: settingsTab
+            objectName: "settingstab"
+            anchors.fill: parent
+            title: i18n.tr("Settings")
+
+            // Tab content begins here
+            page: MusicSettings {
+                id: musicSettings
+            }
+        } */
+    }
+
+    //MusicTracks { id: musicTracksPage }
 
 } // main view

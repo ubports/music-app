@@ -58,7 +58,6 @@ Dialog {
     // close dialog button
     Button {
         text: i18n.tr("Close")
-        color: "#DD4814"
         onClicked: {
             PopupUtils.close(queueDialog)
         }

@@ -98,7 +98,7 @@ PageStack {
             }
         }
 
-        title: i18n.tr("Music")
+        title: i18n.tr("Artists")
         Component.onCompleted: {
             pageStack.push(mainpage)
             Settings.initialize()
