@@ -29,12 +29,8 @@ import "playing-list.js" as PlayingList
 
 MainView {
     objectName: i18n.tr("mainView")
-<<<<<<< TREE
     applicationName: i18n.tr("Music")
-=======
-    applicationName: i18n.tr("Music App")
     id: mainView
->>>>>>> MERGE-SOURCE
 
     width: units.gu(50)
     height: units.gu(75)
