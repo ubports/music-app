@@ -36,6 +36,8 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         libraryModel.populate()
+        albumModel.filterAlbums()
+        artistModel.populate()
     }
 
 
@@ -127,6 +129,14 @@ MainView {
         id: libraryModel
     }
 
+    LibraryListModel {
+        id: artistModel
+    }
+
+    LibraryListModel {
+        id: albumModel
+    }
+
     FolderListModel {
         id: folderModel
         showDirectories: true
@@ -150,13 +160,6 @@ MainView {
             console.log("Scanner Path changed: " + folderModel.path)
         }
     }
-
-    /* this is how a queue looks like
-    ListElement {
-        title: "Dancing in the Moonlight"
-        artist: "Thin Lizzy"
-        file: "dancing"
-    }*/
 
     // list of tracks on startup. This is just during development
     ListModel {
@@ -198,21 +201,21 @@ MainView {
             title: i18n.tr("Artists")
 
             // tab content
-            page: Page {
+            page: MusicArtists {
                 id: musicArtistsPage
             }
         }
 
         // third tab is albums
         Tab {
-            id: albumTab
-            objectName: "albumtab"
+            id: albumsTab
+            objectName: "albumstab"
             anchors.fill: parent
             title: i18n.tr("Albums")
 
             // Tab content begins here
-            page: Page {
-                id: musicAlbumPage
+            page: MusicAlbums {
+                id: musicAlbumsPage
             }
         }
 
@@ -224,7 +227,7 @@ MainView {
             title: i18n.tr("Playlists")
 
             // Tab content begins here
-            page: Page {
+            page: MusicPlaylists {
                 id: musicPlaylistPage
             }
         }

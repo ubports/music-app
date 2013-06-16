@@ -27,40 +27,12 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
 
-
-
 PageStack {
-    id: pageStack
+    id: artistPageStack
     anchors.fill: parent
 
-    property bool needsUpdate: false
-    property int filelistCurrentIndex: 0
-    property int filelistCount: 0
-
-    onFilelistCurrentIndexChanged: {
-        tracklist.currentIndex = filelistCurrentIndex
-    }
-
-    onNeedsUpdateChanged: {
-        if (needsUpdate === true) {
-            needsUpdate = false
-            fileDurationProgressBackground.visible = true
-            fileDurationProgressBackground_nowplaying.visible = true
-            fileDurationProgress.width = units.gu(Math.floor((player.position*100)/player.duration) * .2) // 20 max
-            fileDurationProgress_nowplaying.width = units.gu(Math.floor((player.position*100)/player.duration) * .4) // 40 max
-            fileDurationBottom.text = Math.floor((player.position/1000) / 60).toString() + ":" + (
-                        Math.floor((player.position/1000) % 60)<10 ? "0"+Math.floor((player.position/1000) % 60).toString() :
-                                                          Math.floor((player.position/1000) % 60).toString())
-            fileDurationBottom.text += " / "
-            fileDurationBottom.text += Math.floor((player.duration/1000) / 60).toString() + ":" + (
-                        Math.floor((player.duration/1000) % 60)<10 ? "0"+Math.floor((player.duration/1000) % 60).toString() :
-                                                          Math.floor((player.duration/1000) % 60).toString())
-            fileDurationBottom_nowplaying.text = fileDurationBottom.text
-        }
-    }
-
     Page {
-        id: mainpage
+        id: artistpage
 
         tools: ToolbarActions {
             // Settings dialog
@@ -100,22 +72,7 @@ PageStack {
 
         title: i18n.tr("Artists")
         Component.onCompleted: {
-            pageStack.push(mainpage)
-            Settings.initialize()
-            Library.initialize()
-            console.debug("INITIALIZED")
-            if (Settings.getSetting("initialized") !== "true") {
-                // initialize settings
-                console.debug("reset settings")
-                Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-                //Settings.setSetting("scrobble", "0") // default state of shuffle
-                //Settings.setSetting("scrobble", "0") // default state of scrobble
-                Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
-            }
-            random = Settings.getSetting("shuffle") == "1" // shuffle state
-            scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-            lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-            lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+            artistPageStack.push(artistpage)
         }
 
         Component {
@@ -133,29 +90,19 @@ PageStack {
         }
 
         ListView {
-            id: tracklist
+            id: artistlist
             width: parent.width
-            anchors.top: appContext.bottom
-            anchors.bottom: playerControls.top
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
             highlight: highlight
             highlightFollowsCurrentItem: true
-            model: libraryModel.model
-            delegate: trackDelegate
-            onCountChanged: {
-                console.log("onCountChanged: " + tracklist.count)
-                filelistCount = tracklist.count
-            }
-            onCurrentIndexChanged: {
-                filelistCurrentIndex = tracklist.currentIndex
-                console.log("tracklist.currentIndex = " + tracklist.currentIndex)
-            }
-            onModelChanged: {
-                console.log("PlayingList cleared")
-                PlayingList.clear()
-            }
+            model: artistModel.model
+            delegate: artistDelegate
 
             Component {
-                id: trackDelegate
+                id: artistDelegate
+
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist

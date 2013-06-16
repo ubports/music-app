@@ -27,40 +27,12 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
 
-
-
 PageStack {
-    id: pageStack
+    id: albumPageStack
     anchors.fill: parent
 
-    property bool needsUpdate: false
-    property int filelistCurrentIndex: 0
-    property int filelistCount: 0
-
-    onFilelistCurrentIndexChanged: {
-        tracklist.currentIndex = filelistCurrentIndex
-    }
-
-    onNeedsUpdateChanged: {
-        if (needsUpdate === true) {
-            needsUpdate = false
-            fileDurationProgressBackground.visible = true
-            fileDurationProgressBackground_nowplaying.visible = true
-            fileDurationProgress.width = units.gu(Math.floor((player.position*100)/player.duration) * .2) // 20 max
-            fileDurationProgress_nowplaying.width = units.gu(Math.floor((player.position*100)/player.duration) * .4) // 40 max
-            fileDurationBottom.text = Math.floor((player.position/1000) / 60).toString() + ":" + (
-                        Math.floor((player.position/1000) % 60)<10 ? "0"+Math.floor((player.position/1000) % 60).toString() :
-                                                          Math.floor((player.position/1000) % 60).toString())
-            fileDurationBottom.text += " / "
-            fileDurationBottom.text += Math.floor((player.duration/1000) / 60).toString() + ":" + (
-                        Math.floor((player.duration/1000) % 60)<10 ? "0"+Math.floor((player.duration/1000) % 60).toString() :
-                                                          Math.floor((player.duration/1000) % 60).toString())
-            fileDurationBottom_nowplaying.text = fileDurationBottom.text
-        }
-    }
-
     Page {
-        id: mainpage
+        id: albumpage
 
         tools: ToolbarActions {
             // Settings dialog
@@ -100,170 +72,42 @@ PageStack {
 
         title: i18n.tr("Albums")
         Component.onCompleted: {
-            pageStack.push(mainpage)
-            Settings.initialize()
-            Library.initialize()
-            console.debug("INITIALIZED")
-            if (Settings.getSetting("initialized") !== "true") {
-                // initialize settings
-                console.debug("reset settings")
-                Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-                //Settings.setSetting("scrobble", "0") // default state of shuffle
-                //Settings.setSetting("scrobble", "0") // default state of scrobble
-                Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
-            }
-            random = Settings.getSetting("shuffle") == "1" // shuffle state
-            scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-            lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-            lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+            albumPageStack.push(albumpage)
         }
 
-        Component {
-            id: highlight
-            Rectangle {
-                width: 5; height: 40
-                color: "#DD4814";
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
-                    }
-                }
-            }
-        }
-
-        ListView {
-            id: tracklist
+        GridView {
+            id: albumlist
             width: parent.width
-            anchors.top: appContext.bottom
-            anchors.bottom: playerControls.top
-            highlight: highlight
-            highlightFollowsCurrentItem: true
-            model: libraryModel.model
-            delegate: trackDelegate
-            onCountChanged: {
-                console.log("onCountChanged: " + tracklist.count)
-                filelistCount = tracklist.count
-            }
-            onCurrentIndexChanged: {
-                filelistCurrentIndex = tracklist.currentIndex
-                console.log("tracklist.currentIndex = " + tracklist.currentIndex)
-            }
-            onModelChanged: {
-                console.log("PlayingList cleared")
-                PlayingList.clear()
-            }
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            cellHeight: units.gu(7)
+            cellWidth: units.gu(7)
+            model: albumModel.model
+            delegate: albumDelegate
 
             Component {
-                id: trackDelegate
-                ListItem.Standard {
-                    id: track
-                    property string artist: model.artist
-                    property string album: model.album
-                    property string title: model.title
-                    property string cover: model.cover
-                    property string length: model.length
-                    property string file: model.file
-                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
-                    iconFrame: false
-                    Label {
-                        id: trackTitle
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 1
-                        font.pixelSize: 16
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        text: track.title == "" ? track.file : track.title
-                    }
-                    Label {
-                        id: trackArtistAlbum
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 2
-                        font.pixelSize: 12
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: trackTitle.bottom
-                        text: artist == "" ? "" : artist + " - " + album
-                    }
-                    Label {
-                        id: trackDuration
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 2
-                        font.pixelSize: 12
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: trackArtistAlbum.bottom
-                        visible: false
-                        text: ""
-                    }
-
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                            fileArtistAlbumBottom.text = trackArtistAlbum.text
-                            fileTitleBottom.text = trackTitle.text
-                            fileArtistAlbumBottom_nowplaying.text = artist == "" ? "" : artist + "\n" + album
-                            fileTitleBottom_nowplaying.text = trackTitle.text
-                            iconbottom.source = track.icon
-                            iconbottom_nowplaying.source = cover !== "" ? "image://cover-art-full/" + file : "images/Blank_album.jpg"
+                id: albumDelegate
+                Item {
+                    height: units.gu(6)
+                    width: units.gu(6)
+                    anchors.margins: 10
+                    UbuntuShape {
+                        height: parent.height
+                        width: parent.width
+                        image: Image {
+                            id: album
+                            fillMode: Image.Stretch
+                            property string artist: model.artist
+                            property string album: model.album
+                            property string title: model.title
+                            property string cover: model.cover
+                            property string length: model.length
+                            property string file: model.file
+                            source: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
                         }
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            trackQueue.append({"title": title, "artist": artist, "file": file})
-                        }
-                        onClicked: {
-                            if (focus == false) {
-                                focus = true
-                            }
-                            console.log("fileName: " + file)
-                            if (tracklist.currentIndex == index) {
-                                if (player.playbackState === MediaPlayer.PlayingState)  {
-                                    playindicator.source = "images/play.png"
-                                    player.pause()
-                                } else if (player.playbackState === MediaPlayer.PausedState) {
-                                    playindicator.source = "images/pause.png"
-                                    player.play()
-                                }
-                            } else {
-                                player.stop()
-                                player.source = Qt.resolvedUrl(file)
-                                tracklist.currentIndex = index
-                                playing = PlayingList.indexOf(file)
-                                console.log("Playing click: "+player.source)
-                                console.log("Index: " + tracklist.currentIndex)
-                                player.play()
-                                playindicator.source = "images/pause.png"
-                            }
-                            console.log("Source: " + player.source.toString())
-                            console.log("Length: " + length.toString())
-                            playindicator_nowplaying.source = playindicator.source
-                        }
-                    }
-                    Component.onCompleted: {
-                        if (PlayingList.size() === 0) {
-                            player.source = file
-                        }
-
-                        if (!PlayingList.contains(file)) {
-                            console.log("Adding file:" + file)
-                            PlayingList.addItem(file, itemnum)
-                            console.log(itemnum)
-                        }
-                        console.log("Title:" + title + " Artist: " + artist)
-                        itemnum++
                     }
                 }
+
             }
         }
 
