@@ -106,7 +106,6 @@ Dialog {
             random = shuffleSwitch.checked // set shuffle state variable
             scrobble = scrobbleSwitch.checked // set scrobble state variable
             // set function to set and load tracks in new map directly, whithout need of restart
-            console.debug("Debug: Set new music dir to: "+musicDirField.text)
             console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
         }
     }
