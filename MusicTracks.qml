@@ -68,12 +68,12 @@ PageStack {
                 id: settingsAction
                 objectName: "settingsaction"
 
-                iconSource: Qt.resolvedUrl("icons/settings@8.png")
+                iconSource: Qt.resolvedUrl("images/settings@8.png")
                 text: i18n.tr("Settings")
 
                 onTriggered: {
                     console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageStack,
                                 {
                                     title: i18n.tr("Settings")
                                 } )
@@ -85,7 +85,7 @@ PageStack {
                 id: queueAction
                 objectName: "queuesaction"
 
-                iconSource: Qt.resolvedUrl("icons/folder.png") // change this icon later
+                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
                 text: i18n.tr("Queue")
 
                 onTriggered: {
@@ -265,140 +265,6 @@ PageStack {
                     }
                 }
             }
-        }
-
-        // context: albums? tracks?
-        Rectangle {
-            id: appContext
-            anchors.top: mainpage.top
-            height: units.gu(5)
-            width: parent.width
-            color: "#333333"
-            MouseArea {
-                id: tracksContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = true
-                    artistsContext.font.underline = false
-                    albumsContext.font.underline = false
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.populate()
-                }
-                Label {
-                    id: tracksContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    text: "Music"
-                    font.underline: true
-                }
-            }
-            MouseArea {
-                id: artistsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: tracksContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = false
-                    artistsContext.font.underline = true
-                    albumsContext.font.underline = false
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.filterArtists()
-                }
-                Label {
-                    id: artistsContext
-                    width: units.gu(10)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Artists"
-                }
-            }
-            MouseArea {
-                id: albumsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: artistsContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = false
-                    artistsContext.font.underline = false
-                    albumsContext.font.underline = true
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.filterAlbums()
-                }
-                Label {
-                    id: albumsContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Albums"
-                }
-            }
-            MouseArea {
-                id: listsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: albumsContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: { // show the queue dialog
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), settingsArea,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
-                }
-                Label {
-                    id: listsContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Queue"
-                }
-            }
-            MouseArea {
-                id: settingsArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: listsContextArea.right
-                anchors.right: parent.right
-                height: units.gu(5)
-                onClicked: { // Settings dialog
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-                }
-                Image {
-                    id: settingsImage
-                    source: "images/settings.png"
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: units.gu(1)
-                }
-            }
-
         }
 
         Rectangle {

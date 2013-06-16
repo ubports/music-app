@@ -29,7 +29,7 @@ import "playing-list.js" as PlayingList
 
 MainView {
     objectName: i18n.tr("mainView")
-    applicationName: i18n.tr("Music App")
+    applicationName: i18n.tr("Music")
 
     width: units.gu(50)
     height: units.gu(75)
@@ -54,11 +54,33 @@ MainView {
     property string lastfmpassword
 
     // FUNCTIONS
+    function scrobbleSong () {
+        lastfmusername = Settings.getSetting("lastfmusername") // get username
+        lastfmpassword = Settings.getSetting("lastfmpassword") // get password
+
+        var signature = Qt.md5("api_key07c14de06e622165b5b4d55deb85f4damethodauth.getMobileSession
+                                 password"+lastfmpassword+"username"+lastfmusername+"mysecret")
+
+        var scrobblefile = player.source // get the current playing track
+        var scrobbleartist = Settings.getSetting(scrobblefile, "artist")
+        var scrobbletrack = Settings.getSetting(scrobblefile, "title")
+        var scrobblealbum = Settings.getSetting(scrobblefile, "album")
+
+        // scrobble/send the track to last.fm
+        var scrobble = new XMLHttpRequest();
+            scrobble.open("POST", "http://ws.audioscrobbler.com/2.0/");
+            scrobble.send();
+
+        console.debug("Debug: Track is now scrobbled.")
+    }
+
     function previousSong() {
         getSong(-1)
     }
+
     function nextSong() {
         getSong(1)
+        //nowPlaying() // send "now playing" to last.fm
     }
 
     function getSong(direction) {
@@ -113,6 +135,9 @@ MainView {
         muted: false
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia) {
+                // scrobble it
+                //scrobbleSong()
+                // next track
                 nextSong()
             }
         }

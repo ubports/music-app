@@ -30,7 +30,7 @@ Dialog {
         Button {
             id: selectdirectory
             text: i18n.tr("Select Music folder")
-            width: units.gu(20)
+            width: units.gu(30)
             color: "#c94212"
             onClicked: {
                 folderScannerModel.nameFilters = [""]
@@ -71,9 +71,9 @@ Dialog {
         Button {
             id: lastfmLogin
             text: i18n.tr("Login to LastFM")
-            width: units.gu(20)
+            width: units.gu(30)
             color: "#c94212"
-            enabled: false
+            enabled: Settings.getSetting("scrobble") === "1"
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("LoginLastFM.qml"))
                 PopupUtils.close(root)
@@ -98,16 +98,19 @@ Dialog {
         text: i18n.tr("Close")
         onClicked: {
             PopupUtils.close(root)
+            console.debug("Debug: Close settings")
             // push infront the tracks again
             // set new music dir
             Settings.initialize()
             //Settings.setSetting("currentfolder", musicDirField.text) // save music dir
             Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+            Settings.setSetting("scrobble", scrobbleSwitch.checked) // save shuffle state
             random = shuffleSwitch.checked // set shuffle state variable
             scrobble = scrobbleSwitch.checked // set scrobble state variable
             // set function to set and load tracks in new map directly, whithout need of restart
-            console.debug("Debug: Set new music dir to: "+musicDirField.text)
+            // disable fpr now (testing) console.debug("Debug: Set new music dir to: "+musicDirField.text)
             console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
+            console.debug("Debug: Scrobble: "+ scrobbleSwitch.checked)
         }
     }
 

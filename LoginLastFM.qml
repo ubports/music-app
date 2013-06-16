@@ -69,14 +69,14 @@ Dialog {
             text: "Login"
             color: "#c94212"
             onClicked: {
+                Settings.initialize()
                 console.debug("Debug: Login to LastFM clicked.")
                 // try to login
                 Settings.setSetting("lastfmusername", usernameField.text) // save lastfm username
                 Settings.setSetting("lastfmpassword", passField.text) // save lastfm password (should be passed by ha hash function)
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
+                lastfmusername = Settings.getSetting("lastfmusername") // get username again
+                lastfmpassword = Settings.getSetting("lastfmpassword") // get password again
+                PopupUtils.close(lastfmroot)
             }
         }
     }
@@ -89,10 +89,6 @@ Dialog {
             text: "Cancel"
             onClicked: {
                 PopupUtils.close(lastfmroot)
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
             }
         }
     }
