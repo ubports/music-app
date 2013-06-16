@@ -74,9 +74,16 @@ Dialog {
                 // try to login
                 Settings.setSetting("lastfmusername", usernameField.text) // save lastfm username
                 Settings.setSetting("lastfmpassword", passField.text) // save lastfm password (should be passed by ha hash function)
+<<<<<<< TREE
                 lastfmusername = Settings.getSetting("lastfmusername") // get username again
                 lastfmpassword = Settings.getSetting("lastfmpassword") // get password again
                 PopupUtils.close(lastfmroot)
+=======
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                            {
+                                title: i18n.tr("Settings")
+                            } )
+>>>>>>> MERGE-SOURCE
             }
         }
     }
@@ -89,6 +96,13 @@ Dialog {
             text: "Cancel"
             onClicked: {
                 PopupUtils.close(lastfmroot)
+<<<<<<< TREE
+=======
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                            {
+                                title: i18n.tr("Settings")
+                            } )
+>>>>>>> MERGE-SOURCE
             }
         }
     }

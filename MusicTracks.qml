@@ -68,12 +68,20 @@ PageStack {
                 id: settingsAction
                 objectName: "settingsaction"
 
+<<<<<<< TREE
                 iconSource: Qt.resolvedUrl("images/settings@8.png")
+=======
+                iconSource: Qt.resolvedUrl("images/settings.png")
+>>>>>>> MERGE-SOURCE
                 text: i18n.tr("Settings")
 
                 onTriggered: {
                     console.debug('Debug: Show settings')
+<<<<<<< TREE
                     PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), pageStack,
+=======
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+>>>>>>> MERGE-SOURCE
                                 {
                                     title: i18n.tr("Settings")
                                 } )
@@ -90,7 +98,7 @@ PageStack {
 
                 onTriggered: {
                     console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), settingsArea,
+                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
                                 {
                                     title: i18n.tr("Queue")
                                 } )
@@ -135,8 +143,9 @@ PageStack {
         ListView {
             id: tracklist
             width: parent.width
-            anchors.top: appContext.bottom
-            anchors.bottom: playerControls.top
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
             highlight: highlight
             highlightFollowsCurrentItem: true
             model: libraryModel.model
@@ -267,6 +276,7 @@ PageStack {
             }
         }
 
+<<<<<<< TREE
         Rectangle {
             id: playerControls
             anchors.bottom: parent.bottom
@@ -606,5 +616,7 @@ PageStack {
                 }
             }
         }
+=======
+>>>>>>> MERGE-SOURCE
     }
 }

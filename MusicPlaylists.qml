@@ -73,7 +73,7 @@ PageStack {
 
                 onTriggered: {
                     console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
                                 {
                                     title: i18n.tr("Settings")
                                 } )
@@ -90,7 +90,7 @@ PageStack {
 
                 onTriggered: {
                     console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), settingsArea,
+                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
                                 {
                                     title: i18n.tr("Queue")
                                 } )
@@ -266,6 +266,7 @@ PageStack {
                 }
             }
         }
+<<<<<<< TREE
 
         Rectangle {
             id: playerControls
@@ -606,5 +607,7 @@ PageStack {
                 }
             }
         }
+=======
+>>>>>>> MERGE-SOURCE
     }
 }

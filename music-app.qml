@@ -29,7 +29,12 @@ import "playing-list.js" as PlayingList
 
 MainView {
     objectName: i18n.tr("mainView")
+<<<<<<< TREE
     applicationName: i18n.tr("Music")
+=======
+    applicationName: i18n.tr("Music App")
+    id: mainView
+>>>>>>> MERGE-SOURCE
 
     width: units.gu(50)
     height: units.gu(75)
@@ -216,14 +221,14 @@ MainView {
 
         // Second tab is arists
         Tab {
-            id: artistTab
-            objectName: "artisttab"
+            id: artistsTab
+            objectName: "artiststab"
             anchors.fill: parent
-            title: i18n.tr("Artist")
+            title: i18n.tr("Artists")
 
             // tab content
             page: Page {
-                id: musicaArtistPage
+                id: musicArtistsPage
             }
         }
 
@@ -268,6 +273,346 @@ MainView {
         } */
     }
 
-    //MusicTracks { id: musicTracksPage }
+    Rectangle {
+        id: playerControls
+        anchors.bottom: parent.bottom
+        //anchors.top: filelist.bottom
+        height: units.gu(8)
+        width: parent.width
+        color: "#333333"
+        UbuntuShape {
+            id: forwardshape
+            height: units.gu(5)
+            width: units.gu(5)
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(2)
+            radius: "none"
+            image: Image {
+                id: forwardindicator
+                source: "images/forward.png"
+                anchors.right: parent.right
+                anchors.centerIn: parent
+                opacity: .7
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    playindicator.source = "images/pause.png"
+                    playindicator_nowplaying.source = playindicator.source
+                    nextSong()
+                }
+            }
+        }
+        UbuntuShape {
+            id: playshape
+            height: units.gu(5)
+            width: units.gu(5)
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: forwardshape.left
+            anchors.rightMargin: units.gu(1)
+            radius: "none"
+            image: Image {
+                id: playindicator
+                source: "images/play.png"
+                anchors.right: parent.right
+                anchors.centerIn: parent
+                opacity: .7
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (player.playbackState === MediaPlayer.PlayingState)  {
+                        playindicator.source = "images/play.png"
+                        player.pause()
+                    } else {
+                        playindicator.source = "images/pause.png"
+                        player.play()
+                    }
+                    playindicator_nowplaying.source = playindicator.source
+                }
+            }
+        }
+        Image {
+            id: iconbottom
+            source: ""
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(1)
+            anchors.leftMargin: units.gu(1)
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    nowPlaying.visible = true
+                    header.visible = false
+                }
+            }
+        }
+        Label {
+            id: fileTitleBottom
+            width: units.gu(30)
+            wrapMode: Text.Wrap
+            color: "#FFFFFF"
+            maximumLineCount: 1
+            font.pixelSize: 16
+            anchors.left: iconbottom.right
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(1)
+            anchors.leftMargin: units.gu(1)
+            text: ""
+        }
+        Label {
+            id: fileArtistAlbumBottom
+            width: units.gu(30)
+            wrapMode: Text.Wrap
+            color: "#FFFFFF"
+            maximumLineCount: 1
+            font.pixelSize: 12
+            anchors.left: iconbottom.right
+            anchors.top: fileTitleBottom.bottom
+            anchors.leftMargin: units.gu(1)
+            text: ""
+        }
+        Rectangle {
+            id: fileDurationProgressContainer
+            anchors.top: fileArtistAlbumBottom.bottom
+            anchors.left: iconbottom.right
+            anchors.topMargin: 2
+            anchors.leftMargin: units.gu(1)
+            width: units.gu(20)
+            color: "#333333"
+
+            Rectangle {
+                id: fileDurationProgressBackground
+                anchors.top: parent.top
+                anchors.topMargin: 2
+                height: 1
+                width: units.gu(20)
+                color: "#FFFFFF"
+                visible: false
+            }
+            Rectangle {
+                id: fileDurationProgress
+                anchors.top: parent.top
+                height: 5
+                width: 0
+                color: "#DD4814"
+            }
+        }
+        Label {
+            id: fileDurationBottom
+            anchors.top: fileArtistAlbumBottom.bottom
+            anchors.left: fileDurationProgressContainer.right
+            anchors.leftMargin: units.gu(1)
+            width: units.gu(30)
+            wrapMode: Text.Wrap
+            color: "#FFFFFF"
+            maximumLineCount: 1
+            font.pixelSize: 12
+            text: ""
+        }
+    }
+
+    Rectangle {
+        id: nowPlaying
+        anchors.fill: parent
+        height: units.gu(10)
+        color: "#333333"
+        visible: false
+        Column {
+            anchors.fill: parent
+            anchors.bottomMargin: units.gu(10)
+
+            UbuntuShape {
+                id: forwardshape_nowplaying
+                height: 50
+                width: 50
+                anchors.bottom: parent.bottom
+                anchors.left: playshape_nowplaying.right
+                anchors.leftMargin: units.gu(2)
+                radius: "none"
+                image: Image {
+                    id: forwardindicator_nowplaying
+                    source: "images/forward.png"
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        playindicator.source = "images/pause.png"
+                        playindicator_nowplaying.source = playindicator.source
+                        nextSong()
+                    }
+                }
+            }
+            UbuntuShape {
+                id: playshape_nowplaying
+                height: 50
+                width: 50
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                radius: "none"
+                image: Image {
+                    id: playindicator_nowplaying
+                    source: "images/play.png"
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (player.playbackState === MediaPlayer.PlayingState)  {
+                            playindicator.source = "images/play.png"
+                            player.pause()
+                        } else {
+                            playindicator.source = "images/pause.png"
+                            player.play()
+                        }
+                        playindicator_nowplaying.source = playindicator.source
+                    }
+                }
+            }
+            UbuntuShape {
+                id: backshape_nowplaying
+                height: 50
+                width: 50
+                anchors.bottom: parent.bottom
+                anchors.right: playshape_nowplaying.left
+                anchors.rightMargin: units.gu(2)
+                radius: "none"
+                image: Image {
+                    id: backindicator_nowplaying
+                    source: "images/back.png"
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        playindicator.source = "images/pause.png"
+                        playindicator_nowplaying.source = playindicator.source
+                        previousSong()
+                    }
+                }
+            }
+
+            Image {
+                id: iconbottom_nowplaying
+                source: ""
+                width: 300
+                height: 300
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+                anchors.leftMargin: units.gu(1)
+
+                MouseArea {
+                    anchors.fill: parent
+                    signal swipeRight;
+                    signal swipeLeft;
+                    signal swipeUp;
+                    signal swipeDown;
+
+                    property int startX;
+                    property int startY;
+
+                    onPressed: {
+                        startX = mouse.x;
+                        startY = mouse.y;
+                    }
+
+                    onReleased: {
+                        var deltax = mouse.x - startX;
+                        var deltay = mouse.y - startY;
+
+                        if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
+                            if (deltax > 30 && Math.abs(deltay) < 30) {
+                                // swipe right
+                                previousSong();
+                            } else if (deltax < -30 && Math.abs(deltay) < 30) {
+                                // swipe left
+                                nextSong();
+                            }
+                        } else {
+                            nowPlaying.visible = false
+                            header.visible = true
+                        }
+                    }
+                }
+            }
+            Label {
+                id: fileTitleBottom_nowplaying
+                width: units.gu(45)
+                wrapMode: Text.Wrap
+                color: "#FFFFFF"
+                maximumLineCount: 1
+                font.pixelSize: 24
+                anchors.top: iconbottom_nowplaying.bottom
+                anchors.topMargin: units.gu(2)
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
+                text: ""
+            }
+            Label {
+                id: fileArtistAlbumBottom_nowplaying
+                width: units.gu(45)
+                wrapMode: Text.Wrap
+                color: "#FFFFFF"
+                maximumLineCount: 2
+                font.pixelSize: 16
+                anchors.left: parent.left
+                anchors.top: fileTitleBottom_nowplaying.bottom
+                anchors.leftMargin: units.gu(2)
+                text: ""
+            }
+            Rectangle {
+                id: fileDurationProgressContainer_nowplaying
+                anchors.top: fileArtistAlbumBottom_nowplaying.bottom
+                anchors.left: parent.left
+                anchors.topMargin: units.gu(2)
+                anchors.leftMargin: units.gu(2)
+                width: units.gu(40)
+                color: "#333333"
+
+                Rectangle {
+                    id: fileDurationProgressBackground_nowplaying
+                    anchors.top: parent.top
+                    anchors.topMargin: 4
+                    height: 1
+                    width: units.gu(40)
+                    color: "#FFFFFF"
+                    visible: false
+                }
+                Rectangle {
+                    id: fileDurationProgress_nowplaying
+                    anchors.top: parent.top
+                    height: 8
+                    width: 0
+                    color: "#DD4814"
+                }
+            }
+            Label {
+                id: fileDurationBottom_nowplaying
+                anchors.top: fileDurationProgressContainer_nowplaying.bottom
+                anchors.left: parent.left
+                anchors.topMargin: units.gu(2)
+                anchors.leftMargin: units.gu(2)
+                width: units.gu(30)
+                wrapMode: Text.Wrap
+                color: "#FFFFFF"
+                maximumLineCount: 1
+                font.pixelSize: 16
+                text: ""
+            }
+        }
+
+    }
+
+//MusicTracks { id: musicTracksPage }
 
 } // main view
