@@ -108,10 +108,7 @@ Dialog {
             random = shuffleSwitch.checked // set shuffle state variable
             scrobble = scrobbleSwitch.checked // set scrobble state variable
             // set function to set and load tracks in new map directly, whithout need of restart
-<<<<<<< TREE
             // disable fpr now (testing) console.debug("Debug: Set new music dir to: "+musicDirField.text)
-=======
->>>>>>> MERGE-SOURCE
             console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
             console.debug("Debug: Scrobble: "+ scrobbleSwitch.checked)
         }
