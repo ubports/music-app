@@ -42,7 +42,7 @@ function reset() {
       });
 }
 
-// This function is used to write a setting into the database
+// This function is used to write meta data into the database
 function setMetadata(file, title, artist, album, cover, year, number, length) {
     var db = getDatabase();
     var res = "";
@@ -60,7 +60,7 @@ function setMetadata(file, title, artist, album, cover, year, number, length) {
   return res;
 }
 
-// This function is used to retrieve a setting from the database
+// This function is used to retrieve meta data from the database
 function getMetadata(file,type) {
    var db = getDatabase();
    var res="";

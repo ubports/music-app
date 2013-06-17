@@ -26,6 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
+import "scrobble.js" as Scrobble
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -36,6 +37,8 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         libraryModel.populate()
+        albumModel.filterAlbums()
+        artistModel.populate()
     }
 
 
@@ -53,35 +56,16 @@ MainView {
     property string tracktitle
     property string lastfmusername
     property string lastfmpassword
+    property string timestamp // used to scrobble
 
     // FUNCTIONS
-    function scrobbleSong () {
-        lastfmusername = Settings.getSetting("lastfmusername") // get username
-        lastfmpassword = Settings.getSetting("lastfmpassword") // get password
-
-        var signature = Qt.md5("api_key07c14de06e622165b5b4d55deb85f4damethodauth.getMobileSession
-                                 password"+lastfmpassword+"username"+lastfmusername+"mysecret")
-
-        var scrobblefile = player.source // get the current playing track
-        var scrobbleartist = Settings.getSetting(scrobblefile, "artist")
-        var scrobbletrack = Settings.getSetting(scrobblefile, "title")
-        var scrobblealbum = Settings.getSetting(scrobblefile, "album")
-
-        // scrobble/send the track to last.fm
-        var scrobble = new XMLHttpRequest();
-            scrobble.open("POST", "http://ws.audioscrobbler.com/2.0/");
-            scrobble.send();
-
-        console.debug("Debug: Track is now scrobbled.")
-    }
-
     function previousSong() {
         getSong(-1)
     }
 
+
     function nextSong() {
         getSong(1)
-        //nowPlaying() // send "now playing" to last.fm
     }
 
     function getSong(direction) {
@@ -129,6 +113,14 @@ MainView {
         }
         console.log("Playing: "+player.source)
         player.play()
+        timestamp = new Date() // contains current date and time, used to scrobble
+        // scrobble it
+        if (Settings.getSetting("scrobble") === "1") {
+            Scrobble.now_playing(player.source,timestamp) // send "now playing" to last.fm
+        }
+        else {
+            console.debug("Debug: no scrobbling")
+        }
     }
 
     MediaPlayer {
@@ -137,9 +129,14 @@ MainView {
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia) {
                 // scrobble it
-                //scrobbleSong()
-                // next track
-                nextSong()
+                if (Settings.getSetting("scrobble") === "1") {
+                    scrobblemodel.scrobble(player.source,artist,timestamp)
+                }
+                else {
+                    console.debug("Debug: no scrobbling")
+                }
+
+                nextSong() // next track
             }
         }
 
@@ -150,6 +147,14 @@ MainView {
 
     LibraryListModel {
         id: libraryModel
+    }
+
+    LibraryListModel {
+        id: artistModel
+    }
+
+    LibraryListModel {
+        id: albumModel
     }
 
     FolderListModel {
@@ -175,13 +180,6 @@ MainView {
             console.log("Scanner Path changed: " + folderModel.path)
         }
     }
-
-    /* this is how a queue looks like
-    ListElement {
-        title: "Dancing in the Moonlight"
-        artist: "Thin Lizzy"
-        file: "dancing"
-    }*/
 
     // list of tracks on startup. This is just during development
     ListModel {
@@ -223,21 +221,21 @@ MainView {
             title: i18n.tr("Artists")
 
             // tab content
-            page: Page {
+            page: MusicArtists {
                 id: musicArtistsPage
             }
         }
 
         // third tab is albums
         Tab {
-            id: albumTab
-            objectName: "albumtab"
+            id: albumsTab
+            objectName: "albumstab"
             anchors.fill: parent
             title: i18n.tr("Albums")
 
             // Tab content begins here
-            page: Page {
-                id: musicAlbumPage
+            page: MusicAlbums {
+                id: musicAlbumsPage
             }
         }
 
@@ -249,7 +247,7 @@ MainView {
             title: i18n.tr("Playlists")
 
             // Tab content begins here
-            page: Page {
+            page: MusicPlaylists {
                 id: musicPlaylistPage
             }
         }
