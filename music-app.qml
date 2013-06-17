@@ -23,6 +23,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
+import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
@@ -113,7 +114,7 @@ MainView {
         }
         console.log("Playing: "+player.source)
         player.play()
-        timestamp = new Date() // contains current date and time, used to scrobble
+        timestamp = new Date().getTime(); // contains current date and time in Unix time, used to scrobble
         // scrobble it
         if (Settings.getSetting("scrobble") === "1") {
             Scrobble.now_playing(player.source,timestamp) // send "now playing" to last.fm
@@ -142,6 +143,58 @@ MainView {
 
         onPositionChanged: {
             musicTracksPage.needsUpdate = true
+        }
+    }
+
+    // Model to send the data
+    XmlListModel {
+        id: scrobblemodel
+        query: "/"
+
+        function rpcRequest(request,handler) {
+            var http = new XMLHttpRequest()
+
+            http.open("POST",scrobble_url,true)
+            http.setRequestHeader("User-Agent", "Music-App/"+appVersion)
+            http.setRequestHeader("Content-type", "text/xml")
+            http.setRequestHeader("Content-length", request.length)
+            if (root.authenticate) {
+                http.setRequestHeader("Authorization", "Basic " + Qt.btoa(lastfmusername+":"+lastfmusername))
+            }
+            http.setRequestHeader("Connection", "close")
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    console.debug("Debug: XmlRpc::rpcRequest.onreadystatechange()")
+                    handler(http.responseText)
+                }
+            }
+            http.send(request)
+        }
+
+        function callHandler(response) {
+            xml = response
+        }
+
+        function call(cmd,params) {
+            console.debug("Debug: XmlRpc.call(",cmd,params,")")
+            var request = ""
+            request += "<?xml version='1.0'?>"
+            request += "<methodCall>"
+            request += "<methodName>" + cmd + "</methodName>"
+            request += "<params>"
+            for (var i=0; i<params.length; i++) {
+            request += "<param><value>"
+            if (typeof(params[i])=="string") {
+                request += "<string>" + params[i] + "</string>"
+            }
+            if (typeof(params[i])=="number") {
+                request += "<int>" + params[i] + "</int>"
+            }
+            request += "</value></param>"
+            }
+            request += "</params>"
+            request += "</methodCall>"
+            rpcRequest(request,callHandler)
         }
     }
 

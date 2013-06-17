@@ -25,6 +25,7 @@ import "meta-database.js" as Library*/
 var api_key = "07c14de06e622165b5b4d55deb85f4da"
 var secret_key = "14125657da06bcb14919e23e2f09de32"
 var scrobble_url = "http://ws.audioscrobbler.com/2.0/"
+var session_key = ""
 
 // FUNCTIONS
 // get settings database (later, use settings.js and meta-database.js
@@ -56,33 +57,72 @@ function getMetadata(file,type) {
   return res
 }
 
+// get playlist of user
+function getPlaylists(username) {
+    var getPlaylistsURL = scrobble_url+"?method=user.getplaylists&user="+username+"&api_key="+api_key
+    console.debug("Debug: url of call: "+getPlaylistsURL)
+
+    // send request
+    request(getPlaylistsURL)
+}
+
 // scrobble track
-function scobble(track,timestamp) {
+function scrobble(track,timestamp) {
     var artist = getMetadata(track,artist)
     var title = getMetadata(track,title)
+    var scrobbleURL = scrobble_url+"?method=track.scrobble&artist[0]="+artist+"&track[0]="+title+"&timestamp="+timestamp+"&api_key="+api_key+"&api_sig="+secret_key+"&sk="+session_key
     console.debug("Debug: Scrobble "+title+" "+artist+" "+timestamp)
     // login first
-    // lastfmlogin()
-    // send
-    // rpcRequest()
+    //authenticate(username,password)
+    // send request
+    request(scrobbleURL)
 }
 
 function now_playing(track,timestamp) {
     var artist = getMetadata(track,artist)
     var title = getMetadata(track,title)
+    var nowPlayingURL = scrobble_url+"?method=track.updateNowPlaying&artist[0]="+artist+"&track[0]="+title+"&timestamp="+timestamp+"&api_key="+api_key+"&api_sig="+secret_key+"&sk="+session_key
     console.debug("Debug: Send Now Playing "+title+" "+artist+" "+timestamp)
     // login first
     // lastfmlogin()
-    // send
-    // rpcRequest()
+    // send request
+    request(nowPlayingURL)
 }
 
-function lastfmlogin() {
-    // get signature
-    auth_signature(lastfmusername,lastfmpassword)
+function listner () {
+    console.debug("Debug: I dont know... "+this.responseText)
+}
+
+function request(URL) {
+    console.debug("Debug: "+URL)
+    var https = new XMLHttpRequest(); // create new XMLHttpRequest
+    https.onload = listner; // send data over to debugger
+
+    https.open("POST",URL,true); // use post to send to the API URL sync
+    https.setRequestHeader("User-Agent", "Music-App/"+appVersion)
+    https.send(); // now send the data
+    var xmlDoc = https.responseXML;
+    console.debug("Debug: answer of call is "+xmlDoc)
+}
+
+function authenticate(username,password) {
     // send to scrobble_url
+    var params = "?method=auth.getMobileSession&api_key="+api_key+"&api_sig="+secret_key+"&password="+password+"&username="+username
+    var signature = auth_signature(username,password)
+    var lastfmURL = scrobble_url+params
+
+    request(lastfmURL)
+
     // get response
+    //var status = xmlDoc.getElementsByTagName("status")[0].childNodes[0].nodeValue
+    //var code = xmlDoc.getElementsByTagName("code")[0].childNodes[0].nodeValue
+    // get the token key and save it in variable (is only used once, so new on for each scrobble)
+    // get the session key and save in Settings database
+
     // if correct, print logged in
+    console.debug("Debug: Last FM is now authenticated: "+xmlDoc+ "NOT! It's not done yet, stupid ;)")
+    //console.debug("Debug: Server said "+status+" and "+code)
+
     // else print error and tell user to try again
 }
 
@@ -91,57 +131,3 @@ function auth_signature(username,password) {
     var signature = Qt.md5("api_key"+api_key+"methodauth.getMobileSessionpassword"+password+"username"+username+secret_key)
     return signature
 }
-
-/*
-    // Model to send the data
-    XmlListModel {
-        id: scrobblemodel
-        query: "/"
-
-        function rpcRequest(request,handler) {
-            var http = new XMLHttpRequest()
-
-            http.open("POST",scrobble_url,true)
-            http.setRequestHeader("User-Agent", "Music-App/"+appVersion)
-            http.setRequestHeader("Content-type", "text/xml")
-            http.setRequestHeader("Content-length", request.length)
-            if (root.authenticate) {
-                http.setRequestHeader("Authorization", "Basic " + Qt.btoa(lastfmusername+":"+lastfmusername))
-            }
-            http.setRequestHeader("Connection", "close")
-            http.onreadystatechange = function() {
-                if(http.readyState == 4 && http.status == 200) {
-                    console.debug("Debug: XmlRpc::rpcRequest.onreadystatechange()")
-                    handler(http.responseText)
-                }
-            }
-            http.send(request)
-        }
-
-        function callHandler(response) {
-            xml = response
-        }
-
-        function call(cmd,params) {
-            console.debug("Debug: XmlRpc.call(",cmd,params,")")
-            var request = ""
-            request += "<?xml version='1.0'?>"
-            request += "<methodCall>"
-            request += "<methodName>" + cmd + "</methodName>"
-            request += "<params>"
-            for (var i=0; i<params.length; i++) {
-            request += "<param><value>"
-            if (typeof(params[i])=="string") {
-                request += "<string>" + params[i] + "</string>"
-            }
-            if (typeof(params[i])=="number") {
-                request += "<int>" + params[i] + "</int>"
-            }
-            request += "</value></param>"
-            }
-            request += "</params>"
-            request += "</methodCall>"
-            rpcRequest(request,callHandler)
-        }
-    }
-*/

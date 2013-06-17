@@ -21,6 +21,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
+import "scrobble.js" as Scrobble
 
 Dialog {
     id: root
@@ -70,13 +71,29 @@ Dialog {
         spacing: units.gu(2)
         Button {
             id: lastfmLogin
-            text: i18n.tr("Login to LastFM")
+            text: i18n.tr("Login to last.")
             width: units.gu(30)
             color: "#c94212"
             enabled: Settings.getSetting("scrobble") === "1"
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("LoginLastFM.qml"))
                 PopupUtils.close(root)
+            }
+        }
+    }
+
+    // import playlists from lastfm
+    Row {
+        spacing: units.gu(2)
+        Button {
+            id: lastfmPlaylists
+            text: i18n.tr("Import playlists from last.fm")
+            width: units.gu(30)
+            color: "#c94212"
+            enabled: Settings.getSetting("scrobble") === "1"
+            onClicked: {
+                console.debug("Debug: import playlists from last.fm")
+                Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
             }
         }
     }

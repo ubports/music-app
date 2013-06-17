@@ -26,7 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
-
+import "scrobble.js" as Scrobble
 
 
 PageStack {
@@ -63,6 +63,20 @@ PageStack {
         id: mainpage
 
         tools: ToolbarActions {
+            // import playlist from lastfm
+            Action {
+                id: lastfmPlaylistAction
+                objectName: "lastfmplaylistaction"
+
+                iconSource: Qt.resolvedUrl("icons/lastfm.png")
+                text: i18n.tr("Get from Last.fm")
+
+                onTriggered: {
+                    console.debug("Debug: User pressed action to import playlist from lastfm")
+                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
+                }
+            }
+
             // Settings dialog
             Action {
                 id: settingsAction
