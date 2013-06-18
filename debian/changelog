@@ -1,3 +1,16 @@
+music-app (0.3) raring; urgency=low
+
+  * Back to tabs.
+  * Album covers in Albums tab.
+  * New toolbar.
+  * Initial code for scrobble support.
+  * Inital UI for last.fm - login dialog, import playlists.
+  * Inital code for playlists.
+  * Bug fixes for the library.
+  * Added a temporary reset settings button in settings.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Tue, 18 Jun 2013 14:45:50 +0200
+
 music-app (0.2.2) raring; urgency=low
 
   * Changing name of application to music-app
