@@ -276,6 +276,24 @@ MainView {
             // tab content
             page: MusicArtists {
                 id: musicArtistsPage
+
+                tools: ToolbarActions {
+                    // Queue dialog
+                    Action {
+                        objectName: "queuesaction"
+
+                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+                        text: i18n.tr("Queue")
+
+                        onTriggered: {
+                            console.debug('Debug: Show queue')
+                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                            {
+                                                title: i18n.tr("Queue")
+                                            } )
+                        }
+                    }
+                }
             }
         }
 
@@ -289,6 +307,24 @@ MainView {
             // Tab content begins here
             page: MusicAlbums {
                 id: musicAlbumsPage
+
+                tools: ToolbarActions {
+                    // Queue dialog
+                    Action {
+                        objectName: "queuesaction"
+
+                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+                        text: i18n.tr("Queue")
+
+                        onTriggered: {
+                            console.debug('Debug: Show queue')
+                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                            {
+                                                title: i18n.tr("Queue")
+                                            } )
+                        }
+                    }
+                }
             }
         }
 
@@ -302,6 +338,37 @@ MainView {
             // Tab content begins here
             page: MusicPlaylists {
                 id: musicPlaylistPage
+
+                tools: ToolbarActions {
+                    // import playlist from lastfm
+                    Action {
+                        objectName: "lastfmplaylistaction"
+
+                        iconSource: Qt.resolvedUrl("images/lastfm.png")
+                        text: i18n.tr("Get from Last.fm")
+
+                        onTriggered: {
+                            console.debug("Debug: User pressed action to import playlist from lastfm")
+                            Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
+                        }
+                    }
+
+                    // Queue dialog
+                    Action {
+                        objectName: "queuesaction"
+
+                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+                        text: i18n.tr("Queue")
+
+                        onTriggered: {
+                            console.debug('Debug: Show queue')
+                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                            {
+                                                title: i18n.tr("Queue")
+                                            } )
+                        }
+                    }
+                }
             }
         }
 

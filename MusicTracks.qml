@@ -65,10 +65,8 @@ PageStack {
         tools: ToolbarActions {
             // Settings dialog
             Action {
-                id: settingsAction
                 objectName: "settingsaction"
                 iconSource: Qt.resolvedUrl("images/settings@8.png")
-
                 text: i18n.tr("Settings")
 
                 onTriggered: {
@@ -82,9 +80,7 @@ PageStack {
 
             // Queue dialog
             Action {
-                id: queueAction
                 objectName: "queuesaction"
-
                 iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
                 text: i18n.tr("Queue")
 
