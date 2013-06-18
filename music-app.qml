@@ -28,6 +28,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
 
 MainView {
     objectName: i18n.tr("mainView")
@@ -208,6 +209,10 @@ MainView {
 
     LibraryListModel {
         id: albumModel
+    }
+
+    LibraryListModel {
+        id: playlistModel
     }
 
     FolderListModel {
@@ -660,6 +665,4 @@ MainView {
 
     }
 
-//MusicTracks { id: musicTracksPage }
-
-} // main view
+} // end of main view

@@ -15,12 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*import QtQuick 2.0
-import QtQuick.LocalStorage 2.0
-import QtQuick.XmlListModel 2.0
-import "settings.js" as Settings
-import "meta-database.js" as Library*/
-
 // VARIABLES
 var api_key = "07c14de06e622165b5b4d55deb85f4da"
 var secret_key = "14125657da06bcb14919e23e2f09de32"

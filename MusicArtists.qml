@@ -40,7 +40,7 @@ PageStack {
                 id: settingsAction
                 objectName: "settingsaction"
 
-                iconSource: Qt.resolvedUrl("icons/settings@8.png")
+                iconSource: Qt.resolvedUrl("images/settings@8.png")
                 text: i18n.tr("Settings")
 
                 onTriggered: {
@@ -57,7 +57,7 @@ PageStack {
                 id: queueAction
                 objectName: "queuesaction"
 
-                iconSource: Qt.resolvedUrl("icons/folder.png") // change this icon later
+                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
                 text: i18n.tr("Queue")
 
                 onTriggered: {

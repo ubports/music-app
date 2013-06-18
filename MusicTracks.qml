@@ -26,7 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
-
+import "playlists.js" as Playlists
 
 
 PageStack {
@@ -63,6 +63,19 @@ PageStack {
         id: mainpage
 
         tools: ToolbarActions {
+            // Add playlist
+            Action {
+                id: playlistAction
+                objectName: "playlistaction"
+                iconSource: Qt.resolvedUrl("images/playlist.png")
+                text: i18n.tr("Add Playlist")
+                onTriggered: {
+                    console.debug("Debug: User pressed add playlist")
+                    // show new playlist dialog
+                    PopupUtils.open(MusicPlaylists.addPlaylistDialog, mainView)
+                }
+            }
+
             // Settings dialog
             Action {
                 id: settingsAction
@@ -103,7 +116,7 @@ PageStack {
             pageStack.push(mainpage)
             Settings.initialize()
             Library.initialize()
-            console.debug("INITIALIZED")
+            console.debug("INITIALIZED in tracks")
             if (Settings.getSetting("initialized") !== "true") {
                 // initialize settings
                 console.debug("reset settings")
@@ -112,6 +125,9 @@ PageStack {
                 //Settings.setSetting("scrobble", "0") // default state of scrobble
                 Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
             }
+            // initialize playlist
+            Playlists.initializePlaylists()
+            // everything else
             random = Settings.getSetting("shuffle") == "1" // shuffle state
             scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
             lastfmusername = Settings.getSetting("lastfmusername") // lastfm username

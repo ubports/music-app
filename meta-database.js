@@ -38,6 +38,7 @@ function reset() {
             // Create the table if it doesn't already exist
             // If the table exists, this is skipped
             tx.executeSql('DROP TABLE metadata');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT)');
             //tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT)');
       });
 }

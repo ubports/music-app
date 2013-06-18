@@ -22,6 +22,9 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
+import "meta-database.js" as Library
+import "playing-list.js" as PlayingList
 
 Dialog {
     id: root
@@ -108,6 +111,17 @@ Dialog {
         Switch {
             checked: true
             enabled: false
+        }
+    }
+
+    // developer button
+    Button {
+        text: i18n.tr("Clean everything!")
+        color: "red"
+        onClicked: {
+            Settings.reset()
+            Library.reset()
+            Playlists.reset()
         }
     }
 

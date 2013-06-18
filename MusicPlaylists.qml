@@ -27,6 +27,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
 
 
 PageStack {
@@ -61,6 +62,38 @@ PageStack {
 
     Page {
         id: mainpage
+        // add playlist dialog
+        Component {
+             id: addPlaylistDialog
+             Dialog {
+                 id: dialogueAddPlaylist
+                 title: i18n.tr("Create new playlist")
+                 text: i18n.tr("Set the name of the new playlist.")
+
+                 TextField {
+                     id: nameField
+                 }
+
+                 Button {
+                     text: i18n.tr("Sök")
+                     color: "green"
+                     onClicked: {
+                         console.debug("Debug: New playlist name is "+nameField.text)
+                         // create the new playlist in database
+                         console.debug("Debug: "+Playlists.addPlaylist(nameField.text))
+                         // refresh list in tab
+                         // close the dialog
+                         onClicked: PopupUtils.close(dialogueAddPlaylist)
+                     }
+                 }
+
+                 Button {
+                     text: i18n.tr("Close")
+                     color: "red"
+                     onClicked: PopupUtils.close(dialogueAddPlaylist)
+                 }
+             }
+        }
 
         tools: ToolbarActions {
             // import playlist from lastfm
@@ -68,7 +101,7 @@ PageStack {
                 id: lastfmPlaylistAction
                 objectName: "lastfmplaylistaction"
 
-                iconSource: Qt.resolvedUrl("icons/lastfm.png")
+                iconSource: Qt.resolvedUrl("images/lastfm.png")
                 text: i18n.tr("Get from Last.fm")
 
                 onTriggered: {
@@ -82,7 +115,7 @@ PageStack {
                 id: settingsAction
                 objectName: "settingsaction"
 
-                iconSource: Qt.resolvedUrl("icons/settings@8.png")
+                iconSource: Qt.resolvedUrl("images/settings@8.png")
                 text: i18n.tr("Settings")
 
                 onTriggered: {
@@ -99,7 +132,7 @@ PageStack {
                 id: queueAction
                 objectName: "queuesaction"
 
-                iconSource: Qt.resolvedUrl("icons/folder.png") // change this icon later
+                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
                 text: i18n.tr("Queue")
 
                 onTriggered: {
@@ -149,7 +182,6 @@ PageStack {
         ListView {
             id: tracklist
             width: parent.width
-            anchors.top: appContext.bottom
             anchors.bottom: playerControls.top
             highlight: highlight
             highlightFollowsCurrentItem: true
