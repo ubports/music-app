@@ -57,7 +57,7 @@ function getPlaylists(username) {
     console.debug("Debug: url of call: "+getPlaylistsURL)
 
     // send request
-    request(getPlaylistsURL)
+    // not ready yetrequest(getPlaylistsURL)
 }
 
 // scrobble track
@@ -69,7 +69,7 @@ function scrobble(track,timestamp) {
     // login first
     //authenticate(username,password)
     // send request
-    request(scrobbleURL)
+    // not ready yetrequest(scrobbleURL) // send the request
 }
 
 function now_playing(track,timestamp) {
@@ -80,7 +80,7 @@ function now_playing(track,timestamp) {
     // login first
     // lastfmlogin()
     // send request
-    request(nowPlayingURL)
+    // not ready yetrequest(nowPlayingURL)
 }
 
 function listner () {
@@ -105,7 +105,7 @@ function authenticate(username,password) {
     var signature = auth_signature(username,password)
     var lastfmURL = scrobble_url+params
 
-    request(lastfmURL)
+    // not ready yetrequest(lastfmURL)
 
     // get response
     //var status = xmlDoc.getElementsByTagName("status")[0].childNodes[0].nodeValue
