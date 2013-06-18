@@ -71,10 +71,10 @@ Dialog {
         spacing: units.gu(2)
         Button {
             id: lastfmLogin
-            text: i18n.tr("Login to last.")
+            text: i18n.tr("Login to last.fm")
             width: units.gu(30)
             color: "#c94212"
-            enabled: Settings.getSetting("scrobble") === "1"
+            enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("LoginLastFM.qml"))
                 PopupUtils.close(root)
@@ -90,7 +90,7 @@ Dialog {
             text: i18n.tr("Import playlists from last.fm")
             width: units.gu(30)
             color: "#c94212"
-            enabled: Settings.getSetting("scrobble") === "1"
+            enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
             onClicked: {
                 console.debug("Debug: import playlists from last.fm")
                 Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))

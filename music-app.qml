@@ -31,7 +31,7 @@ import "scrobble.js" as Scrobble
 
 MainView {
     objectName: i18n.tr("mainView")
-    applicationName: i18n.tr("Music")
+    applicationName: i18n.tr("music-app")
     id: mainView
 
     width: units.gu(50)
