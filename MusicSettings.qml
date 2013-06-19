@@ -115,7 +115,7 @@ Dialog {
     }
 
     // developer button
-    Button {
+    /*Button {
         text: i18n.tr("Clean everything!")
         color: "red"
         onClicked: {
@@ -123,7 +123,7 @@ Dialog {
             Library.reset()
             Playlists.reset()
         }
-    }
+    }*/
 
     Button {
         text: i18n.tr("Close")
