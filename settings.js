@@ -73,3 +73,12 @@ function getSetting(setting) {
   // For more advanced projects, this should probably be handled through error codes
   return res
 }
+
+// be carefull, this will drop the settings (db
+function reset() {
+    var db = getDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql('DROP TABLE settings');
+      });
+}

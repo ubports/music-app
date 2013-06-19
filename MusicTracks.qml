@@ -26,7 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
-
+import "playlists.js" as Playlists
 
 
 PageStack {
@@ -62,19 +62,72 @@ PageStack {
     Page {
         id: mainpage
 
+        tools: ToolbarActions {
+            // Add playlist
+            Action {
+                id: playlistAction
+                objectName: "playlistaction"
+                iconSource: Qt.resolvedUrl("images/playlist.png")
+                text: i18n.tr("Add Playlist")
+                onTriggered: {
+                    console.debug("Debug: User pressed add playlist")
+                    // show new playlist dialog
+                    PopupUtils.open(MusicPlaylists.addPlaylistDialog, mainView)
+                }
+            }
+
+            // Settings dialog
+            Action {
+                objectName: "settingsaction"
+                iconSource: Qt.resolvedUrl("images/settings@8.png")
+                text: i18n.tr("Settings")
+
+                onTriggered: {
+                    console.debug('Debug: Show settings')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
+                }
+            }
+
+            // Queue dialog
+            Action {
+                objectName: "queuesaction"
+                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+                text: i18n.tr("Queue")
+
+                onTriggered: {
+                    console.debug('Debug: Show queue')
+                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                {
+                                    title: i18n.tr("Queue")
+                                } )
+                }
+            }
+        }
+
         title: i18n.tr("Music")
         Component.onCompleted: {
             pageStack.push(mainpage)
             Settings.initialize()
             Library.initialize()
-            console.debug("INITIALIZED")
+            console.debug("INITIALIZED in tracks")
             if (Settings.getSetting("initialized") !== "true") {
                 // initialize settings
                 console.debug("reset settings")
-                Settings.setSetting("initialized", "true")
+                Settings.setSetting("initialized", "true") // setting to make sure the DB is there
+                //Settings.setSetting("scrobble", "0") // default state of shuffle
+                //Settings.setSetting("scrobble", "0") // default state of scrobble
                 Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
             }
-            random = Settings.getSetting("shuffle") == "1"
+            // initialize playlist
+            Playlists.initializePlaylists()
+            // everything else
+            random = Settings.getSetting("shuffle") == "1" // shuffle state
+            scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
+            lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
+            lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
         }
 
         Component {
@@ -94,8 +147,9 @@ PageStack {
         ListView {
             id: tracklist
             width: parent.width
-            anchors.top: appContext.bottom
-            anchors.bottom: playerControls.top
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
             highlight: highlight
             highlightFollowsCurrentItem: true
             model: libraryModel.model
@@ -222,481 +276,6 @@ PageStack {
                         console.log("Title:" + title + " Artist: " + artist)
                         itemnum++
                     }
-                }
-            }
-        }
-
-        // context: albums? tracks?
-        Rectangle {
-            id: appContext
-            anchors.top: mainpage.top
-            height: units.gu(5)
-            width: parent.width
-            color: "#333333"
-            MouseArea {
-                id: tracksContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = true
-                    artistsContext.font.underline = false
-                    albumsContext.font.underline = false
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.populate()
-                }
-                Label {
-                    id: tracksContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    text: "Music"
-                    font.underline: true
-                }
-            }
-            MouseArea {
-                id: artistsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: tracksContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = false
-                    artistsContext.font.underline = true
-                    albumsContext.font.underline = false
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.filterArtists()
-                }
-                Label {
-                    id: artistsContext
-                    width: units.gu(10)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Artists"
-                }
-            }
-            MouseArea {
-                id: albumsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: artistsContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-                    tracksContext.font.underline = false
-                    artistsContext.font.underline = false
-                    albumsContext.font.underline = true
-                    listsContext.font.underline = false
-                    player.stop()
-                    libraryModel.filterAlbums()
-                }
-                Label {
-                    id: albumsContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Albums"
-                }
-            }
-            MouseArea {
-                id: listsContextArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: albumsContextArea.right
-                width: units.gu(10)
-                height: units.gu(5)
-                onClicked: {
-
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), settingsArea,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
-                }
-                Label {
-                    id: listsContext
-                    width: units.gu(15)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 20
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    text: "Queue"
-                }
-            }
-            MouseArea {
-                id: settingsArea
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: listsContextArea.right
-                anchors.right: parent.right
-                height: units.gu(5)
-                onClicked: {
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), settingsArea,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-                }
-                Image {
-                    id: settingsImage
-                    source: "images/settings.png"
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: units.gu(1)
-                }
-            }
-
-        }
-
-        Rectangle {
-            id: playerControls
-            anchors.bottom: parent.bottom
-            //anchors.top: filelist.bottom
-            height: units.gu(8)
-            width: parent.width
-            color: "#333333"
-            UbuntuShape {
-                id: forwardshape
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(2)
-                radius: "none"
-                image: Image {
-                    id: forwardindicator
-                    source: "images/forward.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        playindicator.source = "images/pause.png"
-                        playindicator_nowplaying.source = playindicator.source
-                        nextSong()
-                    }
-                }
-            }
-            UbuntuShape {
-                id: playshape
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: forwardshape.left
-                anchors.rightMargin: units.gu(1)
-                radius: "none"
-                image: Image {
-                    id: playindicator
-                    source: "images/play.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (player.playbackState === MediaPlayer.PlayingState)  {
-                            playindicator.source = "images/play.png"
-                            player.pause()
-                        } else {
-                            playindicator.source = "images/pause.png"
-                            player.play()
-                        }
-                        playindicator_nowplaying.source = playindicator.source
-                    }
-                }
-            }
-            Image {
-                id: iconbottom
-                source: ""
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        pageStack.push(nowPlaying)
-                    }
-                }
-            }
-            Label {
-                id: fileTitleBottom
-                width: units.gu(30)
-                wrapMode: Text.Wrap
-                color: "#FFFFFF"
-                maximumLineCount: 1
-                font.pixelSize: 16
-                anchors.left: iconbottom.right
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-                text: ""
-            }
-            Label {
-                id: fileArtistAlbumBottom
-                width: units.gu(30)
-                wrapMode: Text.Wrap
-                color: "#FFFFFF"
-                maximumLineCount: 1
-                font.pixelSize: 12
-                anchors.left: iconbottom.right
-                anchors.top: fileTitleBottom.bottom
-                anchors.leftMargin: units.gu(1)
-                text: ""
-            }
-            Rectangle {
-                id: fileDurationProgressContainer
-                anchors.top: fileArtistAlbumBottom.bottom
-                anchors.left: iconbottom.right
-                anchors.topMargin: 2
-                anchors.leftMargin: units.gu(1)
-                width: units.gu(20)
-                color: "#333333"
-
-                Rectangle {
-                    id: fileDurationProgressBackground
-                    anchors.top: parent.top
-                    anchors.topMargin: 2
-                    height: 1
-                    width: units.gu(20)
-                    color: "#FFFFFF"
-                    visible: false
-                }
-                Rectangle {
-                    id: fileDurationProgress
-                    anchors.top: parent.top
-                    height: 5
-                    width: 0
-                    color: "#DD4814"
-                }
-            }
-            Label {
-                id: fileDurationBottom
-                anchors.top: fileArtistAlbumBottom.bottom
-                anchors.left: fileDurationProgressContainer.right
-                anchors.leftMargin: units.gu(1)
-                width: units.gu(30)
-                wrapMode: Text.Wrap
-                color: "#FFFFFF"
-                maximumLineCount: 1
-                font.pixelSize: 12
-                text: ""
-            }
-        }
-    }
-
-    Page {
-        id: nowPlaying
-        visible: false
-
-        Rectangle {
-            anchors.fill: parent
-            height: units.gu(10)
-            color: "#333333"
-            Column {
-                anchors.fill: parent
-                anchors.bottomMargin: units.gu(10)
-
-                UbuntuShape {
-                    id: forwardshape_nowplaying
-                    height: 50
-                    width: 50
-                    anchors.bottom: parent.bottom
-                    anchors.left: playshape_nowplaying.right
-                    anchors.leftMargin: units.gu(2)
-                    radius: "none"
-                    image: Image {
-                        id: forwardindicator_nowplaying
-                        source: "images/forward.png"
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
-                        opacity: .7
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            playindicator.source = "images/pause.png"
-                            playindicator_nowplaying.source = playindicator.source
-                            nextSong()
-                        }
-                    }
-                }
-                UbuntuShape {
-                    id: playshape_nowplaying
-                    height: 50
-                    width: 50
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    radius: "none"
-                    image: Image {
-                        id: playindicator_nowplaying
-                        source: "images/play.png"
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
-                        opacity: .7
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if (player.playbackState === MediaPlayer.PlayingState)  {
-                                playindicator.source = "images/play.png"
-                                player.pause()
-                            } else {
-                                playindicator.source = "images/pause.png"
-                                player.play()
-                            }
-                            playindicator_nowplaying.source = playindicator.source
-                        }
-                    }
-                }
-                UbuntuShape {
-                    id: backshape_nowplaying
-                    height: 50
-                    width: 50
-                    anchors.bottom: parent.bottom
-                    anchors.right: playshape_nowplaying.left
-                    anchors.rightMargin: units.gu(2)
-                    radius: "none"
-                    image: Image {
-                        id: backindicator_nowplaying
-                        source: "images/back.png"
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
-                        opacity: .7
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            playindicator.source = "images/pause.png"
-                            playindicator_nowplaying.source = playindicator.source
-                            previousSong()
-                        }
-                    }
-                }
-
-                Image {
-                    id: iconbottom_nowplaying
-                    source: ""
-                    width: 300
-                    height: 300
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    anchors.leftMargin: units.gu(1)
-
-                    MouseArea {
-                        anchors.fill: parent
-                        signal swipeRight;
-                        signal swipeLeft;
-                        signal swipeUp;
-                        signal swipeDown;
-
-                        property int startX;
-                        property int startY;
-
-                        onPressed: {
-                            startX = mouse.x;
-                            startY = mouse.y;
-                        }
-
-                        onReleased: {
-                            var deltax = mouse.x - startX;
-                            var deltay = mouse.y - startY;
-
-                            if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
-                                if (deltax > 30 && Math.abs(deltay) < 30) {
-                                    // swipe right
-                                    previousSong();
-                                } else if (deltax < -30 && Math.abs(deltay) < 30) {
-                                    // swipe left
-                                    nextSong();
-                                }
-                            } else {
-                                pageStack.pop(nowPlaying)
-                            }
-                        }
-                    }
-                }
-                Label {
-                    id: fileTitleBottom_nowplaying
-                    width: units.gu(45)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 24
-                    anchors.top: iconbottom_nowplaying.bottom
-                    anchors.topMargin: units.gu(2)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(2)
-                    text: ""
-                }
-                Label {
-                    id: fileArtistAlbumBottom_nowplaying
-                    width: units.gu(45)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 2
-                    font.pixelSize: 16
-                    anchors.left: parent.left
-                    anchors.top: fileTitleBottom_nowplaying.bottom
-                    anchors.leftMargin: units.gu(2)
-                    text: ""
-                }
-                Rectangle {
-                    id: fileDurationProgressContainer_nowplaying
-                    anchors.top: fileArtistAlbumBottom_nowplaying.bottom
-                    anchors.left: parent.left
-                    anchors.topMargin: units.gu(2)
-                    anchors.leftMargin: units.gu(2)
-                    width: units.gu(40)
-                    color: "#333333"
-
-                    Rectangle {
-                        id: fileDurationProgressBackground_nowplaying
-                        anchors.top: parent.top
-                        anchors.topMargin: 4
-                        height: 1
-                        width: units.gu(40)
-                        color: "#FFFFFF"
-                        visible: false
-                    }
-                    Rectangle {
-                        id: fileDurationProgress_nowplaying
-                        anchors.top: parent.top
-                        height: 8
-                        width: 0
-                        color: "#DD4814"
-                    }
-                }
-                Label {
-                    id: fileDurationBottom_nowplaying
-                    anchors.top: fileDurationProgressContainer_nowplaying.bottom
-                    anchors.left: parent.left
-                    anchors.topMargin: units.gu(2)
-                    anchors.leftMargin: units.gu(2)
-                    width: units.gu(30)
-                    wrapMode: Text.Wrap
-                    color: "#FFFFFF"
-                    maximumLineCount: 1
-                    font.pixelSize: 16
-                    text: ""
                 }
             }
         }

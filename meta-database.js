@@ -38,11 +38,12 @@ function reset() {
             // Create the table if it doesn't already exist
             // If the table exists, this is skipped
             tx.executeSql('DROP TABLE metadata');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT)');
             //tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT)');
       });
 }
 
-// This function is used to write a setting into the database
+// This function is used to write meta data into the database
 function setMetadata(file, title, artist, album, cover, year, number, length) {
     var db = getDatabase();
     var res = "";
@@ -60,7 +61,7 @@ function setMetadata(file, title, artist, album, cover, year, number, length) {
   return res;
 }
 
-// This function is used to retrieve a setting from the database
+// This function is used to retrieve meta data from the database
 function getMetadata(file,type) {
    var db = getDatabase();
    var res="";

@@ -167,7 +167,7 @@ Page {
             id: filelist
             width: parent.width
             height: parent.height - units.gu(8)
-            anchors.top: tracksContext.bottom
+            anchors.top: parent.top
             model: folderScannerModel
             onCountChanged: {
                 filelistCount = filelist.count
@@ -177,7 +177,7 @@ Page {
                 Rectangle {
                     Component.onCompleted: {
                         if (!model.isDir) {
-                            console.log("Scanner fileDelegate onComplete")
+                            console.log("Debug: Scanner fileDelegate onComplete")
                             Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
                         }
                     }

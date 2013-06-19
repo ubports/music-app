@@ -1,5 +1,6 @@
 [Desktop Entry]
-Version=0.2
+Encoding=UTF-8
+Version=0.3
 Name=Music
 Comment=Ubuntu Touch Music Player
 Exec=/usr/bin/qmlscene /usr/share/music-app/music-app.qml
@@ -8,5 +9,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 X-Ubuntu-Touch=true
-X-Ubuntu-StageHint=SideStage
-Name[sv_SE]=music-app.desktop
+X-Ubuntu-StageHint=music-app
+Name[sv_SE]=Musik
