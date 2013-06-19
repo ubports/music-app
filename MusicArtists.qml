@@ -27,191 +27,146 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
 
-PageStack {
-    id: artistPageStack
-    anchors.fill: parent
+Page {
+    title: i18n.tr("Artists")
 
-    Page {
-        id: artistpage
-
-        tools: ToolbarActions {
-            // Settings dialog
-            Action {
-                id: settingsAction
-                objectName: "settingsaction"
-
-                iconSource: Qt.resolvedUrl("images/settings@8.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-                }
-            }
-
-            // Queue dialog
-            Action {
-                id: queueAction
-                objectName: "queuesaction"
-
-                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
-                text: i18n.tr("Queue")
-
-                onTriggered: {
-                    console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
+    Component {
+        id: highlight
+        Rectangle {
+            width: 5; height: 40
+            color: "#DD4814";
+            Behavior on y {
+                SpringAnimation {
+                    spring: 3
+                    damping: 0.2
                 }
             }
         }
+    }
 
-        title: i18n.tr("Artists")
-        Component.onCompleted: {
-            artistPageStack.push(artistpage)
-        }
+    ListView {
+        id: artistlist
+        width: parent.width
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: units.gu(8)
+        highlight: highlight
+        highlightFollowsCurrentItem: true
+        model: artistModel.model
+        delegate: artistDelegate
 
         Component {
-            id: highlight
-            Rectangle {
-                width: 5; height: 40
-                color: "#DD4814";
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
+            id: artistDelegate
+
+            ListItem.Standard {
+                id: track
+                property string artist: model.artist
+                property string album: model.album
+                property string title: model.title
+                property string cover: model.cover
+                property string length: model.length
+                property string file: model.file
+                icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                iconFrame: false
+                Label {
+                    id: trackTitle
+                    width: 400
+                    wrapMode: Text.Wrap
+                    maximumLineCount: 1
+                    font.pixelSize: 16
+                    anchors.left: parent.left
+                    anchors.leftMargin: 75
+                    anchors.top: parent.top
+                    anchors.topMargin: 5
+                    text: track.title == "" ? track.file : track.title
+                }
+                Label {
+                    id: trackArtistAlbum
+                    width: 400
+                    wrapMode: Text.Wrap
+                    maximumLineCount: 2
+                    font.pixelSize: 12
+                    anchors.left: parent.left
+                    anchors.leftMargin: 75
+                    anchors.top: trackTitle.bottom
+                    text: artist == "" ? "" : artist + " - " + album
+                }
+                Label {
+                    id: trackDuration
+                    width: 400
+                    wrapMode: Text.Wrap
+                    maximumLineCount: 2
+                    font.pixelSize: 12
+                    anchors.left: parent.left
+                    anchors.leftMargin: 75
+                    anchors.top: trackArtistAlbum.bottom
+                    visible: false
+                    text: ""
+                }
+
+                onFocusChanged: {
+                    if (focus == false) {
+                        selected = false
+                    } else {
+                        selected = false
+                        fileArtistAlbumBottom.text = trackArtistAlbum.text
+                        fileTitleBottom.text = trackTitle.text
+                        fileArtistAlbumBottom_nowplaying.text = artist == "" ? "" : artist + "\n" + album
+                        fileTitleBottom_nowplaying.text = trackTitle.text
+                        iconbottom.source = track.icon
+                        iconbottom_nowplaying.source = cover !== "" ? "image://cover-art-full/" + file : "images/Blank_album.jpg"
                     }
                 }
-            }
-        }
-
-        ListView {
-            id: artistlist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
-            highlight: highlight
-            highlightFollowsCurrentItem: true
-            model: artistModel.model
-            delegate: artistDelegate
-
-            Component {
-                id: artistDelegate
-
-                ListItem.Standard {
-                    id: track
-                    property string artist: model.artist
-                    property string album: model.album
-                    property string title: model.title
-                    property string cover: model.cover
-                    property string length: model.length
-                    property string file: model.file
-                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
-                    iconFrame: false
-                    Label {
-                        id: trackTitle
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 1
-                        font.pixelSize: 16
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        text: track.title == "" ? track.file : track.title
+                MouseArea {
+                    anchors.fill: parent
+                    onDoubleClicked: {
                     }
-                    Label {
-                        id: trackArtistAlbum
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 2
-                        font.pixelSize: 12
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: trackTitle.bottom
-                        text: artist == "" ? "" : artist + " - " + album
+                    onPressAndHold: {
+                        trackQueue.append({"title": title, "artist": artist, "file": file})
                     }
-                    Label {
-                        id: trackDuration
-                        width: 400
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 2
-                        font.pixelSize: 12
-                        anchors.left: parent.left
-                        anchors.leftMargin: 75
-                        anchors.top: trackArtistAlbum.bottom
-                        visible: false
-                        text: ""
-                    }
-
-                    onFocusChanged: {
+                    onClicked: {
                         if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                            fileArtistAlbumBottom.text = trackArtistAlbum.text
-                            fileTitleBottom.text = trackTitle.text
-                            fileArtistAlbumBottom_nowplaying.text = artist == "" ? "" : artist + "\n" + album
-                            fileTitleBottom_nowplaying.text = trackTitle.text
-                            iconbottom.source = track.icon
-                            iconbottom_nowplaying.source = cover !== "" ? "image://cover-art-full/" + file : "images/Blank_album.jpg"
+                            focus = true
                         }
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            trackQueue.append({"title": title, "artist": artist, "file": file})
-                        }
-                        onClicked: {
-                            if (focus == false) {
-                                focus = true
-                            }
-                            console.log("fileName: " + file)
-                            if (tracklist.currentIndex == index) {
-                                if (player.playbackState === MediaPlayer.PlayingState)  {
-                                    playindicator.source = "images/play.png"
-                                    player.pause()
-                                } else if (player.playbackState === MediaPlayer.PausedState) {
-                                    playindicator.source = "images/pause.png"
-                                    player.play()
-                                }
-                            } else {
-                                player.stop()
-                                player.source = Qt.resolvedUrl(file)
-                                tracklist.currentIndex = index
-                                playing = PlayingList.indexOf(file)
-                                console.log("Playing click: "+player.source)
-                                console.log("Index: " + tracklist.currentIndex)
-                                player.play()
+                        console.log("fileName: " + file)
+                        if (tracklist.currentIndex == index) {
+                            if (player.playbackState === MediaPlayer.PlayingState)  {
+                                playindicator.source = "images/play.png"
+                                player.pause()
+                            } else if (player.playbackState === MediaPlayer.PausedState) {
                                 playindicator.source = "images/pause.png"
+                                player.play()
                             }
-                            console.log("Source: " + player.source.toString())
-                            console.log("Length: " + length.toString())
-                            playindicator_nowplaying.source = playindicator.source
+                        } else {
+                            player.stop()
+                            player.source = Qt.resolvedUrl(file)
+                            tracklist.currentIndex = index
+                            playing = PlayingList.indexOf(file)
+                            console.log("Playing click: "+player.source)
+                            console.log("Index: " + tracklist.currentIndex)
+                            player.play()
+                            playindicator.source = "images/pause.png"
                         }
+                        console.log("Source: " + player.source.toString())
+                        console.log("Length: " + length.toString())
+                        playindicator_nowplaying.source = playindicator.source
                     }
-                    Component.onCompleted: {
-                        if (PlayingList.size() === 0) {
-                            player.source = file
-                        }
+                }
+                Component.onCompleted: {
+                    if (PlayingList.size() === 0) {
+                        player.source = file
+                    }
 
-                        if (!PlayingList.contains(file)) {
-                            console.log("Adding file:" + file)
-                            PlayingList.addItem(file, itemnum)
-                            console.log(itemnum)
-                        }
-                        console.log("Title:" + title + " Artist: " + artist)
-                        itemnum++
+                    if (!PlayingList.contains(file)) {
+                        console.log("Adding file:" + file)
+                        PlayingList.addItem(file, itemnum)
+                        console.log(itemnum)
                     }
+                    console.log("Title:" + title + " Artist: " + artist)
+                    itemnum++
                 }
             }
         }
     }
 }
+
