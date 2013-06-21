@@ -132,7 +132,7 @@ MainView {
             if (status == MediaPlayer.EndOfMedia) {
                 // scrobble it
                 if (Settings.getSetting("scrobble") === "1") {
-                    scrobblemodel.scrobble(player.source,artist,timestamp)
+                    Scrobble.scrobble(player.source,artist,timestamp)
                 }
                 else {
                     console.debug("Debug: no scrobbling")
