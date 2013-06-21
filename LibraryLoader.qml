@@ -100,7 +100,6 @@ Page {
     ListView {
         id: folderSelecterList
         anchors.fill: parent
-        anchors.topMargin: units.gu(3)
 
         model: folderModel
         delegate: folderSelecterDelegate
@@ -178,7 +177,11 @@ Page {
                     Component.onCompleted: {
                         if (!model.isDir) {
                             console.log("Debug: Scanner fileDelegate onComplete")
-                            Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
+                            if ("" === trackCover) {
+                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "", trackYear, trackNumber, trackLength)
+                            } else {
+                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
+                            }
                         }
                     }
                 }
@@ -189,6 +192,8 @@ Page {
     Rectangle {
         width: parent.width
         height: units.gu(3)
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: units.gu(8)
         Label {
             id: currentpath
             text: folderModel.path
