@@ -11,3 +11,11 @@ Architecture: all
 Depends: ${misc:Depends},qtdeclarative5-nemo-qml-plugin-folderlistmodel,qtdeclarative5-localstorage-plugin,qtdeclarative5-particles-plugin,qtdeclarative5-qtmultimedia-plugin,qtdeclarative5-qtquick2-plugin,qtdeclarative5-ubuntu-ui-toolkit-plugin|qt-components-ubuntu,qtdeclarative5-window-plugin,qtdeclarative5-xmllistmodel-plugin,${shlibs:Depends},qmlscene
 Description: Music player for Ubuntu Touch
  Touch enabled music player for Ubuntu
+
+Package: music-app-autopilot
+Architecture: all
+Depends: libautopilot-qt,
+         libqt5test5,
+         music-app (= ${source:Version})
+Description: Autopilot tests for Music App
+ This package contains the autopilot tests for the Music App
