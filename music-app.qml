@@ -282,9 +282,9 @@ MainView {
             page: MusicArtists {
                 id: musicArtistsPage
 
-                tools: ToolbarActions {
+                tools: ToolbarItems {
                     // Queue dialog
-                    Action {
+                    ToolbarButton {
                         objectName: "queuesaction"
 
                         iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
@@ -313,9 +313,9 @@ MainView {
             page: MusicAlbums {
                 id: musicAlbumsPage
 
-                tools: ToolbarActions {
+                tools: ToolbarItems {
                     // Queue dialog
-                    Action {
+                    ToolbarButton {
                         objectName: "queuesaction"
 
                         iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
@@ -344,9 +344,9 @@ MainView {
             page: MusicPlaylists {
                 id: musicPlaylistPage
 
-                tools: ToolbarActions {
+                tools: ToolbarItems {
                     // import playlist from lastfm
-                    Action {
+                    ToolbarButton {
                         objectName: "lastfmplaylistaction"
 
                         iconSource: Qt.resolvedUrl("images/lastfm.png")
@@ -359,7 +359,7 @@ MainView {
                     }
 
                     // Queue dialog
-                    Action {
+                    ToolbarButton {
                         objectName: "queuesaction"
 
                         iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
@@ -539,7 +539,7 @@ MainView {
         height: units.gu(10)
         color: "#333333"
         visible: false
-        Column {
+        Item {
             anchors.fill: parent
             anchors.bottomMargin: units.gu(10)
 
