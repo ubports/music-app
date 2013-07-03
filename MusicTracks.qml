@@ -43,9 +43,9 @@ PageStack {
     Page {
         id: mainpage
 
-        tools: ToolbarActions {
+        tools: ToolbarItems {
             // Add playlist
-            Action {
+            ToolbarButton {
                 id: playlistAction
                 objectName: "playlistaction"
                 iconSource: Qt.resolvedUrl("images/playlist.png")
@@ -58,7 +58,7 @@ PageStack {
             }
 
             // Settings dialog
-            Action {
+            ToolbarButton {
                 objectName: "settingsaction"
                 iconSource: Qt.resolvedUrl("images/settings@8.png")
                 text: i18n.tr("Settings")
@@ -73,7 +73,7 @@ PageStack {
             }
 
             // Queue dialog
-            Action {
+            ToolbarButton {
                 objectName: "queuesaction"
                 iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
                 text: i18n.tr("Queue")
