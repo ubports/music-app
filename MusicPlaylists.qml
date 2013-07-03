@@ -31,30 +31,11 @@ import "playlists.js" as Playlists
 
 
 Page {
-    property bool needsUpdate: false
     property int filelistCurrentIndex: 0
     property int filelistCount: 0
 
     onFilelistCurrentIndexChanged: {
         tracklist.currentIndex = filelistCurrentIndex
-    }
-
-    onNeedsUpdateChanged: {
-        if (needsUpdate === true) {
-            needsUpdate = false
-            fileDurationProgressBackground.visible = true
-            fileDurationProgressBackground_nowplaying.visible = true
-            fileDurationProgress.width = units.gu(Math.floor((player.position*100)/player.duration) * .2) // 20 max
-            fileDurationProgress_nowplaying.width = units.gu(Math.floor((player.position*100)/player.duration) * .4) // 40 max
-            fileDurationBottom.text = Math.floor((player.position/1000) / 60).toString() + ":" + (
-                        Math.floor((player.position/1000) % 60)<10 ? "0"+Math.floor((player.position/1000) % 60).toString() :
-                                                                     Math.floor((player.position/1000) % 60).toString())
-            fileDurationBottom.text += " / "
-            fileDurationBottom.text += Math.floor((player.duration/1000) / 60).toString() + ":" + (
-                        Math.floor((player.duration/1000) % 60)<10 ? "0"+Math.floor((player.duration/1000) % 60).toString() :
-                                                                     Math.floor((player.duration/1000) % 60).toString())
-            fileDurationBottom_nowplaying.text = fileDurationBottom.text
-        }
     }
 
     title: i18n.tr("Playlists")
@@ -177,10 +158,8 @@ Page {
                         console.log("fileName: " + file)
                         if (tracklist.currentIndex == index) {
                             if (player.playbackState === MediaPlayer.PlayingState)  {
-                                playindicator.source = "images/play.png"
                                 player.pause()
                             } else if (player.playbackState === MediaPlayer.PausedState) {
-                                playindicator.source = "images/pause.png"
                                 player.play()
                             }
                         } else {
@@ -191,11 +170,9 @@ Page {
                             console.log("Playing click: "+player.source)
                             console.log("Index: " + tracklist.currentIndex)
                             player.play()
-                            playindicator.source = "images/pause.png"
                         }
                         console.log("Source: " + player.source.toString())
                         console.log("Length: " + length.toString())
-                        playindicator_nowplaying.source = playindicator.source
                     }
                 }
                 Component.onCompleted: {

@@ -141,10 +141,6 @@ MainView {
                 nextSong() // next track
             }
         }
-
-        onPositionChanged: {
-            musicTracksPage.needsUpdate = true
-        }
     }
 
     // Model to send the data
@@ -417,8 +413,6 @@ MainView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    playindicator.source = "images/pause.png"
-                    playindicator_nowplaying.source = playindicator.source
                     nextSong()
                 }
             }
@@ -433,7 +427,8 @@ MainView {
             radius: "none"
             image: Image {
                 id: playindicator
-                source: "images/play.png"
+                source: player.playbackState === MediaPlayer.PlayingState ?
+                          "images/pause.png" : "images/play.png"
                 anchors.right: parent.right
                 anchors.centerIn: parent
                 opacity: .7
@@ -442,13 +437,10 @@ MainView {
                 anchors.fill: parent
                 onClicked: {
                     if (player.playbackState === MediaPlayer.PlayingState)  {
-                        playindicator.source = "images/play.png"
                         player.pause()
                     } else {
-                        playindicator.source = "images/pause.png"
                         player.play()
                     }
-                    playindicator_nowplaying.source = playindicator.source
                 }
             }
         }
@@ -507,15 +499,15 @@ MainView {
                 anchors.top: parent.top
                 anchors.topMargin: 2
                 height: 1
-                width: units.gu(20)
+                width: parent.width
                 color: "#FFFFFF"
-                visible: false
+                visible: player.duration > 0 ? true : false
             }
             Rectangle {
                 id: fileDurationProgress
                 anchors.top: parent.top
                 height: 5
-                width: 0
+                width: player.position/player.duration * fileDurationProgressBackground.width
                 color: "#DD4814"
             }
         }
@@ -529,7 +521,9 @@ MainView {
             color: "#FFFFFF"
             maximumLineCount: 1
             font.pixelSize: 12
-            text: ""
+            text: player.duration > 0 ?
+                      __durationToString(player.position)+" / "+__durationToString(player.duration)
+                    : ""
         }
     }
 
@@ -561,8 +555,6 @@ MainView {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        playindicator.source = "images/pause.png"
-                        playindicator_nowplaying.source = playindicator.source
                         nextSong()
                     }
                 }
@@ -576,7 +568,8 @@ MainView {
                 radius: "none"
                 image: Image {
                     id: playindicator_nowplaying
-                    source: "images/play.png"
+                    source: player.playbackState === MediaPlayer.PlayingState ?
+                              "images/pause.png" : "images/play.png"
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     opacity: .7
@@ -585,13 +578,10 @@ MainView {
                     anchors.fill: parent
                     onClicked: {
                         if (player.playbackState === MediaPlayer.PlayingState)  {
-                            playindicator.source = "images/play.png"
                             player.pause()
                         } else {
-                            playindicator.source = "images/pause.png"
                             player.play()
                         }
-                        playindicator_nowplaying.source = playindicator.source
                     }
                 }
             }
@@ -613,8 +603,6 @@ MainView {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        playindicator.source = "images/pause.png"
-                        playindicator_nowplaying.source = playindicator.source
                         previousSong()
                     }
                 }
@@ -703,15 +691,15 @@ MainView {
                     anchors.top: parent.top
                     anchors.topMargin: 4
                     height: 1
-                    width: units.gu(40)
+                    width: parent.width
                     color: "#FFFFFF"
-                    visible: false
+                    visible: player.duration > 0 ? true : false
                 }
                 Rectangle {
                     id: fileDurationProgress_nowplaying
                     anchors.top: parent.top
                     height: 8
-                    width: 0
+                    width: player.position/player.duration * fileDurationProgressBackground_nowplaying.width
                     color: "#DD4814"
                 }
             }
@@ -726,10 +714,19 @@ MainView {
                 color: "#FFFFFF"
                 maximumLineCount: 1
                 font.pixelSize: 16
-                text: ""
+                text: player.duration > 0 ?
+                          __durationToString(player.position)+" / "+__durationToString(player.duration)
+                        : ""
             }
         }
 
+    }
+
+    // Converts an duration in ms to a formated string ("minutes:seconds")
+    function __durationToString(duration) {
+        var minutes = Math.floor((duration/1000) / 60);
+        var seconds = Math.floor((duration/1000)) % 60;
+        return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
     }
 
 } // end of main view

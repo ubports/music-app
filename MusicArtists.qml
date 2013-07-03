@@ -131,10 +131,8 @@ Page {
                         console.log("fileName: " + file)
                         if (tracklist.currentIndex == index) {
                             if (player.playbackState === MediaPlayer.PlayingState)  {
-                                playindicator.source = "images/play.png"
                                 player.pause()
                             } else if (player.playbackState === MediaPlayer.PausedState) {
-                                playindicator.source = "images/pause.png"
                                 player.play()
                             }
                         } else {
@@ -145,11 +143,9 @@ Page {
                             console.log("Playing click: "+player.source)
                             console.log("Index: " + tracklist.currentIndex)
                             player.play()
-                            playindicator.source = "images/pause.png"
                         }
                         console.log("Source: " + player.source.toString())
                         console.log("Length: " + length.toString())
-                        playindicator_nowplaying.source = playindicator.source
                     }
                 }
                 Component.onCompleted: {
