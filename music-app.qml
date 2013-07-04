@@ -52,13 +52,23 @@ MainView {
     property int itemnum: 0
     property bool random: false
     property bool scrobble: false
-    property string artist
-    property string album
-    property string song
-    property string tracktitle
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
+
+    property string currentArtist: ""
+    property string currentAlbum: ""
+    property string currentTracktitle: ""
+    property string currentFile: ""
+    property string currentCover: ""
+    property string currentCoverSmall: currentCover === "" ?
+                                           (currentFile.match("\\.mp3") ?
+                                                Qt.resolvedUrl("images/audio-x-mpeg.png") :
+                                                Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) :
+                                           "image://cover-art/"+currentFile
+    property string currentCoverFull: currentCover !== "" ?
+                                          "image://cover-art-full/" + currentFile :
+                                          "images/Blank_album.jpg"
 
     // FUNCTIONS
     function previousSong() {
@@ -446,7 +456,7 @@ MainView {
         }
         Image {
             id: iconbottom
-            source: ""
+            source: mainView.currentCoverSmall
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: units.gu(1)
@@ -471,7 +481,7 @@ MainView {
             anchors.top: parent.top
             anchors.topMargin: units.gu(1)
             anchors.leftMargin: units.gu(1)
-            text: ""
+            text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
         }
         Label {
             id: fileArtistAlbumBottom
@@ -483,7 +493,7 @@ MainView {
             anchors.left: iconbottom.right
             anchors.top: fileTitleBottom.bottom
             anchors.leftMargin: units.gu(1)
-            text: ""
+            text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
         }
         Rectangle {
             id: fileDurationProgressContainer
@@ -610,7 +620,7 @@ MainView {
 
             Image {
                 id: iconbottom_nowplaying
-                source: ""
+                source: mainView.currentCoverFull
                 width: 300
                 height: 300
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -663,7 +673,7 @@ MainView {
                 anchors.topMargin: units.gu(2)
                 anchors.left: parent.left
                 anchors.leftMargin: units.gu(2)
-                text: ""
+                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
             }
             Label {
                 id: fileArtistAlbumBottom_nowplaying
@@ -675,7 +685,7 @@ MainView {
                 anchors.left: parent.left
                 anchors.top: fileTitleBottom_nowplaying.bottom
                 anchors.leftMargin: units.gu(2)
-                text: ""
+                text: mainView.currentArtist === "" ? "" : mainView.currentArtist + "\n" + mainView.currentAlbum
             }
             Rectangle {
                 id: fileDurationProgressContainer_nowplaying

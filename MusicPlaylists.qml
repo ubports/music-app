@@ -136,12 +136,11 @@ Page {
                         selected = false
                     } else {
                         selected = false
-                        fileArtistAlbumBottom.text = trackArtistAlbum.text
-                        fileTitleBottom.text = trackTitle.text
-                        fileArtistAlbumBottom_nowplaying.text = artist == "" ? "" : artist + "\n" + album
-                        fileTitleBottom_nowplaying.text = trackTitle.text
-                        iconbottom.source = track.icon
-                        iconbottom_nowplaying.source = cover !== "" ? "image://cover-art-full/" + file : "images/Blank_album.jpg"
+                        mainView.currentArtist = artist
+                        mainView.currentAlbum = album
+                        mainView.currentTracktitle = title
+                        mainView.currentFile = file
+                        mainView.currentCover = cover
                     }
                 }
                 MouseArea {
