@@ -31,8 +31,8 @@ import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 
 MainView {
-    objectName: i18n.tr("mainView")
-    applicationName: i18n.tr("music-app")
+    objectName: "music"
+    applicationName: "music-app"
     id: mainView
 
     width: units.gu(50)
