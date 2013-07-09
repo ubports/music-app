@@ -39,6 +39,66 @@ Page {
     }
 
     title: i18n.tr("Playlists")
+
+    tools: ToolbarItems {
+        // import playlist from lastfm
+        ToolbarButton {
+            objectName: "lastfmplaylistaction"
+
+            iconSource: Qt.resolvedUrl("images/lastfm.png")
+            text: i18n.tr("Get from Last.fm")
+
+            onTriggered: {
+                console.debug("Debug: User pressed action to import playlist from lastfm")
+                Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
+            }
+        }
+
+        // Add playlist
+        ToolbarButton {
+            id: playlistAction
+            objectName: "playlistaction"
+            iconSource: Qt.resolvedUrl("images/playlist.png")
+            text: i18n.tr("Add Playlist")
+            onTriggered: {
+                console.debug("Debug: User pressed add playlist")
+                // show new playlist dialog
+                PopupUtils.open(MusicPlaylists.addPlaylistDialog, mainView)
+            }
+        }
+
+        // Settings dialog
+        ToolbarButton {
+            objectName: "settingsaction"
+            iconSource: Qt.resolvedUrl("images/settings.png")
+            text: i18n.tr("Settings")
+
+            onTriggered: {
+                console.debug('Debug: Show settings')
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
+            }
+        }
+
+        // Queue dialog
+        ToolbarButton {
+            objectName: "queuesaction"
+            iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+            text: i18n.tr("Queue")
+
+            onTriggered: {
+                console.debug('Debug: Show queue')
+                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                {
+                                    title: i18n.tr("Queue")
+                                } )
+            }
+        }
+    }
+
+
     Component.onCompleted: {
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state

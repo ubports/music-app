@@ -163,10 +163,6 @@ Dialog {
             text: i18n.tr("Close")
             onClicked: {
                 PopupUtils.close(lastfmroot)
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
             }
         }
     }

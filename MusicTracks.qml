@@ -66,9 +66,9 @@ PageStack {
                 onTriggered: {
                     console.debug('Debug: Show settings')
                     PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
                 }
             }
 
@@ -81,9 +81,9 @@ PageStack {
                 onTriggered: {
                     console.debug('Debug: Show queue')
                     PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
+                                    {
+                                        title: i18n.tr("Queue")
+                                    } )
                 }
             }
         }
@@ -91,24 +91,6 @@ PageStack {
         title: i18n.tr("Music")
         Component.onCompleted: {
             pageStack.push(mainpage)
-            Settings.initialize()
-            Library.initialize()
-            console.debug("INITIALIZED in tracks")
-            if (Settings.getSetting("initialized") !== "true") {
-                // initialize settings
-                console.debug("reset settings")
-                Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-                //Settings.setSetting("scrobble", "0") // default state of shuffle
-                //Settings.setSetting("scrobble", "0") // default state of scrobble
-                Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
-            }
-            // initialize playlist
-            Playlists.initializePlaylists()
-            // everything else
-            random = Settings.getSetting("shuffle") == "1" // shuffle state
-            scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-            lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-            lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
         }
 
         Component {

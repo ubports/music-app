@@ -29,20 +29,21 @@ import "playing-list.js" as PlayingList
 Dialog {
     id: root
 
-    Row {
-        spacing: units.gu(2)
-        Button {
-            id: selectdirectory
-            text: i18n.tr("Select Music folder")
-            width: units.gu(30)
-            color: "#c94212"
-            onClicked: {
-                folderScannerModel.nameFilters = [""]
-                pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
-                PopupUtils.close(root)
-            }
-        }
-    }
+//    Row {
+//        spacing: units.gu(2)
+//        Button {
+//            id: selectdirectory
+//            text: i18n.tr("Select Music folder")
+//            width: units.gu(30)
+//            color: "#c94212"
+//            onClicked: {
+//                folderScannerModel.nameFilters = [""]
+//                console.debug('Debug: Show settings')
+//                pageStack.push(Qt.resolvedUrl("LibraryLoader.qml"))
+//                PopupUtils.close(root)
+//            }
+//        }
+//    }
 
     // Shuffle or not
     Row {
@@ -50,6 +51,7 @@ Dialog {
         Label {
             text: i18n.tr("Shuffle")
             width: units.gu(20)
+            color: "white"
         }
         Switch {
             id: shuffleSwitch
@@ -63,6 +65,7 @@ Dialog {
         Label {
             text: i18n.tr("Scrobble to Last.FM")
             width: units.gu(20)
+            color: "white"
         }
         Switch {
             id: scrobbleSwitch
@@ -79,8 +82,10 @@ Dialog {
             color: "#c94212"
             enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("LoginLastFM.qml"))
-                PopupUtils.close(root)
+                PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
+                                {
+                                    title: i18n.tr("Last.fm")
+                                } )
             }
         }
     }
@@ -107,6 +112,8 @@ Dialog {
         Label {
             text: i18n.tr("Pause when when headphones are un-plugged.")
             width: units.gu(20)
+            wrapMode: "WordWrap"
+            color: "white"
         }
         Switch {
             checked: true
