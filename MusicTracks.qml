@@ -60,7 +60,7 @@ PageStack {
             // Settings dialog
             ToolbarButton {
                 objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings@8.png")
+                iconSource: Qt.resolvedUrl("images/settings.png")
                 text: i18n.tr("Settings")
 
                 onTriggered: {
