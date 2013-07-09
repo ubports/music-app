@@ -248,7 +248,7 @@ MainView {
         showDirectories: true
         filterDirectories: false
         nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        path: Settings.getSetting("initialized") === "true" && Settings.getSetting("currentfolder") !== "" ? Settings.getSetting("currentfolder") : homePath() + "/Music"
+        path: homePath() + "/Music"
         onPathChanged: {
             console.log("Path changed: " + folderModel.path)
         }
