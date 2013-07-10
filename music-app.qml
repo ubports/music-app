@@ -38,9 +38,31 @@ MainView {
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
-        libraryModel.populate()
-        albumModel.filterAlbums()
-        artistModel.populate()
+        Settings.initialize()
+        Library.initialize()
+        console.debug("INITIALIZED in tracks")
+        if (Settings.getSetting("initialized") !== "true") {
+            // initialize settings
+            console.debug("reset settings")
+            Settings.setSetting("initialized", "true") // setting to make sure the DB is there
+            //Settings.setSetting("scrobble", "0") // default state of shuffle
+            //Settings.setSetting("scrobble", "0") // default state of scrobble
+            Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
+        }
+        Library.reset()
+        Library.initialize()
+        Settings.setSetting("currentfolder", folderModel.path)
+        folderScannerModel.path = folderModel.path
+        folderScannerModel.nameFilters = ["*.mp3","*.ogg","*.flac","*.wav","*.oga"]
+        timer.start()
+
+        // initialize playlist
+        Playlists.initializePlaylists()
+        // everything else
+        random = Settings.getSetting("shuffle") == "1" // shuffle state
+        scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
+        lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
+        lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
     }
 
 
@@ -226,7 +248,7 @@ MainView {
         showDirectories: true
         filterDirectories: false
         nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        path: Settings.getSetting("initialized") === "true" && Settings.getSetting("currentfolder") !== "" ? Settings.getSetting("currentfolder") : homePath() + "/Music"
+        path: homePath() + "/Music"
         onPathChanged: {
             console.log("Path changed: " + folderModel.path)
         }
@@ -260,6 +282,55 @@ MainView {
         id: singleTracks
     }
 
+    Column {
+        Repeater {
+            id: filelist
+            width: parent.width
+            height: parent.height - units.gu(8)
+            anchors.top: parent.top
+            model: folderScannerModel
+
+            Component {
+                id: fileScannerDelegate
+                Rectangle {
+                    Component.onCompleted: {
+                        if (!model.isDir) {
+                            console.log("Debug: Scanner fileDelegate onComplete")
+                            if ("" === trackCover) {
+                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "", trackYear, trackNumber, trackLength)
+                            } else {
+                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Timer {
+        id: timer
+        interval: 200; repeat: true
+        running: false
+        triggeredOnStart: false
+        property int counted: 0
+
+        onTriggered: {
+            console.log("Counted: " + counted)
+            console.log("filelist.count: " + filelist.count)
+            if (counted === filelist.count) {
+                console.log("MOVING ON")
+                libraryModel.populate()
+                albumModel.filterAlbums()
+                artistModel.populate()
+                PlayingList.clear()
+                itemnum = 0
+                timer.stop()
+            }
+            counted = filelist.count
+        }
+    }
+
     Tabs {
         id: tabs
         anchors.fill: parent
@@ -287,24 +358,6 @@ MainView {
             // tab content
             page: MusicArtists {
                 id: musicArtistsPage
-
-                tools: ToolbarItems {
-                    // Queue dialog
-                    ToolbarButton {
-                        objectName: "queuesaction"
-
-                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
-                        text: i18n.tr("Queue")
-
-                        onTriggered: {
-                            console.debug('Debug: Show queue')
-                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                            {
-                                                title: i18n.tr("Queue")
-                                            } )
-                        }
-                    }
-                }
             }
         }
 
@@ -318,24 +371,6 @@ MainView {
             // Tab content begins here
             page: MusicAlbums {
                 id: musicAlbumsPage
-
-                tools: ToolbarItems {
-                    // Queue dialog
-                    ToolbarButton {
-                        objectName: "queuesaction"
-
-                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
-                        text: i18n.tr("Queue")
-
-                        onTriggered: {
-                            console.debug('Debug: Show queue')
-                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                            {
-                                                title: i18n.tr("Queue")
-                                            } )
-                        }
-                    }
-                }
             }
         }
 
@@ -349,37 +384,6 @@ MainView {
             // Tab content begins here
             page: MusicPlaylists {
                 id: musicPlaylistPage
-
-                tools: ToolbarItems {
-                    // import playlist from lastfm
-                    ToolbarButton {
-                        objectName: "lastfmplaylistaction"
-
-                        iconSource: Qt.resolvedUrl("images/lastfm.png")
-                        text: i18n.tr("Get from Last.fm")
-
-                        onTriggered: {
-                            console.debug("Debug: User pressed action to import playlist from lastfm")
-                            Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-                        }
-                    }
-
-                    // Queue dialog
-                    ToolbarButton {
-                        objectName: "queuesaction"
-
-                        iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
-                        text: i18n.tr("Queue")
-
-                        onTriggered: {
-                            console.debug('Debug: Show queue')
-                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                            {
-                                                title: i18n.tr("Queue")
-                                            } )
-                        }
-                    }
-                }
             }
         }
 
