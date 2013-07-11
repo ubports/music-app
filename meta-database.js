@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var buffer = [];
+
 // First, let's create a short helper function to get the database connection
 function getDatabase() {
      return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
@@ -43,8 +45,34 @@ function reset() {
       });
 }
 
+function writeDb()
+{
+    var db = getDatabase();
+    var res = "";
+    var i;
+
+    console.debug("Writing DB");
+    console.debug(buffer.length);
+
+    db.transaction(function(tx) {
+        for (i=0; i < buffer.length; i++)
+        {
+            var res = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?,?,?,?,?,?,?);', buffer[i]);
+
+            if (res.rowsAffected <= 0)
+            {
+                console.debug("Error occured writing to db for ", buffer[i]);
+            }
+        }
+    });
+
+    buffer = [];
+}
+
 // This function is used to write meta data into the database
 function setMetadata(file, title, artist, album, cover, year, number, length) {
+    buffer.push([file,title,artist,album,cover,year,number,length]);
+    /*
     var db = getDatabase();
     var res = "";
     db.transaction(function(tx) {
@@ -59,6 +87,8 @@ function setMetadata(file, title, artist, album, cover, year, number, length) {
   );
   // The function returns “OK” if it was successful, or “Error” if it wasn't
   return res;
+  */
+  return "Ok";
 }
 
 // This function is used to retrieve meta data from the database
