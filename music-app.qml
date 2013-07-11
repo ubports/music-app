@@ -90,7 +90,7 @@ MainView {
                                            "image://cover-art/"+currentFile
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentFile :
-                                          "images/Blank_album.jpg"
+                                          "images/cover_default.png"
 
     // FUNCTIONS
     function previousSong() {
