@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var buffer = [];
+var buffer = [];  // Buffer of metadata to write to the db
 
 // First, let's create a short helper function to get the database connection
 function getDatabase() {
@@ -45,6 +45,7 @@ function reset() {
       });
 }
 
+// This function is used to flush the buffer of metadata to the db
 function writeDb()
 {
     var db = getDatabase();
@@ -54,41 +55,27 @@ function writeDb()
     console.debug("Writing DB");
     console.debug(buffer.length);
 
+    // Keep within one transaction for performance win
     db.transaction(function(tx) {
+        // Loop through all the metadata in the buffer
         for (i=0; i < buffer.length; i++)
         {
             var res = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?,?,?,?,?,?,?);', buffer[i]);
 
             if (res.rowsAffected <= 0)
             {
+                // Nothing was added error occured?
                 console.debug("Error occured writing to db for ", buffer[i]);
             }
         }
     });
 
-    buffer = [];
+    buffer = [];  // Clear buffer
 }
 
 // This function is used to write meta data into the database
 function setMetadata(file, title, artist, album, cover, year, number, length) {
-    buffer.push([file,title,artist,album,cover,year,number,length]);
-    /*
-    var db = getDatabase();
-    var res = "";
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?,?,?,?,?,?,?);', [file,title,artist,album,cover,year,number,length]);
-              //console.log(rs.rowsAffected)
-              if (rs.rowsAffected > 0) {
-                res = "OK";
-              } else {
-                res = "Error";
-              }
-        }
-  );
-  // The function returns “OK” if it was successful, or “Error” if it wasn't
-  return res;
-  */
-  return "Ok";
+    buffer.push([file,title,artist,album,cover,year,number,length]);  // Add metadata to buffer
 }
 
 // This function is used to retrieve meta data from the database
