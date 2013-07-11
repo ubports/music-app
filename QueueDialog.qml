@@ -47,7 +47,6 @@ Dialog {
     // Clean whole queue button
     Button {
         text: i18n.tr("Clear")
-        color: "#DD4814"
         onClicked: {
             console.debug("Debug: Track queue cleared.")
             trackQueue.clear()
@@ -58,6 +57,7 @@ Dialog {
     // close dialog button
     Button {
         text: i18n.tr("Close")
+        color: "grey"
         onClicked: {
             PopupUtils.close(queueDialog)
         }

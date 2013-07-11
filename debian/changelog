@@ -1,3 +1,16 @@
+music-app (0.3.2) raring; urgency=low
+
+  * Dialog to create a playlist now works.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Tue, 11 Jul 2013 21:29:50 +0200
+
+music-app (0.3.1) raring; urgency=low
+
+  * Resolved issues with icons in toolbar changing when switching tab.
+  * Read music from ~/Music and populate library on each start.
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Sun, 09 Jul 2013 19:47:50 -0500
+
 music-app (0.3) raring; urgency=low
 
   * Back to tabs.

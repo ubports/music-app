@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Version=0.3
+Version=0.3.2
 Name=Music
 Comment=Ubuntu Touch Music Player
 Exec=/usr/bin/qmlscene /usr/share/music-app/music-app.qml
