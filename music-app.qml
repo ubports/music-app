@@ -320,6 +320,7 @@ MainView {
             console.log("filelist.count: " + filelist.count)
             if (counted === filelist.count) {
                 console.log("MOVING ON")
+                Library.writeDb()
                 libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.populate()
