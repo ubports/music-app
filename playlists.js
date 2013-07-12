@@ -30,7 +30,7 @@ function initializePlaylists() {
     var db = getPlaylistsDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS playlists(id integer primary key autoincrement, name TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS playlists(id INTEGER, name TEXT)');
       });
 }
 // same thing for individal playlists
@@ -42,12 +42,35 @@ function initializePlaylist() {
       });
 }
 
+// we need an ID, so count the rows in db
+function getID() {
+    var db = getPlaylistsDatabase();
+    var res = "";
+    try {
+        db.transaction(function(tx) {
+          var rs = tx.executeSql('SELECT * FROM playlists');
+          if (rs.rows.length > 0) {
+               res = rs.rows.length;
+          } else {
+              res = 0;
+          }
+       })
+    } catch(e) {
+        return "";
+    }
+
+   return res
+}
+
 // This function is used to write a playlist into the database
 function addPlaylist(name) {
     var db = getPlaylistsDatabase();
     var res = "";
+    var id = getID();
+    var newid = id+1;
+    console.debug("Debug: "+id);
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO playlists VALUES (?,?);', ['',name]);
+        var rs = tx.executeSql('INSERT INTO playlists VALUES (?,?);', [newid,name]);
               if (rs.rowsAffected > 0) {
                 res = "OK";
               } else {

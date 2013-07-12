@@ -44,19 +44,6 @@ PageStack {
         id: mainpage
 
         tools: ToolbarItems {
-            // Add playlist
-            ToolbarButton {
-                id: playlistAction
-                objectName: "playlistaction"
-                iconSource: Qt.resolvedUrl("images/playlist.png")
-                text: i18n.tr("Add Playlist")
-                onTriggered: {
-                    console.debug("Debug: User pressed add playlist")
-                    // show new playlist dialog
-                    PopupUtils.open(MusicPlaylists.addPlaylistDialog, mainView)
-                }
-            }
-
             // Settings dialog
             ToolbarButton {
                 objectName: "settingsaction"

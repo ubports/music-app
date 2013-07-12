@@ -40,13 +40,51 @@ Page {
 
     title: i18n.tr("Playlists")
 
+    // New playlist dialog
+    Component {
+         id: newPlaylistDialog
+         Dialog {
+             id: dialogueNewPlaylist
+             title: i18n.tr("New Playlist")
+             text: i18n.tr("Name your playlist.")
+             TextField {
+                 id: playlistName
+                 placeholderText: i18n.tr("Name")
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
+
+             Button {
+                 text: i18n.tr("Create")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                         Playlists.addPlaylist(playlistName.text)
+                         PopupUtils.close(dialogueNewPlaylist)
+                     }
+                     else {
+                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueNewPlaylist)
+             }
+         }
+        }
+
+
     tools: ToolbarItems {
         // import playlist from lastfm
         ToolbarButton {
             objectName: "lastfmplaylistaction"
 
             iconSource: Qt.resolvedUrl("images/lastfm.png")
-            text: i18n.tr("Get from Last.fm")
+            text: i18n.tr("Import")
 
             onTriggered: {
                 console.debug("Debug: User pressed action to import playlist from lastfm")
@@ -59,11 +97,11 @@ Page {
             id: playlistAction
             objectName: "playlistaction"
             iconSource: Qt.resolvedUrl("images/playlist.png")
-            text: i18n.tr("Add Playlist")
+            text: i18n.tr("New")
             onTriggered: {
                 console.debug("Debug: User pressed add playlist")
                 // show new playlist dialog
-                PopupUtils.open(MusicPlaylists.addPlaylistDialog, mainView)
+                PopupUtils.open(newPlaylistDialog, mainView)
             }
         }
 
