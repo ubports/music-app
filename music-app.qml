@@ -160,6 +160,12 @@ MainView {
     MediaPlayer {
         id: player
         muted: false
+
+        property bool seeking: false;
+
+        property string durationStr: "00:00"
+        property string positionStr: "00:00"
+
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia) {
                 // scrobble it
@@ -171,6 +177,21 @@ MainView {
                 }
 
                 nextSong() // next track
+            }
+        }
+
+        onDurationChanged: {
+            if (seeking == false)
+            {
+                durationStr = __durationToString(player.duration)
+            }
+        }
+
+        onPositionChanged: {
+            if (seeking == false)
+            {
+                fileDurationProgressContainer_nowplaying.playerPositionChanged(player.position / player.duration);
+                positionStr = __durationToString(player.position)
             }
         }
     }
@@ -506,39 +527,54 @@ MainView {
             anchors.left: iconbottom.right
             anchors.topMargin: 2
             anchors.leftMargin: units.gu(1)
-            width: units.gu(20)
             color: "#333333"
+            height: units.gu(2);
+            width: units.gu(20)
 
             Rectangle {
                 id: fileDurationProgressBackground
-                anchors.top: parent.top
-                anchors.topMargin: 2
-                height: 1
-                width: parent.width
-                color: "#FFFFFF"
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#000000";
+                height: units.gu(0.3);
+                radius: units.gu(0.3);
                 visible: player.duration > 0 ? true : false
+                width: parent.width
             }
+
             Rectangle {
+                id: fileDurationProgressArea
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#DD4814";
+                height: units.gu(0.3);
+                radius: units.gu(0.3);
+                visible: player.duration > 0 ? true : false
+                width: fileDurationProgress.x + 5;
+            }
+
+            UbuntuShape {
                 id: fileDurationProgress
-                anchors.top: parent.top
-                height: 5
-                width: player.position/player.duration * fileDurationProgressBackground.width
-                color: "#DD4814"
+                anchors.verticalCenter: fileDurationProgressBackground.verticalCenter;
+                color: "#FFFFFF"
+                height: width;
+                visible: player.duration > 0 ? true : false
+                width: units.gu(1);
+                x: ((player.position / player.duration) * fileDurationProgressContainer.width) - fileDurationProgress.width / 2;
             }
         }
+
         Label {
             id: fileDurationBottom
             anchors.top: fileArtistAlbumBottom.bottom
             anchors.left: fileDurationProgressContainer.right
             anchors.leftMargin: units.gu(1)
+            color: "#FFFFFF"
+            font.pixelSize: 12
+            maximumLineCount: 1
+            text: player.duration > 0 ?
+                      player.positionStr+" / "+player.durationStr
+                    : ""
             width: units.gu(30)
             wrapMode: Text.Wrap
-            color: "#FFFFFF"
-            maximumLineCount: 1
-            font.pixelSize: 12
-            text: player.duration > 0 ?
-                      __durationToString(player.position)+" / "+__durationToString(player.duration)
-                    : ""
         }
     }
 
@@ -692,30 +728,83 @@ MainView {
                 anchors.leftMargin: units.gu(2)
                 text: mainView.currentArtist === "" ? "" : mainView.currentArtist + "\n" + mainView.currentAlbum
             }
+
             Rectangle {
                 id: fileDurationProgressContainer_nowplaying
                 anchors.top: fileArtistAlbumBottom_nowplaying.bottom
                 anchors.left: parent.left
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
-                width: units.gu(40)
-                color: "#333333"
+                color: "#333333";
+                height: units.gu(2);
+                width: units.gu(40);
+
+                function drawProgress(fraction)
+                {
+                    fileDurationProgress_nowplaying.x = (fraction * fileDurationProgressContainer_nowplaying.width) - fileDurationProgress_nowplaying.width / 2;
+                    fileDurationProgressArea_nowplaying.width = fileDurationProgress_nowplaying.x + 5;
+                }
+
+                function playerPositionChanged(fraction)
+                {
+                    if (player.seeking == false)
+                    {
+                        fileDurationProgressContainer_nowplaying.drawProgress(fraction);
+                    }
+                }
+
+                function setSliderPosition(xPosition) {
+                    var fraction = xPosition / fileDurationProgressContainer_nowplaying.width;
+
+                    if (fraction > 1.0)
+                    {
+                        fraction = 1.0;
+                    }
+                    else if (fraction < 0.0)
+                    {
+                        fraction = 0.0;
+                    }
+
+                    fileDurationProgressContainer_nowplaying.drawProgress(fraction);
+                    player.positionStr = __durationToString(fraction * player.duration);
+                }
 
                 Rectangle {
                     id: fileDurationProgressBackground_nowplaying
-                    anchors.top: parent.top
-                    anchors.topMargin: 4
-                    height: 1
-                    width: parent.width
-                    color: "#FFFFFF"
-                    visible: player.duration > 0 ? true : false
+                    anchors.verticalCenter: parent.verticalCenter;
+                    color: "#000000";
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    width: parent.width;
                 }
+
                 Rectangle {
+                    id: fileDurationProgressArea_nowplaying
+                    anchors.verticalCenter: parent.verticalCenter;
+                    color: "#DD4814";
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    width: fileDurationProgress_nowplaying.x + 5;
+                }
+
+                UbuntuShape {
                     id: fileDurationProgress_nowplaying
-                    anchors.top: parent.top
-                    height: 8
-                    width: player.position/player.duration * fileDurationProgressBackground_nowplaying.width
-                    color: "#DD4814"
+                    anchors.verticalCenter: fileDurationProgressBackground_nowplaying.verticalCenter;
+                    color: "#FFFFFF"
+                    height: width;
+                    width: units.gu(2);
+                }
+
+                MouseArea {
+                    anchors.fill: parent;
+                    onMouseXChanged: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
+                    onPressed: { player.seeking = true; }
+
+                    onClicked: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
+                    onReleased: {
+                        player.seek((mouseX / fileDurationProgressContainer_nowplaying.width) * player.duration);
+                        player.seeking = false;
+                    }
                 }
             }
             Label {
@@ -724,14 +813,12 @@ MainView {
                 anchors.left: parent.left
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
+                color: "#FFFFFF"
+                font.pixelSize: 16
+                maximumLineCount: 1
+                text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
                 width: units.gu(30)
                 wrapMode: Text.Wrap
-                color: "#FFFFFF"
-                maximumLineCount: 1
-                font.pixelSize: 16
-                text: player.duration > 0 ?
-                          __durationToString(player.position)+" / "+__durationToString(player.duration)
-                        : ""
             }
         }
 
