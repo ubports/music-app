@@ -161,8 +161,9 @@ MainView {
         id: player
         muted: false
 
-        property bool seeking: false;
+        property bool seeking: false;  // Is the user seeking?
 
+        // String versions of pos/dur that labels listen to
         property string durationStr: "00:00"
         property string positionStr: "00:00"
 
@@ -180,6 +181,7 @@ MainView {
             }
         }
 
+        // Update the duration text unless seeking (seeking overrides the text)
         onDurationChanged: {
             if (seeking == false)
             {
@@ -187,10 +189,11 @@ MainView {
             }
         }
 
+        // Update the position text unless seeking (seeking overrides the text)
         onPositionChanged: {
             if (seeking == false)
             {
-                fileDurationProgressContainer_nowplaying.playerPositionChanged(player.position / player.duration);
+                fileDurationProgressContainer_nowplaying.drawProgress(player.position / player.duration);
                 positionStr = __durationToString(player.position)
             }
         }
@@ -739,23 +742,17 @@ MainView {
                 height: units.gu(2);
                 width: units.gu(40);
 
+                // Function that sets the progress bar value
                 function drawProgress(fraction)
                 {
                     fileDurationProgress_nowplaying.x = (fraction * fileDurationProgressContainer_nowplaying.width) - fileDurationProgress_nowplaying.width / 2;
-                    fileDurationProgressArea_nowplaying.width = fileDurationProgress_nowplaying.x + 5;
                 }
 
-                function playerPositionChanged(fraction)
-                {
-                    if (player.seeking == false)
-                    {
-                        fileDurationProgressContainer_nowplaying.drawProgress(fraction);
-                    }
-                }
-
+                // Function that sets the slider position from the x position of the mouse
                 function setSliderPosition(xPosition) {
                     var fraction = xPosition / fileDurationProgressContainer_nowplaying.width;
 
+                    // Make sure fraction is within limits
                     if (fraction > 1.0)
                     {
                         fraction = 1.0;
@@ -765,10 +762,12 @@ MainView {
                         fraction = 0.0;
                     }
 
+                    // Update progress bar and position text
                     fileDurationProgressContainer_nowplaying.drawProgress(fraction);
                     player.positionStr = __durationToString(fraction * player.duration);
                 }
 
+                // Black background behind the progress bar
                 Rectangle {
                     id: fileDurationProgressBackground_nowplaying
                     anchors.verticalCenter: parent.verticalCenter;
@@ -778,15 +777,17 @@ MainView {
                     width: parent.width;
                 }
 
+                // The orange fill of the progress bar
                 Rectangle {
                     id: fileDurationProgressArea_nowplaying
                     anchors.verticalCenter: parent.verticalCenter;
                     color: "#DD4814";
                     height: units.gu(0.5);
                     radius: units.gu(0.5);
-                    width: fileDurationProgress_nowplaying.x + 5;
+                    width: fileDurationProgress_nowplaying.x + 5;  // +5 so right radius is hidden
                 }
 
+                // The current position of the progress bar
                 UbuntuShape {
                     id: fileDurationProgress_nowplaying
                     anchors.verticalCenter: fileDurationProgressBackground_nowplaying.verticalCenter;
@@ -799,7 +800,6 @@ MainView {
                     anchors.fill: parent;
                     onMouseXChanged: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
                     onPressed: { player.seeking = true; }
-
                     onClicked: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
                     onReleased: {
                         player.seek((mouseX / fileDurationProgressContainer_nowplaying.width) * player.duration);
