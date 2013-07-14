@@ -56,8 +56,9 @@ MainView {
         folderScannerModel.nameFilters = ["*.mp3","*.ogg","*.flac","*.wav","*.oga"]
         timer.start()
 
-        // initialize playlist
+        // initialize playlists
         Playlists.initializePlaylists()
+        Playlists.initializePlaylist()
         // everything else
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state

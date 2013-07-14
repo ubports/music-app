@@ -33,12 +33,25 @@ import "playlists.js" as Playlists
 Page {
     property int filelistCurrentIndex: 0
     property int filelistCount: 0
+    property string oldPlaylistName: ""
+    property string oldPlaylistIndex: ""
 
     onFilelistCurrentIndexChanged: {
         tracklist.currentIndex = filelistCurrentIndex
     }
 
     title: i18n.tr("Playlists")
+
+    // create the listmodel to use
+    ListModel {
+        id: playlistModel
+    }
+
+    // function that adds each playlist in the listmodel to show it in the app
+    function addtoPlaylistModel(element,index,array) {
+        console.debug("Debug: Playlist #" + index + " = " + element);
+        playlistModel.append({"id": index, "name": element});
+    }
 
     // New playlist dialog
     Component {
@@ -59,8 +72,17 @@ Page {
                  text: i18n.tr("Create")
                  onClicked: {
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
-                         console.debug("Debug: User created a new playlist named: "+playlistName.text)
-                         Playlists.addPlaylist(playlistName.text)
+                         var newList = Playlists.addPlaylist(playlistName.text)
+                         if (newList === "OK") {
+                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                             // add the new playlist to the tab
+                             var index = Playlists.getID(); // get the latest ID
+                             playlistModel.append({"id": index, "name": playlistName.text})
+                         }
+                         else {
+                             console.debug("Debug: Something went wrong: "+newList)
+                         }
+
                          PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
@@ -76,6 +98,99 @@ Page {
              }
          }
         }
+
+    // Remove playlist dialog
+    Component {
+         id: removePlaylistDialog
+         Dialog {
+             id: dialogueRemovePlaylist
+             title: i18n.tr("Are you sure?")
+             text: i18n.tr("This will delete your playlist.")
+
+             Button {
+                 text: i18n.tr("Remove")
+                 onClicked: {
+                     // removing playlist
+                     Playlists.removePlaylist(oldPlaylistIndex,oldPlaylistName)
+                     playlistModel.remove(oldPlaylistIndex)
+                     PopupUtils.close(dialogueRemovePlaylist)
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueRemovePlaylist)
+             }
+         }
+        }
+
+    // Edit name of playlist dialog
+    Component {
+         id: editPlaylistDialog
+         Dialog {
+             id: dialogueEditPlaylist
+             title: i18n.tr("Change name")
+             text: i18n.tr("Enter the new playlist name")
+             TextField {
+                 id: playlistName
+                 placeholderText: oldPlaylistName
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
+
+             Button {
+                 text: i18n.tr("Change")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
+                         console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
+                         playlistModel.set(oldPlaylistIndex, {"name": playlistName.text})
+                         PopupUtils.close(dialogueEditPlaylist)
+                     }
+                     else {
+                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueEditPlaylist)
+             }
+         }
+        }
+
+    // Popover to change name and remove playlists
+    Component {
+        id: playlistPopoverComponent
+        Popover {
+            id: playlistPopover
+            Column {
+                id: containerLayout
+                anchors {
+                left: parent.left
+                top: parent.top
+                right: parent.right
+            }
+                ListItem.Standard {
+                    text: i18n.tr("Change name")
+                    onClicked: {
+                        console.debug("Debug: Change name of playlist.")
+                        PopupUtils.open(editPlaylistDialog, mainView)
+                    }
+                }
+                ListItem.Standard {
+                    text: i18n.tr("Remove")
+                    onClicked: {
+                        console.debug("Debug: Remove playlist.")
+                        PopupUtils.open(removePlaylistDialog, mainView)
+                    }
+                }
+            }
+        }
+    }
 
 
     tools: ToolbarItems {
@@ -142,6 +257,11 @@ Page {
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+
+        // get playlists in an array
+        var playlist = Playlists.getPlaylists(); // get the playlist from the database
+        console.debug("Debug: Playlists: "+playlist) //debug
+        playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
     Component {
@@ -166,35 +286,26 @@ Page {
         anchors.bottomMargin: units.gu(8)
         highlight: highlight
         highlightFollowsCurrentItem: true
-        model: libraryModel.model
-        delegate: trackDelegate
+        model: playlistModel
+        delegate: playlistDelegate
         onCountChanged: {
             console.log("onCountChanged: " + tracklist.count)
-            filelistCount = tracklist.count
         }
         onCurrentIndexChanged: {
-            filelistCurrentIndex = tracklist.currentIndex
             console.log("tracklist.currentIndex = " + tracklist.currentIndex)
         }
         onModelChanged: {
             console.log("PlayingList cleared")
-            PlayingList.clear()
         }
 
         Component {
-            id: trackDelegate
+            id: playlistDelegate
             ListItem.Standard {
-                id: track
-                property string artist: model.artist
-                property string album: model.album
-                property string title: model.title
-                property string cover: model.cover
-                property string length: model.length
-                property string file: model.file
-                icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                id: playlist
+                icon: Qt.resolvedUrl("images/playlist.png")
                 iconFrame: false
                 Label {
-                    id: trackTitle
+                    id: playlistName
                     width: 400
                     wrapMode: Text.Wrap
                     maximumLineCount: 1
@@ -203,30 +314,7 @@ Page {
                     anchors.leftMargin: 75
                     anchors.top: parent.top
                     anchors.topMargin: 5
-                    text: track.title == "" ? track.file : track.title
-                }
-                Label {
-                    id: trackArtistAlbum
-                    width: 400
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 2
-                    font.pixelSize: 12
-                    anchors.left: parent.left
-                    anchors.leftMargin: 75
-                    anchors.top: trackTitle.bottom
-                    text: artist == "" ? "" : artist + " - " + album
-                }
-                Label {
-                    id: trackDuration
-                    width: 400
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 2
-                    font.pixelSize: 12
-                    anchors.left: parent.left
-                    anchors.leftMargin: 75
-                    anchors.top: trackArtistAlbum.bottom
-                    visible: false
-                    text: ""
+                    text: name
                 }
 
                 onFocusChanged: {
@@ -234,11 +322,6 @@ Page {
                         selected = false
                     } else {
                         selected = false
-                        mainView.currentArtist = artist
-                        mainView.currentAlbum = album
-                        mainView.currentTracktitle = title
-                        mainView.currentFile = file
-                        mainView.currentCover = cover
                     }
                 }
                 MouseArea {
@@ -246,44 +329,18 @@ Page {
                     onDoubleClicked: {
                     }
                     onPressAndHold: {
-                        trackQueue.append({"title": title, "artist": artist, "file": file})
+                        console.debug("Debug: Pressed and held playlist "+name+" : "+index)
+                        // show a dialog to change name and remove list
+                        oldPlaylistName = name
+                        oldPlaylistIndex = index
+                        PopupUtils.open(playlistPopoverComponent, mainView)
                     }
                     onClicked: {
                         if (focus == false) {
                             focus = true
                         }
-                        console.log("fileName: " + file)
-                        if (tracklist.currentIndex == index) {
-                            if (player.playbackState === MediaPlayer.PlayingState)  {
-                                player.pause()
-                            } else if (player.playbackState === MediaPlayer.PausedState) {
-                                player.play()
-                            }
-                        } else {
-                            player.stop()
-                            player.source = Qt.resolvedUrl(file)
-                            tracklist.currentIndex = index
-                            playing = PlayingList.indexOf(file)
-                            console.log("Playing click: "+player.source)
-                            console.log("Index: " + tracklist.currentIndex)
-                            player.play()
-                        }
-                        console.log("Source: " + player.source.toString())
-                        console.log("Length: " + length.toString())
+                        console.log("Debug: Playlist chosen: " + name)
                     }
-                }
-                Component.onCompleted: {
-                    if (PlayingList.size() === 0) {
-                        player.source = file
-                    }
-
-                    if (!PlayingList.contains(file)) {
-                        console.log("Adding file:" + file)
-                        PlayingList.addItem(file, itemnum)
-                        console.log(itemnum)
-                    }
-                    console.log("Title:" + title + " Artist: " + artist)
-                    itemnum++
                 }
             }
         }
