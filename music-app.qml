@@ -551,17 +551,7 @@ MainView {
                 height: units.gu(0.3);
                 radius: units.gu(0.3);
                 visible: player.duration > 0 ? true : false
-                width: fileDurationProgress.x + 5;
-            }
-
-            UbuntuShape {
-                id: fileDurationProgress
-                anchors.verticalCenter: fileDurationProgressBackground.verticalCenter;
-                color: "#FFFFFF"
-                height: width;
-                visible: player.duration > 0 ? true : false
-                width: units.gu(1);
-                x: ((player.position / player.duration) * fileDurationProgressContainer.width) - fileDurationProgress.width / 2;
+                width: (player.position / player.duration) * fileDurationProgressContainer.width;
             }
         }
 
