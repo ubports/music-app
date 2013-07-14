@@ -44,11 +44,6 @@ Page {
 
     title: i18n.tr("Playlists")
 
-    // create the listmodel to use
-    ListModel {
-        id: playlistModel
-    }
-
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
         console.debug("Debug: Playlist #" + index + " = " + element);
@@ -288,8 +283,6 @@ Page {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.bottomMargin: units.gu(8)
-        highlight: highlight
-        highlightFollowsCurrentItem: true
         model: playlistModel
         delegate: playlistDelegate
         onCountChanged: {
@@ -308,18 +301,7 @@ Page {
                 id: playlist
                 icon: Qt.resolvedUrl("images/playlist.png")
                 iconFrame: false
-                Label {
-                    id: playlistName
-                    width: 400
-                    wrapMode: Text.Wrap
-                    maximumLineCount: 1
-                    font.pixelSize: 16
-                    anchors.left: parent.left
-                    anchors.leftMargin: 75
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    text: name
-                }
+                text: name
 
                 onFocusChanged: {
                     if (focus == false) {

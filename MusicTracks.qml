@@ -94,65 +94,6 @@ PageStack {
             }
         }
 
-        // Popover for tracks, queue and add to playlist, for example
-        Component {
-            id: trackPopoverComponent
-            Popover {
-                id: trackPopover
-                Column {
-                    id: containerLayout
-                    anchors {
-                    left: parent.left
-                    top: parent.top
-                    right: parent.right
-                }
-                    ListItem.Standard {
-                        text: i18n.tr("Queue")
-                        onClicked: {
-                            console.debug("Debug: Queue track: "+chosenTitle)
-                            PopupUtils.close(trackPopover)
-                            trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack})
-                        }
-                    }
-                    ListItem.Standard {
-                        text: i18n.tr("Add to playlist")
-                        onClicked: {
-                            console.debug("Debug: Add track to playlist")
-                            PopupUtils.close(trackPopover)
-                            PopupUtils.open(addtoPlaylistDialog, mainView)
-                        }
-                    }
-                }
-            }
-        }
-
-        // Edit name of playlist dialog
-        Component {
-             id: addtoPlaylistDialog
-             Dialog {
-                 id: dialogueAddToPlaylist
-                 title: i18n.tr("Add to Playlist")
-                 text: i18n.tr("Which playlist do you want to add the track to?")
-
-                 ListView {
-                     id: addtoPlaylistView
-                     model: playlistModel
-                     delegate: ListItem.Standard {
-                             text: name
-                             onClicked: {
-                                 console.debug("Debug: Clicked: "+name)
-                             }
-                     }
-                 }
-
-                 Button {
-                     text: i18n.tr("Cancel")
-                     color: "grey"
-                     onClicked: PopupUtils.close(dialogueAddToPlaylist)
-                 }
-             }
-        }
-
         ListView {
             id: tracklist
             width: parent.width
