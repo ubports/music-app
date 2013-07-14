@@ -410,28 +410,6 @@ MainView {
         width: parent.width
         color: "#333333"
         UbuntuShape {
-            id: backwardshape
-            height: units.gu(5)
-            width: units.gu(5)
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: units.gu(14)
-            radius: "none"
-            image: Image {
-                id: backwardindicator
-                source: "images/back.png"
-                anchors.right: parent.left
-                anchors.centerIn: parent
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    previousSong()
-                }
-            }
-        }
-        UbuntuShape {
             id: forwardshape
             height: units.gu(5)
             width: units.gu(5)
