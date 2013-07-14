@@ -249,8 +249,7 @@ MainView {
         showDirectories: true
         filterDirectories: false
         nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        //path: homePath() + "/Music"
-        path: "/home/daniel/Arkiverat/Music/black\ kids/"
+        path: homePath() + "/Music"
         onPathChanged: {
             console.log("Path changed: " + folderModel.path)
         }
