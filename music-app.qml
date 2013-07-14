@@ -79,6 +79,10 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
 
+    property string chosenTrack: ""
+    property string chosenTitle: ""
+    property string chosenArtist: ""
+
     property string currentArtist: ""
     property string currentAlbum: ""
     property string currentTracktitle: ""
@@ -249,7 +253,8 @@ MainView {
         showDirectories: true
         filterDirectories: false
         nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        path: homePath() + "/Music"
+        //path: homePath() + "/Music"
+        path: "/home/daniel/Arkiverat/Music/black\ kids/"
         onPathChanged: {
             console.log("Path changed: " + folderModel.path)
         }

@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
+ * Copyright (C) 2013 Daniel Holm <d.holmen@gmail.com>
+                      Victor Thompson <victor.thompson@gmail.com>
+ *
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +36,7 @@ Page {
     property int filelistCount: 0
     property string oldPlaylistName: ""
     property string oldPlaylistIndex: ""
+    property string oldPlaylistID: ""
 
     onFilelistCurrentIndexChanged: {
         tracklist.currentIndex = filelistCurrentIndex
@@ -111,7 +113,7 @@ Page {
                  text: i18n.tr("Remove")
                  onClicked: {
                      // removing playlist
-                     Playlists.removePlaylist(oldPlaylistIndex,oldPlaylistName)
+                     Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
                      playlistModel.remove(oldPlaylistIndex)
                      PopupUtils.close(dialogueRemovePlaylist)
                 }
@@ -122,7 +124,7 @@ Page {
                  onClicked: PopupUtils.close(dialogueRemovePlaylist)
              }
          }
-        }
+    }
 
     // Edit name of playlist dialog
     Component {
@@ -160,7 +162,7 @@ Page {
                  onClicked: PopupUtils.close(dialogueEditPlaylist)
              }
          }
-        }
+    }
 
     // Popover to change name and remove playlists
     Component {
@@ -179,6 +181,7 @@ Page {
                     onClicked: {
                         console.debug("Debug: Change name of playlist.")
                         PopupUtils.open(editPlaylistDialog, mainView)
+                        PopupUtils.close(playlistPopover)
                     }
                 }
                 ListItem.Standard {
@@ -186,6 +189,7 @@ Page {
                     onClicked: {
                         console.debug("Debug: Remove playlist.")
                         PopupUtils.open(removePlaylistDialog, mainView)
+                        PopupUtils.close(playlistPopover)
                     }
                 }
             }
@@ -332,6 +336,7 @@ Page {
                         console.debug("Debug: Pressed and held playlist "+name+" : "+index)
                         // show a dialog to change name and remove list
                         oldPlaylistName = name
+                        oldPlaylistID = id
                         oldPlaylistIndex = index
                         PopupUtils.open(playlistPopoverComponent, mainView)
                     }
