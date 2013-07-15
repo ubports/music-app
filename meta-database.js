@@ -16,6 +16,7 @@
  */
 
 var buffer = [];  // Buffer of metadata to write to the db
+var maxBufferLength = 5000;  // Maximum size of buffer before auto write to db
 
 // First, let's create a short helper function to get the database connection
 function getDatabase() {
@@ -76,6 +77,12 @@ function writeDb()
 // This function is used to write meta data into the database
 function setMetadata(file, title, artist, album, cover, year, number, length) {
     buffer.push([file,title,artist,album,cover,year,number,length]);  // Add metadata to buffer
+
+    if (buffer.length >= maxBufferLength)
+    {
+        console.debug("Buffer full, flushing buffer to disk");
+        writeDb();
+    }
 }
 
 // This function is used to retrieve meta data from the database
