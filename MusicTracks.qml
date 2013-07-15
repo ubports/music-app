@@ -182,7 +182,10 @@ PageStack {
                         onDoubleClicked: {
                         }
                         onPressAndHold: {
-                            trackQueue.append({"title": title, "artist": artist, "file": file})
+                            PopupUtils.open(trackPopoverComponent, mainView)
+                            chosenArtist = artist
+                            chosenTitle = title
+                            chosenTrack = file
                         }
                         onClicked: {
                             if (focus == false) {

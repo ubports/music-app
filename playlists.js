@@ -30,7 +30,7 @@ function initializePlaylists() {
     var db = getPlaylistsDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS playlists(id INTEGER, name TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS playlists(id INTEGER PRIMARY KEY, name TEXT)');
       });
 }
 // same thing for individal playlists
@@ -50,7 +50,7 @@ function getID() {
         db.transaction(function(tx) {
           var rs = tx.executeSql('SELECT * FROM playlists');
           if (rs.rows.length > 0) {
-               res = rs.rows.length;
+              res = rs.rows.length;
           } else {
               res = 0;
           }
@@ -58,8 +58,7 @@ function getID() {
     } catch(e) {
         return "";
     }
-
-   return res
+   return res;
 }
 
 // This function is used to write a playlist into the database
@@ -67,7 +66,13 @@ function addPlaylist(name) {
     var db = getPlaylistsDatabase();
     var res = "";
     var id = getID();
-    var newid = id+1;
+    if (id === 0) {
+        var newid = 0;
+    }
+    else {
+        var newid = id+1;
+    }
+
     console.debug("Debug: "+id);
     db.transaction(function(tx) {
         var rs = tx.executeSql('INSERT INTO playlists VALUES (?,?);', [newid,name]);
@@ -99,24 +104,23 @@ function addtoPlaylist(playlist,track) {
   return res;
 }
 
-// This function is used to retrieve a playlist from the database
-function getPlaylist(playlistname) {
+// This function is used to retrieve a playlist from the database in an array
+function getPlaylists() {
    var db = getPlaylistsDatabase();
-   var res="";
+    var res = new Array();
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT name FROM playlists WHERE name=?;', [playlistname]);
-         if (rs.rows.length > 0) {
-              res = rs.rows.item(0).value;
-         } else {
-             res = "Unknown";
-         }
+           var rs = tx.executeSql('SELECT * FROM playlists');
+           for(var i = 0; i < rs.rows.length; i++) {
+               var dbItem = rs.rows.item(i);
+               console.log("id:"+ dbItem.id + ", Name:"+dbItem.name);
+               res[i] = dbItem.name;
+           }
       })
    } catch(e) {
        return "";
    }
-
   return res
 }
 
@@ -141,7 +145,41 @@ function getPlaylistTracks(playlist) {
   return res
 }
 
-// be carefull, this will drop the playlists (db
+// change name of playlist
+function namechangePlaylist(old,nw) {
+    // change the name in the playlists db
+    var db = getPlaylistsDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql('UPDATE playlists SET name=? WHERE name=?;',[nw,old]);
+      });
+
+    // change the name in the playlist db to make sure the tracks follow
+    var db = getPlaylistDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql('UPDATE playlist SET playlist=? WHERE playlist=?;', [ nw, old] );
+      });
+}
+
+// remove playlist
+function removePlaylist(id,playlist) {
+    var db = getPlaylistDatabase();
+    var res = "";
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('DELETE FROM playlists WHERE id=? AND name=?;', [id,playlist]);
+              if (rs.rowsAffected > 0) {
+                res = "OK";
+              } else {
+                res = "Error";
+              }
+        }
+  );
+  // The function returns “OK” if it was successful, or “Error” if it wasn't
+  return res;
+}
+
+// be carefull, this will drop the playlists (db)
 function reset() {
     var db = getPlaylistsDatabase();
     db.transaction(

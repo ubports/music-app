@@ -56,8 +56,9 @@ MainView {
         folderScannerModel.nameFilters = ["*.mp3","*.ogg","*.flac","*.wav","*.oga"]
         timer.start()
 
-        // initialize playlist
+        // initialize playlists
         Playlists.initializePlaylists()
+        Playlists.initializePlaylist()
         // everything else
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
@@ -69,7 +70,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.3.2'
+    property string appVersion: '0.4'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
@@ -77,6 +78,10 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
+
+    property string chosenTrack: ""
+    property string chosenTitle: ""
+    property string chosenArtist: ""
 
     property string currentArtist: ""
     property string currentAlbum: ""
@@ -272,10 +277,6 @@ MainView {
         id: albumModel
     }
 
-    LibraryListModel {
-        id: playlistModel
-    }
-
     FolderListModel {
         id: folderModel
         showDirectories: true
@@ -313,6 +314,11 @@ MainView {
     // list of single tracks
     ListModel {
         id: singleTracks
+    }
+
+    // create the listmodel to use for playlists
+    ListModel {
+        id: playlistModel
     }
 
     Column {
@@ -363,6 +369,70 @@ MainView {
             }
             counted = filelist.count
         }
+    }
+
+    // Popover for tracks, queue and add to playlist, for example
+    Component {
+        id: trackPopoverComponent
+        Popover {
+            id: trackPopover
+            Column {
+                id: containerLayout
+                anchors {
+                left: parent.left
+                top: parent.top
+                right: parent.right
+            }
+                ListItem.Standard {
+                    text: i18n.tr("Queue")
+                    onClicked: {
+                        console.debug("Debug: Queue track: "+chosenTitle)
+                        PopupUtils.close(trackPopover)
+                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack})
+                    }
+                }
+                ListItem.Standard {
+                    text: i18n.tr("Add to playlist")
+                    onClicked: {
+                        console.debug("Debug: Add track to playlist")
+                        PopupUtils.close(trackPopover)
+                        PopupUtils.open(addtoPlaylistDialog, mainView)
+                    }
+                }
+            }
+        }
+    }
+
+    // Edit name of playlist dialog
+    Component {
+         id: addtoPlaylistDialog
+         Dialog {
+             id: dialogueAddToPlaylist
+             title: i18n.tr("Add to Playlist")
+             text: i18n.tr("Which playlist do you want to add the track to?")
+
+             // show each playlist and make them chosable
+             ListView {
+                 id: addtoPlaylistView
+                 width: parent.width
+                 height: units.gu(35)
+                 anchors.bottomMargin: units.gu(4)
+                 model: playlistModel
+                 delegate: ListItem.Standard {
+                        text: name
+                        onClicked: {
+                            console.debug("Debug: "+chosenTrack+" added to "+name)
+                            Playlists.addtoPlaylist(name,chosenTrack)
+                            PopupUtils.close(dialogueAddToPlaylist)
+                        }
+                 }
+             }
+
+             Button {
+                 text: i18n.tr("Cancel")
+                 onClicked: PopupUtils.close(dialogueAddToPlaylist)
+             }
+         }
     }
 
     Tabs {
