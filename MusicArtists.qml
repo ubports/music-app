@@ -102,36 +102,36 @@ Page {
                 iconFrame: false
                 Label {
                     id: trackTitle
-                    width: 400
-                    wrapMode: Text.Wrap
+                    wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     font.pixelSize: 16
                     anchors.left: parent.left
                     anchors.leftMargin: 75
                     anchors.top: parent.top
                     anchors.topMargin: 5
+                    anchors.right: parent.right
                     text: track.title == "" ? track.file : track.title
                 }
                 Label {
                     id: trackArtistAlbum
-                    width: 400
-                    wrapMode: Text.Wrap
+                    wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     font.pixelSize: 12
                     anchors.left: parent.left
                     anchors.leftMargin: 75
                     anchors.top: trackTitle.bottom
+                    anchors.right: parent.right
                     text: artist == "" ? "" : artist + " - " + album
                 }
                 Label {
                     id: trackDuration
-                    width: 400
-                    wrapMode: Text.Wrap
+                    wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     font.pixelSize: 12
                     anchors.left: parent.left
                     anchors.leftMargin: 75
                     anchors.top: trackArtistAlbum.bottom
+                    anchors.right: parent.right
                     visible: false
                     text: ""
                 }
