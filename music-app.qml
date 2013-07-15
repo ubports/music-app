@@ -93,6 +93,15 @@ MainView {
                                           "images/Blank_album.jpg"
 
     // FUNCTIONS
+
+    // Custom debug funtion that's easier to shut off
+    function customdebug(text) {
+        var debug = "1"; // set to "0" for not debugging
+        if (debug === "1") {
+	    console.debug("Debug: "+text);
+        }
+    }
+
     function previousSong() {
         getSong(-1)
     }
