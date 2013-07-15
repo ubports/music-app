@@ -26,6 +26,7 @@ Dialog {
 
     ListView {
         id: queueList
+        height: units.gu(35)
         model: trackQueue
         delegate: ListItem.Standard {
             text: artist+" - "+title
