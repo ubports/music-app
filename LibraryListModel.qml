@@ -23,6 +23,11 @@ Item {
     property ListModel model : ListModel { id: libraryModel }
     property alias count: libraryModel.count
 
+    WorkerScript {
+         id: worker
+         source: "worker-library-loader.js"
+     }
+
     function populate() {
         libraryModel.clear();
         console.log("called LibraryListModel::populate()")
@@ -32,7 +37,7 @@ Item {
         for ( var key in library ) {
             var add = library[key];
             console.log(JSON.stringify(add))
-            libraryModel.append( add );
+            worker.sendMessage({'add': add, 'model': libraryModel})
         }
     }
 
@@ -40,17 +45,13 @@ Item {
         libraryModel.clear();
         console.log("called LibraryListModel::filterArtists()")
 
-        var library = Library.getAll()
+        var library = Library.getArtists()
 
-        var added = new Array
         for ( var key in library ) {
             var add = library[key];
             console.log("add.artist: "+add.artist)
             console.log(JSON.stringify(add))
-            if (added.indexOf(add.artist) === -1) {
-                libraryModel.append( add );
-                added.push(add.artist)
-            }
+            worker.sendMessage({'add': add, 'model': libraryModel})
         }
     }
 
@@ -58,17 +59,13 @@ Item {
         libraryModel.clear();
         console.log("called LibraryListModel::filterAlbums()")
 
-        var library = Library.getAll()
+        var library = Library.getAlbums()
 
-        var added = new Array
         for ( var key in library ) {
             var add = library[key];
             console.log("add.album: "+add.album)
             console.log(JSON.stringify(add))
-            if (added.indexOf(add.album) === -1) {
-                libraryModel.append( add );
-                added.push(add.album)
-            }
+            worker.sendMessage({'add': add, 'model': libraryModel})
         }
     }
 }

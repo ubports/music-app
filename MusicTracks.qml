@@ -131,36 +131,36 @@ PageStack {
                     iconFrame: false
                     Label {
                         id: trackTitle
-                        width: 400
-                        wrapMode: Text.Wrap
+                        wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "medium"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
                         anchors.topMargin: 5
+                        anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
                     }
                     Label {
                         id: trackArtistAlbum
-                        width: 400
-                        wrapMode: Text.Wrap
+                        wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "small"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: trackTitle.bottom
+                        anchors.right: parent.right
                         text: artist == "" ? "" : artist + " - " + album
                     }
                     Label {
                         id: trackDuration
-                        width: 400
-                        wrapMode: Text.Wrap
+                        wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "small"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: trackArtistAlbum.bottom
+                        anchors.right: parent.right
                         visible: false
                         text: ""
                     }
