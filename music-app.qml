@@ -584,7 +584,7 @@ MainView {
             wrapMode: Text.Wrap
             color: "#FFFFFF"
             maximumLineCount: 1
-            font.pixelSize: 16
+            fontSize: "medium"
             anchors.left: iconbottom.right
             anchors.top: parent.top
             anchors.topMargin: units.gu(1)
@@ -597,7 +597,7 @@ MainView {
             wrapMode: Text.Wrap
             color: "#FFFFFF"
             maximumLineCount: 1
-            font.pixelSize: 12
+            fontSize: "small"
             anchors.left: iconbottom.right
             anchors.top: fileTitleBottom.bottom
             anchors.leftMargin: units.gu(1)
@@ -640,7 +640,7 @@ MainView {
             anchors.left: fileDurationProgressContainer.right
             anchors.leftMargin: units.gu(1)
             color: "#FFFFFF"
-            font.pixelSize: 12
+            fontSize: "small"
             maximumLineCount: 1
             text: player.duration > 0 ?
                       player.positionStr+" / "+player.durationStr
@@ -781,7 +781,7 @@ MainView {
                 wrapMode: Text.Wrap
                 color: "#FFFFFF"
                 maximumLineCount: 1
-                font.pixelSize: 24
+                fontSize: "large"
                 anchors.top: iconbottom_nowplaying.bottom
                 anchors.topMargin: units.gu(2)
                 anchors.left: parent.left
@@ -794,7 +794,7 @@ MainView {
                 wrapMode: Text.Wrap
                 color: "#FFFFFF"
                 maximumLineCount: 2
-                font.pixelSize: 16
+                fontSize: "medium"
                 anchors.left: parent.left
                 anchors.top: fileTitleBottom_nowplaying.bottom
                 anchors.leftMargin: units.gu(2)
@@ -883,7 +883,7 @@ MainView {
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
                 color: "#FFFFFF"
-                font.pixelSize: 16
+                fontSize: "medium"
                 maximumLineCount: 1
                 text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
                 width: units.gu(30)

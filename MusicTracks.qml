@@ -134,9 +134,9 @@ PageStack {
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 1
-                        font.pixelSize: 16
+                        fontSize: "medium"
                         anchors.left: parent.left
-                        anchors.leftMargin: 75
+                        anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
                         anchors.topMargin: 5
                         text: track.title == "" ? track.file : track.title
@@ -146,9 +146,9 @@ PageStack {
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
-                        font.pixelSize: 12
+                        fontSize: "small"
                         anchors.left: parent.left
-                        anchors.leftMargin: 75
+                        anchors.leftMargin: units.gu(8)
                         anchors.top: trackTitle.bottom
                         text: artist == "" ? "" : artist + " - " + album
                     }
@@ -157,9 +157,9 @@ PageStack {
                         width: 400
                         wrapMode: Text.Wrap
                         maximumLineCount: 2
-                        font.pixelSize: 12
+                        fontSize: "small"
                         anchors.left: parent.left
-                        anchors.leftMargin: 75
+                        anchors.leftMargin: units.gu(8)
                         anchors.top: trackArtistAlbum.bottom
                         visible: false
                         text: ""
