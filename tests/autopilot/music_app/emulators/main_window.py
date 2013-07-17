@@ -20,3 +20,10 @@ class MainWindow(object):
         """Get the main QML view"""
         return self.app.select_single("QQuickView")
 
+    def get_object(self, typeName, name):
+        """Get a specific object"""
+        return self.app.select_single(typeName, objectName=name)
+
+    def get_objects(self, typeName, name):
+        """Get more than one object"""
+        return self.app.select_many(typeName, objectName=name)

@@ -541,6 +541,7 @@ MainView {
         }
         UbuntuShape {
             id: playshape
+            objectName: "playShape"
             height: units.gu(5)
             width: units.gu(5)
             anchors.verticalCenter: parent.verticalCenter
@@ -549,6 +550,7 @@ MainView {
             radius: "none"
             image: Image {
                 id: playindicator
+                objectName: "playImageIcon"
                 source: player.playbackState === MediaPlayer.PlayingState ?
                           "images/pause.png" : "images/play.png"
                 anchors.right: parent.right
@@ -557,6 +559,7 @@ MainView {
             }
             MouseArea {
                 anchors.fill: parent
+                objectName: "playMouseArea"
                 onClicked: {
                     if (player.playbackState === MediaPlayer.PlayingState)  {
                         player.pause()
