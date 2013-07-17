@@ -1,8 +1,8 @@
-music-app (0.3.2) raring; urgency=low
+music-app (0.4.5) raring; urgency=low
 
-  * Dialog to create a playlist now works.
+  * Removed queue from toolbar to Playlist tab. Initial queue change.
 
- -- Daniel Holm <d.holmen@gmail.com>  Tue, 11 Jul 2013 21:29:50 +0200
+ -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 16:43:50 +0200
 
 music-app (0.3.1) raring; urgency=low
 
