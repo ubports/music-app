@@ -662,7 +662,7 @@ MainView {
         visible: false
         Item {
             anchors.fill: parent
-            anchors.bottomMargin: units.gu(10)
+            anchors.bottomMargin: units.gu(3)
 
             UbuntuShape {
                 id: forwardshape_nowplaying
@@ -892,6 +892,7 @@ MainView {
                 text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
                 width: units.gu(40)
                 wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignRight
             }
         }
 
