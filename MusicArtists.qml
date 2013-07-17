@@ -53,21 +53,6 @@ PageStack {
                                     } )
                 }
             }
-
-            // Queue dialog
-            ToolbarButton {
-                objectName: "queuesaction"
-                iconSource: Qt.resolvedUrl("images/queue.png")
-                text: i18n.tr("Queue")
-
-                onTriggered: {
-                    console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Queue")
-                                    } )
-                }
-            }
         }
 
         ListView {

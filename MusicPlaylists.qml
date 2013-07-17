@@ -233,21 +233,6 @@ Page {
                                 } )
             }
         }
-
-        // Queue dialog
-        ToolbarButton {
-            objectName: "queuesaction"
-            iconSource: Qt.resolvedUrl("images/queue.png")
-            text: i18n.tr("Queue")
-
-            onTriggered: {
-                console.debug('Debug: Show queue')
-                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
-            }
-        }
     }
 
 
@@ -257,24 +242,13 @@ Page {
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
+        // first add queue
+        playlistModel.append({"id": 0, "name": i18n.tr("Queue")});
+
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        console.debug("Debug: Playlists: "+playlist) //debug
+        customdebug("Playlists: "+playlist) //debug
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
-    }
-
-    Component {
-        id: highlight
-        Rectangle {
-            width: 5; height: 40
-            color: "#DD4814";
-            Behavior on y {
-                SpringAnimation {
-                    spring: 3
-                    damping: 0.2
-                }
-            }
-        }
     }
 
     ListView {
@@ -286,13 +260,13 @@ Page {
         model: playlistModel
         delegate: playlistDelegate
         onCountChanged: {
-            console.log("onCountChanged: " + tracklist.count)
+            customdebug("onCountChanged: " + tracklist.count)
         }
         onCurrentIndexChanged: {
-            console.log("tracklist.currentIndex = " + tracklist.currentIndex)
+            customdebug("tracklist.currentIndex = " + tracklist.currentIndex)
         }
         onModelChanged: {
-            console.log("PlayingList cleared")
+            customdebug("PlayingList cleared")
         }
 
         Component {
@@ -315,18 +289,30 @@ Page {
                     onDoubleClicked: {
                     }
                     onPressAndHold: {
-                        console.debug("Debug: Pressed and held playlist "+name+" : "+index)
-                        // show a dialog to change name and remove list
-                        oldPlaylistName = name
-                        oldPlaylistID = id
-                        oldPlaylistIndex = index
-                        PopupUtils.open(playlistPopoverComponent, mainView)
+                        customdebug("Pressed and held playlist "+name+" : "+index)
+
+                        if (name === i18n.tr("Queue")) {
+                            customdebug("User tried to change name of queue, but no go!")
+                        }
+                        else {
+                            // show a dialog to change name and remove list
+                            oldPlaylistName = name
+                            oldPlaylistID = id
+                            oldPlaylistIndex = index
+                            PopupUtils.open(playlistPopoverComponent, mainView)
+                        }
                     }
                     onClicked: {
-                        if (focus == false) {
-                            focus = true
+                        if (name === i18n.tr("Queue")) {
+                            customdebug("User clicked Queue.")
+                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                            {
+                                                title: i18n.tr("Queue")
+                                            } )
                         }
-                        console.log("Debug: Playlist chosen: " + name)
+                        else {
+                            customdebug("Playlist chosen: " + name)
+                        }
                     }
                 }
             }
