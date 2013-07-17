@@ -25,175 +25,172 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 
-Page {
-    title: i18n.tr("Artists")
+PageStack {
+    id: pageStack
+    anchors.fill: parent
 
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
 
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
+    Page {
+        id: mainpage
+        title: i18n.tr("Artists")
+        Component.onCompleted: {
+            pageStack.push(mainpage)
+        }
+
+        tools: ToolbarItems {
+            // Settings dialog
+            ToolbarButton {
+                objectName: "settingsaction"
+                iconSource: Qt.resolvedUrl("images/settings.png")
+                text: i18n.tr("Settings")
+
+                onTriggered: {
+                    console.debug('Debug: Show settings')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
+                }
+            }
+
+            // Queue dialog
+            ToolbarButton {
+                objectName: "queuesaction"
+                iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+                text: i18n.tr("Queue")
+
+                onTriggered: {
+                    console.debug('Debug: Show queue')
+                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Queue")
+                                    } )
+                }
             }
         }
 
-        // Queue dialog
-        ToolbarButton {
-            objectName: "queuesaction"
-            iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
-            text: i18n.tr("Queue")
+        ListView {
+            id: artistlist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: artistModel.model
+            delegate: artistDelegate
 
-            onTriggered: {
-                console.debug('Debug: Show queue')
-                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
-            }
-        }
-    }
+            Component {
+                id: artistDelegate
 
-    Component {
-        id: highlight
-        Rectangle {
-            width: 5; height: 40
-            color: "#DD4814";
-            Behavior on y {
-                SpringAnimation {
-                    spring: 3
-                    damping: 0.2
-                }
-            }
-        }
-    }
-
-    ListView {
-        id: artistlist
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: units.gu(8)
-        highlight: highlight
-        highlightFollowsCurrentItem: true
-        model: artistModel.model
-        delegate: artistDelegate
-
-        Component {
-            id: artistDelegate
-
-            ListItem.Standard {
-                id: track
-                property string artist: model.artist
-                property string album: model.album
-                property string title: model.title
-                property string cover: model.cover
-                property string length: model.length
-                property string file: model.file
-                icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
-                iconFrame: false
-                Label {
-                    id: trackTitle
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "medium"
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(8)
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    anchors.right: parent.right
-                    text: track.title == "" ? track.file : track.title
-                }
-                Label {
-                    id: trackArtistAlbum
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "small"
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(8)
-                    anchors.top: trackTitle.bottom
-                    anchors.right: parent.right
-                    text: artist == "" ? "" : artist + " - " + album
-                }
-                Label {
-                    id: trackDuration
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "small"
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(8)
-                    anchors.top: trackArtistAlbum.bottom
-                    anchors.right: parent.right
-                    visible: false
-                    text: ""
-                }
-
-                onFocusChanged: {
-                    if (focus == false) {
-                        selected = false
-                    } else {
-                        selected = false
-                        mainView.currentArtist = artist
-                        mainView.currentAlbum = album
-                        mainView.currentTracktitle = title
-                        mainView.currentFile = file
-                        mainView.currentCover = cover
+                ListItem.Standard {
+                    id: track
+                    property string artist: model.artist
+                    property string cover: model.cover
+                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    iconFrame: false
+                    progression: true
+                    Label {
+                        id: trackArtistAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "large"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        text: artist
                     }
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onDoubleClicked: {
+
+                    onFocusChanged: {
                     }
-                    onPressAndHold: {
-                        trackQueue.append({"title": title, "artist": artist, "file": file})
-                    }
-                    onClicked: {
-                        if (focus == false) {
-                            focus = true
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
                         }
-                        console.log("fileName: " + file)
-                        if (tracklist.currentIndex == index) {
-                            if (player.playbackState === MediaPlayer.PlayingState)  {
-                                player.pause()
-                            } else if (player.playbackState === MediaPlayer.PausedState) {
-                                player.play()
-                            }
-                        } else {
-                            player.stop()
-                            player.source = Qt.resolvedUrl(file)
-                            tracklist.currentIndex = index
-                            playing = PlayingList.indexOf(file)
-                            console.log("Playing click: "+player.source)
-                            console.log("Index: " + tracklist.currentIndex)
-                            player.play()
+                        onPressAndHold: {
                         }
-                        console.log("Source: " + player.source.toString())
-                        console.log("Length: " + length.toString())
+                        onClicked: {
+                            artistTracksModel.filterArtistTracks(artist)
+                            pageStack.push(artistpage)
+                        }
                     }
-                }
-                Component.onCompleted: {
-                    if (PlayingList.size() === 0) {
-                        player.source = file
+                    Component.onCompleted: {
                     }
-
-                    if (!PlayingList.contains(file)) {
-                        console.log("Adding file:" + file)
-                        PlayingList.addItem(file, itemnum)
-                        console.log(itemnum)
-                    }
-                    console.log("Title:" + title + " Artist: " + artist)
-                    itemnum++
                 }
             }
         }
     }
+
+    Page {
+        id: artistpage
+        title: i18n.tr("Tracks")
+
+        ListView {
+            id: artisttrackslist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: artistTracksModel.model
+            delegate: artistTracksDelegate
+
+            Component {
+                id: artistTracksDelegate
+
+                ListItem.Standard {
+                    id: track
+                    property string artist: model.artist
+                    property string album: model.album
+                    property string title: model.title
+                    property string cover: model.cover
+                    property string length: model.length
+                    property string file: model.file
+                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    iconFrame: false
+                    progression: false
+                    Label {
+                        id: trackTitle
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.right: parent.right
+                        text: track.title == "" ? track.file : track.title
+                    }
+                    Label {
+                        id: trackArtistAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: trackTitle.bottom
+                        anchors.right: parent.right
+                        text: artist == "" ? "" : artist + " - " + album
+                    }
+
+                    onFocusChanged: {
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+                        onPressAndHold: {
+                        }
+                        onClicked: {
+                        }
+                    }
+                    Component.onCompleted: {
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }
 

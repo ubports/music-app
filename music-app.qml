@@ -272,6 +272,9 @@ MainView {
     LibraryListModel {
         id: artistModel
     }
+    LibraryListModel {
+        id: artistTracksModel
+    }
 
     LibraryListModel {
         id: albumModel
@@ -362,7 +365,7 @@ MainView {
                 Library.writeDb()
                 libraryModel.populate()
                 albumModel.filterAlbums()
-                artistModel.populate()
+                artistModel.filterArtists()
                 PlayingList.clear()
                 itemnum = 0
                 timer.stop()

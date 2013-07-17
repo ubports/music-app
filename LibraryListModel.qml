@@ -55,6 +55,21 @@ Item {
         }
     }
 
+    function filterArtistTracks(artist) {
+        // TODO: Currently clearing the model causes the ListView not to refresh when an artist is selected the second time.
+        //       However, without the call to clear(), each artist's tracks are appended to the ListView.
+        // libraryModel.clear();
+        console.log("called LibraryListModel::filterArtistsTracks()")
+
+        var library = Library.getArtistTracks(artist)
+
+        for ( var key in library ) {
+            var add = library[key];
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
+
     function filterAlbums() {
         libraryModel.clear();
         console.log("called LibraryListModel::filterAlbums()")
