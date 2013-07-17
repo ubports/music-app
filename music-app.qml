@@ -48,6 +48,7 @@ MainView {
             //Settings.setSetting("scrobble", "0") // default state of shuffle
             //Settings.setSetting("scrobble", "0") // default state of scrobble
             Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
+            Playlists.addPlaylist("Testing") // for now, but remove when toolbar works again.
         }
         Library.reset()
         Library.initialize()
@@ -70,7 +71,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.4'
+    property string appVersion: '0.4.5'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
@@ -82,6 +83,7 @@ MainView {
     property string chosenTrack: ""
     property string chosenTitle: ""
     property string chosenArtist: ""
+    property string chosenAlbum: ""
 
     property string currentArtist: ""
     property string currentAlbum: ""
@@ -324,6 +326,12 @@ MainView {
         id: playlistModel
     }
 
+    // create the listmodel for tracks in playlists
+    ListModel {
+        id: playlisttracksModel
+    }
+
+
     Column {
         Repeater {
             id: filelist
@@ -425,7 +433,7 @@ MainView {
                         text: name
                         onClicked: {
                             console.debug("Debug: "+chosenTrack+" added to "+name)
-                            Playlists.addtoPlaylist(name,chosenTrack)
+                            Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
                             PopupUtils.close(dialogueAddToPlaylist)
                         }
                  }

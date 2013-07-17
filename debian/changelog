@@ -1,3 +1,10 @@
+music-app (0.4.5) raring; urgency=low
+
+  * Show tracks in playlists.
+  * Play track from playlist.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 18:29:50 +0200
+
 music-app (0.3.2) raring; urgency=low
 
   * Dialog to create a playlist now works.

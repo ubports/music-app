@@ -26,75 +26,81 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
+import "playlists.js" as Playlists
 
-Page {
-    title: i18n.tr("Albums")
+PageStack {
+    id: pageStack
+    anchors.fill: parent
 
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
+    Page {
+        title: i18n.tr("Albums")
 
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
-        }
+        tools: ToolbarItems {
+            // Settings dialog
+            ToolbarButton {
+                objectName: "settingsaction"
+                iconSource: Qt.resolvedUrl("images/settings.png")
+                text: i18n.tr("Settings")
 
-        // Queue dialog
-        ToolbarButton {
-            objectName: "queuesaction"
-            iconSource: Qt.resolvedUrl("images/queue.png")
-            text: i18n.tr("Queue")
-
-            onTriggered: {
-                console.debug('Debug: Show queue')
-                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                {
-                                    title: i18n.tr("Queue")
-                                } )
-            }
-        }
-    }
-
-    GridView {
-        id: albumlist
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        cellHeight: units.gu(7)
-        cellWidth: units.gu(7)
-        model: albumModel.model
-        delegate: albumDelegate
-
-        Component {
-            id: albumDelegate
-            Item {
-                height: units.gu(6)
-                width: units.gu(6)
-                anchors.margins: 10
-                UbuntuShape {
-                    height: parent.height
-                    width: parent.width
-                    image: Image {
-                        id: album
-                        fillMode: Image.Stretch
-                        property string artist: model.artist
-                        property string album: model.album
-                        property string title: model.title
-                        property string cover: model.cover
-                        property string length: model.length
-                        property string file: model.file
-                        source: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
-                    }
+                onTriggered: {
+                    console.debug('Debug: Show settings')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
                 }
             }
 
+            // Queue dialog
+            ToolbarButton {
+                objectName: "queuesaction"
+                iconSource: Qt.resolvedUrl("images/queue.png")
+                text: i18n.tr("Queue")
+
+                onTriggered: {
+                    console.debug('Debug: Show queue')
+                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Queue")
+                                    } )
+                }
+            }
+        }
+
+        GridView {
+            id: albumlist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            cellHeight: units.gu(7)
+            cellWidth: units.gu(7)
+            model: albumModel.model
+            delegate: albumDelegate
+
+            Component {
+                id: albumDelegate
+                Item {
+                    height: units.gu(6)
+                    width: units.gu(6)
+                    anchors.margins: 10
+                    UbuntuShape {
+                        height: parent.height
+                        width: parent.width
+                        image: Image {
+                            id: album
+                            fillMode: Image.Stretch
+                            property string artist: model.artist
+                            property string album: model.album
+                            property string title: model.title
+                            property string cover: model.cover
+                            property string length: model.length
+                            property string file: model.file
+                            source: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                        }
+                    }
+                }
+
+            }
         }
     }
 }

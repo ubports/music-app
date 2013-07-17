@@ -38,7 +38,7 @@ function initializePlaylist() {
     var db = getPlaylistDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(playlist TEXT, track TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT)');
       });
 }
 
@@ -88,11 +88,11 @@ function addPlaylist(name) {
 }
 
 // add track to playlist
-function addtoPlaylist(playlist,track) {
+function addtoPlaylist(playlist,track,artist,title,album) {
     var db = getPlaylistDatabase();
     var res = "";
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?);', [playlist,track]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?);', [playlist,track,artist,title,album]);
               if (rs.rowsAffected > 0) {
                 res = "OK";
               } else {
@@ -107,14 +107,14 @@ function addtoPlaylist(playlist,track) {
 // This function is used to retrieve a playlist from the database in an array
 function getPlaylists() {
    var db = getPlaylistsDatabase();
-    var res = new Array();
+   var res = new Array();
 
    try {
        db.transaction(function(tx) {
            var rs = tx.executeSql('SELECT * FROM playlists');
            for(var i = 0; i < rs.rows.length; i++) {
                var dbItem = rs.rows.item(i);
-               console.log("id:"+ dbItem.id + ", Name:"+dbItem.name);
+               //console.log("id:"+ dbItem.id + ", Name:"+dbItem.name);
                res[i] = dbItem.name;
            }
       })
@@ -126,22 +126,27 @@ function getPlaylists() {
 
 // retrieve tracks from playlist
 function getPlaylistTracks(playlist) {
+   console.log("I got "+playlist)
    var db = getPlaylistDatabase();
-   var res="";
+   var res = new Array();
 
    try {
        db.transaction(function(tx) {
          var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
-         if (rs.rows.length > 0) {
-              res = rs.rows.item(0).value;
-         } else {
-             res = "Unknown";
+         for(var i = 0; i < rs.rows.length; i++) {
+             var dbItem = rs.rows.item(i);
+             console.log("Track: "+ dbItem.track);
+             console.log("Artist: "+ dbItem.artist);
+             console.log("Title: "+ dbItem.title);
+             console.log("Album: "+ dbItem.album);
+             res[i] = ""+dbItem.track+","+dbItem.artist+","+dbItem.title+","+dbItem.album+"";
          }
       })
    } catch(e) {
        return "";
    }
 
+   console.log(res);
   return res
 }
 
