@@ -237,7 +237,7 @@ Page {
         // Queue dialog
         ToolbarButton {
             objectName: "queuesaction"
-            iconSource: Qt.resolvedUrl("images/folder.png") // change this icon later
+            iconSource: Qt.resolvedUrl("images/queue.png")
             text: i18n.tr("Queue")
 
             onTriggered: {
