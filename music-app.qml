@@ -38,6 +38,7 @@ MainView {
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
+        customdebug("Version "+appVersion) // print the curren version
         Settings.initialize()
         Library.initialize()
         console.debug("INITIALIZED in tracks")
@@ -70,7 +71,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.4'
+    property string appVersion: '0.4.3'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
