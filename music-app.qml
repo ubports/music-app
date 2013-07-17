@@ -738,8 +738,8 @@ MainView {
             Image {
                 id: iconbottom_nowplaying
                 source: mainView.currentCoverFull
-                width: 300
-                height: 300
+                width: units.gu(40)
+                height: units.gu(40)
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(1)
@@ -781,36 +781,36 @@ MainView {
             }
             Label {
                 id: fileTitleBottom_nowplaying
-                width: units.gu(45)
+                width: units.gu(40)
                 wrapMode: Text.Wrap
                 color: "#FFFFFF"
                 maximumLineCount: 1
                 fontSize: "large"
                 anchors.top: iconbottom_nowplaying.bottom
                 anchors.topMargin: units.gu(2)
-                anchors.left: parent.left
                 anchors.leftMargin: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
             }
             Label {
                 id: fileArtistAlbumBottom_nowplaying
-                width: units.gu(45)
+                width: units.gu(40)
                 wrapMode: Text.Wrap
                 color: "#FFFFFF"
                 maximumLineCount: 2
                 fontSize: "medium"
-                anchors.left: parent.left
                 anchors.top: fileTitleBottom_nowplaying.bottom
                 anchors.leftMargin: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: mainView.currentArtist === "" ? "" : mainView.currentArtist + "\n" + mainView.currentAlbum
             }
 
             Rectangle {
                 id: fileDurationProgressContainer_nowplaying
                 anchors.top: fileArtistAlbumBottom_nowplaying.bottom
-                anchors.left: parent.left
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
                 color: "#333333";
                 height: units.gu(2);
                 width: units.gu(40);
@@ -883,14 +883,14 @@ MainView {
             Label {
                 id: fileDurationBottom_nowplaying
                 anchors.top: fileDurationProgressContainer_nowplaying.bottom
-                anchors.left: parent.left
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
+                anchors.horizontalCenter: parent.horizontalCenter
                 color: "#FFFFFF"
                 fontSize: "medium"
                 maximumLineCount: 1
                 text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
-                width: units.gu(30)
+                width: units.gu(40)
                 wrapMode: Text.Wrap
             }
         }
