@@ -384,9 +384,9 @@ MainView {
                 right: parent.right
             }
                 ListItem.Standard {
-                    text: i18n.tr("Queue")
+                    text: i18n.tr("Add to queue")
                     onClicked: {
-                        console.debug("Debug: Queue track: "+chosenTitle)
+                        console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
                         trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack})
                     }
