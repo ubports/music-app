@@ -33,7 +33,7 @@ class MusicTestCase(AutopilotTestCase):
 
     def setUp(self):
         self.pointing_device = Pointer(self.input_device_class.create())
-        super(FileManagerTestCase, self).setUp()
+        super(MusicTestCase, self).setUp()
         if os.path.exists(self.local_location):
             self.launch_test_local()
         else:
