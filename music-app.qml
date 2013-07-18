@@ -203,14 +203,9 @@ MainView {
 
     function trackClicked(file, index, libraryModel, listView)
     {
-        currentListView = listView
-        currentModel = libraryModel
-        currentModelCount = libraryModel.count
-        currentIndex = index  // update index after model so index can get info from model
+        console.debug(player.source, Qt.resolvedUrl(file))
 
-        console.log("Click of fileName: " + file)
-
-        if (player.source === file)
+        if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
         {
             console.log("Is current track: "+player.playbackState)
 
@@ -222,13 +217,20 @@ MainView {
             {
                 player.play()
             }
+
+            return
         }
-        else
-        {
-            player.stop()
-            player.source = Qt.resolvedUrl(file)
-            player.play()
-        }
+
+        currentListView = listView
+        currentModel = libraryModel
+        currentModelCount = libraryModel.count
+        currentIndex = index  // update index after model so index can get info from model
+
+        console.log("Click of fileName: " + file)
+
+        player.stop()
+        player.source = Qt.resolvedUrl(file)
+        player.play()
 
         playing = PlayingList.indexOf(file)
 
