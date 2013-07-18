@@ -35,6 +35,10 @@ MainView {
     applicationName: "music-app"
     id: mainView
 
+    headerColor: "#57365E"
+    backgroundColor: "#A55263"
+    footerColor: "#D75669"
+
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
@@ -577,8 +581,8 @@ MainView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    nowPlaying.visible = true
                     header.visible = false
+                    nowPlaying.visible = true
                 }
             }
         }
