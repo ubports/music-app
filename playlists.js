@@ -164,7 +164,7 @@ function namechangePlaylist(old,nw) {
 
 // remove playlist
 function removePlaylist(id,playlist) {
-    var db = getPlaylistDatabase();
+    var db = getPlaylistsDatabase();
     var res = "";
     db.transaction(function(tx) {
         var rs = tx.executeSql('DELETE FROM playlists WHERE id=? AND name=?;', [id,playlist]);
