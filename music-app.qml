@@ -387,12 +387,18 @@ MainView {
             Column {
                 id: containerLayout
                 anchors {
-                left: parent.left
-                top: parent.top
-                right: parent.right
-            }
+                    left: parent.left
+                    top: parent.top
+                    right: parent.right
+                }
                 ListItem.Standard {
-                    text: i18n.tr("Add to queue")
+                    Label {
+                        text: i18n.tr("Add to queue")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
@@ -400,7 +406,13 @@ MainView {
                     }
                 }
                 ListItem.Standard {
-                    text: i18n.tr("Add to playlist")
+                    Label {
+                        text: i18n.tr("Add to playlist")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
