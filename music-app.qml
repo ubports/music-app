@@ -75,7 +75,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.4.3'
+    property string appVersion: '0.4.5'
     property int playing: 0
     property int itemnum: 0
     property bool random: false
@@ -512,7 +512,7 @@ MainView {
         }
 
         // Fifth is the settings
-        /* FIX LATER
+        /* FIX LATER OR MAYBE NOT
         Tab {
             id: settingsTab
             objectName: "settingstab"
