@@ -581,8 +581,9 @@ MainView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    header.visible = false
+                    header.opacity = 0
                     nowPlaying.visible = true
+
                 }
             }
         }
@@ -778,7 +779,7 @@ MainView {
                             }
                         } else {
                             nowPlaying.visible = false
-                            header.visible = true
+                            header.opacity = 1
                         }
                     }
                 }
