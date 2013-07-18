@@ -52,24 +52,24 @@ PageStack {
         playlisttracksModel.append({"id": index, "track": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
     }
 
+    Component.onCompleted: {
+        pageStack.push(playlistspage)
+
+        random = Settings.getSetting("shuffle") == "1" // shuffle state
+        scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
+        lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
+        lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+
+        // get playlists in an array
+        var playlist = Playlists.getPlaylists(); // get the playlist from the database
+        playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
+    }
+
     // page for the playlists
     Page {
         id: playlistspage
 
         title: i18n.tr("Playlists")
-
-        Component.onCompleted: {
-            pageStack.push(playlistspage)
-
-            random = Settings.getSetting("shuffle") == "1" // shuffle state
-            scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-            lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-            lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
-
-            // get playlists in an array
-            var playlist = Playlists.getPlaylists(); // get the playlist from the database
-            playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
-        }
 
         tools: ToolbarItems {
             // import playlist from lastfm
