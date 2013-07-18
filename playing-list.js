@@ -48,3 +48,14 @@ function clear() {
     myArray = []
     myLocation = []
 }
+
+function rebuild(currentModel)
+{
+    console.debug("Clearing playing list")
+    clear()
+
+    for (var i=0; i < currentModel.count; i++)
+    {
+        addItem(currentModel.get(i).file, i)
+    }
+}
