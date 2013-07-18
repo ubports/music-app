@@ -35,6 +35,10 @@ MainView {
     applicationName: "music-app"
     id: mainView
 
+    headerColor: "#57365E"
+    backgroundColor: "#A55263"
+    footerColor: "#D75669"
+
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
@@ -383,12 +387,18 @@ MainView {
             Column {
                 id: containerLayout
                 anchors {
-                left: parent.left
-                top: parent.top
-                right: parent.right
-            }
+                    left: parent.left
+                    top: parent.top
+                    right: parent.right
+                }
                 ListItem.Standard {
-                    text: i18n.tr("Add to queue")
+                    Label {
+                        text: i18n.tr("Add to queue")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
@@ -396,7 +406,13 @@ MainView {
                     }
                 }
                 ListItem.Standard {
-                    text: i18n.tr("Add to playlist")
+                    Label {
+                        text: i18n.tr("Add to playlist")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
@@ -577,8 +593,9 @@ MainView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    header.opacity = 0
                     nowPlaying.visible = true
-                    header.visible = false
+
                 }
             }
         }
@@ -774,7 +791,7 @@ MainView {
                             }
                         } else {
                             nowPlaying.visible = false
-                            header.visible = true
+                            header.opacity = 1
                         }
                     }
                 }

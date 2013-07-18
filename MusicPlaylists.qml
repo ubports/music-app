@@ -167,12 +167,18 @@ Page {
             Column {
                 id: containerLayout
                 anchors {
-                left: parent.left
-                top: parent.top
-                right: parent.right
-            }
+                    left: parent.left
+                    top: parent.top
+                    right: parent.right
+                }
                 ListItem.Standard {
-                    text: i18n.tr("Change name")
+                    Label {
+                        text: i18n.tr("Change name")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Change name of playlist.")
                         PopupUtils.open(editPlaylistDialog, mainView)
@@ -180,7 +186,13 @@ Page {
                     }
                 }
                 ListItem.Standard {
-                    text: i18n.tr("Remove")
+                    Label {
+                        text: i18n.tr("Remove")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     onClicked: {
                         console.debug("Debug: Remove playlist.")
                         PopupUtils.open(removePlaylistDialog, mainView)
