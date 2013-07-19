@@ -75,7 +75,7 @@ Page {
                         property string cover: model.cover
                         property string length: model.length
                         property string file: model.file
-                        source: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                        source: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     }
                 }
             }

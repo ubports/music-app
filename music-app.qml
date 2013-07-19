@@ -98,9 +98,7 @@ MainView {
     property int currentModelCount: -1
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
-                                           (currentFile.match("\\.mp3") ?
-                                                Qt.resolvedUrl("images/audio-x-mpeg.png") :
-                                                Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) :
+                                           Qt.resolvedUrl("images/cover_default_icon.png") :
                                            "image://cover-art/"+currentFile
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentFile :
