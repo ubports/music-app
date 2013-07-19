@@ -411,4 +411,45 @@ PageStack {
             }
         }
     }
+
+    // Page for Queue
+    Page {
+        id: queuepage
+        title: i18n.tr("Queue")
+
+        ListView {
+            id: queueList
+            height: units.gu(35)
+            model: trackQueue
+            delegate: ListItem.Standard {
+                text: artist+" - "+title
+                removable: true
+                onClicked: {
+                    console.debug("Debug: Play "+file+" instead - now.")
+                    playMusic.source = file
+                    playMusic.play()
+                    trackQueue.remove(index)
+                }
+                onItemRemoved: {
+                    trackQueue.remove(index)
+                }
+            }
+        }
+
+        tools: ToolbarItems {
+
+            // Clean whole queue button
+            ToolbarButton {
+                objectName: "clearqueueobject"
+
+                iconSource: Qt.resolvedUrl("images/lastfm.png")
+                text: i18n.tr("Clear")
+
+                onTriggered: {
+                    console.debug("Debug: Track queue cleared.")
+                    trackQueue.clear()
+                }
+            }
+        }
+    }
 }
