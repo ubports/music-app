@@ -55,6 +55,20 @@ PageStack {
             }
         }
 
+        Component {
+            id: highlight
+            Rectangle {
+                width: 5; height: 40
+                color: "#FFFFFF";
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
+                }
+            }
+        }
+
         ListView {
             id: artistlist
             width: parent.width
@@ -116,6 +130,8 @@ PageStack {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
+            highlight: highlight
+            highlightFollowsCurrentItem: true
             model: artistTracksModel.model
             delegate: artistTracksDelegate
 
@@ -166,6 +182,12 @@ PageStack {
                         onPressAndHold: {
                         }
                         onClicked: {
+                            if (focus == false) {
+                                focus = true
+                            }
+
+                            artisttrackslist.currentIndex = index
+                            trackClicked(file, index, artistTracksModel.model, artisttrackslist)
                         }
                     }
                     Component.onCompleted: {

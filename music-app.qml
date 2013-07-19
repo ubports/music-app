@@ -92,6 +92,10 @@ MainView {
     property string currentAlbum: ""
     property string currentTracktitle: ""
     property string currentFile: ""
+    property int currentIndex: -1
+    property ListView currentListView: null
+    property ListModel currentModel: null  // Current model being used
+    property int currentModelCount: -1
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
                                            (currentFile.match("\\.mp3") ?
@@ -101,6 +105,27 @@ MainView {
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentFile :
                                           "images/cover_default.png"
+
+    onCurrentIndexChanged: {
+        // Index change most likely from next/pre button press or end of song
+
+        currentListView.currentIndex = currentIndex  // update highlight in listview
+
+        // Load metadata for the track
+        currentArtist = currentModel.get(currentIndex).artist
+        currentAlbum = currentModel.get(currentIndex).album
+        currentCover = currentModel.get(currentIndex).cover
+        currentFile = currentModel.get(currentIndex).file
+        currentTracktitle = currentModel.get(currentIndex).title
+    }
+
+    onCurrentModelChanged: {
+        PlayingList.rebuild(currentModel)
+    }
+
+    onCurrentModelCountChanged: {
+        PlayingList.rebuild(currentModel)
+    }
 
     // FUNCTIONS
 
@@ -131,38 +156,38 @@ MainView {
                 console.log(playing)
             } while (num == playing && PlayingList.size() > 0)
             player.source = Qt.resolvedUrl(PlayingList.getList()[num])
-            musicTracksPage.filelistCurrentIndex = PlayingList.at(num)
+            currentIndex = PlayingList.at(num)
             playing = num
-            console.log("MediaPlayer statusChanged, currentIndex: " + musicTracksPage.filelistCurrentIndex)
+            console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         } else {
             if ((playing < PlayingList.size() - 1 && direction === 1 )
                     || (playing > 0 && direction === -1)) {
                 console.log("playing: " + playing)
-                console.log("filelistCount: " + musicTracksPage.filelistCount)
+                console.log("filelistCount: " + currentModelCount)
                 console.log("PlayingList.size(): " + PlayingList.size())
                 playing += direction
                 if (playing === 0) {
-                    musicTracksPage.filelistCurrentIndex = playing + (itemnum - PlayingList.size())
+                    currentIndex = playing + (itemnum - PlayingList.size())
                 } else {
-                    musicTracksPage.filelistCurrentIndex += direction
+                    currentIndex += direction
                 }
                 player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
             } else if(direction === 1) {
                 console.log("playing: " + playing)
-                console.log("filelistCount: " + musicTracksPage.filelistCount)
+                console.log("filelistCount: " + currentModelCount)
                 console.log("PlayingList.size(): " + PlayingList.size())
                 playing = 0
-                musicTracksPage.filelistCurrentIndex = playing + (musicTracksPage.filelistCount - PlayingList.size())
+                currentIndex = playing + (currentModelCount - PlayingList.size())
                 player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
             } else if(direction === -1) {
                 console.log("playing: " + playing)
-                console.log("filelistCount: " + musicTracksPage.filelistCount)
+                console.log("filelistCount: " + currentModelCount)
                 console.log("PlayingList.size(): " + PlayingList.size())
                 playing = PlayingList.size() - 1
-                musicTracksPage.filelistCurrentIndex = playing + (musicTracksPage.filelistCount - PlayingList.size())
+                currentIndex = playing + (currentModelCount - PlayingList.size())
                 player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
             }
-            console.log("MediaPlayer statusChanged, currentIndex: " + musicTracksPage.filelistCurrentIndex)
+            console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         }
         console.log("Playing: "+player.source)
         player.play()
@@ -174,6 +199,46 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
+    }
+
+    function trackClicked(file, index, libraryModel, listView)
+    {
+        console.debug(player.source, Qt.resolvedUrl(file))
+
+        if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
+        {
+            console.log("Is current track: "+player.playbackState)
+
+            if (player.playbackState == MediaPlayer.PlayingState)
+            {
+                player.pause()
+            }
+            else
+            {
+                player.play()
+            }
+
+            return
+        }
+
+        currentListView = listView
+        currentModel = libraryModel
+        currentModelCount = libraryModel.count
+        currentIndex = index  // update index after model so index can get info from model
+
+        console.log("Click of fileName: " + file)
+
+        player.stop()
+        player.source = Qt.resolvedUrl(file)
+        player.play()
+
+        playing = PlayingList.indexOf(file)
+
+        console.log("Source: " + player.source.toString())
+        console.log("Length: " + libraryModel.get(index).length.toString())
+        console.log("Index: " + index)
+
+        return file
     }
 
     MediaPlayer {

@@ -151,16 +151,6 @@ PageStack {
                     }
 
                     onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                            mainView.currentArtist = artist
-                            mainView.currentAlbum = album
-                            mainView.currentTracktitle = title
-                            mainView.currentFile = file
-                            mainView.currentCover = cover
-                        }
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -176,29 +166,17 @@ PageStack {
                             if (focus == false) {
                                 focus = true
                             }
-                            console.log("fileName: " + file)
-                            if (tracklist.currentIndex == index) {
-                                if (player.playbackState === MediaPlayer.PlayingState)  {
-                                    player.pause()
-                                } else if (player.playbackState === MediaPlayer.PausedState) {
-                                    player.play()
-                                }
-                            } else {
-                                player.stop()
-                                player.source = Qt.resolvedUrl(file)
-                                tracklist.currentIndex = index
-                                playing = PlayingList.indexOf(file)
-                                console.log("Playing click: "+player.source)
-                                console.log("Index: " + tracklist.currentIndex)
-                                player.play()
-                            }
-                            console.log("Source: " + player.source.toString())
-                            console.log("Length: " + length.toString())
+
+                            tracklist.currentIndex = index
+                            trackClicked(file, index, libraryModel.model, tracklist)
                         }
                     }
                     Component.onCompleted: {
                         if (PlayingList.size() === 0) {
                             player.source = file
+                            currentModel = libraryModel.model
+                            currentListView = tracklist
+                            currentIndex = 0
                         }
 
                         if (!PlayingList.contains(file)) {
