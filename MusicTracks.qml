@@ -167,7 +167,6 @@ PageStack {
                                 focus = true
                             }
 
-                            tracklist.currentIndex = index
                             trackClicked(file, index, libraryModel.model, tracklist)
                         }
                     }
