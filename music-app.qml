@@ -656,6 +656,8 @@ MainView {
         Image {
             id: iconbottom
             source: mainView.currentCoverSmall
+            width: units.gu(5)
+            height: units.gu(5)
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: units.gu(1)
@@ -672,7 +674,13 @@ MainView {
         }
         Label {
             id: fileTitleBottom
-            width: units.gu(30)
+            width: mainView.width - iconbottom.width
+                                  - iconbottom.anchors.leftMargin
+                                  - playshape.width
+                                  - playshape.anchors.rightMargin
+                                  - forwardshape.width
+                                  - forwardshape.anchors.rightMargin
+                                  - anchors.leftMargin
             wrapMode: Text.Wrap
             color: "#FFFFFF"
             maximumLineCount: 1
@@ -685,7 +693,13 @@ MainView {
         }
         Label {
             id: fileArtistAlbumBottom
-            width: units.gu(30)
+            width: mainView.width - iconbottom.width
+                                  - iconbottom.anchors.leftMargin
+                                  - playshape.width
+                                  - playshape.anchors.rightMargin
+                                  - forwardshape.width
+                                  - forwardshape.anchors.rightMargin
+                                  - anchors.leftMargin
             wrapMode: Text.Wrap
             color: "#FFFFFF"
             maximumLineCount: 1
@@ -697,30 +711,28 @@ MainView {
         }
         Rectangle {
             id: fileDurationProgressContainer
-            anchors.top: fileArtistAlbumBottom.bottom
-            anchors.left: iconbottom.right
-            anchors.topMargin: 2
+            anchors.bottom: parent.bottom
             anchors.leftMargin: units.gu(1)
             color: "#333333"
             height: units.gu(2);
-            width: units.gu(20)
+            width: parent.width
 
             Rectangle {
                 id: fileDurationProgressBackground
-                anchors.verticalCenter: parent.verticalCenter;
                 color: "#000000";
-                height: units.gu(0.3);
-                radius: units.gu(0.3);
+                anchors.bottom: parent.bottom
+                height: units.gu(0.5);
+                radius: units.gu(0.5);
                 visible: player.duration > 0 ? true : false
                 width: parent.width
             }
 
             Rectangle {
                 id: fileDurationProgressArea
-                anchors.verticalCenter: parent.verticalCenter;
+                anchors.bottom: parent.bottom
                 color: "#DD4814";
-                height: units.gu(0.3);
-                radius: units.gu(0.3);
+                height: units.gu(0.5);
+                radius: units.gu(0.5);
                 visible: player.duration > 0 ? true : false
                 width: (player.position / player.duration) * fileDurationProgressContainer.width;
             }
@@ -729,8 +741,8 @@ MainView {
         Label {
             id: fileDurationBottom
             anchors.top: fileArtistAlbumBottom.bottom
-            anchors.left: fileDurationProgressContainer.right
             anchors.leftMargin: units.gu(1)
+            anchors.left: iconbottom.right
             color: "#FFFFFF"
             fontSize: "small"
             maximumLineCount: 1
@@ -754,8 +766,8 @@ MainView {
 
             UbuntuShape {
                 id: forwardshape_nowplaying
-                height: 50
-                width: 50
+                height: units.gu(7)
+                width: units.gu(7)
                 anchors.bottom: parent.bottom
                 anchors.left: playshape_nowplaying.right
                 anchors.leftMargin: units.gu(2)
@@ -776,8 +788,8 @@ MainView {
             }
             UbuntuShape {
                 id: playshape_nowplaying
-                height: 50
-                width: 50
+                height: units.gu(7)
+                width: units.gu(7)
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 radius: "none"
@@ -802,8 +814,8 @@ MainView {
             }
             UbuntuShape {
                 id: backshape_nowplaying
-                height: 50
-                width: 50
+                height: units.gu(7)
+                width: units.gu(7)
                 anchors.bottom: parent.bottom
                 anchors.right: playshape_nowplaying.left
                 anchors.rightMargin: units.gu(2)
