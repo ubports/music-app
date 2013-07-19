@@ -73,6 +73,7 @@ MainView {
     property string musicDir: ""
     property string appVersion: '0.4.3'
     property int playing: 0
+    property bool isPlaying: false
     property int itemnum: 0
     property bool random: false
     property bool scrobble: false
@@ -174,6 +175,7 @@ MainView {
 
     MediaPlayer {
         id: player
+        objectName: "player"
         muted: false
 
         property bool seeking: false;  // Is the user seeking?
@@ -211,6 +213,11 @@ MainView {
                 fileDurationProgressContainer_nowplaying.drawProgress(player.position / player.duration);
                 positionStr = __durationToString(player.position)
             }
+        }
+
+        onPlaybackStateChanged: {
+          mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
+          console.log("mainView.isPlaying=" + mainView.isPlaying)
         }
     }
 
@@ -541,7 +548,7 @@ MainView {
         }
         UbuntuShape {
             id: playshape
-            objectName: "playShape"
+            objectName: "playshape"
             height: units.gu(5)
             width: units.gu(5)
             anchors.verticalCenter: parent.verticalCenter
@@ -550,7 +557,6 @@ MainView {
             radius: "none"
             image: Image {
                 id: playindicator
-                objectName: "playImageIcon"
                 source: player.playbackState === MediaPlayer.PlayingState ?
                           "images/pause.png" : "images/play.png"
                 anchors.right: parent.right
@@ -559,7 +565,6 @@ MainView {
             }
             MouseArea {
                 anchors.fill: parent
-                objectName: "playMouseArea"
                 onClicked: {
                     if (player.playbackState === MediaPlayer.PlayingState)  {
                         player.pause()

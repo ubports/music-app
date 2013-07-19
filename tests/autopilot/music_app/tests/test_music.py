@@ -63,12 +63,10 @@ class TestMainWindow(MusicTestCase):
 
     """ Test Playing a track (Music Library must exist) """
     def test_play(self):
-        """button = self.main_window.get_object("MouseArea", "playMouseArea")"""
-        """icon = self.main_window.get_object("UbuntuShape", "playImageIcon")"""
-        icon = self.app.select_single('Image', objectName='playImageIcon')
+        button = self.app.select_single("UbuntuShape", objectName = "playshape")
+        main = self.app.select_single("MainView", objectName = "music")
 
-        self.assertThat(icon.source, Contains('play.png'))
-        self.autopilot.pointing_device.click_object(button)
-        self.assertThat(icon.source, Contains('pause.png'))
-        self.autopilot.pointing_device.click_object(button)
+        self.assertThat(main.isPlaying, Equals(False))
+        self.pointing_device.click_object(button)
+        self.assertThat(main.isPlaying, Eventually(Equals(True)))
     
