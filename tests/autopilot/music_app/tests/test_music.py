@@ -18,6 +18,7 @@ import shutil
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
+from testtools.matchers import Contains
 
 from music_app.tests import MusicTestCase
 
@@ -60,3 +61,12 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(title, Eventually(Equals("Swansong")))
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))
     
+    """ Test Playing a track (Music Library must exist) """
+    def test_play(self):
+        button = self.app.select_single("UbuntuShape", objectName = "playshape")
+        main = self.app.select_single("MainView", objectName = "music")
+
+        self.assertThat(main.isPlaying, Equals(False))
+        self.pointing_device.click_object(button)
+        self.assertThat(main.isPlaying, Eventually(Equals(True)))
+
