@@ -22,7 +22,7 @@ function getPlaylistsDatabase() {
 
 // database for individual playlists - the one witht the actual tracks in
 function getPlaylistDatabase() {
-     return LocalStorage.openDatabaseSync("music-app-playlist", "1.0", "StorageDatabase", 1000000);
+     return LocalStorage.openDatabaseSync("music-app-playlist", "", "StorageDatabase", 1000000);
 }
 
 // At the start of the application, we can initialize the tables we need if they haven't been created yet
@@ -36,6 +36,18 @@ function initializePlaylists() {
 // same thing for individal playlists
 function initializePlaylist() {
     var db = getPlaylistDatabase();
+
+    // does the user have the latest db scheme?
+    if (db.version === "1.0") {
+        db.changeVersion("1.0","1.1",function(t){
+            t.executeSql("ALTER TABLE playlist ADD (playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT)");
+            console.debug("DB: Changing version of playlist db to 1.1.")
+        });
+    }
+    else {
+        console.debug("DB: No change in playlist.")
+    }
+
     db.transaction(
         function(tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT)');
