@@ -127,7 +127,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: track.cover === "" ? (track.file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
                     Label {
                         id: trackTitle
