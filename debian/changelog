@@ -1,6 +1,7 @@
 music-app (0.4.5) raring; urgency=low
 
   * Show tracks in playlists.
+  * Removed queue from toolbar to Playlist tab. Initial queue change.
   * Play track from playlist.
 
  -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 18:29:50 +0200
@@ -35,12 +36,6 @@ music-app (0.4) raring; urgency=low
   * Popover in track list.
 
  -- Daniel Holm <d.holmen@gmail.com>  Wed, 15 Jul 2013 15:03:31 +0200
-
-music-app (0.3.2) raring; urgency=low
-
-  * Dialog to create a playlist now works.
-
- -- Daniel Holm <d.holmen@gmail.com>  Tue, 11 Jul 2013 21:29:50 +0200
 
 music-app (0.3.1) raring; urgency=low
 

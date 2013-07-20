@@ -52,6 +52,159 @@ PageStack {
         playlisttracksModel.append({"id": index, "track": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
     }
 
+    // New playlist dialog
+    Component {
+         id: newPlaylistDialog
+         Dialog {
+             id: dialogueNewPlaylist
+             title: i18n.tr("New Playlist")
+             text: i18n.tr("Name your playlist.")
+             TextField {
+                 id: playlistName
+                 placeholderText: i18n.tr("Name")
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
+
+             Button {
+                 text: i18n.tr("Create")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var newList = Playlists.addPlaylist(playlistName.text)
+                         if (newList === "OK") {
+                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                             // add the new playlist to the tab
+                             var index = Playlists.getID(); // get the latest ID
+                             playlistModel.append({"id": index, "name": playlistName.text})
+                         }
+                         else {
+                             console.debug("Debug: Something went wrong: "+newList)
+                         }
+
+                         PopupUtils.close(dialogueNewPlaylist)
+                     }
+                     else {
+                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueNewPlaylist)
+             }
+         }
+    }
+
+    // Remove playlist dialog
+    Component {
+         id: removePlaylistDialog
+         Dialog {
+             id: dialogueRemovePlaylist
+             title: i18n.tr("Are you sure?")
+             text: i18n.tr("This will delete your playlist.")
+
+             Button {
+                 text: i18n.tr("Remove")
+                 onClicked: {
+                     // removing playlist
+                     Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
+                     playlistModel.remove(oldPlaylistIndex)
+                     PopupUtils.close(dialogueRemovePlaylist)
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueRemovePlaylist)
+             }
+         }
+    }
+
+    // Edit name of playlist dialog
+    Component {
+         id: editPlaylistDialog
+         Dialog {
+             id: dialogueEditPlaylist
+             title: i18n.tr("Change name")
+             text: i18n.tr("Enter the new playlist name")
+             TextField {
+                 id: playlistName
+                 placeholderText: oldPlaylistName
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
+
+             Button {
+                 text: i18n.tr("Change")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
+                         console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
+                         playlistModel.set(oldPlaylistIndex, {"name": playlistName.text})
+                         PopupUtils.close(dialogueEditPlaylist)
+                     }
+                     else {
+                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: "grey"
+                 onClicked: PopupUtils.close(dialogueEditPlaylist)
+             }
+         }
+    }
+
+    // Popover to change name and remove playlists
+    Component {
+        id: playlistPopoverComponent
+        Popover {
+            id: playlistPopover
+            Column {
+                id: containerLayout
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                    right: parent.right
+                }
+                ListItem.Standard {
+                    Label {
+                        text: i18n.tr("Change name")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    onClicked: {
+                        console.debug("Debug: Change name of playlist.")
+                        PopupUtils.open(editPlaylistDialog, mainView)
+                        PopupUtils.close(playlistPopover)
+                    }
+                }
+                ListItem.Standard {
+                    Label {
+                        text: i18n.tr("Remove")
+                        color: "#333333"
+                        fontSize: "large"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    onClicked: {
+                        console.debug("Debug: Remove playlist.")
+                        PopupUtils.open(removePlaylistDialog, mainView)
+                        PopupUtils.close(playlistPopover)
+                    }
+                }
+            }
+        }
+    }
+
     Component.onCompleted: {
         pageStack.push(playlistspage)
 
@@ -60,8 +213,12 @@ PageStack {
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
+        // first add queue
+        playlistModel.append({"id": 0, "name": i18n.tr("Queue")});
+
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
+        customdebug("Playlists: "+playlist) //debug
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
@@ -70,6 +227,78 @@ PageStack {
         id: playlistspage
 
         title: i18n.tr("Playlists")
+
+        ListView {
+            id: tracklist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: playlistModel
+            delegate: playlistDelegate
+            onCountChanged: {
+                customdebug("onCountChanged: " + tracklist.count)
+            }
+            onCurrentIndexChanged: {
+                customdebug("tracklist.currentIndex = " + tracklist.currentIndex)
+            }
+            onModelChanged: {
+                customdebug("PlayingList cleared")
+            }
+
+            Component {
+                id: playlistDelegate
+                ListItem.Standard {
+                    id: playlist
+                    icon: Qt.resolvedUrl("images/playlist.png")
+                    iconFrame: false
+                    text: name
+
+                    onFocusChanged: {
+                        if (focus == false) {
+                            selected = false
+                        } else {
+                            selected = false
+                        }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+                        onPressAndHold: {
+                            customdebug("Pressed and held playlist "+name+" : "+index)
+
+                            if (name === i18n.tr("Queue")) {
+                                customdebug("User tried to change name of queue, but no go!")
+                            }
+                            else {
+                                // show a dialog to change name and remove list
+                                oldPlaylistName = name
+                                oldPlaylistID = id
+                                oldPlaylistIndex = index
+                                PopupUtils.open(playlistPopoverComponent, mainView)
+                            }
+                        }
+                        onClicked: {
+                            if (name === i18n.tr("Queue")) {
+                                customdebug("User clicked Queue.")
+                                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
+                                                {
+                                                    title: i18n.tr("Queue")
+                                                } )
+                            }
+                            else {
+                                customdebug("Playlist chosen: " + name)
+                                // get tracks in playlists in array
+                                var playlistTracks = Playlists.getPlaylistTracks(name) // get array of tracks
+                                playlistTracks.forEach(addtoPlaylistTracksModel) // send each item in playlist array to the model to show it
+                                pageStack.push(playlistpage)
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         tools: ToolbarItems {
             // import playlist from lastfm
@@ -112,238 +341,8 @@ PageStack {
                                     } )
                 }
             }
-
-            // Queue dialog
-            ToolbarButton {
-                objectName: "queuesaction"
-                iconSource: Qt.resolvedUrl("images/queue.png")
-                text: i18n.tr("Queue")
-
-                onTriggered: {
-                    console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Queue")
-                                    } )
-                }
-            }
         }
 
-        // New playlist dialog
-        Component {
-             id: newPlaylistDialog
-             Dialog {
-                 id: dialogueNewPlaylist
-                 title: i18n.tr("New Playlist")
-                 text: i18n.tr("Name your playlist.")
-
-                 TextField {
-                     id: playlistName
-                     placeholderText: i18n.tr("Name")
-                 }
-
-                 // use for error messages
-                 ListItem.Standard {
-                     id: newplaylistoutput
-                 }
-
-                 Button {
-                     text: i18n.tr("Create")
-                     onClicked: {
-                         if (playlistName.text.length > 0) { // make sure something is acually inputed
-                             var newList = Playlists.addPlaylist(playlistName.text)
-                             if (newList === "OK") {
-                                 console.debug("Debug: User created a new playlist named: "+playlistName.text)
-                                 // add the new playlist to the tab
-                                 var index = Playlists.getID(); // get the latest ID
-                                 playlistModel.append({"id": index, "name": playlistName.text})
-                             }
-                             else {
-                                 console.debug("Debug: Something went wrong: "+newList)
-                             }
-
-                             PopupUtils.close(dialogueNewPlaylist)
-                         }
-                         else {
-                                 newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
-                         }
-                    }
-                 }
-
-                 Button {
-                     text: i18n.tr("Cancel")
-                     color: "grey"
-                     onClicked: PopupUtils.close(dialogueNewPlaylist)
-                 }
-             }
-            }
-
-        // Remove playlist dialog
-        Component {
-             id: removePlaylistDialog
-             Dialog {
-                 id: dialogueRemovePlaylist
-                 title: i18n.tr("Are you sure?")
-                 text: i18n.tr("This will delete your playlist.")
-
-                 Button {
-                     text: i18n.tr("Remove")
-                     onClicked: {
-                         // removing playlist
-                         Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
-                         playlistModel.remove(oldPlaylistIndex)
-                         PopupUtils.close(dialogueRemovePlaylist)
-                    }
-                 }
-                 Button {
-                     text: i18n.tr("Cancel")
-                     color: "grey"
-                     onClicked: PopupUtils.close(dialogueRemovePlaylist)
-                 }
-             }
-        }
-
-        // Edit name of playlist dialog
-        Component {
-             id: editPlaylistDialog
-             Dialog {
-                 id: dialogueEditPlaylist
-                 title: i18n.tr("Change name")
-                 text: i18n.tr("Enter the new playlist name")
-                 TextField {
-                     id: playlistName
-                     placeholderText: oldPlaylistName
-                 }
-                 ListItem.Standard {
-                     id: newplaylistoutput
-                 }
-
-                 Button {
-                     text: i18n.tr("Change")
-                     onClicked: {
-                         if (playlistName.text.length > 0) { // make sure something is acually inputed
-                             var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
-                             console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-                             playlistModel.set(oldPlaylistIndex, {"name": playlistName.text})
-                             PopupUtils.close(dialogueEditPlaylist)
-                         }
-                         else {
-                                 newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
-                         }
-                    }
-                 }
-                 Button {
-                     text: i18n.tr("Cancel")
-                     color: "grey"
-                     onClicked: PopupUtils.close(dialogueEditPlaylist)
-                 }
-             }
-        }
-
-        // Popover to change name and remove playlists
-        Component {
-            id: playlistPopoverComponent
-            Popover {
-                id: playlistPopover
-                Column {
-                    id: containerLayout
-                    anchors {
-                    left: parent.left
-                    top: parent.top
-                    right: parent.right
-                }
-                    ListItem.Standard {
-                        text: i18n.tr("Change name")
-                        onClicked: {
-                            console.debug("Debug: Change name of playlist.")
-                            PopupUtils.open(editPlaylistDialog, mainView)
-                            PopupUtils.close(playlistPopover)
-                        }
-                    }
-                    ListItem.Standard {
-                        text: i18n.tr("Remove")
-                        onClicked: {
-                            console.debug("Debug: Remove playlist.")
-                            PopupUtils.open(removePlaylistDialog, mainView)
-                            PopupUtils.close(playlistPopover)
-                        }
-                    }
-                }
-            }
-        }
-
-        Component {
-            id: highlight
-            Rectangle {
-                width: 5; height: 40
-                color: "#DD4814";
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
-                    }
-                }
-            }
-        }
-
-        ListView {
-            id: tracklist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
-            model: playlistModel
-            delegate: playlistDelegate
-            onCountChanged: {
-                console.log("onCountChanged: " + tracklist.count)
-            }
-            onCurrentIndexChanged: {
-                console.log("tracklist.currentIndex = " + tracklist.currentIndex)
-            }
-            onModelChanged: {
-                console.log("PlayingList cleared")
-            }
-
-            Component {
-                id: playlistDelegate
-                ListItem.Standard {
-                    id: playlist
-                    icon: Qt.resolvedUrl("images/playlist.png")
-                    iconFrame: false
-                    text: name
-
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                        }
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            console.debug("Debug: Pressed and held playlist "+name+" : "+index)
-                            // show a dialog to change name and remove list
-                            oldPlaylistName = name
-                            oldPlaylistID = id
-                            oldPlaylistIndex = index
-                            PopupUtils.open(playlistPopoverComponent, mainView)
-                        }
-                        onClicked: {
-                            customdebug("Playlist chosen: " + name)
-                            // get tracks in playlists in array
-                            var playlistTracks = Playlists.getPlaylistTracks(name) // get array of tracks
-                            playlistTracks.forEach(addtoPlaylistTracksModel) // send each item in playlist array to the model to show it
-                            pageStack.push(playlistpage)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     // page for the tracks in the playlist

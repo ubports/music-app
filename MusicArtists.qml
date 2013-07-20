@@ -53,19 +53,18 @@ PageStack {
                                     } )
                 }
             }
+        }
 
-            // Queue dialog
-            ToolbarButton {
-                objectName: "queuesaction"
-                iconSource: Qt.resolvedUrl("images/queue.png")
-                text: i18n.tr("Queue")
-
-                onTriggered: {
-                    console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Queue")
-                                    } )
+        Component {
+            id: highlight
+            Rectangle {
+                width: 5; height: 40
+                color: "#FFFFFF";
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
                 }
             }
         }
@@ -86,7 +85,7 @@ PageStack {
                     id: track
                     property string artist: model.artist
                     property string cover: model.cover
-                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    icon: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
                     progression: true
                     Label {
@@ -131,6 +130,8 @@ PageStack {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
+            highlight: highlight
+            highlightFollowsCurrentItem: true
             model: artistTracksModel.model
             delegate: artistTracksDelegate
 
@@ -145,7 +146,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: cover === "" ? (file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    icon: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
                     progression: false
                     Label {
@@ -181,6 +182,12 @@ PageStack {
                         onPressAndHold: {
                         }
                         onClicked: {
+                            if (focus == false) {
+                                focus = true
+                            }
+
+                            artisttrackslist.currentIndex = index
+                            trackClicked(file, index, artistTracksModel.model, artisttrackslist)
                         }
                     }
                     Component.onCompleted: {

@@ -58,21 +58,6 @@ PageStack {
                                     } )
                 }
             }
-
-            // Queue dialog
-            ToolbarButton {
-                objectName: "queuesaction"
-                iconSource: Qt.resolvedUrl("images/queue.png")
-                text: i18n.tr("Queue")
-
-                onTriggered: {
-                    console.debug('Debug: Show queue')
-                    PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Queue")
-                                    } )
-                }
-            }
         }
 
         title: i18n.tr("Music")
@@ -84,7 +69,7 @@ PageStack {
             id: highlight
             Rectangle {
                 width: 5; height: 40
-                color: "#DD4814";
+                color: "#FFFFFF";
                 Behavior on y {
                     SpringAnimation {
                         spring: 3
@@ -127,7 +112,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: track.cover === "" ? (track.file.match("\\.mp3") ? Qt.resolvedUrl("images/audio-x-mpeg.png") : Qt.resolvedUrl("images/audio-x-vorbis+ogg.png")) : "image://cover-art/"+file
+                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
                     Label {
                         id: trackTitle
@@ -166,16 +151,6 @@ PageStack {
                     }
 
                     onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                            mainView.currentArtist = artist
-                            mainView.currentAlbum = album
-                            mainView.currentTracktitle = title
-                            mainView.currentFile = file
-                            mainView.currentCover = cover
-                        }
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -192,29 +167,17 @@ PageStack {
                             if (focus == false) {
                                 focus = true
                             }
-                            console.log("fileName: " + file)
-                            if (tracklist.currentIndex == index) {
-                                if (player.playbackState === MediaPlayer.PlayingState)  {
-                                    player.pause()
-                                } else if (player.playbackState === MediaPlayer.PausedState) {
-                                    player.play()
-                                }
-                            } else {
-                                player.stop()
-                                player.source = Qt.resolvedUrl(file)
-                                tracklist.currentIndex = index
-                                playing = PlayingList.indexOf(file)
-                                console.log("Playing click: "+player.source)
-                                console.log("Index: " + tracklist.currentIndex)
-                                player.play()
-                            }
-                            console.log("Source: " + player.source.toString())
-                            console.log("Length: " + length.toString())
+
+                            tracklist.currentIndex = index
+                            trackClicked(file, index, libraryModel.model, tracklist)
                         }
                     }
                     Component.onCompleted: {
                         if (PlayingList.size() === 0) {
                             player.source = file
+                            currentModel = libraryModel.model
+                            currentListView = tracklist
+                            currentIndex = 0
                         }
 
                         if (!PlayingList.contains(file)) {
