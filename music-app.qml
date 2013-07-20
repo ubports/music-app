@@ -354,6 +354,9 @@ MainView {
     LibraryListModel {
         id: albumModel
     }
+    LibraryListModel {
+        id: albumTracksModel
+    }
 
     FolderListModel {
         id: folderModel
