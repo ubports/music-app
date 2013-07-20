@@ -99,8 +99,8 @@ MainView {
     property int currentModelCount: -1
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
-                                           Qt.resolvedUrl("images/cover_default_icon.png") :
-                                           "image://cover-art/"+currentFile
+                                           "images/cover_default_icon.png" :
+                                           "image://cover-art/" + currentFile
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentFile :
                                           "images/cover_default.png"
@@ -113,8 +113,8 @@ MainView {
         // Load metadata for the track
         currentArtist = currentModel.get(currentIndex).artist
         currentAlbum = currentModel.get(currentIndex).album
-        currentCover = currentModel.get(currentIndex).cover
         currentFile = currentModel.get(currentIndex).file
+        currentCover = currentModel.get(currentIndex).cover
         currentTracktitle = currentModel.get(currentIndex).title
     }
 
