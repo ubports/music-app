@@ -85,11 +85,12 @@ PageStack {
                          PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
-                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
 
                      }
                 }
              }
+
              Button {
                  text: i18n.tr("Cancel")
                  color: "grey"
@@ -225,11 +226,9 @@ PageStack {
     // page for the playlists
     Page {
         id: playlistspage
-
         title: i18n.tr("Playlists")
-
         ListView {
-            id: tracklist
+            id: playlistslist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -237,10 +236,10 @@ PageStack {
             model: playlistModel
             delegate: playlistDelegate
             onCountChanged: {
-                customdebug("onCountChanged: " + tracklist.count)
+                customdebug("onCountChanged: " + playlistslist.count)
             }
             onCurrentIndexChanged: {
-                customdebug("tracklist.currentIndex = " + tracklist.currentIndex)
+                customdebug("tracklist.currentIndex = " + playlistslist.currentIndex)
             }
             onModelChanged: {
                 customdebug("PlayingList cleared")
@@ -248,26 +247,22 @@ PageStack {
 
             Component {
                 id: playlistDelegate
-                ListItem.Standard {
+                ListItem.Subtitled {
                     id: playlist
                     icon: Qt.resolvedUrl("images/playlist.png")
                     iconFrame: false
                     text: name
+                    subText: i18n.tr("With "+ playlist.count + " tracks")
 
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                        }
-                    }
                     MouseArea {
                         anchors.fill: parent
                         onDoubleClicked: {
                         }
+
                         onPressAndHold: {
                             customdebug("Pressed and held playlist "+name+" : "+index)
 
+                            // queue is not the same thing as a playlist, so do this
                             if (name === i18n.tr("Queue")) {
                                 customdebug("User tried to change name of queue, but no go!")
                             }
@@ -278,14 +273,14 @@ PageStack {
                                 oldPlaylistIndex = index
                                 PopupUtils.open(playlistPopoverComponent, mainView)
                             }
+
                         }
+
                         onClicked: {
+                            // queue is not the same thing as a playlist, so do this
                             if (name === i18n.tr("Queue")) {
                                 customdebug("User clicked Queue.")
-                                PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                                {
-                                                    title: i18n.tr("Queue")
-                                                } )
+                                pageStack.push(queuepage)
                             }
                             else {
                                 customdebug("Playlist chosen: " + name)
@@ -307,6 +302,7 @@ PageStack {
 
                 iconSource: Qt.resolvedUrl("images/lastfm.png")
                 text: i18n.tr("Import")
+                visible: false
 
                 onTriggered: {
                     console.debug("Debug: User pressed action to import playlist from lastfm")
@@ -342,7 +338,6 @@ PageStack {
                 }
             }
         }
-
     }
 
     // page for the tracks in the playlist
@@ -417,31 +412,69 @@ PageStack {
         title: i18n.tr("Queue")
 
         ListView {
-            id: queueList
-            height: units.gu(35)
+            id: queuelist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
             model: trackQueue
-            delegate: ListItem.Standard {
-                text: artist+" - "+title
-                removable: true
-                onClicked: {
-                    console.debug("Debug: Play "+file+" instead - now.")
-                    playMusic.source = file
-                    playMusic.play()
-                    trackQueue.remove(index)
-                }
-                onItemRemoved: {
-                    trackQueue.remove(index)
+            delegate: queueDelegate
+            onCountChanged: {
+                customdebug("Queue: Now has: " + queuelist.count + " tracks")
+            }
+
+            Component {
+                id: queueDelegate
+                ListItem.Subtitled {
+                    id: playlistTracks
+                    icon: Qt.resolvedUrl("images/queue.png") // fix!
+                    iconFrame: false
+                    text: title
+                    subText: artist+" - "+album
+
+                    onFocusChanged: {
+                        if (focus == false) {
+                            selected = false
+                        } else {
+                            selected = false
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+                        onPressAndHold: {
+                            customdebug("Pressed and held queued track "+name)
+                        }
+                        onClicked: {
+                            customdebug("Track: " + track) // debugger
+
+                            // play the chosen track
+                            player.stop()
+                            player.source = Qt.resolvedUrl(track)
+                            tracklist.currentIndex = index
+                            playing = PlayingList.indexOf(track)
+                            console.log("Playing click: "+player.source)
+                            console.log("Index: " + tracklist.currentIndex)
+                            player.play()
+                            trackQueue.remove(index) // remove track from queue when is pressed
+                        }
+
+                        /*onItemRemoved: {
+                            trackQueue.remove(index)
+                        }*/
+                    }
                 }
             }
         }
 
         tools: ToolbarItems {
-
-            // Clean whole queue button
+            // Clean queue button
             ToolbarButton {
                 objectName: "clearqueueobject"
 
-                iconSource: Qt.resolvedUrl("images/lastfm.png")
+                iconSource: Qt.resolvedUrl("images/clear.png")
                 text: i18n.tr("Clear")
 
                 onTriggered: {

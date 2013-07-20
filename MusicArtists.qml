@@ -180,13 +180,16 @@ PageStack {
                         onDoubleClicked: {
                         }
                         onPressAndHold: {
+                            PopupUtils.open(trackPopoverComponent, mainView)
+                            chosenArtist = artist
+                            chosenTitle = title
+                            chosenTrack = file
                         }
                         onClicked: {
                             if (focus == false) {
                                 focus = true
                             }
 
-                            artisttrackslist.currentIndex = index
                             trackClicked(file, index, artistTracksModel.model, artisttrackslist)
                         }
                     }

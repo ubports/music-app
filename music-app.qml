@@ -78,6 +78,7 @@ MainView {
     property string musicDir: ""
     property string appVersion: '0.4.5'
     property int playing: 0
+    property bool isPlaying: false
     property int itemnum: 0
     property bool random: false
     property bool scrobble: false
@@ -100,8 +101,8 @@ MainView {
     property int currentModelCount: -1
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
-                                           Qt.resolvedUrl("images/cover_default_icon.png") :
-                                           "image://cover-art/"+currentFile
+                                           "images/cover_default_icon.png" :
+                                           "image://cover-art/" + currentFile
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentFile :
                                           "images/cover_default.png"
@@ -114,8 +115,8 @@ MainView {
         // Load metadata for the track
         currentArtist = currentModel.get(currentIndex).artist
         currentAlbum = currentModel.get(currentIndex).album
-        currentCover = currentModel.get(currentIndex).cover
         currentFile = currentModel.get(currentIndex).file
+        currentCover = currentModel.get(currentIndex).cover
         currentTracktitle = currentModel.get(currentIndex).title
     }
 
@@ -243,6 +244,7 @@ MainView {
 
     MediaPlayer {
         id: player
+        objectName: "player"
         muted: false
 
         property bool seeking: false;  // Is the user seeking?
@@ -280,6 +282,11 @@ MainView {
                 fileDurationProgressContainer_nowplaying.drawProgress(player.position / player.duration);
                 positionStr = __durationToString(player.position)
             }
+        }
+
+        onPlaybackStateChanged: {
+          mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
+          console.log("mainView.isPlaying=" + mainView.isPlaying)
         }
     }
 
@@ -473,7 +480,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack})
+                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "track": chosenTrack, "album": chosenAlbum})
                     }
                 }
                 ListItem.Standard {
@@ -628,6 +635,7 @@ MainView {
         }
         UbuntuShape {
             id: playshape
+            objectName: "playshape"
             height: units.gu(5)
             width: units.gu(5)
             anchors.verticalCenter: parent.verticalCenter
