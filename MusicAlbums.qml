@@ -75,20 +75,22 @@ PageStack {
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            cellHeight: units.gu(7)
-            cellWidth: units.gu(7)
+            cellHeight: units.gu(18)
+            cellWidth: units.gu(14)
             model: albumModel.model
             delegate: albumDelegate
 
             Component {
                 id: albumDelegate
                 Item {
-                    height: units.gu(6)
-                    width: units.gu(6)
-                    anchors.margins: 10
+                    id: albumItem
+                    height: units.gu(17)
+                    width: units.gu(13)
+                    anchors.margins: units.gu(1)
                     UbuntuShape {
-                        height: parent.height
-                        width: parent.width
+                        id: albumShape
+                        height: albumItem.width
+                        width: albumItem.width
                         image: Image {
                             id: icon
                             fillMode: Image.Stretch
@@ -98,9 +100,33 @@ PageStack {
                             property string cover: model.cover
                             property string length: model.length
                             property string file: model.file
-                            source: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                            source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
                         }
                     }
+                    Label {
+                        id: albumTitle
+                        width: albumItem.width
+                        wrapMode: Text.Wrap
+                        horizontalAlignment: Text.AlignHCenter
+                        maximumLineCount: 1
+                        fontSize: "small"
+                        anchors.top: albumShape.bottom
+                        anchors.horizontalCenter: albumItem.horizontalCenter
+                        text: album
+                    }
+                    Label {
+                        id: albumArtist
+                        width: albumItem.width
+                        wrapMode: Text.Wrap
+                        horizontalAlignment: Text.AlignHCenter
+                        maximumLineCount: 1
+                        fontSize: "small"
+                        anchors.left: parent.left
+                        anchors.top: albumTitle.bottom
+                        anchors.horizontalCenter: albumItem.horizontalCenter
+                        text: artist
+                    }
+
                     MouseArea {
                         anchors.fill: parent
                         onDoubleClicked: {
