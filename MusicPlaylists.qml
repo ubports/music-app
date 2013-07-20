@@ -397,7 +397,7 @@ PageStack {
                             playlistlist.currentIndex = index
                             playing = PlayingList.indexOf(track)
                             console.log("Playing click: "+player.source)
-                            console.log("Index: " + tracklist.currentIndex)
+                            console.log("Index: " + playlistlist.currentIndex)
                             player.play()
                         }
                     }
