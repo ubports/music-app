@@ -714,7 +714,7 @@ MainView {
             anchors.bottom: parent.bottom
             anchors.leftMargin: units.gu(1)
             color: "#333333"
-            height: units.gu(2);
+            height: units.gu(0.5);
             width: parent.width
 
             Rectangle {
