@@ -656,8 +656,8 @@ MainView {
         Image {
             id: iconbottom
             source: mainView.currentCoverSmall
-            width: units.gu(5)
-            height: units.gu(5)
+            width: units.gu(6)
+            height: units.gu(6)
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: units.gu(1)
