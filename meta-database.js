@@ -178,6 +178,21 @@ function getAlbums() {
     return res;
 }
 
+function getAlbumTracks(album) {
+    var res = [];
+    var db = getDatabase();
+    console.log("Album: " + album);
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist ASC, album ASC, file ASC", [album]);
+        for(var i = 0; i < rs.rows.length; i++) {
+            var dbItem = rs.rows.item(i);
+            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover);
+            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length});
+        }
+    });
+    return res;
+}
+
 
 function size() {
     var db = getDatabase();
