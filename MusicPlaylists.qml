@@ -394,7 +394,7 @@ PageStack {
                             // play the chosen track
                             player.stop()
                             player.source = Qt.resolvedUrl(track)
-                            tracklist.currentIndex = index
+                            playlistlist.currentIndex = index
                             playing = PlayingList.indexOf(track)
                             console.log("Playing click: "+player.source)
                             console.log("Index: " + tracklist.currentIndex)
@@ -453,7 +453,7 @@ PageStack {
                             // play the chosen track
                             player.stop()
                             player.source = Qt.resolvedUrl(track)
-                            tracklist.currentIndex = index
+                            queuelist.currentIndex = index
                             playing = PlayingList.indexOf(track)
                             console.log("Playing click: "+player.source)
                             console.log("Index: " + tracklist.currentIndex)
