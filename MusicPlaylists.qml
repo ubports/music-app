@@ -346,7 +346,7 @@ PageStack {
         title: i18n.tr("Tracks in Playlist")
 
         ListView {
-            id: trackslist
+            id: playlistlist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -354,10 +354,10 @@ PageStack {
             model: playlisttracksModel
             delegate: playlisttrackDelegate
             onCountChanged: {
-                console.log("onCountChanged: " + trackslist.count)
+                console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
             }
             onCurrentIndexChanged: {
-                console.log("tracklist.currentIndex = " + trackslist.currentIndex)
+                console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
             onModelChanged: {
                 console.log("PlayingList cleared")
