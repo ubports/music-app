@@ -60,13 +60,32 @@ class TestMainWindow(MusicTestCase):
         artist = lambda: main.currentArtist
         self.assertThat(title, Eventually(Equals("Swansong")))
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))
-    
+
     """ Test Playing a track (Music Library must exist) """
     def test_play(self):
         button = self.app.select_single("UbuntuShape", objectName = "playshape")
         main = self.app.select_single("MainView", objectName = "music")
 
+        """ Track is not playing"""
         self.assertThat(main.isPlaying, Equals(False))
         self.pointing_device.click_object(button)
+
+        """ Track is playing"""
         self.assertThat(main.isPlaying, Eventually(Equals(True)))
+
+    """ Test Pausing a track (Music Library must exist) """
+    def test_pause(self):
+        button = self.app.select_single("UbuntuShape", objectName = "playshape")
+        main = self.app.select_single("MainView", objectName = "music")
+
+        """ Track is not playing"""
+        self.assertThat(main.isPlaying, Equals(False))
+        self.pointing_device.click_object(button)
+
+        """ Track is playing"""
+        self.assertThat(main.isPlaying, Eventually(Equals(True)))
+        self.pointing_device.click_object(button)
+
+        """ Track is not playing"""
+        self.assertThat(main.isPlaying, Eventually(Equals(False)))
 
