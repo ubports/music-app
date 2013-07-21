@@ -1,8 +1,17 @@
+music-app (0.4.7) raring; urgency=low
+
+  * Queue moved to playlist tab.
+  * Queue tracks now in own page.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 18:29:50 +0200
+
 music-app (0.4.5) raring; urgency=low
 
+  * Show tracks in playlists.
   * Removed queue from toolbar to Playlist tab. Initial queue change.
+  * Play track from playlist.
 
- -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 16:43:50 +0200
+ -- Daniel Holm <d.holmen@gmail.com>  Wed, 17 Jul 2013 18:29:50 +0200
 
 music-app (0.4.3) raring; urgency=low
 

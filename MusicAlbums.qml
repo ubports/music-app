@@ -26,6 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playing-list.js" as PlayingList
+import "playlists.js" as Playlists
 
 PageStack {
     id: pageStack

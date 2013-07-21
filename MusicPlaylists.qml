@@ -26,28 +26,30 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 import "scrobble.js" as Scrobble
+import "playing-list.js" as PlayingList
 import "playlists.js" as Playlists
 
+PageStack {
+    id: pageStack
+    anchors.fill: parent
 
-Page {
-    property int filelistCurrentIndex: 0
-    property int filelistCount: 0
+    property string playlistTracks: ""
     property string oldPlaylistName: ""
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
 
-    onFilelistCurrentIndexChanged: {
-        tracklist.currentIndex = filelistCurrentIndex
-    }
-
-    title: i18n.tr("Playlists")
-
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        console.debug("Debug: Playlist #" + index + " = " + element);
+        customdebug("Playlist #" + index + " = " + element);
         playlistModel.append({"id": index, "name": element});
+    }
+
+    // function that adds each track from playlist in the listmodel to show it in the app
+    function addtoPlaylistTracksModel(element,index,array) {
+        customdebug("Track #" + index + " = " + element);
+        var arry = element.split(',');
+        playlisttracksModel.append({"id": index, "track": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
     }
 
     // New playlist dialog
@@ -83,18 +85,19 @@ Page {
                          PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
-                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
 
                      }
                 }
              }
+
              Button {
                  text: i18n.tr("Cancel")
                  color: "grey"
                  onClicked: PopupUtils.close(dialogueNewPlaylist)
              }
          }
-        }
+    }
 
     // Remove playlist dialog
     Component {
@@ -203,52 +206,9 @@ Page {
         }
     }
 
-
-    tools: ToolbarItems {
-        // import playlist from lastfm
-        ToolbarButton {
-            objectName: "lastfmplaylistaction"
-
-            iconSource: Qt.resolvedUrl("images/lastfm.png")
-            text: i18n.tr("Import")
-
-            onTriggered: {
-                console.debug("Debug: User pressed action to import playlist from lastfm")
-                Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-            }
-        }
-
-        // Add playlist
-        ToolbarButton {
-            id: playlistAction
-            objectName: "playlistaction"
-            iconSource: Qt.resolvedUrl("images/playlist.png")
-            text: i18n.tr("New")
-            onTriggered: {
-                console.debug("Debug: User pressed add playlist")
-                // show new playlist dialog
-                PopupUtils.open(newPlaylistDialog, mainView)
-            }
-        }
-
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
-        }
-    }
-
-
     Component.onCompleted: {
+        pageStack.push(playlistspage)
+
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
@@ -263,72 +223,248 @@ Page {
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
-    ListView {
-        id: tracklist
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: units.gu(8)
-        model: playlistModel
-        delegate: playlistDelegate
-        onCountChanged: {
-            customdebug("onCountChanged: " + tracklist.count)
-        }
-        onCurrentIndexChanged: {
-            customdebug("tracklist.currentIndex = " + tracklist.currentIndex)
-        }
-        onModelChanged: {
-            customdebug("PlayingList cleared")
-        }
+    // page for the playlists
+    Page {
+        id: playlistspage
+        title: i18n.tr("Playlists")
+        ListView {
+            id: playlistslist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: playlistModel
+            delegate: playlistDelegate
+            onCountChanged: {
+                customdebug("onCountChanged: " + playlistslist.count)
+            }
+            onCurrentIndexChanged: {
+                customdebug("tracklist.currentIndex = " + playlistslist.currentIndex)
+            }
+            onModelChanged: {
+                customdebug("PlayingList cleared")
+            }
 
-        Component {
-            id: playlistDelegate
-            ListItem.Standard {
-                id: playlist
-                icon: Qt.resolvedUrl("images/playlist.png")
-                iconFrame: false
-                text: name
+            Component {
+                id: playlistDelegate
+                ListItem.Subtitled {
+                    id: playlist
+                    icon: Qt.resolvedUrl("images/playlist.png")
+                    iconFrame: false
+                    text: name
+                    subText: i18n.tr("With "+ playlist.count + " tracks")
 
-                onFocusChanged: {
-                    if (focus == false) {
-                        selected = false
-                    } else {
-                        selected = false
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+
+                        onPressAndHold: {
+                            customdebug("Pressed and held playlist "+name+" : "+index)
+
+                            // queue is not the same thing as a playlist, so do this
+                            if (name === i18n.tr("Queue")) {
+                                customdebug("User tried to change name of queue, but no go!")
+                            }
+                            else {
+                                // show a dialog to change name and remove list
+                                oldPlaylistName = name
+                                oldPlaylistID = id
+                                oldPlaylistIndex = index
+                                PopupUtils.open(playlistPopoverComponent, mainView)
+                            }
+
+                        }
+
+                        onClicked: {
+                            // queue is not the same thing as a playlist, so do this
+                            if (name === i18n.tr("Queue")) {
+                                customdebug("User clicked Queue.")
+                                pageStack.push(queuepage)
+                            }
+                            else {
+                                customdebug("Playlist chosen: " + name)
+                                // get tracks in playlists in array
+                                var playlistTracks = Playlists.getPlaylistTracks(name) // get array of tracks
+                                playlistTracks.forEach(addtoPlaylistTracksModel) // send each item in playlist array to the model to show it
+                                pageStack.push(playlistpage)
+                            }
+                        }
                     }
                 }
-                MouseArea {
-                    anchors.fill: parent
-                    onDoubleClicked: {
-                    }
-                    onPressAndHold: {
-                        customdebug("Pressed and held playlist "+name+" : "+index)
+            }
+        }
 
-                        if (name === i18n.tr("Queue")) {
-                            customdebug("User tried to change name of queue, but no go!")
-                        }
-                        else {
-                            // show a dialog to change name and remove list
-                            oldPlaylistName = name
-                            oldPlaylistID = id
-                            oldPlaylistIndex = index
-                            PopupUtils.open(playlistPopoverComponent, mainView)
+        tools: ToolbarItems {
+            // import playlist from lastfm
+            ToolbarButton {
+                objectName: "lastfmplaylistaction"
+
+                iconSource: Qt.resolvedUrl("images/lastfm.png")
+                text: i18n.tr("Import")
+                visible: false
+
+                onTriggered: {
+                    console.debug("Debug: User pressed action to import playlist from lastfm")
+                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
+                }
+            }
+
+            // Add playlist
+            ToolbarButton {
+                id: playlistAction
+                objectName: "playlistaction"
+                iconSource: Qt.resolvedUrl("images/playlist.png")
+                text: i18n.tr("New")
+                onTriggered: {
+                    console.debug("Debug: User pressed add playlist")
+                    // show new playlist dialog
+                    PopupUtils.open(newPlaylistDialog, mainView)
+                }
+            }
+
+            // Settings dialog
+            ToolbarButton {
+                objectName: "settingsaction"
+                iconSource: Qt.resolvedUrl("images/settings.png")
+                text: i18n.tr("Settings")
+
+                onTriggered: {
+                    console.debug('Debug: Show settings')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
+                }
+            }
+        }
+    }
+
+    // page for the tracks in the playlist
+    Page {
+        id: playlistpage
+        title: i18n.tr("Tracks in Playlist")
+
+        ListView {
+            id: playlistlist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: playlisttracksModel
+            delegate: playlisttrackDelegate
+            onCountChanged: {
+                console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
+            }
+            onCurrentIndexChanged: {
+                console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
+            }
+            onModelChanged: {
+                console.log("PlayingList cleared")
+            }
+
+            Component {
+                id: playlisttrackDelegate
+                ListItem.Subtitled {
+                    id: playlistTracks
+                    icon: Qt.resolvedUrl("images/cover_default.png") // fix!
+                    iconFrame: false
+                    text: title
+                    subText: artist+" - "+album
+
+                    onFocusChanged: {
+                        if (focus == false) {
+                            selected = false
+                        } else {
+                            selected = false
                         }
                     }
-                    onClicked: {
-                        if (name === i18n.tr("Queue")) {
-                            customdebug("User clicked Queue.")
-                            PopupUtils.open(Qt.resolvedUrl("QueueDialog.qml"), mainView,
-                                            {
-                                                title: i18n.tr("Queue")
-                                            } )
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
                         }
-                        else {
-                            customdebug("Playlist chosen: " + name)
+                        onPressAndHold: {
+                            customdebug("Pressed and held track playlist "+name)
+                            //PopupUtils.open(playlistPopoverComponent, mainView)
+                        }
+                        onClicked: {
+                            customdebug("Track: " + track) // debugger
+                            trackClicked(track, index, playlisttracksModel, playlistlist) // play track
                         }
                     }
                 }
             }
         }
     }
-}
 
+    // Page for Queue
+    Page {
+        id: queuepage
+        title: i18n.tr("Queue")
+
+        ListView {
+            id: queuelist
+            width: parent.width
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: units.gu(8)
+            model: trackQueue
+            delegate: queueDelegate
+            onCountChanged: {
+                customdebug("Queue: Now has: " + queuelist.count + " tracks")
+            }
+
+            Component {
+                id: queueDelegate
+                ListItem.Subtitled {
+                    id: playlistTracks
+                    icon: Qt.resolvedUrl("images/queue.png") // fix!
+                    iconFrame: false
+                    text: title
+                    subText: artist+" - "+album
+
+                    onFocusChanged: {
+                        if (focus == false) {
+                            selected = false
+                        } else {
+                            selected = false
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+                        onPressAndHold: {
+                            customdebug("Pressed and held queued track "+name)
+                        }
+                        onClicked: {
+                            customdebug("Track: " + track) // debugger
+                            trackClicked(track, index, trackQueue, queuelist) // play track
+                        }
+
+                        /*onItemRemoved: {
+                            trackQueue.remove(index)
+                        }*/
+                    }
+                }
+            }
+        }
+
+        tools: ToolbarItems {
+            // Clean queue button
+            ToolbarButton {
+                objectName: "clearqueueobject"
+
+                iconSource: Qt.resolvedUrl("images/clear.png")
+                text: i18n.tr("Clear")
+
+                onTriggered: {
+                    console.debug("Debug: Track queue cleared.")
+                    trackQueue.clear()
+                }
+            }
+        }
+    }
+}

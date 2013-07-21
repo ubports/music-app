@@ -53,6 +53,7 @@ MainView {
             //Settings.setSetting("scrobble", "0") // default state of shuffle
             //Settings.setSetting("scrobble", "0") // default state of scrobble
             Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
+            Playlists.addPlaylist("Testing") // for now, but remove when toolbar works again.
         }
         Library.reset()
         Library.initialize()
@@ -75,7 +76,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.4.5'
+    property string appVersion: '0.4.7'
     property int playing: 0
     property bool isPlaying: false
     property int itemnum: 0
@@ -88,6 +89,7 @@ MainView {
     property string chosenTrack: ""
     property string chosenTitle: ""
     property string chosenArtist: ""
+    property string chosenAlbum: ""
 
     property string currentArtist: ""
     property string currentAlbum: ""
@@ -402,6 +404,12 @@ MainView {
         id: playlistModel
     }
 
+    // create the listmodel for tracks in playlists
+    ListModel {
+        id: playlisttracksModel
+    }
+
+
     Column {
         Repeater {
             id: filelist
@@ -475,7 +483,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack})
+                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "track": chosenTrack, "album": chosenAlbum})
                     }
                 }
                 ListItem.Standard {
@@ -515,7 +523,7 @@ MainView {
                         text: name
                         onClicked: {
                             console.debug("Debug: "+chosenTrack+" added to "+name)
-                            Playlists.addtoPlaylist(name,chosenTrack)
+                            Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
                             PopupUtils.close(dialogueAddToPlaylist)
                         }
                  }
