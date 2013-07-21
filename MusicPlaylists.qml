@@ -390,15 +390,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("Track: " + track) // debugger
-
-                            // play the chosen track
-                            player.stop()
-                            player.source = Qt.resolvedUrl(track)
-                            playlistlist.currentIndex = index
-                            playing = PlayingList.indexOf(track)
-                            console.log("Playing click: "+player.source)
-                            console.log("Index: " + playlistlist.currentIndex)
-                            player.play()
+                            trackClicked(track, index, playlisttracksModel, playlistlist) // play track
                         }
                     }
                 }
@@ -449,16 +441,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("Track: " + track) // debugger
-
-                            // play the chosen track
-                            player.stop()
-                            player.source = Qt.resolvedUrl(track)
-                            queuelist.currentIndex = index
-                            playing = PlayingList.indexOf(track)
-                            console.log("Playing click: "+player.source)
-                            console.log("Index: " + tracklist.currentIndex)
-                            player.play()
-                            trackQueue.remove(index) // remove track from queue when is pressed
+                            trackClicked(track, index, trackQueue, queuelist) // play track
                         }
 
                         /*onItemRemoved: {
