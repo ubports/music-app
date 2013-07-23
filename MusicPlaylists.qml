@@ -49,7 +49,7 @@ PageStack {
     function addtoPlaylistTracksModel(element,index,array) {
         customdebug("Track #" + index + " = " + element);
         var arry = element.split(',');
-        playlisttracksModel.append({"id": index, "track": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
+        playlisttracksModel.model.append({"id": index, "file": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
     }
 
     // New playlist dialog
@@ -382,6 +382,7 @@ PageStack {
             delegate: playlisttrackDelegate
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
+                playlistlist.currentIndex = playlisttracksModel.indexOf(currentFile)
             }
             onCurrentIndexChanged: {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
@@ -416,8 +417,8 @@ PageStack {
                             //PopupUtils.open(playlistPopoverComponent, mainView)
                         }
                         onClicked: {
-                            customdebug("Track: " + track) // debugger
-                            trackClicked(track, index, playlisttracksModel.model, playlistlist) // play track
+                            customdebug("Track: " + file) // debugger
+                            trackClicked(file, index, playlisttracksModel.model, playlistlist) // play track
                         }
                     }
                 }
