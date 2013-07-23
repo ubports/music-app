@@ -37,6 +37,7 @@ PageStack {
         title: i18n.tr("Albums")
         Component.onCompleted: {
             pageStack.push(mainpage)
+            onPlayingTrackChange.connect(updateHighlight)
         }
 
         tools: ToolbarItems {
@@ -54,6 +55,12 @@ PageStack {
                                     } )
                 }
             }
+        }
+
+        function updateHighlight(file)
+        {
+            console.debug("MusicArtists update highlight:", file)
+            albumtrackslist.currentIndex = albumTracksModel.indexOf(file)
         }
 
         Component {
@@ -159,6 +166,10 @@ PageStack {
             highlightFollowsCurrentItem: true
             model: albumTracksModel.model
             delegate: albumTracksDelegate
+
+            onCountChanged: {
+                albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
+            }
 
             Component {
                 id: albumTracksDelegate

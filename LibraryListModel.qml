@@ -26,7 +26,25 @@ Item {
     WorkerScript {
          id: worker
          source: "worker-library-loader.js"
-     }
+    }
+
+    function indexOf(file)
+    {
+        if (file.indexOf("file://") == 0)
+        {
+            file = file.slice(7, file.length)
+        }
+
+        for (var i=0; i < model.count; i++)
+        {
+            if (model.get(i).file == file)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     function populate() {
         libraryModel.clear();

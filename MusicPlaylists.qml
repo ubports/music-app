@@ -345,13 +345,40 @@ PageStack {
         id: playlistpage
         title: i18n.tr("Tracks in Playlist")
 
+        Component.onCompleted: {
+            onPlayingTrackChange.connect(updateHighlightPlaylist)
+        }
+
+        function updateHighlightPlaylist(file)
+        {
+            console.debug("MusicPlaylist update highlight:", file)
+            playlistlist.currentIndex = playlisttracksModel.indexOf(file)
+        }
+
+        Component {
+            id: highlightPlaylist
+            Rectangle {
+                width: units.gu(.75)
+                height: highlightPlaylist.height
+                color: "#FFFFFF";
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
+                }
+            }
+        }
+
         ListView {
             id: playlistlist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            model: playlisttracksModel
+            highlight: highlightPlaylist
+            highlightFollowsCurrentItem: true
+            model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
@@ -390,7 +417,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("Track: " + track) // debugger
-                            trackClicked(track, index, playlisttracksModel, playlistlist) // play track
+                            trackClicked(track, index, playlisttracksModel.model, playlistlist) // play track
                         }
                     }
                 }

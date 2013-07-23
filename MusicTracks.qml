@@ -33,13 +33,6 @@ PageStack {
     id: pageStack
     anchors.fill: parent
 
-    property int filelistCurrentIndex: 0
-    property int filelistCount: 0
-
-    onFilelistCurrentIndexChanged: {
-        tracklist.currentIndex = filelistCurrentIndex
-    }
-
     Page {
         id: mainpage
 
@@ -63,6 +56,13 @@ PageStack {
         title: i18n.tr("Music")
         Component.onCompleted: {
             pageStack.push(mainpage)
+            onPlayingTrackChange.connect(updateHighlight)
+        }
+
+        function updateHighlight(file)
+        {
+            console.debug("MusicTracks update highlight:", file)
+            tracklist.currentIndex = libraryModel.indexOf(file)
         }
 
         Component {
@@ -92,15 +92,7 @@ PageStack {
             delegate: trackDelegate
             onCountChanged: {
                 console.log("onCountChanged: " + tracklist.count)
-                filelistCount = tracklist.count
-            }
-            onCurrentIndexChanged: {
-                filelistCurrentIndex = tracklist.currentIndex
-                console.log("tracklist.currentIndex = " + tracklist.currentIndex)
-            }
-            onModelChanged: {
-                console.log("PlayingList cleared")
-                PlayingList.clear()
+                tracklist.currentIndex = libraryModel.indexOf(currentFile)
             }
 
             Component {
@@ -186,7 +178,6 @@ PageStack {
                             console.log(itemnum)
                         }
                         console.log("Title:" + title + " Artist: " + artist)
-                        itemnum++
                     }
                 }
             }
