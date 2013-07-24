@@ -66,7 +66,6 @@ PageStack {
             id: highlight
             Rectangle {
                 width: units.gu(.75)
-                height: highlight.height
                 color: "#FFFFFF";
                 Behavior on y {
                     SpringAnimation {

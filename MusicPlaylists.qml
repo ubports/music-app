@@ -359,7 +359,6 @@ PageStack {
             id: highlightPlaylist
             Rectangle {
                 width: units.gu(.75)
-                height: highlightPlaylist.height
                 color: "#FFFFFF";
                 Behavior on y {
                     SpringAnimation {
