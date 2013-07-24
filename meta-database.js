@@ -110,6 +110,31 @@ function getMetadata(file,type) {
   return res
 }
 
+// This function is used to retrieve meta data from the database
+function getCover(file) {
+   var db = getDatabase();
+   var res="";
+
+   try {
+       db.transaction(function(tx) {
+         var rs = tx.executeSql('SELECT cover FROM metadata WHERE file=?;', [file]); // tries to get the cover art of track
+
+         if (rs.rows.length > 0) {
+              res = rs.rows.item(0).value;
+         } else {
+             res = "Unknown";
+         }
+      })
+   } catch(e) {
+       return "";
+   }
+
+  // The function returns “Unknown” if the setting was not found in the database
+  // For more advanced projects, this should probably be handled through error codes
+  return res
+}
+
+
 function printValues() {
     var db = getDatabase();
     db.transaction( function(tx) {
