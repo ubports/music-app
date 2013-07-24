@@ -93,7 +93,7 @@ PageStack {
 
              Button {
                  text: i18n.tr("Cancel")
-                 color: "grey"
+                 color: styleMusic.dialog.buttonColor
                  onClicked: PopupUtils.close(dialogueNewPlaylist)
              }
          }
@@ -118,7 +118,7 @@ PageStack {
              }
              Button {
                  text: i18n.tr("Cancel")
-                 color: "grey"
+                 color: styleMusic.dialog.buttonColor
                  onClicked: PopupUtils.close(dialogueRemovePlaylist)
              }
          }
@@ -156,7 +156,7 @@ PageStack {
              }
              Button {
                  text: i18n.tr("Cancel")
-                 color: "grey"
+                 color: styleMusic.dialog.buttonColor
                  onClicked: PopupUtils.close(dialogueEditPlaylist)
              }
          }
@@ -177,7 +177,7 @@ PageStack {
                 ListItem.Standard {
                     Label {
                         text: i18n.tr("Change name")
-                        color: "#333333"
+                        color: styleMusic.popover.labelColor
                         fontSize: "large"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
@@ -191,7 +191,7 @@ PageStack {
                 ListItem.Standard {
                     Label {
                         text: i18n.tr("Remove")
-                        color: "#333333"
+                        color: styleMusic.popover.labelColor
                         fontSize: "large"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter

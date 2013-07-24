@@ -35,9 +35,11 @@ MainView {
     applicationName: "music-app"
     id: mainView
 
-    headerColor: "#57365E"
-    backgroundColor: "#A55263"
-    footerColor: "#D75669"
+    Style { id: styleMusic }
+
+    headerColor: styleMusic.mainView.headerColor
+    backgroundColor: styleMusic.mainView.backgroundColor
+    footerColor: styleMusic.mainView.footerColor
 
     width: units.gu(50)
     height: units.gu(75)
@@ -475,7 +477,7 @@ MainView {
                 ListItem.Standard {
                     Label {
                         text: i18n.tr("Add to queue")
-                        color: "#333333"
+                        color: styleMusic.popover.labelColor
                         fontSize: "large"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
@@ -489,7 +491,7 @@ MainView {
                 ListItem.Standard {
                     Label {
                         text: i18n.tr("Add to playlist")
-                        color: "#333333"
+                        color: styleMusic.popover.labelColor
                         fontSize: "large"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
@@ -613,7 +615,7 @@ MainView {
         //anchors.top: filelist.bottom
         height: units.gu(8)
         width: parent.width
-        color: "#333333"
+        color: styleMusic.playerControls.backgroundColor
         UbuntuShape {
             id: forwardshape
             height: units.gu(5)
@@ -693,7 +695,7 @@ MainView {
                                   - forwardshape.anchors.rightMargin
                                   - anchors.leftMargin
             wrapMode: Text.Wrap
-            color: "#FFFFFF"
+            color: styleMusic.playerControls.labelColor
             maximumLineCount: 1
             fontSize: "medium"
             anchors.left: iconbottom.right
@@ -712,7 +714,7 @@ MainView {
                                   - forwardshape.anchors.rightMargin
                                   - anchors.leftMargin
             wrapMode: Text.Wrap
-            color: "#FFFFFF"
+            color: styleMusic.playerControls.labelColor
             maximumLineCount: 1
             fontSize: "small"
             anchors.left: iconbottom.right
@@ -724,13 +726,13 @@ MainView {
             id: fileDurationProgressContainer
             anchors.bottom: parent.bottom
             anchors.leftMargin: units.gu(1)
-            color: "#333333"
+            color: styleMusic.playerControls.backgroundColor
             height: units.gu(0.5);
             width: parent.width
 
             Rectangle {
                 id: fileDurationProgressBackground
-                color: "#000000";
+                color: styleMusic.playerControls.progressBackgroundColor;
                 anchors.bottom: parent.bottom
                 height: units.gu(0.5);
                 radius: units.gu(0.5);
@@ -741,7 +743,7 @@ MainView {
             Rectangle {
                 id: fileDurationProgressArea
                 anchors.bottom: parent.bottom
-                color: "#DD4814";
+                color: styleMusic.playerControls.progressForegroundColor;
                 height: units.gu(0.5);
                 radius: units.gu(0.5);
                 visible: player.duration > 0 ? true : false
@@ -754,7 +756,7 @@ MainView {
             anchors.top: fileArtistAlbumBottom.bottom
             anchors.leftMargin: units.gu(1)
             anchors.left: iconbottom.right
-            color: "#FFFFFF"
+            color: styleMusic.playerControls.labelColor
             fontSize: "small"
             maximumLineCount: 1
             text: player.duration > 0 ?
@@ -769,7 +771,7 @@ MainView {
         id: nowPlaying
         anchors.fill: parent
         height: units.gu(10)
-        color: "#333333"
+        color: styleMusic.nowPlaying.backgroundColor
         visible: false
         Item {
             anchors.fill: parent
@@ -894,7 +896,7 @@ MainView {
                 id: fileTitleBottom_nowplaying
                 width: units.gu(40)
                 wrapMode: Text.Wrap
-                color: "#FFFFFF"
+                color: styleMusic.nowPlaying.labelColor
                 maximumLineCount: 1
                 fontSize: "large"
                 anchors.top: iconbottom_nowplaying.bottom
@@ -907,7 +909,7 @@ MainView {
                 id: fileArtistAlbumBottom_nowplaying
                 width: units.gu(40)
                 wrapMode: Text.Wrap
-                color: "#FFFFFF"
+                color: styleMusic.nowPlaying.labelColor
                 maximumLineCount: 2
                 fontSize: "medium"
                 anchors.top: fileTitleBottom_nowplaying.bottom
@@ -922,7 +924,7 @@ MainView {
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#333333";
+                color: styleMusic.nowPlaying.backgroundColor;
                 height: units.gu(2);
                 width: units.gu(40);
 
@@ -955,7 +957,7 @@ MainView {
                 Rectangle {
                     id: fileDurationProgressBackground_nowplaying
                     anchors.verticalCenter: parent.verticalCenter;
-                    color: "#000000";
+                    color: styleMusic.nowPlaying.progressBackgroundColor;
                     height: units.gu(0.5);
                     radius: units.gu(0.5);
                     width: parent.width;
@@ -965,7 +967,7 @@ MainView {
                 Rectangle {
                     id: fileDurationProgressArea_nowplaying
                     anchors.verticalCenter: parent.verticalCenter;
-                    color: "#DD4814";
+                    color: styleMusic.nowPlaying.progressForegroundColor;
                     height: units.gu(0.5);
                     radius: units.gu(0.5);
                     width: fileDurationProgress_nowplaying.x + 5;  // +5 so right radius is hidden
@@ -975,7 +977,7 @@ MainView {
                 UbuntuShape {
                     id: fileDurationProgress_nowplaying
                     anchors.verticalCenter: fileDurationProgressBackground_nowplaying.verticalCenter;
-                    color: "#FFFFFF"
+                    color: styleMusic.nowPlaying.progressHandleColor
                     height: width;
                     width: units.gu(2);
                 }
@@ -997,7 +999,7 @@ MainView {
                 anchors.topMargin: units.gu(2)
                 anchors.leftMargin: units.gu(2)
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#FFFFFF"
+                color: styleMusic.nowPlaying.labelColor
                 fontSize: "medium"
                 maximumLineCount: 1
                 text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
