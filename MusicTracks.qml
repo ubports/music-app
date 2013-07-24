@@ -70,7 +70,7 @@ PageStack {
             Rectangle {
                 width: units.gu(.75)
                 height: highlight.height
-                color: "#FFFFFF";
+                color: styleMusic.listView.highlightColor;
                 Behavior on y {
                     SpringAnimation {
                         spring: 3
