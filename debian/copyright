@@ -3,7 +3,9 @@ Upstream-Name: music-app
 Source: https://launchpad.net/music-app
 
 Files: *
-Copyright: Daniel Holm <d.holmen@gmail.com> and Victor Thompson <victor.thompson@gmail.com>
+Copyright: 2013 Daniel Holm <d.holmen@gmail.com>
+           2013 Victor Thompson <victor.thompson@gmail.com>
+           2013 Andrew Hayzen <ahayzen@gmail.com>
 License: GPL-3.0+
 
 Files: debian/*
