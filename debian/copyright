@@ -4,8 +4,10 @@ Source: https://launchpad.net/music-app
 
 Files: *
 Copyright: 2013 Daniel Holm <d.holmen@gmail.com>
-           2013 Victor Thompson <victor.thompson@gmail.com>
            2013 Andrew Hayzen <ahayzen@gmail.com>
+           2013 Daniel Kessel <d.kessel@gmx.de>
+           2013 Lucas Romero Di Benedetto <lucasromerodb@gmail.com>
+           2013 Victor Thompson <victor.thompson@gmail.com>
 License: GPL-3.0+
 
 Files: debian/*
