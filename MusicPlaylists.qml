@@ -359,7 +359,7 @@ PageStack {
             id: highlightPlaylist
             Rectangle {
                 width: units.gu(.75)
-                color: "#FFFFFF";
+                color: styleMusic.listView.highlightColor;
                 Behavior on y {
                     SpringAnimation {
                         spring: 3
@@ -444,7 +444,7 @@ PageStack {
             id: highlightQueue
             Rectangle {
                 width: units.gu(.75)
-                color: "#FFFFFF";
+                color: styleMusic.listView.highlightColor;
                 Behavior on y {
                     SpringAnimation {
                         spring: 3
