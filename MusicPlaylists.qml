@@ -430,13 +430,39 @@ PageStack {
         id: queuepage
         title: i18n.tr("Queue")
 
+        Component.onCompleted: {
+            onPlayingTrackChange.connect(updateHighlightQueue)
+        }
+
+        function updateHighlightQueue(file)
+        {
+            customdebug("MusicQueue update highlight: " + file)
+            queuelist.currentIndex = trackQueue.indexOf(file)
+        }
+
+        Component {
+            id: highlightQueue
+            Rectangle {
+                width: units.gu(.75)
+                color: "#FFFFFF";
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
+                }
+            }
+        }
+
         ListView {
             id: queuelist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            model: trackQueue
+            highlight: highlightQueue
+            highlightFollowsCurrentItem: true
+            model: trackQueue.model
             delegate: queueDelegate
             onCountChanged: {
                 customdebug("Queue: Now has: " + queuelist.count + " tracks")
@@ -467,8 +493,8 @@ PageStack {
                             customdebug("Pressed and held queued track "+name)
                         }
                         onClicked: {
-                            customdebug("Track: " + track) // debugger
-                            trackClicked(track, index, trackQueue, queuelist) // play track
+                            customdebug("Track: " + file) // debugger
+                            trackClicked(file, index, trackQueue.model, queuelist) // play track
                         }
 
                         /*onItemRemoved: {
@@ -489,7 +515,7 @@ PageStack {
 
                 onTriggered: {
                     console.debug("Debug: Track queue cleared.")
-                    trackQueue.clear()
+                    trackQueue.model.clear()
                 }
             }
         }
