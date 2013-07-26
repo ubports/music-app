@@ -367,7 +367,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Library.getCover(file) === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album
@@ -419,7 +419,7 @@ PageStack {
                 id: queueDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Library.getCover(file) === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album

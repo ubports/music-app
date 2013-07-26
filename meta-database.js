@@ -111,22 +111,20 @@ function getMetadata(file,type) {
 }
 
 // This function is used to retrieve meta data from the database
-function getCover(file) {
+function hasCover(file) {
    var db = getDatabase();
-   var res="";
+   var res = false;
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT cover FROM metadata WHERE file=?;', [file]); // tries to get the cover art of track
+         var rs = tx.executeSql('SELECT cover FROM metadata WHERE file = ?;', [file]); // tries to get the cover art of track
 
          if (rs.rows.length > 0) {
-              res = rs.rows.item(0).value;
-         } else {
-             res = "Unknown";
+              res = rs.rows.item(0).cover !== "" ? true : false
          }
       })
    } catch(e) {
-       return "";
+       return false;
    }
 
   // The function returns “Unknown” if the setting was not found in the database
