@@ -45,13 +45,6 @@ PageStack {
         playlistModel.append({"id": index, "name": element});
     }
 
-    // function that adds each track from playlist in the listmodel to show it in the app
-    function addtoPlaylistTracksModel(element,index,array) {
-        customdebug("Track #" + index + " = " + element);
-        var arry = element.split(',');
-        playlisttracksModel.append({"id": index, "file": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
-    }
-
     // New playlist dialog
     Component {
          id: newPlaylistDialog
@@ -284,9 +277,7 @@ PageStack {
                             }
                             else {
                                 customdebug("Playlist chosen: " + name)
-                                // get tracks in playlists in array
-                                var playlistTracks = Playlists.getPlaylistTracks(name) // get array of tracks
-                                playlistTracks.forEach(addtoPlaylistTracksModel) // send each item in playlist array to the model to show it
+                                playlisttracksModel.filterPlaylistTracks(name)
                                 pageStack.push(playlistpage)
                             }
                         }
@@ -351,7 +342,7 @@ PageStack {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            model: playlisttracksModel
+            model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
@@ -390,7 +381,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("File: " + file) // debugger
-                            trackClicked(file, index, playlisttracksModel, playlistlist) // play track
+                            trackClicked(file, index, playlisttracksModel.model, playlistlist) // play track
                         }
                     }
                 }
@@ -409,7 +400,7 @@ PageStack {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            model: trackQueue
+            model: trackQueue.model
             delegate: queueDelegate
             onCountChanged: {
                 customdebug("Queue: Now has: " + queuelist.count + " tracks")
@@ -441,7 +432,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("File: " + file) // debugger
-                            trackClicked(file, index, trackQueue, queuelist) // play track
+                            trackClicked(file, index, trackQueue.model, queuelist) // play track
                         }
 
                         /*onItemRemoved: {
@@ -462,7 +453,7 @@ PageStack {
 
                 onTriggered: {
                     console.debug("Debug: Track queue cleared.")
-                    trackQueue.clear()
+                    trackQueue.model.clear()
                 }
             }
         }
