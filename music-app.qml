@@ -238,7 +238,6 @@ MainView {
         playing = PlayingList.indexOf(file)
 
         console.log("Source: " + player.source.toString())
-        console.log("Length: " + libraryModel.get(index).length.toString())
         console.log("Index: " + index)
 
         return file
@@ -485,7 +484,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "track": chosenTrack, "album": chosenAlbum})
+                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum})
                     }
                 }
                 ListItem.Standard {

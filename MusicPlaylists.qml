@@ -49,7 +49,7 @@ PageStack {
     function addtoPlaylistTracksModel(element,index,array) {
         customdebug("Track #" + index + " = " + element);
         var arry = element.split(',');
-        playlisttracksModel.append({"id": index, "track": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
+        playlisttracksModel.append({"id": index, "file": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
     }
 
     // New playlist dialog
@@ -207,7 +207,7 @@ PageStack {
     }
 
     Component.onCompleted: {
-        pageStack.push(playlistspage)
+        pageStack.push(listspage)
 
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
@@ -225,7 +225,7 @@ PageStack {
 
     // page for the playlists
     Page {
-        id: playlistspage
+        id: listspage
         title: i18n.tr("Playlists")
         ListView {
             id: playlistslist
@@ -367,7 +367,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Qt.resolvedUrl("images/cover_default.png") // fix!
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album
@@ -389,8 +389,8 @@ PageStack {
                             //PopupUtils.open(playlistPopoverComponent, mainView)
                         }
                         onClicked: {
-                            customdebug("Track: " + track) // debugger
-                            trackClicked(track, index, playlisttracksModel, playlistlist) // play track
+                            customdebug("File: " + file) // debugger
+                            trackClicked(file, index, playlisttracksModel, playlistlist) // play track
                         }
                     }
                 }
@@ -419,7 +419,7 @@ PageStack {
                 id: queueDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Qt.resolvedUrl("images/queue.png") // fix!
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album
@@ -437,11 +437,11 @@ PageStack {
                         onDoubleClicked: {
                         }
                         onPressAndHold: {
-                            customdebug("Pressed and held queued track "+name)
+                            customdebug("Pressed and held queued track "+file)
                         }
                         onClicked: {
-                            customdebug("Track: " + track) // debugger
-                            trackClicked(track, index, trackQueue, queuelist) // play track
+                            customdebug("File: " + file) // debugger
+                            trackClicked(file, index, trackQueue, queuelist) // play track
                         }
 
                         /*onItemRemoved: {
