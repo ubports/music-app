@@ -120,7 +120,7 @@ function hasCover(file) {
          var rs = tx.executeSql('SELECT cover FROM metadata WHERE file = ?;', [file]); // tries to get the cover art of track
 
          if (rs.rows.length > 0) {
-              res = rs.rows.item(0).cover !== "" ? true : false
+              res = rs.rows.item(0).cover !== ""
          }
       })
    } catch(e) {
