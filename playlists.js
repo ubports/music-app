@@ -151,15 +151,18 @@ function getPlaylistTracks(playlist) {
              console.log("Artist: "+ dbItem.artist);
              console.log("Title: "+ dbItem.title);
              console.log("Album: "+ dbItem.album);
-             res[i] = ""+dbItem.track+","+dbItem.artist+","+dbItem.title+","+dbItem.album+"";
+             res[i] = {'file': dbItem.track,
+                       'title': dbItem.title,
+                       'artist': dbItem.artist,
+                       'album': dbItem.album,
+                       'index': i};
          }
       })
    } catch(e) {
-       return "";
+       return [];
    }
 
-   console.log(res);
-  return res
+   return res
 }
 
 // change name of playlist

@@ -386,7 +386,7 @@ MainView {
     }
 
     // list of tracks on startup. This is just during development
-    ListModel {
+    LibraryListModel {
         id: trackQueue
     }
 
@@ -406,7 +406,7 @@ MainView {
     }
 
     // create the listmodel for tracks in playlists
-    ListModel {
+    LibraryListModel {
         id: playlisttracksModel
     }
 
@@ -484,7 +484,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum})
+                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum})
                     }
                 }
                 ListItem.Standard {
