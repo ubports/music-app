@@ -127,8 +127,7 @@ function hasCover(file) {
        return false;
    }
 
-  // The function returns “Unknown” if the setting was not found in the database
-  // For more advanced projects, this should probably be handled through error codes
+  // The function returns false if cover art was not found in the database
   return res
 }
 
