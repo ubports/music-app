@@ -155,7 +155,7 @@ function getPlaylistTracks(playlist) {
                        'title': dbItem.title,
                        'artist': dbItem.artist,
                        'album': dbItem.album,
-                       'index': i};
+                       'id': i};
          }
       })
    } catch(e) {
