@@ -16,6 +16,7 @@ Package: music-app-autopilot
 Architecture: all
 Depends: libautopilot-qt,
          libqt5test5,
+         python-mock,
          music-app (= ${source:Version}),
          example-content
 Description: Autopilot tests for Music App

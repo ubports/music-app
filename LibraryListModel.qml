@@ -18,6 +18,7 @@
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import "meta-database.js" as Library
+import "playlists.js" as Playlists
 
 Item {
     property ListModel model : ListModel { id: libraryModel }
@@ -112,6 +113,19 @@ Item {
 
         for ( var key in library ) {
             var add = library[key];
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
+
+    function filterPlaylistTracks(playlist) {
+        // libraryModel.clear(); TODO: see filterAlbumTracks(album)
+        console.log("called LibraryListModel::filterPlaylistTracks()")
+
+        var tracks = Playlists.getPlaylistTracks(playlist)
+
+        for ( var key in tracks ) {
+            var add = tracks[key];
             console.log(JSON.stringify(add))
             worker.sendMessage({'add': add, 'model': libraryModel})
         }

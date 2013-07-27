@@ -45,13 +45,6 @@ PageStack {
         playlistModel.append({"id": index, "name": element});
     }
 
-    // function that adds each track from playlist in the listmodel to show it in the app
-    function addtoPlaylistTracksModel(element,index,array) {
-        customdebug("Track #" + index + " = " + element);
-        var arry = element.split(',');
-        playlisttracksModel.model.append({"id": index, "file": arry[0], "artist": arry[1], "title": arry[2], "album": arry[3] });
-    }
-
     // New playlist dialog
     Component {
          id: newPlaylistDialog
@@ -207,7 +200,7 @@ PageStack {
     }
 
     Component.onCompleted: {
-        pageStack.push(playlistspage)
+        pageStack.push(listspage)
 
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
@@ -225,7 +218,7 @@ PageStack {
 
     // page for the playlists
     Page {
-        id: playlistspage
+        id: listspage
         title: i18n.tr("Playlists")
         ListView {
             id: playlistslist
@@ -284,9 +277,7 @@ PageStack {
                             }
                             else {
                                 customdebug("Playlist chosen: " + name)
-                                // get tracks in playlists in array
-                                var playlistTracks = Playlists.getPlaylistTracks(name) // get array of tracks
-                                playlistTracks.forEach(addtoPlaylistTracksModel) // send each item in playlist array to the model to show it
+                                playlisttracksModel.filterPlaylistTracks(name)
                                 pageStack.push(playlistpage)
                             }
                         }
@@ -394,7 +385,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Qt.resolvedUrl("images/cover_default.png") // fix!
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album
@@ -416,7 +407,7 @@ PageStack {
                             //PopupUtils.open(playlistPopoverComponent, mainView)
                         }
                         onClicked: {
-                            customdebug("Track: " + file) // debugger
+                            customdebug("File: " + file) // debugger
                             trackClicked(file, index, playlisttracksModel.model, playlistlist) // play track
                         }
                     }
@@ -472,7 +463,7 @@ PageStack {
                 id: queueDelegate
                 ListItem.Subtitled {
                     id: playlistTracks
-                    icon: Qt.resolvedUrl("images/queue.png") // fix!
+                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     text: title
                     subText: artist+" - "+album
@@ -490,10 +481,10 @@ PageStack {
                         onDoubleClicked: {
                         }
                         onPressAndHold: {
-                            customdebug("Pressed and held queued track "+name)
+                            customdebug("Pressed and held queued track "+file)
                         }
                         onClicked: {
-                            customdebug("Track: " + file) // debugger
+                            customdebug("File: " + file) // debugger
                             trackClicked(file, index, trackQueue.model, queuelist) // play track
                         }
 

@@ -240,7 +240,6 @@ MainView {
         playing = PlayingList.indexOf(file)
 
         console.log("Source: " + player.source.toString())
-        console.log("Length: " + libraryModel.get(index).length.toString())
         console.log("Index: " + index)
 
         return file
