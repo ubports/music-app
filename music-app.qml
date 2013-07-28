@@ -109,6 +109,8 @@ MainView {
                                           "image://cover-art-full/" + currentFile :
                                           "images/cover_default.png"
 
+    signal onPlayingTrackChange(string source)
+
     onCurrentIndexChanged: {
         // Index change most likely from next/pre button press or end of song
 
@@ -253,6 +255,10 @@ MainView {
         // String versions of pos/dur that labels listen to
         property string durationStr: "00:00"
         property string positionStr: "00:00"
+
+        onSourceChanged: {
+            onPlayingTrackChange(source)
+        }
 
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia) {

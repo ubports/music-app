@@ -336,16 +336,43 @@ PageStack {
         id: playlistpage
         title: i18n.tr("Tracks in Playlist")
 
+        Component.onCompleted: {
+            onPlayingTrackChange.connect(updateHighlightPlaylist)
+        }
+
+        function updateHighlightPlaylist(file)
+        {
+            console.debug("MusicPlaylist update highlight:", file)
+            playlistlist.currentIndex = playlisttracksModel.indexOf(file)
+        }
+
+        Component {
+            id: highlightPlaylist
+            Rectangle {
+                width: units.gu(.75)
+                color: styleMusic.listView.highlightColor;
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
+                }
+            }
+        }
+
         ListView {
             id: playlistlist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
+            highlight: highlightPlaylist
+            highlightFollowsCurrentItem: true
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
+                playlistlist.currentIndex = playlisttracksModel.indexOf(currentFile)
             }
             onCurrentIndexChanged: {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
@@ -394,12 +421,38 @@ PageStack {
         id: queuepage
         title: i18n.tr("Queue")
 
+        Component.onCompleted: {
+            onPlayingTrackChange.connect(updateHighlightQueue)
+        }
+
+        function updateHighlightQueue(file)
+        {
+            customdebug("MusicQueue update highlight: " + file)
+            queuelist.currentIndex = trackQueue.indexOf(file)
+        }
+
+        Component {
+            id: highlightQueue
+            Rectangle {
+                width: units.gu(.75)
+                color: styleMusic.listView.highlightColor;
+                Behavior on y {
+                    SpringAnimation {
+                        spring: 3
+                        damping: 0.2
+                    }
+                }
+            }
+        }
+
         ListView {
             id: queuelist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
+            highlight: highlightQueue
+            highlightFollowsCurrentItem: true
             model: trackQueue.model
             delegate: queueDelegate
             onCountChanged: {
