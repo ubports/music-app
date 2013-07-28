@@ -24,7 +24,6 @@ import "settings.js" as Settings
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 
 Dialog {
     id: root

@@ -27,6 +27,7 @@ import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
 
 MainView {
     objectName: "music"
@@ -145,17 +146,17 @@ MainView {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex += direction
-                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
+                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             } else if(direction === 1) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = 0
-                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
+                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             } else if(direction === -1) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = trackQueue.model.count - 1
-                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
+                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             }
             console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         }
