@@ -26,9 +26,7 @@ import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 import "scrobble.js" as Scrobble
-import "playlists.js" as Playlists
 
 MainView {
     objectName: "music"
@@ -79,9 +77,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
     property string appVersion: '0.4.7'
-    property int playing: 0
     property bool isPlaying: false
-    property int itemnum: 0
     property bool random: false
     property bool scrobble: false
     property string lastfmusername
@@ -98,39 +94,18 @@ MainView {
     property string currentTracktitle: ""
     property string currentFile: ""
     property int currentIndex: -1
-    property ListView currentListView: null
-    property ListModel currentModel: null  // Current model being used
-    property int currentModelCount: -1
+    property LibraryListModel currentModel: null  // Current model being used
+    property var currentQuery: null
+    property var currentParam: null
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
                                            "images/cover_default_icon.png" :
-                                           "image://cover-art/" + currentFile
+                                           "image://cover-art/" + currentCover
     property string currentCoverFull: currentCover !== "" ?
-                                          "image://cover-art-full/" + currentFile :
+                                          "image://cover-art-full/" + currentCover :
                                           "images/cover_default.png"
 
     signal onPlayingTrackChange(string source)
-
-    onCurrentIndexChanged: {
-        // Index change most likely from next/pre button press or end of song
-
-        currentListView.currentIndex = currentIndex  // update highlight in listview
-
-        // Load metadata for the track
-        currentArtist = currentModel.get(currentIndex).artist
-        currentAlbum = currentModel.get(currentIndex).album
-        currentFile = currentModel.get(currentIndex).file
-        currentCover = currentModel.get(currentIndex).cover
-        currentTracktitle = currentModel.get(currentIndex).title
-    }
-
-    onCurrentModelChanged: {
-        PlayingList.rebuild(currentModel)
-    }
-
-    onCurrentModelCountChanged: {
-        PlayingList.rebuild(currentModel)
-    }
 
     // FUNCTIONS
 
@@ -155,45 +130,36 @@ MainView {
         if (random) {
             var now = new Date();
             var seed = now.getSeconds();
+
+            // trackQueue must be above 1 otherwise an infinite loop will occur
             do {
-                var num = (Math.floor((PlayingList.size()) * Math.random(seed)));
+                var num = (Math.floor((trackQueue.model.count) * Math.random(seed)));
                 console.log(num)
-                console.log(playing)
-            } while (num == playing && PlayingList.size() > 0)
-            player.source = Qt.resolvedUrl(PlayingList.getList()[num])
-            currentIndex = PlayingList.at(num)
-            playing = num
+            } while (num == currentIndex && trackQueue.model.count > 1)
+            currentIndex = num
+            player.source = Qt.resolvedUrl(trackQueue.model.get(num).file)
             console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         } else {
-            if ((playing < PlayingList.size() - 1 && direction === 1 )
-                    || (playing > 0 && direction === -1)) {
-                console.log("playing: " + playing)
-                console.log("filelistCount: " + currentModelCount)
-                console.log("PlayingList.size(): " + PlayingList.size())
-                playing += direction
-                if (playing === 0) {
-                    currentIndex = playing + (itemnum - PlayingList.size())
-                } else {
-                    currentIndex += direction
-                }
-                player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
+            if ((currentIndex < trackQueue.model.count - 1 && direction === 1 )
+                    || (currentIndex > 0 && direction === -1)) {
+                console.log("currentIndex: " + currentIndex)
+                console.log("trackQueue.count: " + trackQueue.model.count)
+                currentIndex += direction
+                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
             } else if(direction === 1) {
-                console.log("playing: " + playing)
-                console.log("filelistCount: " + currentModelCount)
-                console.log("PlayingList.size(): " + PlayingList.size())
-                playing = 0
-                currentIndex = playing + (currentModelCount - PlayingList.size())
-                player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
+                console.log("currentIndex: " + currentIndex)
+                console.log("trackQueue.count: " + trackQueue.model.count)
+                currentIndex = 0
+                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
             } else if(direction === -1) {
-                console.log("playing: " + playing)
-                console.log("filelistCount: " + currentModelCount)
-                console.log("PlayingList.size(): " + PlayingList.size())
-                playing = PlayingList.size() - 1
-                currentIndex = playing + (currentModelCount - PlayingList.size())
-                player.source = Qt.resolvedUrl(PlayingList.getList()[playing])
+                console.log("currentIndex: " + currentIndex)
+                console.log("trackQueue.count: " + trackQueue.model.count)
+                currentIndex = trackQueue.model.count - 1
+                player.source = Qt.resolvedUrl(trackQueue.model.get(i).file)
             }
             console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         }
+        player.stop()  // Add stop so that if same song is selected it restarts
         console.log("Playing: "+player.source)
         player.play()
         timestamp = new Date().getTime(); // contains current date and time in Unix time, used to scrobble
@@ -206,12 +172,44 @@ MainView {
         }
     }
 
-    function trackClicked(file, index, libraryModel, listView)
+    // Add items from a stored query in libraryModel into the queue
+    function addQueueFromModel(libraryModel)
     {
+        var items;
+
+        if (libraryModel.param === null)
+        {
+            items = libraryModel.query()
+        }
+        else
+        {
+            items = libraryModel.query(libraryModel.param)
+        }
+
+        for (var key in items)
+        {
+            trackQueue.model.append(items[key])
+        }
+    }
+
+    function trackClicked(libraryModel, index, play)
+    {
+        if (play === undefined)
+        {
+            play = true
+        }
+
+        var file = libraryModel.model.get(index).file
+
         console.debug(player.source, Qt.resolvedUrl(file))
 
         if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
         {
+            if (play === false)
+            {
+                return
+            }
+
             console.log("Is current track: "+player.playbackState)
 
             if (player.playbackState == MediaPlayer.PlayingState)
@@ -226,23 +224,61 @@ MainView {
             return
         }
 
-        currentListView = listView
+        // Clear the play queue and load the new tracks - if not trackQueue
+        if (libraryModel !== trackQueue)
+        {
+            // Don't reload queue if model, query and parameters are the same
+            if (currentModel !== libraryModel ||
+                    currentQuery !== libraryModel.query ||
+                        currentParam !== libraryModel.param)
+            {
+                trackQueue.model.clear()
+                addQueueFromModel(libraryModel)
+            }
+        }
+
+        // Current index must be updated before player.source
         currentModel = libraryModel
-        currentModelCount = libraryModel.count
-        currentIndex = index  // update index after model so index can get info from model
+        currentQuery = libraryModel.query
+        currentParam = libraryModel.param
+        currentIndex = trackQueue.indexOf(file)
 
         console.log("Click of fileName: " + file)
 
-        player.stop()
-        player.source = Qt.resolvedUrl(file)
-        player.play()
+        if (play === true)
+        {
+            player.stop()
+        }
 
-        playing = PlayingList.indexOf(file)
+        player.source = Qt.resolvedUrl(file)
+
+        if (play === true)
+        {
+            player.play()
+        }
 
         console.log("Source: " + player.source.toString())
-        console.log("Index: " + index)
+        console.log("Index: " + currentIndex)
 
         return file
+    }
+
+    function updateMeta()
+    {
+        // Load metadata for the track
+        currentArtist = trackQueue.model.get(currentIndex).artist
+        currentAlbum = trackQueue.model.get(currentIndex).album
+        currentTracktitle = trackQueue.model.get(currentIndex).title
+
+        // hasCover and currentFile require no file://
+        var file = currentFile
+
+        if (file.indexOf("file://") == 0)
+        {
+            file = file.slice(7, file.length)
+        }
+
+        currentCover = Library.hasCover(file) ? file : ""
     }
 
     MediaPlayer {
@@ -257,7 +293,9 @@ MainView {
         property string positionStr: "00:00"
 
         onSourceChanged: {
+            currentFile = source
             onPlayingTrackChange(source)
+            updateMeta()
         }
 
         onStatusChanged: {
@@ -459,8 +497,6 @@ MainView {
                 libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
-                PlayingList.clear()
-                itemnum = 0
                 timer.stop()
             }
             counted = filelist.count

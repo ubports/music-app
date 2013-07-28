@@ -25,7 +25,6 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 import "playlists.js" as Playlists
 
 
@@ -160,22 +159,15 @@ PageStack {
                                 focus = true
                             }
 
-                            trackClicked(file, index, libraryModel.model, tracklist)
+                            trackClicked(libraryModel, index)  // play track
                         }
                     }
                     Component.onCompleted: {
-                        if (PlayingList.size() === 0) {
-                            player.source = file
-                            currentModel = libraryModel.model
-                            currentListView = tracklist
-                            currentIndex = 0
+                        // Set first track as current track
+                        if (trackQueue.model.count === 0) {
+                            trackClicked(libraryModel, index, false)
                         }
 
-                        if (!PlayingList.contains(file)) {
-                            console.log("Adding file:" + file)
-                            PlayingList.addItem(file, itemnum)
-                            console.log(itemnum)
-                        }
                         console.log("Title:" + title + " Artist: " + artist)
                     }
                 }

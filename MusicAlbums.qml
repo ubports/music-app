@@ -25,7 +25,6 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 import "playlists.js" as Playlists
 
 PageStack {
@@ -225,7 +224,7 @@ PageStack {
                                 focus = true
                             }
 
-                            trackClicked(file, index, albumTracksModel.model, albumtrackslist)
+                            trackClicked(albumTracksModel, index)  // play track
                         }
                     }
                     Component.onCompleted: {

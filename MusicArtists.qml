@@ -201,7 +201,7 @@ PageStack {
                                 focus = true
                             }
 
-                            trackClicked(file, index, artistTracksModel.model, artisttrackslist)
+                            trackClicked(artistTracksModel, index)  // play track
                         }
                     }
                     Component.onCompleted: {
