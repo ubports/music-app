@@ -178,6 +178,11 @@ MainView {
     {
         var items;
 
+        if (libraryModel.query === null)
+        {
+            return
+        }
+
         if (libraryModel.param === null)
         {
             items = libraryModel.query()
@@ -271,7 +276,7 @@ MainView {
         currentAlbum = trackQueue.model.get(currentIndex).album
         currentTracktitle = trackQueue.model.get(currentIndex).title
 
-        // hasCover and currentFile require no file://
+        // hasCover and currentCover require no file://
         var file = currentFile
 
         if (file.indexOf("file://") == 0)
