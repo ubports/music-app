@@ -48,7 +48,8 @@ Item {
     }
 
     function populate() {
-        libraryModel.clear();
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::populate()")
 
         var library = Library.getAll()
@@ -61,7 +62,8 @@ Item {
     }
 
     function filterArtists() {
-        libraryModel.clear();
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::filterArtists()")
 
         var library = Library.getArtists()
@@ -75,9 +77,8 @@ Item {
     }
 
     function filterArtistTracks(artist) {
-        // TODO: Currently clearing the model causes the ListView not to refresh when an artist is selected the second time.
-        //       However, without the call to clear(), each artist's tracks are appended to the ListView.
-        // libraryModel.clear();
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::filterArtistTracks()")
 
         var library = Library.getArtistTracks(artist)
@@ -90,7 +91,8 @@ Item {
     }
 
     function filterAlbums() {
-        libraryModel.clear();
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::filterAlbums()")
 
         var library = Library.getAlbums()
@@ -104,9 +106,8 @@ Item {
     }
 
     function filterAlbumTracks(album) {
-        // TODO: Currently clearing the model causes the ListView not to refresh when an artist is selected the second time.
-        //       However, without the call to clear(), each artist's tracks are appended to the ListView.
-        // libraryModel.clear();
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::filterAlbumTracks()")
 
         var library = Library.getAlbumTracks(album)
@@ -119,7 +120,8 @@ Item {
     }
 
     function filterPlaylistTracks(playlist) {
-        // libraryModel.clear(); TODO: see filterAlbumTracks(album)
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
         console.log("called LibraryListModel::filterPlaylistTracks()")
 
         var tracks = Playlists.getPlaylistTracks(playlist)
