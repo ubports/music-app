@@ -22,6 +22,7 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
+import Ubuntu.HUD 1.0 as HUD
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
@@ -33,6 +34,42 @@ MainView {
     objectName: "music"
     applicationName: "music-app"
     id: mainView
+
+    HUD.HUD {
+        applicationIdentifier: "music-app" // has to match .desktop file
+
+        HUD.Context {
+            HUD.Action {
+                label: i18n.tr("Next")
+                keywords: i18n.tr("Next Track")
+                onTriggered: nextSong()
+            }
+            HUD.Action {
+                label: i18n.tr("Play/Pause")
+                keywords: i18n.tr("Play Pause Track")
+                onTriggered: {
+                    if (player.playbackState === MediaPlayer.PlayingState)  {
+                        player.pause()
+                    } else {
+                        player.play()
+                    }
+                }
+            }
+            HUD.Action {
+                label: i18n.tr("Previous")
+                keywords: i18n.tr("Previous Track")
+                onTriggered: previousSong()
+            }
+            HUD.Action {
+                label: i18n.tr("Stop")
+                keywords: i18n.tr("Stop Track")
+                onTriggered: player.stop()
+            }
+            HUD.QuitAction {
+                onTriggered: Qt.quit()
+            }
+        }
+    }
 
     Style { id: styleMusic }
 
