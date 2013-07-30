@@ -27,7 +27,6 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
-import "playing-list.js" as PlayingList
 import "playlists.js" as Playlists
 
 PageStack {
@@ -234,9 +233,6 @@ PageStack {
             onCurrentIndexChanged: {
                 customdebug("tracklist.currentIndex = " + playlistslist.currentIndex)
             }
-            onModelChanged: {
-                customdebug("PlayingList cleared")
-            }
 
             Component {
                 id: playlistDelegate
@@ -377,9 +373,6 @@ PageStack {
             onCurrentIndexChanged: {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
-            onModelChanged: {
-                console.log("PlayingList cleared")
-            }
 
             Component {
                 id: playlisttrackDelegate
@@ -408,7 +401,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("File: " + file) // debugger
-                            trackClicked(file, index, playlisttracksModel.model, playlistlist) // play track
+                            trackClicked(playlisttracksModel, index) // play track
                         }
                     }
                 }
@@ -485,7 +478,7 @@ PageStack {
                         }
                         onClicked: {
                             customdebug("File: " + file) // debugger
-                            trackClicked(file, index, trackQueue.model, queuelist) // play track
+                            trackClicked(trackQueue, index) // play track
                         }
 
                         /*onItemRemoved: {

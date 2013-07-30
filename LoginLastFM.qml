@@ -26,7 +26,6 @@ import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
-import "playing-list.js" as PlayingList
 import "scrobble.js" as Scrobble
 
 // LastFM login dialog

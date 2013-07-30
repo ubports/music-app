@@ -23,6 +23,8 @@ import "playlists.js" as Playlists
 Item {
     property ListModel model : ListModel { id: libraryModel }
     property alias count: libraryModel.count
+    property var query: null
+    property var param: null
 
     WorkerScript {
          id: worker
@@ -51,6 +53,10 @@ Item {
         libraryModel.clear();
         console.log("called LibraryListModel::populate()")
 
+        // Save query for queue
+        query = Library.getAll
+        param = null
+
         var library = Library.getAll()
 
         for ( var key in library ) {
@@ -63,6 +69,10 @@ Item {
     function filterArtists() {
         libraryModel.clear();
         console.log("called LibraryListModel::filterArtists()")
+
+        // Save query for queue
+        query = Library.getArtists
+        param = null
 
         var library = Library.getArtists()
 
@@ -80,6 +90,10 @@ Item {
         // libraryModel.clear();
         console.log("called LibraryListModel::filterArtistTracks()")
 
+        // Save query for queue
+        query = Library.getArtistTracks
+        param = artist
+
         var library = Library.getArtistTracks(artist)
 
         for ( var key in library ) {
@@ -92,6 +106,10 @@ Item {
     function filterAlbums() {
         libraryModel.clear();
         console.log("called LibraryListModel::filterAlbums()")
+
+        // Save query for queue
+        query = Library.getAlbums
+        param = null
 
         var library = Library.getAlbums()
 
@@ -109,6 +127,10 @@ Item {
         // libraryModel.clear();
         console.log("called LibraryListModel::filterAlbumTracks()")
 
+        // Save query for queue
+        query = Library.getAlbumTracks
+        param = album
+
         var library = Library.getAlbumTracks(album)
 
         for ( var key in library ) {
@@ -121,6 +143,10 @@ Item {
     function filterPlaylistTracks(playlist) {
         // libraryModel.clear(); TODO: see filterAlbumTracks(album)
         console.log("called LibraryListModel::filterPlaylistTracks()")
+
+        // Save query for queue
+        query = Playlists.getPlaylistTracks
+        param = playlist
 
         var tracks = Playlists.getPlaylistTracks(playlist)
 
