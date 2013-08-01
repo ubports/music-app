@@ -54,7 +54,6 @@ MainView {
             //Settings.setSetting("scrobble", "0") // default state of shuffle
             //Settings.setSetting("scrobble", "0") // default state of scrobble
             Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
-            Playlists.addPlaylist("Testing") // for now, but remove when toolbar works again.
         }
         Library.reset()
         Library.initialize()
