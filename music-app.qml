@@ -128,6 +128,12 @@ MainView {
     }
 
     function getSong(direction) {
+        if (trackQueue.model.count == 0)
+        {
+            customdebug("No tracks in queue.");
+            return;
+        }
+
         if (random) {
             var now = new Date();
             var seed = now.getSeconds();
@@ -203,6 +209,12 @@ MainView {
         if (play === undefined)
         {
             play = true
+        }
+
+        if (index > libraryModel.model.count - 1 || index < 0)
+        {
+            customdebug("Incorrect index given to trackClicked.")
+            return;
         }
 
         var file = libraryModel.model.get(index).file
@@ -300,8 +312,16 @@ MainView {
 
         onSourceChanged: {
             currentFile = source
-            onPlayingTrackChange(source)
-            updateMeta()
+
+            if (source != "" && source != undefined && source !== false)
+            {
+                onPlayingTrackChange(source)
+                updateMeta()
+            }
+            else
+            {
+                player.stop()
+            }
         }
 
         onStatusChanged: {
