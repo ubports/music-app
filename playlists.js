@@ -35,7 +35,7 @@ function initializePlaylists() {
 }
 // same thing for individal playlists
 function initializePlaylist() {
-    var db = LocalStorage.openDatabaseSync("music-app-playlist", "", "StorageDatabase", 1000000);
+    var db = getPlaylistDatabase();
 
     // does the user have the latest db scheme?
     if (db.version === "1.0") {
@@ -131,7 +131,7 @@ function getPlaylists() {
            }
       })
    } catch(e) {
-       return "";
+       return [];
    }
   return res
 }
