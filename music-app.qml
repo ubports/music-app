@@ -45,8 +45,10 @@ MainView {
                 onTriggered: nextSong()
             }
             HUD.Action {
-                label: i18n.tr("Play/Pause")
-                keywords: i18n.tr("Play Pause Track")
+                label: player.playbackState === MediaPlayer.PlayingState ?
+                           i18n.tr("Pause") : i18n.tr("Play")
+                keywords: player.playbackState === MediaPlayer.PlayingState ?
+                           i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
                 onTriggered: {
                     if (player.playbackState === MediaPlayer.PlayingState)  {
                         player.pause()
@@ -62,8 +64,19 @@ MainView {
             }
             HUD.Action {
                 label: i18n.tr("Stop")
-                keywords: i18n.tr("Stop Track")
+                keywords: i18n.tr("Stop Playback")
                 onTriggered: player.stop()
+            }
+            HUD.Action {
+                label: i18n.tr("Settings")
+                keywords: i18n.tr("Music Settings")
+                onTriggered: {
+                    customdebug('Show settings')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
+                }
             }
             HUD.QuitAction {
                 onTriggered: Qt.quit()
@@ -677,20 +690,6 @@ MainView {
                 id: musicPlaylistPage
             }
         }
-
-        // Fifth is the settings
-        /* FIX LATER OR MAYBE NOT
-        Tab {
-            id: settingsTab
-            objectName: "settingstab"
-            anchors.fill: parent
-            title: i18n.tr("Settings")
-
-            // Tab content begins here
-            page: MusicSettings {
-                id: musicSettings
-            }
-        } */
     }
 
     Rectangle {
