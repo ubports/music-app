@@ -30,6 +30,11 @@ QtObject {
         property color buttonColor: UbuntuColors.coolGrey;
     }
 
+    property QtObject libraryEmpty: QtObject {
+        property color backgroundColor: UbuntuColors.coolGrey;
+        property color labelColor: common.white;
+    }
+
     property QtObject listView: QtObject {
         property color highlightColor: common.white;
     }

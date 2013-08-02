@@ -524,6 +524,13 @@ MainView {
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
                 timer.stop()
+
+                // Check if tracks have been found, if none then show message
+                if (counted === 0)
+                {
+                    header.opacity = 0;
+                    libraryEmpty.visible = true;
+                }
             }
             counted = filelist.count
         }
@@ -1083,6 +1090,23 @@ MainView {
         var minutes = Math.floor((duration/1000) / 60);
         var seconds = Math.floor((duration/1000)) % 60;
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
+    }
+
+    // Overlay to show when no tracks detected on the device
+    Rectangle {
+        id: libraryEmpty
+        anchors.fill: parent
+        color: styleMusic.libraryEmpty.backgroundColor
+        visible: false
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            color: styleMusic.libraryEmpty.labelColor
+            fontSize: "medium"
+            text: "Please import music and restart the app"
+        }
+
     }
 
 } // end of main view
