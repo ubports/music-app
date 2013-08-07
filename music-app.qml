@@ -127,6 +127,12 @@ MainView {
     }
 
     function getSong(direction) {
+        if (trackQueue.model.count == 0)
+        {
+            customdebug("No tracks in queue.");
+            return;
+        }
+
         if (random) {
             var now = new Date();
             var seed = now.getSeconds();
@@ -202,6 +208,12 @@ MainView {
         if (play === undefined)
         {
             play = true
+        }
+
+        if (index > libraryModel.model.count - 1 || index < 0)
+        {
+            customdebug("Incorrect index given to trackClicked.")
+            return;
         }
 
         var file = libraryModel.model.get(index).file
@@ -299,8 +311,16 @@ MainView {
 
         onSourceChanged: {
             currentFile = source
-            onPlayingTrackChange(source)
-            updateMeta()
+
+            if (source != "" && source != undefined && source !== false)
+            {
+                onPlayingTrackChange(source)
+                updateMeta()
+            }
+            else
+            {
+                player.stop()
+            }
         }
 
         onStatusChanged: {
@@ -503,6 +523,13 @@ MainView {
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
                 timer.stop()
+
+                // Check if tracks have been found, if none then show message
+                if (counted === 0)
+                {
+                    header.opacity = 0;
+                    libraryEmpty.visible = true;
+                }
             }
             counted = filelist.count
         }
@@ -1062,6 +1089,23 @@ MainView {
         var minutes = Math.floor((duration/1000) / 60);
         var seconds = Math.floor((duration/1000)) % 60;
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
+    }
+
+    // Overlay to show when no tracks detected on the device
+    Rectangle {
+        id: libraryEmpty
+        anchors.fill: parent
+        color: styleMusic.libraryEmpty.backgroundColor
+        visible: false
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            color: styleMusic.libraryEmpty.labelColor
+            fontSize: "medium"
+            text: "Please import music and restart the app"
+        }
+
     }
 
 } // end of main view
