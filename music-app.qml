@@ -20,6 +20,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Unity.Action 1.0 as UnityActions
 import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -33,6 +34,60 @@ MainView {
     objectName: "music"
     applicationName: "music-app"
     id: mainView
+
+    // HUD Actions
+    Action {
+        id: nextAction
+        text: i18n.tr("Next")
+        keywords: i18n.tr("Next Track")
+        onTriggered: nextSong()
+    }
+    Action {
+        id: playsAction
+        text: player.playbackState === MediaPlayer.PlayingState ?
+                   i18n.tr("Pause") : i18n.tr("Play")
+        keywords: player.playbackState === MediaPlayer.PlayingState ?
+                   i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
+        onTriggered: {
+            if (player.playbackState === MediaPlayer.PlayingState)  {
+                player.pause()
+            } else {
+                player.play()
+            }
+        }
+    }
+    Action {
+        id: prevAction
+        text: i18n.tr("Previous")
+        keywords: i18n.tr("Previous Track")
+        onTriggered: previousSong()
+    }
+    Action {
+        id: stopAction
+        text: i18n.tr("Stop")
+        keywords: i18n.tr("Stop Playback")
+        onTriggered: player.stop()
+    }
+    Action {
+        id: settingsAction
+        text: i18n.tr("Settings")
+        keywords: i18n.tr("Music Settings")
+        onTriggered: {
+            customdebug('Show settings')
+            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                            {
+                                title: i18n.tr("Settings")
+                            } )
+        }
+    }
+    Action {
+        id: quitAction
+        text: i18n.tr("Quit")
+        keywords: i18n.tr("Close application")
+        onTriggered: Qt.quit()
+    }
+
+    actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
 
     Style { id: styleMusic }
 
@@ -76,7 +131,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string musicDir: ""
-    property string appVersion: '0.4.7'
+    property string appVersion: '0.5'
     property bool isPlaying: false
     property bool random: false
     property bool scrobble: false
@@ -666,20 +721,6 @@ MainView {
                 id: musicPlaylistPage
             }
         }
-
-        // Fifth is the settings
-        /* FIX LATER OR MAYBE NOT
-        Tab {
-            id: settingsTab
-            objectName: "settingstab"
-            anchors.fill: parent
-            title: i18n.tr("Settings")
-
-            // Tab content begins here
-            page: MusicSettings {
-                id: musicSettings
-            }
-        } */
     }
 
     Rectangle {

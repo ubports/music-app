@@ -1,3 +1,9 @@
+music-app (0.5) raring; urgency=low
+
+  * HUD support.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Fri, 02 Aug 2013 21:29:50 +0200
+
 music-app (0.4.7) raring; urgency=low
 
   * Queue moved to playlist tab.
