@@ -20,9 +20,9 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Unity.Action 1.0 as UnityActions
 import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
-import Ubuntu.HUD 1.0 as HUD
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import "settings.js" as Settings
@@ -35,54 +35,59 @@ MainView {
     applicationName: "music-app"
     id: mainView
 
-    HUD.HUD {
-        applicationIdentifier: "music-app" // has to match .desktop file
-
-        HUD.Context {
-            HUD.Action {
-                label: i18n.tr("Next")
-                keywords: i18n.tr("Next Track")
-                onTriggered: nextSong()
-            }
-            HUD.Action {
-                label: player.playbackState === MediaPlayer.PlayingState ?
-                           i18n.tr("Pause") : i18n.tr("Play")
-                keywords: player.playbackState === MediaPlayer.PlayingState ?
-                           i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
-                onTriggered: {
-                    if (player.playbackState === MediaPlayer.PlayingState)  {
-                        player.pause()
-                    } else {
-                        player.play()
-                    }
-                }
-            }
-            HUD.Action {
-                label: i18n.tr("Previous")
-                keywords: i18n.tr("Previous Track")
-                onTriggered: previousSong()
-            }
-            HUD.Action {
-                label: i18n.tr("Stop")
-                keywords: i18n.tr("Stop Playback")
-                onTriggered: player.stop()
-            }
-            HUD.Action {
-                label: i18n.tr("Settings")
-                keywords: i18n.tr("Music Settings")
-                onTriggered: {
-                    customdebug('Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
-            HUD.QuitAction {
-                onTriggered: Qt.quit()
+    // HUD Actions
+    Action {
+        id: nextAction
+        text: i18n.tr("Next")
+        keywords: i18n.tr("Next Track")
+        onTriggered: nextSong()
+    }
+    Action {
+        id: playsAction
+        text: player.playbackState === MediaPlayer.PlayingState ?
+                   i18n.tr("Pause") : i18n.tr("Play")
+        keywords: player.playbackState === MediaPlayer.PlayingState ?
+                   i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
+        onTriggered: {
+            if (player.playbackState === MediaPlayer.PlayingState)  {
+                player.pause()
+            } else {
+                player.play()
             }
         }
     }
+    Action {
+        id: prevAction
+        text: i18n.tr("Previous")
+        keywords: i18n.tr("Previous Track")
+        onTriggered: previousSong()
+    }
+    Action {
+        id: stopAction
+        text: i18n.tr("Stop")
+        keywords: i18n.tr("Stop Playback")
+        onTriggered: player.stop()
+    }
+    Action {
+        id: settingsAction
+        text: i18n.tr("Settings")
+        keywords: i18n.tr("Music Settings")
+        onTriggered: {
+            customdebug('Show settings')
+            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                            {
+                                title: i18n.tr("Settings")
+                            } )
+        }
+    }
+    Action {
+        id: quitAction
+        text: i18n.tr("Quit")
+        keywords: i18n.tr("Close application")
+        onTriggered: Qt.quit()
+    }
+
+    actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
 
     Style { id: styleMusic }
 
