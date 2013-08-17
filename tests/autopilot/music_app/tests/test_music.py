@@ -53,16 +53,25 @@ class TestMainWindow(MusicTestCase):
             +'Ubuntu_Free_Culture_Showcase/Josh Woodward - Swansong.ogg', 
             musicpath)
         
-    """ tests if the music library is populated from our fake home directory """
+        shutil.copy('/usr/share/music-app/tests/autopilot/music_app/content/'
+            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.mp3',
+            musicpath)
+        
     def test_reads_music_from_home(self):
+        """ tests if the music library is populated from our fake home
+	directory
+
+	"""
+
         main = self.app.select_single("MainView", objectName = "music")
         title = lambda: main.currentTracktitle
         artist = lambda: main.currentArtist
-        self.assertThat(title, Eventually(Equals("Swansong")))
-        self.assertThat(artist, Eventually(Equals("Josh Woodward")))
+        self.assertThat(title, Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
+        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-    """ Test Playing a track (Music Library must exist) """
     def test_play(self):
+        """ Test Playing a track (Music Library must exist) """
+
         button = self.app.select_single("UbuntuShape", objectName = "playshape")
         main = self.app.select_single("MainView", objectName = "music")
 
@@ -73,8 +82,9 @@ class TestMainWindow(MusicTestCase):
         """ Track is playing"""
         self.assertThat(main.isPlaying, Eventually(Equals(True)))
 
-    """ Test Pausing a track (Music Library must exist) """
     def test_pause(self):
+        """ Test Pausing a track (Music Library must exist) """
+
         button = self.app.select_single("UbuntuShape", objectName = "playshape")
         main = self.app.select_single("MainView", objectName = "music")
 
@@ -88,4 +98,25 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is not playing"""
         self.assertThat(main.isPlaying, Eventually(Equals(False)))
+
+    def test_next(self):
+        """ Test going to next track (Music Library must exist) """
+
+        button = self.app.select_single("UbuntuShape",
+			                objectName = "forwardshape")
+        main = self.app.select_single("MainView", objectName = "music")
+        title = lambda: main.currentTracktitle
+        artist = lambda: main.currentArtist
+        self.assertThat(title, Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
+        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
+
+        """ Track is not playing"""
+        self.assertThat(main.isPlaying, Equals(False))
+        self.pointing_device.click_object(button)
+
+        """ Track is playing"""
+        self.assertThat(main.isPlaying, Eventually(Equals(True)))
+        self.assertThat(title, Eventually(Equals("Swansong")))
+        self.assertThat(artist, Eventually(Equals("Josh Woodward")))
+
 
