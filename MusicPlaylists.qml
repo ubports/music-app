@@ -364,8 +364,6 @@ PageStack {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
-                    //text: title
-                    //subText: artist+" - "+album
 
                     Label {
                         id: trackTitle
@@ -389,18 +387,6 @@ PageStack {
                         anchors.top: trackTitle.bottom
                         anchors.right: parent.right
                         text: artist == "" ? "" : artist + " - " + album
-                    }
-                    Label {
-                        id: trackDuration
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackArtistAlbum.bottom
-                        anchors.right: parent.right
-                        visible: false
-                        text: ""
                     }
                     onFocusChanged: {
                         if (focus == false) {
@@ -474,8 +460,6 @@ PageStack {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
-//                    text: title
-//                    subText: artist+" - "+album
 
                     onFocusChanged: {
                         if (focus == false) {
@@ -514,18 +498,6 @@ PageStack {
                         anchors.top: trackTitle.bottom
                         anchors.right: parent.right
                         text: artist == "" ? "" : artist + " - " + album
-                    }
-                    Label {
-                        id: trackDuration
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackArtistAlbum.bottom
-                        anchors.right: parent.right
-                        visible: false
-                        text: ""
                     }
 
                     MouseArea {
