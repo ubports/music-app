@@ -342,28 +342,13 @@ PageStack {
             playlistlist.currentIndex = playlisttracksModel.indexOf(file)
         }
 
-        Component {
-            id: highlightPlaylist
-            Rectangle {
-                width: units.gu(.75)
-                color: styleMusic.listView.highlightColor;
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
-                    }
-                }
-            }
-        }
-
         ListView {
             id: playlistlist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            highlight: highlightPlaylist
-            highlightFollowsCurrentItem: true
+            highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             onCountChanged: {
@@ -373,16 +358,36 @@ PageStack {
             onCurrentIndexChanged: {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
-
             Component {
                 id: playlisttrackDelegate
-                ListItem.Subtitled {
+                ListItem.Standard {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
-                    text: title
-                    subText: artist+" - "+album
 
+                    Label {
+                        id: trackTitle
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.right: parent.right
+                        text: title == "" ? file : title
+                    }
+                    Label {
+                        id: trackArtistAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: trackTitle.bottom
+                        anchors.right: parent.right
+                        text: artist == "" ? "" : artist + " - " + album
+                    }
                     onFocusChanged: {
                         if (focus == false) {
                             selected = false
@@ -390,7 +395,14 @@ PageStack {
                             selected = false
                         }
                     }
-
+                    Rectangle {
+                        id: highlight
+                        anchors.left: parent.left
+                        visible: false
+                        width: units.gu(.75)
+                        height: parent.height
+                        color: styleMusic.listView.highlightColor;
+                    }
                     MouseArea {
                         anchors.fill: parent
                         onDoubleClicked: {
@@ -403,6 +415,11 @@ PageStack {
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
                         }
+                    }
+                    states: State {
+                        name: "Current"
+                        when: playlistTracks.ListView.isCurrentItem
+                        PropertyChanges { target: highlight; visible: true }
                     }
                 }
             }
@@ -424,28 +441,13 @@ PageStack {
             queuelist.currentIndex = trackQueue.indexOf(file)
         }
 
-        Component {
-            id: highlightQueue
-            Rectangle {
-                width: units.gu(.75)
-                color: styleMusic.listView.highlightColor;
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
-                    }
-                }
-            }
-        }
-
         ListView {
             id: queuelist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            highlight: highlightQueue
-            highlightFollowsCurrentItem: true
+            highlightFollowsCurrentItem: false
             model: trackQueue.model
             delegate: queueDelegate
             onCountChanged: {
@@ -454,12 +456,10 @@ PageStack {
 
             Component {
                 id: queueDelegate
-                ListItem.Subtitled {
+                ListItem.Standard {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
-                    text: title
-                    subText: artist+" - "+album
 
                     onFocusChanged: {
                         if (focus == false) {
@@ -467,6 +467,37 @@ PageStack {
                         } else {
                             selected = false
                         }
+                    }
+                    Rectangle {
+                        id: highlight
+                        anchors.left: queueDelegate.left
+                        visible: false
+                        width: units.gu(.75)
+                        height: parent.height
+                        color: styleMusic.listView.highlightColor;
+                    }
+                    Label {
+                        id: trackTitle
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.right: parent.right
+                        text: title == "" ? file : title
+                    }
+                    Label {
+                        id: trackArtistAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: trackTitle.bottom
+                        anchors.right: parent.right
+                        text: artist == "" ? "" : artist + " - " + album
                     }
 
                     MouseArea {
@@ -484,6 +515,11 @@ PageStack {
                         /*onItemRemoved: {
                             trackQueue.remove(index)
                         }*/
+                    }
+                    states: State {
+                        name: "Current"
+                        when: playlistTracks.ListView.isCurrentItem
+                        PropertyChanges { target: highlight; visible: true }
                     }
                 }
             }

@@ -64,28 +64,13 @@ PageStack {
             tracklist.currentIndex = libraryModel.indexOf(file)
         }
 
-        Component {
-            id: highlight
-            Rectangle {
-                width: units.gu(.75)
-                color: styleMusic.listView.highlightColor;
-                Behavior on y {
-                    SpringAnimation {
-                        spring: 3
-                        damping: 0.2
-                    }
-                }
-            }
-        }
-
         ListView {
             id: tracklist
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
-            highlight: highlight
-            highlightFollowsCurrentItem: true
+            highlightFollowsCurrentItem: false
             model: libraryModel.model
             delegate: trackDelegate
             onCountChanged: {
@@ -105,6 +90,14 @@ PageStack {
                     property string file: model.file
                     icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
+                    Rectangle {
+                        id: highlight
+                        anchors.left: parent.left
+                        visible: false
+                        width: units.gu(.75)
+                        height: parent.height
+                        color: styleMusic.listView.highlightColor;
+                    }
                     Label {
                         id: trackTitle
                         wrapMode: Text.NoWrap
@@ -140,7 +133,6 @@ PageStack {
                         visible: false
                         text: ""
                     }
-
                     onFocusChanged: {
                     }
                     MouseArea {
@@ -169,6 +161,11 @@ PageStack {
                         }
 
                         console.log("Title:" + title + " Artist: " + artist)
+                    }
+                    states: State {
+                        name: "Current"
+                        when: track.ListView.isCurrentItem
+                        PropertyChanges { target: highlight; visible: true }
                     }
                 }
             }
