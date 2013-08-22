@@ -732,6 +732,7 @@ MainView {
         color: styleMusic.playerControls.backgroundColor
         UbuntuShape {
             id: forwardshape
+            objectName: "forwardshape"
             height: units.gu(5)
             width: units.gu(5)
             anchors.verticalCenter: parent.verticalCenter
