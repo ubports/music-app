@@ -206,9 +206,6 @@ PageStack {
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
-        // first add queue
-        playlistModel.append({"id": 0, "name": i18n.tr("Queue")});
-
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
         customdebug("Playlists: "+playlist) //debug
@@ -250,32 +247,17 @@ PageStack {
 
                         onPressAndHold: {
                             customdebug("Pressed and held playlist "+name+" : "+index)
-
-                            // queue is not the same thing as a playlist, so do this
-                            if (name === i18n.tr("Queue")) {
-                                customdebug("User tried to change name of queue, but no go!")
-                            }
-                            else {
-                                // show a dialog to change name and remove list
-                                oldPlaylistName = name
-                                oldPlaylistID = id
-                                oldPlaylistIndex = index
-                                PopupUtils.open(playlistPopoverComponent, mainView)
-                            }
-
+                            // show a dialog to change name and remove list
+                            oldPlaylistName = name
+                            oldPlaylistID = id
+                            oldPlaylistIndex = index
+                            PopupUtils.open(playlistPopoverComponent, mainView)
                         }
 
                         onClicked: {
-                            // queue is not the same thing as a playlist, so do this
-                            if (name === i18n.tr("Queue")) {
-                                customdebug("User clicked Queue.")
-                                pageStack.push(queuepage)
-                            }
-                            else {
-                                customdebug("Playlist chosen: " + name)
-                                playlisttracksModel.filterPlaylistTracks(name)
-                                pageStack.push(playlistpage)
-                            }
+                            customdebug("Playlist chosen: " + name)
+                            playlisttracksModel.filterPlaylistTracks(name)
+                            pageStack.push(playlistpage)
                         }
                     }
                 }
@@ -421,121 +403,6 @@ PageStack {
                         when: playlistTracks.ListView.isCurrentItem
                         PropertyChanges { target: highlight; visible: true }
                     }
-                }
-            }
-        }
-    }
-
-    // Page for Queue
-    Page {
-        id: queuepage
-        title: i18n.tr("Queue")
-
-        Component.onCompleted: {
-            onPlayingTrackChange.connect(updateHighlightQueue)
-        }
-
-        function updateHighlightQueue(file)
-        {
-            customdebug("MusicQueue update highlight: " + file)
-            queuelist.currentIndex = trackQueue.indexOf(file)
-        }
-
-        ListView {
-            id: queuelist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
-            highlightFollowsCurrentItem: false
-            model: trackQueue.model
-            delegate: queueDelegate
-            onCountChanged: {
-                customdebug("Queue: Now has: " + queuelist.count + " tracks")
-            }
-
-            Component {
-                id: queueDelegate
-                ListItem.Standard {
-                    id: playlistTracks
-                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
-                    iconFrame: false
-
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                        }
-                    }
-                    Rectangle {
-                        id: highlight
-                        anchors.left: queueDelegate.left
-                        visible: false
-                        width: units.gu(.75)
-                        height: parent.height
-                        color: styleMusic.listView.highlightColor;
-                    }
-                    Label {
-                        id: trackTitle
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "medium"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.right: parent.right
-                        text: title == "" ? file : title
-                    }
-                    Label {
-                        id: trackArtistAlbum
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackTitle.bottom
-                        anchors.right: parent.right
-                        text: artist == "" ? "" : artist + " - " + album
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            customdebug("Pressed and held queued track "+file)
-                        }
-                        onClicked: {
-                            customdebug("File: " + file) // debugger
-                            trackClicked(trackQueue, index) // play track
-                        }
-
-                        /*onItemRemoved: {
-                            trackQueue.remove(index)
-                        }*/
-                    }
-                    states: State {
-                        name: "Current"
-                        when: playlistTracks.ListView.isCurrentItem
-                        PropertyChanges { target: highlight; visible: true }
-                    }
-                }
-            }
-        }
-
-        tools: ToolbarItems {
-            // Clean queue button
-            ToolbarButton {
-                objectName: "clearqueueobject"
-
-                iconSource: Qt.resolvedUrl("images/clear.png")
-                text: i18n.tr("Clear")
-
-                onTriggered: {
-                    console.debug("Debug: Track queue cleared.")
-                    trackQueue.model.clear()
                 }
             }
         }
