@@ -143,6 +143,7 @@ PageStack {
     Page {
         id: albumpage
         title: i18n.tr("Tracks")
+        visible: false
 
         ListView {
             id: albumtrackslist
