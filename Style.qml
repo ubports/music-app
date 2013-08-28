@@ -48,6 +48,7 @@ QtObject {
     property QtObject nowPlaying: QtObject {
         property color backgroundColor: UbuntuColors.coolGrey;
         property color labelColor: common.white;
+        property color labelSecondaryColor: "#AAA";
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;

@@ -122,7 +122,7 @@ Page {
                         id: nowPlayingAlbumArtist
                         anchors.top: nowPlayingTitle.bottom
                         anchors.topMargin: units.gu(1)
-                        color: "#AAA"  /* TODO: colour in styleMusic.qml? */
+                        color: styleMusic.nowPlaying.labelSecondaryColor
                         text: artist + " - " + album
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
