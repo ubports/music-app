@@ -92,6 +92,7 @@ PageStack {
                             property string cover: model.cover
                             property string length: model.length
                             property string file: model.file
+                            property string year: model.year
                             source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
                         }
                     }
@@ -127,6 +128,10 @@ PageStack {
                         }
                         onClicked: {
                             albumTracksModel.filterAlbumTracks(album)
+                            albumtrackslist.artist = artist
+                            albumtrackslist.album = album
+                            albumtrackslist.file = file
+                            albumtrackslist.year = year
                             pageStack.push(albumpage)
                         }
                     }
@@ -142,6 +147,10 @@ PageStack {
         ListView {
             id: albumtrackslist
             clip: true
+            property string artist: ""
+            property string album: ""
+            property string file: ""
+            property string year: ""
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -149,6 +158,71 @@ PageStack {
             highlightFollowsCurrentItem: false
             model: albumTracksModel.model
             delegate: albumTracksDelegate
+            header: Item {
+                id: albumInfo
+                width: units.gu(20)
+                height: units.gu(20)
+                UbuntuShape {
+                    id: albumImage
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height
+                    width: height
+                    image: Image {
+                        source: Library.hasCover(albumtrackslist.file) ? "image://cover-art-full/"+albumtrackslist.file : Qt.resolvedUrl("images/cover_default.png")
+                    }
+                }
+                Label {
+                    id: albumTitle
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "large"
+                    anchors.left: albumImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: parent.top
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: albumtrackslist.title == "" ? albumtrackslist.file : albumtrackslist.album
+                }
+                Label {
+                    id: albumArtist
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "large"
+                    anchors.left: albumImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: albumTitle.bottom
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: albumtrackslist.artist == "" ? "" : albumtrackslist.artist
+                }
+                Label {
+                    id: albumYear
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "medium"
+                    anchors.left: albumImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: albumArtist.bottom
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: albumtrackslist.year
+                }
+                Label {
+                    id: albumCount
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "medium"
+                    anchors.left: albumImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: albumYear.bottom
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: albumTracksModel.model.count + " songs"
+                }
+
+            }
 
             onCountChanged: {
                 albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
@@ -165,7 +239,6 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
                     progression: false
                     Rectangle {
@@ -180,24 +253,13 @@ PageStack {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "medium"
+                        fontSize: "large"
                         anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
+                        anchors.leftMargin: units.gu(2)
                         anchors.top: parent.top
-                        anchors.topMargin: 5
+                        anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
-                    }
-                    Label {
-                        id: trackArtistAlbum
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackTitle.bottom
-                        anchors.right: parent.right
-                        text: artist == "" ? "" : artist + " - " + album
                     }
 
                     onFocusChanged: {
