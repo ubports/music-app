@@ -358,6 +358,8 @@ MainView {
         objectName: "player"
         muted: false
 
+        signal positionChange(int position, int duration)
+
         property bool seeking: false;  // Is the user seeking?
 
         // String versions of pos/dur that labels listen to
@@ -398,15 +400,18 @@ MainView {
             {
                 durationStr = __durationToString(player.duration)
             }
+
+            positionChange(position, duration)
         }
 
         // Update the position text unless seeking (seeking overrides the text)
         onPositionChanged: {
             if (seeking == false)
             {
-                fileDurationProgressContainer_nowplaying.drawProgress(player.position / player.duration);
                 positionStr = __durationToString(player.position)
             }
+
+            positionChange(position, duration)
         }
 
         onPlaybackStateChanged: {
@@ -794,9 +799,7 @@ MainView {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    header.opacity = 0
                     nowPlaying.visible = true
-
                 }
             }
         }
@@ -882,248 +885,8 @@ MainView {
         }
     }
 
-    Rectangle {
+    MusicNowPlaying {
         id: nowPlaying
-        anchors.fill: parent
-        height: units.gu(10)
-        color: styleMusic.nowPlaying.backgroundColor
-        visible: false
-        Item {
-            anchors.fill: parent
-            anchors.bottomMargin: units.gu(3)
-
-            UbuntuShape {
-                id: forwardshape_nowplaying
-                height: units.gu(7)
-                width: units.gu(7)
-                anchors.bottom: parent.bottom
-                anchors.left: playshape_nowplaying.right
-                anchors.leftMargin: units.gu(2)
-                radius: "none"
-                image: Image {
-                    id: forwardindicator_nowplaying
-                    source: "images/forward.png"
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        nextSong()
-                    }
-                }
-            }
-            UbuntuShape {
-                id: playshape_nowplaying
-                height: units.gu(7)
-                width: units.gu(7)
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                radius: "none"
-                image: Image {
-                    id: playindicator_nowplaying
-                    source: player.playbackState === MediaPlayer.PlayingState ?
-                              "images/pause.png" : "images/play.png"
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (player.playbackState === MediaPlayer.PlayingState)  {
-                            player.pause()
-                        } else {
-                            player.play()
-                        }
-                    }
-                }
-            }
-            UbuntuShape {
-                id: backshape_nowplaying
-                height: units.gu(7)
-                width: units.gu(7)
-                anchors.bottom: parent.bottom
-                anchors.right: playshape_nowplaying.left
-                anchors.rightMargin: units.gu(2)
-                radius: "none"
-                image: Image {
-                    id: backindicator_nowplaying
-                    source: "images/back.png"
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        previousSong()
-                    }
-                }
-            }
-
-            Image {
-                id: iconbottom_nowplaying
-                source: mainView.currentCoverFull
-                width: units.gu(40)
-                height: units.gu(40)
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-
-                MouseArea {
-                    anchors.fill: parent
-                    signal swipeRight;
-                    signal swipeLeft;
-                    signal swipeUp;
-                    signal swipeDown;
-
-                    property int startX;
-                    property int startY;
-
-                    onPressed: {
-                        startX = mouse.x;
-                        startY = mouse.y;
-                    }
-
-                    onReleased: {
-                        var deltax = mouse.x - startX;
-                        var deltay = mouse.y - startY;
-
-                        if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
-                            if (deltax > 30 && Math.abs(deltay) < 30) {
-                                // swipe right
-                                previousSong();
-                            } else if (deltax < -30 && Math.abs(deltay) < 30) {
-                                // swipe left
-                                nextSong();
-                            }
-                        } else {
-                            nowPlaying.visible = false
-                            header.opacity = 1
-                        }
-                    }
-                }
-            }
-            Label {
-                id: fileTitleBottom_nowplaying
-                width: units.gu(40)
-                wrapMode: Text.Wrap
-                color: styleMusic.nowPlaying.labelColor
-                maximumLineCount: 1
-                fontSize: "large"
-                anchors.top: iconbottom_nowplaying.bottom
-                anchors.topMargin: units.gu(2)
-                anchors.leftMargin: units.gu(2)
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-            }
-            Label {
-                id: fileArtistAlbumBottom_nowplaying
-                width: units.gu(40)
-                wrapMode: Text.Wrap
-                color: styleMusic.nowPlaying.labelColor
-                maximumLineCount: 2
-                fontSize: "medium"
-                anchors.top: fileTitleBottom_nowplaying.bottom
-                anchors.leftMargin: units.gu(2)
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: mainView.currentArtist === "" ? "" : mainView.currentArtist + "\n" + mainView.currentAlbum
-            }
-
-            Rectangle {
-                id: fileDurationProgressContainer_nowplaying
-                anchors.top: fileArtistAlbumBottom_nowplaying.bottom
-                anchors.topMargin: units.gu(2)
-                anchors.leftMargin: units.gu(2)
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: styleMusic.nowPlaying.backgroundColor;
-                height: units.gu(2);
-                width: units.gu(40);
-
-                // Function that sets the progress bar value
-                function drawProgress(fraction)
-                {
-                    fileDurationProgress_nowplaying.x = (fraction * fileDurationProgressContainer_nowplaying.width) - fileDurationProgress_nowplaying.width / 2;
-                }
-
-                // Function that sets the slider position from the x position of the mouse
-                function setSliderPosition(xPosition) {
-                    var fraction = xPosition / fileDurationProgressContainer_nowplaying.width;
-
-                    // Make sure fraction is within limits
-                    if (fraction > 1.0)
-                    {
-                        fraction = 1.0;
-                    }
-                    else if (fraction < 0.0)
-                    {
-                        fraction = 0.0;
-                    }
-
-                    // Update progress bar and position text
-                    fileDurationProgressContainer_nowplaying.drawProgress(fraction);
-                    player.positionStr = __durationToString(fraction * player.duration);
-                }
-
-                // Black background behind the progress bar
-                Rectangle {
-                    id: fileDurationProgressBackground_nowplaying
-                    anchors.verticalCenter: parent.verticalCenter;
-                    color: styleMusic.nowPlaying.progressBackgroundColor;
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    width: parent.width;
-                }
-
-                // The orange fill of the progress bar
-                Rectangle {
-                    id: fileDurationProgressArea_nowplaying
-                    anchors.verticalCenter: parent.verticalCenter;
-                    color: styleMusic.nowPlaying.progressForegroundColor;
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    width: fileDurationProgress_nowplaying.x + 5;  // +5 so right radius is hidden
-                }
-
-                // The current position of the progress bar
-                UbuntuShape {
-                    id: fileDurationProgress_nowplaying
-                    anchors.verticalCenter: fileDurationProgressBackground_nowplaying.verticalCenter;
-                    color: styleMusic.nowPlaying.progressHandleColor
-                    height: width;
-                    width: units.gu(2);
-                }
-
-                MouseArea {
-                    anchors.fill: parent;
-                    onMouseXChanged: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
-                    onPressed: { player.seeking = true; }
-                    onClicked: { fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX) }
-                    onReleased: {
-                        player.seek((mouseX / fileDurationProgressContainer_nowplaying.width) * player.duration);
-                        player.seeking = false;
-                    }
-                }
-            }
-            Label {
-                id: fileDurationBottom_nowplaying
-                anchors.top: fileDurationProgressContainer_nowplaying.bottom
-                anchors.topMargin: units.gu(2)
-                anchors.leftMargin: units.gu(2)
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: styleMusic.nowPlaying.labelColor
-                fontSize: "medium"
-                maximumLineCount: 1
-                text: player.duration > 0 ? player.positionStr+" / "+player.durationStr : ""
-                width: units.gu(40)
-                wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignRight
-            }
-        }
-
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
