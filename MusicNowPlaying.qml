@@ -114,8 +114,10 @@ Page {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(0.5)
                         color: styleMusic.common.white
+                        elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
+                        width: parent.width
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -123,7 +125,9 @@ Page {
                         anchors.top: nowPlayingTitle.bottom
                         anchors.topMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
                         text: artist + " - " + album
+                        width: parent.width
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                 }
@@ -147,10 +151,12 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
+                        width: trackBg.width - units.gu(2)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
+                        width: trackBg.width - units.gu(2)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
