@@ -31,13 +31,13 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
-            header.opacity = 0;
+            header.hide();
             header.visible = false;
         }
         else
         {
-            header.opacity = 1;
             header.visible = true;
+            header.show();
         }
     }
 
@@ -67,13 +67,15 @@ Page {
         anchors.top: parent.top
         delegate: queueDelegate
         model: trackQueue.model
+        highlightFollowsCurrentItem: false
+
         onCountChanged: {
             customdebug("Queue: Now has: " + queuelist.count + " tracks")
         }
 
         Component {
             id: queueDelegate
-            ListItem.Base {
+            ListItem.Standard {
                 id: playlistTracks
                 state: queuelist.currentIndex == index ? "current" : ""
                 onFocusChanged: {
@@ -86,6 +88,7 @@ Page {
                 Rectangle {
                     id: trackContainer;
                     anchors.fill: parent
+                    anchors.margins: units.gu(0.5)
                     color: "transparent"
                     UbuntuShape {
                         id: trackImage
