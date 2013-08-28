@@ -158,15 +158,16 @@ PageStack {
             highlightFollowsCurrentItem: false
             model: albumTracksModel.model
             delegate: albumTracksDelegate
-            header: Item {
+            header: ListItem.Standard {
                 id: albumInfo
-                width: units.gu(20)
+                width: parent.width
                 height: units.gu(20)
                 UbuntuShape {
                     id: albumImage
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.margins: units.gu(1)
                     height: parent.height
                     width: height
                     image: Image {
