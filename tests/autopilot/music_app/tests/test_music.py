@@ -53,7 +53,7 @@ class TestMainWindow(MusicTestCase):
             +'Ubuntu_Free_Culture_Showcase/Josh Woodward - Swansong.ogg', 
             musicpath)
         
-        shutil.copy('/usr/share/music-app/tests/autopilot/music_app/content/'
+        shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.mp3',
             musicpath)
         
