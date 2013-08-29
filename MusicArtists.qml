@@ -103,6 +103,8 @@ PageStack {
                         }
                         onClicked: {
                             artistTracksModel.filterArtistTracks(artist)
+                            artisttrackslist.artist = artist
+                            artisttrackslist.file = file
                             pageStack.push(artistpage)
                         }
                     }
@@ -116,9 +118,13 @@ PageStack {
     Page {
         id: artistpage
         title: i18n.tr("Tracks")
+        visible: false
 
         ListView {
             id: artisttrackslist
+            clip: true
+            property string artist: ""
+            property string file: ""
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -126,6 +132,47 @@ PageStack {
             highlightFollowsCurrentItem: false
             model: artistTracksModel.model
             delegate: artistTracksDelegate
+            header: ListItem.Standard {
+                id: albumInfo
+                width: parent.width
+                height: units.gu(20)
+                UbuntuShape {
+                    id: artistImage
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.margins: units.gu(1)
+                    height: parent.height
+                    width: height
+                    image: Image {
+                        source: Library.hasCover(artisttrackslist.file) ? "image://cover-art-full/"+artisttrackslist.file : Qt.resolvedUrl("images/cover_default.png")
+                    }
+                }
+                Label {
+                    id: albumArtist
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "large"
+                    anchors.left: artistImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: parent.top
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
+                }
+                Label {
+                    id: albumCount
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "medium"
+                    anchors.left: artistImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: albumArtist.bottom
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: artistTracksModel.model.count + " songs"
+                }
+            }
 
             onCountChanged: {
                 artisttrackslist.currentIndex = artistTracksModel.indexOf(currentFile)
@@ -157,24 +204,13 @@ PageStack {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "medium"
+                        fontSize: "large"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
-                        anchors.topMargin: 5
+                        anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
-                    }
-                    Label {
-                        id: trackArtistAlbum
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackTitle.bottom
-                        anchors.right: parent.right
-                        text: artist == "" ? "" : artist + " - " + album
                     }
 
                     onFocusChanged: {
