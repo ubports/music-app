@@ -28,6 +28,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
+import "common"
 
 PageStack {
     id: pageStack
@@ -257,6 +258,7 @@ PageStack {
                         onClicked: {
                             customdebug("Playlist chosen: " + name)
                             playlisttracksModel.filterPlaylistTracks(name)
+                            playlistlist.playlistName = name
                             pageStack.push(playlistpage)
                         }
                     }
@@ -340,12 +342,44 @@ PageStack {
             onCurrentIndexChanged: {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
+
+            property string playlistName: null
+
             Component {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
+                    removable: true
+
+                    backgroundIndicator: SwipeDelete {
+                        id: swipeDelete
+                        state: swipingState
+                        property string text: i18n.tr("Clear")
+                    }
+
+                    onFocusChanged: {
+                        if (focus == false) {
+                            selected = false
+                        } else {
+                            selected = false
+                        }
+                    }
+                    onItemRemoved: {
+                        console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
+                        Playlists.removeFromPlaylist(playlistlist.playlistName, file);
+                    }
+
+                    /* Do not use mousearea otherwise swipe delete won't function */
+                    onClicked: {
+                        customdebug("File: " + file) // debugger
+                        trackClicked(playlisttracksModel, index) // play track
+                    }
+                    onPressAndHold: {
+                        customdebug("Pressed and held track playlist "+file)
+                        //PopupUtils.open(playlistPopoverComponent, mainView)
+                    }
 
                     Label {
                         id: trackTitle
@@ -370,13 +404,6 @@ PageStack {
                         anchors.right: parent.right
                         text: artist == "" ? "" : artist + " - " + album
                     }
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
-                        }
-                    }
                     Rectangle {
                         id: highlight
                         anchors.left: parent.left
@@ -384,19 +411,6 @@ PageStack {
                         width: units.gu(.75)
                         height: parent.height
                         color: styleMusic.listView.highlightColor;
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            customdebug("Pressed and held track playlist "+name)
-                            //PopupUtils.open(playlistPopoverComponent, mainView)
-                        }
-                        onClicked: {
-                            customdebug("File: " + file) // debugger
-                            trackClicked(playlisttracksModel, index) // play track
-                        }
                     }
                     states: State {
                         name: "Current"

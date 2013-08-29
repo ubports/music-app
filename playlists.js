@@ -199,6 +199,24 @@ function removePlaylist(id,playlist) {
   return res;
 }
 
+// remove file from playlist
+function removeFromPlaylist(playlist, track)
+{
+    var db = getPlaylistDatabase();
+    var res = "";
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('DELETE FROM playlist WHERE playlist=? AND track=?;', [playlist,track]);
+              if (rs.rowsAffected > 0) {
+                res = "OK";
+              } else {
+                res = "Error";
+              }
+        }
+  );
+  // The function returns “OK” if it was successful, or “Error” if it wasn't
+  return res;
+}
+
 // be carefull, this will drop the playlists (db)
 function reset() {
     var db = getPlaylistsDatabase();

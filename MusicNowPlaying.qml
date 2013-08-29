@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import "meta-database.js" as Library
+import "common"
 
 Page {
     id: nowPlaying
@@ -77,7 +78,15 @@ Page {
             id: queueDelegate
             ListItem.Standard {
                 id: playlistTracks
+                removable: true
                 state: queuelist.currentIndex == index ? "current" : ""
+
+                backgroundIndicator: SwipeDelete {
+                    id: swipeDelete
+                    state: swipingState
+                    property string text: i18n.tr("Clear")
+                }
+
                 onFocusChanged: {
                     if (focus == false) {
                         selected = false
@@ -85,6 +94,19 @@ Page {
                         selected = false
                     }
                 }
+                onItemRemoved: {
+                    trackQueue.model.remove(index);
+                }
+
+                /* Do not use mousearea otherwise swipe delete won't function */
+                onClicked: {
+                    customdebug("File: " + file) // debugger
+                    trackClicked(trackQueue, index) // play track
+                }
+                onPressAndHold: {
+                    customdebug("Pressed and held queued track "+file)
+                }
+
                 Rectangle {
                     id: trackContainer;
                     anchors.fill: parent
@@ -129,18 +151,6 @@ Page {
                         text: artist + " - " + album
                         width: parent.width
                         x: trackImage.x + trackImage.width + units.gu(1)
-                    }
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onDoubleClicked: {
-                    }
-                    onPressAndHold: {
-                        customdebug("Pressed and held queued track "+file)
-                    }
-                    onClicked: {
-                        customdebug("File: " + file) // debugger
-                        trackClicked(trackQueue, index) // play track
                     }
                 }
                 states: State {
