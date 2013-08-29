@@ -159,6 +159,7 @@ MainView {
     property string currentCoverFull: currentCover !== "" ?
                                           "image://cover-art-full/" + currentCover :
                                           "images/cover_default.png"
+    property bool queueChanged: false
 
     signal onPlayingTrackChange(string source)
 
@@ -302,7 +303,8 @@ MainView {
             // Don't reload queue if model, query and parameters are the same
             if (currentModel !== libraryModel ||
                     currentQuery !== libraryModel.query ||
-                        currentParam !== libraryModel.param)
+                        currentParam !== libraryModel.param ||
+                            queueChanged === true)
             {
                 trackQueue.model.clear()
                 addQueueFromModel(libraryModel)
@@ -314,6 +316,7 @@ MainView {
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
         currentIndex = trackQueue.indexOf(file)
+        queueChanged = false
 
         console.log("Click of fileName: " + file)
 

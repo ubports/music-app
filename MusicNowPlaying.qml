@@ -96,12 +96,14 @@ Page {
                 }
                 onItemRemoved: {
                     trackQueue.model.remove(index);
+                    queueChanged = true;
                 }
 
                 /* Do not use mousearea otherwise swipe delete won't function */
                 onClicked: {
                     customdebug("File: " + file) // debugger
                     trackClicked(trackQueue, index) // play track
+                    queuelist.positionViewAtIndex(index, ListView.Visible)
                 }
                 onPressAndHold: {
                     customdebug("Pressed and held queued track "+file)
