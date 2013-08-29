@@ -208,7 +208,6 @@ PageStack {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
-                        //anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
                     }
