@@ -273,6 +273,7 @@ PageStack {
                         onPressAndHold: {
                             PopupUtils.open(trackPopoverComponent, mainView)
                             chosenArtist = artist
+                            chosenAlbum = album
                             chosenTitle = title
                             chosenTrack = file
                         }
