@@ -208,10 +208,22 @@ PageStack {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(1.5)
+                        //anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
                     }
+                    Label {
+                        id: trackAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(8)
+                        anchors.top: trackTitle.bottom
+                        anchors.right: parent.right
+                        text: artist == "" ? "" : album
+                    }
+
 
                     onFocusChanged: {
                     }
