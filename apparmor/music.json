@@ -1,0 +1,7 @@
+{
+    "policy_groups": [
+        "audio",
+        "music_files"
+        ], 
+    "policy_version": 1.0
+}
