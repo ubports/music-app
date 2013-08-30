@@ -94,12 +94,12 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        albumTracksModel.filterAlbumTracks(album)
+                        recentAlbumTracksModel.filterAlbumTracks(album)
                         trackQueue.model.clear()
-                        addQueueFromModel(albumTracksModel)
-                        currentModel = albumTracksModel
-                        currentQuery = albumTracksModel.query
-                        currentParam = albumTracksModel.param
+                        addQueueFromModel(recentAlbumTracksModel)
+                        currentModel = recentAlbumTracksModel
+                        currentQuery = recentAlbumTracksModel.query
+                        currentParam = recentAlbumTracksModel.param
                         var file = trackQueue.model.get(0).file
                         currentIndex = trackQueue.indexOf(file)
                         queueChanged = true

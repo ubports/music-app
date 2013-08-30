@@ -493,6 +493,10 @@ MainView {
         id: albumTracksModel
     }
 
+    LibraryListModel {
+        id: recentAlbumTracksModel
+    }
+
     FolderListModel {
         id: folderModel
         showDirectories: true
