@@ -54,7 +54,7 @@ class TestMainWindow(MusicTestCase):
             musicpath)
         
         shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
-            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.mp3',
+            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
             musicpath)
         
     def test_reads_music_from_home(self):
