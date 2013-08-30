@@ -91,23 +91,24 @@ Page {
                         source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
                     }
                 }
-// TODO: Add the track/album/etc to the queue.
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onDoubleClicked: {
-//                    }
-//                    onPressAndHold: {
-//                    }
-//                    onClicked: {
-//                        // TODO: Fix model population
-//                        albumTracksModel.filterAlbumTracks(album)
-//                        albumtrackslist.artist = artist
-//                        albumtrackslist.album = album
-//                        albumtrackslist.file = file
-//                        albumtrackslist.year = year
-//                        pageStack.push(albumpage)
-//                    }
-//                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        albumTracksModel.filterAlbumTracks(album)
+                        trackQueue.model.clear()
+                        addQueueFromModel(albumTracksModel)
+                        currentModel = albumTracksModel
+                        currentQuery = albumTracksModel.query
+                        currentParam = albumTracksModel.param
+                        var file = trackQueue.model.get(0).file
+                        currentIndex = trackQueue.indexOf(file)
+                        queueChanged = true
+                        player.stop()
+                        player.source = Qt.resolvedUrl(file)
+                        player.play()
+                        nowPlaying.visible = true
+                    }
+                }
             }
         }
     }
@@ -119,13 +120,5 @@ Page {
     }
 
     // TODO: add music genres. frequency of play? most tracks?
-    Label {
-        id: stuff
-        fontSize: "large"
-        anchors.top: genres.bottom
-        anchors.topMargin: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        text: "Only the best for me, thanks"
-    }
 
 }
