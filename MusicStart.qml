@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
  *                    Daniel Holm <d.holmen@gmail.com>
+ *                    Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
