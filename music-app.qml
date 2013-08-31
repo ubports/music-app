@@ -143,6 +143,7 @@ MainView {
     property string chosenTitle: ""
     property string chosenArtist: ""
     property string chosenAlbum: ""
+    property int chosenIndex: 0
 
     property string currentArtist: ""
     property string currentAlbum: ""
@@ -635,7 +636,8 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        PopupUtils.open(addtoPlaylistDialog, mainView)
+                        //PopupUtils.open(addtoPlaylistDialog, mainView) // old dialog
+                        //pageStack.push(addtoPlaylistPage)
                     }
                 }
             }
@@ -644,11 +646,10 @@ MainView {
 
     // Edit name of playlist dialog
     Component {
-         id: addtoPlaylistDialog
-         Dialog {
-             id: dialogueAddToPlaylist
-             title: i18n.tr("Add to Playlist")
-             text: i18n.tr("Which playlist do you want to add the track to?")
+         id: addtoPlaylistPage
+         Page {
+             id: pageAddToPlaylist
+             title: i18n.tr("Select Playlist")
 
              // show each playlist and make them chosable
              ListView {
@@ -662,6 +663,8 @@ MainView {
                         onClicked: {
                             console.debug("Debug: "+chosenTrack+" added to "+name)
                             Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
+                            var count = Playlists.getPlaylistCount(name)
+                            playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
                             PopupUtils.close(dialogueAddToPlaylist)
                         }
                  }
