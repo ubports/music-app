@@ -673,6 +673,14 @@ MainView {
                  }
              }
 
+             ListItem.Standard {
+                 id: newPlaylistItem
+                 text: i18n.tr("New playlist")
+                 icon: Qt.resolvedUrl("images/add.svg")
+                 iconFrame: false
+                 anchors.top: addtoPlaylistView.top
+             }
+
              Rectangle {
                  id: cancelButton
                  anchors.bottom: parent.bottom
@@ -685,6 +693,7 @@ MainView {
                      onClicked: {
                          playerControls.visible = true
                          pageStack.pop()
+                         // send notification
                      }
                  }
              }
