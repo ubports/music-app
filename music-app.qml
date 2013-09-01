@@ -125,6 +125,9 @@ MainView {
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+
+        // push the page to view
+        pageStack.push(firstPage)
     }
 
 
@@ -143,6 +146,7 @@ MainView {
     property string chosenTitle: ""
     property string chosenArtist: ""
     property string chosenAlbum: ""
+    property int chosenIndex: 0
 
     property string currentArtist: ""
     property string currentAlbum: ""
@@ -635,20 +639,20 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        PopupUtils.open(addtoPlaylistDialog, mainView)
+                        pageStack.push(addtoPlaylistPage)
+                        playerControls.visible = false
                     }
                 }
             }
         }
     }
 
-    // Edit name of playlist dialog
+    // Page that will be used when adding tracks to playlists
     Component {
-         id: addtoPlaylistDialog
-         Dialog {
-             id: dialogueAddToPlaylist
-             title: i18n.tr("Add to Playlist")
-             text: i18n.tr("Which playlist do you want to add the track to?")
+         id: addtoPlaylistPage
+         Page {
+             id: pageAddToPlaylist
+             title: i18n.tr("Select playlist")
 
              // show each playlist and make them chosable
              ListView {
@@ -662,75 +666,96 @@ MainView {
                         onClicked: {
                             console.debug("Debug: "+chosenTrack+" added to "+name)
                             Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
+                            var count = Playlists.getPlaylistCount(name)
+                            playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
                             PopupUtils.close(dialogueAddToPlaylist)
                         }
                  }
              }
 
-             Button {
-                 text: i18n.tr("Cancel")
-                 onClicked: PopupUtils.close(dialogueAddToPlaylist)
+             Rectangle {
+                 id: cancelButton
+                 anchors.bottom: parent.bottom
+                 height: units.gu(8)
+                 width: parent.width
+                 color: styleMusic.playerControls.backgroundColor
+                 Button {
+                     text: i18n.tr("Cancel")
+                     anchors.margins: units.gu(2)
+                     onClicked: {
+                         playerControls.visible = true
+                         pageStack.pop()
+                     }
+                 }
              }
          }
     }
 
-    Tabs {
-        id: tabs
-        anchors.fill: parent
+    PageStack {
+        id: pageStack
+        Page {
+            id: firstPage
+            Tabs {
+                id: tabs
+                anchors.fill: parent
 
-        // First tab is all music
-        Tab {
-            id: musicTab
-            objectName: "musictab"
-            anchors.fill: parent
-            title: i18n.tr("Music")
+                // First tab is all music
+                Tab {
+                    id: musicTab
+                    objectName: "musictab"
+                    anchors.fill: parent
+                    title: i18n.tr("Music")
 
-            // Tab content begins here
-            page: MusicTracks {
-                id: musicTracksPage
-            }
-        }
+                    // Tab content begins here
+                    page: MusicTracks {
+                        id: musicTracksPage
+                    }
+                }
 
-        // Second tab is arists
-        Tab {
-            id: artistsTab
-            objectName: "artiststab"
-            anchors.fill: parent
-            title: i18n.tr("Artists")
+                // Second tab is arists
+                Tab {
+                    id: artistsTab
+                    objectName: "artiststab"
+                    anchors.fill: parent
+                    title: i18n.tr("Artists")
 
-            // tab content
-            page: MusicArtists {
-                id: musicArtistsPage
-            }
-        }
+                    // tab content
+                    page: MusicArtists {
+                        id: musicArtistsPage
+                    }
+                }
 
-        // third tab is albums
-        Tab {
-            id: albumsTab
-            objectName: "albumstab"
-            anchors.fill: parent
-            title: i18n.tr("Albums")
+                // third tab is albums
+                Tab {
+                    id: albumsTab
+                    objectName: "albumstab"
+                    anchors.fill: parent
+                    title: i18n.tr("Albums")
 
-            // Tab content begins here
-            page: MusicAlbums {
-                id: musicAlbumsPage
-            }
-        }
+                    // Tab content begins here
+                    page: MusicAlbums {
+                        id: musicAlbumsPage
+                    }
+                }
 
-        // fourth tab is the playlists
-        Tab {
-            id: playlistTab
-            objectName: "playlisttab"
-            anchors.fill: parent
-            title: i18n.tr("Playlists")
+                // fourth tab is the playlists
+                Tab {
+                    id: playlistTab
+                    objectName: "playlisttab"
+                    anchors.fill: parent
+                    title: i18n.tr("Playlists")
 
-            // Tab content begins here
-            page: MusicPlaylists {
-                id: musicPlaylistPage
-            }
+                    // Tab content begins here
+                    page: MusicPlaylists {
+                        id: musicPlaylistPage
+                    }
+                }
+            } // end of tabs
+
         }
     }
 
+    // player controls at the bottom
     Rectangle {
         id: playerControls
         anchors.bottom: parent.bottom
