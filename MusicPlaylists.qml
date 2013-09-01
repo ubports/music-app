@@ -375,7 +375,6 @@ PageStack {
                     onClicked: {
                         customdebug("File: " + file) // debugger
                         trackClicked(playlisttracksModel, index) // play track
-                        nowPlaying.visible = true
                     }
                     onPressAndHold: {
                         customdebug("Pressed and held track playlist "+file)

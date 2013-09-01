@@ -151,7 +151,6 @@ PageStack {
                                 focus = true
                             }
                             trackClicked(libraryModel, index)  // play track
-                            nowPlaying.visible = true
                         }
                     }
                     Component.onCompleted: {

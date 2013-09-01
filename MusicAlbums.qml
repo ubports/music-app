@@ -282,7 +282,6 @@ PageStack {
                                 focus = true
                             }
                             trackClicked(albumTracksModel, index)  // play track
-                            nowPlaying.visible = true
                         }
                     }
                     Component.onCompleted: {

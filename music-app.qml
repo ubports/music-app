@@ -335,6 +335,8 @@ MainView {
         console.log("Source: " + player.source.toString())
         console.log("Index: " + currentIndex)
 
+        nowPlaying.visible = true // Make the queue and Now Playing page active
+
         return file
     }
 
