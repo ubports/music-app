@@ -39,6 +39,12 @@ PageStack {
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
 
+    // function that adds each playlist in the listmodel to show it in the app
+    function addtoPlaylistModel(element,index,array) {
+        customdebug("Playlist #" + index + " = " + element);
+        playlistModel.append({"id": index, "name": element.name, "count": element.count});
+    }
+
     // New playlist dialog
     Component {
          id: newPlaylistDialog
@@ -202,14 +208,8 @@ PageStack {
 
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        // add the alternatives to the ListModel
-        var length = playlist.length,
-            element = null;
-        for (var i = 0; i < length; i++) {
-            element = playlist[i];
-            customdebug("Playlist: #"+element.id+" "+element.name+" with number of tracks: "+element.count)
-            playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
-        }
+        customdebug("Playlists: "+playlist) //debug
+        playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
     // page for the playlists
