@@ -161,14 +161,8 @@ PageStack {
 
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        // add the alternatives to the ListModel
-        var length = playlist.length,
-            element = null;
-        for (var i = 0; i < length; i++) {
-            element = playlist[i];
-            customdebug("Playlist: #"+element.id+" "+element.name+" with number of tracks: "+element.count)
-            playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
-        }
+        customdebug("Playlists: "+playlist) //debug
+        playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
     // page for the playlists
@@ -295,7 +289,7 @@ PageStack {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
-            property string playlistName: null
+            property string playlistName: ""
 
             Component {
                 id: playlisttrackDelegate
@@ -327,7 +321,6 @@ PageStack {
                     onClicked: {
                         customdebug("File: " + file) // debugger
                         trackClicked(playlisttracksModel, index) // play track
-                        nowPlaying.visible = true // show the queue
                     }
                     onPressAndHold: {
                         customdebug("Pressed and held track playlist "+file)
