@@ -339,6 +339,11 @@ MainView {
         console.log("Source: " + player.source.toString())
         console.log("Index: " + currentIndex)
 
+        if (play === true)
+        {
+            nowPlaying.visible = true // Make the queue and Now Playing page active
+        }
+
         return file
     }
 
@@ -495,6 +500,10 @@ MainView {
     }
     LibraryListModel {
         id: albumTracksModel
+    }
+
+    LibraryListModel {
+        id: recentAlbumTracksModel
     }
 
     FolderListModel {

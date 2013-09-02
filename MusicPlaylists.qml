@@ -39,6 +39,12 @@ PageStack {
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
 
+    // function that adds each playlist in the listmodel to show it in the app
+    function addtoPlaylistModel(element,index,array) {
+        customdebug("Playlist #" + index + " = " + element);
+        playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
+    }
+
     // Remove playlist dialog
     Component {
          id: removePlaylistDialog
