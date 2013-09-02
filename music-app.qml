@@ -336,6 +336,11 @@ MainView {
         console.log("Source: " + player.source.toString())
         console.log("Index: " + currentIndex)
 
+        if (play === true)
+        {
+            nowPlaying.visible = true // Make the queue and Now Playing page active
+        }
+
         return file
     }
 
@@ -492,6 +497,10 @@ MainView {
     }
     LibraryListModel {
         id: albumTracksModel
+    }
+
+    LibraryListModel {
+        id: recentAlbumTracksModel
     }
 
     FolderListModel {
@@ -683,14 +692,14 @@ MainView {
 
         // First tab is all music
         Tab {
-            id: musicTab
-            objectName: "musictab"
+            id: startTab
+            objectName: "starttab"
             anchors.fill: parent
             title: i18n.tr("Music")
 
             // Tab content begins here
-            page: MusicTracks {
-                id: musicTracksPage
+            page: MusicStart {
+                id: musicStartPage
             }
         }
 
@@ -720,7 +729,21 @@ MainView {
             }
         }
 
-        // fourth tab is the playlists
+        // fourth tab is all songs
+        Tab {
+            id: tracksTab
+            objectName: "trackstab"
+            anchors.fill: parent
+            title: i18n.tr("Songs")
+
+            // Tab content begins here
+            page: MusicTracks {
+                id: musicTracksPage
+            }
+        }
+
+
+        // fifth tab is the playlists
         Tab {
             id: playlistTab
             objectName: "playlisttab"

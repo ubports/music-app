@@ -151,7 +151,6 @@ PageStack {
                             if (focus == false) {
                                 focus = true
                             }
-
                             trackClicked(libraryModel, index)  // play track
                         }
                     }

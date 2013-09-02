@@ -336,7 +336,7 @@ PageStack {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
-            property string playlistName: null
+            property string playlistName: ""
 
             Component {
                 id: playlisttrackDelegate

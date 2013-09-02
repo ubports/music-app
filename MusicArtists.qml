@@ -241,7 +241,6 @@ PageStack {
                             if (focus == false) {
                                 focus = true
                             }
-
                             trackClicked(artistTracksModel, index)  // play track
                         }
                     }
