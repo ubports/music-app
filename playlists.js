@@ -56,21 +56,26 @@ function initializePlaylist() {
 
 // we need an ID, so count the rows in db
 function getID() {
-    var db = getPlaylistsDatabase();
+   var db = getPlaylistsDatabase();
     var res = "";
-    try {
-        db.transaction(function(tx) {
-          var rs = tx.executeSql('SELECT * FROM playlists');
-          if (rs.rows.length > 0) {
-              res = rs.rows.length;
-          } else {
-              res = 0;
-          }
-       })
-    } catch(e) {
-        return "";
-    }
-   return res;
+
+   try {
+       db.transaction(function(tx) {
+           var rs = tx.executeSql('SELECT * FROM playlists');
+           if (rs.rows.length > 0) {
+               var dbItem = rs.rows.item(rs.rows.length); // the last pne in table
+               //console.log("id:"+ dbItem.id + ", Name:"+dbItem.name);
+               res = dbItem.id; // will become the last and highest id
+           }
+
+           else {
+               res = 0;
+           }
+      })
+   } catch(e) {
+       return [];
+   }
+  return res;
 }
 
 // This function is used to write a playlist into the database
@@ -119,6 +124,7 @@ function addtoPlaylist(playlist,track,artist,title,album) {
 // This function is used to retrieve a playlist from the database in an array
 function getPlaylists() {
    var db = getPlaylistsDatabase();
+   var count = "";
    var res = new Array();
 
    try {
@@ -126,9 +132,13 @@ function getPlaylists() {
            var rs = tx.executeSql('SELECT * FROM playlists');
            for(var i = 0; i < rs.rows.length; i++) {
                var dbItem = rs.rows.item(i);
-               //console.log("id:"+ dbItem.id + ", Name:"+dbItem.name);
-               res[i] = dbItem.name;
-           }
+               count = getPlaylistCount(dbItem.name);
+               console.log("Playlist in DB: "+ dbItem.id + ": "+dbItem.name+" has this many: "+count);
+               res[dbItem.id] = {   'id': dbItem.id,
+                                    'name': dbItem.name,
+                                    'count': count
+               }
+            }
       })
    } catch(e) {
        return [];
@@ -163,6 +173,25 @@ function getPlaylistTracks(playlist) {
    }
 
    return res
+}
+
+// retrieve number of tracks in playlist
+function getPlaylistCount(playlist) {
+    console.debug("Trying to get count of "+playlist)
+   var db = getPlaylistDatabase();
+   var res = "";
+
+   try {
+       db.transaction(function(tx) {
+         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+         res = rs.rows.length;
+      })
+   } catch(e) {
+       return [];
+   }
+
+   console.debug("Playlist had: "+res)
+   return res;
 }
 
 // change name of playlist

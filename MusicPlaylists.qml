@@ -42,7 +42,7 @@ PageStack {
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
         customdebug("Playlist #" + index + " = " + element);
-        playlistModel.append({"id": index, "name": element});
+        playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
     }
 
     // New playlist dialog
@@ -123,7 +123,7 @@ PageStack {
          Dialog {
              id: dialogueEditPlaylist
              title: i18n.tr("Change name")
-             text: i18n.tr("Enter the new playlist name")
+             text: i18n.tr("Enter the new name of the playlist.")
              TextField {
                  id: playlistName
                  placeholderText: oldPlaylistName
@@ -142,8 +142,7 @@ PageStack {
                          PopupUtils.close(dialogueEditPlaylist)
                      }
                      else {
-                             newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
                      }
                 }
              }
@@ -234,33 +233,27 @@ PageStack {
 
             Component {
                 id: playlistDelegate
-                ListItem.Subtitled {
+                ListItem.Standard {
                     id: playlist
                     icon: Qt.resolvedUrl("images/playlist.png")
                     iconFrame: false
-                    text: name
-                    subText: i18n.tr("With "+ playlist.count + " tracks")
+                    text: name+" ("+count+")"
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
+                    onPressAndHold: {
+                        customdebug("Pressed and held playlist "+name+" : "+index)
+                        // show a dialog to change name and remove list
+                        oldPlaylistName = name
+                        oldPlaylistID = id
+                        oldPlaylistIndex = index
+                        PopupUtils.open(playlistPopoverComponent, mainView)
+                    }
 
-                        onPressAndHold: {
-                            customdebug("Pressed and held playlist "+name+" : "+index)
-                            // show a dialog to change name and remove list
-                            oldPlaylistName = name
-                            oldPlaylistID = id
-                            oldPlaylistIndex = index
-                            PopupUtils.open(playlistPopoverComponent, mainView)
-                        }
-
-                        onClicked: {
-                            customdebug("Playlist chosen: " + name)
-                            playlisttracksModel.filterPlaylistTracks(name)
-                            playlistlist.playlistName = name
-                            pageStack.push(playlistpage)
-                        }
+                    onClicked: {
+                        customdebug("Playlist chosen: " + name)
+                        playlisttracksModel.filterPlaylistTracks(name)
+                        playlistlist.playlistName = name
+                        pageStack.push(playlistpage) // show the chosen playlists content
+                        playlistpage.title = name + " " + "("+ count +")" // change name of the tab
                     }
                 }
             }
@@ -273,7 +266,7 @@ PageStack {
 
                 iconSource: Qt.resolvedUrl("images/lastfm.png")
                 text: i18n.tr("Import")
-                visible: false
+                visible: false // only show if scobble is activated
 
                 onTriggered: {
                     console.debug("Debug: User pressed action to import playlist from lastfm")
@@ -314,7 +307,7 @@ PageStack {
     // page for the tracks in the playlist
     Page {
         id: playlistpage
-        title: i18n.tr("Tracks in Playlist")
+        title: i18n.tr("Playlist")
 
         Component.onCompleted: {
             onPlayingTrackChange.connect(updateHighlightPlaylist)
