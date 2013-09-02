@@ -42,7 +42,7 @@ PageStack {
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
         customdebug("Playlist #" + index + " = " + element);
-        playlistModel.append({"id": index, "name": element.name, "count": element.count});
+        playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
     }
 
     // New playlist dialog
@@ -368,7 +368,6 @@ PageStack {
                     onClicked: {
                         customdebug("File: " + file) // debugger
                         trackClicked(playlisttracksModel, index) // play track
-                        nowPlaying.visible = true // show the queue
                     }
                     onPressAndHold: {
                         customdebug("Pressed and held track playlist "+file)
