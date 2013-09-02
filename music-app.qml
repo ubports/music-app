@@ -648,70 +648,12 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        pageStack.push(addtoPlaylistPage)
+                        addtoPlaylist.visible = true
                         playerControls.visible = false
                     }
                 }
             }
         }
-    }
-
-    // Page that will be used when adding tracks to playlists
-    Component {
-         id: addtoPlaylistPage
-         Page {
-             id: pageAddToPlaylist
-             title: i18n.tr("Select playlist")
-
-             // show each playlist and make them chosable
-             ListView {
-                 id: addtoPlaylistView
-                 width: parent.width
-                 height: units.gu(35)
-                 anchors.bottomMargin: units.gu(4)
-                 model: playlistModel
-                 delegate: ListItem.Standard {
-                        text: name
-                        onClicked: {
-                            console.debug("Debug: "+chosenTrack+" added to "+name)
-                            Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
-                            var count = Playlists.getPlaylistCount(name)
-                            playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                            playerControls.visible = true // show the playercontrols again
-                            pageStack.pop() // back to previous page
-                        }
-                 }
-             }
-
-             ListItem.Standard {
-                 id: newPlaylistItem
-                 text: i18n.tr("New playlist")
-                 icon: Qt.resolvedUrl("images/add.svg")
-                 iconFrame: false
-                 anchors.top: addtoPlaylistView.top
-                 onClicked: {
-                     customdebug("New playlist.")
-                     PopupUtils.open(newPlaylistDialog, mainView)
-                 }
-             }
-
-             Rectangle {
-                 id: cancelButton
-                 anchors.bottom: parent.bottom
-                 height: units.gu(8)
-                 width: parent.width
-                 color: styleMusic.playerControls.backgroundColor
-                 Button {
-                     text: i18n.tr("Cancel")
-                     anchors.margins: units.gu(2)
-                     onClicked: {
-                         playerControls.visible = true // show the playercontrols again
-                         pageStack.pop() // back to previous page
-                         // send notification
-                     }
-                 }
-             }
-         }
     }
 
     // New playlist dialog
@@ -770,14 +712,14 @@ MainView {
 
             // First tab is all music
             Tab {
-                id: musicTab
-                objectName: "musictab"
+                id: startTab
+                objectName: "starttab"
                 anchors.fill: parent
                 title: i18n.tr("Music")
 
                 // Tab content begins here
-                page: MusicTracks {
-                    id: musicTracksPage
+                page: MusicStart {
+                    id: musicStartPage
                 }
             }
 
@@ -807,7 +749,21 @@ MainView {
                 }
             }
 
-            // fourth tab is the playlists
+            // fourth tab is all songs
+            Tab {
+                id: tracksTab
+                objectName: "trackstab"
+                anchors.fill: parent
+                title: i18n.tr("Songs")
+
+                // Tab content begins here
+                page: MusicTracks {
+                    id: musicTracksPage
+                }
+            }
+
+
+            // fifth tab is the playlists
             Tab {
                 id: playlistTab
                 objectName: "playlisttab"
@@ -982,6 +938,10 @@ MainView {
 
     MusicNowPlaying {
         id: nowPlaying
+    }
+
+    MusicaddtoPlaylist {
+        id: addtoPlaylist
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
