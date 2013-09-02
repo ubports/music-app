@@ -127,7 +127,7 @@ MainView {
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
         // push the page to view
-        pageStack.push(firstPage)
+        pageStack.push(tabs)
     }
 
 
@@ -668,7 +668,8 @@ MainView {
                             Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
                             var count = Playlists.getPlaylistCount(name)
                             playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                            PopupUtils.close(dialogueAddToPlaylist)
+                            playerControls.visible = true // show the playercontrols again
+                            pageStack.pop() // back to previous page
                         }
                  }
              }
@@ -679,6 +680,10 @@ MainView {
                  icon: Qt.resolvedUrl("images/add.svg")
                  iconFrame: false
                  anchors.top: addtoPlaylistView.top
+                 onClicked: {
+                     customdebug("New playlist.")
+                     PopupUtils.open(newPlaylistDialog, mainView)
+                 }
              }
 
              Rectangle {
@@ -691,8 +696,8 @@ MainView {
                      text: i18n.tr("Cancel")
                      anchors.margins: units.gu(2)
                      onClicked: {
-                         playerControls.visible = true
-                         pageStack.pop()
+                         playerControls.visible = true // show the playercontrols again
+                         pageStack.pop() // back to previous page
                          // send notification
                      }
                  }
@@ -700,68 +705,112 @@ MainView {
          }
     }
 
+    // New playlist dialog
+    Component {
+         id: newPlaylistDialog
+         Dialog {
+             id: dialogueNewPlaylist
+             title: i18n.tr("New Playlist")
+             text: i18n.tr("Name your playlist.")
+             TextField {
+                 id: playlistName
+                 placeholderText: i18n.tr("Name")
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
+
+             Button {
+                 text: i18n.tr("Create")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var newList = Playlists.addPlaylist(playlistName.text)
+                         if (newList === "OK") {
+                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                             // add the new playlist to the tab
+                             var index = Playlists.getID(); // get the latest ID
+                             playlistModel.append({"id": index, "name": playlistName.text})
+                         }
+                         else {
+                             console.debug("Debug: Something went wrong: "+newList)
+                         }
+
+                         PopupUtils.close(dialogueNewPlaylist)
+                     }
+                     else {
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
+             }
+
+             Button {
+                 text: i18n.tr("Cancel")
+                 color: styleMusic.dialog.buttonColor
+                 onClicked: PopupUtils.close(dialogueNewPlaylist)
+             }
+         }
+    }
+
     PageStack {
         id: pageStack
-        Page {
-            id: firstPage
-            Tabs {
-                id: tabs
+        anchors.top: mainView.top
+        Tabs {
+            id: tabs
+            anchors.fill: parent
+
+            // First tab is all music
+            Tab {
+                id: musicTab
+                objectName: "musictab"
                 anchors.fill: parent
+                title: i18n.tr("Music")
 
-                // First tab is all music
-                Tab {
-                    id: musicTab
-                    objectName: "musictab"
-                    anchors.fill: parent
-                    title: i18n.tr("Music")
-
-                    // Tab content begins here
-                    page: MusicTracks {
-                        id: musicTracksPage
-                    }
+                // Tab content begins here
+                page: MusicTracks {
+                    id: musicTracksPage
                 }
+            }
 
-                // Second tab is arists
-                Tab {
-                    id: artistsTab
-                    objectName: "artiststab"
-                    anchors.fill: parent
-                    title: i18n.tr("Artists")
+            // Second tab is arists
+            Tab {
+                id: artistsTab
+                objectName: "artiststab"
+                anchors.fill: parent
+                title: i18n.tr("Artists")
 
-                    // tab content
-                    page: MusicArtists {
-                        id: musicArtistsPage
-                    }
+                // tab content
+                page: MusicArtists {
+                    id: musicArtistsPage
                 }
+            }
 
-                // third tab is albums
-                Tab {
-                    id: albumsTab
-                    objectName: "albumstab"
-                    anchors.fill: parent
-                    title: i18n.tr("Albums")
+            // third tab is albums
+            Tab {
+                id: albumsTab
+                objectName: "albumstab"
+                anchors.fill: parent
+                title: i18n.tr("Albums")
 
-                    // Tab content begins here
-                    page: MusicAlbums {
-                        id: musicAlbumsPage
-                    }
+                // Tab content begins here
+                page: MusicAlbums {
+                    id: musicAlbumsPage
                 }
+            }
 
-                // fourth tab is the playlists
-                Tab {
-                    id: playlistTab
-                    objectName: "playlisttab"
-                    anchors.fill: parent
-                    title: i18n.tr("Playlists")
+            // fourth tab is the playlists
+            Tab {
+                id: playlistTab
+                objectName: "playlisttab"
+                anchors.fill: parent
+                title: i18n.tr("Playlists")
 
-                    // Tab content begins here
-                    page: MusicPlaylists {
-                        id: musicPlaylistPage
-                    }
+                // Tab content begins here
+                page: MusicPlaylists {
+                    id: musicPlaylistPage
                 }
-            } // end of tabs
-
-        }
+            }
+        } // end of tabs
     }
 
     // player controls at the bottom

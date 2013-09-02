@@ -39,53 +39,6 @@ PageStack {
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
 
-    // New playlist dialog
-    Component {
-         id: newPlaylistDialog
-         Dialog {
-             id: dialogueNewPlaylist
-             title: i18n.tr("New Playlist")
-             text: i18n.tr("Name your playlist.")
-             TextField {
-                 id: playlistName
-                 placeholderText: i18n.tr("Name")
-             }
-             ListItem.Standard {
-                 id: newplaylistoutput
-             }
-
-             Button {
-                 text: i18n.tr("Create")
-                 onClicked: {
-                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                         var newList = Playlists.addPlaylist(playlistName.text)
-                         if (newList === "OK") {
-                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
-                             // add the new playlist to the tab
-                             var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text})
-                         }
-                         else {
-                             console.debug("Debug: Something went wrong: "+newList)
-                         }
-
-                         PopupUtils.close(dialogueNewPlaylist)
-                     }
-                     else {
-                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
-                     }
-                }
-             }
-
-             Button {
-                 text: i18n.tr("Cancel")
-                 color: styleMusic.dialog.buttonColor
-                 onClicked: PopupUtils.close(dialogueNewPlaylist)
-             }
-         }
-    }
-
     // Remove playlist dialog
     Component {
          id: removePlaylistDialog
