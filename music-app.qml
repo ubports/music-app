@@ -338,6 +338,7 @@ MainView {
         if (play === true)
         {
             nowPlaying.visible = true // Make the queue and Now Playing page active
+            nowPlaying.ensureVisibleIndex = index;
         }
 
         return file

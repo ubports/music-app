@@ -42,6 +42,8 @@ Page {
         }
     }
 
+    property int ensureVisibleIndex: -1
+
     Rectangle {
         anchors.fill: parent
         color: styleMusic.nowPlaying.backgroundColor
@@ -103,7 +105,6 @@ Page {
                 onClicked: {
                     customdebug("File: " + file) // debugger
                     trackClicked(trackQueue, index) // play track
-                    queuelist.positionViewAtIndex(index, ListView.Visible)
                 }
                 onPressAndHold: {
                     customdebug("Pressed and held queued track "+file)
@@ -183,6 +184,14 @@ Page {
                         UbuntuNumberAnimation {
                             duration: 250
                             properties: "height,opacity,width,x"
+                        }
+                    }
+
+                    onRunningChanged: {
+                        if (running === false && ensureVisibleIndex != -1)
+                        {
+                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Visible);
+                            ensureVisibleIndex = -1;
                         }
                     }
                 }
