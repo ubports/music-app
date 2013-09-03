@@ -1,3 +1,14 @@
+music-app (0.6) raring; urgency=low
+
+  * New first page with last played tracks and genre.
+  * Playlists shows number of tracks in playlist.
+  * NowPlaying has become the central part.
+  * New Icon, thanks to Sam Hewitt.
+  * 100th rev!
+
+ -- Daniel Holm <d.holmen@gmail.com>  Thu, 03 Sep 2013 21:41:50 +0200
+
+
 music-app (0.5) raring; urgency=low
 
   * HUD support.
