@@ -145,12 +145,12 @@ PageStack {
                             chosenTitle = title
                             chosenTrack = file
                             chosenAlbum = album
+                            chosenIndex = index
                         }
                         onClicked: {
                             if (focus == false) {
                                 focus = true
                             }
-
                             trackClicked(libraryModel, index)  // play track
                         }
                     }
