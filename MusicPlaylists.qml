@@ -212,6 +212,10 @@ PageStack {
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
+    MusicSettings {
+        id: musicSettings
+    }
+
     // page for the playlists
     Page {
         id: listspage
@@ -294,7 +298,7 @@ PageStack {
                 text: i18n.tr("Settings")
 
                 onTriggered: {
-                    console.debug('Debug: Show settings')
+                    console.debug('Debug: Show settings from Playlists')
                     PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
                                     {
                                         title: i18n.tr("Settings")
