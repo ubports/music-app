@@ -97,6 +97,18 @@ Page {
                     }
                 }
                 onItemRemoved: {
+                    if (index == queuelist.currentIndex)
+                    {
+                        if (queuelist.count > 1)
+                        {
+                            nextSong();
+                        }
+                        else
+                        {
+                            stopSong();
+                        }
+                    }
+
                     trackQueue.model.remove(index);
                     queueChanged = true;
                 }
@@ -204,7 +216,41 @@ Page {
         anchors.bottom: nowPlayingControls.top
         color: styleMusic.nowPlaying.backgroundColor;
         height: units.gu(1.5);
+        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
         width: parent.width;
+
+        states: [
+            State {
+                name: "disabled"
+                PropertyChanges {
+                    target: nowPlayingProgressBarMouseArea
+                    enabled: false
+                }
+                PropertyChanges {
+                    target: fileDurationProgressArea_nowplaying
+                    visible: false
+                }
+                PropertyChanges {
+                    target: fileDurationProgress_nowplaying
+                    visible: false
+                }
+            },
+            State {
+                name: "enabled"
+                PropertyChanges {
+                    target: nowPlayingProgressBarMouseArea
+                    enabled: true
+                }
+                PropertyChanges {
+                    target: fileDurationProgressArea_nowplaying
+                    visible: true
+                }
+                PropertyChanges {
+                    target: fileDurationProgress_nowplaying
+                    visible: true
+                }
+            }
+        ]
 
         // Connection from positionChanged signal
         function updatePosition(position, duration)
@@ -284,6 +330,7 @@ Page {
         // Mouse events for the progress bar
         MouseArea {
             anchors.fill: parent
+            id: nowPlayingProgressBarMouseArea
             onMouseXChanged: {
                 fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX)
             }
@@ -307,7 +354,53 @@ Page {
         anchors.bottom: parent.bottom
         color: styleMusic.nowPlaying.backgroundColor
         height: units.gu(10)
+        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
         width: parent.width
+
+        // Back should be enabled all the time
+
+        /* TODO: need greyscale icons for disabled state */
+        states: [
+            State {
+                name: "disabled"
+                PropertyChanges {
+                    target: nowPlayingPreviousMouseArea
+                    enabled: false
+                }
+                PropertyChanges {
+                    target: nowPlayingPlayMouseArea
+                    enabled: false
+                }
+                PropertyChanges {
+                    target: nowPlayingNextMouseArea
+                    enabled: false
+                }
+                PropertyChanges {
+                    target: nowPlayingClearMouseArea
+                    enabled: false
+                }
+            },
+            State {
+                name: "enabled"
+                PropertyChanges {
+                    target: nowPlayingPreviousMouseArea
+                    enabled: true
+                }
+                PropertyChanges {
+                    target: nowPlayingPlayMouseArea
+                    enabled: true
+                }
+                PropertyChanges {
+                    target: nowPlayingNextMouseArea
+                    enabled: true
+                }
+                PropertyChanges {
+                    target: nowPlayingClearMouseArea
+                    enabled: true
+                }
+            }
+        ]
+
         UbuntuShape {  /* TODO: remove when toolbar is implemented */
             id: nowPlayingBackButton
             anchors.left: parent.left
@@ -320,6 +413,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
+                id: nowPlayingBackButtonMouseArea
                 onClicked: {
                     nowPlaying.visible = false
                 }
@@ -342,6 +436,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
+                id: nowPlayingPreviousMouseArea
                 onClicked: {
                     previousSong()
                 }
@@ -364,6 +459,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
+                id: nowPlayingPlayMouseArea
                 onClicked: {
                     if (player.playbackState === MediaPlayer.PlayingState)  {
                         player.pause()
@@ -390,6 +486,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
+                id: nowPlayingNextMouseArea
                 onClicked: {
                     nextSong()
                 }
@@ -407,6 +504,7 @@ Page {
             }
             MouseArea {
                 anchors.fill: parent
+                id: nowPlayingClearMouseArea
                 onClicked: {
                     console.debug("Debug: Track queue cleared.")
                     trackQueue.model.clear()
