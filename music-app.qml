@@ -184,7 +184,7 @@ MainView {
     }
 
     function stopSong() {
-        player.stop();
+        player.source = "";  // changing to "" triggers the player to stop and removes the highlight
     }
 
     function getSong(direction) {
@@ -390,6 +390,7 @@ MainView {
             }
             else
             {
+                onPlayingTrackChange(source)  // removes highlight as will get -1 index
                 player.stop()
             }
         }
@@ -800,6 +801,8 @@ MainView {
 
         Rectangle {
             id: disabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
             visible: trackQueue.isEmpty === true
 
             Label {
@@ -824,6 +827,8 @@ MainView {
 
         Rectangle {
             id: enabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
             visible: trackQueue.isEmpty === false
 
             UbuntuShape {
