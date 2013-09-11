@@ -123,6 +123,9 @@ MainView {
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+
+        // push the page to view
+        pageStack.push(tabs)
     }
 
 
@@ -644,118 +647,137 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        //PopupUtils.open(addtoPlaylistDialog, mainView) // old dialog
-                        //pageStack.push(addtoPlaylistPage)
+                        addtoPlaylist.visible = true
+                        playerControls.visible = false
                     }
                 }
             }
         }
     }
 
-    // Edit name of playlist dialog
+    // New playlist dialog
     Component {
-         id: addtoPlaylistPage
-         Page {
-             id: pageAddToPlaylist
-             title: i18n.tr("Select Playlist")
+         id: newPlaylistDialog
+         Dialog {
+             id: dialogueNewPlaylist
+             title: i18n.tr("New Playlist")
+             text: i18n.tr("Name your playlist.")
+             TextField {
+                 id: playlistName
+                 placeholderText: i18n.tr("Name")
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
 
-             // show each playlist and make them chosable
-             ListView {
-                 id: addtoPlaylistView
-                 width: parent.width
-                 height: units.gu(35)
-                 anchors.bottomMargin: units.gu(4)
-                 model: playlistModel
-                 delegate: ListItem.Standard {
-                        text: name
-                        onClicked: {
-                            console.debug("Debug: "+chosenTrack+" added to "+name)
-                            Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
-                            var count = Playlists.getPlaylistCount(name)
-                            playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                            PopupUtils.close(dialogueAddToPlaylist)
-                        }
-                 }
+             Button {
+                 text: i18n.tr("Create")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var newList = Playlists.addPlaylist(playlistName.text)
+                         if (newList === "OK") {
+                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                             // add the new playlist to the tab
+                             var index = Playlists.getID(); // get the latest ID
+                             playlistModel.append({"id": index, "name": playlistName.text})
+                         }
+                         else {
+                             console.debug("Debug: Something went wrong: "+newList)
+                         }
+
+                         PopupUtils.close(dialogueNewPlaylist)
+                     }
+                     else {
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
              }
 
              Button {
                  text: i18n.tr("Cancel")
-                 onClicked: PopupUtils.close(dialogueAddToPlaylist)
+                 color: styleMusic.dialog.buttonColor
+                 onClicked: PopupUtils.close(dialogueNewPlaylist)
              }
          }
     }
 
-    Tabs {
-        id: tabs
-        anchors.fill: parent
-
-        // First tab is all music
-        Tab {
-            id: startTab
-            objectName: "starttab"
+    PageStack {
+        id: pageStack
+        anchors.top: mainView.top
+        Tabs {
+            id: tabs
             anchors.fill: parent
-            title: i18n.tr("Music")
 
-            // Tab content begins here
-            page: MusicStart {
-                id: musicStartPage
+            // First tab is all music
+            Tab {
+                id: startTab
+                objectName: "starttab"
+                anchors.fill: parent
+                title: i18n.tr("Music")
+
+                // Tab content begins here
+                page: MusicStart {
+                    id: musicStartPage
+                }
             }
-        }
 
-        // Second tab is arists
-        Tab {
-            id: artistsTab
-            objectName: "artiststab"
-            anchors.fill: parent
-            title: i18n.tr("Artists")
+            // Second tab is arists
+            Tab {
+                id: artistsTab
+                objectName: "artiststab"
+                anchors.fill: parent
+                title: i18n.tr("Artists")
 
-            // tab content
-            page: MusicArtists {
-                id: musicArtistsPage
+                // tab content
+                page: MusicArtists {
+                    id: musicArtistsPage
+                }
             }
-        }
 
-        // third tab is albums
-        Tab {
-            id: albumsTab
-            objectName: "albumstab"
-            anchors.fill: parent
-            title: i18n.tr("Albums")
+            // third tab is albums
+            Tab {
+                id: albumsTab
+                objectName: "albumstab"
+                anchors.fill: parent
+                title: i18n.tr("Albums")
 
-            // Tab content begins here
-            page: MusicAlbums {
-                id: musicAlbumsPage
+                // Tab content begins here
+                page: MusicAlbums {
+                    id: musicAlbumsPage
+                }
             }
-        }
 
-        // fourth tab is all songs
-        Tab {
-            id: tracksTab
-            objectName: "trackstab"
-            anchors.fill: parent
-            title: i18n.tr("Songs")
+            // fourth tab is all songs
+            Tab {
+                id: tracksTab
+                objectName: "trackstab"
+                anchors.fill: parent
+                title: i18n.tr("Songs")
 
-            // Tab content begins here
-            page: MusicTracks {
-                id: musicTracksPage
+                // Tab content begins here
+                page: MusicTracks {
+                    id: musicTracksPage
+                }
             }
-        }
 
 
-        // fifth tab is the playlists
-        Tab {
-            id: playlistTab
-            objectName: "playlisttab"
-            anchors.fill: parent
-            title: i18n.tr("Playlists")
+            // fifth tab is the playlists
+            Tab {
+                id: playlistTab
+                objectName: "playlisttab"
+                anchors.fill: parent
+                title: i18n.tr("Playlists")
 
-            // Tab content begins here
-            page: MusicPlaylists {
-                id: musicPlaylistPage
+                // Tab content begins here
+                page: MusicPlaylists {
+                    id: musicPlaylistPage
+                }
             }
-        }
+        } // end of tabs
     }
 
+    // player controls at the bottom
     Rectangle {
         id: playerControls
         anchors.bottom: parent.bottom
@@ -917,11 +939,9 @@ MainView {
         id: nowPlaying
     }
 
-    MusicSettings {
-        id: musicSettings
+    MusicaddtoPlaylist {
+        id: addtoPlaylist
     }
-
-
     // Converts an duration in ms to a formated string ("minutes:seconds")
     function __durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);
