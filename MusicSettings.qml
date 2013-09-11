@@ -23,29 +23,43 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "scrobble.js" as Scrobble
-import "playlists.js" as Playlists
-import "meta-database.js" as Library
 
 ComposerSheet {
     id: musicSettings
     title: i18n.tr("Settings")
 
+    height: units.gui(50)
+
     onCancelClicked: PopupUtils.close(musicSettings)
     onConfirmClicked: {
         PopupUtils.close(musicSettings)
         console.debug("Debug: Save settings")
-        // push infront the tracks again
-        // set new music dir
         Settings.initialize()
-        //Settings.setSetting("currentfolder", musicDirField.text) // save music dir
-        Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
-        Settings.setSetting("scrobble", scrobbleSwitch.checked) // save shuffle state
-        random = shuffleSwitch.checked // set shuffle state variable
-        scrobble = scrobbleSwitch.checked // set scrobble state variable
-        // set function to set and load tracks in new map directly, whithout need of restart
-        // disable fpr now (testing) console.debug("Debug: Set new music dir to: "+musicDirField.text)
-        console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
-        console.debug("Debug: Scrobble: "+ scrobbleSwitch.checked)
+
+        // Equaliser
+        Settings.setSetting("eqialiser",equaliser.index)
+
+        // snap track
+        Settings.setSetting("snaptrack",snapSwitch.checked)
+
+        // ACCOUNTS
+        // Last.fm
+
+        // MUSIC STREAMING
+        // Ubuntu one
+        /* READY THIS LATER
+        if (ubuntuaccount === activated) {
+            Settings.setSetting("wifiswitch",wifiSwitch.checked)
+        }*/
+
+
+        // MOVE TO TOOLBAR Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+        // -- random = shuffleSwitch.checked // set shuffle state variable
+        //console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
+
+        // MOVE TO scrobble Settings.setSetting("scrobble", scrobbleSwitch.checked) // save shuffle state
+        //scrobble = scrobbleSwitch.checked // set scrobble state variable
+        //console.debug("Debug: Scrobble: "+ scrobbleSwitch.checked)
     }
 
     Column {
@@ -54,14 +68,16 @@ ComposerSheet {
         ListItem.ItemSelector {
             id: equaliser
             text: i18n.tr("Equaliser")
-            model: [i18n.tr("Normal"),
-                  i18n.tr("Rock"),
+            model: [i18n.tr("Accoustic"),
+                  i18n.tr("Classical"),
+                  i18n.tr("Electronic"),
+                  i18n.tr("Flat"),
+                  i18n.tr("Hip Hop"),
+                  i18n.tr("Jazz"),
+                  i18n.tr("Metal"),
                   i18n.tr("Pop"),
-                  i18n.tr("House"),
-                  i18n.tr("Jazz")]
-            onClicked: {
-                customdebug("User clicked on the title itself. I'm Ron Burgendy...?")
-            }
+                  i18n.tr("Rock"),
+                  i18n.tr("Custom")]
             onDelegateClicked: {
                 customdebug("Value changed to "+index)
                 //equaliserChange(index)
@@ -76,7 +92,7 @@ ComposerSheet {
             }
             Switch {
                 id: snapSwitch
-                checked: true
+                checked: Settings.getSetting("snaptrack") === "1"
             }
         }
 
@@ -121,7 +137,7 @@ ComposerSheet {
                 }
                 Switch {
                     id: wifiSwitch
-                    checked: true
+                    checked: Settings.getSetting("wifiswitch") === "1"
                     enabled: false // check if account is connected
                 }
             }
