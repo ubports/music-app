@@ -28,8 +28,6 @@ ComposerSheet {
     id: musicSettings
     title: i18n.tr("Settings")
 
-    height: units.gui(50)
-
     onCancelClicked: PopupUtils.close(musicSettings)
     onConfirmClicked: {
         PopupUtils.close(musicSettings)
@@ -108,7 +106,11 @@ ComposerSheet {
             subText: i18n.tr("Login to scrobble and \nimport playlists")
             progression: true
             onClicked: {
-                customdebug("I'm Ron Burgendy...?")
+                PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
+                                {
+                                    title: i18n.tr("Last.fm")
+                                } )
+                PopupUtils.close(musicSettings)
             }
         }
 
