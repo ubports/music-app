@@ -109,8 +109,8 @@ Page {
                         }
                     }
 
-                    trackQueue.model.remove(index);
                     queueChanged = true;
+                    trackQueue.model.remove(index);
                 }
 
                 /* Do not use mousearea otherwise swipe delete won't function */
@@ -507,7 +507,13 @@ Page {
                 id: nowPlayingClearMouseArea
                 onClicked: {
                     console.debug("Debug: Track queue cleared.")
+
+                    // Clear the queue and tell caches to clear/reload
                     trackQueue.model.clear()
+                    queueChanged = true;
+
+                    // Stop the player from rolling
+                    stopSong();
                 }
             }
         }

@@ -184,6 +184,7 @@ MainView {
     }
 
     function stopSong() {
+        currentIndex = -1;
         player.source = "";  // changing to "" triggers the player to stop and removes the highlight
     }
 
@@ -537,6 +538,20 @@ MainView {
     LibraryListModel {
         id: trackQueue
         property bool isEmpty: count == 0
+
+        onIsEmptyChanged: {
+            /*
+             * If changed to false then must have been empty before
+             * Therefore set the first song as the current item
+             * and update any metadata
+             */
+            if (isEmpty === false && currentIndex == -1 && player.source == "")
+            {
+                currentIndex = 0;
+                player.source = trackQueue.model.get(currentIndex).file;
+                updateMeta();
+            }
+        }
     }
 
     // list of songs, which has been removed.
