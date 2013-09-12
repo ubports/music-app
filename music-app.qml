@@ -120,6 +120,9 @@ MainView {
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
+
+        // push the page to view
+        pageStack.push(tabs)
     }
 
 
@@ -175,6 +178,11 @@ MainView {
 
     function nextSong() {
         getSong(1)
+    }
+
+    function stopSong() {
+        currentIndex = -1;
+        player.source = "";  // changing to "" triggers the player to stop and removes the highlight
     }
 
     function getSong(direction) {
@@ -380,6 +388,7 @@ MainView {
             }
             else
             {
+                onPlayingTrackChange(source)  // removes highlight as will get -1 index
                 player.stop()
             }
         }
@@ -537,6 +546,21 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        property bool isEmpty: count == 0
+
+        onIsEmptyChanged: {
+            /*
+             * If changed to false then must have been empty before
+             * Therefore set the first song as the current item
+             * and update any metadata
+             */
+            if (isEmpty === false && currentIndex == -1 && player.source == "")
+            {
+                currentIndex = 0;
+                player.source = trackQueue.model.get(currentIndex).file;
+                updateMeta();
+            }
+        }
     }
 
     // list of songs, which has been removed.
@@ -635,118 +659,137 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        //PopupUtils.open(addtoPlaylistDialog, mainView) // old dialog
-                        //pageStack.push(addtoPlaylistPage)
+                        addtoPlaylist.visible = true
+                        playerControls.visible = false
                     }
                 }
             }
         }
     }
 
-    // Edit name of playlist dialog
+    // New playlist dialog
     Component {
-         id: addtoPlaylistPage
-         Page {
-             id: pageAddToPlaylist
-             title: i18n.tr("Select Playlist")
+         id: newPlaylistDialog
+         Dialog {
+             id: dialogueNewPlaylist
+             title: i18n.tr("New Playlist")
+             text: i18n.tr("Name your playlist.")
+             TextField {
+                 id: playlistName
+                 placeholderText: i18n.tr("Name")
+             }
+             ListItem.Standard {
+                 id: newplaylistoutput
+             }
 
-             // show each playlist and make them chosable
-             ListView {
-                 id: addtoPlaylistView
-                 width: parent.width
-                 height: units.gu(35)
-                 anchors.bottomMargin: units.gu(4)
-                 model: playlistModel
-                 delegate: ListItem.Standard {
-                        text: name
-                        onClicked: {
-                            console.debug("Debug: "+chosenTrack+" added to "+name)
-                            Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
-                            var count = Playlists.getPlaylistCount(name)
-                            playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                            PopupUtils.close(dialogueAddToPlaylist)
-                        }
-                 }
+             Button {
+                 text: i18n.tr("Create")
+                 onClicked: {
+                     if (playlistName.text.length > 0) { // make sure something is acually inputed
+                         var newList = Playlists.addPlaylist(playlistName.text)
+                         if (newList === "OK") {
+                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                             // add the new playlist to the tab
+                             var index = Playlists.getID(); // get the latest ID
+                             playlistModel.append({"id": index, "name": playlistName.text})
+                         }
+                         else {
+                             console.debug("Debug: Something went wrong: "+newList)
+                         }
+
+                         PopupUtils.close(dialogueNewPlaylist)
+                     }
+                     else {
+                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+
+                     }
+                }
              }
 
              Button {
                  text: i18n.tr("Cancel")
-                 onClicked: PopupUtils.close(dialogueAddToPlaylist)
+                 color: styleMusic.dialog.buttonColor
+                 onClicked: PopupUtils.close(dialogueNewPlaylist)
              }
          }
     }
 
-    Tabs {
-        id: tabs
-        anchors.fill: parent
-
-        // First tab is all music
-        Tab {
-            id: startTab
-            objectName: "starttab"
+    PageStack {
+        id: pageStack
+        anchors.top: mainView.top
+        Tabs {
+            id: tabs
             anchors.fill: parent
-            title: i18n.tr("Music")
 
-            // Tab content begins here
-            page: MusicStart {
-                id: musicStartPage
+            // First tab is all music
+            Tab {
+                id: startTab
+                objectName: "starttab"
+                anchors.fill: parent
+                title: i18n.tr("Music")
+
+                // Tab content begins here
+                page: MusicStart {
+                    id: musicStartPage
+                }
             }
-        }
 
-        // Second tab is arists
-        Tab {
-            id: artistsTab
-            objectName: "artiststab"
-            anchors.fill: parent
-            title: i18n.tr("Artists")
+            // Second tab is arists
+            Tab {
+                id: artistsTab
+                objectName: "artiststab"
+                anchors.fill: parent
+                title: i18n.tr("Artists")
 
-            // tab content
-            page: MusicArtists {
-                id: musicArtistsPage
+                // tab content
+                page: MusicArtists {
+                    id: musicArtistsPage
+                }
             }
-        }
 
-        // third tab is albums
-        Tab {
-            id: albumsTab
-            objectName: "albumstab"
-            anchors.fill: parent
-            title: i18n.tr("Albums")
+            // third tab is albums
+            Tab {
+                id: albumsTab
+                objectName: "albumstab"
+                anchors.fill: parent
+                title: i18n.tr("Albums")
 
-            // Tab content begins here
-            page: MusicAlbums {
-                id: musicAlbumsPage
+                // Tab content begins here
+                page: MusicAlbums {
+                    id: musicAlbumsPage
+                }
             }
-        }
 
-        // fourth tab is all songs
-        Tab {
-            id: tracksTab
-            objectName: "trackstab"
-            anchors.fill: parent
-            title: i18n.tr("Songs")
+            // fourth tab is all songs
+            Tab {
+                id: tracksTab
+                objectName: "trackstab"
+                anchors.fill: parent
+                title: i18n.tr("Songs")
 
-            // Tab content begins here
-            page: MusicTracks {
-                id: musicTracksPage
+                // Tab content begins here
+                page: MusicTracks {
+                    id: musicTracksPage
+                }
             }
-        }
 
 
-        // fifth tab is the playlists
-        Tab {
-            id: playlistTab
-            objectName: "playlisttab"
-            anchors.fill: parent
-            title: i18n.tr("Playlists")
+            // fifth tab is the playlists
+            Tab {
+                id: playlistTab
+                objectName: "playlisttab"
+                anchors.fill: parent
+                title: i18n.tr("Playlists")
 
-            // Tab content begins here
-            page: MusicPlaylists {
-                id: musicPlaylistPage
+                // Tab content begins here
+                page: MusicPlaylists {
+                    id: musicPlaylistPage
+                }
             }
-        }
+        } // end of tabs
     }
 
+    // player controls at the bottom
     Rectangle {
         id: playerControls
         anchors.bottom: parent.bottom
@@ -754,158 +797,223 @@ MainView {
         height: units.gu(8)
         width: parent.width
         color: styleMusic.playerControls.backgroundColor
-        UbuntuShape {
-            id: forwardshape
-            objectName: "forwardshape"
-            height: units.gu(5)
-            width: units.gu(5)
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: units.gu(2)
-            radius: "none"
-            image: Image {
-                id: forwardindicator
-                source: "images/forward.png"
-                anchors.right: parent.right
-                anchors.centerIn: parent
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    nextSong()
+
+        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
+
+        states: [
+            State {
+                name: "disabled"
+                PropertyChanges {
+                    target: disabledPlayerControlsGroup
+                    visible: true
+                }
+                PropertyChanges {
+                    target: enabledPlayerControlsGroup
+                    visible: false
+                }
+            },
+            State {
+                name: "enabled"
+                PropertyChanges {
+                    target: disabledPlayerControlsGroup
+                    visible: false
+                }
+                PropertyChanges {
+                    target: enabledPlayerControlsGroup
+                    visible: true
                 }
             }
-        }
-        UbuntuShape {
-            id: playshape
-            objectName: "playshape"
-            height: units.gu(5)
-            width: units.gu(5)
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: forwardshape.left
-            anchors.rightMargin: units.gu(1)
-            radius: "none"
-            image: Image {
-                id: playindicator
-                source: player.playbackState === MediaPlayer.PlayingState ?
-                          "images/pause.png" : "images/play.png"
-                anchors.right: parent.right
-                anchors.centerIn: parent
-                opacity: .7
+        ]
+
+        Rectangle {
+            id: disabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
+            visible: trackQueue.isEmpty === true
+
+            Label {
+                id: noSongsInQueueLabel
+                anchors.left: parent.left
+                anchors.margins: units.gu(1)
+                anchors.top: parent.top
+                color: styleMusic.playerControls.labelColor
+                text: "No songs queued"
+                fontSize: "large"
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (player.playbackState === MediaPlayer.PlayingState)  {
-                        player.pause()
-                    } else {
-                        player.play()
+
+            Label {
+                id: tabToStartPlayingLabel
+                color: styleMusic.playerControls.labelColor
+                anchors.left: parent.left
+                anchors.margins: units.gu(1)
+                anchors.top: noSongsInQueueLabel.bottom
+                text: "Tap on a song to start playing"
+            }
+        }
+
+        Rectangle {
+            id: enabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
+            visible: trackQueue.isEmpty === false
+
+            UbuntuShape {
+                id: forwardshape
+                objectName: "forwardshape"
+                height: units.gu(5)
+                width: units.gu(5)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
+                radius: "none"
+                image: Image {
+                    id: forwardindicator
+                    source: "images/forward.png"
+                    anchors.right: parent.right
+                    anchors.centerIn: parent
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        nextSong()
                     }
                 }
             }
-        }
-        Image {
-            id: iconbottom
-            source: mainView.currentCoverSmall
-            width: units.gu(6)
-            height: units.gu(6)
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(1)
-            anchors.leftMargin: units.gu(1)
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    nowPlaying.visible = true
+            UbuntuShape {
+                id: playshape
+                objectName: "playshape"
+                height: units.gu(5)
+                width: units.gu(5)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: forwardshape.left
+                anchors.rightMargin: units.gu(1)
+                radius: "none"
+                image: Image {
+                    id: playindicator
+                    source: player.playbackState === MediaPlayer.PlayingState ?
+                              "images/pause.png" : "images/play.png"
+                    anchors.right: parent.right
+                    anchors.centerIn: parent
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (player.playbackState === MediaPlayer.PlayingState)  {
+                            player.pause()
+                        } else {
+                            player.play()
+                        }
+                    }
                 }
             }
-        }
-        Label {
-            id: fileTitleBottom
-            width: mainView.width - iconbottom.width
-                                  - iconbottom.anchors.leftMargin
-                                  - playshape.width
-                                  - playshape.anchors.rightMargin
-                                  - forwardshape.width
-                                  - forwardshape.anchors.rightMargin
-                                  - anchors.leftMargin
-            wrapMode: Text.Wrap
-            color: styleMusic.playerControls.labelColor
-            maximumLineCount: 1
-            fontSize: "medium"
-            anchors.left: iconbottom.right
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(1)
-            anchors.leftMargin: units.gu(1)
-            text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-        }
-        Label {
-            id: fileArtistAlbumBottom
-            width: mainView.width - iconbottom.width
-                                  - iconbottom.anchors.leftMargin
-                                  - playshape.width
-                                  - playshape.anchors.rightMargin
-                                  - forwardshape.width
-                                  - forwardshape.anchors.rightMargin
-                                  - anchors.leftMargin
-            wrapMode: Text.Wrap
-            color: styleMusic.playerControls.labelColor
-            maximumLineCount: 1
-            fontSize: "small"
-            anchors.left: iconbottom.right
-            anchors.top: fileTitleBottom.bottom
-            anchors.leftMargin: units.gu(1)
-            text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
-        }
-        Rectangle {
-            id: fileDurationProgressContainer
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: units.gu(1)
-            color: styleMusic.playerControls.backgroundColor
-            height: units.gu(0.5);
-            width: parent.width
+            Image {
+                id: iconbottom
+                source: mainView.currentCoverSmall
+                width: units.gu(6)
+                height: units.gu(6)
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+                anchors.leftMargin: units.gu(1)
 
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        nowPlaying.visible = true
+                    }
+                }
+            }
+            Label {
+                id: fileTitleBottom
+                width: mainView.width - iconbottom.width
+                                      - iconbottom.anchors.leftMargin
+                                      - playshape.width
+                                      - playshape.anchors.rightMargin
+                                      - forwardshape.width
+                                      - forwardshape.anchors.rightMargin
+                                      - anchors.leftMargin
+                wrapMode: Text.Wrap
+                color: styleMusic.playerControls.labelColor
+                maximumLineCount: 1
+                fontSize: "medium"
+                anchors.left: iconbottom.right
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+                anchors.leftMargin: units.gu(1)
+                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+            }
+            Label {
+                id: fileArtistAlbumBottom
+                width: mainView.width - iconbottom.width
+                                      - iconbottom.anchors.leftMargin
+                                      - playshape.width
+                                      - playshape.anchors.rightMargin
+                                      - forwardshape.width
+                                      - forwardshape.anchors.rightMargin
+                                      - anchors.leftMargin
+                wrapMode: Text.Wrap
+                color: styleMusic.playerControls.labelColor
+                maximumLineCount: 1
+                fontSize: "small"
+                anchors.left: iconbottom.right
+                anchors.top: fileTitleBottom.bottom
+                anchors.leftMargin: units.gu(1)
+                text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
+            }
             Rectangle {
-                id: fileDurationProgressBackground
-                color: styleMusic.playerControls.progressBackgroundColor;
+                id: fileDurationProgressContainer
                 anchors.bottom: parent.bottom
+                anchors.leftMargin: units.gu(1)
+                color: styleMusic.playerControls.backgroundColor
                 height: units.gu(0.5);
-                radius: units.gu(0.5);
-                visible: player.duration > 0 ? true : false
                 width: parent.width
+
+                Rectangle {
+                    id: fileDurationProgressBackground
+                    color: styleMusic.playerControls.progressBackgroundColor;
+                    anchors.bottom: parent.bottom
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    visible: player.duration > 0 ? true : false
+                    width: parent.width
+                }
+
+                Rectangle {
+                    id: fileDurationProgressArea
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.playerControls.progressForegroundColor;
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    visible: player.duration > 0 ? true : false
+                    width: (player.position / player.duration) * fileDurationProgressContainer.width;
+                }
             }
 
-            Rectangle {
-                id: fileDurationProgressArea
-                anchors.bottom: parent.bottom
-                color: styleMusic.playerControls.progressForegroundColor;
-                height: units.gu(0.5);
-                radius: units.gu(0.5);
-                visible: player.duration > 0 ? true : false
-                width: (player.position / player.duration) * fileDurationProgressContainer.width;
+            Label {
+                id: fileDurationBottom
+                anchors.top: fileArtistAlbumBottom.bottom
+                anchors.leftMargin: units.gu(1)
+                anchors.left: iconbottom.right
+                color: styleMusic.playerControls.labelColor
+                fontSize: "small"
+                maximumLineCount: 1
+                text: player.duration > 0 ?
+                          player.positionStr+" / "+player.durationStr
+                        : ""
+                width: units.gu(30)
+                wrapMode: Text.Wrap
             }
-        }
-
-        Label {
-            id: fileDurationBottom
-            anchors.top: fileArtistAlbumBottom.bottom
-            anchors.leftMargin: units.gu(1)
-            anchors.left: iconbottom.right
-            color: styleMusic.playerControls.labelColor
-            fontSize: "small"
-            maximumLineCount: 1
-            text: player.duration > 0 ?
-                      player.positionStr+" / "+player.durationStr
-                    : ""
-            width: units.gu(30)
-            wrapMode: Text.Wrap
         }
     }
 
     MusicNowPlaying {
         id: nowPlaying
+    }
+
+    MusicaddtoPlaylist {
+        id: addtoPlaylist
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
