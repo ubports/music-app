@@ -88,7 +88,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     Rectangle {
                         id: highlight

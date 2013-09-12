@@ -88,7 +88,7 @@ Page {
                         property string length: model.length
                         property string file: model.file
                         property string year: model.year
-                        source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
+                        source: cover !== "" ? cover : "images/cover_default.png"
                     }
                 }
                 MouseArea {

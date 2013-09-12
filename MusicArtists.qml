@@ -77,8 +77,8 @@ PageStack {
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist
-                    property string cover: model.cover
-                    icon: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+
                     iconFrame: false
                     progression: true
                     Label {
@@ -105,6 +105,7 @@ PageStack {
                             artistTracksModel.filterArtistTracks(artist)
                             artisttrackslist.artist = artist
                             artisttrackslist.file = file
+                            artisttrackslist.cover = cover
                             pageStack.push(artistpage)
                         }
                     }
@@ -125,6 +126,7 @@ PageStack {
             clip: true
             property string artist: ""
             property string file: ""
+            property string cover: ""
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -145,7 +147,7 @@ PageStack {
                     height: parent.height
                     width: height
                     image: Image {
-                        source: Library.hasCover(artisttrackslist.file) ? "image://cover-art-full/"+artisttrackslist.file : Qt.resolvedUrl("images/cover_default.png")
+                        source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
                     }
                 }
                 Label {
@@ -189,7 +191,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     progression: false
                     Rectangle {
