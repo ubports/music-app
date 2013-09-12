@@ -371,6 +371,15 @@ MainView {
         currentCover = Library.hasCover(file) ? file : ""
     }
 
+    // undo removal function to use when swipe to remove
+    function undoRemoval (listmodel,index,title,artist,album,file) {
+        // show an undo button instead of removed track
+        listmodel.set(index, {"title": i18n.tr("Undo")} )
+        // set the removed track in undo listmodel
+        undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
+    }
+
+
     MediaPlayer {
         id: player
         objectName: "player"
@@ -575,6 +584,11 @@ MainView {
     // create the listmodel for tracks in playlists
     LibraryListModel {
         id: playlisttracksModel
+    }
+
+    // ListModel for Undo functionality
+    ListModel {
+        id: undo
     }
 
 
