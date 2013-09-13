@@ -505,10 +505,26 @@ MainView {
                 console.log("Available ? " + available);
                 if (available === true) {
                     console.log("griloModel.count " + griloModel.count)
-                    timer.start()
                 }
             }
             onBaseMediaChanged: refresh();
+        }
+
+        onCountChanged: {
+            if (count > 0) {
+                timer.start()
+                for (var i = timer.counted; i < griloModel.count; i++)
+                {
+                    var file = griloModel.get(i).url.toString()
+                    if (file.indexOf("file://") == 0)
+                    {
+                        file = file.slice(7, file.length)
+                    }
+                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail);
+                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, "1", griloModel.get(i).duration)
+                }
+            }
+
         }
     }
 
@@ -570,7 +586,7 @@ MainView {
 
     // list of single tracks
     ListModel {
-        id: singleTracks
+        id: singleTracksgriloMo
     }
 
     // create the listmodel to use for playlists
@@ -591,18 +607,9 @@ MainView {
         property int counted: 0
 
         onTriggered: {
+            timer.interval = 200
             console.log("Counted: " + counted)
             console.log("griloModel.count: " + griloModel.count)
-            for (var i = counted; i < griloModel.count; i++)
-            {
-                var file = griloModel.get(i).url.toString()
-                if (file.indexOf("file://") == 0)
-                {
-                    file = file.slice(7, file.length)
-                }
-                console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail);
-                Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, "1", griloModel.get(i).duration)
-            }
             if (counted === griloModel.count) {
                 console.log("MOVING ON")
                 Library.writeDb()
