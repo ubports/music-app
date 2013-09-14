@@ -602,13 +602,12 @@ MainView {
 
     Timer {
         id: timer
-        interval: 2000; repeat: true
+        interval: 200; repeat: true
         running: false
         triggeredOnStart: false
         property int counted: 0
 
         onTriggered: {
-            timer.interval = 200
             console.log("Counted: " + counted)
             console.log("griloModel.count: " + griloModel.count)
             if (counted === griloModel.count) {
