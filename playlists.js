@@ -22,7 +22,7 @@ function getPlaylistsDatabase() {
 
 // database for individual playlists - the one witht the actual tracks in
 function getPlaylistDatabase() {
-     return LocalStorage.openDatabaseSync("music-app-playlist", "1.1", "StorageDatabase", 1000000);
+     return LocalStorage.openDatabaseSync("music-app-playlist", "", "StorageDatabase", 1000000);
 }
 
 // At the start of the application, we can initialize the tables we need if they haven't been created yet
@@ -44,13 +44,19 @@ function initializePlaylist() {
             console.debug("DB: Changing version of playlist db to 1.1.")
         });
     }
+    else if (db.version === "1.1") {
+        db.changeVersion("1.1","1.2",function(t){
+            t.executeSql('DROP TABLE playlist'); // TODO: later, if we need a db version update, we should keep earlier settings. This is just for now.
+            console.debug("DB: Changing version of playlist db to 1.2.")
+        });
+    }
     else {
         console.debug("DB: No change in playlist.")
     }
 
     db.transaction(
         function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
       });
 }
 
@@ -105,11 +111,11 @@ function addPlaylist(name) {
 }
 
 // add track to playlist
-function addtoPlaylist(playlist,track,artist,title,album) {
+function addtoPlaylist(playlist,track,artist,title,album,cover,year,number,length,genre) {
     var db = getPlaylistDatabase();
     var res = "";
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?);', [playlist,track,artist,title,album]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?,?,?,?,?,?);', [playlist,track,artist,title,album,cover,year,number,length,genre]);
               if (rs.rowsAffected > 0) {
                 res = "OK";
               } else {
@@ -158,13 +164,16 @@ function getPlaylistTracks(playlist) {
          for(var i = 0; i < rs.rows.length; i++) {
              var dbItem = rs.rows.item(i);
              console.log("Track: "+ dbItem.track);
-             console.log("Artist: "+ dbItem.artist);
-             console.log("Title: "+ dbItem.title);
-             console.log("Album: "+ dbItem.album);
+             console.log("Cover: "+ dbItem.cover);
              res[i] = {'file': dbItem.track,
                        'title': dbItem.title,
                        'artist': dbItem.artist,
                        'album': dbItem.album,
+                       'cover': dbItem.cover,
+                       'year': dbItem.year,
+                       'number': dbItem.number,
+                       'length': dbItem.length,
+                       'genre': dbItem.genre,
                        'id': i};
          }
       })

@@ -278,6 +278,7 @@ PageStack {
                             chosenAlbum = album
                             chosenTitle = title
                             chosenTrack = file
+                            chosenCover = cover
                         }
                         onClicked: {
                             if (focus == false) {

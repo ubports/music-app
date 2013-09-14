@@ -63,7 +63,7 @@ import "playlists.js" as Playlists
                 text: name +" ("+count+")"
                 onClicked: {
                     console.debug("Debug: "+chosenTrack+" added to "+name)
-                    Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
+                    Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
                     var count = Playlists.getPlaylistCount(name)
                     playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
                     playerControls.visible = true // show the playercontrols again

@@ -295,7 +295,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
-                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
+                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     removable: true
 

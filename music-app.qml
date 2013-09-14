@@ -140,6 +140,7 @@ MainView {
     property string chosenTitle: ""
     property string chosenArtist: ""
     property string chosenAlbum: ""
+    property string chosenCover: ""
     property int chosenIndex: 0
 
     property string currentArtist: ""
@@ -652,7 +653,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum})
+                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover})
                     }
                 }
                 ListItem.Standard {

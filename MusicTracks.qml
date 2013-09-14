@@ -145,6 +145,7 @@ PageStack {
                             chosenTitle = title
                             chosenTrack = file
                             chosenAlbum = album
+                            chosenCover = cover
                             chosenIndex = index
                         }
                         onClicked: {
