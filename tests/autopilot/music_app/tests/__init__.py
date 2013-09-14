@@ -15,8 +15,8 @@ from autopilot.testcase import AutopilotTestCase
 
 from time import sleep
 
-from music_app.emulators.main_window import MainWindow
-
+from ubuntuuitoolkit import emulators as uitk
+from music_app.emulators.emulators import MainView
 
 class MusicTestCase(AutopilotTestCase):
 
@@ -59,5 +59,5 @@ class MusicTestCase(AutopilotTestCase):
         self.pointing_device.release()
 
     @property
-    def main_window(self):
-        return MainWindow(self.app)
+    def main_view(self):
+        return MainView(self.app)
