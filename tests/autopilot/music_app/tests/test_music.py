@@ -55,7 +55,7 @@ class TestMainWindow(MusicTestCase):
         local_location = "../../music-app.qml"
 
         if os.path.exists(self.local_location):
-			os.chdir(os.getcwd() + "/music_app/content")
+            os.chdir(os.getcwd() + "/music_app/content")
             shutil.copy('Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
             musicpath)
         else:
