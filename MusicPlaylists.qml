@@ -314,7 +314,7 @@ PageStack {
                     }
                     onItemRemoved: {
                         console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
-                        Playlists.removeFromPlaylist(playlistlist.playlistName, file);
+                        Playlists.removeFromPlaylist(playlistlist.playlistName, id);
                     }
 
                     /* Do not use mousearea otherwise swipe delete won't function */
