@@ -184,6 +184,11 @@ MainView {
         getSong(1)
     }
 
+    function stopSong() {
+        currentIndex = -1;
+        player.source = "";  // changing to "" triggers the player to stop and removes the highlight
+    }
+
     function getSong(direction) {
         if (trackQueue.model.count == 0)
         {
@@ -387,6 +392,7 @@ MainView {
             }
             else
             {
+                onPlayingTrackChange(source)  // removes highlight as will get -1 index
                 player.stop()
             }
         }
@@ -532,6 +538,21 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        property bool isEmpty: count == 0
+
+        onIsEmptyChanged: {
+            /*
+             * If changed to false then must have been empty before
+             * Therefore set the first song as the current item
+             * and update any metadata
+             */
+            if (isEmpty === false && currentIndex == -1 && player.source == "")
+            {
+                currentIndex = 0;
+                player.source = trackQueue.model.get(currentIndex).file;
+                updateMeta();
+            }
+        }
     }
 
     // list of songs, which has been removed.
@@ -785,153 +806,214 @@ MainView {
         height: units.gu(8)
         width: parent.width
         color: styleMusic.playerControls.backgroundColor
-        UbuntuShape {
-            id: forwardshape
-            objectName: "forwardshape"
-            height: units.gu(5)
-            width: units.gu(5)
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: units.gu(2)
-            radius: "none"
-            image: Image {
-                id: forwardindicator
-                source: "images/forward.png"
-                anchors.right: parent.right
-                anchors.centerIn: parent
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    nextSong()
+
+        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
+
+        states: [
+            State {
+                name: "disabled"
+                PropertyChanges {
+                    target: disabledPlayerControlsGroup
+                    visible: true
+                }
+                PropertyChanges {
+                    target: enabledPlayerControlsGroup
+                    visible: false
+                }
+            },
+            State {
+                name: "enabled"
+                PropertyChanges {
+                    target: disabledPlayerControlsGroup
+                    visible: false
+                }
+                PropertyChanges {
+                    target: enabledPlayerControlsGroup
+                    visible: true
                 }
             }
-        }
-        UbuntuShape {
-            id: playshape
-            objectName: "playshape"
-            height: units.gu(5)
-            width: units.gu(5)
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: forwardshape.left
-            anchors.rightMargin: units.gu(1)
-            radius: "none"
-            image: Image {
-                id: playindicator
-                source: player.playbackState === MediaPlayer.PlayingState ?
-                          "images/pause.png" : "images/play.png"
-                anchors.right: parent.right
-                anchors.centerIn: parent
-                opacity: .7
+        ]
+
+        Rectangle {
+            id: disabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
+            visible: trackQueue.isEmpty === true
+
+            Label {
+                id: noSongsInQueueLabel
+                anchors.left: parent.left
+                anchors.margins: units.gu(1)
+                anchors.top: parent.top
+                color: styleMusic.playerControls.labelColor
+                text: "No songs queued"
+                fontSize: "large"
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (player.playbackState === MediaPlayer.PlayingState)  {
-                        player.pause()
-                    } else {
-                        player.play()
+
+            Label {
+                id: tabToStartPlayingLabel
+                color: styleMusic.playerControls.labelColor
+                anchors.left: parent.left
+                anchors.margins: units.gu(1)
+                anchors.top: noSongsInQueueLabel.bottom
+                text: "Tap on a song to start playing"
+            }
+        }
+
+        Rectangle {
+            id: enabledPlayerControlsGroup
+            anchors.fill: parent
+            color: "transparent"
+            visible: trackQueue.isEmpty === false
+
+            UbuntuShape {
+                id: forwardshape
+                objectName: "forwardshape"
+                height: units.gu(5)
+                width: units.gu(5)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
+                radius: "none"
+                image: Image {
+                    id: forwardindicator
+                    source: "images/forward.png"
+                    anchors.right: parent.right
+                    anchors.centerIn: parent
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        nextSong()
                     }
                 }
             }
-        }
-        Image {
-            id: iconbottom
-            source: mainView.currentCoverSmall
-            width: units.gu(6)
-            height: units.gu(6)
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(1)
-            anchors.leftMargin: units.gu(1)
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    nowPlaying.visible = true
+            UbuntuShape {
+                id: playshape
+                objectName: "playshape"
+                height: units.gu(5)
+                width: units.gu(5)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: forwardshape.left
+                anchors.rightMargin: units.gu(1)
+                radius: "none"
+                image: Image {
+                    id: playindicator
+                    source: player.playbackState === MediaPlayer.PlayingState ?
+                              "images/pause.png" : "images/play.png"
+                    anchors.right: parent.right
+                    anchors.centerIn: parent
+                    opacity: .7
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (player.playbackState === MediaPlayer.PlayingState)  {
+                            player.pause()
+                        } else {
+                            player.play()
+                        }
+                    }
                 }
             }
-        }
-        Label {
-            id: fileTitleBottom
-            width: mainView.width - iconbottom.width
-                                  - iconbottom.anchors.leftMargin
-                                  - playshape.width
-                                  - playshape.anchors.rightMargin
-                                  - forwardshape.width
-                                  - forwardshape.anchors.rightMargin
-                                  - anchors.leftMargin
-            wrapMode: Text.Wrap
-            color: styleMusic.playerControls.labelColor
-            maximumLineCount: 1
-            fontSize: "medium"
-            anchors.left: iconbottom.right
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(1)
-            anchors.leftMargin: units.gu(1)
-            text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-        }
-        Label {
-            id: fileArtistAlbumBottom
-            width: mainView.width - iconbottom.width
-                                  - iconbottom.anchors.leftMargin
-                                  - playshape.width
-                                  - playshape.anchors.rightMargin
-                                  - forwardshape.width
-                                  - forwardshape.anchors.rightMargin
-                                  - anchors.leftMargin
-            wrapMode: Text.Wrap
-            color: styleMusic.playerControls.labelColor
-            maximumLineCount: 1
-            fontSize: "small"
-            anchors.left: iconbottom.right
-            anchors.top: fileTitleBottom.bottom
-            anchors.leftMargin: units.gu(1)
-            text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
-        }
-        Rectangle {
-            id: fileDurationProgressContainer
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: units.gu(1)
-            color: styleMusic.playerControls.backgroundColor
-            height: units.gu(0.5);
-            width: parent.width
+            Image {
+                id: iconbottom
+                source: mainView.currentCoverSmall
+                width: units.gu(6)
+                height: units.gu(6)
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+                anchors.leftMargin: units.gu(1)
 
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        nowPlaying.visible = true
+                    }
+                }
+            }
+            Label {
+                id: fileTitleBottom
+                width: mainView.width - iconbottom.width
+                                      - iconbottom.anchors.leftMargin
+                                      - playshape.width
+                                      - playshape.anchors.rightMargin
+                                      - forwardshape.width
+                                      - forwardshape.anchors.rightMargin
+                                      - anchors.leftMargin
+                wrapMode: Text.Wrap
+                color: styleMusic.playerControls.labelColor
+                maximumLineCount: 1
+                fontSize: "medium"
+                anchors.left: iconbottom.right
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+                anchors.leftMargin: units.gu(1)
+                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+            }
+            Label {
+                id: fileArtistAlbumBottom
+                width: mainView.width - iconbottom.width
+                                      - iconbottom.anchors.leftMargin
+                                      - playshape.width
+                                      - playshape.anchors.rightMargin
+                                      - forwardshape.width
+                                      - forwardshape.anchors.rightMargin
+                                      - anchors.leftMargin
+                wrapMode: Text.Wrap
+                color: styleMusic.playerControls.labelColor
+                maximumLineCount: 1
+                fontSize: "small"
+                anchors.left: iconbottom.right
+                anchors.top: fileTitleBottom.bottom
+                anchors.leftMargin: units.gu(1)
+                text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
+            }
             Rectangle {
-                id: fileDurationProgressBackground
-                color: styleMusic.playerControls.progressBackgroundColor;
+                id: fileDurationProgressContainer
                 anchors.bottom: parent.bottom
+                anchors.leftMargin: units.gu(1)
+                color: styleMusic.playerControls.backgroundColor
                 height: units.gu(0.5);
-                radius: units.gu(0.5);
-                visible: player.duration > 0 ? true : false
                 width: parent.width
+
+                Rectangle {
+                    id: fileDurationProgressBackground
+                    color: styleMusic.playerControls.progressBackgroundColor;
+                    anchors.bottom: parent.bottom
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    visible: player.duration > 0 ? true : false
+                    width: parent.width
+                }
+
+                Rectangle {
+                    id: fileDurationProgressArea
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.playerControls.progressForegroundColor;
+                    height: units.gu(0.5);
+                    radius: units.gu(0.5);
+                    visible: player.duration > 0 ? true : false
+                    width: (player.position / player.duration) * fileDurationProgressContainer.width;
+                }
             }
 
-            Rectangle {
-                id: fileDurationProgressArea
-                anchors.bottom: parent.bottom
-                color: styleMusic.playerControls.progressForegroundColor;
-                height: units.gu(0.5);
-                radius: units.gu(0.5);
-                visible: player.duration > 0 ? true : false
-                width: (player.position / player.duration) * fileDurationProgressContainer.width;
+            Label {
+                id: fileDurationBottom
+                anchors.top: fileArtistAlbumBottom.bottom
+                anchors.leftMargin: units.gu(1)
+                anchors.left: iconbottom.right
+                color: styleMusic.playerControls.labelColor
+                fontSize: "small"
+                maximumLineCount: 1
+                text: player.duration > 0 ?
+                          player.positionStr+" / "+player.durationStr
+                        : ""
+                width: units.gu(30)
+                wrapMode: Text.Wrap
             }
-        }
-
-        Label {
-            id: fileDurationBottom
-            anchors.top: fileArtistAlbumBottom.bottom
-            anchors.leftMargin: units.gu(1)
-            anchors.left: iconbottom.right
-            color: styleMusic.playerControls.labelColor
-            fontSize: "small"
-            maximumLineCount: 1
-            text: player.duration > 0 ?
-                      player.positionStr+" / "+player.durationStr
-                    : ""
-            width: units.gu(30)
-            wrapMode: Text.Wrap
         }
     }
 
