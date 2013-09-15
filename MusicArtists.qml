@@ -238,6 +238,7 @@ PageStack {
                             chosenTitle = title
                             chosenTrack = file
                             chosenCover = cover
+                            chosenGenre = genre
                         }
                         onClicked: {
                             if (focus == false) {
