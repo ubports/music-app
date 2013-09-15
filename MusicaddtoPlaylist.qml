@@ -25,6 +25,13 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 
+/* NOTE:
+ * Text is barly visible as of right now and a bug report has been filed:
+ * https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1225778
+ *
+ * Wait until the bug is resolved, or move on to use other stuff then ListItems.
+ */
+
 // Page that will be used when adding tracks to playlists
  DefaultSheet {
      id: addtoPlaylist
