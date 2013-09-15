@@ -29,6 +29,7 @@ import "playlists.js" as Playlists
  DefaultSheet {
      id: addtoPlaylist
      title: i18n.tr("Select playlist")
+     contentsHeight: parent.height;
 
      onDoneClicked: PopupUtils.close(addtoPlaylist)
 
@@ -66,8 +67,8 @@ import "playlists.js" as Playlists
          Button {
              id: newPlaylistItem
              text: i18n.tr("New playlist")
-             anchors.top: addtoPlaylistView.bottom
              width: units.gu(48)
+             anchors.bottom: addtoPlaylist.bottom
              iconSource: "images/add.svg"
              iconPosition: "left"
              onClicked: {
