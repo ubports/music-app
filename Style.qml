@@ -73,4 +73,8 @@ QtObject {
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
     }
+
+    property QtObject musicSettings: QtObject {
+        property color labelColor: common.black;
+    }
 }

@@ -35,7 +35,7 @@ ComposerSheet {
         Settings.initialize()
 
         // Equaliser
-        Settings.setSetting("eqialiser",equaliser.index)
+        // ACTIVATE IN 1.+ Settings.setSetting("eqialiser",equaliser.index)
 
         // snap track
         Settings.setSetting("snaptrack",snapSwitch.checked)
@@ -45,13 +45,15 @@ ComposerSheet {
 
         // MUSIC STREAMING
         // Ubuntu one
-        /* READY THIS LATER
+        /* READY THIS LATER IN 1.+
         if (ubuntuaccount === activated) {
             Settings.setSetting("wifiswitch",wifiSwitch.checked)
         }*/
 
 
-        // MOVE TO TOOLBAR Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+        // MOVE TO TOOLBAR
+        Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+
         // -- random = shuffleSwitch.checked // set shuffle state variable
         //console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
 
@@ -63,8 +65,10 @@ ComposerSheet {
     Column {
         spacing: units.gu(2)
 
+        // Activate in 1.+
         ListItem.ItemSelector {
             id: equaliser
+            visible: false
             text: i18n.tr("Equaliser")
             model: [i18n.tr("Accoustic"),
                   i18n.tr("Classical"),
@@ -84,13 +88,28 @@ ComposerSheet {
 
         // Snap to current track
         Row {
-            spacing: units.gu(20)
+            spacing: units.gu(2)
             Label {
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
+                width: units.gu(35)
             }
             Switch {
                 id: snapSwitch
                 checked: Settings.getSetting("snaptrack") === "1"
+            }
+        }
+
+        // Shuffle or not
+        // MOVE THIS TO NEW TOOLBAR
+        Row {
+            spacing: units.gu(2)
+            Label {
+                text: i18n.tr("Shuffle")
+                width: units.gu(35)
+            }
+            Switch {
+                id: shuffleSwitch
+                checked: Settings.getSetting("shuffle") === "1"
             }
         }
 
@@ -105,6 +124,7 @@ ComposerSheet {
             text: i18n.tr("Last.fm")
             subText: i18n.tr("Login to scrobble and \nimport playlists")
             progression: true
+            enabled: false
             onClicked: {
                 PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
                                 {
@@ -115,6 +135,7 @@ ComposerSheet {
         }
 
         // Music Streaming
+        // Activate in 1.+
         Label {
             text: i18n.tr("Music Streaming")
         }
@@ -125,6 +146,7 @@ ComposerSheet {
                 id: musicStreamProg
                 text: i18n.tr("Ubuntu One")
                 subText: i18n.tr("Sign in to stream your cloud music")
+                enabled: false
                 progression: true
                 onClicked: {
                     customdebug("I'm Ron Burgendy...?")
@@ -136,59 +158,18 @@ ComposerSheet {
                 Label {
                     text: i18n.tr("Stream only on Wi-Fi")
                     enabled: false // check if account is connected
+                    visible: false
                 }
                 Switch {
                     id: wifiSwitch
                     checked: Settings.getSetting("wifiswitch") === "1"
                     enabled: false // check if account is connected
+                    visible: false
                 }
             }
         }
 
         /* MOVE THIS STUFF
-        // Shuffle or not
-        Row {
-            spacing: units.gu(2)
-            width: parent.width
-            Label {
-                text: i18n.tr("Shuffle")
-                width: units.gu(20)
-            }
-            Switch {
-                id: shuffleSwitch
-                checked: Settings.getSetting("shuffle") === "1"
-            }
-        }
-
-        Row {
-            spacing: units.gu(2)
-            Label {
-                text: i18n.tr("Scrobble to Last.FM")
-                width: units.gu(20)
-            }
-            Switch {
-                id: scrobbleSwitch
-                checked: Settings.getSetting("scrobble") === "1"
-            }
-        }
-
-        Row {
-            spacing: units.gu(2)
-            Button {
-                id: lastfmLogin
-                text: i18n.tr("Login to last.fm")
-                width: units.gu(30)
-                color: "#c94212"
-                enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
-                onClicked: {
-                    PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Last.fm")
-                                    } )
-                }
-            }
-        }
-
         // import playlists from lastfm
         Row {
             spacing: units.gu(2)
@@ -206,14 +187,15 @@ ComposerSheet {
         } */
 
         // developer button - KILLS YOUR CAT!
-        /*Button {
+        Button {
             text: i18n.tr("Clean everything!")
             color: "red"
+            visible: false
             onClicked: {
                 Settings.reset()
                 Library.reset()
                 Playlists.reset()
             }
-        }*/
+        }
     }
 }
