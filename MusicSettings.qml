@@ -27,6 +27,7 @@ import "scrobble.js" as Scrobble
 ComposerSheet {
     id: musicSettings
     title: i18n.tr("Settings")
+    contentsHeight: parent.height;
 
     onCancelClicked: PopupUtils.close(musicSettings)
     onConfirmClicked: {
@@ -68,7 +69,7 @@ ComposerSheet {
         // Activate in 1.+
         ListItem.ItemSelector {
             id: equaliser
-            visible: false
+            enabled: false
             text: i18n.tr("Equaliser")
             model: [i18n.tr("Accoustic"),
                   i18n.tr("Classical"),
@@ -145,7 +146,6 @@ ComposerSheet {
         }
 
         Column {
-
             ListItem.Subtitled {
                 id: musicStreamProg
                 text: i18n.tr("Ubuntu One")
@@ -163,13 +163,11 @@ ComposerSheet {
                     text: i18n.tr("Stream only on Wi-Fi")
                     color: styleMusic.musicSettings.labelColor
                     enabled: false // check if account is connected
-                    visible: false
                 }
                 Switch {
                     id: wifiSwitch
                     checked: Settings.getSetting("wifiswitch") === "1"
                     enabled: false // check if account is connected
-                    visible: false
                 }
             }
         }
