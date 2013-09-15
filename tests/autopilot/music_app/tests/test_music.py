@@ -9,13 +9,6 @@
 
 from __future__ import absolute_import
 
-import tempfile
-
-import mock
-import os
-import os.path
-import shutil
-
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
 from testtools.matchers import Contains
@@ -24,45 +17,6 @@ from music_app.tests import MusicTestCase
 
 
 class TestMainWindow(MusicTestCase):
-
-    def setUp(self):
-        self._patch_home()
-        self._create_music_library()
-        super(TestMainWindow, self).setUp()
-        self.assertThat(
-            self.main_view.get_qml_view().visible, Eventually(Equals(True)))
-
-    def tearDown(self):
-        super(TestMainWindow, self).tearDown()
-
-    def _patch_home(self):
-        temp_dir = tempfile.mkdtemp()
-        self.addCleanup(shutil.rmtree, temp_dir)
-        patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
-        patcher.start()
-        self.addCleanup(patcher.stop)
-
-    def _create_music_library(self):
-        home = os.environ['HOME']
-        musicpath = home + '/Music'
-        os.mkdir(musicpath)
-
-        # this needs the package 'example-content' installed:
-        shutil.copy('/usr/share/example-content/'
-            +'Ubuntu_Free_Culture_Showcase/Josh Woodward - Swansong.ogg',
-            musicpath)
-
-        local_location = "../../music-app.qml"
-
-        if os.path.exists(self.local_location):
-            os.chdir(os.getcwd() + "/music_app/content")
-            shutil.copy('Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
-            musicpath)
-        else:
-            shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
-            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
-            musicpath)
-
 
     def test_reads_music_from_home(self):
         """ tests if the music library is populated from our fake home

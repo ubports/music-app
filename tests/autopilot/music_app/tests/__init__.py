@@ -7,7 +7,12 @@
 
 """Music app autopilot tests."""
 
+import tempfile
+
+import mock
+import os
 import os.path
+import shutil
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
@@ -29,9 +34,13 @@ class MusicTestCase(AutopilotTestCase):
     else:
         scenarios = [('with touch', dict(input_device_class=Touch))]
 
-    local_location = "../../music-app.qml"
+    working_dir = os.getcwd()
+    local_location_dir = os.path.dirname(os.path.dirname(working_dir))
+    local_location = local_location_dir + "/music-app.qml"
 
     def setUp(self):
+        self._patch_home()
+        self._create_music_library()
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
         if os.path.exists(self.local_location):
@@ -51,6 +60,32 @@ class MusicTestCase(AutopilotTestCase):
             "/usr/share/music-app/music-app.qml",
             "--desktop_file_hint=/usr/share/applications/music-app.desktop",
             app_type='qt')
+
+    def _patch_home(self):
+        temp_dir = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, temp_dir)
+        patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def _create_music_library(self):
+        home = os.environ['HOME']
+        musicpath = home + '/Music'
+        os.mkdir(musicpath)
+
+        # this needs the package 'example-content' installed:
+        shutil.copy('/usr/share/example-content/'
+            +'Ubuntu_Free_Culture_Showcase/Josh Woodward - Swansong.ogg',
+            musicpath)
+
+        if os.path.exists(self.local_location):
+            shutil.copy(self.working_dir + '/music_app/content/'
+                +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
+                musicpath)
+        else:
+            shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
+            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
+            musicpath)
 
     def tap_item(self, item):
         self.pointing_device.move_to_object(item)
