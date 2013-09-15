@@ -75,6 +75,6 @@ QtObject {
     }
 
     property QtObject musicSettings: QtObject {
-        property color labelColor: common.black;
+        property color labelColor: UbuntuColors.coolGrey;
     }
 }

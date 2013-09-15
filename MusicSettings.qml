@@ -91,6 +91,7 @@ ComposerSheet {
             spacing: units.gu(2)
             Label {
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
+                color: styleMusic.musicSettings.labelColor
                 width: units.gu(35)
             }
             Switch {
@@ -105,6 +106,7 @@ ComposerSheet {
             spacing: units.gu(2)
             Label {
                 text: i18n.tr("Shuffle")
+                color: styleMusic.musicSettings.labelColor
                 width: units.gu(35)
             }
             Switch {
@@ -116,6 +118,7 @@ ComposerSheet {
         // Accounts
         Label {
             text: i18n.tr("Accounts")
+            color: styleMusic.musicSettings.labelColor
         }
 
         // lastfm
@@ -138,6 +141,7 @@ ComposerSheet {
         // Activate in 1.+
         Label {
             text: i18n.tr("Music Streaming")
+            color: styleMusic.musicSettings.labelColor
         }
 
         Column {
@@ -157,6 +161,7 @@ ComposerSheet {
                 spacing: units.gu(20)
                 Label {
                     text: i18n.tr("Stream only on Wi-Fi")
+                    color: styleMusic.musicSettings.labelColor
                     enabled: false // check if account is connected
                     visible: false
                 }
