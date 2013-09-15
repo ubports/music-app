@@ -684,8 +684,10 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        addtoPlaylist.visible = true
-                        playerControls.visible = false
+                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                        {
+                                            title: i18n.tr("Select playlist")
+                                        } )
                     }
                 }
             }

@@ -26,79 +26,54 @@ import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 
 // Page that will be used when adding tracks to playlists
- Page {
+ DefaultSheet {
      id: addtoPlaylist
      title: i18n.tr("Select playlist")
-     anchors.fill: parent
-     visible: false
 
-     onVisibleChanged: {
-         if (visible === true)
-         {
-             header.hide();
-             header.visible = false;
-         }
-         else
-         {
-             header.visible = true;
-             header.show();
-         }
+     onDoneClicked: PopupUtils.close(addtoPlaylist)
+
+     Component.onCompleted:  {
+         // check the four latest track in each playlist
+         // get the cover art of them
+         // print them in the icon
      }
 
-     Rectangle {
-         anchors.fill: parent
-         color: styleMusic.addtoPlaylist.backgroundColor
-         MouseArea {  // Block events to lower layers
-             anchors.fill: parent
-         }
-     }
+     Column {
+         spacing: units.gu(2)
 
-     // show each playlist and make them chosable
-     ListView {
-         id: addtoPlaylistView
-         width: parent.width
-         height: units.gu(35)
-         model: playlistModel
-         delegate: ListItem.Standard {
-                text: name +" ("+count+")"
-                onClicked: {
-                    console.debug("Debug: "+chosenTrack+" added to "+name)
-                    Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
-                    var count = Playlists.getPlaylistCount(name)
-                    playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                    playerControls.visible = true // show the playercontrols again
-                    addtoPlaylist.visible = false // back to previous page
-                }
-         }
-     }
-
-     Button {
-         id: newPlaylistItem
-         text: i18n.tr("New playlist")
-         anchors.top: addtoPlaylistView.bottom
-         width: parent.width - units.gu(4)
-         iconSource: "images/add.svg"
-         iconPosition: "left"
-         onClicked: {
-             customdebug("New playlist.")
-             PopupUtils.open(newPlaylistDialog, mainView)
-         }
-     }
-
-     Rectangle {
-         id: cancelButton
-         anchors.bottom: parent.bottom
-         height: units.gu(8)
-         width: parent.width
-         color: styleMusic.playerControls.backgroundColor
-         Button {
-             text: i18n.tr("Cancel")
-             anchors.margins: units.gu(2)
-             onClicked: {
-                 playerControls.visible = true // show the playercontrols again
-                 addtoPlaylist.visible = false // back to previous page
-                 // send notification
+         // show each playlist and make them chosable
+         ListView {
+             id: addtoPlaylistView
+             width: parent.width
+             height: units.gu(30)
+             model: playlistModel
+             delegate: ListItem.Standard {
+                    text: name +" ("+count+")"
+                    icon: Qt.resolvedUrl("images/playlist.png")
+                    iconFrame: false
+                    height: units.gu(6)
+                    width: units.gu(48)
+                    onClicked: {
+                        console.debug("Debug: "+chosenTrack+" added to "+name)
+                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
+                        var count = Playlists.getPlaylistCount(name) // get the new count
+                        playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
+                        onDoneClicked: PopupUtils.close(addtoPlaylist)
+                    }
              }
          }
-     }
+
+         Button {
+             id: newPlaylistItem
+             text: i18n.tr("New playlist")
+             anchors.top: addtoPlaylistView.bottom
+             width: units.gu(48)
+             iconSource: "images/add.svg"
+             iconPosition: "left"
+             onClicked: {
+                 customdebug("New playlist.")
+                 PopupUtils.open(newPlaylistDialog, mainView)
+             }
+         }
+    }
  }
