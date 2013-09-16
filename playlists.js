@@ -22,7 +22,7 @@ function getPlaylistsDatabase() {
 
 // database for individual playlists - the one witht the actual tracks in
 function getPlaylistDatabase() {
-     return LocalStorage.openDatabaseSync("music-app-playlist", "1.1", "StorageDatabase", 1000000);
+     return LocalStorage.openDatabaseSync("music-app-playlist", "", "StorageDatabase", 1000000);
 }
 
 // At the start of the application, we can initialize the tables we need if they haven't been created yet

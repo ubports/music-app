@@ -191,10 +191,55 @@ PageStack {
             Component {
                 id: playlistDelegate
                 ListItem.Standard {
-                    id: playlist
-                    icon: Qt.resolvedUrl("images/playlist.png")
-                    iconFrame: false
-                    text: name+" ("+count+")"
+                       id: playlist
+                       property string name: model.name
+                       property string count: model.count
+                       icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                       iconFrame: false
+
+                       UbuntuShape {
+                           id: cover0
+                           anchors.right: cover1.left
+                           width: units.gu(6)
+                           height: parent.height
+                           color: get_random_color()
+                           x: 0
+                       }
+                       UbuntuShape {
+                           id: cover1
+                           width: units.gu(1)
+                           height: parent.height
+                           color: get_random_color()
+                           x: units.gu(6)
+                       }
+                       UbuntuShape {
+                           id: cover2
+                           anchors.left: cover1.right
+                           anchors.right: cover3.left
+                           width: units.gu(1)
+                           height: parent.height
+                           color: get_random_color()
+                       }
+                       UbuntuShape {
+                           id: cover3
+                           width: units.gu(1)
+                           height: parent.height
+                           color: get_random_color()
+                           x: units.gu(8)
+                       }
+                       Label {
+                           id: playlistName
+                           wrapMode: Text.NoWrap
+                           maximumLineCount: 1
+                           fontSize: "medium"
+                           anchors.left: cover3.right
+                           anchors.leftMargin: units.gu(2)
+                           anchors.top: parent.top
+                           anchors.topMargin: 5
+                           anchors.bottomMargin: 5
+                           anchors.right: parent.right
+                           text: playlist.name + " ("+playlist.count+")"
+                       }
 
                     onPressAndHold: {
                         customdebug("Pressed and held playlist "+name+" : "+index)
