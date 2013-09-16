@@ -71,7 +71,8 @@ ComposerSheet {
             id: equaliser
             enabled: false
             text: i18n.tr("Equaliser")
-            model: [i18n.tr("Accoustic"),
+            model: [i18n.tr("Default"),
+                  i18n.tr("Accoustic"),
                   i18n.tr("Classical"),
                   i18n.tr("Electronic"),
                   i18n.tr("Flat"),
@@ -91,13 +92,15 @@ ComposerSheet {
         Row {
             spacing: units.gu(2)
             Label {
+                id: snapLabel
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
+                width: units.gu(25)
                 color: styleMusic.musicSettings.labelColor
-                width: units.gu(35)
             }
             Switch {
                 id: snapSwitch
                 checked: Settings.getSetting("snaptrack") === "1"
+                // make it stawy to the right with a certain margin
             }
         }
 
@@ -108,11 +111,13 @@ ComposerSheet {
             Label {
                 text: i18n.tr("Shuffle")
                 color: styleMusic.musicSettings.labelColor
-                width: units.gu(35)
+                width: units.gu(25)
+                // make it stawy to the right with a certain margin
             }
             Switch {
                 id: shuffleSwitch
                 checked: Settings.getSetting("shuffle") === "1"
+                // make it stawy to the right with a certain margin
             }
         }
 
@@ -128,7 +133,7 @@ ComposerSheet {
             text: i18n.tr("Last.fm")
             subText: i18n.tr("Login to scrobble and \nimport playlists")
             progression: true
-            enabled: false
+            enabled: true
             onClicked: {
                 PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
                                 {
@@ -146,6 +151,7 @@ ComposerSheet {
         }
 
         Column {
+            // Ubuntu One
             ListItem.Subtitled {
                 id: musicStreamProg
                 text: i18n.tr("Ubuntu One")
@@ -158,16 +164,18 @@ ComposerSheet {
             }
 
             Row {
-                spacing: units.gu(20)
+                spacing: units.gu(2)
                 Label {
                     text: i18n.tr("Stream only on Wi-Fi")
                     color: styleMusic.musicSettings.labelColor
                     enabled: false // check if account is connected
+                    width: units.gu(25)
                 }
                 Switch {
                     id: wifiSwitch
                     checked: Settings.getSetting("wifiswitch") === "1"
                     enabled: false // check if account is connected
+                    // make it stawy to the right with a certain margin
                 }
             }
         }
