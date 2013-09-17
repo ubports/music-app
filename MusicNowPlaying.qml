@@ -129,6 +129,10 @@ Page {
                             queueChanged = true;
                             trackQueue.model.remove(index);
                             currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
+
+                            // undo
+                            console.debug("removed :"+index+title+artist+album+file)
+                            undoRemoval("trackQueue.model",index,title,artist,album,file)
                         }
                     }
                 }
@@ -371,7 +375,6 @@ Page {
                         selected = false
                     }
                 }
-
                 Rectangle {
                     id: trackContainer;
                     anchors.fill: parent

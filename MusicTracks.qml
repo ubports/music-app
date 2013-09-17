@@ -32,6 +32,10 @@ PageStack {
     id: pageStack
     anchors.fill: parent
 
+    MusicSettings {
+        id: musicSettings
+    }
+
     Page {
         id: mainpage
 
@@ -43,7 +47,7 @@ PageStack {
                 text: i18n.tr("Settings")
 
                 onTriggered: {
-                    console.debug('Debug: Show settings')
+                    console.debug('Debug: Show settings from tracks')
                     PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
                                     {
                                         title: i18n.tr("Settings")

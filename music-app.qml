@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
  *                    Daniel Holm <d.holmen@gmail.com>
+ *                    Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,10 +75,7 @@ MainView {
         keywords: i18n.tr("Music Settings")
         onTriggered: {
             customdebug('Show settings')
-            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
+            musicSettings.visible = true
         }
     }
     Action {
@@ -381,6 +379,15 @@ MainView {
         currentCover = Library.hasCover(file) ? file : ""
     }
 
+    // undo removal function to use when swipe to remove
+    function undoRemoval (listmodel,index,title,artist,album,file) {
+        // show an undo button instead of removed track
+        listmodel.set(index, {"title": i18n.tr("Undo")} )
+        // set the removed track in undo listmodel
+        undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
+    }
+
+
     MediaPlayer {
         id: player
         objectName: "player"
@@ -587,6 +594,11 @@ MainView {
         id: playlisttracksModel
     }
 
+    // ListModel for Undo functionality
+    ListModel {
+        id: undo
+    }
+
 
     Column {
         Repeater {
@@ -680,8 +692,10 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        addtoPlaylist.visible = true
-                        playerControls.visible = false
+                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                        {
+                                            title: i18n.tr("Select playlist")
+                                        } )
                     }
                 }
             }
@@ -1036,7 +1050,6 @@ MainView {
     MusicaddtoPlaylist {
         id: addtoPlaylist
     }
-
     // Converts an duration in ms to a formated string ("minutes:seconds")
     function __durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);
