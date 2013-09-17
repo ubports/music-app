@@ -22,84 +22,79 @@ import Ubuntu.Components 0.1
 /* SwipeDelete object */
 Rectangle {
     id: swipeBackground
-    color: styleMusic.mainView.backgroundColor
+    color: "transparent"
     height: parent.height
     state: "normal"
-    width: parent.width
-    x: parent.width  // start out of view
+    width: parent.width * 3
+    x: 0 - parent.width  // start out of view
 
-    states: [
-        State {
-            name: "normal"
-            PropertyChanges {
-                target: swipeBackgroundText
-                visible: false
-            }
-        },
+    property int duration: 0
+    property bool deleteState: false
 
-        State {
-            name: "swipingRight"
-            PropertyChanges {
-                target: swipeBackgroundText
-                horizontalAlignment: Text.AlignRight
-                visible: true
-            }
-        },
+    function runSwipeDeletePrepareAnimation()
+    {
+        swipeDeletePrepareAnimation.start();
+    }
 
-        State {
-            name: "swipingLeft"
-            PropertyChanges {
-                target: swipeBackgroundText
-                horizontalAlignment: Text.AlignLeft
-                visible: true
-            }
-        },
+    function runSwipeDeleteAnimation()
+    {
+        swipeDeleteAnimation.start();
+    }
 
-        State {
-            name: "reorder"
-            PropertyChanges {
-                target: swipeBackgroundText
-                visible: false
-            }
+    Rectangle {
+        id: swipeBackgroundLeft
+        anchors.left: parent.left
+        color: styleMusic.mainView.backgroundColor
+        height: parent.height
+        width: parent.width / 3
+
+        Label {
+            id: swipeBackgroundLeftText
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            color: styleMusic.common.white
+            fontSize: "large"
+            horizontalAlignment: Text.AlignRight
+            text: i18n.tr("Clear")
+            verticalAlignment: Text.AlignVCenter
         }
-    ]
-
-    Label {
-        id: swipeBackgroundText
-        anchors.fill: parent
-        anchors.margins: units.gu(2)
-        color: styleMusic.common.white
-        fontSize: "large"
-        text: i18n.tr("Clear")
-        verticalAlignment: Text.AlignVCenter
-        visible: false
     }
 
-    /*
-     * Animation to reset the swipe object
-     *   when not dragged far enough (hence opposite direction to swipe)
-     *
-     * If swipingLeft the item leaves to the right
-     * If swipingRight it leaves to the left
-     */
-    NumberAnimation {
-        id: swipeResetAnimation
-        target: swipeBackground
-        properties: "x"
-        to: parent.state == "swipingLeft" ? parent.width : 0 - swipeBackground.width
-        duration: swipeDelete.transitionDuration
+    Rectangle {
+        id: swipeBackgroundRight
+        anchors.right: parent.right
+        color: styleMusic.mainView.backgroundColor
+        height: parent.height
+        width: parent.width / 3
+
+        Label {
+            id: swipeBackgroundRightText
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            color: styleMusic.common.white
+            fontSize: "large"
+            horizontalAlignment: Text.AlignLeft
+            text: i18n.tr("Clear")
+            verticalAlignment: Text.AlignVCenter
+        }
     }
 
-    /*
-     * Animation to prepare the swipe object for removal
-     * This animation moves the swipe object into the centre of the display
-     */
-    NumberAnimation {
-        id: swipePrepareDeleteAnimation
-        target: swipeBackground
-        properties: "x"
-        to: 0
-        duration: swipeDelete.transitionDuration
+    // Fade out the text in prepartion for removal
+    ParallelAnimation {
+        id: swipeDeletePrepareAnimation
+        running: false
+        NumberAnimation {
+            target: swipeBackgroundLeftText
+            property: "opacity"
+            to: 0
+            duration: swipeBackground.duration
+        }
+        NumberAnimation {
+            target: swipeBackgroundRightText
+            property: "opacity"
+            to: 0
+            duration: swipeBackground.duration
+        }
     }
 
     /*
@@ -110,21 +105,15 @@ Rectangle {
     NumberAnimation {
         id: swipeDeleteAnimation
         target: swipeBackground
-        properties: "height,x"
+        properties: "height"
         to: 0
-        duration: swipeDelete.transitionDuration
+        duration: swipeBackground.duration
 
         onRunningChanged: {
             if (running == false)
             {
-                // Reset the position offscreen and the height
-                swipeBackground.x = parent.width;
-                swipeBackground.height = parent.height;
-
-                swipeDelete.removeIndex(index);
+                deleteState = true;
             }
-
-            swipeBackgroundText.visible = !running;  // set the visibility
         }
     }
 }

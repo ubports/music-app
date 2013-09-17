@@ -103,104 +103,32 @@ Page {
                 id: queueListItem
                 height: queuelist.normalHeight
                 state: queuelist.currentIndex == index ? "current" : ""
-                Rectangle {
+
+                SwipeDelete {
                     id: swipeBackground
-                    color: "transparent"
-                    height: parent.height
-                    state: "normal"
-                    width: parent.width * 3
-                    x: 0 - parent.width  // start out of view
+                    duration: queuelist.transitionDuration
 
-                    Rectangle {
-                        id: swipeBackgroundLeft
-                        anchors.left: parent.left
-                        color: styleMusic.mainView.backgroundColor
-                        height: parent.height
-                        width: parent.width / 3
-
-                        Label {
-                            id: swipeBackgroundLeftText
-                            anchors.fill: parent
-                            anchors.margins: units.gu(2)
-                            color: styleMusic.common.white
-                            fontSize: "large"
-                            horizontalAlignment: Text.AlignRight
-                            text: i18n.tr("Clear")
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                    }
-
-                    Rectangle {
-                        id: swipeBackgroundRight
-                        anchors.right: parent.right
-                        color: styleMusic.mainView.backgroundColor
-                        height: parent.height
-                        width: parent.width / 3
-
-                        Label {
-                            id: swipeBackgroundRightText
-                            anchors.fill: parent
-                            anchors.margins: units.gu(2)
-                            color: styleMusic.common.white
-                            fontSize: "large"
-                            horizontalAlignment: Text.AlignLeft
-                            text: i18n.tr("Clear")
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                    }
-
-                    // Fade out the text in prepartion for removal
-                    ParallelAnimation {
-                        id: swipeDeletePrepareAnimation
-                        running: false
-                        NumberAnimation {
-                            target: swipeBackgroundLeftText
-                            property: "opacity"
-                            to: 0
-                            duration: queuelist.transitionDuration
-                        }
-                        NumberAnimation {
-                            target: swipeBackgroundRightText
-                            property: "opacity"
-                            to: 0
-                            duration: queuelist.transitionDuration
-                        }
-                    }
-
-                    /*
-                     * Animation to remove the swipe object
-                     * - Reduces the height to 0 to 'pull up' the row below
-                     * - On animation finish it removes the item from the model
-                     */
-                    NumberAnimation {
-                        id: swipeDeleteAnimation
-                        target: swipeBackground
-                        properties: "height"
-                        to: 0
-                        duration: queuelist.transitionDuration
-
-                        onRunningChanged: {
-                            if (running == false)
+                    onDeleteStateChanged: {
+                        if (deleteState === true)
+                        {
+                            // Remove the item
+                            if (index == queuelist.currentIndex)
                             {
-                                // Remove the item
-                                if (index == queuelist.currentIndex)
+                                if (queuelist.count > 1)
                                 {
-                                    if (queuelist.count > 1)
-                                    {
-                                        // Next song and only play if currently playing
-                                        nextSong(isPlaying);
-                                    }
-                                    else
-                                    {
-                                        stopSong();
-                                    }
+                                    // Next song and only play if currently playing
+                                    nextSong(isPlaying);
                                 }
-
-                                // Remove item from queue and clear caches
-                                queueChanged = true;
-                                trackQueue.model.remove(index);
-                                currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
+                                else
+                                {
+                                    stopSong();
+                                }
                             }
+
+                            // Remove item from queue and clear caches
+                            queueChanged = true;
+                            trackQueue.model.remove(index);
+                            currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
                         }
                     }
                 }
@@ -306,7 +234,7 @@ Page {
                         // Same so reset state back to normal
                         else
                         {
-                            swipeBackground.state = "normal"
+                            swipeBackground.state = "normal";
                             queuelist.state = "normal";
                         }
                     }
@@ -376,7 +304,7 @@ Page {
                                  * Reduce height of listitem and remove the item
                                  *   (swipeDeleteAnimation [called on queueListItemRemoveAnimation complete])
                                  */
-                                swipeDeletePrepareAnimation.start();  // fade out the clear text
+                                swipeBackground.runSwipeDeletePrepareAnimation();  // fade out the clear text
                                 queueListItemRemoveAnimation.start();  // remove item from listview
                             }
                             else
@@ -430,7 +358,7 @@ Page {
                             // Remove from queue once animation has finished
                             if (running == false)
                             {
-                                swipeDeleteAnimation.start();
+                                swipeBackground.runSwipeDeleteAnimation();
                             }
                         }
                     }

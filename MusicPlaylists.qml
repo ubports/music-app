@@ -290,6 +290,7 @@ PageStack {
             }
 
             property string playlistName: ""
+            property int transitionDuration: 250
 
             Component {
                 id: playlisttrackDelegate
@@ -297,35 +298,130 @@ PageStack {
                     id: playlistTracks
                     icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
-                    removable: true
 
-                    backgroundIndicator: SwipeDelete {
-                        id: swipeDelete
-                        state: swipingState
-                        property string text: i18n.tr("Clear")
-                    }
+                    SwipeDelete {
+                        id: swipeBackground
+                        duration: playlistlist.transitionDuration
 
-                    onFocusChanged: {
-                        if (focus == false) {
-                            selected = false
-                        } else {
-                            selected = false
+                        onDeleteStateChanged: {
+                            if (deleteState === true)
+                            {
+                                console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
+                                Playlists.removeFromPlaylist(playlistlist.playlistName, file);
+                            }
                         }
                     }
-                    onItemRemoved: {
-                        console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
-                        Playlists.removeFromPlaylist(playlistlist.playlistName, file);
+
+                    MouseArea {
+                        id: playlistTrackArea
+                        anchors.fill: parent
+
+                        // Allow dragging on the X axis for swipeDelete if not reordering
+                        drag.target: playlistTracks
+                        drag.axis: Drag.XAxis
+                        drag.minimumX: -playlistTracks.width
+                        drag.maximumX: playlistTracks.width
+
+                        property int startX: playlistTracks.x
+
+                        onClicked: {
+                            customdebug("File: " + file) // debugger
+                            trackClicked(playlisttracksModel, index) // play track
+                        }
+
+                        onMouseXChanged: {
+                            // New X is less than start so swiping left
+                            if (playlistTracks.x < startX)
+                            {
+                                swipeBackground.state = "swipingLeft";
+                            }
+                            // New X is greater sow swiping right
+                            else if (playlistTracks.x > startX)
+                            {
+                                swipeBackground.state = "swipingRight";
+                            }
+                            // Same so reset state back to normal
+                            else
+                            {
+                                swipeBackground.state = "normal";
+                            }
+                        }
+
+                        onPressed: {
+                            startX = playlistTracks.x;
+                        }
+
+                        onPressAndHold: {
+                            customdebug("Pressed and held track playlist "+file)
+                            //PopupUtils.open(playlistPopoverComponent, mainView)
+                        }
+
+                        onReleased: {
+                            if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
+                            {
+                                // Remove if moved > 10 units otherwise reset
+                                if (Math.abs(playlistTracks.x - startX) > units.gu(10))
+                                {
+                                    /*
+                                     * Remove the listitem
+                                     *
+                                     * Remove the listitem to relevant side (playlistTracksRemoveAnimation)
+                                     * Reduce height of listitem and remove the item
+                                     *   (swipeDeleteAnimation [called on playlistTracksRemoveAnimation complete])
+                                     */
+                                    swipeBackground.runSwipeDeletePrepareAnimation();  // fade out the clear text
+                                    playlistTracksRemoveAnimation.start();  // remove item from listview
+                                }
+                                else
+                                {
+                                    /*
+                                     * Reset the listitem
+                                     *
+                                     * Remove the swipeDelete to relevant side (swipeResetAnimation)
+                                     * Reset the listitem to the centre (playlistTracksResetAnimation)
+                                     */
+                                    playlistTracksResetAnimation.start();  // reset item position
+                                }
+                            }
+
+                            // ensure states are normal
+                            swipeBackground.state = "normal";
+                        }
+
+                        // Animation to reset the x, y of the item
+                        ParallelAnimation {
+                            id: playlistTracksResetAnimation
+                            running: false
+                            NumberAnimation {  // reset X
+                                target: playlistTracks
+                                property: "x"
+                                to: playlistTrackArea.startX
+                                duration: playlistlist.transitionDuration
+                            }
+                        }
+
+                        /*
+                         * Animation to remove an item from the list
+                         * - Removes listitem to relevant side
+                         * - Calls swipeDeleteAnimation to delete the listitem
+                         */
+                        NumberAnimation {
+                            id: playlistTracksRemoveAnimation
+                            target: playlistTracks
+                            property: "x"
+                            to: swipeBackground.state == "swipingRight" ? playlistTracks.width : 0 - playlistTracks.width
+                            duration: playlistlist.transitionDuration
+
+                            onRunningChanged: {
+                                // Remove from queue once animation has finished
+                                if (running == false)
+                                {
+                                    swipeBackground.runSwipeDeleteAnimation();
+                                }
+                            }
+                        }
                     }
 
-                    /* Do not use mousearea otherwise swipe delete won't function */
-                    onClicked: {
-                        customdebug("File: " + file) // debugger
-                        trackClicked(playlisttracksModel, index) // play track
-                    }
-                    onPressAndHold: {
-                        customdebug("Pressed and held track playlist "+file)
-                        //PopupUtils.open(playlistPopoverComponent, mainView)
-                    }
 
                     Label {
                         id: trackTitle
