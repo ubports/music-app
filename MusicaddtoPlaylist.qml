@@ -50,22 +50,11 @@ import "playlists.js" as Playlists
          spacing: units.gu(2)
          width: parent.width
 
-         Button {
-             id: newPlaylistItem
-             text: i18n.tr("New playlist")
-             iconSource: "images/add.svg"
-             iconPosition: "left"
-             onClicked: {
-                 customdebug("New playlist.")
-                 PopupUtils.open(newPlaylistDialog, mainView)
-             }
-         }
-
          // show each playlist and make them chosable
          ListView {
              id: addtoPlaylistView
              width: parent.width
-             height: units.gu(30)
+             height: parent.width
              model: playlistModel
              delegate: ListItem.Standard {
                     id: playlist
@@ -88,28 +77,35 @@ import "playlists.js" as Playlists
                         height: parent.height
                         color: get_random_color()
                         x: 0
+                        z: 1
                     }
                     UbuntuShape {
                         id: cover1
-                        width: units.gu(1)
+                        anchors.left: cover0.right
+                        anchors.right: cover2.left
+                        width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: units.gu(6)
+                        x: 50
+                        z: 2
                     }
                     UbuntuShape {
                         id: cover2
                         anchors.left: cover1.right
-                        anchors.right: cover3.left
-                        width: units.gu(1)
+                        width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
+                        x: 50
+                        z: 3
                     }
                     UbuntuShape {
                         id: cover3
-                        width: units.gu(1)
+                        anchors.left: cover2.right
+                        width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: units.gu(8)
+                        x: 50
+                        z: 4
                     }
                     Label {
                         id: playlistName
@@ -127,5 +123,20 @@ import "playlists.js" as Playlists
                     }
              }
          }
+
+         Button {
+             id: newPlaylistItem
+             text: i18n.tr("New playlist")
+             iconSource: "images/add.svg"
+             iconPosition: "left"
+             width: parent.width
+             anchors.top: addtoPlaylistView.bottom
+             anchors.topMargin: units.gu(5)
+             onClicked: {
+                 customdebug("New playlist.")
+                 PopupUtils.open(newPlaylistDialog, mainView)
+             }
+         }
+
      }
  }

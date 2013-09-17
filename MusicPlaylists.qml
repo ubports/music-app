@@ -204,29 +204,37 @@ PageStack {
                            height: parent.height
                            color: get_random_color()
                            x: 0
+                           z: 1
                        }
                        UbuntuShape {
                            id: cover1
-                           width: units.gu(1)
+                           anchors.left: cover0.right
+                           anchors.right: cover2.left
+                           width: units.gu(6)
                            height: parent.height
                            color: get_random_color()
-                           x: units.gu(6)
+                           x: 50
+                           z: 2
                        }
                        UbuntuShape {
                            id: cover2
                            anchors.left: cover1.right
-                           anchors.right: cover3.left
-                           width: units.gu(1)
+                           width: units.gu(6)
                            height: parent.height
                            color: get_random_color()
+                           x: 50
+                           z: 3
                        }
                        UbuntuShape {
                            id: cover3
-                           width: units.gu(1)
+                           anchors.left: cover2.right
+                           width: units.gu(6)
                            height: parent.height
                            color: get_random_color()
-                           x: units.gu(8)
+                           x: 50
+                           z: 4
                        }
+
                        Label {
                            id: playlistName
                            wrapMode: Text.NoWrap
