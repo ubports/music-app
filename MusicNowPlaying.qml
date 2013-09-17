@@ -166,7 +166,7 @@ Page {
                     function hasCrossedCurrent(diff, currentOffset)
                     {
                         // Only crossed if in same direction
-                        if ((diff >= 0 || currentOffset >= 0) && (diff < 0 || currentOffset < 0))
+                        if ((diff > 0 || currentOffset > 0) && (diff <= 0 || currentOffset <= 0))
                         {
                             return false;
                         }
@@ -188,9 +188,15 @@ Page {
                     function getNewIndex(mouseY, index)
                     {
                         var diff = getDiff(mouseY);
-                        var currentOffset = queuelist.currentIndex - index;  // get the current offset
-                        var hasCrossed = hasCrossedCurrent(diff, currentOffset);
                         var negPos = diff < 0 ? -1 : 1;
+                        var currentOffset = queuelist.currentIndex - index;  // get the current offset
+
+                        if (currentOffset < 0)  // when current is less the offset is actually +1
+                        {
+                            currentOffset += 1;
+                        }
+
+                        var hasCrossed = hasCrossedCurrent(diff, currentOffset);
 
                         if (hasCrossed === true)
                         {
