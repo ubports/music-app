@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
 
 ComposerSheet {
     id: musicSettings
@@ -65,11 +66,13 @@ ComposerSheet {
 
     Column {
         spacing: units.gu(2)
+        width: parent.width
 
         // Activate in 1.+
         ListItem.ItemSelector {
             id: equaliser
             enabled: false
+            visible: false
             text: i18n.tr("Equaliser")
             model: [i18n.tr("Default"),
                   i18n.tr("Accoustic"),
@@ -91,91 +94,112 @@ ComposerSheet {
         // Snap to current track
         Row {
             spacing: units.gu(2)
+            width: parent.width
+            anchors.top: equaliser.bottom
             Label {
                 id: snapLabel
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
-                width: units.gu(25)
                 color: styleMusic.musicSettings.labelColor
             }
             Switch {
                 id: snapSwitch
                 checked: Settings.getSetting("snaptrack") === "1"
-                // make it stawy to the right with a certain margin
+                anchors.right: parent.right
             }
         }
 
         // Shuffle or not
         // MOVE THIS TO NEW TOOLBAR
         Row {
+            id: shuffleRow
             spacing: units.gu(2)
+            width: parent.width
             Label {
+                id: shuffleLabel
                 text: i18n.tr("Shuffle")
                 color: styleMusic.musicSettings.labelColor
-                width: units.gu(25)
                 // make it stawy to the right with a certain margin
             }
             Switch {
                 id: shuffleSwitch
                 checked: Settings.getSetting("shuffle") === "1"
-                // make it stawy to the right with a certain margin
+                anchors.right: parent.right
             }
         }
 
         // Accounts
-        Label {
-            text: i18n.tr("Accounts")
-            color: styleMusic.musicSettings.labelColor
-        }
+        Column {
+            id: accountsColumn
+            spacing: units.gu(2)
+            anchors.top: shuffleRow.bottom
+            anchors.topMargin: units.gu(20)
+            Label {
+                text: i18n.tr("Accounts")
+                color: styleMusic.musicSettings.labelColor
+            }
 
-        // lastfm
-        ListItem.Subtitled {
-            id: lasftfmProg
-            text: i18n.tr("Last.fm")
-            subText: i18n.tr("Login to scrobble and \nimport playlists")
-            progression: true
-            enabled: true
-            onClicked: {
-                PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
-                                {
-                                    title: i18n.tr("Last.fm")
-                                } )
-                PopupUtils.close(musicSettings)
+            // lastfm
+            ListItem.Subtitled {
+                id: lasftfmProg
+                text: i18n.tr("Last.fm")
+                subText: i18n.tr("Login to scrobble and \nimport playlists")
+                width: parent.width
+                progression: true
+                enabled: true
+                visible: false
+                onClicked: {
+                    PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Last.fm")
+                                    } )
+                    PopupUtils.close(musicSettings)
+                }
             }
         }
 
         // Music Streaming
         // Activate in 1.+
-        Label {
-            text: i18n.tr("Music Streaming")
-            color: styleMusic.musicSettings.labelColor
-        }
-
         Column {
-            // Ubuntu One
-            ListItem.Subtitled {
-                id: musicStreamProg
-                text: i18n.tr("Ubuntu One")
-                subText: i18n.tr("Sign in to stream your cloud music")
-                enabled: false
-                progression: true
-                onClicked: {
-                    customdebug("I'm Ron Burgendy...?")
-                }
+            id: streamingColumn
+            spacing: units.gu(2)
+            anchors.top: accountsColumn.bottom
+            anchors.topMargin: units.gu(20)
+            Label {
+                text: i18n.tr("Music Streaming")
+                color: styleMusic.musicSettings.labelColor
+                visible: true
             }
 
-            Row {
-                spacing: units.gu(2)
-                Label {
-                    text: i18n.tr("Stream only on Wi-Fi")
-                    color: styleMusic.musicSettings.labelColor
-                    enabled: false // check if account is connected
-                    width: units.gu(25)
+            Column {
+                // Ubuntu One
+                ListItem.Subtitled {
+                    id: musicStreamProg
+                    text: i18n.tr("Ubuntu One")
+                    subText: i18n.tr("Sign in to stream your cloud music")
+                    enabled: false
+                    visible: false
+                    progression: true
+                    onClicked: {
+                        customdebug("I'm Ron Burgendy...?")
+                    }
                 }
-                Switch {
-                    id: wifiSwitch
-                    checked: Settings.getSetting("wifiswitch") === "1"
-                    enabled: false // check if account is connected
-                    // make it stawy to the right with a certain margin
+
+                Row {
+                    spacing: units.gu(2)
+                    Label {
+                        id: streamwifiLabel
+                        text: i18n.tr("Stream only on Wi-Fi")
+                        color: styleMusic.musicSettings.labelColor
+                        enabled: false // check if account is connected
+                        visible: false
+                    }
+                    Switch {
+                        id: wifiSwitch
+                        checked: Settings.getSetting("wifiswitch") === "1"
+                        enabled: false // check if account is connected
+                        visible: false
+                        //anchors.right: parent.right
+                    }
                 }
             }
         }
@@ -204,7 +228,6 @@ ComposerSheet {
             visible: false
             onClicked: {
                 Settings.reset()
-                Library.reset()
                 Playlists.reset()
             }
         }
