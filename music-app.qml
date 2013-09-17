@@ -118,7 +118,7 @@ MainView {
 
         // Check arguments for track
         console.debug("Arguments: Debug? "+args.values.debug+" and file: "+args.values.file )
-        if (args.values.file != 'null') {
+        if (args.values.file) {
             // there's a track in here. Queue it!
             customdebug("Track in queue on startup. Play it!")
             trackQueue.model.append({"file": args.values.file})
