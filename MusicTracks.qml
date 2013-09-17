@@ -161,8 +161,11 @@ PageStack {
                     }
                     Component.onCompleted: {
                         // Set first track as current track
-                        if (trackQueue.model.count === 0 && !args.values.file || model.file == args.values.file ) {
+                        if (trackQueue.model.count === 0 && !args.values.file) {
                             trackClicked(libraryModel, index, false)
+                        }
+                        else if (args.values.file === model.file) {
+                            trackClicked(libraryModel, index, true)
                         }
 
                         console.log("Title:" + title + " Artist: " + artist)
