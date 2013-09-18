@@ -3,7 +3,7 @@ Encoding=UTF-8
 Version=1.0
 Name=Music
 Comment=Ubuntu Touch Music Player
-Exec=/usr/bin/qmlscene /usr/share/music-app/music-app.qml
+Exec=/usr/bin/qmlscene /usr/share/music-app/music-app.qml --file=%u
 Icon=/usr/share/music-app/images/music.png
 Terminal=false
 Type=Application
