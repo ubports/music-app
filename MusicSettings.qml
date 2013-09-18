@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "scrobble.js" as Scrobble
+import "playlists.js" as Playlists
 
 ComposerSheet {
     id: musicSettings
@@ -193,10 +194,10 @@ ComposerSheet {
         Button {
             text: i18n.tr("Clean everything!")
             color: "red"
-            visible: false
+            visible: true
             onClicked: {
-                Settings.reset()
-                Library.reset()
+                //Settings.reset()
+                //Library.reset()
                 Playlists.reset()
             }
         }

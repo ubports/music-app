@@ -129,14 +129,14 @@ function addPlaylist(name) {
 }
 
 // add track to playlist
-function addtoPlaylist(playlist,track,artist,title,album) {
+function addtoPlaylist(playlist,track,artist,title,album,cover,year,number,length,genre) {
     var db = getPlaylistDatabase();
     var res = "";
     var id = getLatestTrackID(playlist);
     var newid = id+1;
 
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?,?);', [newid,playlist,track,artist,title,album]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?,?,?,?,?,?,?);', [newid,playlist,track,artist,title,album,cover,year,number,length,genre]);
               if (rs.rowsAffected > 0) {
                 res = "OK";
               } else {
@@ -188,10 +188,16 @@ function getPlaylistTracks(playlist) {
              console.log("Artist: "+ dbItem.artist);
              console.log("Title: "+ dbItem.title);
              console.log("Album: "+ dbItem.album);
+             console.log("Cover: "+ dbItem.cover);
              res[i] = {'file': dbItem.track,
                        'title': dbItem.title,
                        'artist': dbItem.artist,
                        'album': dbItem.album,
+                       'cover': dbItem.cover,
+                       'year': dbItem.year,
+                       'number': dbItem.number,
+                       'length': dbItem.length,
+                       'genre': dbItem.genre,
                        'id': i};
          }
       })
