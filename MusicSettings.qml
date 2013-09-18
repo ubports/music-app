@@ -92,8 +92,7 @@ ComposerSheet {
         }
 
         // Snap to current track
-        Row {
-            spacing: units.gu(2)
+        Rectangle {
             width: parent.width
             anchors.top: equaliser.bottom
             Label {
@@ -110,9 +109,8 @@ ComposerSheet {
 
         // Shuffle or not
         // MOVE THIS TO NEW TOOLBAR
-        Row {
+        Rectangle {
             id: shuffleRow
-            spacing: units.gu(2)
             width: parent.width
             Label {
                 id: shuffleLabel
@@ -128,9 +126,8 @@ ComposerSheet {
         }
 
         // Accounts
-        Column {
+        Rectangle {
             id: accountsColumn
-            spacing: units.gu(2)
             anchors.top: shuffleRow.bottom
             anchors.topMargin: units.gu(20)
             Label {
@@ -159,9 +156,8 @@ ComposerSheet {
 
         // Music Streaming
         // Activate in 1.+
-        Column {
+        Rectangle {
             id: streamingColumn
-            spacing: units.gu(2)
             anchors.top: accountsColumn.bottom
             anchors.topMargin: units.gu(20)
             Label {
