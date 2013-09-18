@@ -266,11 +266,10 @@ Page {
                     }
 
                     onPressAndHold: {
-                        customdebug("Pressed and held queued track "+file)
-
                         // Must be in a normal state to change to reorder state
-                        if (queuelist.state == "normal" && swipeBackground.state == "normal")
+                        if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
+                            customdebug("Pressed and held queued track "+file)
                             queuelist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
                         }
