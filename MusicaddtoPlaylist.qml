@@ -25,80 +25,118 @@ import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 
+/* NOTE:
+ * Text is barly visible as of right now and a bug report has been filed:
+ * https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1225778
+ *
+ * Wait until the bug is resolved, or move on to use other stuff then ListItems.
+ */
+
 // Page that will be used when adding tracks to playlists
- Page {
+ DefaultSheet {
      id: addtoPlaylist
      title: i18n.tr("Select playlist")
-     anchors.fill: parent
-     visible: false
+     contentsHeight: parent.height;
 
-     onVisibleChanged: {
-         if (visible === true)
-         {
-             header.hide();
-             header.visible = false;
-         }
-         else
-         {
-             header.visible = true;
-             header.show();
-         }
+     onDoneClicked: PopupUtils.close(addtoPlaylist)
+
+     Component.onCompleted:  {
+         // check the four latest track in each playlist
+         // get the cover art of them
+         // print them in the icon
      }
 
-     Rectangle {
-         anchors.fill: parent
-         color: styleMusic.addtoPlaylist.backgroundColor
-         MouseArea {  // Block events to lower layers
-             anchors.fill: parent
-         }
-     }
-
-     // show each playlist and make them chosable
-     ListView {
-         id: addtoPlaylistView
+     Column {
+         spacing: units.gu(2)
          width: parent.width
-         height: units.gu(35)
-         model: playlistModel
-         delegate: ListItem.Standard {
-                text: name +" ("+count+")"
-                onClicked: {
-                    console.debug("Debug: "+chosenTrack+" added to "+name)
-                    Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
-                    var count = Playlists.getPlaylistCount(name)
-                    playlistModel.setProperty(chosenIndex, "count", count) // update number ot tracks in playlist
-                    playerControls.visible = true // show the playercontrols again
-                    addtoPlaylist.visible = false // back to previous page
-                }
-         }
-     }
 
-     Button {
-         id: newPlaylistItem
-         text: i18n.tr("New playlist")
-         anchors.top: addtoPlaylistView.bottom
-         width: parent.width - units.gu(4)
-         iconSource: "images/add.svg"
-         iconPosition: "left"
-         onClicked: {
-             customdebug("New playlist.")
-             PopupUtils.open(newPlaylistDialog, mainView)
-         }
-     }
-
-     Rectangle {
-         id: cancelButton
-         anchors.bottom: parent.bottom
-         height: units.gu(8)
-         width: parent.width
-         color: styleMusic.playerControls.backgroundColor
-         Button {
-             text: i18n.tr("Cancel")
-             anchors.margins: units.gu(2)
-             onClicked: {
-                 playerControls.visible = true // show the playercontrols again
-                 addtoPlaylist.visible = false // back to previous page
-                 // send notification
+         // show each playlist and make them chosable
+         ListView {
+             id: addtoPlaylistView
+             width: parent.width
+             height: parent.width
+             model: playlistModel
+             delegate: ListItem.Standard {
+                    id: playlist
+                    //text: name +" ("+count+")"
+                    property string name: model.name
+                    property string count: model.count
+                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    iconFrame: false
+                    onClicked: {
+                        console.debug("Debug: "+chosenTrack+" added to "+name)
+                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
+                        var count = Playlists.getPlaylistCount(name) // get the new count
+                        playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
+                        onDoneClicked: PopupUtils.close(addtoPlaylist)
+                    }
+                    UbuntuShape {
+                        id: cover0
+                        anchors.right: cover1.left
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 0
+                        z: 1
+                    }
+                    UbuntuShape {
+                        id: cover1
+                        anchors.left: cover0.right
+                        anchors.right: cover2.left
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 2
+                    }
+                    UbuntuShape {
+                        id: cover2
+                        anchors.left: cover1.right
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 3
+                    }
+                    UbuntuShape {
+                        id: cover3
+                        anchors.left: cover2.right
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 4
+                    }
+                    Label {
+                        id: playlistName
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: cover3.right
+                        anchors.leftMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.bottomMargin: 5
+                        anchors.right: parent.right
+                        text: playlist.name + " ("+playlist.count+")"
+                        color: styleMusic.addtoPlaylist.labelColor
+                    }
              }
          }
+
+         Button {
+             id: newPlaylistItem
+             text: i18n.tr("New playlist")
+             iconSource: "images/add.svg"
+             iconPosition: "left"
+             width: parent.width
+             anchors.top: addtoPlaylistView.bottom
+             anchors.topMargin: units.gu(5)
+             onClicked: {
+                 customdebug("New playlist.")
+                 PopupUtils.open(newPlaylistDialog, mainView)
+             }
+         }
+
      }
  }

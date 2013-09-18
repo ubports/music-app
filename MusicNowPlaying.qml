@@ -111,6 +111,10 @@ Page {
 
                     queueChanged = true;
                     trackQueue.model.remove(index);
+
+                    // undo
+                    console.debug("removed :"+index+title+artist+album+file)
+                    undoRemoval("trackQueue.model",index,title,artist,album,file)
                 }
 
                 /* Do not use mousearea otherwise swipe delete won't function */

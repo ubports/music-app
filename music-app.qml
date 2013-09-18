@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
  *                    Daniel Holm <d.holmen@gmail.com>
+ *                    Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +35,24 @@ MainView {
     objectName: "music"
     applicationName: "music-app"
     id: mainView
+
+    // Arguments during startup
+    Arguments {
+        id: args
+        // grab a file
+        Argument {
+            name: "file"
+            help: "URI for track to run at start."
+            required: false
+            valueNames: ["track"]
+        }
+        // Debug/development mode
+        Argument {
+            name: "debug"
+            help: "Start Music in a debug mode. Will show more output."
+            required: false
+        }
+    }
 
     // HUD Actions
     Action {
@@ -74,10 +93,7 @@ MainView {
         keywords: i18n.tr("Music Settings")
         onTriggered: {
             customdebug('Show settings')
-            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
+            musicSettings.visible = true
         }
     }
     Action {
@@ -99,6 +115,7 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
+
         Settings.initialize()
         Library.initialize()
         console.debug("INITIALIZED in tracks")
@@ -171,9 +188,10 @@ MainView {
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
-        var debug = "1"; // set to "0" for not debugging
-        if (debug === "1") {
-	    console.debug("Debug: "+text);
+        //var debug = args.values.debug // check for argument *USE LATER*
+        var debug = "true"; // set to "0" for not debugging
+        if (debug === "true") {
+            console.debug("Debug: "+text);
         }
     }
 
@@ -369,6 +387,24 @@ MainView {
         }
 
         currentCover = Library.hasCover(file) ? file : ""
+    }
+
+    // undo removal function to use when swipe to remove
+    function undoRemoval (listmodel,index,title,artist,album,file) {
+        // show an undo button instead of removed track
+        listmodel.set(index, {"title": i18n.tr("Undo")} )
+        // set the removed track in undo listmodel
+        undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
+    }
+
+    // random color for non-found cover art
+    function get_random_color() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+        return color;
     }
 
     MediaPlayer {
@@ -577,6 +613,11 @@ MainView {
         id: playlisttracksModel
     }
 
+    // ListModel for Undo functionality
+    ListModel {
+        id: undo
+    }
+
 
     Column {
         Repeater {
@@ -670,8 +711,10 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        addtoPlaylist.visible = true
-                        playerControls.visible = false
+                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                        {
+                                            title: i18n.tr("Select playlist")
+                                        } )
                     }
                 }
             }
@@ -1026,7 +1069,6 @@ MainView {
     MusicaddtoPlaylist {
         id: addtoPlaylist
     }
-
     // Converts an duration in ms to a formated string ("minutes:seconds")
     function __durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);

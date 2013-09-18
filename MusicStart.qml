@@ -28,97 +28,104 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
+PageStack {
+    id: pageStack
 
-Page {
-    id: mainpage
-
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
-        }
+    MusicSettings {
+        id: musicSettings
     }
 
-    title: i18n.tr("Music")
+    Page {
+        id: mainpage
 
-    ListItem.Standard {
-        id: recentlyPlayed
-        text: "Recently Played"
-    }
+        tools: ToolbarItems {
+            // Settings dialog
+            ToolbarButton {
+                objectName: "settingsaction"
+                iconSource: Qt.resolvedUrl("images/settings.png")
+                text: i18n.tr("Settings")
 
-    ListView {
-        id: recentlist
-        width: parent.width
-        anchors.top: recentlyPlayed.bottom
-        //anchors.bottom: genres.top
-        spacing: units.gu(2)
-        height: units.gu(13)
-        // TODO: Update when view counts are collected
-        model: albumModel.model
-        delegate: recentDelegate
-        orientation: ListView.Horizontal
-
-        Component {
-            id: recentDelegate
-            Item {
-                id: recentItem
-                height: units.gu(13)
-                width: units.gu(13)
-                UbuntuShape {
-                    id: recentShape
-                    height: recentItem.width
-                    width: recentItem.width
-                    image: Image {
-                        id: icon
-                        fillMode: Image.Stretch
-                        property string artist: model.artist
-                        property string album: model.album
-                        property string title: model.title
-                        property string cover: model.cover
-                        property string length: model.length
-                        property string file: model.file
-                        property string year: model.year
-                        source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
-                    }
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        recentAlbumTracksModel.filterAlbumTracks(album)
-                        trackQueue.model.clear()
-                        addQueueFromModel(recentAlbumTracksModel)
-                        currentModel = recentAlbumTracksModel
-                        currentQuery = recentAlbumTracksModel.query
-                        currentParam = recentAlbumTracksModel.param
-                        var file = trackQueue.model.get(0).file
-                        currentIndex = trackQueue.indexOf(file)
-                        queueChanged = true
-                        player.stop()
-                        player.source = Qt.resolvedUrl(file)
-                        player.play()
-                        nowPlaying.visible = true
-                    }
+                onTriggered: {
+                    console.debug('Debug: Show settings from start page')
+                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                    {
+                                        title: i18n.tr("Settings")
+                                    } )
                 }
             }
         }
+
+        title: i18n.tr("Music")
+
+        ListItem.Standard {
+            id: recentlyPlayed
+            text: "Recently Played"
+        }
+
+        ListView {
+            id: recentlist
+            width: parent.width
+            anchors.top: recentlyPlayed.bottom
+            //anchors.bottom: genres.top
+            spacing: units.gu(2)
+            height: units.gu(13)
+            // TODO: Update when view counts are collected
+            model: albumModel.model
+            delegate: recentDelegate
+            orientation: ListView.Horizontal
+
+            Component {
+                id: recentDelegate
+                Item {
+                    id: recentItem
+                    height: units.gu(13)
+                    width: units.gu(13)
+                    UbuntuShape {
+                        id: recentShape
+                        height: recentItem.width
+                        width: recentItem.width
+                        image: Image {
+                            id: icon
+                            fillMode: Image.Stretch
+                            property string artist: model.artist
+                            property string album: model.album
+                            property string title: model.title
+                            property string cover: model.cover
+                            property string length: model.length
+                            property string file: model.file
+                            property string year: model.year
+                            source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
+                        }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            recentAlbumTracksModel.filterAlbumTracks(album)
+                            trackQueue.model.clear()
+                            addQueueFromModel(recentAlbumTracksModel)
+                            currentModel = recentAlbumTracksModel
+                            currentQuery = recentAlbumTracksModel.query
+                            currentParam = recentAlbumTracksModel.param
+                            var file = trackQueue.model.get(0).file
+                            currentIndex = trackQueue.indexOf(file)
+                            queueChanged = true
+                            player.stop()
+                            player.source = Qt.resolvedUrl(file)
+                            player.play()
+                            nowPlaying.visible = true
+                        }
+                    }
+                }
+            }
+        }
+
+        ListItem.Standard {
+            id: genres
+            anchors.top: recentlist.bottom
+            text: "Genres"
+        }
+
+        // TODO: add music genres. frequency of play? most tracks?
+
     }
-
-    ListItem.Standard {
-        id: genres
-        anchors.top: recentlist.bottom
-        text: "Genres"
-    }
-
-    // TODO: add music genres. frequency of play? most tracks?
-
 }
