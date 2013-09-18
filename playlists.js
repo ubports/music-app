@@ -49,7 +49,7 @@ function initializePlaylist() {
     if (db.version === "1.1") {
         db.changeVersion("1.1","1.2",function(t){
             t.executeSql('DROP TABLE playlist'); // TODO: later, if we need a db version update, we should keep earlier settings. This is just for now.
-            console.debug("DB: Changing version of playlist db to 1.2. by dropping it. SOrry...")
+            console.debug("DB: Changing version of playlist db to 1.2. by dropping it. Sorry...")
         });
     }
     else {
@@ -58,7 +58,7 @@ function initializePlaylist() {
 
     db.transaction(
         function(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(id INTEGER PRIMARY KEY, playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(id INTEGER PRIMARY KEY, playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
       });
 }
 
