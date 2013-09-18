@@ -48,19 +48,21 @@ import "playlists.js" as Playlists
 
      Column {
          spacing: units.gu(2)
+         width: parent.width
 
          // show each playlist and make them chosable
          ListView {
              id: addtoPlaylistView
              width: parent.width
-             height: units.gu(30)
+             height: parent.width
              model: playlistModel
              delegate: ListItem.Standard {
-                    text: name +" ("+count+")"
-                    icon: Qt.resolvedUrl("images/playlist.png")
+                    id: playlist
+                    //text: name +" ("+count+")"
+                    property string name: model.name
+                    property string count: model.count
+                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
                     iconFrame: false
-                    height: units.gu(6)
-                    width: units.gu(48)
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum)
@@ -68,20 +70,73 @@ import "playlists.js" as Playlists
                         playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
+                    UbuntuShape {
+                        id: cover0
+                        anchors.right: cover1.left
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 0
+                        z: 1
+                    }
+                    UbuntuShape {
+                        id: cover1
+                        anchors.left: cover0.right
+                        anchors.right: cover2.left
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 2
+                    }
+                    UbuntuShape {
+                        id: cover2
+                        anchors.left: cover1.right
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 3
+                    }
+                    UbuntuShape {
+                        id: cover3
+                        anchors.left: cover2.right
+                        width: units.gu(6)
+                        height: parent.height
+                        color: get_random_color()
+                        x: 50
+                        z: 4
+                    }
+                    Label {
+                        id: playlistName
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: cover3.right
+                        anchors.leftMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
+                        anchors.bottomMargin: 5
+                        anchors.right: parent.right
+                        text: playlist.name + " ("+playlist.count+")"
+                        color: styleMusic.addtoPlaylist.labelColor
+                    }
              }
          }
 
          Button {
              id: newPlaylistItem
              text: i18n.tr("New playlist")
-             width: units.gu(48)
-             anchors.bottom: addtoPlaylist.bottom
              iconSource: "images/add.svg"
              iconPosition: "left"
+             width: parent.width
+             anchors.top: addtoPlaylistView.bottom
+             anchors.topMargin: units.gu(5)
              onClicked: {
                  customdebug("New playlist.")
                  PopupUtils.open(newPlaylistDialog, mainView)
              }
          }
-    }
+
+     }
  }
