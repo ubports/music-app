@@ -297,6 +297,16 @@ Page {
                                 queueListItem.x = startX;  // ensure X position is correct
                                 trackContainerResetAnimation.start();  // reset the trackContainer
 
+                                // Check that the newIndex is within the range
+                                if (newIndex < 0)
+                                {
+                                    newIndex = 0;
+                                }
+                                else if (newIndex > queuelist.count - 1)
+                                {
+                                    newIndex = queuelist.count - 1;
+                                }
+
                                 console.debug("Move: " + index + " To: " + newIndex);
                                 queuelist.model.move(index, newIndex, 1);  // update the model
                             }

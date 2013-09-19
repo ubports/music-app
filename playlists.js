@@ -181,7 +181,7 @@ function getPlaylistTracks(playlist) {
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=? ORDER BY id ASC;', [playlist]);
          for(var i = 0; i < rs.rows.length; i++) {
              var dbItem = rs.rows.item(i);
              console.log("Track: "+ dbItem.track);
@@ -299,6 +299,35 @@ function reorder(database, removedid, playlist) {
 
     else {
         console.debug("What was that? Issue in reordering.")
+    }
+}
+
+// Move an item in the playlist
+function move(playlist, from, to)
+{
+    var db = getPlaylistDatabase();
+
+    console.debug("Move", playlist, from, to);
+
+    if (to > from)
+    {
+        db.transaction(
+            function(tx) {
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id == ?;", [playlist, from]);
+                tx.executeSql("UPDATE playlist SET id=id-1 WHERE playlist=? AND id <= ? AND ? < id;", [playlist, from, to]);
+                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [playlist, to]);
+            }
+        );
+    }
+    else if (to < from)
+    {
+        db.transaction(
+            function(tx) {
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id == ?;", [playlist, from]);
+                tx.executeSql("UPDATE playlist SET id=id+1 WHERE playlist=? AND id <= ? AND ? < id;", [playlist, to, from]);
+                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [playlist, to]);
+            }
+        );
     }
 }
 

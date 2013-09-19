@@ -338,6 +338,24 @@ PageStack {
             highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
+            state: "normal"
+            states: [
+                State {
+                    name: "normal"
+                    PropertyChanges {
+                        target: playlistlist
+                        interactive: true
+                    }
+                },
+                State {
+                    name: "reorder"
+                    PropertyChanges {
+                        target: playlistlist
+                        interactive: false
+                    }
+                }
+            ]
+
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
                 playlistlist.currentIndex = playlisttracksModel.indexOf(currentFile)
@@ -346,6 +364,7 @@ PageStack {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
+            property int normalHeight: units.gu(6.5)
             property string playlistName: ""
             property int transitionDuration: 250
 
@@ -353,8 +372,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
-                    icon: Library.hasCover(file) ? "image://cover-art/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
-                    iconFrame: false
+                    height: playlistlist.normalHeight
 
                     SwipeDelete {
                         id: swipeBackground
@@ -363,8 +381,10 @@ PageStack {
                         onDeleteStateChanged: {
                             if (deleteState === true)
                             {
-                                console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
+                                console.debug("Remove from playlist: " + playlistlist.playlistName + " id: " + id + " file: " + file);
                                 Playlists.removeFromPlaylist(playlistlist.playlistName, id);
+                                playlistlist.model.remove(index);
+                                queueChanged = true;
                             }
                         }
                     }
@@ -373,13 +393,29 @@ PageStack {
                         id: playlistTrackArea
                         anchors.fill: parent
 
+                        property int startX: playlistTracks.x
+                        property int startY: playlistTracks.y
+                        property int startMouseY: -1
+
                         // Allow dragging on the X axis for swipeDelete if not reordering
                         drag.target: playlistTracks
                         drag.axis: Drag.XAxis
-                        drag.minimumX: -playlistTracks.width
-                        drag.maximumX: playlistTracks.width
+                        drag.minimumX: playlistlist.state == "reorder" ? 0 : -playlistTracks.width
+                        drag.maximumX: playlistlist.state == "reorder" ? 0 : playlistTracks.width
 
-                        property int startX: playlistTracks.x
+                        /* Get the mouse and item difference from the starting positions */
+                        function getDiff(mouseY)
+                        {
+                            return (mouseY - startMouseY) + (playlistTracks.y - startY);
+                        }
+
+                        function getNewIndex(mouseY, index)
+                        {
+                            var diff = getDiff(mouseY);
+                            var negPos = diff < 0 ? -1 : 1;
+
+                            return index + (Math.round(diff / playlistlist.normalHeight));
+                        }
 
                         onClicked: {
                             customdebug("File: " + file) // debugger
@@ -387,6 +423,12 @@ PageStack {
                         }
 
                         onMouseXChanged: {
+                            // Only allow XChange if not in reorder state
+                            if (playlistlist.state == "reorder")
+                            {
+                                return;
+                            }
+
                             // New X is less than start so swiping left
                             if (playlistTracks.x < startX)
                             {
@@ -401,20 +443,72 @@ PageStack {
                             else
                             {
                                 swipeBackground.state = "normal";
+                                playlistlist.state = "normal";
+                            }
+                        }
+
+                        onMouseYChanged: {
+                            // Y change only affects when in reorder mode
+                            if (playlistlist.state == "reorder")
+                            {
+                                /* update the listitem y position so that the
+                                 * listitem horizontalCenter is under the mouse.y */
+                                playlistTracks.y += mouse.y - (playlistTracks.height / 2);
                             }
                         }
 
                         onPressed: {
                             startX = playlistTracks.x;
+                            startY = playlistTracks.y;
+                            startMouseY = mouse.y;
                         }
 
                         onPressAndHold: {
                             customdebug("Pressed and held track playlist "+file)
+                            playlistlist.state = "reorder";  // enable reordering state
+                            trackContainerReorderAnimation.start();
                             //PopupUtils.open(playlistPopoverComponent, mainView)
                         }
 
                         onReleased: {
-                            if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
+                            // Get current state to determine what to do
+                            if (playlistlist.state == "reorder")
+                            {
+                                var newIndex = getNewIndex(mouse.y + (playlistTracks.height / 2), index);  // get new index
+
+                                // Indexes larger than current need -1 because when it is moved the current is removed
+                                if (newIndex > index)
+                                {
+                                    newIndex -= 1;
+                                }
+
+                                if (newIndex === index)
+                                {
+                                    playlistTracksResetAnimation.start();  // reset item position
+                                    trackContainerResetAnimation.start();  // reset the trackContainer
+                                }
+                                else
+                                {
+                                    playlistTracks.x = startX;  // ensure X position is correct
+                                    trackContainerResetAnimation.start();  // reset the trackContainer
+
+                                    // Check that the newIndex is within the range
+                                    if (newIndex < 0)
+                                    {
+                                        newIndex = 0;
+                                    }
+                                    else if (newIndex > playlistlist.count - 1)
+                                    {
+                                        newIndex = playlistlist.count - 1;
+                                    }
+
+                                    console.debug("Move: " + index + " To: " + newIndex);
+                                    Playlists.move(playlistlist.playlistName, index, newIndex);  // update the database
+                                    playlistlist.model.move(index, newIndex, 1);  // update the model
+                                    queueChanged = true;
+                                }
+                            }
+                            else if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
                             {
                                 // Remove if moved > 10 units otherwise reset
                                 if (Math.abs(playlistTracks.x - startX) > units.gu(10))
@@ -443,6 +537,7 @@ PageStack {
 
                             // ensure states are normal
                             swipeBackground.state = "normal";
+                            playlistlist.state = "normal";
                         }
 
                         // Animation to reset the x, y of the item
@@ -453,6 +548,12 @@ PageStack {
                                 target: playlistTracks
                                 property: "x"
                                 to: playlistTrackArea.startX
+                                duration: playlistlist.transitionDuration
+                            }
+                            NumberAnimation {  // reset Y
+                                target: playlistTracks
+                                property: "y"
+                                to: playlistTrackArea.startY
                                 duration: playlistlist.transitionDuration
                             }
                         }
@@ -479,41 +580,83 @@ PageStack {
                         }
                     }
 
-                    Label {
-                        id: trackTitle
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "medium"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.right: parent.right
-                        text: title == "" ? file : title
-                    }
-                    Label {
-                        id: trackArtistAlbum
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: trackTitle.bottom
-                        anchors.right: parent.right
-                        text: artist == "" ? "" : artist + " - " + album
-                    }
                     Rectangle {
-                        id: highlight
-                        anchors.left: parent.left
-                        visible: false
-                        width: units.gu(.75)
-                        height: parent.height
-                        color: styleMusic.listView.highlightColor;
-                    }
-                    states: State {
-                        name: "Current"
-                        when: playlistTracks.ListView.isCurrentItem
-                        PropertyChanges { target: highlight; visible: true }
+                        id: trackContainer;
+                        anchors.fill: parent
+                        anchors.margins: units.gu(0.5)
+                        color: "transparent"
+
+                        NumberAnimation {
+                            id: trackContainerReorderAnimation
+                            target: trackContainer;
+                            property: "anchors.leftMargin";
+                            duration: playlistlist.transitionDuration;
+                            to: units.gu(2)
+                        }
+
+                        NumberAnimation {
+                            id: trackContainerResetAnimation
+                            target: trackContainer;
+                            property: "anchors.leftMargin";
+                            duration: playlistlist.transitionDuration;
+                            to: units.gu(0.5)
+                        }
+
+                        UbuntuShape {
+                            id: trackImage
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(2)
+                            anchors.top: parent.top
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: parent.height
+                            width: height
+                            image: Image {
+                                source: Library.hasCover(file) ? "image://cover-art-full/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
+                            }
+                            UbuntuShape {  // Background so can see text in current state
+                                id: trackBg
+                                anchors.top: parent.top
+                                color: styleMusic.common.black
+                                height: units.gu(6)
+                                opacity: 0
+                                width: parent.width
+                            }
+                        }
+
+                        Label {
+                            id: trackTitle
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(0.5)
+                            color: styleMusic.common.white
+                            elide: Text.ElideRight
+                            height: units.gu(1)
+                            text: title == "" ? file : title
+                            width: parent.width
+                            x: trackImage.x + trackImage.width + units.gu(1)
+                        }
+                        Label {
+                            id: trackArtistAlbum
+                            anchors.top: trackTitle.bottom
+                            anchors.topMargin: units.gu(1)
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: artist == "" ? "" : artist + " - " + album
+                            width: parent.width
+                            x: trackImage.x + trackImage.width + units.gu(1)
+                        }
+                        Rectangle {
+                            id: highlight
+                            anchors.left: parent.left
+                            visible: false
+                            width: units.gu(.75)
+                            height: parent.height
+                            color: styleMusic.listView.highlightColor;
+                        }
+                        states: State {
+                            name: "Current"
+                            when: playlistTracks.ListView.isCurrentItem
+                            PropertyChanges { target: highlight; visible: true }
+                        }
                     }
                 }
             }
