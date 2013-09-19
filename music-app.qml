@@ -191,9 +191,9 @@ MainView {
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
-        var debug = "true"; // set to "0" for not debugging
+        var debug = true; // set to "0" for not debugging
         //if (args.values.debug) { // *USE LATER*
-        if (debug === "true") {
+        if (debug) {
             console.debug("Debug: "+text);
         }
     }
