@@ -161,7 +161,6 @@ PageStack {
 
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        customdebug("Playlists: "+playlist) //debug
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
