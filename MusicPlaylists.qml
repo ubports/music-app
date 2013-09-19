@@ -41,7 +41,7 @@ PageStack {
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + index + " = " + element);
+        customdebug("Playlist #" + element.id + " = " + element.name);
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
     }
 
@@ -194,7 +194,7 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
-                       icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                       // icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
                        iconFrame: false
 
                        UbuntuShape {
@@ -209,7 +209,6 @@ PageStack {
                        UbuntuShape {
                            id: cover1
                            anchors.left: cover0.right
-                           anchors.right: cover2.left
                            width: units.gu(6)
                            height: parent.height
                            color: get_random_color()

@@ -221,7 +221,7 @@ ComposerSheet {
         Button {
             text: i18n.tr("Clean everything!")
             color: "red"
-            visible: false
+            visible: args.values.debug
             onClicked: {
                 Settings.reset()
                 Playlists.reset()
