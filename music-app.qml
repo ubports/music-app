@@ -36,6 +36,24 @@ MainView {
     applicationName: "music-app"
     id: mainView
 
+    // Arguments during startup
+    Arguments {
+        id: args
+        // grab a file
+        Argument {
+            name: "file"
+            help: "URI for track to run at start."
+            required: false
+            valueNames: ["track"]
+        }
+        // Debug/development mode
+        Argument {
+            name: "debug"
+            help: "Start Music in a debug mode. Will show more output."
+            required: false
+        }
+    }
+
     // HUD Actions
     Action {
         id: nextAction
@@ -97,6 +115,7 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
+
         Settings.initialize()
         Library.initialize()
         console.debug("INITIALIZED in tracks")
@@ -169,9 +188,10 @@ MainView {
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
-        var debug = "1"; // set to "0" for not debugging
-        if (debug === "1") {
-	    console.debug("Debug: "+text);
+        //var debug = args.values.debug // check for argument *USE LATER*
+        var debug = "true"; // set to "0" for not debugging
+        if (debug === "true") {
+            console.debug("Debug: "+text);
         }
     }
 
@@ -387,6 +407,15 @@ MainView {
         undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
     }
 
+    // random color for non-found cover art
+    function get_random_color() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+        return color;
+    }
 
     MediaPlayer {
         id: player
