@@ -45,6 +45,38 @@ PageStack {
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
     }
 
+    // Toolbar
+    ToolbarItems {
+        id: playlistToolbar
+        // Add playlist
+        ToolbarButton {
+            id: playlistAction
+            objectName: "playlistaction"
+            iconSource: Qt.resolvedUrl("images/add.svg")
+            text: i18n.tr("New")
+            onTriggered: {
+                console.debug("Debug: User pressed add playlist")
+                // show new playlist dialog
+                PopupUtils.open(newPlaylistDialog, mainView)
+            }
+        }
+
+        // Settings dialog
+        ToolbarButton {
+            objectName: "settingsaction"
+            iconSource: Qt.resolvedUrl("images/settings.png")
+            text: i18n.tr("Settings")
+
+            onTriggered: {
+                console.debug('Debug: Show settings from Playlists')
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
+            }
+        }
+    }
+
     // Remove playlist dialog
     Component {
          id: removePlaylistDialog
@@ -268,50 +300,7 @@ PageStack {
                 }
             }
         }
-
-        tools: ToolbarItems {
-            // import playlist from lastfm
-            ToolbarButton {
-                objectName: "lastfmplaylistaction"
-
-                iconSource: Qt.resolvedUrl("images/lastfm.png")
-                text: i18n.tr("Import")
-                visible: false // only show if scobble is activated
-
-                onTriggered: {
-                    console.debug("Debug: User pressed action to import playlist from lastfm")
-                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-                }
-            }
-
-            // Add playlist
-            ToolbarButton {
-                id: playlistAction
-                objectName: "playlistaction"
-                iconSource: Qt.resolvedUrl("images/playlist.png")
-                text: i18n.tr("New")
-                onTriggered: {
-                    console.debug("Debug: User pressed add playlist")
-                    // show new playlist dialog
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings from Playlists')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
-        }
+        tools: playlistToolbar
     }
 
     // page for the tracks in the playlist
@@ -423,5 +412,7 @@ PageStack {
                 }
             }
         }
+
+        tools: playlistToolbar
     }
 }
