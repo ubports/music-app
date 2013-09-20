@@ -67,10 +67,14 @@ QtObject {
 
     property QtObject addtoPlaylist: QtObject {
         property color backgroundColor: UbuntuColors.coolGrey;
-        property color labelColor: common.white;
+        property color labelColor: common.black;
         property color labelSecondaryColor: "#AAA";
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
+    }
+
+    property QtObject musicSettings: QtObject {
+        property color labelColor: UbuntuColors.coolGrey;
     }
 }
