@@ -767,7 +767,7 @@ MainView {
                              console.debug("Debug: User created a new playlist named: "+playlistName.text)
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text})
+                             playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
