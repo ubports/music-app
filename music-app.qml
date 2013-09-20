@@ -116,6 +116,21 @@ MainView {
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
 
+        customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
+        if (args.values.file) {
+            argFile = args.values.file
+            if (argFile.indexOf("file://") != -1) {
+                //customdebug("arg contained file://")
+                // strip that!
+                argFile = argFile.substring(7)
+            }
+            else {
+                // do nothing
+                customdebug("arg did not contain file://")
+            }
+            customdebug(argFile)
+        }
+
         Settings.initialize()
         Library.initialize()
         console.debug("INITIALIZED in tracks")
@@ -158,6 +173,7 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
+    property string argFile // used for argumented track
 
     property string chosenTrack: ""
     property string chosenTitle: ""
