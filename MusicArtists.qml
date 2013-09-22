@@ -30,6 +30,10 @@ PageStack {
     id: pageStack
     anchors.fill: parent
 
+    MusicSettings {
+        id: musicSettings
+    }
+
     Page {
         id: mainpage
         title: i18n.tr("Artists")

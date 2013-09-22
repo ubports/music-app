@@ -28,15 +28,22 @@ import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 
 // LastFM login dialog
-Dialog {
+DefaultSheet {
     id: lastfmroot
     anchors.fill: parent
 
+    onDoneClicked: PopupUtils.close(lastfmroot)
+
     // Dialog data
     title: i18n.tr("LastFM")
-    text: i18n.tr("Login to be able to scrobble.")
 
-    Row {
+    Column {
+        spacing: units.gu(2)
+
+        Label {
+            text: i18n.tr("Login to be able to scrobble.")
+        }
+
         // Username field
         TextField {
                 id: usernameField
@@ -44,11 +51,9 @@ Dialog {
                 hasClearButton: true
                 placeholderText: i18n.tr("Username")
                 text: lastfmusername
-                width: units.gu(30)
+                width: units.gu(48)
         }
-    }
 
-    Row {
         // add password field
         TextField {
             id: passField
@@ -57,81 +62,32 @@ Dialog {
             placeholderText: i18n.tr("Password")
             text: lastfmpassword
             echoMode: TextInput.Password
-            width: units.gu(30)
+            width: units.gu(48)
         }
-    }
 
-    Row {
         // indicate progress of login
         ActivityIndicator {
             id: activity
+            visible: false
         }
 
         // item to present login result
         ListItem.Standard {
             id: loginstatetext
+            visible: false
         }
 
-        // Model to send the data
-        XmlListModel {
-            id: lastfmlogin
-            query: "/"
-
-            function rpcRequest(request,handler) {
-                console.debug("Debug: Starting to send user credentials")
-                var http = new XMLHttpRequest()
-
-                http.open("POST",Scrobble.scrobble_url,true)
-                http.setRequestHeader("User-Agent", "Music-App/"+appVersion)
-                http.setRequestHeader("Content-type", "text/xml")
-                http.setRequestHeader("Content-length", request.length)
-                http.setRequestHeader("Connection", "close")
-                http.onreadystatechange = function() {
-                    if(http.readyState == 4 && http.status == 200) {
-                        console.debug("Debug: XmlRpc::rpcRequest.onreadystatechange()")
-                        handler(http.responseText)
-                    }
-                }
-                http.send(request)
-            }
-
-            function callHandler(response) {
-                xml = response
-            }
-
-            function call(cmd,params) {
-                console.debug("Debug: XmlRpc.call(",cmd,params,")")
-                var request = ""
-                request += "<?xml version='1.0'?>"
-                request += "<methodCall>"
-                request += "<methodName>" + cmd + "</methodName>"
-                request += "<params>"
-                for (var i=0; i<params.length; i++) {
-                request += "<param><value>"
-                if (typeof(params[i])=="string") {
-                    request += "<string>" + params[i] + "</string>"
-                }
-                if (typeof(params[i])=="number") {
-                    request += "<int>" + params[i] + "</int>"
-                }
-                request += "</value></param>"
-                }
-                request += "</params>"
-                request += "</methodCall>"
-                rpcRequest(request,callHandler)
-            }
-        }
-    }
-
-    // Login button
-    Row {
+        // Login button
         Button {
             id: loginButton
-            width: units.gu(30)
-            text: "Login"
-            color: "#c94212"
+            width: units.gu(48)
+            text: i18n.tr("Login")
+            enabled: false
+
             onClicked: {
+                activity.visible = true
                 activity.running = !activity.running // change the activity indicator state
+                loginstatetext.visible = true
                 loginstatetext.text = i18n.tr("Trying to login...")
                 Settings.initialize()
                 console.debug("Debug: Login to LastFM clicked.")
@@ -139,12 +95,23 @@ Dialog {
                 Settings.setSetting("lastfmusername", usernameField.text) // save lastfm username
                 Settings.setSetting("lastfmpassword", passField.text) // save lastfm password (should be passed by ha hash function)
                 lastfmusername = Settings.getSetting("lastfmusername") // get username again
-                lastfmpassword = Settings.getSetting("lastfmpassword") // get password again
+                lastfmpassword = Settings.getSetting("lastfmpassword") // get password again, for use during the rest of the session
                 if (usernameField.text.length > 0 && passField.text.length > 0) { // make sure something is acually inputed
-                    console.debug("Debug: Sending credentials to authentication function")
-                    var signature = Scrobble.authenticate(usernameField.text, passField.text); // pass the data to authenticate
-                    //lastfmlogin.model
-                    //lastfmlogin.construct()
+                    console.debug("Debug: Sending credentials to authentication function");
+                    var answer = Scrobble.authenticate(usernameField.text, passField.text) // pass credentials to login function
+
+                    // Print result to user
+                    if (answer == "ok") {
+                        loginstatetext.text = i18n.tr("Login Successful")
+                        activity.running = !activity.running // change the activity indicator state
+                        //loginButton.text = "Log out" // later
+                        Settings.setSetting("lastfmsessionkey",Scrobble.session_key)
+                    }
+                    else {
+                        loginstatetext.text = i18n.tr("Login Failed")
+                        activity.running = !activity.running // change the activity indicator state
+                    }
+
                 }
                 else {
                     loginstatetext.text = i18n.tr("You forgot to set your username and/or password")
@@ -152,19 +119,4 @@ Dialog {
             }
         }
     }
-
-    // cancel Button
-    Row {
-        Button {
-            id: cancelButton
-            width: units.gu(30)
-            text: i18n.tr("Close")
-            onClicked: {
-                PopupUtils.close(lastfmroot)
-            }
-        }
-    }
 }
-
-
-

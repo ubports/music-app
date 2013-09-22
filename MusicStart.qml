@@ -27,7 +27,6 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
-
 Page {
     id: mainpage
 
@@ -117,7 +116,5 @@ Page {
         anchors.top: recentlist.bottom
         text: "Genres"
     }
-
     // TODO: add music genres. frequency of play? most tracks?
-
 }
