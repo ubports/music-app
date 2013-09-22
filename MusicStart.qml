@@ -117,4 +117,87 @@ Page {
         text: "Genres"
     }
     // TODO: add music genres. frequency of play? most tracks?
+    ListView {
+        id: genrelist
+        width: parent.width
+        anchors.top: genres.bottom
+        spacing: units.gu(2)
+        height: units.gu(13)
+        model: genreModel.model
+        delegate: genreDelegate
+        orientation: ListView.Horizontal
+
+        Component {
+            id: genreDelegate
+            Item {
+                id: genreItem
+                height: units.gu(13)
+                width: units.gu(13)
+                UbuntuShape {
+                    id: genreShape
+                    height: genreItem.width
+                    width: genreItem.width
+                    image: Image {
+                        id: icon
+                        fillMode: Image.Stretch
+                        property string artist: model.artist
+                        property string album: model.album
+                        property string title: model.title
+                        property string cover: model.cover
+                        property string length: model.length
+                        property string file: model.file
+                        property string year: model.year
+                        property string genre: model.genre
+                        source: cover !== "" ? cover : "images/cover_default.png"
+                    }
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        genreTracksModel.filterGenreTracks(genre)
+                        trackQueue.model.clear()
+                        addQueueFromModel(genreTracksModel)
+                        currentModel = genreTracksModel
+                        currentQuery = genreTracksModel.query
+                        currentParam = genreTracksModel.param
+                        var file = trackQueue.model.get(0).file
+                        currentIndex = trackQueue.indexOf(file)
+                        queueChanged = true
+                        player.stop()
+                        player.source = Qt.resolvedUrl(file)
+                        player.play()
+                        nowPlaying.visible = true
+                    }
+                }
+                UbuntuShape {  // Background so can see text in current state
+                    id: genreBg
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.common.black
+                    height: units.gu(4)
+                    opacity: .75
+                    width: parent.width
+                }
+                Label {
+                    id: genreLabel
+                    anchors.bottom: genreTotal.top
+                    horizontalAlignment: Text.AlignHCenter
+                    color: styleMusic.nowPlaying.labelSecondaryColor
+                    elide: Text.ElideRight
+                    text: genre === "" ? "None" : genre
+                    fontSize: "small"
+                    width: parent.width
+                }
+                Label {
+                    id: genreTotal
+                    anchors.bottom: parent.bottom
+                    horizontalAlignment: Text.AlignHCenter
+                    color: styleMusic.nowPlaying.labelSecondaryColor
+                    elide: Text.ElideRight
+                    text: "(" + model.total + ")"
+                    fontSize: "small"
+                    width: parent.width
+                }
+            }
+        }
+    }
 }

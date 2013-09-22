@@ -135,7 +135,6 @@ MainView {
         }
 
         Settings.initialize()
-        Library.initialize()
         console.debug("INITIALIZED in tracks")
         if (Settings.getSetting("initialized") !== "true") {
             // initialize settings
@@ -145,7 +144,6 @@ MainView {
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
         Library.reset()
-        Library.initialize()
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -177,6 +175,7 @@ MainView {
     property string chosenArtist: ""
     property string chosenAlbum: ""
     property string chosenCover: ""
+    property string chosenGenre: ""
     property int chosenIndex: 0
 
     property string currentArtist: ""
@@ -577,8 +576,8 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
-                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail);
-                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, "1", griloModel.get(i).duration)
+                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
+                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
                 }
             }
 
@@ -614,6 +613,14 @@ MainView {
 
     LibraryListModel {
         id: recentAlbumTracksModel
+    }
+
+    LibraryListModel {
+        id: genreModel
+    }
+
+    LibraryListModel {
+        id: genreTracksModel
     }
 
     // list of tracks on startup. This is just during development
@@ -677,6 +684,7 @@ MainView {
                 libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
+                genreModel.filterGenres()
                 timer.stop()
 
                 // Check if tracks have been found, if none then show message
@@ -713,7 +721,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover})
+                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
                     }
                 }
                 ListItem.Standard {
