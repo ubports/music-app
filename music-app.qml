@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
  *                    Daniel Holm <d.holmen@gmail.com>
+ *                    Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +35,26 @@ MainView {
     objectName: "music"
     applicationName: "music-app"
     id: mainView
+
+    // Arguments during startup
+    Arguments {
+        id: args
+        //defaultArgument.help: "Expects URI of the track to play." // should be used when bug is resolved
+        //defaultArgument.valueNames: ["URI"] // should be used when bug is resolved
+        // grab a file
+        Argument {
+            name: "file"
+            help: "URI for track to run at start."
+            required: false
+            valueNames: ["track"]
+        }
+        // Debug/development mode
+        Argument {
+            name: "debug"
+            help: "Start Music in a debug mode. Will show more output."
+            required: false
+        }
+    }
 
     // HUD Actions
     Action {
@@ -74,10 +95,7 @@ MainView {
         keywords: i18n.tr("Music Settings")
         onTriggered: {
             customdebug('Show settings')
-            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                            {
-                                title: i18n.tr("Settings")
-                            } )
+            musicSettings.visible = true
         }
     }
     Action {
@@ -99,6 +117,23 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
+        customdebug("Arguments on startup: Debug: "+args.values.debug)
+
+        customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
+        if (args.values.file) {
+            argFile = args.values.file
+            if (argFile.indexOf("file://") != -1) {
+                //customdebug("arg contained file://")
+                // strip that!
+                argFile = argFile.substring(7)
+            }
+            else {
+                // do nothing
+                customdebug("arg did not contain file://")
+            }
+            customdebug(argFile)
+        }
+
         Settings.initialize()
         console.debug("INITIALIZED in tracks")
         if (Settings.getSetting("initialized") !== "true") {
@@ -133,6 +168,7 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
+    property string argFile // used for argumented track
 
     property string chosenTrack: ""
     property string chosenTitle: ""
@@ -165,9 +201,10 @@ MainView {
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
-        var debug = "1"; // set to "0" for not debugging
-        if (debug === "1") {
-	    console.debug("Debug: "+text);
+        var debug = true; // set to "0" for not debugging
+        //if (args.values.debug) { // *USE LATER*
+        if (debug) {
+            console.debug("Debug: "+text);
         }
     }
 
@@ -365,6 +402,25 @@ MainView {
         currentCover = trackQueue.model.get(currentIndex).cover !== "" ? trackQueue.model.get(currentIndex).cover : "images/cover_default_icon.png"
     }
 
+    // undo removal function to use when swipe to remove
+    function undoRemoval (listmodel,index,title,artist,album,file) {
+        // show an undo button instead of removed track
+        listmodel.set(index, {"title": i18n.tr("Undo")} )
+        // set the removed track in undo listmodel
+        undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
+    }
+
+    // random color for non-found cover art
+    function get_random_color() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+        return color;
+    }
+
+    // WHERE THE MAGIC HAPPENS
     MediaPlayer {
         id: player
         objectName: "player"
@@ -607,6 +663,11 @@ MainView {
         id: playlisttracksModel
     }
 
+    // ListModel for Undo functionality
+    ListModel {
+        id: undo
+    }
+
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -674,8 +735,10 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        addtoPlaylist.visible = true
-                        playerControls.visible = false
+                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                        {
+                                            title: i18n.tr("Select playlist")
+                                        } )
                     }
                 }
             }
@@ -695,28 +758,32 @@ MainView {
              }
              ListItem.Standard {
                  id: newplaylistoutput
+                 visible: false // should only be visible when an error is made.
              }
 
              Button {
                  text: i18n.tr("Create")
                  onClicked: {
+                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
                          var newList = Playlists.addPlaylist(playlistName.text)
                          if (newList === "OK") {
                              console.debug("Debug: User created a new playlist named: "+playlistName.text)
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text})
+                             playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
+                             newplaylistoutput.visible = true
+                             newplaylistoutput.text = i18n.tr("Error: "+newList)
                          }
 
                          PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
-                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
+                         newplaylistoutput.visible = true
+                         newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
                      }
                 }
              }

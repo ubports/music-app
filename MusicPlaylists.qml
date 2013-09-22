@@ -40,8 +40,40 @@ PageStack {
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + index + " = " + element);
+        customdebug("Playlist #" + element.id + " = " + element.name);
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
+    }
+
+    // Toolbar
+    ToolbarItems {
+        id: playlistToolbar
+        // Add playlist
+        ToolbarButton {
+            id: playlistAction
+            objectName: "playlistaction"
+            iconSource: Qt.resolvedUrl("images/add.svg")
+            text: i18n.tr("New")
+            onTriggered: {
+                console.debug("Debug: User pressed add playlist")
+                // show new playlist dialog
+                PopupUtils.open(newPlaylistDialog, mainView)
+            }
+        }
+
+        // Settings dialog
+        ToolbarButton {
+            objectName: "settingsaction"
+            iconSource: Qt.resolvedUrl("images/settings.png")
+            text: i18n.tr("Settings")
+
+            onTriggered: {
+                console.debug('Debug: Show settings from Playlists')
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
+            }
+        }
     }
 
     // Remove playlist dialog
@@ -160,8 +192,11 @@ PageStack {
 
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        customdebug("Playlists: "+playlist) //debug
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
+    }
+
+    MusicSettings {
+        id: musicSettings
     }
 
     // page for the playlists
@@ -186,10 +221,62 @@ PageStack {
             Component {
                 id: playlistDelegate
                 ListItem.Standard {
-                    id: playlist
-                    icon: Qt.resolvedUrl("images/playlist.png")
-                    iconFrame: false
-                    text: name+" ("+count+")"
+                       id: playlist
+                       property string name: model.name
+                       property string count: model.count
+                       // icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
+                       iconFrame: false
+
+                       UbuntuShape {
+                           id: cover0
+                           anchors.right: cover1.left
+                           width: units.gu(6)
+                           height: parent.height
+                           color: get_random_color()
+                           x: 0
+                           z: 1
+                       }
+                       UbuntuShape {
+                           id: cover1
+                           anchors.left: cover0.right
+                           width: units.gu(6)
+                           height: parent.height
+                           color: get_random_color()
+                           x: 50
+                           z: 2
+                       }
+                       UbuntuShape {
+                           id: cover2
+                           anchors.left: cover1.right
+                           width: units.gu(6)
+                           height: parent.height
+                           color: get_random_color()
+                           x: 50
+                           z: 3
+                       }
+                       UbuntuShape {
+                           id: cover3
+                           anchors.left: cover2.right
+                           width: units.gu(6)
+                           height: parent.height
+                           color: get_random_color()
+                           x: 50
+                           z: 4
+                       }
+
+                       Label {
+                           id: playlistName
+                           wrapMode: Text.NoWrap
+                           maximumLineCount: 1
+                           fontSize: "medium"
+                           anchors.left: cover3.right
+                           anchors.leftMargin: units.gu(2)
+                           anchors.top: parent.top
+                           anchors.topMargin: 5
+                           anchors.bottomMargin: 5
+                           anchors.right: parent.right
+                           text: playlist.name + " ("+playlist.count+")"
+                       }
 
                     onPressAndHold: {
                         customdebug("Pressed and held playlist "+name+" : "+index)
@@ -210,50 +297,7 @@ PageStack {
                 }
             }
         }
-
-        tools: ToolbarItems {
-            // import playlist from lastfm
-            ToolbarButton {
-                objectName: "lastfmplaylistaction"
-
-                iconSource: Qt.resolvedUrl("images/lastfm.png")
-                text: i18n.tr("Import")
-                visible: false // only show if scobble is activated
-
-                onTriggered: {
-                    console.debug("Debug: User pressed action to import playlist from lastfm")
-                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-                }
-            }
-
-            // Add playlist
-            ToolbarButton {
-                id: playlistAction
-                objectName: "playlistaction"
-                iconSource: Qt.resolvedUrl("images/playlist.png")
-                text: i18n.tr("New")
-                onTriggered: {
-                    console.debug("Debug: User pressed add playlist")
-                    // show new playlist dialog
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
-        }
+        tools: playlistToolbar
     }
 
     // page for the tracks in the playlist
@@ -313,7 +357,7 @@ PageStack {
                     }
                     onItemRemoved: {
                         console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
-                        Playlists.removeFromPlaylist(playlistlist.playlistName, file);
+                        Playlists.removeFromPlaylist(playlistlist.playlistName, id);
                     }
 
                     /* Do not use mousearea otherwise swipe delete won't function */
@@ -365,5 +409,7 @@ PageStack {
                 }
             }
         }
+
+        tools: playlistToolbar
     }
 }
