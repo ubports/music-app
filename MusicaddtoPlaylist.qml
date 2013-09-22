@@ -64,7 +64,7 @@ import "playlists.js" as Playlists
                     iconFrame: false
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
-                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,"","","","","")
+                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
                         var count = Playlists.getPlaylistCount(name) // get the new count
                         playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
