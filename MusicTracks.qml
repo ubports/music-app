@@ -161,10 +161,10 @@ PageStack {
                     }
                     Component.onCompleted: {
                         // Set first track as current track
-                        if (trackQueue.model.count === 0 && !args.values.file) {
+                        if (trackQueue.model.count === 0 && !argFile) {
                             trackClicked(libraryModel, index, false)
                         }
-                        else if (args.values.file === model.file) {
+                        else if (argFile === model.file) {
                             trackClicked(libraryModel, index, true)
                         }
 

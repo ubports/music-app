@@ -39,6 +39,8 @@ MainView {
     // Arguments during startup
     Arguments {
         id: args
+        //defaultArgument.help: "Expects URI of the track to play." // should be used when bug is resolved
+        //defaultArgument.valueNames: ["URI"] // should be used when bug is resolved
         // grab a file
         Argument {
             name: "file"
@@ -115,6 +117,22 @@ MainView {
     height: units.gu(75)
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
+        customdebug("Arguments on startup: Debug: "+args.values.debug)
+
+        customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
+        if (args.values.file) {
+            argFile = args.values.file
+            if (argFile.indexOf("file://") != -1) {
+                //customdebug("arg contained file://")
+                // strip that!
+                argFile = argFile.substring(7)
+            }
+            else {
+                // do nothing
+                customdebug("arg did not contain file://")
+            }
+            customdebug(argFile)
+        }
 
         Settings.initialize()
         Library.initialize()
@@ -152,6 +170,7 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
+    property string argFile // used for argumented track
 
     property string chosenTrack: ""
     property string chosenTitle: ""
@@ -183,9 +202,9 @@ MainView {
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
-        //var debug = args.values.debug // check for argument *USE LATER*
-        var debug = "true"; // set to "0" for not debugging
-        if (debug === "true") {
+        var debug = true; // set to "0" for not debugging
+        //if (args.values.debug) { // *USE LATER*
+        if (debug) {
             console.debug("Debug: "+text);
         }
     }
@@ -402,6 +421,7 @@ MainView {
         return color;
     }
 
+    // WHERE THE MAGIC HAPPENS
     MediaPlayer {
         id: player
         objectName: "player"
@@ -730,28 +750,32 @@ MainView {
              }
              ListItem.Standard {
                  id: newplaylistoutput
+                 visible: false // should only be visible when an error is made.
              }
 
              Button {
                  text: i18n.tr("Create")
                  onClicked: {
+                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
                          var newList = Playlists.addPlaylist(playlistName.text)
                          if (newList === "OK") {
                              console.debug("Debug: User created a new playlist named: "+playlistName.text)
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text})
+                             playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
+                             newplaylistoutput.visible = true
+                             newplaylistoutput.text = i18n.tr("Error: "+newList)
                          }
 
                          PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
-                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
-
+                         newplaylistoutput.visible = true
+                         newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
                      }
                 }
              }

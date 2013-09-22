@@ -46,8 +46,7 @@ import "playlists.js" as Playlists
          // print them in the icon
      }
 
-     Column {
-         spacing: units.gu(2)
+     Rectangle {
          width: parent.width
 
          // show each playlist and make them chosable
@@ -61,7 +60,7 @@ import "playlists.js" as Playlists
                     //text: name +" ("+count+")"
                     property string name: model.name
                     property string count: model.count
-                    icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                    //icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
                     iconFrame: false
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
@@ -82,7 +81,6 @@ import "playlists.js" as Playlists
                     UbuntuShape {
                         id: cover1
                         anchors.left: cover0.right
-                        anchors.right: cover2.left
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
