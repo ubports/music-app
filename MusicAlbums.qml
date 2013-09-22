@@ -97,7 +97,7 @@ PageStack {
                             property string length: model.length
                             property string file: model.file
                             property string year: model.year
-                            source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
+                            source: cover !== "" ? cover : "images/cover_default.png"
                         }
                     }
                     Label {
@@ -136,6 +136,7 @@ PageStack {
                             albumtrackslist.album = album
                             albumtrackslist.file = file
                             albumtrackslist.year = year
+                            albumtrackslist.cover = cover
                             pageStack.push(albumpage)
                         }
                     }
@@ -156,6 +157,7 @@ PageStack {
             property string album: ""
             property string file: ""
             property string year: ""
+            property string cover: ""
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -176,7 +178,7 @@ PageStack {
                     height: parent.height
                     width: height
                     image: Image {
-                        source: Library.hasCover(albumtrackslist.file) ? "image://cover-art-full/"+albumtrackslist.file : Qt.resolvedUrl("images/cover_default.png")
+                        source: albumtrackslist.cover !== "" ? albumtrackslist.cover : "images/cover_default.png"
                     }
                 }
                 Label {
@@ -280,6 +282,7 @@ PageStack {
                             chosenAlbum = album
                             chosenTitle = title
                             chosenTrack = file
+                            chosenCover = cover
                         }
                         onClicked: {
                             if (focus == false) {
