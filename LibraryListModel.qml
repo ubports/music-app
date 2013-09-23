@@ -158,4 +158,41 @@ Item {
             worker.sendMessage({'add': add, 'model': libraryModel})
         }
     }
+
+    function filterGenres() {
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
+        console.log("called LibraryListModel::filterGenres()")
+
+        // Save query for queue
+        query = Library.getGenres
+        param = null
+
+        var library = Library.getGenres()
+
+        for ( var key in library ) {
+            var add = library[key];
+            console.log("add.genre: "+add.Genre)
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
+
+    function filterGenreTracks(genre) {
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
+        console.log("called LibraryListModel::filterGenreTracks()")
+
+        // Save query for queue
+        query = Library.getGenreTracks
+        param = genre
+
+        var library = Library.getGenreTracks(genre)
+
+        for ( var key in library ) {
+            var add = library[key];
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
 }

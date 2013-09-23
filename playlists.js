@@ -46,7 +46,7 @@ function initializePlaylist() {
             console.debug("DB: Changing version of playlist db to 1.1 by dropping it.")
         });
     }
-    if (db.version === "1.1") {
+    else if (db.version === "1.1") {
         db.changeVersion("1.1","1.2",function(t){
             t.executeSql('DROP TABLE playlist'); // TODO: later, if we need a db version update, we should keep earlier settings. This is just for now.
             console.debug("DB: Changing version of playlist db to 1.2. by dropping it. Sorry...")
@@ -168,39 +168,33 @@ function getPlaylists() {
 
 // retrieve tracks from playlist
 function getPlaylistTracks(playlist) {
-    console.log("I got "+playlist)
-    var db = getPlaylistDatabase();
+   console.log("I got "+playlist)
+   var db = getPlaylistDatabase();
     var res = [];
 
-    try {
-        db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=? ORDER BY id ASC;', [playlist]);
+   try {
+       db.transaction(function(tx) {
+         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+         for(var i = 0; i < rs.rows.length; i++) {
+             var dbItem = rs.rows.item(i);
+             console.log("Cover: "+ dbItem.cover);
+             res[i] = {'file': dbItem.track,
+                       'title': dbItem.title,
+                       'artist': dbItem.artist,
+                       'album': dbItem.album,
+                       'cover': dbItem.cover,
+                       'year': dbItem.year,
+                       'number': dbItem.number,
+                       'length': dbItem.length,
+                       'genre': dbItem.genre,
+                       'id': dbItem.id};
+         }
+      })
+   } catch(e) {
+       return [];
+   }
 
-            for(var i = 0; i < rs.rows.length; i++)
-            {
-                var dbItem = rs.rows.item(i);
-                console.log("Track: "+ dbItem.track);
-                console.log("Artist: "+ dbItem.artist);
-                console.log("Title: "+ dbItem.title);
-                console.log("Album: "+ dbItem.album);
-                console.log("Cover: "+ dbItem.cover);
-                res[i] = {'file': dbItem.track,
-                          'title': dbItem.title,
-                          'artist': dbItem.artist,
-                          'album': dbItem.album,
-                          'cover': dbItem.cover,
-                          'year': dbItem.year,
-                          'number': dbItem.number,
-                          'length': dbItem.length,
-                          'genre': dbItem.genre,
-                          'id': dbItem.id};
-            }
-        })
-    } catch(e) {
-        return res;
-    }
-
-    return res
+   return res
 }
 
 // retrieve number of tracks in playlist

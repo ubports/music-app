@@ -21,7 +21,6 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -41,8 +40,40 @@ PageStack {
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + index + " = " + element);
+        customdebug("Playlist #" + element.id + " = " + element.name);
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
+    }
+
+    // Toolbar
+    ToolbarItems {
+        id: playlistToolbar
+        // Add playlist
+        ToolbarButton {
+            id: playlistAction
+            objectName: "playlistaction"
+            iconSource: Qt.resolvedUrl("images/add.svg")
+            text: i18n.tr("New")
+            onTriggered: {
+                console.debug("Debug: User pressed add playlist")
+                // show new playlist dialog
+                PopupUtils.open(newPlaylistDialog, mainView)
+            }
+        }
+
+        // Settings dialog
+        ToolbarButton {
+            objectName: "settingsaction"
+            iconSource: Qt.resolvedUrl("images/settings.png")
+            text: i18n.tr("Settings")
+
+            onTriggered: {
+                console.debug('Debug: Show settings from Playlists')
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
+            }
+        }
     }
 
     // Remove playlist dialog
@@ -161,7 +192,6 @@ PageStack {
 
         // get playlists in an array
         var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        customdebug("Playlists: "+playlist) //debug
         playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
@@ -194,7 +224,7 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
-                       icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file
+                       // icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
                        iconFrame: false
 
                        UbuntuShape {
@@ -209,7 +239,6 @@ PageStack {
                        UbuntuShape {
                            id: cover1
                            anchors.left: cover0.right
-                           anchors.right: cover2.left
                            width: units.gu(6)
                            height: parent.height
                            color: get_random_color()
@@ -268,50 +297,7 @@ PageStack {
                 }
             }
         }
-
-        tools: ToolbarItems {
-            // import playlist from lastfm
-            ToolbarButton {
-                objectName: "lastfmplaylistaction"
-
-                iconSource: Qt.resolvedUrl("images/lastfm.png")
-                text: i18n.tr("Import")
-                visible: false // only show if scobble is activated
-
-                onTriggered: {
-                    console.debug("Debug: User pressed action to import playlist from lastfm")
-                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-                }
-            }
-
-            // Add playlist
-            ToolbarButton {
-                id: playlistAction
-                objectName: "playlistaction"
-                iconSource: Qt.resolvedUrl("images/playlist.png")
-                text: i18n.tr("New")
-                onTriggered: {
-                    console.debug("Debug: User pressed add playlist")
-                    // show new playlist dialog
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings from Playlists')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
-        }
+        tools: playlistToolbar
     }
 
     // page for the tracks in the playlist
@@ -587,7 +573,6 @@ PageStack {
                             }
                         }
                     }
-
                     Rectangle {
                         id: trackContainer;
                         anchors.fill: parent
@@ -619,7 +604,7 @@ PageStack {
                             height: parent.height
                             width: height
                             image: Image {
-                                source: Library.hasCover(file) ? "image://cover-art-full/"+file : Qt.resolvedUrl("images/cover_default_icon.png")
+                                source: cover !== "" ? cover :  Qt.resolvedUrl("images/cover_default_icon.png")
                             }
                             UbuntuShape {  // Background so can see text in current state
                                 id: trackBg
@@ -669,5 +654,7 @@ PageStack {
                 }
             }
         }
+
+        tools: playlistToolbar
     }
 }
