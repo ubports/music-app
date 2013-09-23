@@ -52,6 +52,10 @@ function initializePlaylist() {
             console.debug("DB: Changing version of playlist db to 1.2. by dropping it. Sorry...")
         });
     }
+    else {
+        console.debug("DB: No change in playlist.")
+    }
+
     db.transaction(
         function(tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(id INTEGER PRIMARY KEY, playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
