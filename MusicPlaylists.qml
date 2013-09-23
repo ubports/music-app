@@ -224,7 +224,6 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
-                       // icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
                        iconFrame: false
 
                        UbuntuShape {
