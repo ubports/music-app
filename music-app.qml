@@ -161,7 +161,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '0.6'
+    property string appVersion: '0.7'
     property bool isPlaying: false
     property bool random: false
     property bool scrobble: false

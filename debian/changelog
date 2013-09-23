@@ -1,3 +1,19 @@
+music-app (0.7) raring; urgency=low
+
+  * Now uses mediascanner.
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Tue, 23 Sep 2013 19:47:50 -0500
+
+music-app (0.6.5) raring; urgency=low
+
+  * Resolved bug with duplicate removal error of tracks in playlist.
+  * Added support for arguments.
+  * Use sheets for add track to Playlist and Settings.
+  * Fixed issue with toolbar not showing up in Playlists tab.
+  * Clean up and smaller fixes.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Tat, 21 Sep 2013 14:41:50 +0200
+
 music-app (0.6) raring; urgency=low
 
   * New first page with last played tracks and genre.
@@ -7,7 +23,6 @@ music-app (0.6) raring; urgency=low
   * 100th rev!
 
  -- Daniel Holm <d.holmen@gmail.com>  Thu, 03 Sep 2013 21:41:50 +0200
-
 
 music-app (0.5) raring; urgency=low
 
