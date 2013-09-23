@@ -381,8 +381,11 @@ PageStack {
                         onDeleteStateChanged: {
                             if (deleteState === true)
                             {
-                                console.debug("Remove from playlist: " + playlistlist.playlistName + " id: " + id + " file: " + file);
-                                Playlists.removeFromPlaylist(playlistlist.playlistName, id);
+                                console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
+
+                                var realID = Playlists.getRealID(playlistlist.playlistName, index);
+                                Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
+
                                 playlistlist.model.remove(index);
                                 queueChanged = true;
                             }
@@ -503,7 +506,12 @@ PageStack {
                                     }
 
                                     console.debug("Move: " + index + " To: " + newIndex);
-                                    Playlists.move(playlistlist.playlistName, index, newIndex);  // update the database
+
+                                    // get the real IDs and update the database
+                                    var realID = Playlists.getRealID(playlistlist.playlistName, index);
+                                    var realNewID = Playlists.getRealID(playlistlist.playlistName, newIndex);
+                                    Playlists.move(playlistlist.playlistName, realID, realNewID);
+
                                     playlistlist.model.move(index, newIndex, 1);  // update the model
                                     queueChanged = true;
                                 }

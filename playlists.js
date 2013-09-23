@@ -52,10 +52,6 @@ function initializePlaylist() {
             console.debug("DB: Changing version of playlist db to 1.2. by dropping it. Sorry...")
         });
     }
-    else {
-        console.debug("DB: No change in playlist.")
-    }
-
     db.transaction(
         function(tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(id INTEGER PRIMARY KEY, playlist TEXT, track TEXT, artist TEXT, title TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
@@ -88,19 +84,18 @@ function getID() {
 // same thing when adding new tracks, we need the id
 function getLatestTrackID(playlist) {
     var db = getPlaylistDatabase();
-    var res = 0;
+    var res = -1;
 
     try {
         db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT id FROM playlist WHERE playlist=? ORDER BY id DESC LIMIT 1;',[playlist]);
-            for(var i = 0; i < rs.rows.length; i++) {
-                var dbItem = rs.rows.item(i);
-                console.debug("id of latest track in playlist "+ playlist +": " + dbItem.id);
-                res = dbItem.id;
-             }
+            // Get the maximum id for the playlist
+            var rs = tx.executeSql('SELECT MAX(id) FROM playlist WHERE playlist=?;',[playlist]);
+
+            // Set res to max id or -1 if no ids exist
+            res = rs.rows.length === 0 ? -1 : rs.rows.item(0).id;
        })
     } catch(e) {
-        return -1;
+        return res;
     }
 
     console.debug("Print the return: "+res)
@@ -132,20 +127,18 @@ function addPlaylist(name) {
 function addtoPlaylist(playlist,track,artist,title,album,cover,year,number,length,genre) {
     var db = getPlaylistDatabase();
     var res = "";
-    var id = getLatestTrackID(playlist);
-    var newid = id+1;
+    var newId = getLatestTrackID(playlist) + 1;
 
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?,?,?,?,?,?,?);', [newid,playlist,track,artist,title,album,cover,year,number,length,genre]);
-              if (rs.rowsAffected > 0) {
-                res = "OK";
-              } else {
-                res = "Error";
-              }
+    db.transaction(
+        function(tx) {
+            var rs = tx.executeSql('INSERT OR REPLACE INTO playlist VALUES (?,?,?,?,?,?,?,?,?,?,?);', [newId,playlist,track,artist,title,album,cover,year,number,length,genre]);
+
+            res = rs.rowsAffected > 0 ? "OK" : "Error";
         }
-  );
-  // The function returns “OK” if it was successful, or “Error” if it wasn't
-  return res;
+    );
+
+    // The function returns “OK” if it was successful, or “Error” if it wasn't
+    return res;
 }
 
 // This function is used to retrieve a playlist from the database in an array
@@ -175,56 +168,58 @@ function getPlaylists() {
 
 // retrieve tracks from playlist
 function getPlaylistTracks(playlist) {
-   console.log("I got "+playlist)
-   var db = getPlaylistDatabase();
-   var res = new Array();
+    console.log("I got "+playlist)
+    var db = getPlaylistDatabase();
+    var res = [];
 
-   try {
-       db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=? ORDER BY id ASC;', [playlist]);
-         for(var i = 0; i < rs.rows.length; i++) {
-             var dbItem = rs.rows.item(i);
-             console.log("Track: "+ dbItem.track);
-             console.log("Artist: "+ dbItem.artist);
-             console.log("Title: "+ dbItem.title);
-             console.log("Album: "+ dbItem.album);
-             console.log("Cover: "+ dbItem.cover);
-             res[i] = {'file': dbItem.track,
-                       'title': dbItem.title,
-                       'artist': dbItem.artist,
-                       'album': dbItem.album,
-                       'cover': dbItem.cover,
-                       'year': dbItem.year,
-                       'number': dbItem.number,
-                       'length': dbItem.length,
-                       'genre': dbItem.genre,
-                       'id': i};
-         }
-      })
-   } catch(e) {
-       return [];
-   }
+    try {
+        db.transaction(function(tx) {
+            var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=? ORDER BY id ASC;', [playlist]);
 
-   return res
+            for(var i = 0; i < rs.rows.length; i++)
+            {
+                var dbItem = rs.rows.item(i);
+                console.log("Track: "+ dbItem.track);
+                console.log("Artist: "+ dbItem.artist);
+                console.log("Title: "+ dbItem.title);
+                console.log("Album: "+ dbItem.album);
+                console.log("Cover: "+ dbItem.cover);
+                res[i] = {'file': dbItem.track,
+                          'title': dbItem.title,
+                          'artist': dbItem.artist,
+                          'album': dbItem.album,
+                          'cover': dbItem.cover,
+                          'year': dbItem.year,
+                          'number': dbItem.number,
+                          'length': dbItem.length,
+                          'genre': dbItem.genre,
+                          'id': dbItem.id};
+            }
+        })
+    } catch(e) {
+        return res;
+    }
+
+    return res
 }
 
 // retrieve number of tracks in playlist
 function getPlaylistCount(playlist) {
     console.debug("Trying to get count of "+playlist)
-   var db = getPlaylistDatabase();
-   var res = "";
+    var db = getPlaylistDatabase();
+    var res = 0;
 
-   try {
+    try {
        db.transaction(function(tx) {
          var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
          res = rs.rows.length;
       })
-   } catch(e) {
-       return [];
-   }
+    } catch(e) {
+       return res;
+    }
 
-   console.debug("Playlist had: "+res)
-   return res;
+    console.debug("Playlist had: "+res)
+    return res;
 }
 
 // change name of playlist
@@ -248,16 +243,21 @@ function namechangePlaylist(old,nw) {
 function removePlaylist(id,playlist) {
     var db = getPlaylistsDatabase();
     var res = "";
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('DELETE FROM playlists WHERE id=? AND name=?;', [id,playlist]);
-              if (rs.rowsAffected > 0) {
-                  res = "OK";
-                  reorder("playlists", id, playlist); // reorder the ids of playlists
-              } else {
-                  res = "Error";
-              }
+    db.transaction(
+        function(tx) {
+            var rs = tx.executeSql('DELETE FROM playlists WHERE id=? AND name=?;', [id,playlist]);
+
+            if (rs.rowsAffected > 0)
+            {
+                res = "OK";
+                reorder("playlists", id, playlist); // reorder the ids of playlists
+            }
+            else
+            {
+                res = "Error";
+            }
         }
-  );
+    );
   // The function returns “OK” if it was successful, or “Error” if it wasn't
   return res;
 }
@@ -276,6 +276,7 @@ function removeFromPlaylist(playlist, id) {
               }
         }
   );
+
   // The function returns “OK” if it was successful, or “Error” if it wasn't
   return res;
 }
@@ -284,23 +285,52 @@ function removeFromPlaylist(playlist, id) {
 function reorder(database, removedid, playlist) {
     if (database === "playlist") {
         var db = getPlaylistDatabase();
+
         db.transaction(
             function(tx) {
                 tx.executeSql("UPDATE playlist SET id=id -1 WHERE id > ? AND playlist=?;", [removedid,playlist])
-            });
+            }
+        );
     }
     else if (database === "playlists") {
         var db = getPlaylistsDatabase();
+
         db.transaction(
             function(tx) {
                 tx.executeSql("UPDATE playlists SET id=id -1 WHERE id > ?;", [removedid])
-            });
+            }
+        );
     }
-
     else {
         console.debug("What was that? Issue in reordering.")
     }
 }
+
+
+// Get the real ID of an index in the playlist (-1 if doesn't exist/error)
+function getRealID(playlist, index)
+{
+    var db = getPlaylistDatabase();
+    var realID = -1;
+
+    try
+    {
+        db.transaction(
+            function(tx)
+            {
+                var res = tx.executeSql("SELECT id FROM playlist WHERE playlist = ?;", [playlist]);
+                realID = res.rows.item(index).id;
+            }
+        )
+    }
+    catch(e)
+    {
+        return realID;
+    }
+
+    return realID;
+}
+
 
 // Move an item in the playlist
 function move(playlist, from, to)
@@ -313,9 +343,9 @@ function move(playlist, from, to)
     {
         db.transaction(
             function(tx) {
-                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id == ?;", [playlist, from]);
-                tx.executeSql("UPDATE playlist SET id=id-1 WHERE playlist=? AND id <= ? AND ? < id;", [playlist, from, to]);
-                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [playlist, to]);
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id=?;", [playlist, from]);
+                tx.executeSql("UPDATE playlist SET id=id - 1 WHERE playlist=? AND id > ? AND id <= ?;", [playlist, from, to]);
+                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [to, playlist]);
             }
         );
     }
@@ -323,9 +353,9 @@ function move(playlist, from, to)
     {
         db.transaction(
             function(tx) {
-                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id == ?;", [playlist, from]);
-                tx.executeSql("UPDATE playlist SET id=id+1 WHERE playlist=? AND id <= ? AND ? < id;", [playlist, to, from]);
-                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [playlist, to]);
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id = ?;", [playlist, from]);
+                tx.executeSql("UPDATE playlist SET id=id + 1 WHERE playlist=? AND id < ? AND id >= ?;", [playlist, from, to]);
+                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [to, playlist]);
             }
         );
     }
