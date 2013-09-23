@@ -139,7 +139,7 @@ Page {
                         height: parent.height
                         width: height
                         image: Image {
-                            source: Library.hasCover(file) ? "image://cover-art-full/"+file : Qt.resolvedUrl("images/cover_default.png")
+                            source: cover !== "" ? cover : "images/cover_default.png"
                         }
                         UbuntuShape {  // Background so can see text in current state
                             id: trackBg

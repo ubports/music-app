@@ -1,3 +1,9 @@
+music-app (0.7) raring; urgency=low
+
+  * Now uses mediascanner.
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Tue, 23 Sep 2013 19:47:50 -0500
+
 music-app (0.6.5) raring; urgency=low
 
   * Resolved bug with duplicate removal error of tracks in playlist.

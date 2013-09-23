@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import org.nemomobile.folderlistmodel 1.0
+import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
@@ -135,7 +135,6 @@ MainView {
         }
 
         Settings.initialize()
-        Library.initialize()
         console.debug("INITIALIZED in tracks")
         if (Settings.getSetting("initialized") !== "true") {
             // initialize settings
@@ -143,14 +142,8 @@ MainView {
             Settings.setSetting("initialized", "true") // setting to make sure the DB is there
             //Settings.setSetting("scrobble", "0") // default state of shuffle
             //Settings.setSetting("scrobble", "0") // default state of scrobble
-            Settings.setSetting("currentfolder", folderModel.homePath() + "/Music")
         }
         Library.reset()
-        Library.initialize()
-        Settings.setSetting("currentfolder", folderModel.path)
-        folderScannerModel.path = folderModel.path
-        folderScannerModel.nameFilters = ["*.mp3","*.ogg","*.flac","*.wav","*.oga"]
-        timer.start()
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -168,8 +161,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string musicDir: ""
-    property string appVersion: '0.6.5'
+    property string appVersion: '0.7'
     property bool isPlaying: false
     property bool random: false
     property bool scrobble: false
@@ -182,6 +174,8 @@ MainView {
     property string chosenTitle: ""
     property string chosenArtist: ""
     property string chosenAlbum: ""
+    property string chosenCover: ""
+    property string chosenGenre: ""
     property int chosenIndex: 0
 
     property string currentArtist: ""
@@ -195,9 +189,9 @@ MainView {
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
                                            "images/cover_default_icon.png" :
-                                           "image://cover-art/" + currentCover
+                                            currentCover
     property string currentCoverFull: currentCover !== "" ?
-                                          "image://cover-art-full/" + currentCover :
+                                          currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
 
@@ -405,7 +399,7 @@ MainView {
             file = file.slice(7, file.length)
         }
 
-        currentCover = Library.hasCover(file) ? file : ""
+        currentCover = trackQueue.model.get(currentIndex).cover !== "" ? trackQueue.model.get(currentIndex).cover : "images/cover_default_icon.png"
     }
 
     // undo removal function to use when swipe to remove
@@ -547,6 +541,58 @@ MainView {
         }
     }
 
+    GriloModel {
+        id: griloModel
+
+        source: GriloBrowse {
+            id: browser
+            source: "grl-mediascanner"
+            registry: registry
+            metadataKeys: [GriloBrowse.Title]
+            typeFilter: [GriloBrowse.Audio]
+            Component.onCompleted: {
+                console.log(browser.supportedKeys);
+                console.log(browser.slowKeys);
+                refresh();
+                console.log("Refreshing");
+            }
+
+            onAvailableChanged: {
+                console.log("Available ? " + available);
+                if (available === true) {
+                    console.log("griloModel.count " + griloModel.count)
+                }
+            }
+            onBaseMediaChanged: refresh();
+        }
+
+        onCountChanged: {
+            if (count > 0) {
+                timer.start()
+                for (var i = timer.counted; i < griloModel.count; i++)
+                {
+                    var file = griloModel.get(i).url.toString()
+                    if (file.indexOf("file://") == 0)
+                    {
+                        file = file.slice(7, file.length)
+                    }
+                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
+                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
+                }
+            }
+
+        }
+    }
+
+    GriloRegistry {
+        id: registry
+
+        Component.onCompleted: {
+            console.log("Registry is ready");
+            loadAll();
+        }
+    }
+
     LibraryListModel {
         id: libraryModel
     }
@@ -569,28 +615,12 @@ MainView {
         id: recentAlbumTracksModel
     }
 
-    FolderListModel {
-        id: folderModel
-        showDirectories: true
-        filterDirectories: false
-        nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        path: homePath() + "/Music"
-        onPathChanged: {
-            console.log("Path changed: " + folderModel.path)
-        }
+    LibraryListModel {
+        id: genreModel
     }
 
-    FolderListModel {
-        id: folderScannerModel
-        property int count: 0
-        readsMediaMetadata: true
-        isRecursive: true
-        showDirectories: true
-        filterDirectories: false
-        nameFilters: ["*.mp3","*.ogg","*.flac","*.wav","*.oga"] // file types supported.
-        onPathChanged: {
-            console.log("Scanner Path changed: " + folderModel.path)
-        }
+    LibraryListModel {
+        id: genreTracksModel
     }
 
     // list of tracks on startup. This is just during development
@@ -620,7 +650,7 @@ MainView {
 
     // list of single tracks
     ListModel {
-        id: singleTracks
+        id: singleTracksgriloMo
     }
 
     // create the listmodel to use for playlists
@@ -638,33 +668,6 @@ MainView {
         id: undo
     }
 
-
-    Column {
-        Repeater {
-            id: filelist
-            width: parent.width
-            height: parent.height - units.gu(8)
-            anchors.top: parent.top
-            model: folderScannerModel
-
-            Component {
-                id: fileScannerDelegate
-                Rectangle {
-                    Component.onCompleted: {
-                        if (!model.isDir) {
-                            console.log("Debug: Scanner fileDelegate onComplete")
-                            if ("" === trackCover) {
-                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "", trackYear, trackNumber, trackLength)
-                            } else {
-                                Library.setMetadata(filePath, trackTitle, trackArtist, trackAlbum, "image://cover-art/" + filePath, trackYear, trackNumber, trackLength)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -674,13 +677,14 @@ MainView {
 
         onTriggered: {
             console.log("Counted: " + counted)
-            console.log("filelist.count: " + filelist.count)
-            if (counted === filelist.count) {
+            console.log("griloModel.count: " + griloModel.count)
+            if (counted === griloModel.count) {
                 console.log("MOVING ON")
                 Library.writeDb()
                 libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
+                genreModel.filterGenres()
                 timer.stop()
 
                 // Check if tracks have been found, if none then show message
@@ -690,7 +694,7 @@ MainView {
                     libraryEmpty.visible = true;
                 }
             }
-            counted = filelist.count
+            counted = griloModel.count
         }
     }
 
@@ -717,7 +721,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + chosenTitle)
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum})
+                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
                     }
                 }
                 ListItem.Standard {
@@ -1093,6 +1097,7 @@ MainView {
     MusicaddtoPlaylist {
         id: addtoPlaylist
     }
+
     // Converts an duration in ms to a formated string ("minutes:seconds")
     function __durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);

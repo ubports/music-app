@@ -60,11 +60,10 @@ import "playlists.js" as Playlists
                     //text: name +" ("+count+")"
                     property string name: model.name
                     property string count: model.count
-                    //icon: track.cover === "" ? Qt.resolvedUrl("images/cover_default_icon.png") : "image://cover-art/"+file // later
                     iconFrame: false
                     onClicked: {
-                        customdebug(chosenTrack+" added to "+name)
-                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,"","","","","")
+                        console.debug("Debug: "+chosenTrack+" added to "+name)
+                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
                         var count = Playlists.getPlaylistCount(name) // get the new count
                         playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
