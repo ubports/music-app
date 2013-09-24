@@ -42,7 +42,7 @@ function initializePlaylist() {
     // does the user have the latest db scheme?
     if (db.version === "1.0" || db.version === "1.1") {
         db.changeVersion(db.version,"1.2",function(t){
-            t.executeSql('DROP TABLE playlist'); // TODO: later, if we need a db version update, we should keep earlier settings. This is just for now.
+            t.executeSql('DROP TABLE IF EXISTS playlist'); // TODO: later, if we need a db version update, we should keep earlier settings. This is just for now.
             console.debug("DB: Changing version of playlist db to 1.2 by dropping it.")
         });
     }
