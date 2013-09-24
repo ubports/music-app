@@ -335,9 +335,9 @@ function move(playlist, from, to)
     {
         db.transaction(
             function(tx) {
-                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id=?;", [playlist, from]);
-                tx.executeSql("UPDATE playlist SET id=id - 1 WHERE playlist=? AND id > ? AND id <= ?;", [playlist, from, to]);
-                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [to, playlist]);
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE id=?;", [from]);
+                tx.executeSql("UPDATE playlist SET id=id - 1 WHERE id > ? AND id <= ?;", [from, to]);
+                tx.executeSql("UPDATE playlist SET id=? WHERE id=-1;", [to]);
             }
         );
     }
@@ -345,9 +345,14 @@ function move(playlist, from, to)
     {
         db.transaction(
             function(tx) {
-                tx.executeSql("UPDATE playlist SET id=-1 WHERE playlist=? AND id = ?;", [playlist, from]);
-                tx.executeSql("UPDATE playlist SET id=id + 1 WHERE playlist=? AND id < ? AND id >= ?;", [playlist, from, to]);
-                tx.executeSql("UPDATE playlist SET id=? WHERE playlist=? AND id=-1;", [to, playlist]);
+                tx.executeSql("UPDATE playlist SET id=-1 WHERE id=?;", [from]);
+
+                for (var i=from - 1; i >= to; i--)
+                {
+                    tx.executeSql("UPDATE playlist SET id=id + 1 WHERE id=?;", [i]);
+                }
+
+                tx.executeSql("UPDATE playlist SET id=? WHERE id=-1;", [to]);
             }
         );
     }
