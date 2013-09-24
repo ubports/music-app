@@ -18,6 +18,7 @@ Depends: libautopilot-qt,
          libqt5test5,
          python-mock,
          music-app (= ${source:Version}),
-         example-content
+         example-content,
+         ubuntu-ui-toolkit-autopilot
 Description: Autopilot tests for Music App
  This package contains the autopilot tests for the Music App
