@@ -208,13 +208,13 @@ MainView {
         }
     }
 
-    function previousSong() {
-        getSong(-1)
+    function previousSong(startPlaying) {
+        getSong(-1, startPlaying)
     }
 
 
-    function nextSong() {
-        getSong(1)
+    function nextSong(startPlaying) {
+        getSong(1, startPlaying)
     }
 
     function stopSong() {
@@ -222,11 +222,16 @@ MainView {
         player.source = "";  // changing to "" triggers the player to stop and removes the highlight
     }
 
-    function getSong(direction) {
+    function getSong(direction, startPlaying) {
         if (trackQueue.model.count == 0)
         {
             customdebug("No tracks in queue.");
             return;
+        }
+
+        if (startPlaying === undefined)  // default startPlaying to true
+        {
+            startPlaying = true;
         }
 
         if (random) {
@@ -263,7 +268,12 @@ MainView {
         }
         player.stop()  // Add stop so that if same song is selected it restarts
         console.log("Playing: "+player.source)
-        player.play()
+
+        if (startPlaying === true)  // only start the track if told
+        {
+            player.play()
+        }
+
         timestamp = new Date().getTime(); // contains current date and time in Unix time, used to scrobble
         // scrobble it
         if (Settings.getSetting("scrobble") === "1") {

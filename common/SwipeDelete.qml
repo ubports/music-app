@@ -19,35 +19,101 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
+/* SwipeDelete object */
 Rectangle {
-    anchors.fill: parent
-    color: styleMusic.mainView.backgroundColor
+    id: swipeBackground
+    color: "transparent"
+    height: parent.height
+    state: "normal"
+    width: parent.width * 3
+    x: 0 - parent.width  // start out of view
 
-    Label {
-        id: swipeBackgroundText
-        anchors.fill: parent
-        anchors.margins: units.gu(2)
-        color: styleMusic.common.white
-        fontSize: "large"
-        text: parent.text
-        verticalAlignment: Text.AlignVCenter
+    property int duration: 0
+    property bool deleteState: false
+
+    function runSwipeDeletePrepareAnimation()
+    {
+        swipeDeletePrepareAnimation.start();
     }
 
-    states: [
-        State {
-            name: "SwipingRight"
-            PropertyChanges {
-                target: swipeBackgroundText
-                horizontalAlignment: Text.AlignRight
-            }
-        },
+    function runSwipeDeleteAnimation()
+    {
+        swipeDeleteAnimation.start();
+    }
 
-        State {
-            name: "SwipingLeft"
-            PropertyChanges {
-                target: swipeBackgroundText
-                horizontalAlignment: Text.AlignLeft
+    Rectangle {
+        id: swipeBackgroundLeft
+        anchors.left: parent.left
+        color: styleMusic.mainView.backgroundColor
+        height: parent.height
+        width: parent.width / 3
+
+        Label {
+            id: swipeBackgroundLeftText
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            color: styleMusic.common.white
+            fontSize: "large"
+            horizontalAlignment: Text.AlignRight
+            text: i18n.tr("Clear")
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    Rectangle {
+        id: swipeBackgroundRight
+        anchors.right: parent.right
+        color: styleMusic.mainView.backgroundColor
+        height: parent.height
+        width: parent.width / 3
+
+        Label {
+            id: swipeBackgroundRightText
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            color: styleMusic.common.white
+            fontSize: "large"
+            horizontalAlignment: Text.AlignLeft
+            text: i18n.tr("Clear")
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    // Fade out the text in prepartion for removal
+    ParallelAnimation {
+        id: swipeDeletePrepareAnimation
+        running: false
+        NumberAnimation {
+            target: swipeBackgroundLeftText
+            property: "opacity"
+            to: 0
+            duration: swipeBackground.duration
+        }
+        NumberAnimation {
+            target: swipeBackgroundRightText
+            property: "opacity"
+            to: 0
+            duration: swipeBackground.duration
+        }
+    }
+
+    /*
+     * Animation to remove the swipe object
+     * - Reduces the height to 0 to 'pull up' the row below
+     * - On animation finish it removes the item from the model
+     */
+    NumberAnimation {
+        id: swipeDeleteAnimation
+        target: swipeBackground
+        properties: "height"
+        to: 0
+        duration: swipeBackground.duration
+
+        onRunningChanged: {
+            if (running == false)
+            {
+                deleteState = true;
             }
         }
-    ]
+    }
 }
