@@ -70,7 +70,7 @@ PageStack {
             width: parent.width
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            cellHeight: units.gu(18)
+            cellHeight: units.gu(14)
             cellWidth: units.gu(14)
             model: albumModel.model
             delegate: albumDelegate
@@ -79,7 +79,7 @@ PageStack {
                 id: albumDelegate
                 Item {
                     id: albumItem
-                    height: units.gu(17)
+                    height: units.gu(13)
                     width: units.gu(13)
                     anchors.margins: units.gu(1)
                     UbuntuShape {
@@ -98,8 +98,37 @@ PageStack {
                             property string year: model.year
                             source: cover !== "" ? cover : "images/cover_default.png"
                         }
+                        UbuntuShape {  // Background so can see text in current state
+                            id: albumBg
+                            anchors.bottom: parent.bottom
+                            color: styleMusic.common.black
+                            height: units.gu(4)
+                            opacity: .75
+                            width: parent.width
+                        }
+                        Label {
+                            id: albumLabel
+                            anchors.bottom: albumArtist.top
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: album
+                            fontSize: "small"
+                            width: parent.width
+                        }
+                        Label {
+                            id: albumArtist
+                            anchors.bottom: parent.bottom
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: artist
+                            fontSize: "small"
+                            width: parent.width
+                        }
+
                     }
-                    Label {
+                    /*Label {
                         id: albumTitle
                         width: albumItem.width
                         wrapMode: Text.Wrap
@@ -121,7 +150,7 @@ PageStack {
                         anchors.top: albumTitle.bottom
                         anchors.horizontalCenter: albumItem.horizontalCenter
                         text: artist
-                    }
+                    } */
 
                     MouseArea {
                         anchors.fill: parent
