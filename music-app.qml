@@ -22,6 +22,7 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
+import Ubuntu.Powerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -54,6 +55,12 @@ MainView {
             help: "Start Music in a debug mode. Will show more output."
             required: false
         }
+    }
+
+    // Powerd connection
+    Connections {
+        id: powerConnection
+        target: Powerd
     }
 
     // HUD Actions
@@ -496,6 +503,8 @@ MainView {
         onPlaybackStateChanged: {
           mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
           console.log("mainView.isPlaying=" + mainView.isPlaying)
+
+          powerConnection.keepAlive = mainView.isPlaying
         }
     }
 
