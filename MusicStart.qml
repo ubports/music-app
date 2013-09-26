@@ -64,6 +64,10 @@ Page {
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
+        header: ListItem.Standard {
+            id: spacer
+            width: units.gu(2)
+        }
         orientation: ListView.Horizontal
 
         Component {
@@ -88,6 +92,34 @@ Page {
                         property string year: model.year
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
+                }
+                UbuntuShape {  // Background so can see text in current state
+                    id: albumBg
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.common.black
+                    height: units.gu(4)
+                    opacity: .75
+                    width: parent.width
+                }
+                Label {
+                    id: albumLabel
+                    anchors.bottom: albumArtist.top
+                    horizontalAlignment: Text.AlignHCenter
+                    color: styleMusic.nowPlaying.labelSecondaryColor
+                    elide: Text.ElideRight
+                    text: album
+                    fontSize: "small"
+                    width: parent.width
+                }
+                Label {
+                    id: albumArtist
+                    anchors.bottom: parent.bottom
+                    horizontalAlignment: Text.AlignHCenter
+                    color: styleMusic.nowPlaying.labelSecondaryColor
+                    elide: Text.ElideRight
+                    text: artist
+                    fontSize: "small"
+                    width: parent.width
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -125,6 +157,10 @@ Page {
         height: units.gu(13)
         model: genreModel.model
         delegate: genreDelegate
+        header: ListItem.Standard {
+            id: spacer
+            width: units.gu(2)
+        }
         orientation: ListView.Horizontal
 
         Component {

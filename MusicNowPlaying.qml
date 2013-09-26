@@ -422,6 +422,15 @@ Page {
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
                         }
+                        onHeightChanged: {
+                            if (height > units.gu(7)) {
+                                anchors.left = undefined
+                                anchors.horizontalCenter = parent.horizontalCenter
+                            } else {
+                                anchors.left = parent.left
+                                anchors.horizontalCenter = undefined
+                            }
+                        }
                         UbuntuShape {  // Background so can see text in current state
                             id: trackBg
                             anchors.top: parent.top
@@ -686,6 +695,8 @@ Page {
 
         UbuntuShape {  /* TODO: remove when toolbar is implemented */
             id: nowPlayingBackButton
+            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
+            width: height
             anchors.left: parent.left
             anchors.leftMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
@@ -704,10 +715,10 @@ Page {
         }
         UbuntuShape {
             id: backshape_nowplaying
-            height: parent.height - units.gu(3)
+            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
             width: height
             anchors.right: playshape_nowplaying.left
-            anchors.rightMargin: units.gu(2)
+            anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             radius: "none"
             image: Image {
@@ -727,7 +738,7 @@ Page {
         }
         UbuntuShape {
             id: playshape_nowplaying
-            height: parent.height - units.gu(3)
+            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
             width: height
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
@@ -754,10 +765,10 @@ Page {
         }
         UbuntuShape {
             id: forwardshape_nowplaying
-            height: parent.height - units.gu(3)
+            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
             width: height
             anchors.left: playshape_nowplaying.right
-            anchors.leftMargin: units.gu(2)
+            anchors.leftMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             radius: "none"
             image: Image {
@@ -777,6 +788,8 @@ Page {
         }
         UbuntuShape {  /* TODO: remove when toolbar is implemented */
             id: nowPlayingClearQueue
+            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
+            width: height
             anchors.right: parent.right
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter

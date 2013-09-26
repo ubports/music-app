@@ -8,5 +8,6 @@ Icon=/usr/share/music-app/images/music.png
 Terminal=false
 Type=Application
 StartupNotify=true
-X-Ubuntu-Touch=true
+X-Ubuntu-Single-Instance=true
 X-Ubuntu-StageHint=music-app
+X-Ubuntu-Touch=true
