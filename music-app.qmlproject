@@ -17,7 +17,7 @@ Project {
     }
     /* Shows the desktop file in the project view */
     Files {
-        filter: "rules"
+        filter: "*.desktop"
     }
     /* Shows the README files in the project view */
     Files {
