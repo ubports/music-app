@@ -422,6 +422,15 @@ Page {
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
                         }
+                        onHeightChanged: {
+                            if (height > units.gu(7)) {
+                                anchors.left = undefined
+                                anchors.horizontalCenter = parent.horizontalCenter
+                            } else {
+                                anchors.left = parent.left
+                                anchors.horizontalCenter = undefined
+                            }
+                        }
                         UbuntuShape {  // Background so can see text in current state
                             id: trackBg
                             anchors.top: parent.top
