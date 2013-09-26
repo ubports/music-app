@@ -15,6 +15,10 @@ Project {
     ImageFiles {
         directory: "."
     }
+    /* Shows the desktop file in the project view */
+    Files {
+        filter: "*.desktop"
+    }
     /* Shows the README files in the project view */
     Files {
         filter: "README*"

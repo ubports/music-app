@@ -10,4 +10,3 @@ Type=Application
 StartupNotify=true
 X-Ubuntu-Touch=true
 X-Ubuntu-StageHint=music-app
-Name[sv_SE]=Musik

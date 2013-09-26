@@ -81,6 +81,7 @@ PageStack {
          id: removePlaylistDialog
          Dialog {
              id: dialogueRemovePlaylist
+             // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
              title: i18n.tr("Are you sure?")
              text: i18n.tr("This will delete your playlist.")
 
@@ -106,6 +107,7 @@ PageStack {
          id: editPlaylistDialog
          Dialog {
              id: dialogueEditPlaylist
+             // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
              title: i18n.tr("Change name")
              text: i18n.tr("Enter the new name of the playlist.")
              TextField {
@@ -152,6 +154,7 @@ PageStack {
                 }
                 ListItem.Standard {
                     Label {
+                        // TRANSLATORS: this is a also a popup to rename a playlist
                         text: i18n.tr("Change name")
                         color: styleMusic.popover.labelColor
                         fontSize: "large"
