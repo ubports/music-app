@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 9),
                qtdeclarative5-qtquick2-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/music-app
-Vcs-Bzr: https://code.launchpad.net/~ubuntu-calendar-dev/ubuntu-calendar-app/trunk
+Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 
 Package: music-app
 Architecture: all
