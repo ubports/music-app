@@ -71,8 +71,6 @@ class MusicTestCase(AutopilotTestCase):
 
     def _patch_home(self):
         temp_dir = tempfile.mkdtemp()
-        #temp_dir = "/tmp/autopilot-music-app"
-        #os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
@@ -84,24 +82,10 @@ class MusicTestCase(AutopilotTestCase):
         musicpath = home + '/Music'
         mediascannerpath = home + '/.cache/mediascanner'
         os.mkdir(musicpath)
-        #os.mkdir(home + '/.cache/')
-        #os.mkdir(mediascannerpath)
-
-        #need to fake mediascanner in order for tests to work
-        #stop the scanner service
-        os.system("stop mediascanner")
 
         #copy over our index
-        print "home is " + str(home)
-        os.system("ls -al " + str(home))
         shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
                         mediascannerpath)
-        print "cache copied to " + str(mediascannerpath)
-        os.system("ls -al " + str(mediascannerpath))
-
-        #restart the service after
-        #adding cleanup step seems to restart service immeadiately; disabling for now
-        #self.addCleanup(os.system("start mediascanner"))
 
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
@@ -117,19 +101,6 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
-
-        print "music copied to " + str(musicpath)
-        os.system("ls -al " + str(musicpath))
-
-        #DON'T NEED TO DO THIS
-        #patch mediaindex to proper home
-        #print "patching mediaindex to " + str(home)
-        #os.system("cat " + str(mediascannerpath) + "/mediaindex")
-        #print "sed -i 's!home/autopilot-music-app!" + str(home) + "!g' " + str(mediascannerpath) + "/mediaindex"
-        #os.system("sed -i 's!home/autopilot-music-app!" + str(home) + "!g' " + str(mediascannerpath) + "/mediaindex")
-        #os.system("cat " + str(mediascannerpath) + "/mediaindex")
-
-        #sleep(600)
 
     @property
     def main_view(self):
