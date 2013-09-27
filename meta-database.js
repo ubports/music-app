@@ -148,7 +148,7 @@ function getAll() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY artist ASC, album ASC, number ASC");
+        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY artist ASC, album ASC, CAST(number AS int) ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -176,7 +176,7 @@ function getArtistTracks(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC, number ASC", [artist]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -205,7 +205,7 @@ function getAlbumTracks(album) {
     var db = getDatabase();
     console.log("Album: " + album);
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist ASC, album ASC, number ASC", [album]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [album]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -234,7 +234,7 @@ function getGenreTracks(genre) {
     var db = getDatabase();
     console.log("Genre: " + genre);
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist ASC, album ASC, number ASC", [genre]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [genre]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);

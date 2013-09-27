@@ -65,19 +65,46 @@ class MusicTestCase(AutopilotTestCase):
             app_type='qt')
 
     def launch_test_click(self):
-        self.app = self.launch_click_package("com.ubuntu.music-app", emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+        self.app = self.launch_click_package(
+            "com.ubuntu.music-app",
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def _patch_home(self):
-        temp_dir = tempfile.mkdtemp()
+        #temp_dir = tempfile.mkdtemp()
+        temp_dir = "/home/autopilot-music-app"
+        os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
         self.addCleanup(patcher.stop)
 
     def _create_music_library(self):
+        #use fake home
         home = os.environ['HOME']
         musicpath = home + '/Music'
+        mediascannerpath = home + '/.cache/mediascanner'
         os.mkdir(musicpath)
+        #os.mkdir(home + '/.cache/')
+        #os.mkdir(mediascannerpath)
+
+        #need to fake mediascanner in order for tests to work
+        #stop the scanner service
+        os.system("stop mediascanner")
+
+        #backup it's index
+        #shutil.move(, )
+        #copy over our index
+        print "home is " + str(home)
+        os.system("ls -al " + str(home))
+        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
+                        mediascannerpath)
+        print "cache copied to " + str(mediascannerpath)
+        os.system("ls -al " + str(mediascannerpath))
+        #restore the original index after
+
+        #restart the service after
+        #adding cleanup step seems to restart service immeadiately; disabling for now
+        #self.addCleanup(os.system("start mediascanner"))
 
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
@@ -93,6 +120,11 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
+
+        print "music copied to " + str(musicpath)
+        os.system("ls -al " + str(musicpath))
+
+        #sleep(600)
 
     @property
     def main_view(self):
