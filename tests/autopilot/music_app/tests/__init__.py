@@ -70,9 +70,9 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def _patch_home(self):
-        #temp_dir = tempfile.mkdtemp()
-        temp_dir = "/home/autopilot-music-app"
-        os.mkdir(temp_dir)
+        temp_dir = tempfile.mkdtemp()
+        #temp_dir = "/tmp/autopilot-music-app"
+        #os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
@@ -91,8 +91,6 @@ class MusicTestCase(AutopilotTestCase):
         #stop the scanner service
         os.system("stop mediascanner")
 
-        #backup it's index
-        #shutil.move(, )
         #copy over our index
         print "home is " + str(home)
         os.system("ls -al " + str(home))
@@ -100,7 +98,6 @@ class MusicTestCase(AutopilotTestCase):
                         mediascannerpath)
         print "cache copied to " + str(mediascannerpath)
         os.system("ls -al " + str(mediascannerpath))
-        #restore the original index after
 
         #restart the service after
         #adding cleanup step seems to restart service immeadiately; disabling for now
@@ -123,6 +120,14 @@ class MusicTestCase(AutopilotTestCase):
 
         print "music copied to " + str(musicpath)
         os.system("ls -al " + str(musicpath))
+
+        #DON'T NEED TO DO THIS
+        #patch mediaindex to proper home
+        #print "patching mediaindex to " + str(home)
+        #os.system("cat " + str(mediascannerpath) + "/mediaindex")
+        #print "sed -i 's!home/autopilot-music-app!" + str(home) + "!g' " + str(mediascannerpath) + "/mediaindex"
+        #os.system("sed -i 's!home/autopilot-music-app!" + str(home) + "!g' " + str(mediascannerpath) + "/mediaindex")
+        #os.system("cat " + str(mediascannerpath) + "/mediaindex")
 
         #sleep(600)
 
