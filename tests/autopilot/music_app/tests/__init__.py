@@ -70,7 +70,14 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def _patch_home(self):
+        #make a temp dir
         temp_dir = tempfile.mkdtemp()
+        #delete it, and recreate it to the length
+        #required so our patching the db works
+        #require a length of 25
+        shutil.rmtree(temp_dir)
+        temp_dir = temp_dir.ljust(25, 'X')
+        os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
@@ -101,6 +108,21 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
+
+        #do some inline db patching
+        #patch mediaindex to proper home
+        #these values are dependent upon our sampled db
+        relhome = home[1:]
+        dblocation = "home/autopilot-music-app"
+        dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
+        #patch mediaindex
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/mediaindex")
+
+        #patch file indexes
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_0.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_1.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_2.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_3.cfs")
 
     @property
     def main_view(self):
