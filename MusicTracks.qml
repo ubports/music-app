@@ -165,9 +165,6 @@ PageStack {
                         if (trackQueue.model.count === 0 && !argFile) {
                             trackClicked(libraryModel, index, false)
                         }
-                        else if (argFile === model.file) {
-                            trackClicked(libraryModel, index, true)
-                        }
 
                         console.log("Title:" + title + " Artist: " + artist)
                     }
