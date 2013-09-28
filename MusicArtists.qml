@@ -37,6 +37,14 @@ PageStack {
     Page {
         id: mainpage
         title: i18n.tr("Artists")
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(mainpage);
+            }
+        }
+
         Component.onCompleted: {
             pageStack.push(mainpage)
             onPlayingTrackChange.connect(updateHighlight)
@@ -48,29 +56,9 @@ PageStack {
             artisttrackslist.currentIndex = artistTracksModel.indexOf(file)
         }
 
-        tools: ToolbarItems {
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
-        }
-
         ListView {
             id: artistlist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
             model: artistModel.model
             delegate: artistDelegate
 
@@ -122,7 +110,15 @@ PageStack {
     Page {
         id: artistpage
         title: i18n.tr("Tracks")
+        tools: null
         visible: false
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(artistpage, mainpage, pageStack);
+            }
+        }
 
         ListView {
             id: artisttrackslist
@@ -130,10 +126,7 @@ PageStack {
             property string artist: ""
             property string file: ""
             property string cover: ""
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
             highlightFollowsCurrentItem: false
             model: artistTracksModel.model
             delegate: artistTracksDelegate
@@ -260,8 +253,4 @@ PageStack {
             }
         }
     }
-
-
-
 }
-

@@ -37,26 +37,17 @@ PageStack {
     Page {
         id: mainpage
         title: i18n.tr("Albums")
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(mainpage);
+            }
+        }
+
         Component.onCompleted: {
             pageStack.push(mainpage)
             onPlayingTrackChange.connect(updateHighlight)
-        }
-
-        tools: ToolbarItems {
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
-            }
         }
 
         function updateHighlight(file)
@@ -67,9 +58,7 @@ PageStack {
 
         GridView {
             id: albumlist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            anchors.fill: parent
             cellHeight: units.gu(14)
             cellWidth: units.gu(14)
             model: albumModel.model
@@ -176,7 +165,15 @@ PageStack {
     Page {
         id: albumpage
         title: i18n.tr("Tracks")
+        tools: null
         visible: false
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(albumpage, mainpage, pageStack);
+            }
+        }
 
         ListView {
             id: albumtrackslist
@@ -186,10 +183,7 @@ PageStack {
             property string file: ""
             property string year: ""
             property string cover: ""
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
             highlightFollowsCurrentItem: false
             model: albumTracksModel.model
             delegate: albumTracksDelegate

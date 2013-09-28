@@ -37,25 +37,15 @@ PageStack {
 
     Page {
         id: mainpage
+        title: i18n.tr("Music")
 
-        tools: ToolbarItems {
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings from tracks')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(mainpage);
             }
         }
 
-        title: i18n.tr("Music")
         Component.onCompleted: {
             pageStack.push(mainpage)
             onPlayingTrackChange.connect(updateHighlight)
@@ -69,10 +59,7 @@ PageStack {
 
         ListView {
             id: tracklist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
             highlightFollowsCurrentItem: false
             model: libraryModel.model
             delegate: trackDelegate
