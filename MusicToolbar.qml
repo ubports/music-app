@@ -190,6 +190,8 @@ Rectangle {
         currentPage = childPage;
         currentParentPage = parentPage === undefined ? null : parentPage;
         currentPageStack = pageStack === undefined ? null : pageStack;
+
+        backButton.visible = currentPageStack !== null && currentParentPage !== null;
     }
 
     // Show the toolbar
@@ -197,6 +199,30 @@ Rectangle {
     {
         musicToolbarContainer.state = currentPage === nowPlaying ? "full" : "expanded";
         shown = true;
+    }
+
+    /* Temporary Back button */
+    UbuntuShape {
+        id: backButton
+        anchors.left: musicToolbarContainer.left
+        anchors.bottom: musicToolbarContainer.top
+        color: "#F00"
+        height: units.gu(6)
+        width: height
+        visible: false
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            text: "Back"
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                goBack();
+            }
+        }
     }
 
     /* Object which captures mouse drags to show/hide the toolbar */
