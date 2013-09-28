@@ -1,0 +1,22 @@
+[global]
+format=Ubuntu Media Scanner Meta Index 1.0
+
+[media:home/autopilot-music-app/Downloads]
+segments=b6d687cb-c07d-4ea4-83db-d5404b9c9605
+relative-path=home/autopilot-music-app/Downloads
+
+[media:home/autopilot-music-app/Music]
+segments=ea50858c-4b21-4f87-9005-40aa960a84a3
+relative-path=home/autopilot-music-app/Music
+
+[media:home/autopilot-music-app/Pictures]
+segments=520da397-8f8b-4411-8aed-4de7a53bde8c
+relative-path=home/autopilot-music-app/Pictures
+
+[media:home/autopilot-music-app/Videos]
+segments=09756d0b-9d3f-4e6b-8f2f-8525fb99e5db
+relative-path=home/autopilot-music-app/Videos
+
+[media:]
+segments=6fb4ad21-303d-41ad-88ee-925f409accfa
+relative-path=
