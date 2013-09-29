@@ -59,6 +59,7 @@ PageStack {
         ListView {
             id: artistlist
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             model: artistModel.model
             delegate: artistDelegate
 
@@ -127,6 +128,7 @@ PageStack {
             property string file: ""
             property string cover: ""
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: artistTracksModel.model
             delegate: artistTracksDelegate

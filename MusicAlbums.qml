@@ -59,6 +59,7 @@ PageStack {
         GridView {
             id: albumlist
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             cellHeight: units.gu(14)
             cellWidth: units.gu(14)
             model: albumModel.model
@@ -184,6 +185,7 @@ PageStack {
             property string year: ""
             property string cover: ""
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: albumTracksModel.model
             delegate: albumTracksDelegate

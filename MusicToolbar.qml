@@ -25,7 +25,7 @@ import "settings.js" as Settings
 
 Rectangle {
     id: musicToolbarContainer
-    color: styleMusic.common.black
+    color: styleMusic.playerControls.backgroundColor
     height: fullHeight
     state: "minimized"
     width: parent.width
@@ -44,6 +44,7 @@ Rectangle {
     property int minimizedHeight: units.gu(0.5)
     property int expandedHeight: units.gu(8)
     property int fullHeight: units.gu(11)
+    property int mouseAreaOffset: units.gu(2)
 
     // Properties and signals for the toolbar
     property string cachedState: ""
@@ -84,7 +85,7 @@ Rectangle {
                 opacity: 0
             }
         },
-        // State for when the toolbar is hidden
+        // State for when the toolbar is minimized
         State {
             name: "minimized"
             PropertyChanges {
@@ -93,7 +94,7 @@ Rectangle {
             }
             PropertyChanges {
                 target: musicToolbarMouseArea
-                anchors.topMargin: -units.gu(3)  // should allow drag from outside the item
+                anchors.topMargin: -mouseAreaOffset  // should allow drag from outside the item
             }
             PropertyChanges {
                 target: musicToolbarSmallProgressBackground

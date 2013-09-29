@@ -60,6 +60,7 @@ PageStack {
         ListView {
             id: tracklist
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: libraryModel.model
             delegate: trackDelegate

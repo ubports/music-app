@@ -80,6 +80,7 @@ Page {
     ListView {
         id: queuelist
         anchors.fill: parent
+        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false

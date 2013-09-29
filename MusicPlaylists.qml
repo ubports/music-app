@@ -182,6 +182,7 @@ PageStack {
         ListView {
             id: playlistslist
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             model: playlistModel
             delegate: playlistDelegate
             onCountChanged: {
@@ -297,6 +298,7 @@ PageStack {
         ListView {
             id: playlistlist
             anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
