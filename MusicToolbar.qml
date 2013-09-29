@@ -686,8 +686,11 @@ Rectangle {
 
                 // Mouse events for the progress bar
                 MouseArea {
-                    anchors.fill: parent
                     id: musicToolbarFullProgressMouseArea
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: units.gu(2)
+                    width: parent.width
                     onMouseXChanged: {
                         musicToolbarFullProgressBarContainer.setSliderPosition(mouseX)
                     }
@@ -730,7 +733,8 @@ Rectangle {
             /* Shuffle button */
             UbuntuShape {
                 id: nowPlayingShuffleButton
-                anchors.left: parent.left
+                anchors.right: nowPlayingPreviousButton.left
+                anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
@@ -755,8 +759,8 @@ Rectangle {
             /* Previous button */
             UbuntuShape {
                 id: nowPlayingPreviousButton
-                anchors.left: nowPlayingShuffleButton.right
-                anchors.leftMargin: units.gu(1)
+                anchors.right: nowPlayingPlayButton.left
+                anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
@@ -781,8 +785,7 @@ Rectangle {
             /* Play/Pause button */
             UbuntuShape {
                 id: nowPlayingPlayButton
-                anchors.left: nowPlayingPreviousButton.right
-                anchors.leftMargin: units.gu(1)
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
