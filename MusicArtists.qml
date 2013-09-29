@@ -123,7 +123,6 @@ PageStack {
 
         ListView {
             id: artisttrackslist
-            clip: true
             property string artist: ""
             property string file: ""
             property string cover: ""
