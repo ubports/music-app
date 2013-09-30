@@ -1,4 +1,4 @@
-# Latvian translation for music-app
+# Greek translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-29 10:48+0000\n"
-"Last-Translator: Klavs Anson <anson.klavs@gmail.com>\n"
-"Language-Team: Latvian <lv@li.org>\n"
+"PO-Revision-Date: 2013-09-29 21:15+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../LoginLastFM.qml:38
 msgid "LastFM"
-msgstr "LastFM"
+msgstr ""
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
@@ -27,114 +27,114 @@ msgstr ""
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Lietotājvārds"
+msgstr ""
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Parole"
+msgstr ""
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Pieteikties"
+msgstr ""
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr "Mēģina pieslēgies..."
+msgstr ""
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr "Pieslēgšanās Veiksmīga"
+msgstr ""
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr "Pieslēgšanās Neizdevās"
+msgstr ""
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
-msgstr "Jūs aizmirsāt iestatīt savu lietotājvārdu un/vai paroli"
+msgstr ""
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Albumi"
+msgstr ""
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Iestatījumi"
+msgstr ""
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Celiņi"
+msgstr ""
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
-msgstr "Izpildītāji"
+msgstr ""
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Atpakaļ"
+msgstr ""
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Notīrīt"
+msgstr ""
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Jauns"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr "Vai esat pārliecināts?"
+msgstr ""
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr "Šis izdzēsīs jūsu atskaņošanas sarakstu."
+msgstr ""
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Izdzēst"
+msgstr ""
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Atcelt"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Nomainīt vārdu"
+msgstr ""
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr "Ierakstiet jauno atskaņošanas saraksta vārdu."
+msgstr ""
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Izmainīt"
+msgstr ""
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr "Jūs naierakstijāt vārdu."
+msgstr ""
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Atskaņošanas saraksti"
+msgstr ""
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Atskaņošanas saraksts"
+msgstr ""
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
-msgstr "Ekvalaizers"
+msgstr ""
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Noklusējuma"
+msgstr ""
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
@@ -142,7 +142,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Klasiskā mūzika"
+msgstr ""
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
