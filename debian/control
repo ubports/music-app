@@ -8,7 +8,7 @@ Homepage: https://launchpad.net/music-app
 
 Package: music-app
 Architecture: all
-Depends: ${misc:Depends},grilo-plugins-0.2-mediascanner,qtdeclarative5-qtgrilo0.1,qtdeclarative5-qtpowerd0.1 (>= 0.1~),qtdeclarative5-localstorage-plugin,qtdeclarative5-particles-plugin,qtdeclarative5-qtmultimedia-plugin,qtdeclarative5-qtquick2-plugin,qtdeclarative5-ubuntu-ui-toolkit-plugin|qt-components-ubuntu,qtdeclarative5-window-plugin,qtdeclarative5-xmllistmodel-plugin,${shlibs:Depends},qmlscene
+Depends: ${misc:Depends},grilo-plugins-0.2-mediascanner,qtdeclarative5-qtgrilo0.1,qtdeclarative5-qtpowerd0.1 (>= 0.2~),qtdeclarative5-localstorage-plugin,qtdeclarative5-particles-plugin,qtdeclarative5-qtmultimedia-plugin,qtdeclarative5-qtquick2-plugin,qtdeclarative5-ubuntu-ui-toolkit-plugin|qt-components-ubuntu,qtdeclarative5-window-plugin,qtdeclarative5-xmllistmodel-plugin,${shlibs:Depends},qmlscene
 Description: Music player for Ubuntu Touch
  Touch enabled music player for Ubuntu
 
