@@ -1,4 +1,4 @@
-# Catalan translation for music-app
+# French translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-27 05:43+0000\n"
-"Last-Translator: David Planella <david.planella@ubuntu.com>\n"
-"Language-Team: Catalan <ca@li.org>\n"
+"PO-Revision-Date: 2013-09-30 20:19+0000\n"
+"Last-Translator: Vallet Loïc <eagleofdeath13@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-28 05:56+0000\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:41+0000\n"
 "X-Generator: Launchpad (build 16774)\n"
 
 #: ../LoginLastFM.qml:38
@@ -23,50 +23,51 @@ msgstr "LastFM"
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Se connecter pour pouvoir Scrobbler."
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Nom d'usuari"
+msgstr "Identifiant"
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Contrasenya"
+msgstr "Mot de passe"
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Inicia la sessió"
+msgstr "Se connecter"
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr ""
+msgstr "Connexion en cours..."
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr ""
+msgstr "Connexion réussie"
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr ""
+msgstr "La connexion a échoué"
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
 msgstr ""
+"Vous avez oublié de spécifier votre identifiant et/ou votre mot de passe"
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Àlbums"
+msgstr "Albums"
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Paràmetres"
+msgstr "Paramètres"
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Temes"
+msgstr "Morceaux"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
@@ -74,83 +75,83 @@ msgstr "Artistes"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Enrere"
+msgstr "Retour"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Esborra"
+msgstr "Vider"
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Nou"
+msgstr "Nouveau"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr ""
+msgstr "Êtes-vous sûr(e) ?"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "Votre liste de lecture va être supprimée."
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Suprimeix-la"
+msgstr "Retirer"
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr "Annuler"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Canvia el nom"
+msgstr "Renommer la liste de lecture"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Entrez le nouveau nom de la liste de lecture."
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Canvia"
+msgstr "Modifier"
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "Vous n'avez entré aucun nom."
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Llistes de reproducció"
+msgstr "Listes de lecture"
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Llista de reproducció"
+msgstr "Liste de lecture"
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
-msgstr "Equalitzador"
+msgstr "Égaliseur"
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Per defecte"
+msgstr "Par défaut"
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
-msgstr "Acústica"
+msgstr "Accoustique"
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Clàssica"
+msgstr "Classique"
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
-msgstr "Electrònica"
+msgstr "Électronique"
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr "Pla"
+msgstr "Plat"
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
@@ -162,7 +163,7 @@ msgstr "Jazz"
 
 #: ../MusicSettings.qml:84
 msgid "Metal"
-msgstr "Metal"
+msgstr "Métal"
 
 #: ../MusicSettings.qml:85
 msgid "Pop"
@@ -174,7 +175,7 @@ msgstr "Rock"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
-msgstr "Personalitzada"
+msgstr "Personnalisé"
 
 #: ../MusicSettings.qml:100
 msgid ""
@@ -184,7 +185,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
-msgstr "Ordre aleatori"
+msgstr "Aléatoire"
 
 #: ../MusicSettings.qml:134
 msgid "Accounts"
@@ -199,10 +200,12 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
+"Se connecter pour Scrobbler et \n"
+"importer les liste de lecture"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"
-msgstr ""
+msgstr "Streaming de musique"
 
 #: ../MusicSettings.qml:173
 msgid "Ubuntu One"
@@ -218,92 +221,92 @@ msgstr ""
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
-msgstr ""
+msgstr "Tout nettoyer !"
 
 #: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
 #: ../music-app.qml:821 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Música"
+msgstr "Musique"
 
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
 msgid "Select playlist"
-msgstr ""
+msgstr "Sélectionner une liste de lecture"
 
 #: ../MusicaddtoPlaylist.qml:126
 msgid "New playlist"
-msgstr "Llista de reproducció nova"
+msgstr "Nouvelle liste de lecture"
 
 #: ../music-app.qml:62
 msgid "Next"
-msgstr "Següent"
+msgstr "Suivant"
 
 #: ../music-app.qml:63
 msgid "Next Track"
-msgstr ""
+msgstr "Morceau suivant"
 
 #: ../music-app.qml:69
 msgid "Pause"
-msgstr "Posa en pausa"
+msgstr "Pause"
 
 #: ../music-app.qml:69
 msgid "Play"
-msgstr "Reprodueix"
+msgstr "Lecture"
 
 #: ../music-app.qml:71
 msgid "Pause Playback"
-msgstr ""
+msgstr "Mettre en pause"
 
 #: ../music-app.qml:71
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Continuer ou démarrer la lecture"
 
 #: ../music-app.qml:82
 msgid "Previous"
-msgstr "Anterior"
+msgstr "Précédent"
 
 #: ../music-app.qml:83
 msgid "Previous Track"
-msgstr ""
+msgstr "Morceau précédent"
 
 #: ../music-app.qml:88
 msgid "Stop"
-msgstr "Atura"
+msgstr "Arrêt"
 
 #: ../music-app.qml:89
 msgid "Stop Playback"
-msgstr "Atura la reproducció"
+msgstr "Arrêter la lecture"
 
 #: ../music-app.qml:95
 msgid "Music Settings"
-msgstr "Paràmetres de la música"
+msgstr ""
 
 #: ../music-app.qml:103
 msgid "Quit"
-msgstr "Surt"
+msgstr "Quitter"
 
 #: ../music-app.qml:104
 msgid "Close application"
-msgstr ""
+msgstr "Fermer l'application"
 
 #: ../music-app.qml:418
 msgid "Undo"
-msgstr "Desfés"
+msgstr "Annuler"
 
 #: ../music-app.qml:725
 msgid "Add to queue"
-msgstr ""
+msgstr "Ajouter à la file d'attente"
 
 #: ../music-app.qml:739
 msgid "Add to playlist"
-msgstr "Afegeix a la llista de reproducció"
+msgstr "Ajouter à la liste de lecture"
 
 #: ../music-app.qml:763
 msgid "New Playlist"
-msgstr "Llista de reproducció nova"
+msgstr "Nouvelle liste de lecture"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr ""
+msgstr "Nommez votre liste de lecture."
 
 #: ../music-app.qml:767
 msgid "Name"
@@ -311,16 +314,16 @@ msgstr "Nom"
 
 #: ../music-app.qml:775
 msgid "Create"
-msgstr ""
+msgstr "Créer"
 
 #: ../music-app.qml:789
 msgid "Error: "
-msgstr ""
+msgstr "Erreur : "
 
 #: ../music-app.qml:796
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Erreur : vous n'avez entré aucun nom."
 
 #: ../music-app.qml:860
 msgid "Songs"
-msgstr ""
+msgstr "Morceaux"

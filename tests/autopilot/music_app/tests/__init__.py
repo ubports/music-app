@@ -37,6 +37,7 @@ class MusicTestCase(AutopilotTestCase):
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
+    installed_location = "/usr/share/music-app/music-app.qml"
 
     def setUp(self):
         self._patch_home()
@@ -45,8 +46,10 @@ class MusicTestCase(AutopilotTestCase):
         super(MusicTestCase, self).setUp()
         if os.path.exists(self.local_location):
             self.launch_test_local()
-        else:
+        elif os.path.exists(self.installed_location):
             self.launch_test_installed()
+        else:
+            self.launch_test_click()
 
     def launch_test_local(self):
         self.app = self.launch_test_application(
@@ -57,41 +60,69 @@ class MusicTestCase(AutopilotTestCase):
     def launch_test_installed(self):
         self.app = self.launch_test_application(
             "qmlscene",
-            "/usr/share/music-app/music-app.qml",
+            self.installed_location,
             "--desktop_file_hint=/usr/share/applications/music-app.desktop",
             app_type='qt')
 
+    def launch_test_click(self):
+        self.app = self.launch_click_package(
+            "com.ubuntu.music-app",
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+
     def _patch_home(self):
+        #make a temp dir
         temp_dir = tempfile.mkdtemp()
+        #delete it, and recreate it to the length
+        #required so our patching the db works
+        #require a length of 25
+        shutil.rmtree(temp_dir)
+        temp_dir = temp_dir.ljust(25, 'X')
+        os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
         self.addCleanup(patcher.stop)
 
     def _create_music_library(self):
+        #use fake home
         home = os.environ['HOME']
         musicpath = home + '/Music'
+        mediascannerpath = home + '/.cache/mediascanner'
         os.mkdir(musicpath)
 
-        # this needs the package 'example-content' installed:
-        shutil.copy('/usr/share/example-content/'
-            +'Ubuntu_Free_Culture_Showcase/Josh Woodward - Swansong.ogg',
-            musicpath)
+        #copy over our index
+        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
+                        mediascannerpath)
 
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
-                +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
+                +'1.ogg',
+                musicpath)
+            shutil.copy(self.working_dir + '/music_app/content/'
+                +'2.ogg',
                 musicpath)
         else:
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
-            +'Benjamin_Kerensa_-_Foss_Yeaaaah___Radio_Edit_.ogg',
+            +'1.ogg',
+            musicpath)
+            shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
+            +'2.ogg',
             musicpath)
 
-    def tap_item(self, item):
-        self.pointing_device.move_to_object(item)
-        self.pointing_device.press()
-        sleep(1)
-        self.pointing_device.release()
+        #do some inline db patching
+        #patch mediaindex to proper home
+        #these values are dependent upon our sampled db
+        relhome = home[1:]
+        dblocation = "home/autopilot-music-app"
+        dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
+        #patch mediaindex
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/mediaindex")
+
+        #patch file indexes
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_0.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_1.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_2.cfs")
+        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_3.cfs")
 
     @property
     def main_view(self):

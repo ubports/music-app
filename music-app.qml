@@ -22,6 +22,7 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
+import Powerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -496,7 +497,8 @@ MainView {
 
         onPlaybackStateChanged: {
           mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
-          console.log("mainView.isPlaying=" + mainView.isPlaying)
+          Powerd.keepAlive = mainView.isPlaying
+          console.log("mainView.isPlaying=" + mainView.isPlaying + ", Powerd.keepAlive=" + Powerd.keepAlive)
         }
     }
 

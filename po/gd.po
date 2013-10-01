@@ -1,4 +1,4 @@
-# Catalan translation for music-app
+# Gaelic; Scottish translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-27 05:43+0000\n"
-"Last-Translator: David Planella <david.planella@ubuntu.com>\n"
-"Language-Team: Catalan <ca@li.org>\n"
+"PO-Revision-Date: 2013-09-28 20:46+0000\n"
+"Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
+"Language-Team: Gaelic; Scottish <gd@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-28 05:56+0000\n"
+"X-Launchpad-Export-Date: 2013-09-29 05:48+0000\n"
 "X-Generator: Launchpad (build 16774)\n"
 
 #: ../LoginLastFM.qml:38
@@ -23,134 +23,136 @@ msgstr "LastFM"
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Clàraich a-steach airson scrobble a dhèanamh."
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Nom d'usuari"
+msgstr "Ainm-cleachdaiche"
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Contrasenya"
+msgstr "Facal-faire"
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Inicia la sessió"
+msgstr "Clàraich a-steach"
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr ""
+msgstr "A' feuchainn ri clàradh a-steach"
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr ""
+msgstr "Chaidh do chlàradh a-steach"
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr ""
+msgstr "Dh'fhàillig an clàradh a-steach"
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
 msgstr ""
+"Dhìochuimhnich thu an t-ainm-cleachdaiche agus/no am facal-faire agad a "
+"shuidheachadh"
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Àlbums"
+msgstr "Albaman"
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Paràmetres"
+msgstr "Roghainnean"
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Temes"
+msgstr "Tracaichean"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
-msgstr "Artistes"
+msgstr "Luchd-ciùil"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Enrere"
+msgstr "Air ais"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Esborra"
+msgstr "Falamhaich"
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Nou"
+msgstr "Ùr"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr ""
+msgstr "A bheil thu cinnteach?"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "Sguabaidh seo às an liosta-chluich agad."
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Suprimeix-la"
+msgstr "Thoir air falbh"
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr "Sguir dheth"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Canvia el nom"
+msgstr "Atharraich an t-ainm"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Cuir a-steach ainm ùr na liosta-chluich."
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Canvia"
+msgstr "Atharraich"
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "Cha do chuir thu a-steach ainm."
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Llistes de reproducció"
+msgstr "Liostaichean-cluiche"
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Llista de reproducció"
+msgstr "Liosta-chluiche"
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
-msgstr "Equalitzador"
+msgstr "Cothromaiche"
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Per defecte"
+msgstr "Bun-roghainn"
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
-msgstr "Acústica"
+msgstr "Accoustic"
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Clàssica"
+msgstr "Clasaigeach"
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
-msgstr "Electrònica"
+msgstr "Leactronach"
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr "Pla"
+msgstr "Rèidh"
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
@@ -162,7 +164,7 @@ msgstr "Jazz"
 
 #: ../MusicSettings.qml:84
 msgid "Metal"
-msgstr "Metal"
+msgstr "Meatailt"
 
 #: ../MusicSettings.qml:85
 msgid "Pop"
@@ -170,25 +172,27 @@ msgstr "Pop"
 
 #: ../MusicSettings.qml:86
 msgid "Rock"
-msgstr "Rock"
+msgstr "Roc"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
-msgstr "Personalitzada"
+msgstr "Gnàthaichte"
 
 #: ../MusicSettings.qml:100
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Greimich ris an òran làithreach \n"
+"nuair a dh'fhosglar am bàr-inneal"
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
-msgstr "Ordre aleatori"
+msgstr "Air thuaiream"
 
 #: ../MusicSettings.qml:134
 msgid "Accounts"
-msgstr "Comptes"
+msgstr "Cunntasan"
 
 #: ../MusicSettings.qml:141 ../MusicSettings.qml:150
 msgid "Last.fm"
@@ -199,10 +203,12 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
+"Clàraich a-steach gus scrobble a dhèanamh \n"
+"is ion-phortaich na liostaichean-cluiche"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"
-msgstr ""
+msgstr "Sruthadh ciùil"
 
 #: ../MusicSettings.qml:173
 msgid "Ubuntu One"
@@ -210,117 +216,117 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:174
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Clàraich a-steach gus an ceòl agad san neul a shruthadh"
 
 #: ../MusicSettings.qml:187
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Na sruthaich ach air WiFi"
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
-msgstr ""
+msgstr "Glan na h-uile"
 
 #: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
 #: ../music-app.qml:821 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Música"
+msgstr "Ceòl"
 
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
 msgid "Select playlist"
-msgstr ""
+msgstr "Tagh liosta-chluiche"
 
 #: ../MusicaddtoPlaylist.qml:126
 msgid "New playlist"
-msgstr "Llista de reproducció nova"
+msgstr "Liosta-chluiche ùr"
 
 #: ../music-app.qml:62
 msgid "Next"
-msgstr "Següent"
+msgstr "Air adhart"
 
 #: ../music-app.qml:63
 msgid "Next Track"
-msgstr ""
+msgstr "An ath-thraca"
 
 #: ../music-app.qml:69
 msgid "Pause"
-msgstr "Posa en pausa"
+msgstr "Cuir 'na stad"
 
 #: ../music-app.qml:69
 msgid "Play"
-msgstr "Reprodueix"
+msgstr "Cluich"
 
 #: ../music-app.qml:71
 msgid "Pause Playback"
-msgstr ""
+msgstr "Cuir a chluich 'na stad"
 
 #: ../music-app.qml:71
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Lean no tòisich air a chluich"
 
 #: ../music-app.qml:82
 msgid "Previous"
-msgstr "Anterior"
+msgstr "Air ais"
 
 #: ../music-app.qml:83
 msgid "Previous Track"
-msgstr ""
+msgstr "An traca roimhe"
 
 #: ../music-app.qml:88
 msgid "Stop"
-msgstr "Atura"
+msgstr "Cuir stad air"
 
 #: ../music-app.qml:89
 msgid "Stop Playback"
-msgstr "Atura la reproducció"
+msgstr "Sguir dhen chluich"
 
 #: ../music-app.qml:95
 msgid "Music Settings"
-msgstr "Paràmetres de la música"
+msgstr "Roghainnean a' chiùil"
 
 #: ../music-app.qml:103
 msgid "Quit"
-msgstr "Surt"
+msgstr "Fàg an-seo"
 
 #: ../music-app.qml:104
 msgid "Close application"
-msgstr ""
+msgstr "Dùin an aplacaid"
 
 #: ../music-app.qml:418
 msgid "Undo"
-msgstr "Desfés"
+msgstr "Neo-dhèan"
 
 #: ../music-app.qml:725
 msgid "Add to queue"
-msgstr ""
+msgstr "Cuir ris a' chiutha"
 
 #: ../music-app.qml:739
 msgid "Add to playlist"
-msgstr "Afegeix a la llista de reproducció"
+msgstr "Cuir ris an liosta-chluiche"
 
 #: ../music-app.qml:763
 msgid "New Playlist"
-msgstr "Llista de reproducció nova"
+msgstr "Liosta-chluiche ùr"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr ""
+msgstr "Thoir ainm air an liosta-chluiche agad."
 
 #: ../music-app.qml:767
 msgid "Name"
-msgstr "Nom"
+msgstr "Ainm"
 
 #: ../music-app.qml:775
 msgid "Create"
-msgstr ""
+msgstr "Cruthaich"
 
 #: ../music-app.qml:789
 msgid "Error: "
-msgstr ""
+msgstr "Mearachd: "
 
 #: ../music-app.qml:796
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Mearachd: Cha do chuir thu a-steach ainm."
 
 #: ../music-app.qml:860
 msgid "Songs"
-msgstr ""
+msgstr "Òrain"

@@ -81,39 +81,35 @@ import "playlists.js" as Playlists
                     }
                     UbuntuShape {
                         id: cover0
-                        anchors.right: cover1.left
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(4)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: 0
-                        z: 1
                     }
                     UbuntuShape {
                         id: cover1
-                        anchors.left: cover0.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(3)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: 50
-                        z: 2
                     }
                     UbuntuShape {
                         id: cover2
-                        anchors.left: cover1.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(2)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: 50
-                        z: 3
                     }
                     UbuntuShape {
                         id: cover3
-                        anchors.left: cover2.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
-                        x: 50
-                        z: 4
                     }
                     Label {
                         id: playlistName
@@ -121,7 +117,7 @@ import "playlists.js" as Playlists
                         maximumLineCount: 1
                         fontSize: "medium"
                         anchors.left: cover3.right
-                        anchors.leftMargin: units.gu(2)
+                        anchors.leftMargin: units.gu(4)
                         anchors.top: parent.top
                         anchors.topMargin: 5
                         anchors.bottomMargin: 5

@@ -49,6 +49,12 @@ class MainView(uitk.MainView):
             tries = tries - 1
         return item
 
+    def tap_item(self, item):
+        self.pointing_device.move_to_object(item)
+        self.pointing_device.press()
+        sleep(2)
+        self.pointing_device.release()
+
     def get_play_button(self):
         return self.app.select_single("UbuntuShape", objectName = "playshape")
 
