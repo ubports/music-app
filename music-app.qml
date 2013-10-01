@@ -26,6 +26,7 @@ import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
+import QtGraphicalEffects 1.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
@@ -108,10 +109,6 @@ MainView {
     actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
 
     Style { id: styleMusic }
-
-    headerColor: styleMusic.mainView.headerColor
-    backgroundColor: styleMusic.mainView.backgroundColor
-    footerColor: styleMusic.mainView.footerColor
 
     width: units.gu(50)
     height: units.gu(75)
@@ -712,6 +709,32 @@ MainView {
                 }
             }
             counted = griloModel.count
+        }
+    }
+
+    // Blurred background
+    Rectangle {
+        anchors.fill: parent
+        // the album art
+        Image {
+            id: backgroundImage
+            source: mainView.currentCoverFull
+            height: parent.height
+            width: parent.width
+        }
+        // the blur
+        GaussianBlur {
+               anchors.fill: backgroundImage
+               source: backgroundImage
+               radius: 8
+               samples: 16
+               deviation: 4
+        }
+        // transparent white layer
+        Rectangle {
+            anchors.fill: parent
+            color: "white"
+            opacity: 0.7
         }
     }
 
