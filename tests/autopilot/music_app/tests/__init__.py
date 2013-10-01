@@ -13,6 +13,7 @@ import mock
 import os
 import os.path
 import shutil
+import logging
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
@@ -22,6 +23,9 @@ from time import sleep
 
 from ubuntuuitoolkit import emulators as uitk
 from music_app.emulators.emulators import MainView
+
+logger = logging.getLogger(__name__)
+
 
 class MusicTestCase(AutopilotTestCase):
 
@@ -78,22 +82,30 @@ class MusicTestCase(AutopilotTestCase):
         shutil.rmtree(temp_dir)
         temp_dir = temp_dir.ljust(25, 'X')
         os.mkdir(temp_dir)
+        logger.debug("Created fake home directory " + str(temp_dir))
         self.addCleanup(shutil.rmtree, temp_dir)
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
+        logger.debug("Patched home to fake home directory " + str(temp_dir))
         self.addCleanup(patcher.stop)
 
     def _create_music_library(self):
         #use fake home
         home = os.environ['HOME']
+        logger.debug("Home set to " + str(home))
         musicpath = home + '/Music'
+        logger.debug("Music path set to " + str(musicpath))
         mediascannerpath = home + '/.cache/mediascanner'
         os.mkdir(musicpath)
+        logger.debug("Mediascanner path set to " + str(mediascannerpath))
 
         #copy over our index
         shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
                         mediascannerpath)
 
+        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
+
+        #copy over the music
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'1.ogg',
@@ -109,9 +121,12 @@ class MusicTestCase(AutopilotTestCase):
             +'2.ogg',
             musicpath)
 
+        logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
+        logger.debug("Patching fake mediascanner database")
         relhome = home[1:]
         dblocation = "home/autopilot-music-app"
         dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
