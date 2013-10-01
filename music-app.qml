@@ -718,6 +718,8 @@ MainView {
         // the album art
         Image {
             id: backgroundImage
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
             source: mainView.currentCoverFull
             height: parent.height
             width: height
