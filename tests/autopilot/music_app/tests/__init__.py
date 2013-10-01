@@ -20,7 +20,7 @@ from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
-from music_app import emulators
+from music_app.emulators import MainView
 
 logger = logging.getLogger(__name__)
 
@@ -155,4 +155,4 @@ class MusicTestCase(AutopilotTestCase):
 
     @property
     def main_view(self):
-        return self.app.select_single(emulators.MainView)
+        return MainView(self.app)

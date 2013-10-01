@@ -17,10 +17,6 @@ from music_app.tests import MusicTestCase
 
 
 class TestMainWindow(MusicTestCase):
-    def setUp(self):
-        super(TestMainWindow, self).setUp()
-        self.assertThat(
-            self.main_view.visible, Eventually(Equals(True)))
 
     def test_reads_music_library(self):
         """ tests if the music library is populated from our
