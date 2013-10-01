@@ -720,15 +720,13 @@ MainView {
             id: backgroundImage
             source: mainView.currentCoverFull
             height: parent.height
-            width: parent.width
+            width: height
         }
         // the blur
-        GaussianBlur {
-               anchors.fill: backgroundImage
-               source: backgroundImage
-               radius: 8
-               samples: 16
-               deviation: 4
+        FastBlur {
+            anchors.fill: backgroundImage
+            source: backgroundImage
+            radius: units.dp(42)
         }
         // transparent white layer
         Rectangle {
