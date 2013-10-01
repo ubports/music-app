@@ -6,24 +6,22 @@
 # by the Free Software Foundation.
 
 """Music app autopilot emulators."""
+from ubuntuuitoolkit import emulators as toolkit_emulators
 
-from ubuntuuitoolkit import emulators as uitk
 
-class MainView(uitk.MainView):
+class MainView(toolkit_emulators.MainView):
+
     """An emulator class that makes it easy to interact with the
     music-app.
     """
     retry_delay = 0.2
 
-    def __init__(self, app):
-        self.app = app
-
     def get_qml_view(self):
         """Get the main QML view"""
-        return self.app.select_single("QQuickView")
+        return self.select_single("QQuickView")
 
     def get_main_view(self):
-        return self.app.select_single("MainView", objectName = "music")
+        return self.select_single("MainView", objectName = "music")
 
     def select_many_retry(self, object_type, **kwargs):
         """Returns the item that is searched for with app.select_many
@@ -56,8 +54,8 @@ class MainView(uitk.MainView):
         self.pointing_device.release()
 
     def get_play_button(self):
-        return self.app.select_single("UbuntuShape", objectName = "playshape")
+        return self.select_single("UbuntuShape", objectName = "playshape")
 
     def get_forward_button(self):
-        return self.app.select_single(
+        return self.select_single(
             "UbuntuShape", objectName = "forwardshape")
