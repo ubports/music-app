@@ -84,6 +84,10 @@ Rectangle {
                 target: musicToolbarSmallProgressBackground
                 opacity: 0
             }
+            PropertyChanges {
+                target: musicToolbarFullProgressMouseArea
+                visible: false
+            }
         },
         // State for when the toolbar is minimized
         State {
@@ -99,6 +103,10 @@ Rectangle {
             PropertyChanges {
                 target: musicToolbarSmallProgressBackground
                 opacity: 1
+            }
+            PropertyChanges {
+                target: musicToolbarFullProgressMouseArea
+                visible: false
             }
         },
         // State for when the toolbar is shown
@@ -116,6 +124,10 @@ Rectangle {
                 target: musicToolbarSmallProgressBackground
                 opacity: 1
             }
+            PropertyChanges {
+                target: musicToolbarFullProgressMouseArea
+                visible: false
+            }
         },
         // State for when the toolbar is shown on the now playing page
         State {
@@ -131,6 +143,10 @@ Rectangle {
             PropertyChanges {
                 target: musicToolbarSmallProgressBackground
                 opacity: 0
+            }
+            PropertyChanges {
+                target: musicToolbarFullProgressMouseArea
+                visible: true
             }
         }
     ]
@@ -202,6 +218,12 @@ Rectangle {
         shown = true;
     }
 
+    /* Mouse area to block events going to items under the toolbar */
+    MouseArea {
+        anchors.fill: parent
+        onClicked: mouse.accepted = true
+    }
+
     /* Temporary Back button */
     UbuntuShape {
         id: backButton
@@ -223,83 +245,6 @@ Rectangle {
             onClicked: {
                 goBack();
             }
-        }
-    }
-
-    /* Object which captures mouse drags to show/hide the toolbar */
-    MouseArea {
-        id: musicToolbarMouseArea
-        anchors.fill: parent
-
-        property int startContainerY: 0
-        property int startMouseY: 0
-
-        onMouseYChanged: {
-            var newY = musicToolbarContainer.y + mouse.y - startMouseY;
-
-            // Limit the movement depending on state
-            if (currentMode === "full" && newY < musicToolbarContainer.parent.height - fullHeight)
-            {
-                newY = musicToolbarContainer.parent.height - fullHeight;
-            }
-            else if (currentMode === "expanded" && newY < musicToolbarContainer.parent.height - expandedHeight - minimizedHeight)
-            {
-                newY = musicToolbarContainer.parent.height - expandedHeight - minimizedHeight;
-            }
-            else if (newY > musicToolbarContainer.parent.height - minimizedHeight)
-            {
-                newY = musicToolbarContainer.parent.height - minimizedHeight;
-            }
-
-            // Update the position
-            musicToolbarContainer.y = newY;
-        }
-
-        onPressed: {
-            startContainerY = musicToolbarContainer.y;
-            startMouseY = mouse.y;
-        }
-
-        onPressAndHold: {
-            if (musicToolbarContainer.y === startContainerY)
-            {
-                musicToolbarContainerHintAnimation.start();
-            }
-        }
-
-        onReleased: {
-            var diff = musicToolbarContainer.y - startContainerY;
-
-            if (diff > units.gu(3))
-            {
-                hideToolbar();
-            }
-            else if (diff < -units.gu(3))
-            {
-                showToolbar();
-            }
-            else
-            {
-                musicToolbarContainerReset.start();
-            }
-        }
-
-        // On pressandhold reveal part of the toolbar as a hint
-        NumberAnimation {
-            id: musicToolbarContainerHintAnimation
-            target: musicToolbarContainer
-            property: "y"
-            duration: musicToolbarContainer.transitionDuration
-            to: musicToolbarContainer.parent.height - minimizedHeight - units.gu(1.5)
-        }
-
-        // Animation to reset the toolbar if it hasn't been dragged far enough
-        NumberAnimation {
-            id: musicToolbarContainerReset
-            target: musicToolbarContainer
-            property: "y"
-            duration: musicToolbarContainer.transitionDuration
-            to: musicToolbarMouseArea.startContainerY
         }
     }
 
@@ -582,11 +527,11 @@ Rectangle {
                             enabled: false
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressArea
+                            target: musicToolbarFullProgressTrough
                             visible: false
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressDuration
+                            target: musicToolbarFullProgressHandle
                             visible: false
                         }
                     },
@@ -597,11 +542,11 @@ Rectangle {
                             enabled: true
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressArea
+                            target: musicToolbarFullProgressTrough
                             visible: true
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressDuration
+                            target: musicToolbarFullProgressHandle
                             visible: true
                         }
                     }
@@ -612,33 +557,9 @@ Rectangle {
                 {
                     if (player.seeking == false)
                     {
-                        musicToolbarFullProgressBarContainer.drawProgress(position / duration)
+                        musicToolbarFullProgressHandle.x = ((position / duration) * musicToolbarFullProgressBarContainer.width)
+                                - musicToolbarFullProgressHandle.width / 2;
                     }
-                }
-
-                // Function that sets the progress bar value
-                function drawProgress(fraction)
-                {
-                    musicToolbarFullProgressDuration.x = (fraction * musicToolbarFullProgressBarContainer.width) - musicToolbarFullProgressDuration.width / 2;
-                }
-
-                // Function that sets the slider position from the x position of the mouse
-                function setSliderPosition(xPosition) {
-                    var fraction = xPosition / musicToolbarFullProgressBarContainer.width;
-
-                    // Make sure fraction is within limits
-                    if (fraction > 1.0)
-                    {
-                        fraction = 1.0;
-                    }
-                    else if (fraction < 0.0)
-                    {
-                        fraction = 0.0;
-                    }
-
-                    // Update progress bar and position text
-                    musicToolbarFullProgressBarContainer.drawProgress(fraction);
-                    player.positionStr = __durationToString(fraction * player.duration);
                 }
 
                 Component.onCompleted: {
@@ -658,51 +579,35 @@ Rectangle {
 
                 // The orange fill of the progress bar
                 Rectangle {
-                    id: musicToolbarFullProgressArea
+                    id: musicToolbarFullProgressTrough
                     anchors.verticalCenter: parent.verticalCenter;
                     color: styleMusic.nowPlaying.progressForegroundColor;
                     height: parent.height;
                     radius: units.gu(0.5)
-                    width: musicToolbarFullProgressDuration.x + (height / 2);  // +radius
+                    width: musicToolbarFullProgressHandle.x + (height / 2);  // +radius
                 }
 
                 // The current position (handle) of the progress bar
                 Rectangle {
-                    id: musicToolbarFullProgressDuration
-                    anchors.verticalCenter: musicToolbarFullProgressBackground.verticalCenter;
+                    id: musicToolbarFullProgressHandle
+                    anchors.verticalCenter: musicToolbarFullProgressBackground.verticalCenter
                     antialiasing: true
                     color: styleMusic.nowPlaying.progressHandleColor
-                    height: units.gu(1.5);
+                    height: units.gu(1.5)
                     radius: height / 2
-                    width: height;
+                    width: height
+
+                    // On X change update the position string
+                    onXChanged: {
+                        var fraction = (x + (width / 2)) / parent.width;
+                        player.positionStr = __durationToString(fraction * player.duration);
+                    }
 
                     transitions: Transition {
                         NumberAnimation {
                             properties: "x"
                             duration: 1000
                         }
-                    }
-                }
-
-                // Mouse events for the progress bar
-                MouseArea {
-                    id: musicToolbarFullProgressMouseArea
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    height: units.gu(2)
-                    width: parent.width
-                    onMouseXChanged: {
-                        musicToolbarFullProgressBarContainer.setSliderPosition(mouseX)
-                    }
-                    onPressed: {
-                        player.seeking = true;
-                    }
-                    onClicked: {
-                        musicToolbarFullProgressBarContainer.setSliderPosition(mouseX)
-                    }
-                    onReleased: {
-                        player.seek((mouseX / musicToolbarFullProgressBarContainer.width) * player.duration);
-                        player.seeking = false;
                     }
                 }
             }
@@ -894,6 +799,127 @@ Rectangle {
             Component.onCompleted: {
                 player.positionChange.connect(updatePosition)
             }
+        }
+    }
+
+    /* Object which captures mouse drags to show/hide the toolbar */
+    MouseArea {
+        id: musicToolbarMouseArea
+        anchors.fill: parent
+
+        property bool changed: false
+        property int startContainerY: 0
+        property int startMouseY: 0
+
+        // Settings for dragging the container
+        drag.axis: Drag.YAxis
+        drag.maximumY: musicToolbarContainer.parent.height - minimizedHeight
+        drag.minimumY: currentMode === "full" ?
+                           musicToolbarContainer.parent.height - fullHeight :
+                           musicToolbarContainer.parent.height - expandedHeight - minimizedHeight
+        drag.target: musicToolbarContainer
+
+        propagateComposedEvents: true
+        onClicked: mouse.accepted = changed  // pass clicked evented to children unless changed (YAxis)
+
+        onMouseYChanged: {
+            // Mouse has been accepted with YAxis changed and set changed to true
+            mouse.accepted = true;
+            changed = true;
+        }
+
+        onPressAndHold: {
+            // If the item hasn't moved then run the hint animation
+            if (musicToolbarContainer.y === startContainerY)
+            {
+                musicToolbarContainerHintAnimation.start();
+                mouse.accepted = true;  // mouse has been accepted
+            }
+            else
+            {
+                mouse.accepted = false;
+            }
+        }
+
+        onPressed: {
+            mouse.accepted = false;  // mouse not accepted yet
+
+            // Record starting positions for later
+            startContainerY = musicToolbarContainer.y;
+            startMouseY = mouse.y;
+        }
+
+        onReleased: {
+            mouse.accepted = changed;  // mouse is accepted if the YAxis has changed
+            changed = false;  // reset changed
+
+            // fix for flicker on first run (needs a value to have been set?)
+            musicToolbarContainer.y = musicToolbarContainer.y;
+
+            var diff = musicToolbarContainer.y - startContainerY;
+
+            if (diff > units.gu(3))
+            {
+                hideToolbar();
+            }
+            else if (diff < -units.gu(3))
+            {
+                showToolbar();
+            }
+            else
+            {
+                musicToolbarContainerReset.start();
+            }
+        }
+
+        // On pressandhold reveal part of the toolbar as a hint
+        NumberAnimation {
+            id: musicToolbarContainerHintAnimation
+            target: musicToolbarContainer
+            property: "y"
+            duration: musicToolbarContainer.transitionDuration
+            to: musicToolbarContainer.parent.height - minimizedHeight - units.gu(1.5)
+        }
+
+        // Animation to reset the toolbar if it hasn't been dragged far enough
+        NumberAnimation {
+            id: musicToolbarContainerReset
+            target: musicToolbarContainer
+            property: "y"
+            duration: musicToolbarContainer.transitionDuration
+            to: musicToolbarMouseArea.startContainerY
+        }
+    }
+
+    /* Mouse events for the progress bar
+       is after musicToolbarMouseArea so that it captures mouse events for dragging */
+    MouseArea {
+        id: musicToolbarFullProgressMouseArea
+        height: units.gu(2)
+        width: musicToolbarFullProgressBarContainer.width
+        x: musicToolbarFullProgressBarContainer.x
+        y: musicToolbarFullProgressBarContainer.y
+
+        drag.axis: Drag.XAxis
+        drag.minimumX: -(musicToolbarFullProgressHandle.width / 2)
+        drag.maximumX: musicToolbarFullProgressBarContainer.width - (musicToolbarFullProgressHandle.width / 2)
+        drag.target: musicToolbarFullProgressHandle
+
+        onPressed: {
+            player.seeking = true;
+            // Jump the handle to the current mouse position
+            musicToolbarFullProgressHandle.x = mouse.x - (musicToolbarFullProgressHandle.width / 2);
+        }
+
+        onReleased: {
+            var fraction = mouse.x / musicToolbarFullProgressBarContainer.width;
+
+            // Limit the bounds of the fraction
+            fraction = fraction < 0 ? 0 : fraction
+            fraction = fraction > 1 ? 1 : fraction
+
+            player.seek((fraction) * player.duration);
+            player.seeking = false;
         }
     }
 }
