@@ -582,8 +582,25 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         id: nowPlayingPlayMouseArea
+
+                        function inCircle(x, y) {
+                            /*
+                              Function that returns true if the mouse is inside the circle
+                                Length = root((y2-y1)^2 + (x2-x1)^2)
+                             */
+                            x = Math.pow(x - (width / 2), 2);
+                            y = Math.pow(y - (height / 2), 2);
+
+                            return Math.pow((x + y), 0.5) <= parent.radius;
+                        }
+
                         onClicked:
                         {
+                            if (!inCircle(mouse.x, mouse.y))
+                            {
+                                return;
+                            }
+
                             if (player.playbackState === MediaPlayer.PlayingState)
                             {
                                 player.pause()
