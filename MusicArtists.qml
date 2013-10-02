@@ -80,20 +80,97 @@ PageStack {
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist
-                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                    height: styleMusic.common.itemHeight
 
-                    iconFrame: false
-                    progression: true
+                    UbuntuShape {
+                       id: cover0
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(4)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                       }
+                       visible: artistModel.model.count > 40 //fix
+                    }
+                    UbuntuShape {
+                       id: cover1
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(3)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                       }
+                       visible: artistModel.model.count > 30 //fix
+                    }
+                    UbuntuShape {
+                       id: cover2
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(2)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                       }
+                       visible: artistModel.model.count > 20 //fix
+                    }
+                    UbuntuShape {
+                       id: cover3
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(1)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                       }
+                    }
+
                     Label {
                         id: trackArtistAlbum
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "large"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
                         text: artist
+                    }
+
+                    Label {
+                        id: trackArtistAlbums
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "medium"
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: trackArtistAlbum.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: artistModel.model.count + i18n.tr(" albums") // model for number of albums?
+                    }
+
+                    Label {
+                        id: trackArtistAlbumTracks
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "medium"
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: trackArtistAlbums.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: artistModel.model.count + i18n.tr(" songs") //fix
                     }
 
                     onFocusChanged: {
@@ -175,7 +252,7 @@ PageStack {
                     anchors.top: albumArtist.bottom
                     anchors.topMargin: units.gu(1)
                     anchors.right: parent.right
-                    text: artistTracksModel.model.count + " songs"
+                    text: artistTracksModel.model.count + i18n.tr(" songs")
                 }
             }
 

@@ -184,6 +184,9 @@ PageStack {
 
     Component.onCompleted: {
         pageStack.push(listspage)
+        // fix pageStack bug the ugly way
+        pageStack.push(playlistpage)
+        pageStack.pop()
 
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
@@ -225,9 +228,8 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
-                       property int albumSize: units.gu(10)
                        iconFrame: false
-                       height: units.gu(12)
+                       height: styleMusic.common.itemHeight
 
                        UbuntuShape {
                            id: cover0
@@ -235,9 +237,10 @@ PageStack {
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: albumSize
-                           height: albumSize
+                           width: styleMusic.common.albumSize
+                           height: styleMusic.common.albumSize
                            color: get_random_color()
+                           visible: playlist.count > 3
                        }
                        UbuntuShape {
                            id: cover1
@@ -245,9 +248,10 @@ PageStack {
                            anchors.leftMargin: units.gu(3)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: albumSize
-                           height: albumSize
+                           width: styleMusic.common.albumSize
+                           height: styleMusic.common.albumSize
                            color: get_random_color()
+                           visible: playlist.count > 2
                        }
                        UbuntuShape {
                            id: cover2
@@ -255,9 +259,10 @@ PageStack {
                            anchors.leftMargin: units.gu(2)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: albumSize
-                           height: albumSize
+                           width: styleMusic.common.albumSize
+                           height: styleMusic.common.albumSize
                            color: get_random_color()
+                           visible: playlist.count > 1
                        }
                        UbuntuShape {
                            id: cover3
@@ -265,23 +270,36 @@ PageStack {
                            anchors.leftMargin: units.gu(1)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: albumSize
-                           height: albumSize
+                           width: styleMusic.common.albumSize
+                           height: styleMusic.common.albumSize
                            color: get_random_color()
                        }
-
+                       // songs count
+                       Label {
+                           id: playlistCount
+                           anchors.left: cover3.right
+                           anchors.leftMargin: units.gu(4)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(1)
+                           anchors.bottomMargin: 5
+                           anchors.right: parent.right
+                           fontSize: "medium"
+                           height: units.gu(1)
+                           text: playlist.count + i18n.tr(" songs")
+                       }
+                       // playlist name
                        Label {
                            id: playlistName
                            wrapMode: Text.NoWrap
                            maximumLineCount: 1
-                           fontSize: "medium"
+                           fontSize: "large"
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(3)
                            anchors.bottomMargin: 5
                            anchors.right: parent.right
-                           text: playlist.name + " ("+playlist.count+")"
+                           text: playlist.name
                        }
 
                     onPressAndHold: {
@@ -321,10 +339,83 @@ PageStack {
             playlistlist.currentIndex = playlisttracksModel.indexOf(file)
         }
 
+        // playlist name and info
+        Rectangle {
+            id: playlistInfo
+            anchors.top: parent.top
+            width: parent.width
+            height: units.gu(12)
+            color: styleMusic.playerControls.backgroundColor
+            //opacity: 0.7
+
+            UbuntuShape {
+               id: cover0
+               anchors.left: parent.left
+               anchors.leftMargin: units.gu(4)
+               anchors.top: parent.top
+               anchors.topMargin: units.gu(1)
+               width: styleMusic.common.albumSize
+               height: styleMusic.common.albumSize
+               color: get_random_color()
+            }
+            UbuntuShape {
+               id: cover1
+               anchors.left: parent.left
+               anchors.leftMargin: units.gu(3)
+               anchors.top: parent.top
+               anchors.topMargin: units.gu(1)
+               width: styleMusic.common.albumSize
+               height: styleMusic.common.albumSize
+               color: get_random_color()
+            }
+            UbuntuShape {
+               id: cover2
+               anchors.left: parent.left
+               anchors.leftMargin: units.gu(2)
+               anchors.top: parent.top
+               anchors.topMargin: units.gu(1)
+               width: styleMusic.common.albumSize
+               height: styleMusic.common.albumSize
+               color: get_random_color()
+            }
+            UbuntuShape {
+               id: cover3
+               anchors.left: parent.left
+               anchors.leftMargin: units.gu(1)
+               anchors.top: parent.top
+               anchors.topMargin: units.gu(1)
+               width: styleMusic.common.albumSize
+               height: styleMusic.common.albumSize
+               color: get_random_color()
+            }
+
+            Label {
+                id: playlistInfoLabel
+                text: playlistlist.playlistName
+                color: styleMusic.common.white
+                fontSize: "large"
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(15)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(1)
+            }
+
+            Label {
+                id: playlistInfoCount
+                text: playlistslist.count + i18n.tr(" songs")
+                color: styleMusic.common.white
+                fontSize: "medium"
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(15)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(5)
+            }
+        }
+
         ListView {
             id: playlistlist
             width: parent.width
-            anchors.top: parent.top
+            anchors.top: playlistInfo.bottom
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
             highlightFollowsCurrentItem: false
@@ -364,7 +455,7 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
-                    height: playlistlist.normalHeight
+                    height: units.gu(12)
 
                     SwipeDelete {
                         id: swipeBackground
@@ -604,21 +695,23 @@ PageStack {
                         UbuntuShape {
                             id: trackImage
                             anchors.left: parent.left
-                            anchors.leftMargin: units.gu(2)
+                            anchors.leftMargin: units.gu(0.5)
                             anchors.top: parent.top
                             anchors.verticalCenter: parent.verticalCenter
-                            height: parent.height
-                            width: height
+                            width: styleMusic.common.albumSize
+                            height: styleMusic.common.albumSize
                             image: Image {
                                 source: cover !== "" ? cover :  Qt.resolvedUrl("images/cover_default_icon.png")
+                                width: styleMusic.common.albumSize
+                                height: styleMusic.common.albumSize
                             }
                             UbuntuShape {  // Background so can see text in current state
                                 id: trackBg
                                 anchors.top: parent.top
                                 color: styleMusic.common.black
-                                height: units.gu(6)
+                                width: styleMusic.common.albumSize
+                                height: styleMusic.common.albumSize
                                 opacity: 0
-                                width: parent.width
                             }
                         }
 
