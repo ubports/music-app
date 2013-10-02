@@ -82,6 +82,14 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(temp_dir)
         logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+        #if the Xauthority file is in home directory
+        #make sure we copy it to temp home, otherwise do nothing
+        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        if os.path.isfile(xauth):
+            logger.debug("Copying .Xauthority to fake home " + temp_dir)
+            shutil.copyfile(
+                os.path.expanduser(os.path.join('~', '.Xauthority')),
+                os.path.join(temp_dir, '.Xauthority'))
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
         logger.debug("Patched home to fake home directory " + temp_dir)
@@ -97,13 +105,7 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(musicpath)
         logger.debug("Mediascanner path set to " + mediascannerpath)
 
-        #copy over our index
-        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
-                        mediascannerpath)
-
-        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
-
-        #copy over the music
+        #copy over the music and index
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'1.ogg',
@@ -111,6 +113,9 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'2.ogg',
                 musicpath)
+            shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
+                        mediascannerpath)
+
         else:
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'1.ogg',
@@ -118,8 +123,11 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
+            shutil.copytree('/usr/lib/python2.7/dist-packages/music_app/content/mediascanner',
+                        mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
 
         #do some inline db patching
         #patch mediaindex to proper home
