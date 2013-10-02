@@ -32,6 +32,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
+import "common"
 
 MainView {
     objectName: "music"
@@ -147,6 +148,7 @@ MainView {
         Playlists.initializePlaylists()
         Playlists.initializePlaylist()
         // everything else
+        loading.visible = true
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
@@ -684,6 +686,10 @@ MainView {
         id: undo
     }
 
+    LoadingSpinnerComponent {
+        id:loading
+    }
+
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -702,6 +708,7 @@ MainView {
                 artistModel.filterArtists()
                 genreModel.filterGenres()
                 timer.stop()
+                loading.visible = false
 
                 // Check if tracks have been found, if none then show message
                 if (counted === 0)
