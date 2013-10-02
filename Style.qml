@@ -21,6 +21,15 @@ import Ubuntu.Components 0.1
 
 
 QtObject {
+    property QtObject addtoPlaylist: QtObject {
+        property color backgroundColor: UbuntuColors.coolGrey;
+        property color labelColor: common.black;
+        property color labelSecondaryColor: "#AAA";
+        property color progressBackgroundColor: common.black;
+        property color progressForegroundColor: UbuntuColors.orange;
+        property color progressHandleColor: common.white;
+    }
+
     property QtObject common: QtObject {
         property color black: "#000000";
         property color white: "#FFFFFF";
@@ -45,8 +54,13 @@ QtObject {
         property color headerColor: "#57365E";
     }
 
+    property QtObject musicSettings: QtObject {
+        property color labelColor: UbuntuColors.coolGrey;
+    }
+
     property QtObject nowPlaying: QtObject {
         property color backgroundColor: UbuntuColors.coolGrey;
+        property color foregroundColor: "#454545"
         property color labelColor: common.white;
         property color labelSecondaryColor: "#AAA";
         property color progressBackgroundColor: common.black;
@@ -65,17 +79,11 @@ QtObject {
         property color labelColor: UbuntuColors.coolGrey;
     }
 
-    property QtObject addtoPlaylist: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
-        property color labelColor: common.black;
-        property color labelSecondaryColor: "#AAA";
-        property color progressBackgroundColor: common.black;
-        property color progressForegroundColor: UbuntuColors.orange;
-        property color progressHandleColor: common.white;
+    property QtObject toolbar: QtObject {
+        property color fullBackgroundColor: "#212121";
+        property color fullInnerPlayCircleColor: "#0d0d0d";
+        property color fullOuterPlayCircleColor: "#363636";
+        property color fullProgressBackgroundColor: "#252525";
+        property color fullProgressTroughColor: UbuntuColors.orange;
     }
-
-    property QtObject musicSettings: QtObject {
-        property color labelColor: UbuntuColors.coolGrey;
-    }
-
 }

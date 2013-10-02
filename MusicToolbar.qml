@@ -483,16 +483,179 @@ Rectangle {
         id: musicToolbarFullContainer
         anchors.left: parent.left
         anchors.top: parent.top
-        color: styleMusic.playerControls.backgroundColor
+        color: styleMusic.toolbar.fullBackgroundColor
         height: fullHeight
         width: parent.width
+
+        /* Buttons component */
+        Rectangle {
+            id: musicToolbarFullButtonsContainer
+            anchors.left: parent.left
+            anchors.top: musicToolbarFullProgressContainer.bottom
+            color: "transparent"
+            height: parent.height - musicToolbarFullProgressContainer.height
+            width: parent.width
+
+            /* Shuffle button */
+            UbuntuShape {
+                id: nowPlayingShuffleButton
+                anchors.right: nowPlayingPreviousButton.left
+                anchors.rightMargin: units.gu(1)
+                anchors.verticalCenter: parent.verticalCenter
+                height: units.gu(6)
+                width: height
+
+                Label {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    text: "Shuf"
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        // Invert shuffle settings
+                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                    }
+                }
+            }
+
+            /* Previous button */
+            UbuntuShape {
+                id: nowPlayingPreviousButton
+                anchors.right: nowPlayingPlayButton.left
+                anchors.rightMargin: units.gu(1)
+                anchors.verticalCenter: parent.verticalCenter
+                height: units.gu(6)
+                width: height
+
+                image: Image {
+                    id: nowPlayingPreviousIndicator
+                    anchors.fill: parent
+                    source: "images/back.png"
+                    opacity: .7
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    id: nowPlayingPreviousMouseArea
+                    onClicked:
+                    {
+                        previousSong()
+                    }
+                }
+            }
+
+            /* Play/Pause button */
+            Rectangle {
+                id: nowPlayingPlayButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                antialiasing: true
+                color: styleMusic.toolbar.fullOuterPlayCircleColor
+                height: units.gu(12)
+                radius: height / 2
+                width: height
+
+                Rectangle {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    antialiasing: true
+                    color: styleMusic.toolbar.fullInnerPlayCircleColor
+                    height: units.gu(8)
+                    radius: height / 2
+                    width: height
+
+                    Image {
+                        id: nowPlayingPlayIndicator
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: units.gu(6)
+                        opacity: .7
+                        source: player.playbackState === MediaPlayer.PlayingState ?
+                                  "images/pause.png" : "images/play.png"
+                        width: height
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        id: nowPlayingPlayMouseArea
+                        onClicked:
+                        {
+                            if (player.playbackState === MediaPlayer.PlayingState)
+                            {
+                                player.pause()
+                            }
+                            else
+                            {
+                                player.play()
+                            }
+                        }
+                    }
+                }
+            }
+
+            /* Next button */
+            UbuntuShape {
+                id: nowPlayingNextButton
+                anchors.left: nowPlayingPlayButton.right
+                anchors.leftMargin: units.gu(1)
+                anchors.verticalCenter: parent.verticalCenter
+                height: units.gu(6)
+                width: height
+
+                image: Image {
+                    id: nowPlayingNextIndicator
+                    anchors.fill: parent
+                    source: "images/forward.png"
+                    opacity: .7
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    id: nowPlayingNextMouseArea
+                    onClicked:
+                    {
+                        nextSong()
+                    }
+                }
+            }
+
+            /* Repeat button */
+            UbuntuShape {
+                id: nowPlayingRepeatButton
+                anchors.left: nowPlayingNextButton.right
+                anchors.leftMargin: units.gu(1)
+                anchors.verticalCenter: parent.verticalCenter
+                height: units.gu(6)
+                width: height
+
+                Label {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    text: "Rep"
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        // Invert repeat settings
+                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                    }
+                }
+            }
+        }
 
         /* Progress bar component */
         Rectangle {
             id: musicToolbarFullProgressContainer
             anchors.left: parent.left
             anchors.top: parent.top
-            color: "transparent"
+            color: styleMusic.toolbar.fullBackgroundColor
             height: units.gu(3)
             width: parent.width
 
@@ -571,7 +734,7 @@ Rectangle {
                 Rectangle {
                     id: musicToolbarFullProgressBackground
                     anchors.verticalCenter: parent.verticalCenter;
-                    color: styleMusic.nowPlaying.progressBackgroundColor;
+                    color: styleMusic.toolbar.fullProgressBackgroundColor;
                     height: parent.height;
                     radius: units.gu(0.5)
                     width: parent.width;
@@ -581,7 +744,8 @@ Rectangle {
                 Rectangle {
                     id: musicToolbarFullProgressTrough
                     anchors.verticalCenter: parent.verticalCenter;
-                    color: styleMusic.nowPlaying.progressForegroundColor;
+                    antialiasing: true
+                    color: styleMusic.toolbar.fullProgressTroughColor;
                     height: parent.height;
                     radius: units.gu(0.5)
                     width: musicToolbarFullProgressHandle.x + (height / 2);  // +radius
@@ -624,152 +788,15 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 width: units.gu(6)
             }
-        }
 
-        /* Buttons component */
-        Rectangle {
-            id: musicToolbarFullButtonsContainer
-            anchors.left: parent.left
-            anchors.top: musicToolbarFullProgressContainer.bottom
-            color: "transparent"
-            height: parent.height - musicToolbarFullProgressContainer.height
-            width: parent.width
-
-            /* Shuffle button */
-            UbuntuShape {
-                id: nowPlayingShuffleButton
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                width: height
-
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: "Shuf"
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: {
-                        // Invert shuffle settings
-                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
-                    }
-                }
-            }
-
-            /* Previous button */
-            UbuntuShape {
-                id: nowPlayingPreviousButton
-                anchors.right: nowPlayingPlayButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                width: height
-
-                image: Image {
-                    id: nowPlayingPreviousIndicator
-                    anchors.fill: parent
-                    source: "images/back.png"
-                    opacity: .7
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    id: nowPlayingPreviousMouseArea
-                    onClicked:
-                    {
-                        previousSong()
-                    }
-                }
-            }
-
-            /* Play/Pause button */
-            UbuntuShape {
-                id: nowPlayingPlayButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                width: height
-
-                image: Image {
-                    id: nowPlayingPlayIndicator
-                    anchors.fill: parent
-                    opacity: .7
-                    source: player.playbackState === MediaPlayer.PlayingState ?
-                              "images/pause.png" : "images/play.png"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    id: nowPlayingPlayMouseArea
-                    onClicked:
-                    {
-                        if (player.playbackState === MediaPlayer.PlayingState)
-                        {
-                            player.pause()
-                        }
-                        else
-                        {
-                            player.play()
-                        }
-                    }
-                }
-            }
-
-            /* Next button */
-            UbuntuShape {
-                id: nowPlayingNextButton
-                anchors.left: nowPlayingPlayButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                width: height
-
-                image: Image {
-                    id: nowPlayingNextIndicator
-                    anchors.fill: parent
-                    source: "images/forward.png"
-                    opacity: .7
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    id: nowPlayingNextMouseArea
-                    onClicked:
-                    {
-                        nextSong()
-                    }
-                }
-            }
-
-            /* Repeat button */
-            UbuntuShape {
-                id: nowPlayingRepeatButton
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                width: height
-
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: "Rep"
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: {
-                        // Invert repeat settings
-                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
-                    }
-                }
+            /* Border at the bottom */
+            Rectangle {
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                color: "#000"
+                height: units.gu(0.2)
+                opacity: 0.1
             }
         }
     }

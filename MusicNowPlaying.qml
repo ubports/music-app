@@ -81,6 +81,7 @@ Page {
         id: queuelist
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors.topMargin: nowPlayingBackButton.height
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false
@@ -515,19 +516,24 @@ Page {
             }
         }
     }
-    UbuntuShape {  /* TODO: remove when toolbar is implemented */
+
+    Rectangle {
         id: nowPlayingBackButton
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        color: "#F00"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        color: styleMusic.nowPlaying.foregroundColor
+        height: units.gu(3)
+
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             text: i18n.tr("Back")
         }
+
         MouseArea {
             anchors.fill: parent
-            id: nowPlayingBackButtonMouseArea
+
             onClicked: {
                 musicToolbar.goBack();
             }
