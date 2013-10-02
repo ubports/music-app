@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-28 09:07+0000\n"
+"PO-Revision-Date: 2013-10-01 22:13+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-29 05:48+0000\n"
+"X-Launchpad-Export-Date: 2013-10-02 05:40+0000\n"
 "X-Generator: Launchpad (build 16774)\n"
 
 #: ../LoginLastFM.qml:38
@@ -154,11 +154,11 @@ msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip Hop"
 
 #: ../MusicSettings.qml:83
 msgid "Jazz"
-msgstr ""
+msgstr "Jazz"
 
 #: ../MusicSettings.qml:84
 msgid "Metal"
@@ -166,11 +166,11 @@ msgstr ""
 
 #: ../MusicSettings.qml:85
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: ../MusicSettings.qml:86
 msgid "Rock"
-msgstr ""
+msgstr "Rock"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
@@ -199,6 +199,8 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
+"Kirjaudu lähettääksesi kuuntelutietosi \n"
+"ja tuodaksesi soittolistoja"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"

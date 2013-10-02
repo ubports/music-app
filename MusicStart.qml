@@ -53,7 +53,7 @@ Page {
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
-        header: ListItem.Standard {
+        header: Item {
             id: spacer
             width: units.gu(2)
         }
@@ -146,7 +146,7 @@ Page {
         height: units.gu(13)
         model: genreModel.model
         delegate: genreDelegate
-        header: ListItem.Standard {
+        header: Item {
             id: spacer
             width: units.gu(2)
         }

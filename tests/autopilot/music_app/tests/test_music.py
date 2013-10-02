@@ -18,10 +18,9 @@ from music_app.tests import MusicTestCase
 
 class TestMainWindow(MusicTestCase):
 
-    def test_reads_music_from_home(self):
-        """ tests if the music library is populated from our fake home
-            directory
-        """
+    def test_reads_music_library(self):
+        """ tests if the music library is populated from our
+        fake mediascanner database"""
 
         mainView = self.main_view.get_main_view()
         title = lambda: mainView.currentTracktitle
@@ -77,5 +76,3 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(mainView.isPlaying, Eventually(Equals(True)))
         self.assertThat(title, Eventually(Equals("Swansong")))
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))
-
-
