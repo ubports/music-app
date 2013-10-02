@@ -210,6 +210,7 @@ PageStack {
             id: playlistslist
             width: parent.width
             anchors.top: parent.top
+            anchors.topMargin: units.gu(2)
             anchors.bottom: parent.bottom
             anchors.bottomMargin: units.gu(8)
             model: playlistModel
@@ -227,43 +228,49 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
+                       property int albumSize: units.gu(10)
                        iconFrame: false
+                       height: units.gu(12)
 
                        UbuntuShape {
                            id: cover0
-                           anchors.right: cover1.left
-                           width: units.gu(6)
-                           height: parent.height
+                           anchors.left: parent.left
+                           anchors.leftMargin: units.gu(4)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(1)
+                           width: albumSize
+                           height: albumSize
                            color: get_random_color()
-                           x: 0
-                           z: 1
                        }
                        UbuntuShape {
                            id: cover1
-                           anchors.left: cover0.right
-                           width: units.gu(6)
-                           height: parent.height
+                           anchors.left: parent.left
+                           anchors.leftMargin: units.gu(3)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(1)
+                           width: albumSize
+                           height: albumSize
                            color: get_random_color()
-                           x: 50
-                           z: 2
                        }
                        UbuntuShape {
                            id: cover2
-                           anchors.left: cover1.right
-                           width: units.gu(6)
-                           height: parent.height
+                           anchors.left: parent.left
+                           anchors.leftMargin: units.gu(2)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(1)
+                           width: albumSize
+                           height: albumSize
                            color: get_random_color()
-                           x: 50
-                           z: 3
                        }
                        UbuntuShape {
                            id: cover3
-                           anchors.left: cover2.right
-                           width: units.gu(6)
-                           height: parent.height
+                           anchors.left: parent.left
+                           anchors.leftMargin: units.gu(1)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(1)
+                           width: albumSize
+                           height: albumSize
                            color: get_random_color()
-                           x: 50
-                           z: 4
                        }
 
                        Label {
@@ -272,9 +279,9 @@ PageStack {
                            maximumLineCount: 1
                            fontSize: "medium"
                            anchors.left: cover3.right
-                           anchors.leftMargin: units.gu(2)
+                           anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
-                           anchors.topMargin: 5
+                           anchors.topMargin: units.gu(3)
                            anchors.bottomMargin: 5
                            anchors.right: parent.right
                            text: playlist.name + " ("+playlist.count+")"

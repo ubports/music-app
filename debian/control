@@ -15,6 +15,7 @@ Architecture: all
 Depends: ${misc:Depends},
          grilo-plugins-0.2-mediascanner,
          qtdeclarative5-qtgrilo0.1,
+         qtdeclarative5-qtpowerd0.1 (>= 0.2~),
          qtdeclarative5-localstorage-plugin,
          qtdeclarative5-particles-plugin,
          qtdeclarative5-qtmultimedia-plugin,

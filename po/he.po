@@ -1,4 +1,4 @@
-# Italian translation for music-app
+# Hebrew translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-28 08:58+0000\n"
-"Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2013-09-30 13:30+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-29 05:48+0000\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:41+0000\n"
 "X-Generator: Launchpad (build 16774)\n"
 
 #: ../LoginLastFM.qml:38
@@ -23,174 +23,174 @@ msgstr "LastFM"
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr "Accedere per eseguire lo scrobbling."
+msgstr "יש להיכנס כדי לעבור בין שירים."
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Nome utente"
+msgstr "שם משתמש"
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Password"
+msgstr "ססמה"
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Accedi"
+msgstr "כניסה"
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr "Tentativo di accesso...."
+msgstr "מתבצע ניסיון כניסה…"
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr "Accesso eseguito"
+msgstr "הכניסה הצליחה"
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr "Accesso non riuscito"
+msgstr "הכניסה נכשלה"
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
-msgstr "Hai dimenticato di impostare nome utente e/o password"
+msgstr "שכחת להגדיר את שם המשתמש והססמה שלך"
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Album"
+msgstr "אלבומים"
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "הגדרות"
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Brani"
+msgstr "רצועות"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
-msgstr "Artisti"
+msgstr "אמנים"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Indietro"
+msgstr "חזרה"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Pulisci"
+msgstr "ניקוי"
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Nuova"
+msgstr "חדש"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr "Procedere?"
+msgstr "האם אכן למחוק אותה?"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr "Questo eliminerà la playlist."
+msgstr "פעולה זו תמחק את רשימת הנגינה שלך."
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Rimuovi"
+msgstr "הסרה"
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "ביטול"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Modifica nome"
+msgstr "החלפת שם"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr "Inserire il nuovo nome della playlist."
+msgstr "נא להזין את השם החדש לרשימת הנגינה."
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Modifica"
+msgstr "החלפה"
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr "Non è stato digitato il nome."
+msgstr "לא הזנת שם."
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Playlist"
+msgstr "רשימות נגינה"
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "רשימת נגינה"
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
-msgstr "Equalizzatore"
+msgstr "אקולייזר"
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Predefinito"
+msgstr "בררת מחדל"
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
-msgstr "Acustica"
+msgstr "אקוסטי"
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Classica"
+msgstr "קלסי"
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
-msgstr "Elettronica"
+msgstr "אלקטרוני"
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr "Piatto"
+msgstr "שטוח"
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
-msgstr "Hip Hop"
+msgstr "היפ הופ"
 
 #: ../MusicSettings.qml:83
 msgid "Jazz"
-msgstr "Jazz"
+msgstr "ג׳אז"
 
 #: ../MusicSettings.qml:84
 msgid "Metal"
-msgstr "Metal"
+msgstr "מטאל"
 
 #: ../MusicSettings.qml:85
 msgid "Pop"
-msgstr "Pop"
+msgstr "פופ"
 
 #: ../MusicSettings.qml:86
 msgid "Rock"
-msgstr "Rock"
+msgstr "רוק"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
-msgstr "Personalizzato"
+msgstr "התאמה אישית"
 
 #: ../MusicSettings.qml:100
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"Interrompi il brano attuale \n"
-"aprendo la barra degli strumenti"
+"הצמדה לשיר הנוכחי\n"
+"בעת פתיחת סרגל הכלים"
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
-msgstr "Casuale"
+msgstr "ערבוב"
 
 #: ../MusicSettings.qml:134
 msgid "Accounts"
-msgstr "Account"
+msgstr "חשבונות"
 
 #: ../MusicSettings.qml:141 ../MusicSettings.qml:150
 msgid "Last.fm"
@@ -201,12 +201,12 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
-"Accedere per lo scrobbling \n"
-"e per importare playlist"
+"יש להיכנס כדי לעבור בין \n"
+"שירים ולייבא רשימות נגינה"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"
-msgstr "Streaming musicale"
+msgstr "הזרמת מוזיקה"
 
 #: ../MusicSettings.qml:173
 msgid "Ubuntu One"
@@ -214,117 +214,117 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:174
 msgid "Sign in to stream your cloud music"
-msgstr "Accedere per eseguire lo stream della propria musica dal cloud"
+msgstr "עליך להיכנס כדי להזרים את המוזיקה שלך מהענן"
 
 #: ../MusicSettings.qml:187
 msgid "Stream only on Wi-Fi"
-msgstr "Stream solo su Wi-Fi"
+msgstr "יש להזרים רק בחיבור רשת אלחוטי"
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
-msgstr "Pulisci tutto"
+msgstr "לנקות הכול!"
 
 #: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
 #: ../music-app.qml:821 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Musica"
+msgstr "מוזיקה"
 
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
 msgid "Select playlist"
-msgstr "Seleziona playlist"
+msgstr "בחירת רשימת נגינה"
 
 #: ../MusicaddtoPlaylist.qml:126
 msgid "New playlist"
-msgstr "Nuova playlist"
+msgstr "רשימת נגינה חדשה"
 
 #: ../music-app.qml:62
 msgid "Next"
-msgstr "Successivo"
+msgstr "הבא"
 
 #: ../music-app.qml:63
 msgid "Next Track"
-msgstr "Brano successivo"
+msgstr "הרצועה הבאה"
 
 #: ../music-app.qml:69
 msgid "Pause"
-msgstr "Pausa"
+msgstr "השהיה"
 
 #: ../music-app.qml:69
 msgid "Play"
-msgstr "Riproduci"
+msgstr "נגינה"
 
 #: ../music-app.qml:71
 msgid "Pause Playback"
-msgstr "Sospendi riproduzione"
+msgstr "עצירת ההשמעה"
 
 #: ../music-app.qml:71
 msgid "Continue or start playback"
-msgstr "Continua o avvia riproduzione"
+msgstr "להמשיך או להתחיל בנגינה"
 
 #: ../music-app.qml:82
 msgid "Previous"
-msgstr "Precedente"
+msgstr "הקודם"
 
 #: ../music-app.qml:83
 msgid "Previous Track"
-msgstr "Brano precedente"
+msgstr "הרצועה הקודמת"
 
 #: ../music-app.qml:88
 msgid "Stop"
-msgstr "Ferma"
+msgstr "עצירה"
 
 #: ../music-app.qml:89
 msgid "Stop Playback"
-msgstr "Interrompi riproduzione"
+msgstr "עצירת הניגון"
 
 #: ../music-app.qml:95
 msgid "Music Settings"
-msgstr "Impostazioni musica"
+msgstr "הגדרות מוזיקה"
 
 #: ../music-app.qml:103
 msgid "Quit"
-msgstr "Esci"
+msgstr "יציאה"
 
 #: ../music-app.qml:104
 msgid "Close application"
-msgstr "Chiudi l'applicazione"
+msgstr "סגירת היישום"
 
 #: ../music-app.qml:418
 msgid "Undo"
-msgstr "Annulla"
+msgstr "ביטול"
 
 #: ../music-app.qml:725
 msgid "Add to queue"
-msgstr "Aggiungi alla coda"
+msgstr "הוספה לתור"
 
 #: ../music-app.qml:739
 msgid "Add to playlist"
-msgstr "Aggiungi alla playlist"
+msgstr "הוספה לרשימת הנגינה"
 
 #: ../music-app.qml:763
 msgid "New Playlist"
-msgstr "Nuova playlist"
+msgstr "רשימת נגינה חדשה"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr "Nome della playlist."
+msgstr "נא לתת שם לרשימת הנגינה שלך."
 
 #: ../music-app.qml:767
 msgid "Name"
-msgstr "Nome"
+msgstr "שם"
 
 #: ../music-app.qml:775
 msgid "Create"
-msgstr "Crea"
+msgstr "יצירה"
 
 #: ../music-app.qml:789
 msgid "Error: "
-msgstr "Errore: "
+msgstr "שגיאה: "
 
 #: ../music-app.qml:796
 msgid "Error: You didn't type a name."
-msgstr "Errore: non è stato inserito alcun nome."
+msgstr "שגיאה: לא הזנת שם."
 
 #: ../music-app.qml:860
 msgid "Songs"
-msgstr "Brani"
+msgstr "שירים"

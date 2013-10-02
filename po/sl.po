@@ -1,4 +1,4 @@
-# Italian translation for music-app
+# Slovenian translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-28 08:58+0000\n"
-"Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2013-09-29 18:41+0000\n"
+"Last-Translator: Dražen Matešić <Unknown>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-29 05:48+0000\n"
+"X-Launchpad-Export-Date: 2013-09-30 05:45+0000\n"
 "X-Generator: Launchpad (build 16774)\n"
 
 #: ../LoginLastFM.qml:38
@@ -23,134 +23,134 @@ msgstr "LastFM"
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr "Accedere per eseguire lo scrobbling."
+msgstr "Prijavite se za zmožnost beleženja skladb"
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Nome utente"
+msgstr "Uporabniško ime"
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Password"
+msgstr "Geslo"
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Accedi"
+msgstr "Prijava"
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr "Tentativo di accesso...."
+msgstr "Prijavljanje ..."
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr "Accesso eseguito"
+msgstr "Prijava je bila uspešna"
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr "Accesso non riuscito"
+msgstr "Prijava je spodletela"
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
-msgstr "Hai dimenticato di impostare nome utente e/o password"
+msgstr "Pozabili ste nastaviti uporabniško ime in/ali geslo"
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Album"
+msgstr "Albumi"
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "Nastavitve"
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Brani"
+msgstr "Sledi"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
-msgstr "Artisti"
+msgstr "Izvajalci"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Indietro"
+msgstr "Nazaj"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Pulisci"
+msgstr "Počisti"
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Nuova"
+msgstr "Novo"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr "Procedere?"
+msgstr "Ali ste prepričani?"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr "Questo eliminerà la playlist."
+msgstr "To bo izbrisalo Vaš seznam predvajanja."
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Rimuovi"
+msgstr "Odstrani"
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "Prekliči"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Modifica nome"
+msgstr "Spremeni ime"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr "Inserire il nuovo nome della playlist."
+msgstr "Vnesite novo ime seznama predvajanja."
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Modifica"
+msgstr "Spremeni"
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr "Non è stato digitato il nome."
+msgstr "Niste vnesli imena."
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Playlist"
+msgstr "Seznami predvajanja"
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Playlist"
+msgstr "Seznam predvajanja"
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
-msgstr "Equalizzatore"
+msgstr "Izenačevalnik"
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Predefinito"
+msgstr "Privzeto"
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
-msgstr "Acustica"
+msgstr "Akustično"
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Classica"
+msgstr "Klasično"
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
-msgstr "Elettronica"
+msgstr "Elektronsko"
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr "Piatto"
+msgstr "Znižano"
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
@@ -174,23 +174,23 @@ msgstr "Rock"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
-msgstr "Personalizzato"
+msgstr "Po meri"
 
 #: ../MusicSettings.qml:100
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"Interrompi il brano attuale \n"
-"aprendo la barra degli strumenti"
+"Pripni trenutni skladbi \n"
+"med odpiranjem orodne vrstice"
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
-msgstr "Casuale"
+msgstr "Premešaj"
 
 #: ../MusicSettings.qml:134
 msgid "Accounts"
-msgstr "Account"
+msgstr "Računi"
 
 #: ../MusicSettings.qml:141 ../MusicSettings.qml:150
 msgid "Last.fm"
@@ -201,12 +201,12 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
-"Accedere per lo scrobbling \n"
-"e per importare playlist"
+"Prijava za beleženje skladb \n"
+"in uvažanje seznamov predvajanja"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"
-msgstr "Streaming musicale"
+msgstr "Pretakanje glasbe"
 
 #: ../MusicSettings.qml:173
 msgid "Ubuntu One"
@@ -214,117 +214,117 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:174
 msgid "Sign in to stream your cloud music"
-msgstr "Accedere per eseguire lo stream della propria musica dal cloud"
+msgstr "Prijavite se za pretakanje glasbe v oblaku"
 
 #: ../MusicSettings.qml:187
 msgid "Stream only on Wi-Fi"
-msgstr "Stream solo su Wi-Fi"
+msgstr "Pretakaj samo preko Wi-Fi"
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
-msgstr "Pulisci tutto"
+msgstr "Počisti vse!"
 
 #: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
 #: ../music-app.qml:821 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Musica"
+msgstr "Glasba"
 
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
 msgid "Select playlist"
-msgstr "Seleziona playlist"
+msgstr "Izberite seznam predvajanja"
 
 #: ../MusicaddtoPlaylist.qml:126
 msgid "New playlist"
-msgstr "Nuova playlist"
+msgstr "Nov seznam predvajanja"
 
 #: ../music-app.qml:62
 msgid "Next"
-msgstr "Successivo"
+msgstr "Naslednja"
 
 #: ../music-app.qml:63
 msgid "Next Track"
-msgstr "Brano successivo"
+msgstr "Naslednja skladba"
 
 #: ../music-app.qml:69
 msgid "Pause"
-msgstr "Pausa"
+msgstr "Premor"
 
 #: ../music-app.qml:69
 msgid "Play"
-msgstr "Riproduci"
+msgstr "Predvajaj"
 
 #: ../music-app.qml:71
 msgid "Pause Playback"
-msgstr "Sospendi riproduzione"
+msgstr "Premor predvajanja"
 
 #: ../music-app.qml:71
 msgid "Continue or start playback"
-msgstr "Continua o avvia riproduzione"
+msgstr "Nadaljuj ali začni predvajanje"
 
 #: ../music-app.qml:82
 msgid "Previous"
-msgstr "Precedente"
+msgstr "Predhodna"
 
 #: ../music-app.qml:83
 msgid "Previous Track"
-msgstr "Brano precedente"
+msgstr "Predhodna skladba"
 
 #: ../music-app.qml:88
 msgid "Stop"
-msgstr "Ferma"
+msgstr "Zaustavi"
 
 #: ../music-app.qml:89
 msgid "Stop Playback"
-msgstr "Interrompi riproduzione"
+msgstr "Zaustavi predvajanje"
 
 #: ../music-app.qml:95
 msgid "Music Settings"
-msgstr "Impostazioni musica"
+msgstr "Nastavitve Glasbe"
 
 #: ../music-app.qml:103
 msgid "Quit"
-msgstr "Esci"
+msgstr "Končaj"
 
 #: ../music-app.qml:104
 msgid "Close application"
-msgstr "Chiudi l'applicazione"
+msgstr "Zapri program"
 
 #: ../music-app.qml:418
 msgid "Undo"
-msgstr "Annulla"
+msgstr "Razveljavi"
 
 #: ../music-app.qml:725
 msgid "Add to queue"
-msgstr "Aggiungi alla coda"
+msgstr "Dodaj v vrsto"
 
 #: ../music-app.qml:739
 msgid "Add to playlist"
-msgstr "Aggiungi alla playlist"
+msgstr "Dodaj na seznam predvajanja"
 
 #: ../music-app.qml:763
 msgid "New Playlist"
-msgstr "Nuova playlist"
+msgstr "Nov seznam predvajanja"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr "Nome della playlist."
+msgstr "Imenujte seznam predvajanja."
 
 #: ../music-app.qml:767
 msgid "Name"
-msgstr "Nome"
+msgstr "Ime"
 
 #: ../music-app.qml:775
 msgid "Create"
-msgstr "Crea"
+msgstr "Ustvari"
 
 #: ../music-app.qml:789
 msgid "Error: "
-msgstr "Errore: "
+msgstr "Napaka: "
 
 #: ../music-app.qml:796
 msgid "Error: You didn't type a name."
-msgstr "Errore: non è stato inserito alcun nome."
+msgstr "Napaka: niste vpisali imena."
 
 #: ../music-app.qml:860
 msgid "Songs"
-msgstr "Brani"
+msgstr "Skladbe"
