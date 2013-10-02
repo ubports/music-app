@@ -22,15 +22,17 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-//import Powerd 0.1
+import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
+import QtGraphicalEffects 1.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
+import "common"
 
 MainView {
     objectName: "music"
@@ -110,10 +112,6 @@ MainView {
 
     Style { id: styleMusic }
 
-    headerColor: styleMusic.mainView.headerColor
-    backgroundColor: styleMusic.mainView.backgroundColor
-    footerColor: styleMusic.mainView.footerColor
-
     width: units.gu(50)
     height: units.gu(75)
     Component.onCompleted: {
@@ -150,6 +148,7 @@ MainView {
         Playlists.initializePlaylists()
         Playlists.initializePlaylist()
         // everything else
+        loading.visible = true
         random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
@@ -496,8 +495,8 @@ MainView {
 
         onPlaybackStateChanged: {
           mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
-          Powerd.keepAlive = mainView.isPlaying
-          console.log("mainView.isPlaying=" + mainView.isPlaying + ", Powerd.keepAlive=" + Powerd.keepAlive)
+          QtPowerd.keepAlive = mainView.isPlaying
+          console.log("mainView.isPlaying=" + mainView.isPlaying + ", QtPowerd.keepAlive=" + QtPowerd.keepAlive)
         }
     }
 
@@ -687,6 +686,10 @@ MainView {
         id: undo
     }
 
+    LoadingSpinnerComponent {
+        id:loading
+    }
+
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -705,6 +708,7 @@ MainView {
                 artistModel.filterArtists()
                 genreModel.filterGenres()
                 timer.stop()
+                loading.visible = false
 
                 // Check if tracks have been found, if none then show message
                 if (counted === 0)
@@ -714,6 +718,32 @@ MainView {
                 }
             }
             counted = griloModel.count
+        }
+    }
+
+    // Blurred background
+    Rectangle {
+        anchors.fill: parent
+        // the album art
+        Image {
+            id: backgroundImage
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            source: mainView.currentCoverFull
+            height: parent.height
+            width: height
+        }
+        // the blur
+        FastBlur {
+            anchors.fill: backgroundImage
+            source: backgroundImage
+            radius: units.dp(42)
+        }
+        // transparent white layer
+        Rectangle {
+            anchors.fill: parent
+            color: "white"
+            opacity: 0.7
         }
     }
 
