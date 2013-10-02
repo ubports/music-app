@@ -97,13 +97,7 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(musicpath)
         logger.debug("Mediascanner path set to " + mediascannerpath)
 
-        #copy over our index
-        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
-                        mediascannerpath)
-
-        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
-
-        #copy over the music
+        #copy over the music and index
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'1.ogg',
@@ -111,6 +105,9 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'2.ogg',
                 musicpath)
+            shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
+                        mediascannerpath)
+
         else:
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'1.ogg',
@@ -118,8 +115,11 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
+            shutil.copytree('/usr/lib/python2.7/dist-packages/music_app/content/',
+                        mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
 
         #do some inline db patching
         #patch mediaindex to proper home
