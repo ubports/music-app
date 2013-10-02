@@ -82,6 +82,14 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(temp_dir)
         logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+        #if the Xauthority file is in home directory
+        #make sure we copy it to temp home, otherwise do nothing
+        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        if os.path.isfile(xauth):
+            logger.debug("Copying .Xauthority to fake home " + temp_dir)
+            shutil.copyfile(
+                os.path.expanduser(os.path.join('~', '.Xauthority')),
+                os.path.join(temp_dir, '.Xauthority'))
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
         logger.debug("Patched home to fake home directory " + temp_dir)
