@@ -115,7 +115,7 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
-            shutil.copytree('/usr/lib/python2.7/dist-packages/music_app/content/',
+            shutil.copytree('/usr/lib/python2.7/dist-packages/music_app/content/mediascanner',
                         mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
