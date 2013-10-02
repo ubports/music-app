@@ -273,6 +273,9 @@ PageStack {
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
                            color: get_random_color()
+                           image: Image {
+                               source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        // songs count
                        Label {
