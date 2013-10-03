@@ -10,8 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals
-from testtools.matchers import Contains
+from testtools.matchers import Equals, NotEquals
 
 from music_app.tests import MusicTestCase
 
@@ -22,15 +21,17 @@ class TestMainWindow(MusicTestCase):
         """ tests if the music library is populated from our
         fake mediascanner database"""
 
+        self.assertThat(self.main_view.get_main_view, Eventually(NotEquals(None)))
         mainView = self.main_view.get_main_view()
         title = lambda: mainView.currentTracktitle
         artist = lambda: mainView.currentArtist
         self.assertThat(title, Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-    def test_play(self):
-        """ Test Playing a track (Music Library must exist) """
+    def test_play_pause(self):
+        """ Test playing and pausing a track (Music Library must exist) """
 
+        self.assertThat(self.main_view.get_play_button, Eventually(NotEquals(None)))
         playbutton = self.main_view.get_play_button()
         mainView = self.main_view.get_main_view()
 
@@ -41,26 +42,14 @@ class TestMainWindow(MusicTestCase):
         """ Track is playing"""
         self.assertThat(mainView.isPlaying, Eventually(Equals(True)))
 
-    def test_pause(self):
-        """ Test Pausing a track (Music Library must exist) """
-
-        playbutton = self.main_view.get_play_button()
-        mainView = self.main_view.get_main_view()
-
         """ Track is not playing"""
-        self.assertThat(mainView.isPlaying, Equals(False))
         self.pointing_device.click_object(playbutton)
-
-        """ Track is playing"""
-        self.assertThat(mainView.isPlaying, Eventually(Equals(True)))
-        self.pointing_device.click_object(playbutton)
-
-        """ Track is not playing"""
         self.assertThat(mainView.isPlaying, Eventually(Equals(False)))
 
     def test_next(self):
         """ Test going to next track (Music Library must exist) """
 
+        self.assertThat(self.main_view.get_forward_button, Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
         mainView = self.main_view.get_main_view()
         title = lambda: mainView.currentTracktitle

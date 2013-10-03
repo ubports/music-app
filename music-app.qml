@@ -687,10 +687,6 @@ MainView {
         id: undo
     }
 
-    LoadingSpinnerComponent {
-        id:loading
-    }
-
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -746,6 +742,10 @@ MainView {
             color: "white"
             opacity: 0.7
         }
+    }
+
+    LoadingSpinnerComponent {
+        id:loading
     }
 
     // Popover for tracks, queue and add to playlist, for example
