@@ -73,8 +73,6 @@ PageStack {
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist
-                    property string numberOfTracks: Library.getArtistTracks(artist)
-                    property string numberOfAlbums: Library.getArtistAlbums(artist)
                     height: styleMusic.common.itemHeight
 
                     UbuntuShape {
@@ -88,7 +86,6 @@ PageStack {
                        image: Image {
                            source: "images/cover_default.png"
                        }
-                       visible: numberOfAlbums > 4 //fix
                     }
                     UbuntuShape {
                        id: cover1
@@ -101,7 +98,6 @@ PageStack {
                        image: Image {
                            source: "images/cover_default.png"
                        }
-                       visible: numberOfAlbums > 3 //fix
                     }
                     UbuntuShape {
                        id: cover2
@@ -114,7 +110,6 @@ PageStack {
                        image: Image {
                            source: "images/cover_default.png"
                        }
-                       visible: numberOfAlbums > 2 //fix
                     }
                     UbuntuShape {
                        id: cover3
@@ -152,7 +147,7 @@ PageStack {
                         anchors.top: trackArtistAlbum.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: numberOfAlbums + i18n.tr(" albums") // model for number of albums?
+                        text: i18n.tr(" albums") // model for number of albums?
                     }
 
                     Label {
@@ -165,7 +160,7 @@ PageStack {
                         anchors.top: trackArtistAlbums.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: numberOfTracks + i18n.tr(" songs") //fix
+                        text: i18n.tr(" songs") //fix
                     }
 
                     onFocusChanged: {

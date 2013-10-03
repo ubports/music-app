@@ -39,7 +39,6 @@ PageStack {
         title: i18n.tr("Albums")
         Component.onCompleted: {
             pageStack.push(mainpage)
-            onPlayingTrackChange.connect(updateHighlight)
         }
 
         tools: ToolbarItems {
@@ -57,12 +56,6 @@ PageStack {
                                     } )
                 }
             }
-        }
-
-        function updateHighlight(file)
-        {
-            console.debug("MusicArtists update highlight:", file)
-            albumtrackslist.currentIndex = albumTracksModel.indexOf(file)
         }
 
         GridView {
@@ -210,10 +203,10 @@ PageStack {
                     }
                 }
                 Label {
-                    id: albumTitle
+                    id: albumArtist
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
-                    fontSize: "large"
+                    fontSize: "medium"
                     anchors.left: albumImage.right
                     anchors.leftMargin: units.gu(1)
                     anchors.top: parent.top
@@ -222,42 +215,40 @@ PageStack {
                     text: albumtrackslist.title == "" ? albumtrackslist.file : albumtrackslist.album
                 }
                 Label {
-                    id: albumArtist
+                    id: albumTitle
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "large"
                     anchors.left: albumImage.right
                     anchors.leftMargin: units.gu(1)
-                    anchors.top: albumTitle.bottom
+                    anchors.top: albumArtist.bottom
                     anchors.topMargin: units.gu(1)
                     anchors.right: parent.right
                     text: albumtrackslist.artist == "" ? "" : albumtrackslist.artist
                 }
                 Label {
-                    id: albumYear
+                    id: albumData
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
-                    fontSize: "medium"
+                    fontSize: "small"
                     anchors.left: albumImage.right
                     anchors.leftMargin: units.gu(1)
-                    anchors.top: albumArtist.bottom
+                    anchors.top: albumTitle.bottom
                     anchors.topMargin: units.gu(1)
                     anchors.right: parent.right
-                    text: albumtrackslist.year
+                    text: albumtrackslist.year + " | " + albumTracksModel.model.count + " songs"
                 }
-                Label {
-                    id: albumCount
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "medium"
-                    anchors.left: albumImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: albumYear.bottom
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: albumTracksModel.model.count + " songs"
-                }
+            }
 
+            Rectangle {
+                id: expandable
+                anchors.top: albumInfo.bottom
+                anchors.bottom: albumTracksDelegate.top
+                height: units.gu(4.5)
+                width: parent.width
+                color: "black"
+                opacity: 0.7
+                visible: false
             }
 
             onCountChanged: {
@@ -289,12 +280,14 @@ PageStack {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "large"
+                        fontSize: "medium"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1.5)
                         text: track.title == "" ? track.file : track.title
                     }
 
