@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import QtPowerd 0.1
+//import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0

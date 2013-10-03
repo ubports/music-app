@@ -39,13 +39,6 @@ PageStack {
         title: i18n.tr("Artists")
         Component.onCompleted: {
             pageStack.push(mainpage)
-            onPlayingTrackChange.connect(updateHighlight)
-        }
-
-        function updateHighlight(file)
-        {
-            console.debug("MusicArtists update highlight:", file)
-            artisttrackslist.currentIndex = artistTracksModel.indexOf(file)
         }
 
         tools: ToolbarItems {
@@ -58,9 +51,9 @@ PageStack {
                 onTriggered: {
                     console.debug('Debug: Show settings')
                     PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
+                    {
+                        title: i18n.tr("Settings")
+                    } )
                 }
             }
         }
@@ -80,6 +73,8 @@ PageStack {
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist
+                    property string numberOfTracks: Library.getArtistTracks(artist)
+                    property string numberOfAlbums: Library.getArtistAlbums(artist)
                     height: styleMusic.common.itemHeight
 
                     UbuntuShape {
@@ -91,9 +86,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                           source: "images/cover_default.png"
                        }
-                       visible: artistModel.model.count > 40 //fix
+                       visible: numberOfAlbums > 4 //fix
                     }
                     UbuntuShape {
                        id: cover1
@@ -104,9 +99,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                           source: "images/cover_default.png"
                        }
-                       visible: artistModel.model.count > 30 //fix
+                       visible: numberOfAlbums > 3 //fix
                     }
                     UbuntuShape {
                        id: cover2
@@ -117,9 +112,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                           source: "images/cover_default.png"
                        }
-                       visible: artistModel.model.count > 20 //fix
+                       visible: numberOfAlbums > 2 //fix
                     }
                     UbuntuShape {
                        id: cover3
@@ -130,7 +125,7 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: artisttrackslist.cover !== "" ? artisttrackslist.cover : "images/cover_default.png"
+                           source: "images/cover_default.png"
                        }
                     }
 
@@ -144,7 +139,7 @@ PageStack {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: artist
+                        text: artist // !== '' artist : i18n.tr("Unknown Artist") fix this
                     }
 
                     Label {
@@ -157,7 +152,7 @@ PageStack {
                         anchors.top: trackArtistAlbum.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: artistModel.model.count + i18n.tr(" albums") // model for number of albums?
+                        text: numberOfAlbums + i18n.tr(" albums") // model for number of albums?
                     }
 
                     Label {
@@ -170,7 +165,7 @@ PageStack {
                         anchors.top: trackArtistAlbums.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: artistModel.model.count + i18n.tr(" songs") //fix
+                        text: numberOfTracks + i18n.tr(" songs") //fix
                     }
 
                     onFocusChanged: {

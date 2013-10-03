@@ -722,7 +722,6 @@ PageStack {
                             id: trackTitle
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(0.5)
-                            color: styleMusic.common.white
                             elide: Text.ElideRight
                             height: units.gu(1)
                             text: title == "" ? file : title
@@ -733,7 +732,6 @@ PageStack {
                             id: trackArtistAlbum
                             anchors.top: trackTitle.bottom
                             anchors.topMargin: units.gu(1)
-                            color: styleMusic.nowPlaying.labelSecondaryColor
                             elide: Text.ElideRight
                             text: artist == "" ? "" : artist + " - " + album
                             width: parent.width
