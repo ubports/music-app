@@ -27,276 +27,269 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
-PageStack {
-    id: pageStack
-    anchors.fill: parent
+Page {
+    id: mainpage
+    title: i18n.tr("Albums")
+
+    property string artist: ""
+    property string album: ""
+    property string songtitle: ""
+    property string cover: ""
+    property string length: ""
+    property string file: ""
+    property string year: ""
+
+    Component.onCompleted: {
+        onPlayingTrackChange.connect(updateHighlight)
+    }
 
     MusicSettings {
         id: musicSettings
     }
 
-    Page {
-        id: mainpage
-        title: i18n.tr("Albums")
-        Component.onCompleted: {
-            pageStack.push(mainpage)
-            onPlayingTrackChange.connect(updateHighlight)
-        }
+    tools: ToolbarItems {
+        // Settings dialog
+        ToolbarButton {
+            objectName: "settingsaction"
+            iconSource: Qt.resolvedUrl("images/settings.png")
+            text: i18n.tr("Settings")
 
-        tools: ToolbarItems {
-            // Settings dialog
-            ToolbarButton {
-                objectName: "settingsaction"
-                iconSource: Qt.resolvedUrl("images/settings.png")
-                text: i18n.tr("Settings")
-
-                onTriggered: {
-                    console.debug('Debug: Show settings')
-                    PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Settings")
-                                    } )
-                }
+            onTriggered: {
+                console.debug('Debug: Show settings')
+                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                {
+                                    title: i18n.tr("Settings")
+                                } )
             }
         }
+    }
 
-        function updateHighlight(file)
-        {
-            console.debug("MusicArtists update highlight:", file)
-            albumtrackslist.currentIndex = albumTracksModel.indexOf(file)
-        }
+    function updateHighlight(file)
+    {
+        console.debug("MusicArtists update highlight:", file)
+        albumtrackslist.currentIndex = albumTracksModel.indexOf(file)
+    }
 
-        GridView {
-            id: albumlist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            cellHeight: units.gu(18)
-            cellWidth: units.gu(14)
-            model: albumModel.model
-            delegate: albumDelegate
+    GridView {
+        id: albumlist
+        width: parent.width
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        cellHeight: units.gu(18)
+        cellWidth: units.gu(14)
+        model: albumModel.model
+        delegate: albumDelegate
 
-            Component {
-                id: albumDelegate
-                Item {
-                    id: albumItem
-                    height: units.gu(17)
-                    width: units.gu(13)
-                    anchors.margins: units.gu(1)
-                    UbuntuShape {
-                        id: albumShape
-                        height: albumItem.width
-                        width: albumItem.width
-                        image: Image {
-                            id: icon
-                            fillMode: Image.Stretch
-                            property string artist: model.artist
-                            property string album: model.album
-                            property string title: model.title
-                            property string cover: model.cover
-                            property string length: model.length
-                            property string file: model.file
-                            property string year: model.year
-                            source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+file
-                        }
+        Component {
+            id: albumDelegate
+            Item {
+                id: albumItem
+                height: units.gu(17)
+                width: units.gu(13)
+                anchors.margins: units.gu(1)
+                UbuntuShape {
+                    id: albumShape
+                    height: albumItem.width
+                    width: albumItem.width
+                    image: Image {
+                        id: icon
+                        fillMode: Image.Stretch
+                        source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+model.file
                     }
-                    Label {
-                        id: albumTitle
-                        width: albumItem.width
-                        wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignHCenter
-                        maximumLineCount: 1
-                        fontSize: "small"
-                        anchors.top: albumShape.bottom
-                        anchors.horizontalCenter: albumItem.horizontalCenter
-                        text: album
-                    }
-                    Label {
-                        id: albumArtist
-                        width: albumItem.width
-                        wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignHCenter
-                        maximumLineCount: 1
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.top: albumTitle.bottom
-                        anchors.horizontalCenter: albumItem.horizontalCenter
-                        text: artist
-                    }
+                }
+                Label {
+                    id: albumTitle
+                    width: albumItem.width
+                    wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 1
+                    fontSize: "small"
+                    anchors.top: albumShape.bottom
+                    anchors.horizontalCenter: albumItem.horizontalCenter
+                    text: model.album
+                }
+                Label {
+                    id: albumArtist
+                    width: albumItem.width
+                    wrapMode: Text.Wrap
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 1
+                    fontSize: "small"
+                    anchors.left: parent.left
+                    anchors.top: albumTitle.bottom
+                    anchors.horizontalCenter: albumItem.horizontalCenter
+                    text: model.artist
+                }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                        }
-                        onClicked: {
-                            albumTracksModel.filterAlbumTracks(album)
-                            albumtrackslist.artist = artist
-                            albumtrackslist.album = album
-                            albumtrackslist.file = file
-                            albumtrackslist.year = year
-                            pageStack.push(albumpage)
-                        }
+                MouseArea {
+                    anchors.fill: parent
+                    onDoubleClicked: {
+                    }
+                    onPressAndHold: {
+                    }
+                    onClicked: {
+                        albumTracksModel.filterAlbumTracks(album)
+                        artist = model.artist
+                        album = model.album
+                        songtitle = model.title
+                        cover = model.cover
+                        length = model.length
+                        file = model.file
+                        year = model.year
+                        PopupUtils.open(albumSheet)
                     }
                 }
             }
         }
     }
 
-    Page {
-        id: albumpage
-        title: i18n.tr("Tracks")
-        visible: false
+    Component {
+        id: albumSheet
+        DefaultSheet {
+            id: sheet
+            title: album
+            contentsHeight: parent.height
 
-        ListView {
-            id: albumtrackslist
-            clip: true
-            property string artist: ""
-            property string album: ""
-            property string file: ""
-            property string year: ""
-            width: parent.width
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
-            highlightFollowsCurrentItem: false
-            model: albumTracksModel.model
-            delegate: albumTracksDelegate
-            header: ListItem.Standard {
-                id: albumInfo
+            ListView {
+                id: albumtrackslist
+                clip: true
                 width: parent.width
-                height: units.gu(20)
-                UbuntuShape {
-                    id: albumImage
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: units.gu(1)
-                    height: parent.height
-                    width: height
-                    image: Image {
-                        source: Library.hasCover(albumtrackslist.file) ? "image://cover-art-full/"+albumtrackslist.file : Qt.resolvedUrl("images/cover_default.png")
-                    }
-                }
-                Label {
-                    id: albumTitle
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "large"
-                    anchors.left: albumImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: albumtrackslist.title == "" ? albumtrackslist.file : albumtrackslist.album
-                }
-                Label {
-                    id: albumArtist
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "large"
-                    anchors.left: albumImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: albumTitle.bottom
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: albumtrackslist.artist == "" ? "" : albumtrackslist.artist
-                }
-                Label {
-                    id: albumYear
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "medium"
-                    anchors.left: albumImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: albumArtist.bottom
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: albumtrackslist.year
-                }
-                Label {
-                    id: albumCount
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "medium"
-                    anchors.left: albumImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: albumYear.bottom
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: albumTracksModel.model.count + " songs"
-                }
-
-            }
-
-            onCountChanged: {
-                albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
-            }
-
-            Component {
-                id: albumTracksDelegate
-
-                ListItem.Standard {
-                    id: track
-                    property string artist: model.artist
-                    property string album: model.album
-                    property string title: model.title
-                    property string cover: model.cover
-                    property string length: model.length
-                    property string file: model.file
-                    iconFrame: false
-                    progression: false
-                    Rectangle {
-                        id: highlight
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                highlightFollowsCurrentItem: false
+                model: albumTracksModel.model
+                delegate: albumTracksDelegate
+                header: ListItem.Standard {
+                    id: albumInfo
+                    width: parent.width
+                    height: units.gu(20)
+                    UbuntuShape {
+                        id: albumImage
                         anchors.left: parent.left
-                        visible: false
-                        width: units.gu(.75)
+                        anchors.top: parent.top
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.margins: units.gu(1)
                         height: parent.height
-                        color: styleMusic.listView.highlightColor;
+                        width: height
+                        image: Image {
+                            source: Library.hasCover(model.file) ? "image://cover-art-full/"+model.file : Qt.resolvedUrl("images/cover_default.png")
+                        }
                     }
                     Label {
-                        id: trackTitle
+                        id: albumTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "large"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(2)
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(1.5)
+                        anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: track.title == "" ? track.file : track.title
+                        text: model.album
+                    }
+                    Label {
+                        id: albumArtist
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "large"
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
+                        anchors.top: albumTitle.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: model.artist
+                    }
+                    Label {
+                        id: albumYear
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
+                        anchors.top: albumArtist.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: model.year
+                    }
+                    Label {
+                        id: albumCount
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "medium"
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
+                        anchors.top: albumYear.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: albumTracksModel.model.count + " songs"
                     }
 
-                    onFocusChanged: {
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
+                }
+
+                onCountChanged: {
+                    albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
+                }
+
+                Component {
+                    id: albumTracksDelegate
+
+                    ListItem.Standard {
+                        id: track
+                        iconFrame: false
+                        progression: false
+                        Rectangle {
+                            id: highlight
+                            anchors.left: parent.left
+                            visible: false
+                            width: units.gu(.75)
+                            height: parent.height
+                            color: styleMusic.listView.highlightColor;
                         }
-                        onPressAndHold: {
-                            PopupUtils.open(trackPopoverComponent, mainView)
-                            chosenArtist = artist
-                            chosenAlbum = album
-                            chosenTitle = title
-                            chosenTrack = file
+                        Label {
+                            id: trackTitle
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 1
+                            fontSize: "large"
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(2)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(1.5)
+                            anchors.right: parent.right
+                            text: model.title == "" ? model.file : model.title
                         }
-                        onClicked: {
-                            if (focus == false) {
-                                focus = true
+
+                        onFocusChanged: {
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onDoubleClicked: {
                             }
-                            trackClicked(albumTracksModel, index)  // play track
+                            onPressAndHold: {
+                                PopupUtils.open(trackPopoverComponent, mainView)
+                                chosenArtist = model.artist
+                                chosenAlbum = model.album
+                                chosenTitle = model.title
+                                chosenTrack = model.file
+                            }
+                            onClicked: {
+                                if (focus == false) {
+                                    focus = true
+                                }
+                                trackClicked(albumTracksModel, index)  // play track
+                            }
                         }
-                    }
-                    Component.onCompleted: {
-                    }
-                    states: State {
-                        name: "Current"
-                        when: track.ListView.isCurrentItem
-                        PropertyChanges { target: highlight; visible: true }
+                        Component.onCompleted: {
+                        }
+                        states: State {
+                            name: "Current"
+                            when: track.ListView.isCurrentItem
+                            PropertyChanges { target: highlight; visible: true }
+                        }
                     }
                 }
             }
         }
     }
 }
+
+
