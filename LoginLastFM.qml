@@ -30,9 +30,12 @@ import "scrobble.js" as Scrobble
 // LastFM login dialog
 DefaultSheet {
     id: lastfmroot
-    anchors.fill: parent
+    contentsHeight: parent.height;
 
-    onDoneClicked: PopupUtils.close(lastfmroot)
+    onDoneClicked: {
+        customdebug("Close lastfm sheet.")
+        PopupUtils.close(lastfmroot)
+    }
 
     // Dialog data
     title: i18n.tr("LastFM")
