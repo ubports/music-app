@@ -226,7 +226,6 @@ PageStack {
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
                             height: styleMusic.common.expandedItem
-                            width: units.gu(15)
                             UbuntuShape {
                                 id: playlistTrack
                                 color: get_random_color()
@@ -235,6 +234,8 @@ PageStack {
                             }
                             Label {
                                 text: i18n.tr("Add to playlist")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
                                 anchors.left: playlistTrack.right
                                 anchors.leftMargin: units.gu(0.5)
                             }
@@ -275,6 +276,8 @@ PageStack {
                             }
                             Label {
                                 text: i18n.tr("Queue")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
                                 anchors.left: queueTrack.right
                                 anchors.leftMargin: units.gu(0.5)
                             }
@@ -305,6 +308,8 @@ PageStack {
                             }
                             Label {
                                 text: i18n.tr("Share")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
                                 anchors.left: shareTrack.right
                                 anchors.leftMargin: units.gu(0.5)
                             }
