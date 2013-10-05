@@ -24,6 +24,8 @@ QtObject {
     property QtObject common: QtObject {
         property color black: "#000000";
         property color white: "#FFFFFF";
+        property int albumSize: units.gu(10)
+        property int itemHeight: units.gu(12)
     }
 
     property QtObject dialog: QtObject {
