@@ -26,6 +26,10 @@ QtObject {
         property color white: "#FFFFFF";
         property int albumSize: units.gu(10)
         property int itemHeight: units.gu(12)
+        property int expandedHeight: units.gu(20)
+        property int expandHeight: units.gu(10)
+        property int expandedItem: units.gu(4)
+        property int expandedTopMargin: units.gu(12.5)
     }
 
     property QtObject dialog: QtObject {

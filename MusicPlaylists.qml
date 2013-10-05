@@ -113,12 +113,14 @@ PageStack {
                  placeholderText: oldPlaylistName
              }
              ListItem.Standard {
-                 id: newplaylistoutput
+                 id: editplaylistoutput
+                 visible: false
              }
 
              Button {
                  text: i18n.tr("Change")
                  onClicked: {
+                     editplaylistoutput.visible = true
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
                          var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
                          console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
@@ -126,7 +128,7 @@ PageStack {
                          PopupUtils.close(dialogueEditPlaylist)
                      }
                      else {
-                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        editplaylistoutput.text = i18n.tr("You didn't type in a name.")
                      }
                 }
              }
@@ -273,9 +275,6 @@ PageStack {
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
                            color: get_random_color()
-                           image: Image {
-                               source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
-                           }
                        }
                        // songs count
                        Label {
@@ -303,6 +302,106 @@ PageStack {
                            anchors.bottomMargin: 5
                            anchors.right: parent.right
                            text: playlist.name
+                       }
+
+                       Image {
+                           id: expandItem
+                           anchors.left: playlistname.right
+                           source: "images/select.png"
+                           height: units.gu(6)
+                           width: units.gu(6)
+                           x: 350
+
+                           MouseArea {
+                              anchors.fill: parent
+                              onClicked: {
+                                  if(expandable.visible) {
+                                      customdebug("clicked collapse")
+                                      expandable.visible = false
+                                      playlist.height = styleMusic.common.itemHeight
+
+                                  }
+                                  else {
+                                      customdebug("clicked expand")
+                                      expandable.visible = true
+                                      playlist.height = styleMusic.common.expandedHeight
+                                  }
+                              }
+                          }
+                       }
+
+                       Rectangle {
+                           id: expandable
+                           visible: false
+                           anchors.top: parent.buttom
+                           width: parent.fill
+                           height: styleMusic.common.expandHeight
+                           MouseArea {
+                              anchors.fill: parent
+                              onClicked: {
+                                  customdebug("User pressed outside the playlist item and expanded items.")
+                            }
+                          }
+
+                           Column {
+                               id: editColumn
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.common.expandedTopMargin
+                               anchors.left: parent.left
+                               anchors.leftMargin: units.gu(2)
+
+                               UbuntuShape {
+                                   id: editPlaylist
+                                   color: get_random_color()
+                                   height: styleMusic.common.expandedItem
+                                   width: styleMusic.common.expandedItem
+
+                                   MouseArea {
+                                      anchors.fill: parent
+                                      onClicked: {
+                                          customdebug("Edit playlist")
+                                          oldPlaylistName = name
+                                          oldPlaylistID = id
+                                          oldPlaylistIndex = index
+                                          PopupUtils.open(editPlaylistDialog, mainView)
+                                    }
+                                  }
+                               }
+
+                               Label {
+                                   text: i18n.tr("Edit")
+                               }
+                           }
+
+                           Column {
+                               id: deleteColumn
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.common.expandedTopMargin
+                               anchors.left: editColumn.right
+                               anchors.leftMargin: units.gu(2)
+
+                               UbuntuShape {
+                                   id: deletePlaylist
+                                   color: get_random_color()
+                                   height: styleMusic.common.expandedItem
+                                   width: styleMusic.common.expandedItem
+
+                                   MouseArea {
+                                      anchors.fill: parent
+                                      onClicked: {
+                                          customdebug("Delete")
+                                          oldPlaylistName = name
+                                          oldPlaylistID = id
+                                          oldPlaylistIndex = index
+                                          PopupUtils.open(removePlaylistDialog, mainView)
+                                    }
+                                  }
+                               }
+
+                               Label {
+                                   text: i18n.tr("Delete")
+                               }
+                            }
                        }
 
                     onPressAndHold: {
