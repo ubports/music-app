@@ -87,9 +87,14 @@ QtObject {
         property color labelColor: UbuntuColors.coolGrey;
     }
 
+    property QtObject playlists: QtObject {
+        property int expandedHeight: units.gu(15);
+    }
+
     property QtObject playlist: QtObject {
         property int infoHeight: units.gu(14);
         property int expandedHeight: units.gu(18.5);
+        property int expandedTopMargin: units.gu(11);
         property int playlistItemHeight: units.gu(10);
         property int playlistAlbumSize: units.gu(8);
     }

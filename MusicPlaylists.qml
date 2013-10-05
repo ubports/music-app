@@ -290,7 +290,7 @@ PageStack {
                                   else {
                                       customdebug("clicked expand")
                                       expandable.visible = true
-                                      playlist.height = styleMusic.common.expandedHeight
+                                      playlist.height = styleMusic.playlists.expandedHeight
                                   }
                               }
                           }
@@ -314,7 +314,7 @@ PageStack {
                            Column {
                                id: editColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.common.expandedTopMargin
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: parent.left
                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
                                Row {
@@ -350,7 +350,7 @@ PageStack {
                            Column {
                                id: deleteColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.common.expandedTopMargin
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: editColumn.right
                                anchors.leftMargin: units.gu(2)
                                Row {
@@ -386,7 +386,7 @@ PageStack {
                            Column {
                                id: shareColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.common.expandedTopMargin
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
                                Row {
@@ -982,7 +982,7 @@ PageStack {
                             height: units.gu(1)
                             text: title == "" ? file : title
                             width: parent.width
-                            x: trackImage.x + trackImage.width + units.gu(4)
+                            x: trackImage.x + trackImage.width + units.gu(1)
                         }
                         Label {
                             id: trackArtistAlbum
@@ -1041,9 +1041,10 @@ PageStack {
                             Column {
                                 id: shareColumn
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.common.expandedTopMargin
+                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                 anchors.leftMargin: styleMusic.common.expandedLeftMargin
-
+                                height: styleMusic.common.expandedItem
+                                width: units.gu(10)
                                 Row {
                                     id: shareRow
                                     UbuntuShape {
@@ -1051,17 +1052,17 @@ PageStack {
                                         color: get_random_color()
                                         height: styleMusic.common.expandedItem
                                         width: styleMusic.common.expandedItem
-                                        MouseArea {
-                                           anchors.fill: parent
-                                           onClicked: {
-                                               customdebug("Share")
-                                               inPlaylist = true
-                                         }
-                                       }
                                     }
                                     Label {
                                         text: i18n.tr("Share")
                                     }
+                                    MouseArea {
+                                       anchors.fill: parent
+                                       onClicked: {
+                                           customdebug("Share")
+                                           inPlaylist = true
+                                     }
+                                   }
                                 }
                              }
                         }

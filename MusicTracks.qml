@@ -226,6 +226,7 @@ PageStack {
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
                             height: styleMusic.common.expandedItem
+                            width: units.gu(15)
                             UbuntuShape {
                                 id: playlistTrack
                                 color: get_random_color()
