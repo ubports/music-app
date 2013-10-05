@@ -1,0 +1,330 @@
+# Turkish translation for music-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the music-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: music-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-09-26 08:38+0200\n"
+"PO-Revision-Date: 2013-10-01 13:34+0000\n"
+"Last-Translator: Volkan Gezer <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-10-02 05:40+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
+
+#: ../LoginLastFM.qml:38
+msgid "LastFM"
+msgstr "LastFM"
+
+#: ../LoginLastFM.qml:44
+msgid "Login to be able to scrobble."
+msgstr "Skroplamak için oturum açın."
+
+#: ../LoginLastFM.qml:52
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: ../LoginLastFM.qml:62
+msgid "Password"
+msgstr "Parola"
+
+#: ../LoginLastFM.qml:84
+msgid "Login"
+msgstr "Oturum Aç"
+
+#: ../LoginLastFM.qml:91
+msgid "Trying to login..."
+msgstr "Oturum açılıyor..."
+
+#: ../LoginLastFM.qml:105
+msgid "Login Successful"
+msgstr "Oturum Başarıyla Açıldı"
+
+#: ../LoginLastFM.qml:111
+msgid "Login Failed"
+msgstr "Oturum Açma Başarısız"
+
+#: ../LoginLastFM.qml:117
+msgid "You forgot to set your username and/or password"
+msgstr "Kullanıcı adı/parolanızı ayarlamayı unuttunuz"
+
+#: ../MusicAlbums.qml:39 ../music-app.qml:847
+msgid "Albums"
+msgstr "Albümler"
+
+#: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
+#: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
+#: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
+#: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
+msgid "Tracks"
+msgstr "Parçalar"
+
+#: ../MusicArtists.qml:39 ../music-app.qml:834
+msgid "Artists"
+msgstr "Sanatçılar"
+
+#: ../MusicNowPlaying.qml:695
+msgid "Back"
+msgstr "Geri"
+
+#: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
+#: ../common/SwipeDelete.qml:77
+msgid "Clear"
+msgstr "Temizle"
+
+#: ../MusicPlaylists.qml:55
+msgid "New"
+msgstr "Yeni"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../MusicPlaylists.qml:85
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+#: ../MusicPlaylists.qml:86
+msgid "This will delete your playlist."
+msgstr "Bu oynatma listenizi silecek."
+
+#: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
+msgid "Remove"
+msgstr "Kaldır"
+
+#: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
+msgid "Cancel"
+msgstr "İptal"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#. TRANSLATORS: this is a also a popup to rename a playlist
+#: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
+msgid "Change name"
+msgstr "İsim değiştir"
+
+#: ../MusicPlaylists.qml:112
+msgid "Enter the new name of the playlist."
+msgstr "Çalma listesi için yeni bir isim girin."
+
+#: ../MusicPlaylists.qml:122
+msgid "Change"
+msgstr "Değiştir"
+
+#: ../MusicPlaylists.qml:131
+msgid "You didn't type in a name."
+msgstr "Bir isim yazmadınız."
+
+#: ../MusicPlaylists.qml:208 ../music-app.qml:874
+msgid "Playlists"
+msgstr "Çalma Listeleri"
+
+#: ../MusicPlaylists.qml:308
+msgid "Playlist"
+msgstr "Çalma listesi"
+
+#: ../MusicSettings.qml:76
+msgid "Equaliser"
+msgstr "Ekolayzır"
+
+#: ../MusicSettings.qml:77
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: ../MusicSettings.qml:78
+msgid "Accoustic"
+msgstr "Akustik"
+
+#: ../MusicSettings.qml:79
+msgid "Classical"
+msgstr "Klasik"
+
+#: ../MusicSettings.qml:80
+msgid "Electronic"
+msgstr "Elektronik"
+
+#: ../MusicSettings.qml:81
+msgid "Flat"
+msgstr "Düz"
+
+#: ../MusicSettings.qml:82
+msgid "Hip Hop"
+msgstr "Hip Hop"
+
+#: ../MusicSettings.qml:83
+msgid "Jazz"
+msgstr "Caz"
+
+#: ../MusicSettings.qml:84
+msgid "Metal"
+msgstr "Metal"
+
+#: ../MusicSettings.qml:85
+msgid "Pop"
+msgstr "Pop"
+
+#: ../MusicSettings.qml:86
+msgid "Rock"
+msgstr "Rock"
+
+#: ../MusicSettings.qml:87
+msgid "Custom"
+msgstr "Özel"
+
+#: ../MusicSettings.qml:100
+msgid ""
+"Snap to current song \n"
+"when opening toolbar"
+msgstr ""
+"Araç çubuğu açılırken \n"
+"geçerli parçaya yapış"
+
+#: ../MusicSettings.qml:117
+msgid "Shuffle"
+msgstr "Karıştır"
+
+#: ../MusicSettings.qml:134
+msgid "Accounts"
+msgstr "Hesaplar"
+
+#: ../MusicSettings.qml:141 ../MusicSettings.qml:150
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: ../MusicSettings.qml:142
+msgid ""
+"Login to scrobble and \n"
+"import playlists"
+msgstr ""
+"Skroplamak ve çalma listesi \n"
+"almak için oturum açın"
+
+#: ../MusicSettings.qml:164
+msgid "Music Streaming"
+msgstr "Müzik Akışı"
+
+#: ../MusicSettings.qml:173
+msgid "Ubuntu One"
+msgstr "Ubuntu One"
+
+#: ../MusicSettings.qml:174
+msgid "Sign in to stream your cloud music"
+msgstr "Bulut müzik akışınız için oturum açın"
+
+#: ../MusicSettings.qml:187
+msgid "Stream only on Wi-Fi"
+msgstr "Sadece Kablosuzda akış yap"
+
+#: ../MusicSettings.qml:222
+msgid "Clean everything!"
+msgstr "Her şeyi temizle!"
+
+#: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
+#: ../music-app.qml:821 ../.build/music-app.desktop.js:1
+msgid "Music"
+msgstr "Müzik"
+
+#: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
+msgid "Select playlist"
+msgstr "Çalma listesi seç"
+
+#: ../MusicaddtoPlaylist.qml:126
+msgid "New playlist"
+msgstr "Yeni çalma listesi"
+
+#: ../music-app.qml:62
+msgid "Next"
+msgstr "Sonraki"
+
+#: ../music-app.qml:63
+msgid "Next Track"
+msgstr "Sonraki Parça"
+
+#: ../music-app.qml:69
+msgid "Pause"
+msgstr "Beklet"
+
+#: ../music-app.qml:69
+msgid "Play"
+msgstr "Çal"
+
+#: ../music-app.qml:71
+msgid "Pause Playback"
+msgstr "Çalmayı Duraklat"
+
+#: ../music-app.qml:71
+msgid "Continue or start playback"
+msgstr "Çalmayı durdur veya başlat"
+
+#: ../music-app.qml:82
+msgid "Previous"
+msgstr "Önceki"
+
+#: ../music-app.qml:83
+msgid "Previous Track"
+msgstr "Önceki Parça"
+
+#: ../music-app.qml:88
+msgid "Stop"
+msgstr "Durdur"
+
+#: ../music-app.qml:89
+msgid "Stop Playback"
+msgstr "Çalmayı Durdur"
+
+#: ../music-app.qml:95
+msgid "Music Settings"
+msgstr "Müzik Ayarları"
+
+#: ../music-app.qml:103
+msgid "Quit"
+msgstr "Çıkış"
+
+#: ../music-app.qml:104
+msgid "Close application"
+msgstr "Uygulamayı kapat"
+
+#: ../music-app.qml:418
+msgid "Undo"
+msgstr "Geri al"
+
+#: ../music-app.qml:725
+msgid "Add to queue"
+msgstr "Çalma sırasına ekle"
+
+#: ../music-app.qml:739
+msgid "Add to playlist"
+msgstr "Oynatma listesine ekle"
+
+#: ../music-app.qml:763
+msgid "New Playlist"
+msgstr "Yeni Çalma Listesi"
+
+#: ../music-app.qml:764
+msgid "Name your playlist."
+msgstr "Çalma listenizi adlandırın."
+
+#: ../music-app.qml:767
+msgid "Name"
+msgstr "İsim"
+
+#: ../music-app.qml:775
+msgid "Create"
+msgstr "Oluştur"
+
+#: ../music-app.qml:789
+msgid "Error: "
+msgstr "Hata: "
+
+#: ../music-app.qml:796
+msgid "Error: You didn't type a name."
+msgstr "Hata: İsim girmediniz."
+
+#: ../music-app.qml:860
+msgid "Songs"
+msgstr "Parçalar"

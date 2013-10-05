@@ -20,7 +20,6 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import org.nemomobile.folderlistmodel 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -67,7 +66,6 @@ Page {
     function updateHighlight(file)
     {
         console.debug("MusicArtists update highlight:", file)
-        albumtrackslist.currentIndex = albumTracksModel.indexOf(file)
     }
 
     GridView {
@@ -75,7 +73,7 @@ Page {
         width: parent.width
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        cellHeight: units.gu(18)
+        cellHeight: units.gu(14)
         cellWidth: units.gu(14)
         model: albumModel.model
         delegate: albumDelegate
@@ -84,7 +82,7 @@ Page {
             id: albumDelegate
             Item {
                 id: albumItem
-                height: units.gu(17)
+                height: units.gu(13)
                 width: units.gu(13)
                 anchors.margins: units.gu(1)
                 UbuntuShape {
@@ -94,10 +92,46 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        source: cover === "" ? Qt.resolvedUrl("images/cover_default.png") : "image://cover-art-full/"+model.file
+                        property string artist: model.artist
+                        property string album: model.album
+                        property string title: model.title
+                        property string cover: model.cover
+                        property string length: model.length
+                        property string file: model.file
+                        property string year: model.year
+                        source: cover !== "" ? cover : "images/cover_default.png"
                     }
+                    UbuntuShape {  // Background so can see text in current state
+                        id: albumBg
+                        anchors.bottom: parent.bottom
+                        color: styleMusic.common.black
+                        height: units.gu(4)
+                        opacity: .75
+                        width: parent.width
+                    }
+                    Label {
+                        id: albumLabel
+                        anchors.bottom: albumArtist.top
+                        horizontalAlignment: Text.AlignHCenter
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: album
+                        fontSize: "small"
+                        width: parent.width
+                    }
+                    Label {
+                        id: albumArtist
+                        anchors.bottom: parent.bottom
+                        horizontalAlignment: Text.AlignHCenter
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: artist
+                        fontSize: "small"
+                        width: parent.width
+                    }
+
                 }
-                Label {
+                /*Label {
                     id: albumTitle
                     width: albumItem.width
                     wrapMode: Text.Wrap
@@ -106,7 +140,7 @@ Page {
                     fontSize: "small"
                     anchors.top: albumShape.bottom
                     anchors.horizontalCenter: albumItem.horizontalCenter
-                    text: model.album
+                    text: album
                 }
                 Label {
                     id: albumArtist
@@ -118,8 +152,8 @@ Page {
                     anchors.left: parent.left
                     anchors.top: albumTitle.bottom
                     anchors.horizontalCenter: albumItem.horizontalCenter
-                    text: model.artist
-                }
+                    text: artist
+                } */
 
                 MouseArea {
                     anchors.fill: parent
@@ -129,13 +163,11 @@ Page {
                     }
                     onClicked: {
                         albumTracksModel.filterAlbumTracks(album)
-                        artist = model.artist
-                        album = model.album
-                        songtitle = model.title
-                        cover = model.cover
-                        length = model.length
-                        file = model.file
-                        year = model.year
+                        mainpage.artist = artist
+                        mainpage.album = album
+                        mainpage.file = file
+                        mainpage.year = year
+                        mainpage.cover = cover
                         PopupUtils.open(albumSheet)
                     }
                 }
@@ -147,16 +179,16 @@ Page {
         id: albumSheet
         DefaultSheet {
             id: sheet
+            doneButton: false
             title: album
             contentsHeight: parent.height
 
             ListView {
-                id: albumtrackslist
                 clip: true
+                id: albumtrackslist
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                highlightFollowsCurrentItem: false
                 model: albumTracksModel.model
                 delegate: albumTracksDelegate
                 header: ListItem.Standard {
@@ -172,7 +204,7 @@ Page {
                         height: parent.height
                         width: height
                         image: Image {
-                            source: Library.hasCover(model.file) ? "image://cover-art-full/"+model.file : Qt.resolvedUrl("images/cover_default.png")
+                            source: Library.hasCover(mainpage.file) ? mainpage.cover : Qt.resolvedUrl("images/cover_default.png")
                         }
                     }
                     Label {
@@ -185,7 +217,7 @@ Page {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: model.album
+                        text: mainpage.album
                     }
                     Label {
                         id: albumArtist
@@ -197,7 +229,7 @@ Page {
                         anchors.top: albumTitle.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: model.artist
+                        text: mainpage.artist
                     }
                     Label {
                         id: albumYear
@@ -209,7 +241,7 @@ Page {
                         anchors.top: albumArtist.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: model.year
+                        text: mainpage.year
                     }
                     Label {
                         id: albumCount
@@ -237,14 +269,6 @@ Page {
                         id: track
                         iconFrame: false
                         progression: false
-                        Rectangle {
-                            id: highlight
-                            anchors.left: parent.left
-                            visible: false
-                            width: units.gu(.75)
-                            height: parent.height
-                            color: styleMusic.listView.highlightColor;
-                        }
                         Label {
                             id: trackTitle
                             wrapMode: Text.NoWrap
@@ -276,14 +300,13 @@ Page {
                                     focus = true
                                 }
                                 trackClicked(albumTracksModel, index)  // play track
+                                // TODO: This closes the SDK defined sheet
+                                //       component. It should be able to close
+                                //       albumSheet.
+                                PopupUtils.close(sheet)
                             }
                         }
                         Component.onCompleted: {
-                        }
-                        states: State {
-                            name: "Current"
-                            when: track.ListView.isCurrentItem
-                            PropertyChanges { target: highlight; visible: true }
                         }
                     }
                 }

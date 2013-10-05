@@ -1,0 +1,326 @@
+# Brazilian Portuguese translation for music-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the music-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: music-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-09-26 08:38+0200\n"
+"PO-Revision-Date: 2013-10-01 13:25+0000\n"
+"Last-Translator: Rafael Neri <Unknown>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-10-02 05:40+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
+
+#: ../LoginLastFM.qml:38
+msgid "LastFM"
+msgstr "LastFM"
+
+#: ../LoginLastFM.qml:44
+msgid "Login to be able to scrobble."
+msgstr ""
+
+#: ../LoginLastFM.qml:52
+msgid "Username"
+msgstr "Usuário"
+
+#: ../LoginLastFM.qml:62
+msgid "Password"
+msgstr "Senha"
+
+#: ../LoginLastFM.qml:84
+msgid "Login"
+msgstr "Login"
+
+#: ../LoginLastFM.qml:91
+msgid "Trying to login..."
+msgstr "Tentando entrar..."
+
+#: ../LoginLastFM.qml:105
+msgid "Login Successful"
+msgstr "Login realizado com sucesso"
+
+#: ../LoginLastFM.qml:111
+msgid "Login Failed"
+msgstr "Falha no login"
+
+#: ../LoginLastFM.qml:117
+msgid "You forgot to set your username and/or password"
+msgstr "Você esqueceu de definir seu usuário e/ou senha"
+
+#: ../MusicAlbums.qml:39 ../music-app.qml:847
+msgid "Albums"
+msgstr "Álbuns"
+
+#: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
+#: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
+#: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
+#: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
+msgid "Tracks"
+msgstr "Faixas"
+
+#: ../MusicArtists.qml:39 ../music-app.qml:834
+msgid "Artists"
+msgstr "Artistas"
+
+#: ../MusicNowPlaying.qml:695
+msgid "Back"
+msgstr "Voltar"
+
+#: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
+#: ../common/SwipeDelete.qml:77
+msgid "Clear"
+msgstr "Limpar"
+
+#: ../MusicPlaylists.qml:55
+msgid "New"
+msgstr "Novo"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../MusicPlaylists.qml:85
+msgid "Are you sure?"
+msgstr "Você tem certeza?"
+
+#: ../MusicPlaylists.qml:86
+msgid "This will delete your playlist."
+msgstr "Isto vai excluir sua lista de reprodução."
+
+#: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
+msgid "Remove"
+msgstr "Remover"
+
+#: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#. TRANSLATORS: this is a also a popup to rename a playlist
+#: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
+msgid "Change name"
+msgstr "Mudar nome"
+
+#: ../MusicPlaylists.qml:112
+msgid "Enter the new name of the playlist."
+msgstr "Inserir o novo nome da lista de reprodução."
+
+#: ../MusicPlaylists.qml:122
+msgid "Change"
+msgstr "Mudar"
+
+#: ../MusicPlaylists.qml:131
+msgid "You didn't type in a name."
+msgstr "Você não digitou um nome."
+
+#: ../MusicPlaylists.qml:208 ../music-app.qml:874
+msgid "Playlists"
+msgstr "Listas de reprodução"
+
+#: ../MusicPlaylists.qml:308
+msgid "Playlist"
+msgstr "Lista de reprodução"
+
+#: ../MusicSettings.qml:76
+msgid "Equaliser"
+msgstr "Equalizador"
+
+#: ../MusicSettings.qml:77
+msgid "Default"
+msgstr "Padrão"
+
+#: ../MusicSettings.qml:78
+msgid "Accoustic"
+msgstr "Acústico"
+
+#: ../MusicSettings.qml:79
+msgid "Classical"
+msgstr "Clássico"
+
+#: ../MusicSettings.qml:80
+msgid "Electronic"
+msgstr "Eletrônica"
+
+#: ../MusicSettings.qml:81
+msgid "Flat"
+msgstr "Flat"
+
+#: ../MusicSettings.qml:82
+msgid "Hip Hop"
+msgstr "Hip Hop"
+
+#: ../MusicSettings.qml:83
+msgid "Jazz"
+msgstr "Jazz"
+
+#: ../MusicSettings.qml:84
+msgid "Metal"
+msgstr "Metal"
+
+#: ../MusicSettings.qml:85
+msgid "Pop"
+msgstr "Pop"
+
+#: ../MusicSettings.qml:86
+msgid "Rock"
+msgstr "Rock"
+
+#: ../MusicSettings.qml:87
+msgid "Custom"
+msgstr "Personalizado"
+
+#: ../MusicSettings.qml:100
+msgid ""
+"Snap to current song \n"
+"when opening toolbar"
+msgstr ""
+
+#: ../MusicSettings.qml:117
+msgid "Shuffle"
+msgstr "Aleatório"
+
+#: ../MusicSettings.qml:134
+msgid "Accounts"
+msgstr "Contas"
+
+#: ../MusicSettings.qml:141 ../MusicSettings.qml:150
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: ../MusicSettings.qml:142
+msgid ""
+"Login to scrobble and \n"
+"import playlists"
+msgstr ""
+
+#: ../MusicSettings.qml:164
+msgid "Music Streaming"
+msgstr "Streaming de música"
+
+#: ../MusicSettings.qml:173
+msgid "Ubuntu One"
+msgstr "Ubuntu One"
+
+#: ../MusicSettings.qml:174
+msgid "Sign in to stream your cloud music"
+msgstr ""
+
+#: ../MusicSettings.qml:187
+msgid "Stream only on Wi-Fi"
+msgstr ""
+
+#: ../MusicSettings.qml:222
+msgid "Clean everything!"
+msgstr "Limpar tudo!"
+
+#: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
+#: ../music-app.qml:821 ../.build/music-app.desktop.js:1
+msgid "Music"
+msgstr "Música"
+
+#: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
+msgid "Select playlist"
+msgstr "Selecione uma lista de reprodução"
+
+#: ../MusicaddtoPlaylist.qml:126
+msgid "New playlist"
+msgstr "Nova lista de reprodução"
+
+#: ../music-app.qml:62
+msgid "Next"
+msgstr "Próximo"
+
+#: ../music-app.qml:63
+msgid "Next Track"
+msgstr "Próxima faixa"
+
+#: ../music-app.qml:69
+msgid "Pause"
+msgstr "Pausar"
+
+#: ../music-app.qml:69
+msgid "Play"
+msgstr "Tocar"
+
+#: ../music-app.qml:71
+msgid "Pause Playback"
+msgstr "Pausar Reprodução"
+
+#: ../music-app.qml:71
+msgid "Continue or start playback"
+msgstr "Continuar ou iniciar reprodução"
+
+#: ../music-app.qml:82
+msgid "Previous"
+msgstr "Anterior"
+
+#: ../music-app.qml:83
+msgid "Previous Track"
+msgstr "Faixa anterior"
+
+#: ../music-app.qml:88
+msgid "Stop"
+msgstr "Parar"
+
+#: ../music-app.qml:89
+msgid "Stop Playback"
+msgstr "Parar reprodução"
+
+#: ../music-app.qml:95
+msgid "Music Settings"
+msgstr "Configurações de Música"
+
+#: ../music-app.qml:103
+msgid "Quit"
+msgstr "Sair"
+
+#: ../music-app.qml:104
+msgid "Close application"
+msgstr "Encerrar aplicação"
+
+#: ../music-app.qml:418
+msgid "Undo"
+msgstr "Desfazer"
+
+#: ../music-app.qml:725
+msgid "Add to queue"
+msgstr "Adicionar à fila"
+
+#: ../music-app.qml:739
+msgid "Add to playlist"
+msgstr "Adicionar à lista de reprodução"
+
+#: ../music-app.qml:763
+msgid "New Playlist"
+msgstr "Nova lista de reprodução"
+
+#: ../music-app.qml:764
+msgid "Name your playlist."
+msgstr "Nomear sua lista de reprodução."
+
+#: ../music-app.qml:767
+msgid "Name"
+msgstr "Nome"
+
+#: ../music-app.qml:775
+msgid "Create"
+msgstr "Criar"
+
+#: ../music-app.qml:789
+msgid "Error: "
+msgstr "Erro: "
+
+#: ../music-app.qml:796
+msgid "Error: You didn't type a name."
+msgstr "Erro: Você não digitou um nome."
+
+#: ../music-app.qml:860
+msgid "Songs"
+msgstr "Músicas"
