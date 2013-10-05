@@ -24,12 +24,15 @@ QtObject {
     property QtObject common: QtObject {
         property color black: "#000000";
         property color white: "#FFFFFF";
-        property int albumSize: units.gu(10)
-        property int itemHeight: units.gu(12)
-        property int expandedHeight: units.gu(20)
-        property int expandHeight: units.gu(10)
-        property int expandedItem: units.gu(4)
-        property int expandedTopMargin: units.gu(12.5)
+        property color music: "#333333";
+        property color expandedColor: "#000000";
+        property int albumSize: units.gu(10);
+        property int itemHeight: units.gu(12);
+        property int expandedHeight: units.gu(20);
+        property int expandHeight: units.gu(10);
+        property int expandedItem: units.gu(2);
+        property int expandedTopMargin: units.gu(14.5);
+        property int expandedLeftMargin: units.gu(5);
     }
 
     property QtObject dialog: QtObject {
@@ -82,6 +85,13 @@ QtObject {
 
     property QtObject musicSettings: QtObject {
         property color labelColor: UbuntuColors.coolGrey;
+    }
+
+    property QtObject playlist: QtObject {
+        property int infoHeight: units.gu(14);
+        property int expandedHeight: units.gu(18.5);
+        property int playlistItemHeight: units.gu(10);
+        property int playlistAlbumSize: units.gu(8);
     }
 
 }

@@ -57,10 +57,9 @@ import "playlists.js" as Playlists
              model: playlistModel
              delegate: ListItem.Standard {
                     id: playlist
-                    //text: name +" ("+count+")"
+                    height: units.gu(8)
                     property string name: model.name
                     property string count: model.count
-                    iconFrame: false
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
@@ -72,6 +71,10 @@ import "playlists.js" as Playlists
                         id: cover0
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(4)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
@@ -81,6 +84,10 @@ import "playlists.js" as Playlists
                         id: cover1
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(3)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
@@ -90,6 +97,10 @@ import "playlists.js" as Playlists
                         id: cover2
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
@@ -99,6 +110,10 @@ import "playlists.js" as Playlists
                         id: cover3
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
@@ -111,11 +126,11 @@ import "playlists.js" as Playlists
                         anchors.left: cover3.right
                         anchors.leftMargin: units.gu(4)
                         anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.bottomMargin: 5
+                        anchors.topMargin: units.gu(2)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(4)
                         anchors.right: parent.right
                         text: playlist.name + " ("+playlist.count+")"
-                        color: styleMusic.addtoPlaylist.labelColor
                     }
              }
          }
