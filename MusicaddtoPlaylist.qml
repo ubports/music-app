@@ -75,6 +75,7 @@ import "playlists.js" as Playlists
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
+                        visible: playlist.count > 3
                     }
                     UbuntuShape {
                         id: cover1
@@ -83,6 +84,7 @@ import "playlists.js" as Playlists
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
+                        visible: playlist.count > 2
                     }
                     UbuntuShape {
                         id: cover2
@@ -91,6 +93,7 @@ import "playlists.js" as Playlists
                         width: units.gu(6)
                         height: parent.height
                         color: get_random_color()
+                        visible: playlist.count > 1
                     }
                     UbuntuShape {
                         id: cover3

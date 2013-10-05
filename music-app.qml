@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import QtPowerd 0.1
+//import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -169,7 +169,6 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-
     property string chosenTrack: ""
     property string chosenTitle: ""
     property string chosenArtist: ""
@@ -177,7 +176,6 @@ MainView {
     property string chosenCover: ""
     property string chosenGenre: ""
     property int chosenIndex: 0
-
     property string currentArtist: ""
     property string currentAlbum: ""
     property string currentTracktitle: ""
@@ -194,7 +192,6 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
-
     signal onPlayingTrackChange(string source)
 
     // FUNCTIONS
@@ -204,7 +201,7 @@ MainView {
         var debug = true; // set to "0" for not debugging
         //if (args.values.debug) { // *USE LATER*
         if (debug) {
-            console.debug("Debug: "+text);
+            console.debug(i18n.tr("Debug: ")+text);
         }
     }
 
@@ -847,7 +844,7 @@ MainView {
 
     PageStack {
         id: pageStack
-        anchors.top: mainView.top
+        anchors.top: parent.top
         Tabs {
             id: tabs
             anchors.fill: parent
