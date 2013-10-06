@@ -715,29 +715,7 @@ MainView {
     }
 
     // Blurred background
-    Rectangle {
-        anchors.fill: parent
-        // the album art
-        Image {
-            id: backgroundImage
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            source: mainView.currentCoverFull
-            height: parent.height
-            width: height
-        }
-        // the blur
-        FastBlur {
-            anchors.fill: backgroundImage
-            source: backgroundImage
-            radius: units.dp(42)
-        }
-        // transparent white layer
-        Rectangle {
-            anchors.fill: parent
-            color: "white"
-            opacity: 0.7
-        }
+    BlurredBackground {
     }
 
     LoadingSpinnerComponent {

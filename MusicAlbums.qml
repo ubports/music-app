@@ -22,9 +22,11 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
+import QtGraphicalEffects 1.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
+import "common"
 
 Page {
     id: mainpage
@@ -182,6 +184,11 @@ Page {
             anchors.bottomMargin: units.gu(.5)
             doneButton: false
             contentsHeight: parent.height
+            contentsWidth: parent.width
+
+            // Blurred background
+            BlurredBackground {
+            }
 
             ListView {
                 clip: true
