@@ -84,8 +84,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: "images/cover_default.png"
+                           source: Library.getArtistCovers(artist).length > 3 ? Library.getArtistCovers(artist)[3] : "images/cover_default.png"
                        }
+                       visible: Library.getArtistCovers(artist).length > 3
                     }
                     UbuntuShape {
                        id: cover1
@@ -96,8 +97,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: "images/cover_default.png"
+                           source: Library.getArtistCovers(artist).length > 2 ? Library.getArtistCovers(artist)[2] : "images/cover_default.png"
                        }
+                       visible: Library.getArtistCovers(artist).length > 2
                     }
                     UbuntuShape {
                        id: cover2
@@ -108,8 +110,9 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: "images/cover_default.png"
+                           source: Library.getArtistCovers(artist).length > 1 ? Library.getArtistCovers(artist)[1] : "images/cover_default.png"
                        }
+                       visible: Library.getArtistCovers(artist).length > 1
                     }
                     UbuntuShape {
                        id: cover3
@@ -120,7 +123,7 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: "images/cover_default.png"
+                           source: Library.getArtistCovers(artist).length > 0 ? Library.getArtistCovers(artist)[0] : "images/cover_default.png"
                        }
                     }
 

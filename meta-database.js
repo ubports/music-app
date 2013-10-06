@@ -186,6 +186,20 @@ function getArtistTracks(artist) {
     return res;
 }
 
+function getArtistCovers(artist) {
+    var res = [];
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC", [artist]);
+        for(var i = 0; i < rs.rows.length; i++) {
+            var dbItem = rs.rows.item(i);
+            console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
+            if (res.indexOf(dbItem.cover) == -1) res.push(dbItem.cover);
+        }
+    });
+    return res;
+}
+
 function getAlbums() {
     var res = [];
     var db = getDatabase();
