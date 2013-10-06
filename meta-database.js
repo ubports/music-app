@@ -186,6 +186,20 @@ function getArtistTracks(artist) {
     return res;
 }
 
+function getArtistCovers(artist) {
+    var res = [];
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC", [artist]);
+        for(var i = 0; i < rs.rows.length; i++) {
+            var dbItem = rs.rows.item(i);
+            console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
+            if (res.indexOf(dbItem.cover) == -1) res.push(dbItem.cover);
+        }
+    });
+    return res;
+}
+
 function getAlbums() {
     var res = [];
     var db = getDatabase();
@@ -222,7 +236,7 @@ function getGenres() {
         var rs = tx.executeSql("SELECT *, count(genre) AS total FROM metadata GROUP BY genre ORDER BY genre ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("VIC Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre, total: dbItem.total});
         }
     });
