@@ -48,13 +48,6 @@ PageStack {
 
         Component.onCompleted: {
             pageStack.push(mainpage)
-            onPlayingTrackChange.connect(updateHighlight)
-        }
-
-        function updateHighlight(file)
-        {
-            console.debug("MusicTracks update highlight:", file)
-            tracklist.currentIndex = libraryModel.indexOf(file)
         }
 
         ListView {
@@ -65,7 +58,7 @@ PageStack {
             model: libraryModel.model
             delegate: trackDelegate
             onCountChanged: {
-                console.log("onCountChanged: " + tracklist.count)
+                //customdebug("onCountChanged: " + tracklist.count) // activate later
                 tracklist.currentIndex = libraryModel.indexOf(currentFile)
             }
 
@@ -79,26 +72,30 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
-                    iconFrame: false
-                    Rectangle {
-                        id: highlight
+                    width: parent.width
+                    height: styleMusic.common.itemHeight
+
+                    UbuntuShape {
+                        id: trackCover
                         anchors.left: parent.left
-                        visible: false
-                        width: units.gu(.75)
-                        height: parent.height
-                        color: styleMusic.listView.highlightColor;
+                        anchors.leftMargin: units.gu(1)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        width: styleMusic.common.albumSize
+                        height: styleMusic.common.albumSize
+                        image: Image {
+                            source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
                     Label {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "medium"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(12)
                         anchors.top: parent.top
-                        anchors.topMargin: 5
-                        anchors.right: parent.right
+                        anchors.topMargin: units.gu(1)
                         text: track.title == "" ? track.file : track.title
                     }
                     Label {
@@ -106,10 +103,9 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(12)
                         anchors.top: trackTitle.bottom
-                        anchors.right: parent.right
                         text: artist == "" ? "" : artist + " - " + album
                     }
                     Label {
@@ -117,10 +113,9 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(12)
                         anchors.top: trackArtistAlbum.bottom
-                        anchors.right: parent.right
                         visible: false
                         text: ""
                     }
@@ -159,7 +154,6 @@ PageStack {
                     states: State {
                         name: "Current"
                         when: track.ListView.isCurrentItem
-                        PropertyChanges { target: highlight; visible: true }
                     }
                 }
             }

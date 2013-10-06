@@ -82,8 +82,10 @@ ComposerSheet {
         // Activate in 1.+
         ListItem.ItemSelector {
             id: equaliser
+            anchors.top: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
             enabled: false
-            visible: false
             text: i18n.tr("Equaliser")
             model: [i18n.tr("Default"),
                   i18n.tr("Accoustic"),
@@ -103,13 +105,20 @@ ComposerSheet {
         }
 
         // Snap to current track
-        Rectangle {
+        Row {
+            id: snapRow
             width: parent.width
             anchors.top: equaliser.bottom
+            anchors.topMargin: units.gu(2)
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: shuffleRow.top
+            anchors.bottomMargin: units.gu(2)
+            anchors.leftMargin: units.gu(2)
             Label {
                 id: snapLabel
+                anchors.verticalCenter: snapSwitch.verticalCenter
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
-                color: styleMusic.musicSettings.labelColor
             }
             Switch {
                 id: snapSwitch
@@ -120,14 +129,20 @@ ComposerSheet {
 
         // Shuffle or not
         // MOVE THIS TO NEW TOOLBAR
-        Rectangle {
+        Row {
             id: shuffleRow
+            anchors.top: equaliser.bottom
+            anchors.topMargin: units.gu(8)
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: accounts.top
+            anchors.bottomMargin: units.gu(2)
+            anchors.leftMargin: units.gu(2)
             width: parent.width
             Label {
                 id: shuffleLabel
+                anchors.verticalCenter: shuffleSwitch.verticalCenter
                 text: i18n.tr("Shuffle")
-                color: styleMusic.musicSettings.labelColor
-                // make it stawy to the right with a certain margin
             }
             Switch {
                 id: shuffleSwitch
@@ -137,29 +152,39 @@ ComposerSheet {
         }
 
         // Accounts
-        Rectangle {
-            id: accountsColumn
-            anchors.top: shuffleRow.bottom
-            anchors.topMargin: units.gu(20)
+        Row {
+            id: accounts
+            anchors.top: equaliser.bottom
+            anchors.topMargin: units.gu(12)
+            anchors.bottom: streaming.top
+            anchors.bottomMargin: units.gu(2)
+            width: parent.width
+
             Label {
+                id: accountLabel
                 text: i18n.tr("Accounts")
-                color: styleMusic.musicSettings.labelColor
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
             }
 
             // lastfm
             ListItem.Subtitled {
-                id: lasftfmProg
+                id: lastfmProg
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(5)
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottomMargin: untits.gu(8)
                 text: i18n.tr("Last.fm")
-                subText: i18n.tr("Login to scrobble and \nimport playlists")
+                subText: i18n.tr("Login to scrobble and import playlists")
                 width: parent.width
                 progression: true
-                enabled: true
-                visible: false
+                enabled: false
                 onClicked: {
                     PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Last.fm")
-                                    } )
+                    {
+                        title: i18n.tr("Last.fm")
+                    } )
                     PopupUtils.close(musicSettings)
                 }
             }
@@ -167,46 +192,49 @@ ComposerSheet {
 
         // Music Streaming
         // Activate in 1.+
-        Rectangle {
-            id: streamingColumn
-            anchors.top: accountsColumn.bottom
-            anchors.topMargin: units.gu(20)
+        Row {
+            id: streaming
+            anchors.top: equaliser.bottom
+            anchors.topMargin: units.gu(24)
+            width: parent.width
             Label {
                 text: i18n.tr("Music Streaming")
-                color: styleMusic.musicSettings.labelColor
                 visible: true
             }
-
-            Column {
-                // Ubuntu One
-                ListItem.Subtitled {
-                    id: musicStreamProg
-                    text: i18n.tr("Ubuntu One")
-                    subText: i18n.tr("Sign in to stream your cloud music")
-                    enabled: false
-                    visible: false
-                    progression: true
-                    onClicked: {
-                        customdebug("I'm Ron Burgendy...?")
-                    }
+            // Ubuntu One
+            ListItem.Subtitled {
+                id: musicStreamProg
+                anchors.top: parent.bottom
+                anchors.topMargin: units.gu(2)
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: i18n.tr("Ubuntu One")
+                subText: i18n.tr("Sign in to stream your cloud music")
+                enabled: false
+                progression: true
+                onClicked: {
+                    customdebug("I'm Ron Burgendy...?")
                 }
+            }
 
-                Row {
-                    spacing: units.gu(2)
-                    Label {
-                        id: streamwifiLabel
-                        text: i18n.tr("Stream only on Wi-Fi")
-                        color: styleMusic.musicSettings.labelColor
-                        enabled: false // check if account is connected
-                        visible: false
-                    }
-                    Switch {
-                        id: wifiSwitch
-                        checked: Settings.getSetting("wifiswitch") === "1"
-                        enabled: false // check if account is connected
-                        visible: false
-                        //anchors.right: parent.right
-                    }
+            Row {
+                id: wifiRow
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(10)
+                width: parent.width
+                Label {
+                    id: streamwifiLabel
+                    text: i18n.tr("Stream only on Wi-Fi")
+                    enabled: false // check if account is connected
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(2)
+                    anchors.verticalCenter: wifiSwitch.verticalCenter
+                }
+                Switch {
+                    id: wifiSwitch
+                    checked: Settings.getSetting("wifiswitch") === "1"
+                    enabled: false // check if account is connected
+                    anchors.right: parent.right
                 }
             }
         }

@@ -169,7 +169,6 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-
     property string chosenTrack: ""
     property string chosenTitle: ""
     property string chosenArtist: ""
@@ -177,7 +176,6 @@ MainView {
     property string chosenCover: ""
     property string chosenGenre: ""
     property int chosenIndex: 0
-
     property string currentArtist: ""
     property string currentAlbum: ""
     property string currentTracktitle: ""
@@ -194,7 +192,6 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
-
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
@@ -205,7 +202,7 @@ MainView {
         var debug = true; // set to "0" for not debugging
         //if (args.values.debug) { // *USE LATER*
         if (debug) {
-            console.debug("Debug: "+text);
+            console.debug(i18n.tr("Debug: ")+text);
         }
     }
 
@@ -857,7 +854,6 @@ MainView {
 
     PageStack {
         id: pageStack
-
         Tabs {
             id: tabs
             anchors.fill: parent

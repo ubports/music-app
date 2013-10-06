@@ -430,6 +430,7 @@ Page {
                     UbuntuShape {
                         id: trackImage
                         anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1.5)
                         anchors.top: parent.top
                         anchors.verticalCenter: parent.verticalCenter
                         height: parent.height

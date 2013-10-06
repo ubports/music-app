@@ -47,6 +47,7 @@ Page {
         id: recentlist
         width: parent.width
         anchors.top: recentlyPlayed.bottom
+        anchors.topMargin: units.gu(2)
         //anchors.bottom: genres.top
         spacing: units.gu(2)
         height: units.gu(13)
@@ -142,6 +143,7 @@ Page {
         id: genrelist
         width: parent.width
         anchors.top: genres.bottom
+        anchors.topMargin: units.gu(2)
         spacing: units.gu(2)
         height: units.gu(13)
         model: genreModel.model

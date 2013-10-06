@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-10-02 15:29+0000\n"
+"PO-Revision-Date: 2013-10-03 08:53+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:57+0000\n"
+"X-Launchpad-Export-Date: 2013-10-04 05:47+0000\n"
 "X-Generator: Launchpad (build 16791)\n"
 
 #: ../LoginLastFM.qml:38
@@ -23,7 +23,7 @@ msgstr "LastFM"
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Aniciar sesión pa facer scrobble."
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
@@ -74,7 +74,7 @@ msgstr "Artistes"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
@@ -181,6 +181,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Axustar la canción actual \n"
+"cuando s'abra la barra de ferramientes"
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
@@ -199,6 +201,8 @@ msgid ""
 "Login to scrobble and \n"
 "import playlists"
 msgstr ""
+"Aniciar sesión pa facer \n"
+"scrobble ya importar llistes"
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"

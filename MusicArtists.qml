@@ -47,13 +47,6 @@ PageStack {
 
         Component.onCompleted: {
             pageStack.push(mainpage)
-            onPlayingTrackChange.connect(updateHighlight)
-        }
-
-        function updateHighlight(file)
-        {
-            console.debug("MusicArtists update highlight:", file)
-            artisttrackslist.currentIndex = artistTracksModel.indexOf(file)
         }
 
         ListView {
@@ -69,20 +62,97 @@ PageStack {
                 ListItem.Standard {
                     id: track
                     property string artist: model.artist
-                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                    height: styleMusic.common.itemHeight
 
-                    iconFrame: false
-                    progression: true
+                    UbuntuShape {
+                       id: cover0
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(4)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: Library.getArtistCovers(artist).length > 3 ? Library.getArtistCovers(artist)[3] : "images/cover_default.png"
+                       }
+                       visible: Library.getArtistCovers(artist).length > 3
+                    }
+                    UbuntuShape {
+                       id: cover1
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(3)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: Library.getArtistCovers(artist).length > 2 ? Library.getArtistCovers(artist)[2] : "images/cover_default.png"
+                       }
+                       visible: Library.getArtistCovers(artist).length > 2
+                    }
+                    UbuntuShape {
+                       id: cover2
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(2)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: Library.getArtistCovers(artist).length > 1 ? Library.getArtistCovers(artist)[1] : "images/cover_default.png"
+                       }
+                       visible: Library.getArtistCovers(artist).length > 1
+                    }
+                    UbuntuShape {
+                       id: cover3
+                       anchors.left: parent.left
+                       anchors.leftMargin: units.gu(1)
+                       anchors.top: parent.top
+                       anchors.topMargin: units.gu(1)
+                       width: styleMusic.common.albumSize
+                       height: styleMusic.common.albumSize
+                       image: Image {
+                           source: Library.getArtistCovers(artist).length > 0 ? Library.getArtistCovers(artist)[0] : "images/cover_default.png"
+                       }
+                    }
+
                     Label {
                         id: trackArtistAlbum
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "large"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: artist
+                        text: artist // !== '' artist : i18n.tr("Unknown Artist") fix this
+                    }
+
+                    Label {
+                        id: trackArtistAlbums
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "medium"
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: trackArtistAlbum.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: Library.getArtistCovers(artist).length + i18n.tr(" albums") // model for number of albums?
+                    }
+
+                    Label {
+                        id: trackArtistAlbumTracks
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "medium"
+                        anchors.left: cover3.left
+                        anchors.leftMargin: units.gu(14)
+                        anchors.top: trackArtistAlbums.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        text: Library.getArtistTracks(artist).length + i18n.tr(" songs") //fix
                     }
 
                     onFocusChanged: {
@@ -169,7 +239,7 @@ PageStack {
                     anchors.top: albumArtist.bottom
                     anchors.topMargin: units.gu(1)
                     anchors.right: parent.right
-                    text: artistTracksModel.model.count + " songs"
+                    text: artistTracksModel.model.count + i18n.tr(" songs")
                 }
             }
 
