@@ -7,8 +7,8 @@
             "desktop": "music-app.desktop"
         }
     },
-    "maintainer": "Andrew Hayzen <ahayzen@gmail.com>",
-    "name": "com.ubuntu.developer.danielholm.music-app",
+    "maintainer": "Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>",
+    "name": "com.ubuntu.music-app",
     "title": "music-app",
     "version": "0.1"
 }
