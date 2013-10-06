@@ -150,7 +150,7 @@ PageStack {
                         anchors.top: trackArtistAlbum.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: i18n.tr(" albums") // model for number of albums?
+                        text: Library.getArtistCovers(artist).length + i18n.tr(" albums") // model for number of albums?
                     }
 
                     Label {
@@ -163,7 +163,7 @@ PageStack {
                         anchors.top: trackArtistAlbums.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
-                        text: i18n.tr(" songs") //fix
+                        text: Library.getArtistTracks(artist).length + i18n.tr(" songs") //fix
                     }
 
                     onFocusChanged: {
