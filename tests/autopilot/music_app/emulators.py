@@ -74,12 +74,12 @@ class MainView(toolkit_emulators.MainView):
         mouse.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_play_button(self):
-        self.show_toolbar()
-
-        return self.app.select_single("Rectangle", objectName = "playshape")
+        return self.app.select_single("UbuntuShape", objectName = "playshape")
 
     def get_forward_button(self):
-        self.show_toolbar()
-
         return self.app.select_single(
-            "Rectangle", objectName = "forwardshape")
+            "UbuntuShape", objectName = "forwardshape")
+
+    def get_player_control_icon(self):
+        return self.app.select_single(
+            "UbuntuShape", objectName = "playercontrolicon")

@@ -66,6 +66,7 @@ Rectangle {
     // Emit toolbarShownChanged signal when the toolbar is shown/hidden
     onShownChanged: {
         onToolbarShownChanged(shown, currentPage, currentTab);
+        musicToolbar.opened = shown;
     }
 
     states: [
@@ -157,6 +158,10 @@ Rectangle {
         NumberAnimation {
             duration: transitionDuration
             properties: "y,opacity"
+        }
+
+        onRunningChanged: {
+            musicToolbar.animating = running;
         }
     }
 
@@ -355,7 +360,6 @@ Rectangle {
                     antialiasing: true
                     color: "#222"
                     height: units.gu(6)
-                    objectName: "playshape"
                     radius: height / 2
                     width: height
 
@@ -368,14 +372,18 @@ Rectangle {
                         height: units.gu(3.5)
                         radius: height / 2
                         width: height
-
-                        Image {
-                            id: playindicator
+                        UbuntuShape {
                             anchors.fill: parent
-                            opacity: .7
-                            source: player.playbackState === MediaPlayer.PlayingState ?
-                                      "images/pause.png" : "images/play.png"
+                            objectName: "playshape"  // objectName doesn't work on Rectangle?
+                            image: Image {
+                                id: playindicator
+                                anchors.fill: parent
+                                opacity: .7
+                                source: player.playbackState === MediaPlayer.PlayingState ?
+                                          "images/pause.png" : "images/play.png"
+                            }
                         }
+
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -422,6 +430,7 @@ Rectangle {
                         anchors.fill: parent
                         source: mainView.currentCoverSmall
                     }
+                    objectName: "playercontrolicon"
                     width: height
 
                     MouseArea {
@@ -621,6 +630,7 @@ Rectangle {
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
+                objectName: "forwardshape"
                 width: height
 
                 image: Image {

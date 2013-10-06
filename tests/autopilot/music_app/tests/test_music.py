@@ -31,6 +31,8 @@ class TestMainWindow(MusicTestCase):
     def test_play_pause(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
+        self.main_view.show_toolbar()
+
         self.assertThat(self.main_view.get_play_button, Eventually(NotEquals(None)))
         playbutton = self.main_view.get_play_button()
         mainView = self.main_view.get_main_view()
@@ -48,6 +50,12 @@ class TestMainWindow(MusicTestCase):
 
     def test_next(self):
         """ Test going to next track (Music Library must exist) """
+
+        self.main_view.show_toolbar()
+
+        # switch to the now playing page
+        icon = self.main_view.get_player_control_icon()
+        self.pointing_device.click_object(icon)
 
         self.assertThat(self.main_view.get_forward_button, Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
