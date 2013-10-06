@@ -179,8 +179,8 @@ Page {
         id: albumSheet
         DefaultSheet {
             id: sheet
+            anchors.bottomMargin: units.gu(.5)
             doneButton: false
-            title: album
             contentsHeight: parent.height
 
             ListView {
