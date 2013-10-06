@@ -7,7 +7,7 @@
             "desktop": "music-app.desktop"
         }
     },
-    "maintainer": "Daniel Holm <admin@danielholm.se>",
+    "maintainer": "Andrew Hayzen <ahayzen@gmail.com>",
     "name": "com.ubuntu.developer.danielholm.music-app",
     "title": "music-app",
     "version": "0.1"
