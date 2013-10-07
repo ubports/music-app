@@ -612,7 +612,9 @@ MainView {
         onCountChanged: {
             if (argFile === model.get(count - 1).file)
             {
-                trackClicked(libraryModel, count - 1, true)
+                trackQueue.model.clear();
+                trackQueue.model.append(model.get(count - 1));
+                trackClicked(trackQueue, 0, true);
             }
         }
     }
