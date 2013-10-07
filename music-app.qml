@@ -339,6 +339,10 @@ MainView {
             else
             {
                 player.play()
+
+                // Show the Now Playing page and make sure the track is visible
+                nowPlaying.visible = true;
+                nowPlaying.ensureVisibleIndex = index;
             }
 
             return
@@ -384,7 +388,8 @@ MainView {
 
         if (play === true)
         {
-            nowPlaying.visible = true // Make the queue and Now Playing page active
+            // Show the Now Playing page and make sure the track is visible
+            nowPlaying.visible = true;
             nowPlaying.ensureVisibleIndex = index;
         }
 
