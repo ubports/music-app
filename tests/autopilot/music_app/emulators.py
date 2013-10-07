@@ -80,6 +80,6 @@ class MainView(toolkit_emulators.MainView):
         return self.app.select_single(
             "UbuntuShape", objectName = "forwardshape")
 
-    def get_player_control_icon(self):
+    def get_player_control_title(self):
         return self.app.select_single(
-            "UbuntuShape", objectName = "playercontrolicon")
+            "Label", objectName = "playercontroltitle")

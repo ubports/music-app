@@ -212,8 +212,6 @@ Rectangle {
         currentPage = childPage;
         currentParentPage = parentPage === undefined ? null : parentPage;
         currentPageStack = pageStack === undefined ? null : pageStack;
-
-        backButton.visible = currentPageStack !== null && currentParentPage !== null;
     }
 
     // Show the toolbar
@@ -227,30 +225,6 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: mouse.accepted = true
-    }
-
-    /* Temporary Back button */
-    UbuntuShape {
-        id: backButton
-        anchors.left: musicToolbarContainer.left
-        anchors.bottom: musicToolbarContainer.top
-        color: "#F00"
-        height: units.gu(6)
-        width: height
-        visible: false
-
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            text: "Back"
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                goBack();
-            }
-        }
     }
 
     /* Expanded toolbar */
@@ -419,19 +393,38 @@ Rectangle {
                     }
                 }
 
-                /* Player control icon (album art) TODO: confirm what this is supposed to be */
+                /* Back button to go up pageStack */
                 UbuntuShape {
-                    id: playerControlsIcon
+                    id: playerControlBackButton
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    image: Image {
-                        anchors.fill: parent
-                        source: mainView.currentCoverSmall
-                    }
-                    objectName: "playercontrolicon"
                     width: height
+                    visible: currentPageStack !== null && currentParentPage !== null
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Back"
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            goBack();
+                        }
+                    }
+                }
+
+                /* Container holding the labels for the toolbar */
+                Rectangle {
+                    id: playerControlLabelContainer
+                    anchors.bottom: parent.bottom
+                    anchors.left: playerControlBackButton.right
+                    anchors.right: playerControlsPlayButton.left
+                    anchors.top: parent.top
+                    color: "transparent"
 
                     MouseArea {
                         anchors.fill: parent
@@ -439,49 +432,50 @@ Rectangle {
                             nowPlaying.visible = true
                         }
                     }
-                }
 
-                /* Title of track */
-                Label {
-                    id: playerControlsTitle
-                    anchors.left: playerControlsIcon.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: playerControlsPlayButton.left
-                    anchors.rightMargin: units.gu(1)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "medium"
-                    text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-                }
+                    /* Title of track */
+                    Label {
+                        id: playerControlsTitle
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "medium"
+                        objectName: "playercontroltitle"
+                        text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                    }
 
-                /* Artist of track */
-                Label {
-                    id: playerControlsArtist
-                    anchors.left: playerControlsIcon.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: playerControlsPlayButton.left
-                    anchors.rightMargin: units.gu(1)
-                    anchors.top: playerControlsTitle.bottom
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    text: mainView.currentArtist
-                }
+                    /* Artist of track */
+                    Label {
+                        id: playerControlsArtist
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        anchors.top: playerControlsTitle.bottom
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "small"
+                        text: mainView.currentArtist
+                    }
 
-                /* Album of track */
-                Label {
-                    id: playerControlsAlbum
-                    anchors.left: playerControlsIcon.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: playerControlsPlayButton.left
-                    anchors.rightMargin: units.gu(1)
-                    anchors.top: playerControlsArtist.bottom
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    text: mainView.currentAlbum
+                    /* Album of track */
+                    Label {
+                        id: playerControlsAlbum
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        anchors.top: playerControlsArtist.bottom
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "small"
+                        text: mainView.currentAlbum
+                    }
                 }
             }
         }

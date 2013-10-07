@@ -54,8 +54,8 @@ class TestMainWindow(MusicTestCase):
         self.main_view.show_toolbar()
 
         # switch to the now playing page
-        icon = self.main_view.get_player_control_icon()
-        self.pointing_device.click_object(icon)
+        label = self.main_view.get_player_control_title()
+        self.pointing_device.click_object(label)
 
         self.assertThat(self.main_view.get_forward_button, Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
