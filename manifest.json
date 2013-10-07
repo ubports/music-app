@@ -11,9 +11,5 @@
     "maintainer": "Daniel Holm <admin@danielholm.se>", 
     "name": "com.ubuntu.music", 
     "title": "music", 
-    "version": "0.1", 
-    "x-source": {
-        "vcs-bzr": "lp:music-app", 
-        "vcs-bzr-revno": "157"
-    }
+    "version": "0.1"
 }
