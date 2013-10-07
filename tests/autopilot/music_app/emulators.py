@@ -6,10 +6,11 @@
 # by the Free Software Foundation.
 
 """Music app autopilot emulators."""
+from ubuntuuitoolkit import emulators as toolkit_emulators
 
-from ubuntuuitoolkit import emulators as uitk
 
-class MainView(uitk.MainView):
+class MainView(toolkit_emulators.MainView):
+
     """An emulator class that makes it easy to interact with the
     music-app.
     """
@@ -29,11 +30,11 @@ class MainView(uitk.MainView):
         """Returns the item that is searched for with app.select_many
         In case of no item was not found (not created yet) a second attempt is
         taken 1 second later"""
-        items = self.select_many(object_type, **kwargs)
+        items = self.app.select_many(object_type, **kwargs)
         tries = 10
         while len(items) < 1 and tries > 0:
-            sleep(self.retry_delay)
-            items = self.select_many(object_type, **kwargs)
+            sleep(self.app.retry_delay)
+            items = self.app.select_many(object_type, **kwargs)
             tries = tries - 1
         return items
 
@@ -41,19 +42,19 @@ class MainView(uitk.MainView):
         """Returns the item that is searched for with app.select_single
         In case of the item was not found (not created yet) a second attempt is
         taken 1 second later."""
-        item = self.select_single(object_type, **kwargs)
+        item = self.app.select_single(object_type, **kwargs)
         tries = 10
         while item is None and tries > 0:
-            sleep(self.retry_delay)
-            item = self.select_single(object_type, **kwargs)
+            sleep(self.app.retry_delay)
+            item = self.app.select_single(object_type, **kwargs)
             tries = tries - 1
         return item
 
     def tap_item(self, item):
-        self.pointing_device.move_to_object(item)
-        self.pointing_device.press()
+        self.app.pointing_device.move_to_object(item)
+        self.app.pointing_device.press()
         sleep(2)
-        self.pointing_device.release()
+        self.app.pointing_device.release()
 
     def get_play_button(self):
         return self.app.select_single("UbuntuShape", objectName = "playshape")

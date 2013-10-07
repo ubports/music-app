@@ -13,15 +13,17 @@ import mock
 import os
 import os.path
 import shutil
+import logging
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
-from time import sleep
+from ubuntuuitoolkit import emulators as toolkit_emulators
+from music_app.emulators import MainView
 
-from ubuntuuitoolkit import emulators as uitk
-from music_app.emulators.emulators import MainView
+logger = logging.getLogger(__name__)
+
 
 class MusicTestCase(AutopilotTestCase):
 
@@ -78,22 +80,32 @@ class MusicTestCase(AutopilotTestCase):
         shutil.rmtree(temp_dir)
         temp_dir = temp_dir.ljust(25, 'X')
         os.mkdir(temp_dir)
+        logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+        #if the Xauthority file is in home directory
+        #make sure we copy it to temp home, otherwise do nothing
+        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        if os.path.isfile(xauth):
+            logger.debug("Copying .Xauthority to fake home " + temp_dir)
+            shutil.copyfile(
+                os.path.expanduser(os.path.join('~', '.Xauthority')),
+                os.path.join(temp_dir, '.Xauthority'))
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
+        logger.debug("Patched home to fake home directory " + temp_dir)
         self.addCleanup(patcher.stop)
 
     def _create_music_library(self):
         #use fake home
         home = os.environ['HOME']
+        logger.debug("Home set to " + home)
         musicpath = home + '/Music'
+        logger.debug("Music path set to " + musicpath)
         mediascannerpath = home + '/.cache/mediascanner'
         os.mkdir(musicpath)
+        logger.debug("Mediascanner path set to " + mediascannerpath)
 
-        #copy over our index
-        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
-                        mediascannerpath)
-
+        #copy over the music and index
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'1.ogg',
@@ -101,6 +113,9 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy(self.working_dir + '/music_app/content/'
                 +'2.ogg',
                 musicpath)
+            shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
+                        mediascannerpath)
+
         else:
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'1.ogg',
@@ -108,21 +123,43 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
             +'2.ogg',
             musicpath)
+            shutil.copytree('/usr/lib/python2.7/dist-packages/music_app/content/mediascanner',
+                        mediascannerpath)
+
+        logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
 
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
+        logger.debug("Patching fake mediascanner database")
         relhome = home[1:]
         dblocation = "home/autopilot-music-app"
         dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
         #patch mediaindex
-        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/mediaindex")
+        self._file_find_replace(mediascannerpath + "/mediaindex", dblocation, relhome)
 
         #patch file indexes
-        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_0.cfs")
-        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_1.cfs")
-        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_2.cfs")
-        os.system("sed -i 's!" + dblocation + "!" + str(relhome) + "!g' " + str(mediascannerpath) + "/" + dbfoldername + "/_3.cfs")
+        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_0.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_1.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_2.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_3.cfs", dblocation, relhome)
+
+    def _file_find_replace(self, in_filename, find, replace):
+        #replace all occurences of string find with string replace
+        #in the given file
+        out_filename = in_filename + ".tmp"
+        infile = open(in_filename, 'r')
+        outfile = open(out_filename, 'w')
+        for s in infile.xreadlines():
+            outfile.write(s.replace(find, replace))
+        infile.close()
+        outfile.close()
+
+        #remove original file and copy new file back
+        os.remove(in_filename)
+        os.rename(out_filename, in_filename)
+
 
     @property
     def main_view(self):
