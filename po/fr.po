@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-10-05 22:19+0000\n"
-"Last-Translator: Sylvie Gallet <Unknown>\n"
+"PO-Revision-Date: 2013-10-06 09:17+0000\n"
+"Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-06 05:22+0000\n"
+"X-Launchpad-Export-Date: 2013-10-07 06:00+0000\n"
 "X-Generator: Launchpad (build 16791)\n"
 
 #: ../LoginLastFM.qml:38
@@ -213,7 +213,7 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:174
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Se connecter pour écouter votre musique depuis le nuage"
 
 #: ../MusicSettings.qml:187
 msgid "Stream only on Wi-Fi"
