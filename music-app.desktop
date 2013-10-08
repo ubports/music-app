@@ -9,6 +9,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 X-Ubuntu-Single-Instance=true
-X-Ubuntu-StageHint=music-app
 X-Ubuntu-Touch=true
 Name[sv_SE]=Musik

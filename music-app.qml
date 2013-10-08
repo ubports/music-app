@@ -36,7 +36,7 @@ import "common"
 
 MainView {
     objectName: "music"
-    applicationName: "music-app"
+    applicationName: "com.ubuntu.music"
     id: mainView
 
     // Arguments during startup
@@ -109,6 +109,42 @@ MainView {
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
+
+    // signal to open new URIs
+    // TODO currently this only allows playing file:// URIs of known files
+    // (already in the database), not e.g. http:// URIs or files in directories
+    // not picked up by Grilo
+    Connections {
+        target: UriHandler
+        onOpened: {
+            // clear play queue
+            trackQueue.model.clear()
+            for (var i=0; i < uris.length; i++) {
+                console.debug("URI=" + uris[i])
+                // skip non-file:// URIs
+                if (uris[i].substring(0, 7) !== "file://") {
+                    console.debug("Unsupported URI " + uris[i] + ", skipping")
+                    continue
+                }
+
+                // search pathname in library
+                var file = decodeURIComponent(uris[i])
+                var index = libraryModel.indexOf(file)
+                if (index <= -1) {
+                    console.debug("Unknown file " + file + ", skipping")
+                    continue
+                }
+
+                // enqueue
+                trackQueue.model.append(libraryModel.model.get(index))
+
+                // play first URI
+                if (i == 0) {
+                    trackClicked(trackQueue, 0, true)
+                }
+            }
+        }
+    }
 
     Style { id: styleMusic }
 
@@ -339,6 +375,10 @@ MainView {
             else
             {
                 player.play()
+
+                // Show the Now Playing page and make sure the track is visible
+                nowPlaying.visible = true;
+                nowPlaying.ensureVisibleIndex = index;
             }
 
             return
@@ -384,7 +424,8 @@ MainView {
 
         if (play === true)
         {
-            nowPlaying.visible = true // Make the queue and Now Playing page active
+            // Show the Now Playing page and make sure the track is visible
+            nowPlaying.visible = true;
             nowPlaying.ensureVisibleIndex = index;
         }
 

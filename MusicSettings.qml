@@ -103,8 +103,10 @@ ComposerSheet {
             anchors.right: parent.right
             anchors.bottom: shuffleRow.top
             anchors.bottomMargin: units.gu(2)
+            anchors.leftMargin: units.gu(2)
             Label {
                 id: snapLabel
+                anchors.verticalCenter: snapSwitch.verticalCenter
                 text: i18n.tr("Snap to current song \nwhen opening toolbar")
             }
             Switch {
@@ -124,9 +126,11 @@ ComposerSheet {
             anchors.right: parent.right
             anchors.bottom: accounts.top
             anchors.bottomMargin: units.gu(2)
+            anchors.leftMargin: units.gu(2)
             width: parent.width
             Label {
                 id: shuffleLabel
+                anchors.verticalCenter: shuffleSwitch.verticalCenter
                 text: i18n.tr("Shuffle")
             }
             Switch {
@@ -213,6 +217,7 @@ ComposerSheet {
                     enabled: false // check if account is connected
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(2)
+                    anchors.verticalCenter: wifiSwitch.verticalCenter
                 }
                 Switch {
                     id: wifiSwitch
