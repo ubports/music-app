@@ -551,6 +551,7 @@ MainView {
 
     GriloModel {
         id: griloModel
+        property bool loaded: false
 
         source: GriloBrowse {
             id: browser
@@ -562,16 +563,18 @@ MainView {
                 console.log(browser.supportedKeys);
                 console.log(browser.slowKeys);
                 refresh();
-                console.log("Refreshing");
             }
 
             onAvailableChanged: {
-                console.log("Available ? " + available);
                 if (available === true) {
                     console.log("griloModel.count " + griloModel.count)
                 }
             }
             onBaseMediaChanged: refresh();
+
+            onFinished: {
+                griloModel.loaded = true
+            }
         }
 
         onCountChanged: {
@@ -1149,7 +1152,7 @@ MainView {
         id: libraryEmpty
         anchors.fill: parent
         color: styleMusic.libraryEmpty.backgroundColor
-        visible: griloModel.count === 0
+        visible: griloModel.count === 0 && griloModel.loaded === true
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
