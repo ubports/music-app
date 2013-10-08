@@ -36,7 +36,7 @@ import "common"
 
 MainView {
     objectName: "music"
-    applicationName: "music-app"
+    applicationName: "com.ubuntu.music"
     id: mainView
 
     // Arguments during startup
