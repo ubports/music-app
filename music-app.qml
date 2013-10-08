@@ -604,9 +604,11 @@ MainView {
                 console.log(browser.supportedKeys);
                 console.log(browser.slowKeys);
                 refresh();
+                console.log("Refreshing");
             }
 
             onAvailableChanged: {
+                console.log("Available ? " + available);
                 if (available === true) {
                     console.log("griloModel.count " + griloModel.count)
                 }
