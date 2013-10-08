@@ -725,7 +725,7 @@ PageStack {
                             elide: Text.ElideRight
                             height: units.gu(1)
                             text: title == "" ? file : title
-                            width: parent.width
+                            width: parent.width - x
                             x: trackImage.x + trackImage.width + units.gu(1)
                         }
                         Label {
@@ -734,7 +734,7 @@ PageStack {
                             anchors.topMargin: units.gu(1)
                             elide: Text.ElideRight
                             text: artist == "" ? "" : artist + " - " + album
-                            width: parent.width
+                            width: parent.width - x
                             x: trackImage.x + trackImage.width + units.gu(1)
                         }
                         Rectangle {

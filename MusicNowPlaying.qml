@@ -450,7 +450,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width
+                        width: parent.width - x
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -460,7 +460,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width
+                        width: parent.width - x
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                 }
