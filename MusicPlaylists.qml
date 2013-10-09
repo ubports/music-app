@@ -40,8 +40,8 @@ PageStack {
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + element.id + " = " + element.name);
-        playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
+        customdebug("Playlist #" + element.id + " = " + element.name + " with cover art: " + element.cover0);
+        playlistModel.append({"id": element.id, "name": element.name, "count": element.count, "cover0": element.cover0, "cover1": element.cover1, "cover2": element.cover2, "cover3": element.cover3 });
     }
 
     // Toolbar
@@ -239,8 +239,10 @@ PageStack {
                            anchors.topMargin: units.gu(1)
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
-                           color: get_random_color()
                            visible: playlist.count > 3
+                           image: Image {
+                               source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover1
@@ -250,8 +252,10 @@ PageStack {
                            anchors.topMargin: units.gu(1)
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
-                           color: get_random_color()
                            visible: playlist.count > 2
+                           image: Image {
+                               source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover2
@@ -261,8 +265,10 @@ PageStack {
                            anchors.topMargin: units.gu(1)
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
-                           color: get_random_color()
                            visible: playlist.count > 1
+                           image: Image {
+                               source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover3
@@ -272,9 +278,8 @@ PageStack {
                            anchors.topMargin: units.gu(1)
                            width: styleMusic.common.albumSize
                            height: styleMusic.common.albumSize
-                           color: get_random_color()
                            image: Image {
-                               source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        // songs count
@@ -359,7 +364,9 @@ PageStack {
                anchors.topMargin: units.gu(1)
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
-               color: get_random_color()
+               image: Image {
+                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+               }
             }
             UbuntuShape {
                id: cover1
@@ -425,6 +432,7 @@ PageStack {
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             state: "normal"
+            z: -1
             states: [
                 State {
                     name: "normal"
@@ -705,8 +713,6 @@ PageStack {
                             height: styleMusic.common.albumSize
                             image: Image {
                                 source: cover !== "" ? cover :  Qt.resolvedUrl("images/cover_default_icon.png")
-                                width: styleMusic.common.albumSize
-                                height: styleMusic.common.albumSize
                             }
                             UbuntuShape {  // Background so can see text in current state
                                 id: trackBg

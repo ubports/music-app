@@ -151,10 +151,13 @@ function getPlaylists() {
            for(var i = 0; i < rs.rows.length; i++) {
                var dbItem = rs.rows.item(i);
                count = getPlaylistCount(dbItem.name);
-               console.log("Playlist in DB: "+ dbItem.id + ": "+dbItem.name+" has this many: "+count);
                res[dbItem.id] = {   'id': dbItem.id,
                                     'name': dbItem.name,
-                                    'count': count
+                                    'count': count,
+                                    'cover0': getRandomCover(dbItem.name),
+                                    'cover1': getRandomCover(dbItem.name),
+                                    'cover2': getRandomCover(dbItem.name),
+                                    'cover3': getRandomCover(dbItem.name)
                }
             }
       })
@@ -212,6 +215,30 @@ function getPlaylistCount(playlist) {
 
     console.debug("Playlist had: "+res)
     return res;
+}
+
+// retrieve tracks ids from playlist
+function getRandomCover(playlist) {
+   var db = getPlaylistDatabase();
+   var res = new Array();
+
+   try {
+       db.transaction(function(tx) {
+         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+         for(var i = 0; i < rs.rows.length; i++) {
+             var dbItem = rs.rows.item(i);
+             //console.log("ID: "+ dbItem.title +" " + dbItem.id);
+             res[i] = dbItem.cover;
+         }
+      })
+   } catch(e) {
+       return [];
+   }
+
+   var randomNumber = Math.floor(Math.random()*res.length);
+   var randomCover = res[randomNumber];
+   console.debug("Random cover is: ("+ randomNumber +")"+randomCover);
+   return randomCover;
 }
 
 // change name of playlist
@@ -300,8 +327,7 @@ function reorder(database, removedid, playlist) {
 
 
 // Get the real ID of an index in the playlist (-1 if doesn't exist/error)
-function getRealID(playlist, index)
-{
+function getRealID(playlist, index) {
     var db = getPlaylistDatabase();
     var realID = -1;
 
