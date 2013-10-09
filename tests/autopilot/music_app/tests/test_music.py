@@ -31,11 +31,8 @@ class TestMainWindow(MusicTestCase):
         """ tests if the music library is populated from our
         fake mediascanner database"""
 
-        self.assertThat(self.main_view.get_main_view,
-                        Eventually(NotEquals(None)))
-        mainView = self.main_view.get_main_view()
-        title = lambda: mainView.currentTracktitle
-        artist = lambda: mainView.currentArtist
+        title = lambda: self.main_view.currentTracktitle
+        artist = lambda: self.main_view.currentArtist
         self.assertThat(title,
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
@@ -48,18 +45,17 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.get_play_button,
                         Eventually(NotEquals(None)))
         playbutton = self.main_view.get_play_button()
-        mainView = self.main_view.get_main_view()
 
         """ Track is not playing"""
-        self.assertThat(mainView.isPlaying, Eventually(Equals(False)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
         self.pointing_device.click_object(playbutton)
 
         """ Track is playing"""
-        self.assertThat(mainView.isPlaying, Eventually(Equals(True)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
         self.pointing_device.click_object(playbutton)
-        self.assertThat(mainView.isPlaying, Eventually(Equals(False)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
     def test_next(self):
         """ Test going to next track (Music Library must exist) """
@@ -73,18 +69,18 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.get_forward_button,
                         Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
-        mainView = self.main_view.get_main_view()
-        title = lambda: mainView.currentTracktitle
-        artist = lambda: mainView.currentArtist
+
+        title = lambda: self.main_view.currentTracktitle
+        artist = lambda: self.main_view.currentArtist
         self.assertThat(title,
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
         """ Track is not playing"""
-        self.assertThat(mainView.isPlaying, Equals(False))
+        self.assertThat(self.main_view.isPlaying, Equals(False))
         self.pointing_device.click_object(forwardbutton)
 
         """ Track is playing"""
-        self.assertThat(mainView.isPlaying, Eventually(Equals(True)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
         self.assertThat(title, Eventually(Equals("Swansong")))
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))

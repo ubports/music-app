@@ -18,13 +18,6 @@ class MainView(toolkit_emulators.MainView):
     """
     retry_delay = 0.2
 
-    def get_qml_view(self):
-        """Get the main QML view"""
-        return self.select_single("QQuickView")
-
-    def get_main_view(self):
-        return self.select_single("MainView", objectName="music")
-
     def get_toolbar(self):
         return self.select_single("MusicToolbar",
                                   objectName="musicToolbarObject")
