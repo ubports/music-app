@@ -44,28 +44,17 @@ Page {
         id: musicSettings
     }
 
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.setPage(mainpage);
         }
     }
 
     GridView {
         id: albumlist
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
+        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         cellHeight: units.gu(14)
         cellWidth: units.gu(14)
         model: albumModel.model
@@ -170,6 +159,7 @@ Page {
                     id: albumInfo
                     width: parent.width
                     height: units.gu(20)
+
                     UbuntuShape {
                         id: albumImage
                         anchors.left: parent.left

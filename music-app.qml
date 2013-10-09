@@ -865,7 +865,7 @@ MainView {
     MusicToolbar {
         id: musicToolbar
         objectName: "musicToolbarObject"
-        z: 100  // put on top of everything else
+        z: 200  // put on top of everything else
 
         property bool animating: false
         property bool opened: false
