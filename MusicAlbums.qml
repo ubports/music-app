@@ -173,54 +173,41 @@ Page {
                         }
                     }
                     Label {
-                        id: albumTitle
+                        id: albumArtist
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "large"
+                        fontSize: "small"
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
-                        text: mainpage.album
+                        text: mainpage.artist
                     }
                     Label {
-                        id: albumArtist
+                        id: albumLabel
                         wrapMode: Text.NoWrap
-                        maximumLineCount: 1
+                        maximumLineCount: 2
                         fontSize: "medium"
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
-                        anchors.top: albumTitle.bottom
-                        anchors.topMargin: units.gu(1)
+                        anchors.top: albumArtist.bottom
+                        anchors.topMargin: units.gu(0.8)
                         anchors.right: parent.right
-                        text: mainpage.artist
+                        text: mainpage.album
                     }
                     Label {
                         id: albumYear
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "small"
+                        fontSize: "x-small"
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
-                        anchors.top: albumArtist.bottom
-                        anchors.topMargin: units.gu(1)
+                        anchors.top: albumLabel.bottom
+                        anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
-                        text: mainpage.year
+                        text: mainpage.year + " | " + albumTracksModel.model.count + i18n.tr(" songs")
                     }
-                    Label {
-                        id: albumCount
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "small"
-                        anchors.left: albumImage.right
-                        anchors.leftMargin: units.gu(1)
-                        anchors.top: albumYear.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        text: albumTracksModel.model.count + " songs"
-                    }
-
                 }
 
                 onCountChanged: {
@@ -234,7 +221,7 @@ Page {
                         id: track
                         iconFrame: false
                         progression: false
-                        height: styleMusic.common.itemHeight
+                        height: styleMusic.albums.itemHeight
                         Label {
                             id: trackTitle
                             wrapMode: Text.NoWrap
@@ -243,8 +230,9 @@ Page {
                             anchors.left: parent.left
                             anchors.leftMargin: units.gu(2)
                             anchors.top: parent.top
-                            anchors.topMargin: units.gu(1.5)
-                            anchors.right: parent.right
+                            anchors.topMargin: units.gu(1)
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: units.gu(1)
                             text: model.title == "" ? model.file : model.title
                         }
 
@@ -253,8 +241,8 @@ Page {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
                             anchors.top: parent.top
-                            anchors.topMargin: units.gu(4)
-                            source: "images/select.png"
+                            anchors.topMargin: units.gu(2)
+                            source: "images/dropdown-menu.svg"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
 
@@ -264,13 +252,13 @@ Page {
                                    if(expandable.visible) {
                                        customdebug("clicked collapse")
                                        expandable.visible = false
-                                       track.height = styleMusic.common.itemHeight
+                                       track.height = styleMusic.albums.itemHeight
 
                                    }
                                    else {
                                        customdebug("clicked expand")
                                        expandable.visible = true
-                                       track.height = styleMusic.common.expandedHeight
+                                       track.height = styleMusic.album.expandedHeight
                                    }
                                }
                            }
@@ -281,7 +269,7 @@ Page {
                             visible: false
                             anchors.top: parent.buttom
                             width: parent.fill
-                            height: styleMusic.common.expandHeight
+                            height: styleMusic.albums.expandHeight
                             color: "black"
                             opacity: 0.7
                             MouseArea {
@@ -299,9 +287,9 @@ Page {
                                 anchors.leftMargin: styleMusic.common.expandedLeftMargin
                                 height: styleMusic.common.expandedItem
                                 width: units.gu(15)
-                                Image {
+                                Icon {
                                     id: playlistTrack
-                                    source: "images/add.svg"
+                                    name: "add"
                                     height: styleMusic.common.expandedItem
                                     width: styleMusic.common.expandedItem
                                 }
@@ -361,38 +349,6 @@ Page {
                                        track.height = styleMusic.common.itemHeight
                                        console.debug("Debug: Add track to queue: " + title)
                                        trackQueue.model.append({"title": title, "artist": artist, "file": track, "album": album, "cover": cover, "genre": genre})
-                                 }
-                               }
-                            }
-                            // Share
-                            Row {
-                                id: shareRow
-                                anchors.top: parent.top
-                                anchors.topMargin: styleMusic.common.expandedTopMargin
-                                anchors.left: queueRow.left
-                                anchors.leftMargin: units.gu(15)
-                                height: styleMusic.common.expandedItem
-                                width: units.gu(15)
-                                visible: false
-                                Icon {
-                                    id: shareTrack
-                                    name: "share"
-                                    height: styleMusic.common.expandedItem
-                                    width: styleMusic.common.expandedItem
-                                }
-                                Label {
-                                    text: i18n.tr("Share")
-                                    wrapMode: Text.WordWrap
-                                    fontSize: "small"
-                                    anchors.left: shareTrack.right
-                                    anchors.leftMargin: units.gu(0.5)
-                                }
-                                MouseArea {
-                                   anchors.fill: parent
-                                   onClicked: {
-                                       expandable.visible = false
-                                       track.height = styleMusic.common.itemHeight
-                                       customdebug("Share")
                                  }
                                }
                             }

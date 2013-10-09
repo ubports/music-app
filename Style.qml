@@ -107,4 +107,10 @@ QtObject {
         property color fullProgressBackgroundColor: "#252525";
         property color fullProgressTroughColor: UbuntuColors.orange;
     }
+
+    property QtObject albums: QtObject {
+        property int itemHeight: units.gu(4);
+        property int expandHeight: units.gu(5);
+        property int expandedHeight: units.gu(9);
+    }
 }
