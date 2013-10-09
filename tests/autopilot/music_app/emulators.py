@@ -8,6 +8,7 @@
 """Music app autopilot emulators."""
 from ubuntuuitoolkit import emulators as toolkit_emulators
 from autopilot.input import Mouse
+from time import sleep
 
 
 class MainView(toolkit_emulators.MainView):
@@ -22,10 +23,11 @@ class MainView(toolkit_emulators.MainView):
         return self.select_single("QQuickView")
 
     def get_main_view(self):
-        return self.select_single("MainView", objectName = "music")
+        return self.select_single("MainView", objectName="music")
 
     def get_toolbar(self):
-        return self.select_single("MusicToolbar", objectName = "musicToolbarObject")
+        return self.select_single("MusicToolbar",
+                                  objectName="musicToolbarObject")
 
     def select_many_retry(self, object_type, **kwargs):
         """Returns the item that is searched for with app.select_many
@@ -71,12 +73,14 @@ class MainView(toolkit_emulators.MainView):
         mouse.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_play_button(self):
-        return self.select_single("UbuntuShape", objectName = "playshape")
+        return self.select_single("UbuntuShape", objectName="playshape")
 
     def get_forward_button(self):
-        return self.select_single(
-            "UbuntuShape", objectName = "forwardshape")
+        return self.select_single("UbuntuShape", objectName="forwardshape")
 
     def get_player_control_title(self):
-        return self.select_single(
-            "Label", objectName = "playercontroltitle")
+        return self.select_single("Label", objectName="playercontroltitle")
+
+    def get_spinner(self):
+        return self.select_single("ActivityIndicator",
+                                  objectName="LoadingSpinner")
