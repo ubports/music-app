@@ -22,18 +22,22 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import "meta-database.js" as Library
 import "common"
+import "meta-database.js" as Library
+import "settings.js" as Settings
 
 Page {
     id: nowPlaying
     anchors.fill: parent
+    title: i18n.tr("Queue")
     visible: false
+
     onVisibleChanged: {
         if (visible === true)
         {
             header.hide();
             header.visible = false;
+            musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
         }
         else
         {
@@ -55,6 +59,17 @@ Page {
 
     Component.onCompleted: {
         onPlayingTrackChange.connect(updateCurrentIndex)
+        onToolbarShownChanged.connect(jumpToCurrent)
+    }
+
+    function jumpToCurrent(shown, currentPage, currentTab)
+    {
+        // If the toolbar is shown, the page is now playing and snaptrack is enabled
+        if (shown && currentPage === nowPlaying && Settings.getSetting("snaptrack") === "1")
+        {
+            // Then position the view at the current index
+            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Contain);
+        }
     }
 
     function updateCurrentIndex(file)
@@ -65,10 +80,9 @@ Page {
 
     ListView {
         id: queuelist
-        anchors.bottom: fileDurationProgressContainer_nowplaying.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
+        anchors.fill: parent
+        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors.topMargin: nowPlayingBackButton.height
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false
@@ -450,7 +464,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width
+                        width: parent.width - x
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -460,7 +474,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width
+                        width: parent.width - x
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                 }
@@ -504,315 +518,26 @@ Page {
             }
         }
     }
+
     Rectangle {
-        /* will be in toolbar eventually */
-        id: fileDurationProgressContainer_nowplaying
-        anchors.bottom: nowPlayingControls.top
-        color: styleMusic.nowPlaying.backgroundColor;
-        height: units.gu(1.5);
-        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
-        width: parent.width;
+        id: nowPlayingBackButton
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        color: styleMusic.nowPlaying.foregroundColor
+        height: units.gu(3)
 
-        states: [
-            State {
-                name: "disabled"
-                PropertyChanges {
-                    target: nowPlayingProgressBarMouseArea
-                    enabled: false
-                }
-                PropertyChanges {
-                    target: fileDurationProgressArea_nowplaying
-                    visible: false
-                }
-                PropertyChanges {
-                    target: fileDurationProgress_nowplaying
-                    visible: false
-                }
-            },
-            State {
-                name: "enabled"
-                PropertyChanges {
-                    target: nowPlayingProgressBarMouseArea
-                    enabled: true
-                }
-                PropertyChanges {
-                    target: fileDurationProgressArea_nowplaying
-                    visible: true
-                }
-                PropertyChanges {
-                    target: fileDurationProgress_nowplaying
-                    visible: true
-                }
-            }
-        ]
-
-        // Connection from positionChanged signal
-        function updatePosition(position, duration)
-        {
-            if (player.seeking == false)
-            {
-                fileDurationProgressContainer_nowplaying.drawProgress(position / duration)
-            }
-        }
-
-        // Function that sets the progress bar value
-        function drawProgress(fraction)
-        {
-            fileDurationProgress_nowplaying.x = (fraction * fileDurationProgressContainer_nowplaying.width) - fileDurationProgress_nowplaying.width / 2;
-        }
-
-        // Function that sets the slider position from the x position of the mouse
-        function setSliderPosition(xPosition) {
-            var fraction = xPosition / fileDurationProgressContainer_nowplaying.width;
-
-            // Make sure fraction is within limits
-            if (fraction > 1.0)
-            {
-                fraction = 1.0;
-            }
-            else if (fraction < 0.0)
-            {
-                fraction = 0.0;
-            }
-
-            // Update progress bar and position text
-            fileDurationProgressContainer_nowplaying.drawProgress(fraction);
-            player.positionStr = __durationToString(fraction * player.duration);
-        }
-
-        Component.onCompleted: {
-            // Connect to signal from MediaPlayer
-            player.positionChange.connect(updatePosition)
-        }
-
-        // Black background behind the progress bar
-        Rectangle {
-            id: fileDurationProgressBackground_nowplaying
-            anchors.verticalCenter: parent.verticalCenter;
-            color: styleMusic.nowPlaying.progressBackgroundColor;
-            height: parent.height;
-            width: parent.width;
-        }
-
-        // The orange fill of the progress bar
-        Rectangle {
-            id: fileDurationProgressArea_nowplaying
-            anchors.verticalCenter: parent.verticalCenter;
-            color: styleMusic.nowPlaying.progressForegroundColor;
-            height: parent.height;
-            width: fileDurationProgress_nowplaying.x + (height / 2);  // +radius
-        }
-
-        // The current position (handle) of the progress bar
-        Rectangle {
-            id: fileDurationProgress_nowplaying
-            anchors.verticalCenter: fileDurationProgressBackground_nowplaying.verticalCenter;
-            antialiasing: true
-            color: styleMusic.nowPlaying.progressHandleColor
-            height: parent.height;
-            radius: height / 2
-            width: height;
-
-            transitions: Transition {
-                NumberAnimation {
-                    properties: "x"
-                    duration: 1000
-                }
-            }
-        }
-
-        // Mouse events for the progress bar
-        MouseArea {
-            anchors.fill: parent
-            id: nowPlayingProgressBarMouseArea
-            onMouseXChanged: {
-                fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX)
-            }
-            onPressed: {
-                player.seeking = true;
-                queuelist.interactive = false;  // disable queuelist as it catches onReleased()
-            }
-            onClicked: {
-                fileDurationProgressContainer_nowplaying.setSliderPosition(mouseX)
-            }
-            onReleased: {
-                queuelist.interactive = true;  // reenable queuelist
-                player.seek((mouseX / fileDurationProgressContainer_nowplaying.width) * player.duration);
-                player.seeking = false;
-            }
-        }
-    }
-    Rectangle {
-        /* will be in toolbar eventually */
-        id: nowPlayingControls
-        anchors.bottom: parent.bottom
-        color: styleMusic.nowPlaying.backgroundColor
-        height: units.gu(10)
-        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
-        width: parent.width
-
-        // Back should be enabled all the time
-
-        /* TODO: need greyscale icons for disabled state */
-        states: [
-            State {
-                name: "disabled"
-                PropertyChanges {
-                    target: nowPlayingPreviousMouseArea
-                    enabled: false
-                }
-                PropertyChanges {
-                    target: nowPlayingPlayMouseArea
-                    enabled: false
-                }
-                PropertyChanges {
-                    target: nowPlayingNextMouseArea
-                    enabled: false
-                }
-                PropertyChanges {
-                    target: nowPlayingClearMouseArea
-                    enabled: false
-                }
-            },
-            State {
-                name: "enabled"
-                PropertyChanges {
-                    target: nowPlayingPreviousMouseArea
-                    enabled: true
-                }
-                PropertyChanges {
-                    target: nowPlayingPlayMouseArea
-                    enabled: true
-                }
-                PropertyChanges {
-                    target: nowPlayingNextMouseArea
-                    enabled: true
-                }
-                PropertyChanges {
-                    target: nowPlayingClearMouseArea
-                    enabled: true
-                }
-            }
-        ]
-
-        UbuntuShape {  /* TODO: remove when toolbar is implemented */
-            id: nowPlayingBackButton
-            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
-            width: height
-            anchors.left: parent.left
-            anchors.leftMargin: units.gu(1)
-            anchors.verticalCenter: parent.verticalCenter
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                text: i18n.tr("Back")
-            }
-            MouseArea {
-                anchors.fill: parent
-                id: nowPlayingBackButtonMouseArea
-                onClicked: {
-                    nowPlaying.visible = false
-                }
-            }
-        }
-        UbuntuShape {
-            id: backshape_nowplaying
-            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
-            width: height
-            anchors.right: playshape_nowplaying.left
-            anchors.rightMargin: units.gu(1)
-            anchors.verticalCenter: parent.verticalCenter
-            radius: "none"
-            image: Image {
-                id: backindicator_nowplaying
-                source: "images/back.png"
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                id: nowPlayingPreviousMouseArea
-                onClicked: {
-                    previousSong()
-                }
-            }
-        }
-        UbuntuShape {
-            id: playshape_nowplaying
-            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
-            width: height
+        Label {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            radius: "none"
-            image: Image {
-                id: playindicator_nowplaying
-                source: player.playbackState === MediaPlayer.PlayingState ?
-                          "images/pause.png" : "images/play.png"
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                id: nowPlayingPlayMouseArea
-                onClicked: {
-                    if (player.playbackState === MediaPlayer.PlayingState)  {
-                        player.pause()
-                    } else {
-                        player.play()
-                    }
-                }
-            }
+            text: i18n.tr("Back")
         }
-        UbuntuShape {
-            id: forwardshape_nowplaying
-            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
-            width: height
-            anchors.left: playshape_nowplaying.right
-            anchors.leftMargin: units.gu(1)
-            anchors.verticalCenter: parent.verticalCenter
-            radius: "none"
-            image: Image {
-                id: forwardindicator_nowplaying
-                source: "images/forward.png"
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                opacity: .7
-            }
-            MouseArea {
-                anchors.fill: parent
-                id: nowPlayingNextMouseArea
-                onClicked: {
-                    nextSong()
-                }
-            }
-        }
-        UbuntuShape {  /* TODO: remove when toolbar is implemented */
-            id: nowPlayingClearQueue
-            height: parent.height - units.gu(2) < (parent.width - units.gu(6))/5 ? parent.height - units.gu(2) : (parent.width - units.gu(6))/5
-            width: height
-            anchors.right: parent.right
-            anchors.rightMargin: units.gu(1)
-            anchors.verticalCenter: parent.verticalCenter
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                text: i18n.tr("Clear")
-            }
-            MouseArea {
-                anchors.fill: parent
-                id: nowPlayingClearMouseArea
-                onClicked: {
-                    console.debug("Debug: Track queue cleared.")
 
-                    // Clear the queue and tell caches to clear/reload
-                    trackQueue.model.clear()
-                    queueChanged = true;
+        MouseArea {
+            anchors.fill: parent
 
-                    // Stop the player from rolling
-                    stopSong();
-                }
+            onClicked: {
+                musicToolbar.goBack();
             }
         }
     }

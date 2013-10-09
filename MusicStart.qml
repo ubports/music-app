@@ -29,25 +29,14 @@ import "playlists.js" as Playlists
 
 Page {
     id: mainpage
+    title: i18n.tr("Music")
 
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.setPage(mainpage);
         }
     }
-
-    title: i18n.tr("Music")
 
     ListItem.Standard {
         id: recentlyPlayed

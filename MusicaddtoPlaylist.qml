@@ -46,6 +46,17 @@ import "playlists.js" as Playlists
          // print them in the icon
      }
 
+     onVisibleChanged: {
+         if (visible === true)
+         {
+             musicToolbar.disableToolbar()
+         }
+         else
+         {
+             musicToolbar.enableToolbar()
+         }
+     }
+
      Rectangle {
          width: parent.width
 
