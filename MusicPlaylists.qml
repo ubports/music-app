@@ -328,9 +328,9 @@ PageStack {
                                Row {
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
-                                   UbuntuShape {
+                                   Icon {
                                        id: editPlaylist
-                                       color: get_random_color()
+                                       name: "edit"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
@@ -364,9 +364,9 @@ PageStack {
                                Row {
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
-                                   UbuntuShape {
+                                   Icon {
                                        id: deletePlaylist
-                                       color: get_random_color()
+                                       name: "delete"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
@@ -397,6 +397,7 @@ PageStack {
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
+                               visible: false
                                Row {
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
@@ -585,9 +586,9 @@ PageStack {
                         id: editRow
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
-                        UbuntuShape {
+                        Icon {
                             id: editPlaylist
-                            color: get_random_color()
+                            name: "edit"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
@@ -617,14 +618,13 @@ PageStack {
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: editColumn.right
                     anchors.leftMargin: units.gu(2)
-
                     Row {
                         id: deleteRow
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
-                        UbuntuShape {
+                        Icon {
                             id: deletePlaylist
-                            color: get_random_color()
+                            name: "delete"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
@@ -653,6 +653,7 @@ PageStack {
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: deleteColumn.right
                     anchors.leftMargin: units.gu(2)
+                    visible: false
                     Row {
                         id: shareRow
                         height: styleMusic.common.expandedItem
@@ -1009,6 +1010,7 @@ PageStack {
                             when: playlistTracks.ListView.isCurrentItem
                         }
                         Image {
+                            visible: false // activate when cover art stops expanding togehter with the row
                             id: expandItem
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)

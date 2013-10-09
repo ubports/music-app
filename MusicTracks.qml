@@ -227,9 +227,9 @@ PageStack {
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
-                            UbuntuShape {
+                            Image {
                                 id: playlistTrack
-                                color: get_random_color()
+                                source: "images/add.svg"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
@@ -269,9 +269,9 @@ PageStack {
                             anchors.leftMargin: units.gu(15)
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
-                            UbuntuShape {
+                            Image {
                                 id: queueTrack
-                                color: get_random_color()
+                                source: "images/queue.png"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
@@ -301,6 +301,7 @@ PageStack {
                             anchors.leftMargin: units.gu(15)
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
+                            visible: false
                             UbuntuShape {
                                 id: shareTrack
                                 color: get_random_color()
