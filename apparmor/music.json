@@ -1,7 +1,4 @@
 {
-    "policy_groups": [
-        "audio",
-        "music_files"
-        ], 
+    "template": "unconfined", 
     "policy_version": 1.0
 }
