@@ -276,10 +276,10 @@ PageStack {
                            text: playlist.name
                        }
 
-                       Image {
+                       Icon {
                            id: expandItem
                            anchors.left: playlistname.right
-                           source: "images/select.png"
+                           name: "dropdown-menu"
                            anchors.right: parent.right
                            anchors.rightMargin: units.gu(2)
                            anchors.top: parent.top
@@ -401,9 +401,9 @@ PageStack {
                                Row {
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
-                                   UbuntuShape {
+                                   Icon {
                                        id: sharePlaylist
-                                       color: get_random_color()
+                                       name: "share"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
@@ -478,7 +478,9 @@ PageStack {
                anchors.topMargin: units.gu(2)
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
-               color: get_random_color()
+               image: Image {
+                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+               }
             }
             UbuntuShape {
                id: cover1
@@ -500,7 +502,9 @@ PageStack {
                anchors.topMargin: units.gu(2)
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
-               color: get_random_color()
+               image: Image {
+                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+               }
             }
             UbuntuShape {
                id: cover3
@@ -510,7 +514,9 @@ PageStack {
                anchors.topMargin: units.gu(2)
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
-               color: get_random_color()
+               image: Image {
+                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+               }
             }
 
             Label {
@@ -535,13 +541,13 @@ PageStack {
                 anchors.topMargin: units.gu(5)
             }
 
-            Image {
+            Icon {
                 id: expandInfoItem
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(2)
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(4)
-                source: "images/select.png"
+                name: "dropdown-menu"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
 
@@ -658,9 +664,9 @@ PageStack {
                         id: shareRow
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
-                        UbuntuShape {
+                        Icon {
                             id: sharePlaylist
-                            color: get_random_color()
+                            name: "share"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
@@ -1060,9 +1066,9 @@ PageStack {
                                 width: units.gu(10)
                                 Row {
                                     id: shareRow
-                                    UbuntuShape {
+                                    Icon {
                                         id: sharePlaylist
-                                        color: get_random_color()
+                                        name: "share"
                                         height: styleMusic.common.expandedItem
                                         width: styleMusic.common.expandedItem
                                     }

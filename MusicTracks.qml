@@ -176,13 +176,13 @@ PageStack {
                         name: "Current"
                         when: track.ListView.isCurrentItem
                     }
-                    Image {
+                    Icon {
                         id: expandItem
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(4)
-                        source: "images/select.png"
+                        name: "dropdown-menu"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
 
@@ -227,9 +227,9 @@ PageStack {
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
-                            Image {
+                            Icon {
                                 id: playlistTrack
-                                source: "images/add.svg"
+                                name: "add"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
@@ -302,9 +302,9 @@ PageStack {
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
                             visible: false
-                            UbuntuShape {
+                            Icon {
                                 id: shareTrack
-                                color: get_random_color()
+                                name: "share"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
