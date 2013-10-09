@@ -244,6 +244,7 @@ Page {
                         id: track
                         iconFrame: false
                         progression: false
+                        height: styleMusic.common.itemHeight
                         Label {
                             id: trackTitle
                             wrapMode: Text.NoWrap
@@ -257,13 +258,13 @@ Page {
                             text: model.title == "" ? model.file : model.title
                         }
 
-                        Icon {
+                        Image {
                             id: expandItem
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(4)
-                            name: "dropdown-menu"
+                            source: "images/select.png"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
 
@@ -308,9 +309,9 @@ Page {
                                 anchors.leftMargin: styleMusic.common.expandedLeftMargin
                                 height: styleMusic.common.expandedItem
                                 width: units.gu(15)
-                                Icon {
+                                Image {
                                     id: playlistTrack
-                                    name: "add"
+                                    source: "images/add.svg"
                                     height: styleMusic.common.expandedItem
                                     width: styleMusic.common.expandedItem
                                 }
