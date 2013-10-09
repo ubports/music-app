@@ -1,3 +1,9 @@
+music-app (0.9) raring; urgency=low
+
+  * A LOT of changes.
+
+ -- Daniel Holm <d.holmen@gmail.com>  Thur, 10 Okt 2013 00:39:50 +0200
+
 music-app (0.7) raring; urgency=low
 
   * Now uses mediascanner.
