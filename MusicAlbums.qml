@@ -40,10 +40,6 @@ Page {
     property string file: ""
     property string year: ""
 
-    Component.onCompleted: {
-        onPlayingTrackChange.connect(updateHighlight)
-    }
-
     MusicSettings {
         id: musicSettings
     }
@@ -63,11 +59,6 @@ Page {
                                 } )
             }
         }
-    }
-
-    function updateHighlight(file)
-    {
-        console.debug("MusicArtists update highlight:", file)
     }
 
     GridView {
@@ -133,29 +124,6 @@ Page {
                     }
 
                 }
-                /*Label {
-                    id: albumTitle
-                    width: albumItem.width
-                    wrapMode: Text.Wrap
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 1
-                    fontSize: "small"
-                    anchors.top: albumShape.bottom
-                    anchors.horizontalCenter: albumItem.horizontalCenter
-                    text: album
-                }
-                Label {
-                    id: albumArtist
-                    width: albumItem.width
-                    wrapMode: Text.Wrap
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 1
-                    fontSize: "small"
-                    anchors.left: parent.left
-                    anchors.top: albumTitle.bottom
-                    anchors.horizontalCenter: albumItem.horizontalCenter
-                    text: artist
-                } */
 
                 MouseArea {
                     anchors.fill: parent
