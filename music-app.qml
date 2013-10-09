@@ -592,6 +592,7 @@ MainView {
 
     GriloModel {
         id: griloModel
+        property bool loaded: false
 
         source: GriloBrowse {
             id: browser
@@ -613,6 +614,10 @@ MainView {
                 }
             }
             onBaseMediaChanged: refresh();
+
+            onFinished: {
+                griloModel.loaded = true
+            }
         }
 
         onCountChanged: {
@@ -745,13 +750,6 @@ MainView {
                 genreModel.filterGenres()
                 timer.stop()
                 loading.visible = false
-
-                // Check if tracks have been found, if none then show message
-                if (counted === 0)
-                {
-                    header.opacity = 0;
-                    libraryEmpty.visible = true;
-                }
             }
             counted = griloModel.count
         }
@@ -1199,7 +1197,7 @@ MainView {
         id: libraryEmpty
         anchors.fill: parent
         color: styleMusic.libraryEmpty.backgroundColor
-        visible: false
+        visible: griloModel.count === 0 && griloModel.loaded === true
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
