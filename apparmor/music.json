@@ -1,6 +1,4 @@
 {
-    "policy_groups": [
-        "unconfined"
-        ], 
+    "template": "unconfined", 
     "policy_version": 1.0
 }
