@@ -164,13 +164,15 @@ PageStack {
                         name: "Current"
                         when: track.ListView.isCurrentItem
                     }
-                    Icon {
+                    //Icon { // use for 1.0
+                    Image {
                         id: expandItem
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(4)
-                        name: "dropdown-menu"
+                      //  name: "dropdown-menu" Use for 1.0
+                        source: "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
 
@@ -181,12 +183,19 @@ PageStack {
                                    customdebug("clicked collapse")
                                    expandable.visible = false
                                    track.height = styleMusic.common.itemHeight
-
+                                   Rotation: {
+                                       source: expandItem;
+                                       angle: 0;
+                                   }
                                }
                                else {
                                    customdebug("clicked expand")
                                    expandable.visible = true
                                    track.height = styleMusic.common.expandedHeight
+                                   Rotation: {
+                                       source: expandItem;
+                                       angle: 180;
+                                   }
                                }
                            }
                        }

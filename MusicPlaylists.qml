@@ -180,7 +180,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 3
                            image: Image {
-                               source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover3 !== undefined ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
@@ -193,7 +193,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 2
                            image: Image {
-                               source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover2 !== undefined ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
@@ -206,7 +206,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 1
                            image: Image {
-                               source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover1 !== undefined ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
@@ -218,7 +218,7 @@ PageStack {
                            height: styleMusic.playlist.playlistAlbumSize
                            width: styleMusic.playlist.playlistAlbumSize
                            image: Image {
-                               source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover0 !== undefined ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        // songs count
@@ -521,13 +521,15 @@ PageStack {
                 anchors.topMargin: units.gu(5)
             }
 
-            Icon {
+            //Icon { use for 1.0
+            Image {
                 id: expandInfoItem
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(2)
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(4)
-                name: "dropdown-menu"
+                //name: "dropdown-menu" use for 1.0
+                source: "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
 
@@ -672,7 +674,8 @@ PageStack {
 
         ListView {
             id: playlistlist
-            anchors.fill: parent
+            anchors.top: playlistInfo.bottom
+            width: parent.width
             anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
@@ -950,7 +953,7 @@ PageStack {
                         }
 
                         UbuntuShape {
-                            id: trackImage
+                            id: trackCover
                             anchors.left: parent.left
                             anchors.leftMargin: units.gu(1)
                             anchors.top: parent.top
@@ -971,23 +974,50 @@ PageStack {
                         }
 
                         Label {
-                            id: trackTitle
+                            id: trackArtist
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "x-small"
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(1.5)
-                            elide: Text.ElideRight
-                            height: units.gu(1)
-                            text: title == "" ? file : title
-                            width: parent.width - x
-                            x: trackImage.x + trackImage.width + units.gu(1)
+                            text: artist == "" ? "" : artist
                         }
                         Label {
-                            id: trackArtistAlbum
-                            anchors.top: trackTitle.bottom
+                            id: trackTitle
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 1
+                            fontSize: "small"
+                            color: styleMusic.common.music
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
+                            anchors.top: trackArtist.bottom
                             anchors.topMargin: units.gu(1)
-                            elide: Text.ElideRight
-                            text: artist == "" ? "" : artist + " - " + album
-                            width: parent.width - x
-                            x: trackImage.x + trackImage.width + units.gu(1)
+                            text: title == "" ? track : title
+                        }
+                        Label {
+                            id: trackAlbum
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "xx-small"
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
+                            anchors.top: trackTitle.bottom
+                            anchors.topMargin: units.gu(2)
+                            text: album
+                        }
+                        Label {
+                            id: trackDuration
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "small"
+                            color: styleMusic.common.music
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(12)
+                            anchors.top: trackAlbum.bottom
+                            visible: false
+                            text: ""
                         }
                         states: State {
                             name: "Current"
