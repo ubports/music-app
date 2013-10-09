@@ -40,23 +40,23 @@ Page {
 
     ListItem.Standard {
         id: recentlyPlayed
-        text: "Recently Played"
+        text: i18n.tr("Recently Played")
     }
 
     ListView {
         id: recentlist
         width: parent.width
         anchors.top: recentlyPlayed.bottom
-        anchors.topMargin: units.gu(2)
+        anchors.topMargin: units.gu(1)
         //anchors.bottom: genres.top
         spacing: units.gu(2)
-        height: units.gu(13)
+        height: units.gu(23)
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
         header: Item {
             id: spacer
-            width: units.gu(2)
+            width: units.gu(1)
         }
         orientation: ListView.Horizontal
 
@@ -64,8 +64,8 @@ Page {
             id: recentDelegate
             Item {
                 id: recentItem
-                height: units.gu(13)
-                width: units.gu(13)
+                height: units.gu(21)
+                width: units.gu(21)
                 UbuntuShape {
                     id: recentShape
                     height: recentItem.width
@@ -87,27 +87,31 @@ Page {
                     id: albumBg
                     anchors.bottom: parent.bottom
                     color: styleMusic.common.black
-                    height: units.gu(4)
+                    height: units.gu(6)
                     opacity: .75
                     width: parent.width
                 }
                 Label {
-                    id: albumLabel
-                    anchors.bottom: albumArtist.top
-                    horizontalAlignment: Text.AlignHCenter
+                    id: albumArtist
+                    anchors.top: albumBg.top
+                    anchors.topMargin: units.gu(1)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: album
-                    fontSize: "small"
+                    text: artist
+                    fontSize: "x-small"
                     width: parent.width
                 }
                 Label {
-                    id: albumArtist
+                    id: albumLabel
+                    anchors.top: albumArtist.bottom
+                    anchors.topMargin: units.gu(0.5)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
                     anchors.bottom: parent.bottom
-                    horizontalAlignment: Text.AlignHCenter
+                    anchors.bottomMargin: units.gu(2)
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: artist
+                    text: album
                     fontSize: "small"
                     width: parent.width
                 }
@@ -133,24 +137,29 @@ Page {
         }
     }
 
+    ListItem.ThinDivider {
+        id: divider
+        anchors.top: recentlist.bottom
+        anchors.bottom: genrs
+    }
     ListItem.Standard {
         id: genres
-        anchors.top: recentlist.bottom
-        text: "Genres"
+        anchors.top: divider.bottom
+        text: i18n.tr("Genres")
     }
     // TODO: add music genres. frequency of play? most tracks?
     ListView {
         id: genrelist
         width: parent.width
         anchors.top: genres.bottom
-        anchors.topMargin: units.gu(2)
+        anchors.topMargin: units.gu(1)
         spacing: units.gu(2)
-        height: units.gu(13)
+        height: units.gu(23)
         model: genreModel.model
         delegate: genreDelegate
         header: Item {
             id: spacer
-            width: units.gu(2)
+            width: units.gu(1)
         }
         orientation: ListView.Horizontal
 
@@ -158,8 +167,8 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
-                height: units.gu(13)
-                width: units.gu(13)
+                height: units.gu(21)
+                width: units.gu(21)
                 UbuntuShape {
                     id: genreShape
                     height: genreItem.width
@@ -200,27 +209,31 @@ Page {
                     id: genreBg
                     anchors.bottom: parent.bottom
                     color: styleMusic.common.black
-                    height: units.gu(4)
+                    height: units.gu(6)
                     opacity: .75
                     width: parent.width
                 }
                 Label {
-                    id: genreLabel
-                    anchors.bottom: genreTotal.top
-                    horizontalAlignment: Text.AlignHCenter
+                    id: genreTotal
+                    anchors.top: genreBg.top
+                    anchors.topMargin: units.gu(1)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: genre === "" ? "None" : genre
-                    fontSize: "small"
+                    text: model.total + i18n.tr(" songs")
+                    fontSize: "x-small"
                     width: parent.width
                 }
                 Label {
-                    id: genreTotal
+                    id: genreLabel
+                    anchors.top: genreTotal.bottom
+                    anchors.topMargin: units.gu(0.5)
                     anchors.bottom: parent.bottom
-                    horizontalAlignment: Text.AlignHCenter
+                    anchors.bottomMargin: units.gu(2)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: "(" + model.total + ")"
+                    text: genre === "" ? "None" : genre
                     fontSize: "small"
                     width: parent.width
                 }

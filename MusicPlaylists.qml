@@ -41,7 +41,7 @@ PageStack {
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + element.id + " = " + element.name + " with cover art: " + element.cover0);
+        customdebug("Playlist #" + element.id + " = " + element.name);
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count, "cover0": element.cover0, "cover1": element.cover1, "cover2": element.cover2, "cover3": element.cover3 });
     }
 
@@ -167,6 +167,10 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
+                       property string cover0: model.cover0
+                       property string cover1: model.cover1
+                       property string cover2: model.cover2
+                       property string cover3: model.cover3
                        iconFrame: false
                        height: styleMusic.playlist.playlistItemHeight
 
@@ -431,16 +435,6 @@ PageStack {
             }
         }
 
-        Component.onCompleted: {
-            onPlayingTrackChange.connect(updateHighlightPlaylist)
-        }
-
-        function updateHighlightPlaylist(file)
-        {
-            console.debug("MusicPlaylist update highlight:", file)
-            playlistlist.currentIndex = playlisttracksModel.indexOf(file)
-        }
-
         // playlist name and info
         Rectangle {
             id: playlistInfo
@@ -459,7 +453,7 @@ PageStack {
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
                image: Image {
-                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                   source: Qt.resolvedUrl("images/cover_default_icon.png")
                }
             }
             UbuntuShape {
@@ -471,7 +465,7 @@ PageStack {
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
                image: Image {
-                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                   source: Qt.resolvedUrl("images/cover_default_icon.png")
                }
             }
             UbuntuShape {
@@ -483,7 +477,7 @@ PageStack {
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
                image: Image {
-                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                   source: Qt.resolvedUrl("images/cover_default_icon.png")
                }
             }
             UbuntuShape {
@@ -495,7 +489,7 @@ PageStack {
                width: styleMusic.common.albumSize
                height: styleMusic.common.albumSize
                image: Image {
-                   source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                   source: Qt.resolvedUrl("images/cover_default_icon.png")
                }
             }
 
@@ -1064,34 +1058,6 @@ PageStack {
                                    customdebug("User pressed outside the playlist item and expanded items.")
                              }
                            }
-                            // share
-                            Column {
-                                id: shareColumn
-                                anchors.top: parent.top
-                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
-                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
-                                height: styleMusic.common.expandedItem
-                                width: units.gu(10)
-                                Row {
-                                    id: shareRow
-                                    Icon {
-                                        id: sharePlaylist
-                                        name: "share"
-                                        height: styleMusic.common.expandedItem
-                                        width: styleMusic.common.expandedItem
-                                    }
-                                    Label {
-                                        text: i18n.tr("Share")
-                                    }
-                                    MouseArea {
-                                       anchors.fill: parent
-                                       onClicked: {
-                                           customdebug("Share")
-                                           inPlaylist = true
-                                     }
-                                   }
-                                }
-                             }
                         }
                     }
                 }
