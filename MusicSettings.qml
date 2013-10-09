@@ -126,31 +126,6 @@ ComposerSheet {
                 anchors.right: parent.right
             }
         }
-
-        // Shuffle or not
-        // MOVE THIS TO NEW TOOLBAR
-        Row {
-            id: shuffleRow
-            anchors.top: equaliser.bottom
-            anchors.topMargin: units.gu(8)
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: accounts.top
-            anchors.bottomMargin: units.gu(2)
-            anchors.leftMargin: units.gu(2)
-            width: parent.width
-            Label {
-                id: shuffleLabel
-                anchors.verticalCenter: shuffleSwitch.verticalCenter
-                text: i18n.tr("Shuffle")
-            }
-            Switch {
-                id: shuffleSwitch
-                checked: Settings.getSetting("shuffle") === "1"
-                anchors.right: parent.right
-            }
-        }
-
         // Accounts
         Row {
             id: accounts
