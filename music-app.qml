@@ -229,6 +229,7 @@ MainView {
                                           "images/cover_default.png"
     property bool queueChanged: false
     signal onPlayingTrackChange(string source)
+    signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     // FUNCTIONS
 
@@ -861,9 +862,17 @@ MainView {
          }
     }
 
+    MusicToolbar {
+        id: musicToolbar
+        objectName: "musicToolbarObject"
+        z: 200  // put on top of everything else
+
+        property bool animating: false
+        property bool opened: false
+    }
+
     PageStack {
         id: pageStack
-        anchors.top: parent.top
         Tabs {
             id: tabs
             anchors.fill: parent
@@ -933,226 +942,16 @@ MainView {
                     id: musicPlaylistPage
                 }
             }
+
+            function getCurrentTab()
+            {
+                musicToolbar.currentTab = selectedTab;
+            }
+
+            onSelectedTabChanged: {
+                getCurrentTab();
+            }
         } // end of tabs
-    }
-
-    // player controls at the bottom
-    Rectangle {
-        id: playerControls
-        anchors.bottom: parent.bottom
-        //anchors.top: filelist.bottom
-        height: units.gu(8)
-        width: parent.width
-        color: styleMusic.playerControls.backgroundColor
-
-        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
-
-        states: [
-            State {
-                name: "disabled"
-                PropertyChanges {
-                    target: disabledPlayerControlsGroup
-                    visible: true
-                }
-                PropertyChanges {
-                    target: enabledPlayerControlsGroup
-                    visible: false
-                }
-            },
-            State {
-                name: "enabled"
-                PropertyChanges {
-                    target: disabledPlayerControlsGroup
-                    visible: false
-                }
-                PropertyChanges {
-                    target: enabledPlayerControlsGroup
-                    visible: true
-                }
-            }
-        ]
-
-        Rectangle {
-            id: disabledPlayerControlsGroup
-            anchors.fill: parent
-            color: "transparent"
-            visible: trackQueue.isEmpty === true
-
-            Label {
-                id: noSongsInQueueLabel
-                anchors.left: parent.left
-                anchors.margins: units.gu(1)
-                anchors.top: parent.top
-                color: styleMusic.playerControls.labelColor
-                text: "No songs queued"
-                fontSize: "large"
-            }
-
-            Label {
-                id: tabToStartPlayingLabel
-                color: styleMusic.playerControls.labelColor
-                anchors.left: parent.left
-                anchors.margins: units.gu(1)
-                anchors.top: noSongsInQueueLabel.bottom
-                text: "Tap on a song to start playing"
-            }
-        }
-
-        Rectangle {
-            id: enabledPlayerControlsGroup
-            anchors.fill: parent
-            color: "transparent"
-            visible: trackQueue.isEmpty === false
-
-            UbuntuShape {
-                id: forwardshape
-                objectName: "forwardshape"
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(2)
-                radius: "none"
-                image: Image {
-                    id: forwardindicator
-                    source: "images/forward.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        nextSong()
-                    }
-                }
-            }
-            UbuntuShape {
-                id: playshape
-                objectName: "playshape"
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: forwardshape.left
-                anchors.rightMargin: units.gu(1)
-                radius: "none"
-                image: Image {
-                    id: playindicator
-                    source: player.playbackState === MediaPlayer.PlayingState ?
-                              "images/pause.png" : "images/play.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (player.playbackState === MediaPlayer.PlayingState)  {
-                            player.pause()
-                        } else {
-                            player.play()
-                        }
-                    }
-                }
-            }
-            Image {
-                id: iconbottom
-                source: mainView.currentCoverSmall
-                width: units.gu(6)
-                height: units.gu(6)
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        nowPlaying.visible = true
-                    }
-                }
-            }
-            Label {
-                id: fileTitleBottom
-                width: mainView.width - iconbottom.width
-                                      - iconbottom.anchors.leftMargin
-                                      - playshape.width
-                                      - playshape.anchors.rightMargin
-                                      - forwardshape.width
-                                      - forwardshape.anchors.rightMargin
-                                      - anchors.leftMargin
-                wrapMode: Text.Wrap
-                color: styleMusic.playerControls.labelColor
-                maximumLineCount: 1
-                fontSize: "medium"
-                anchors.left: iconbottom.right
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-            }
-            Label {
-                id: fileArtistAlbumBottom
-                width: mainView.width - iconbottom.width
-                                      - iconbottom.anchors.leftMargin
-                                      - playshape.width
-                                      - playshape.anchors.rightMargin
-                                      - forwardshape.width
-                                      - forwardshape.anchors.rightMargin
-                                      - anchors.leftMargin
-                wrapMode: Text.Wrap
-                color: styleMusic.playerControls.labelColor
-                maximumLineCount: 1
-                fontSize: "small"
-                anchors.left: iconbottom.right
-                anchors.top: fileTitleBottom.bottom
-                anchors.leftMargin: units.gu(1)
-                text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
-            }
-            Rectangle {
-                id: fileDurationProgressContainer
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: units.gu(1)
-                color: styleMusic.playerControls.backgroundColor
-                height: units.gu(0.5);
-                width: parent.width
-
-                Rectangle {
-                    id: fileDurationProgressBackground
-                    color: styleMusic.playerControls.progressBackgroundColor;
-                    anchors.bottom: parent.bottom
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    visible: player.duration > 0 ? true : false
-                    width: parent.width
-                }
-
-                Rectangle {
-                    id: fileDurationProgressArea
-                    anchors.bottom: parent.bottom
-                    color: styleMusic.playerControls.progressForegroundColor;
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    visible: player.duration > 0 ? true : false
-                    width: (player.position / player.duration) * fileDurationProgressContainer.width;
-                }
-            }
-
-            Label {
-                id: fileDurationBottom
-                anchors.top: fileArtistAlbumBottom.bottom
-                anchors.leftMargin: units.gu(1)
-                anchors.left: iconbottom.right
-                color: styleMusic.playerControls.labelColor
-                fontSize: "small"
-                maximumLineCount: 1
-                text: player.duration > 0 ?
-                          player.positionStr+" / "+player.durationStr
-                        : ""
-                width: units.gu(30)
-                wrapMode: Text.Wrap
-            }
-        }
     }
 
     MusicNowPlaying {
