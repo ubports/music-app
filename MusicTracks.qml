@@ -90,7 +90,7 @@ PageStack {
                     UbuntuShape {
                         id: trackCover
                         anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
+                        anchors.leftMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1)
                         width: styleMusic.common.albumSize
@@ -100,34 +100,48 @@ PageStack {
                         }
                     }
                     Label {
+                        id: trackArtist
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "x-small"
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1.5)
+                        text: artist == "" ? "" : artist
+                    }
+                    Label {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "medium"
+                        fontSize: "small"
+                        color: styleMusic.common.music
                         anchors.left: trackCover.left
-                        anchors.leftMargin: units.gu(12)
-                        anchors.top: parent.top
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: trackArtist.bottom
                         anchors.topMargin: units.gu(1)
                         text: track.title == "" ? track.file : track.title
                     }
                     Label {
-                        id: trackArtistAlbum
+                        id: trackAlbum
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
-                        fontSize: "small"
+                        fontSize: "xx-small"
                         anchors.left: trackCover.left
-                        anchors.leftMargin: units.gu(12)
+                        anchors.leftMargin: units.gu(11)
                         anchors.top: trackTitle.bottom
-                        text: artist == "" ? "" : artist + " - " + album
+                        anchors.topMargin: units.gu(2)
+                        text: album
                     }
                     Label {
                         id: trackDuration
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "small"
+                        color: styleMusic.common.music
                         anchors.left: trackCover.left
                         anchors.leftMargin: units.gu(12)
-                        anchors.top: trackArtistAlbum.bottom
+                        anchors.top: trackAlbum.bottom
                         visible: false
                         text: ""
                     }
@@ -137,22 +151,17 @@ PageStack {
                         anchors.fill: parent
                         onDoubleClicked: {
                         }
-                        onPressAndHold: {
-                            PopupUtils.open(trackPopoverComponent, mainView)
-                            chosenArtist = artist
-                            chosenTitle = title
-                            chosenTrack = file
-                            chosenAlbum = album
-                            chosenCover = cover
-                            chosenGenre = genre
-                            chosenIndex = index
-                        }
                         onClicked: {
                             if (focus == false) {
                                 focus = true
                             }
 
                             trackClicked(libraryModel, index)  // play track
+                            // collapse expanded item on click on track
+                            if(expandable.visible) {
+                                expandable.visible = false
+                                track.height = styleMusic.common.itemHeight
+                            }
                         }
                     }
                     Component.onCompleted: {
@@ -166,6 +175,154 @@ PageStack {
                     states: State {
                         name: "Current"
                         when: track.ListView.isCurrentItem
+                    }
+                    Image {
+                        id: expandItem
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(4)
+                        source: "images/select.png"
+                        height: styleMusic.common.expandedItem
+                        width: styleMusic.common.expandedItem
+
+                        MouseArea {
+                           anchors.fill: parent
+                           onClicked: {
+                               if(expandable.visible) {
+                                   customdebug("clicked collapse")
+                                   expandable.visible = false
+                                   track.height = styleMusic.common.itemHeight
+
+                               }
+                               else {
+                                   customdebug("clicked expand")
+                                   expandable.visible = true
+                                   track.height = styleMusic.common.expandedHeight
+                               }
+                           }
+                       }
+                    }
+
+                    Rectangle {
+                        id: expandable
+                        visible: false
+                        anchors.top: parent.buttom
+                        width: parent.fill
+                        height: styleMusic.common.expandHeight
+                        color: "black"
+                        opacity: 0.7
+                        MouseArea {
+                           anchors.fill: parent
+                           onClicked: {
+                               customdebug("User pressed outside the playlist item and expanded items.")
+                         }
+                       }
+                        // add to playlist
+                        Row {
+                            id: playlistRow
+                            anchors.top: parent.top
+                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.left: parent.left
+                            anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                            height: styleMusic.common.expandedItem
+                            width: units.gu(15)
+                            UbuntuShape {
+                                id: playlistTrack
+                                color: get_random_color()
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                text: i18n.tr("Add to playlist")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
+                                anchors.left: playlistTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                            }
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: {
+                                   expandable.visible = false
+                                   track.height = styleMusic.common.itemHeight
+                                   chosenArtist = artist
+                                   chosenTitle = title
+                                   chosenTrack = file
+                                   chosenAlbum = album
+                                   chosenCover = cover
+                                   chosenGenre = genre
+                                   chosenIndex = index
+                                   console.debug("Debug: Add track to playlist")
+                                   PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                   {
+                                       title: i18n.tr("Select playlist")
+                                   } )
+                             }
+                           }
+                        }
+                        // Queue
+                        Row {
+                            id: queueRow
+                            anchors.top: parent.top
+                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.left: playlistRow.left
+                            anchors.leftMargin: units.gu(15)
+                            height: styleMusic.common.expandedItem
+                            width: units.gu(15)
+                            UbuntuShape {
+                                id: queueTrack
+                                color: get_random_color()
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                text: i18n.tr("Queue")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
+                                anchors.left: queueTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                            }
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: {
+                                   expandable.visible = false
+                                   track.height = styleMusic.common.itemHeight
+                                   console.debug("Debug: Add track to queue: " + title)
+                                   trackQueue.model.append({"title": title, "artist": artist, "file": track, "album": album, "cover": cover, "genre": genre})
+                             }
+                           }
+                        }
+                        // Share
+                        Row {
+                            id: shareRow
+                            anchors.top: parent.top
+                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.left: queueRow.left
+                            anchors.leftMargin: units.gu(15)
+                            height: styleMusic.common.expandedItem
+                            width: units.gu(15)
+                            UbuntuShape {
+                                id: shareTrack
+                                color: get_random_color()
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                text: i18n.tr("Share")
+                                wrapMode: Text.WordWrap
+                                fontSize: "small"
+                                anchors.left: shareTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                            }
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: {
+                                   expandable.visible = false
+                                   track.height = styleMusic.common.itemHeight
+                                   customdebug("Share")
+                             }
+                           }
+                        }
                     }
                 }
             }

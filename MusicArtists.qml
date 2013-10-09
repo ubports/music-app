@@ -279,10 +279,11 @@ PageStack {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "large"
+                        fontSize: "medium"
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(8)
                         anchors.top: parent.top
+                        anchors.topMargin: untits.gu(2)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
                     }
@@ -295,7 +296,7 @@ PageStack {
                         anchors.leftMargin: units.gu(8)
                         anchors.top: trackTitle.bottom
                         anchors.right: parent.right
-                        text: artist == "" ? "" : album
+                        text: album
                     }
 
 

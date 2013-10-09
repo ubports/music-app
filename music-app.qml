@@ -859,14 +859,13 @@ MainView {
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
                              playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
+                             PopupUtils.close(dialogueNewPlaylist)
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
                              newplaylistoutput.visible = true
                              newplaylistoutput.text = i18n.tr("Error: "+newList)
                          }
-
-                         PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
                          newplaylistoutput.visible = true
