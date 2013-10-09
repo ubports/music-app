@@ -36,7 +36,7 @@ import "common"
 
 MainView {
     objectName: "music"
-    applicationName: "music-app"
+    applicationName: "com.ubuntu.music"
     id: mainView
 
     // Arguments during startup
@@ -109,6 +109,42 @@ MainView {
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
+
+    // signal to open new URIs
+    // TODO currently this only allows playing file:// URIs of known files
+    // (already in the database), not e.g. http:// URIs or files in directories
+    // not picked up by Grilo
+    Connections {
+        target: UriHandler
+        onOpened: {
+            // clear play queue
+            trackQueue.model.clear()
+            for (var i=0; i < uris.length; i++) {
+                console.debug("URI=" + uris[i])
+                // skip non-file:// URIs
+                if (uris[i].substring(0, 7) !== "file://") {
+                    console.debug("Unsupported URI " + uris[i] + ", skipping")
+                    continue
+                }
+
+                // search pathname in library
+                var file = decodeURIComponent(uris[i])
+                var index = libraryModel.indexOf(file)
+                if (index <= -1) {
+                    console.debug("Unknown file " + file + ", skipping")
+                    continue
+                }
+
+                // enqueue
+                trackQueue.model.append(libraryModel.model.get(index))
+
+                // play first URI
+                if (i == 0) {
+                    trackClicked(trackQueue, 0, true)
+                }
+            }
+        }
+    }
 
     Style { id: styleMusic }
 
@@ -557,6 +593,7 @@ MainView {
 
     GriloModel {
         id: griloModel
+        property bool loaded: false
 
         source: GriloBrowse {
             id: browser
@@ -578,6 +615,10 @@ MainView {
                 }
             }
             onBaseMediaChanged: refresh();
+
+            onFinished: {
+                griloModel.loaded = true
+            }
         }
 
         onCountChanged: {
@@ -613,7 +654,9 @@ MainView {
         onCountChanged: {
             if (argFile === model.get(count - 1).file)
             {
-                trackClicked(libraryModel, count - 1, true)
+                trackQueue.model.clear();
+                trackQueue.model.append(model.get(count - 1));
+                trackClicked(trackQueue, 0, true);
             }
         }
     }
@@ -708,42 +751,13 @@ MainView {
                 genreModel.filterGenres()
                 timer.stop()
                 loading.visible = false
-
-                // Check if tracks have been found, if none then show message
-                if (counted === 0)
-                {
-                    header.opacity = 0;
-                    libraryEmpty.visible = true;
-                }
             }
             counted = griloModel.count
         }
     }
 
     // Blurred background
-    Rectangle {
-        anchors.fill: parent
-        // the album art
-        Image {
-            id: backgroundImage
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            source: mainView.currentCoverFull
-            height: parent.height
-            width: height
-        }
-        // the blur
-        FastBlur {
-            anchors.fill: backgroundImage
-            source: backgroundImage
-            radius: units.dp(42)
-        }
-        // transparent white layer
-        Rectangle {
-            anchors.fill: parent
-            color: "white"
-            opacity: 0.7
-        }
+    BlurredBackground {
     }
 
     LoadingSpinnerComponent {
@@ -851,7 +865,7 @@ MainView {
     MusicToolbar {
         id: musicToolbar
         objectName: "musicToolbarObject"
-        z: 100  // put on top of everything else
+        z: 200  // put on top of everything else
 
         property bool animating: false
         property bool opened: false
@@ -960,7 +974,7 @@ MainView {
         id: libraryEmpty
         anchors.fill: parent
         color: styleMusic.libraryEmpty.backgroundColor
-        visible: false
+        visible: griloModel.count === 0 && griloModel.loaded === true
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter

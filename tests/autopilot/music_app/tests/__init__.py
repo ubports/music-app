@@ -68,7 +68,7 @@ class MusicTestCase(AutopilotTestCase):
 
     def launch_test_click(self):
         self.app = self.launch_click_package(
-            "com.ubuntu.music-app",
+            "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def _patch_home(self):

@@ -50,8 +50,9 @@ Rectangle {
 
         Label {
             id: swipeBackgroundLeftText
-            anchors.fill: parent
             anchors.margins: units.gu(2)
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignRight
@@ -69,8 +70,9 @@ Rectangle {
 
         Label {
             id: swipeBackgroundRightText
-            anchors.fill: parent
+            anchors.left: parent.left
             anchors.margins: units.gu(2)
+            anchors.verticalCenter: parent.verticalCenter
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignLeft
