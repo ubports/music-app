@@ -44,38 +44,6 @@ PageStack {
         playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
     }
 
-    // Toolbar
-    ToolbarItems {
-        id: playlistToolbar
-        // Add playlist
-        ToolbarButton {
-            id: playlistAction
-            objectName: "playlistaction"
-            iconSource: Qt.resolvedUrl("images/add.svg")
-            text: i18n.tr("New")
-            onTriggered: {
-                console.debug("Debug: User pressed add playlist")
-                // show new playlist dialog
-                PopupUtils.open(newPlaylistDialog, mainView)
-            }
-        }
-
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings from Playlists')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
-        }
-    }
-
     // Remove playlist dialog
     Component {
          id: removePlaylistDialog
@@ -206,13 +174,18 @@ PageStack {
     Page {
         id: listspage
         title: i18n.tr("Playlists")
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(listspage);
+            }
+        }
+
         ListView {
             id: playlistslist
-            width: parent.width
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(2)
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             model: playlistModel
             delegate: playlistDelegate
             onCountChanged: {
@@ -324,13 +297,20 @@ PageStack {
                 }
             }
         }
-        tools: playlistToolbar
     }
 
     // page for the tracks in the playlist
     Page {
         id: playlistpage
         title: i18n.tr("Playlist")
+        tools: null
+
+        onVisibleChanged: {
+            if (visible === true)
+            {
+                musicToolbar.setPage(playlistpage, listspage, pageStack);
+            }
+        }
 
         Component.onCompleted: {
             onPlayingTrackChange.connect(updateHighlightPlaylist)
@@ -417,10 +397,8 @@ PageStack {
 
         ListView {
             id: playlistlist
-            width: parent.width
-            anchors.top: playlistInfo.bottom
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: units.gu(8)
+            anchors.fill: parent
+            anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
@@ -754,7 +732,5 @@ PageStack {
                 }
             }
         }
-
-        tools: playlistToolbar
     }
 }

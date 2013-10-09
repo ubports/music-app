@@ -30,6 +30,17 @@ ComposerSheet {
     title: i18n.tr("Settings")
     contentsHeight: parent.height;
 
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.disableToolbar()
+        }
+        else
+        {
+            musicToolbar.enableToolbar()
+        }
+    }
+
     onCancelClicked: PopupUtils.close(musicSettings)
     onConfirmClicked: {
         PopupUtils.close(musicSettings)
