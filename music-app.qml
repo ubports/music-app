@@ -93,6 +93,12 @@ MainView {
         onTriggered: player.stop()
     }
     Action {
+        id: backAction
+        text: i18n.tr("Back")
+        keywords: i18n.tr("Go back to last page")
+        onTriggered: musicToolbar.goBack();
+    }
+    Action {
         id: settingsAction
         text: i18n.tr("Settings")
         keywords: i18n.tr("Music Settings")

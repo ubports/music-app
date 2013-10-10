@@ -44,7 +44,8 @@ Rectangle {
     Rectangle {
         id: swipeBackgroundLeft
         anchors.left: parent.left
-        color: styleMusic.mainView.backgroundColor
+        color: "black"
+        opacity: 0.7
         height: parent.height
         width: parent.width / 3
 
@@ -64,7 +65,8 @@ Rectangle {
     Rectangle {
         id: swipeBackgroundRight
         anchors.right: parent.right
-        color: styleMusic.mainView.backgroundColor
+        color: "black"
+        opacity: 0.7
         height: parent.height
         width: parent.width / 3
 

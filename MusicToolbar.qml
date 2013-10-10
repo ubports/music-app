@@ -278,7 +278,7 @@ Rectangle {
                     anchors.margins: units.gu(1)
                     anchors.top: parent.top
                     color: styleMusic.playerControls.labelColor
-                    text: "No songs queued"
+                    text: i18n.tr("No songs queued")
                     fontSize: "large"
                 }
 
@@ -288,7 +288,7 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.margins: units.gu(1)
                     anchors.top: noSongsInQueueLabel.bottom
-                    text: "Tap on a song to start playing"
+                    text: i18n.tr("Tap on a song to start playing")
                 }
             }
 
@@ -406,7 +406,7 @@ Rectangle {
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "Back"
+                        text: i18n.tr("Back")
                     }
 
                     MouseArea {
@@ -511,7 +511,7 @@ Rectangle {
                 Label {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
-                    text: "Shuf"
+                    text: i18n.tr("Shuf")
                     verticalAlignment: Text.AlignVCenter
                 }
 
@@ -656,7 +656,7 @@ Rectangle {
                 Label {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
-                    text: "Rep"
+                    text: i18n.tr("Rep")
                     verticalAlignment: Text.AlignVCenter
                 }
 
