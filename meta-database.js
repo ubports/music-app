@@ -151,7 +151,7 @@ function getAll() {
         var rs = tx.executeSql("SELECT * FROM metadata ORDER BY artist ASC, album ASC, CAST(number AS int) ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
@@ -165,7 +165,7 @@ function getArtists() {
         var rs = tx.executeSql("SELECT * FROM metadata GROUP BY artist ORDER BY artist ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
@@ -179,7 +179,7 @@ function getArtistTracks(artist) {
         var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
@@ -207,7 +207,7 @@ function getAlbums() {
         var rs = tx.executeSql("SELECT * FROM metadata GROUP BY album ORDER BY album ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
@@ -217,12 +217,12 @@ function getAlbums() {
 function getAlbumTracks(album) {
     var res = [];
     var db = getDatabase();
-    console.log("Album: " + album);
+    //console.log("Album: " + album);
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [album]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
@@ -236,7 +236,7 @@ function getGenres() {
         var rs = tx.executeSql("SELECT *, count(genre) AS total FROM metadata GROUP BY genre ORDER BY genre ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre, total: dbItem.total});
         }
     });
@@ -246,12 +246,12 @@ function getGenres() {
 function getGenreTracks(genre) {
     var res = [];
     var db = getDatabase();
-    console.log("Genre: " + genre);
+    //console.log("Genre: " + genre);
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [genre]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
             res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });

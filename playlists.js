@@ -169,7 +169,6 @@ function getPlaylists() {
 
 // retrieve tracks from playlist
 function getPlaylistTracks(playlist) {
-   console.log("I got "+playlist)
    var db = getPlaylistDatabase();
     var res = [];
 
@@ -178,7 +177,7 @@ function getPlaylistTracks(playlist) {
          var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
          for(var i = 0; i < rs.rows.length; i++) {
              var dbItem = rs.rows.item(i);
-             console.log("Cover: "+ dbItem.cover);
+             //console.log("Cover: "+ dbItem.cover);
              res[i] = {'file': dbItem.track,
                        'title': dbItem.title,
                        'artist': dbItem.artist,
