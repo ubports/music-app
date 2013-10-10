@@ -427,6 +427,7 @@ PageStack {
         id: playlistpage
         title: i18n.tr("Playlist")
         tools: null
+        visible: false
 
         onVisibleChanged: {
             if (visible === true)
@@ -668,6 +669,7 @@ PageStack {
 
         ListView {
             id: playlistlist
+            anchors.bottom: parent.bottom
             anchors.top: playlistInfo.bottom
             width: parent.width
             anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
@@ -709,6 +711,12 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
+                    property string artist: model.artist
+                    property string album: model.album
+                    property string title: model.title
+                    property string cover: model.cover
+                    property string length: model.length
+                    property string file: model.file
                     height: styleMusic.common.itemHeight
 
                     SwipeDelete {
@@ -976,7 +984,7 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(1.5)
-                            text: artist == "" ? "" : artist
+                            text: playlistTracks.artist == "" ? "" : playlistTracks.artist
                         }
                         Label {
                             id: trackTitle
@@ -988,7 +996,7 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: trackArtist.bottom
                             anchors.topMargin: units.gu(1)
-                            text: title == "" ? track : title
+                            text: playlistTracks.title == "" ? playlistTracks.file : playlistTracks.title
                         }
                         Label {
                             id: trackAlbum
@@ -999,7 +1007,7 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: trackTitle.bottom
                             anchors.topMargin: units.gu(2)
-                            text: album
+                            text: playlistTracks.album
                         }
                         Label {
                             id: trackDuration
