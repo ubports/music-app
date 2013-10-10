@@ -252,10 +252,12 @@ PageStack {
                            text: playlist.name
                        }
 
-                       Icon {
+                       //Icon {
+                       Image {
                            id: expandItem
                            anchors.left: playlistname.right
-                           name: "dropdown-menu"
+                         //  name: "dropdown-menu"
+                           source: "images/dropdown-menu.svg"
                            anchors.right: parent.right
                            anchors.rightMargin: units.gu(2)
                            anchors.top: parent.top
@@ -284,10 +286,7 @@ PageStack {
                            id: expandable
                            visible: false
                            anchors.top: parent.buttom
-                           width: parent.fill
                            height: styleMusic.common.expandHeight
-                           color: "black"
-                           opacity: 0.7
                            MouseArea {
                               anchors.fill: parent
                               onClicked: {

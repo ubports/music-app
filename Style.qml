@@ -75,6 +75,8 @@ QtObject {
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
+        property int expandedTopMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(5);
     }
 
     property QtObject playerControls: QtObject {

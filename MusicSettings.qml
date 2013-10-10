@@ -63,10 +63,6 @@ ComposerSheet {
             Settings.setSetting("wifiswitch",wifiSwitch.checked)
         }*/
 
-
-        // MOVE TO TOOLBAR
-        Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
-
         // -- random = shuffleSwitch.checked // set shuffle state variable
         //console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
 
