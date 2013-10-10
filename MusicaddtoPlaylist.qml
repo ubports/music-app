@@ -71,6 +71,10 @@ import "playlists.js" as Playlists
                     height: units.gu(8)
                     property string name: model.name
                     property string count: model.count
+                    property string cover0: model.cover0
+                    property string cover1: model.cover1
+                    property string cover2: model.cover2
+                    property string cover3: model.cover3
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
@@ -87,9 +91,10 @@ import "playlists.js" as Playlists
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
-                        height: parent.height
-                        color: get_random_color()
                         visible: playlist.count > 3
+                        image: Image {
+                            source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
                     UbuntuShape {
                         id: cover1
@@ -100,9 +105,10 @@ import "playlists.js" as Playlists
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
-                        height: parent.height
-                        color: get_random_color()
                         visible: playlist.count > 2
+                        image: Image {
+                            source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
                     UbuntuShape {
                         id: cover2
@@ -113,9 +119,10 @@ import "playlists.js" as Playlists
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
-                        height: parent.height
-                        color: get_random_color()
                         visible: playlist.count > 1
+                        image: Image {
+                            source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
                     UbuntuShape {
                         id: cover3
@@ -126,8 +133,9 @@ import "playlists.js" as Playlists
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         width: units.gu(6)
-                        height: parent.height
-                        color: get_random_color()
+                        image: Image {
+                            source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
                     Label {
                         id: playlistName
