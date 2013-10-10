@@ -232,7 +232,6 @@ PageStack {
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(2)
-                           anchors.bottomMargin: 5
                            anchors.right: parent.right
                            fontSize: "x-small"
                            height: units.gu(1)
@@ -247,9 +246,8 @@ PageStack {
                            color: styleMusic.common.music
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(3)
-                           anchors.bottomMargin: 5
+                           anchors.top: playlistCount.bottom
+                           anchors.topMargin: units.gu(1)
                            anchors.right: parent.right
                            text: playlist.name
                        }
