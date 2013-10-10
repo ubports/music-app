@@ -521,6 +521,7 @@ Rectangle {
                     onClicked: {
                         // Invert shuffle settings
                         Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        mainView.random = Settings.getSetting("shuffle") === "1"
                     }
                 }
             }

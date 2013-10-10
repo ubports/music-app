@@ -66,6 +66,7 @@ ComposerSheet {
 
         // MOVE TO TOOLBAR
         Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
+        mainView.random = shuffleSwitch.checked
 
         // -- random = shuffleSwitch.checked // set shuffle state variable
         //console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
