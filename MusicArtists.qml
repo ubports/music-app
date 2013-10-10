@@ -261,6 +261,26 @@ PageStack {
                     icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
                     iconFrame: false
                     progression: false
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                        }
+                        onPressAndHold: {
+                            PopupUtils.open(trackPopoverComponent, mainView)
+                            chosenArtist = artist
+                            chosenAlbum = album
+                            chosenTitle = title
+                            chosenTrack = file
+                            chosenCover = cover
+                            chosenGenre = genre
+                        }
+                        onClicked: {
+                            if (focus == false) {
+                                focus = true
+                            }
+                            trackClicked(artistTracksModel, index)  // play track
+                        }
+                    }
                     Rectangle {
                         id: highlight
                         anchors.left: parent.left
@@ -314,7 +334,7 @@ PageStack {
                                else {
                                    customdebug("clicked expand")
                                    expandable.visible = true
-                                   track.height = styleMusic.album.expandedHeight
+                                   track.height = styleMusic.albums.expandedHeight
                                }
                            }
                        }
@@ -332,8 +352,8 @@ PageStack {
                            anchors.fill: parent
                            onClicked: {
                                customdebug("User pressed outside the playlist item and expanded items.")
-                         }
-                       }
+                           }
+                        }
                         // add to playlist
                         Row {
                             id: playlistRow
@@ -411,26 +431,7 @@ PageStack {
                     }
                     onFocusChanged: {
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                        }
-                        onPressAndHold: {
-                            PopupUtils.open(trackPopoverComponent, mainView)
-                            chosenArtist = artist
-                            chosenAlbum = album
-                            chosenTitle = title
-                            chosenTrack = file
-                            chosenCover = cover
-                            chosenGenre = genre
-                        }
-                        onClicked: {
-                            if (focus == false) {
-                                focus = true
-                            }
-                            trackClicked(artistTracksModel, index)  // play track
-                        }
-                    }
+
                     states: State {
                         name: "Current"
                         when: track.ListView.isCurrentItem
