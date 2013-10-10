@@ -408,7 +408,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         text: i18n.tr("Back")
-                        name: "back" // use this
+                      //  name: "back" // use this
                     }
 
                     MouseArea {
