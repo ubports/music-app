@@ -222,6 +222,23 @@ Page {
                         iconFrame: false
                         progression: false
                         height: styleMusic.albums.itemHeight
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onDoubleClicked: {
+                            }
+                            onClicked: {
+                                if (focus == false) {
+                                    focus = true
+                                }
+                                trackClicked(albumTracksModel, index)  // play track
+                                // TODO: This closes the SDK defined sheet
+                                //       component. It should be able to close
+                                //       albumSheet.
+                                PopupUtils.close(sheet)
+                            }
+                        }
+
                         Label {
                             id: trackTitle
                             wrapMode: Text.NoWrap
@@ -258,7 +275,7 @@ Page {
                                    else {
                                        customdebug("clicked expand")
                                        expandable.visible = true
-                                       track.height = styleMusic.album.expandedHeight
+                                       track.height = styleMusic.albums.expandedHeight
                                    }
                                }
                            }
@@ -355,21 +372,6 @@ Page {
                         }
 
                         onFocusChanged: {
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            onDoubleClicked: {
-                            }
-                            onClicked: {
-                                if (focus == false) {
-                                    focus = true
-                                }
-                                trackClicked(albumTracksModel, index)  // play track
-                                // TODO: This closes the SDK defined sheet
-                                //       component. It should be able to close
-                                //       albumSheet.
-                                PopupUtils.close(sheet)
-                            }
                         }
                         Component.onCompleted: {
                         }
