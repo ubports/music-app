@@ -184,7 +184,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 3
                            image: Image {
-                               source: playlist.cover3 !== undefined ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
@@ -197,7 +197,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 2
                            image: Image {
-                               source: playlist.cover2 !== undefined ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
@@ -210,7 +210,7 @@ PageStack {
                            width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 1
                            image: Image {
-                               source: playlist.cover1 !== undefined ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        UbuntuShape {
