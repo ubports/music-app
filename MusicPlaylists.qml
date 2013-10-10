@@ -507,7 +507,7 @@ PageStack {
 
             Label {
                 id: playlistInfoCount
-                text: playlistslist.count + i18n.tr(" songs")
+                text: playlistlist.count + i18n.tr(" songs")
                 color: styleMusic.common.white
                 fontSize: "medium"
                 anchors.left: parent.left
