@@ -222,7 +222,7 @@ PageStack {
                            height: styleMusic.playlist.playlistAlbumSize
                            width: styleMusic.playlist.playlistAlbumSize
                            image: Image {
-                               source: playlist.cover0 !== undefined ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        // songs count
@@ -414,6 +414,11 @@ PageStack {
                         oldPlaylistID = id
                         oldPlaylistIndex = index
                         expandable.visible = false
+                        playlistInfo.count = playlist.count
+                        playlistInfo.cover0 = playlist.cover0
+                        playlistInfo.cover1 = playlist.cover1
+                        playlistInfo.cover2 = playlist.cover2
+                        playlistInfo.cover3 = playlist.cover3
                     }
                 }
             }
@@ -443,53 +448,62 @@ PageStack {
             color: styleMusic.playerControls.backgroundColor
             //opacity: 0.7
 
+            property int count: 0
+            property string cover0: ""
+            property string cover1: ""
+            property string cover2: ""
+            property string cover3: ""
+
             UbuntuShape {
-               id: cover0
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(5)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(2)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               image: Image {
-                   source: Qt.resolvedUrl("images/cover_default_icon.png")
-               }
+                id: cover0
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(5)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 3
+                image: Image {
+                    source: playlistInfo.cover3 !== "" ? playlistInfo.cover3 : Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover1
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(4)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(2)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               image: Image {
-                   source: Qt.resolvedUrl("images/cover_default_icon.png")
-               }
+                id: cover1
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(4)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 2
+                image: Image {
+                    source: playlistInfo.cover2 !== "" ? playlistInfo.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover2
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(3)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(2)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               image: Image {
-                   source: Qt.resolvedUrl("images/cover_default_icon.png")
-               }
+                id: cover2
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(3)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 1
+                image: Image {
+                    source: playlistInfo.cover1 !== "" ? playlistInfo.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover3
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(2)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(2)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               image: Image {
-                   source: Qt.resolvedUrl("images/cover_default_icon.png")
-               }
+                id: cover3
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                image: Image {
+                    source: playlistInfo.cover0 !== "" ? playlistInfo.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
 
             Label {
