@@ -403,10 +403,12 @@ Rectangle {
                     width: height
                     visible: currentPageStack !== null && currentParentPage !== null
 
+                    //Icon { // use this
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         text: i18n.tr("Back")
+                        name: "back" // use this
                     }
 
                     MouseArea {
