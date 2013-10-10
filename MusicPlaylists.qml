@@ -702,7 +702,7 @@ PageStack {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
-            property int normalHeight: units.gu(6.5)
+            property int normalHeight: styleMusic.common.itemHeight
             property string playlistName: ""
             property int transitionDuration: 250
 
@@ -716,7 +716,7 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    height: styleMusic.common.itemHeight
+                    height: playlistlist.normalHeight
 
                     SwipeDelete {
                         id: swipeBackground
