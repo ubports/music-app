@@ -114,7 +114,7 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
@@ -152,10 +152,12 @@ MainView {
         }
     }
 
+    // Design stuff
     Style { id: styleMusic }
-
     width: units.gu(50)
     height: units.gu(75)
+
+    // RUn on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
@@ -627,7 +629,7 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
-                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
+                    //console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
                     Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
                 }
             }

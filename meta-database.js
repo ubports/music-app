@@ -193,7 +193,7 @@ function getArtistCovers(artist) {
         var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
+            //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
             if (res.indexOf(dbItem.cover) == -1) res.push(dbItem.cover);
         }
     });

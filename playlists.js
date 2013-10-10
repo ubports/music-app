@@ -237,7 +237,7 @@ function getRandomCover(playlist) {
 
    var randomNumber = Math.floor(Math.random()*res.length);
    var randomCover = res[randomNumber];
-   console.debug("Random cover is: ("+ randomNumber +")"+randomCover);
+   //console.debug("Random cover is: ("+ randomNumber +")"+randomCover);
    return randomCover;
 }
 

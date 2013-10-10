@@ -231,10 +231,10 @@ PageStack {
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
+                           anchors.topMargin: units.gu(2)
                            anchors.bottomMargin: 5
                            anchors.right: parent.right
-                           fontSize: "medium"
+                           fontSize: "x-small"
                            height: units.gu(1)
                            text: playlist.count + i18n.tr(" songs")
                        }
@@ -243,7 +243,8 @@ PageStack {
                            id: playlistName
                            wrapMode: Text.NoWrap
                            maximumLineCount: 1
-                           fontSize: "large"
+                           fontSize: "medium"
+                           color: styleMusic.common.music
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
@@ -983,7 +984,7 @@ PageStack {
                             anchors.left: trackCover.left
                             anchors.leftMargin: units.gu(11)
                             anchors.top: parent.top
-                            anchors.topMargin: units.gu(1.5)
+                            anchors.topMargin: units.gu(1)
                             text: playlistTracks.artist == "" ? "" : playlistTracks.artist
                         }
                         Label {

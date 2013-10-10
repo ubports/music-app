@@ -112,5 +112,15 @@ QtObject {
         property int itemHeight: units.gu(4);
         property int expandHeight: units.gu(5);
         property int expandedHeight: units.gu(9);
+        property int expandedTopMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(5);
+    }
+
+    property QtObject artists: QtObject {
+        property int itemHeight: units.gu(12.5);
+        property int expandHeight: units.gu(5);
+        property int expandedHeight: units.gu(17.5);
+        property int expandedTopMargin: units.gu(13.5);
+        property int expandedLeftMargin: units.gu(5);
     }
 }

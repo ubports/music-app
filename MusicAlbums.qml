@@ -189,6 +189,7 @@ Page {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "medium"
+                        color: styleMusic.common.music
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: albumArtist.bottom
@@ -258,7 +259,7 @@ Page {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
                             anchors.top: parent.top
-                            anchors.topMargin: units.gu(2)
+                            anchors.topMargin: units.gu(1)
                             source: "images/dropdown-menu.svg"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
@@ -270,7 +271,6 @@ Page {
                                        customdebug("clicked collapse")
                                        expandable.visible = false
                                        track.height = styleMusic.albums.itemHeight
-
                                    }
                                    else {
                                        customdebug("clicked expand")
@@ -285,10 +285,7 @@ Page {
                             id: expandable
                             visible: false
                             anchors.top: parent.buttom
-                            width: parent.fill
                             height: styleMusic.albums.expandHeight
-                            color: "black"
-                            opacity: 0.7
                             MouseArea {
                                anchors.fill: parent
                                onClicked: {
@@ -299,9 +296,9 @@ Page {
                             Row {
                                 id: playlistRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.common.expandedTopMargin
+                                anchors.topMargin: styleMusic.albums.expandedTopMargin
                                 anchors.left: parent.left
-                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                                anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 height: styleMusic.common.expandedItem
                                 width: units.gu(15)
                                 Icon {
@@ -321,7 +318,7 @@ Page {
                                    anchors.fill: parent
                                    onClicked: {
                                        expandable.visible = false
-                                       track.height = styleMusic.common.itemHeight
+                                       track.height = styleMusic.albums.itemHeight
                                        chosenArtist = artist
                                        chosenTitle = title
                                        chosenTrack = file
@@ -341,7 +338,7 @@ Page {
                             Row {
                                 id: queueRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.common.expandedTopMargin
+                                anchors.topMargin: styleMusic.albums.expandedTopMargin
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 height: styleMusic.common.expandedItem
@@ -363,7 +360,7 @@ Page {
                                    anchors.fill: parent
                                    onClicked: {
                                        expandable.visible = false
-                                       track.height = styleMusic.common.itemHeight
+                                       track.height = styleMusic.albums.itemHeight
                                        console.debug("Debug: Add track to queue: " + title)
                                        trackQueue.model.append({"title": title, "artist": artist, "file": track, "album": album, "cover": cover, "genre": genre})
                                  }

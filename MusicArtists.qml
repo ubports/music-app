@@ -120,20 +120,21 @@ PageStack {
                         id: trackArtistAlbum
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
-                        fontSize: "large"
+                        fontSize: "medium"
+                        color: styleMusic.common.music
                         anchors.left: cover3.left
                         anchors.leftMargin: units.gu(14)
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
+                        anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
-                        text: artist // !== '' artist : i18n.tr("Unknown Artist") fix this
+                        text: artist // !== '' ? artist : i18n.tr("Unknown Artist") fix this
                     }
 
                     Label {
                         id: trackArtistAlbums
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
-                        fontSize: "medium"
+                        fontSize: "x-small"
                         anchors.left: cover3.left
                         anchors.leftMargin: units.gu(14)
                         anchors.top: trackArtistAlbum.bottom
@@ -146,7 +147,7 @@ PageStack {
                         id: trackArtistAlbumTracks
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
-                        fontSize: "medium"
+                        fontSize: "x-small"
                         anchors.left: cover3.left
                         anchors.leftMargin: units.gu(14)
                         anchors.top: trackArtistAlbums.bottom
@@ -154,7 +155,6 @@ PageStack {
                         anchors.right: parent.right
                         text: Library.getArtistTracks(artist).length + i18n.tr(" songs") //fix
                     }
-
                     onFocusChanged: {
                     }
                     MouseArea {
@@ -210,7 +210,7 @@ PageStack {
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: units.gu(1)
+                    anchors.margins: units.gu(2)
                     height: parent.height
                     width: height
                     image: Image {
@@ -218,28 +218,29 @@ PageStack {
                     }
                 }
                 Label {
-                    id: albumArtist
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 1
-                    fontSize: "large"
-                    anchors.left: artistImage.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: parent.right
-                    text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
-                }
-                Label {
                     id: albumCount
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
-                    fontSize: "medium"
+                    fontSize: "small"
                     anchors.left: artistImage.right
                     anchors.leftMargin: units.gu(1)
-                    anchors.top: albumArtist.bottom
-                    anchors.topMargin: units.gu(1)
+                    anchors.top: parent.top
+                    anchors.topMargin: units.gu(3)
                     anchors.right: parent.right
                     text: artistTracksModel.model.count + i18n.tr(" songs")
+                }
+                Label {
+                    id: albumArtist
+                    wrapMode: Text.NoWrap
+                    maximumLineCount: 1
+                    fontSize: "medium"
+                    color: styleMusic.common.music
+                    anchors.left: artistImage.right
+                    anchors.leftMargin: units.gu(1)
+                    anchors.top: albumCount.bottom
+                    anchors.topMargin: units.gu(1)
+                    anchors.right: parent.right
+                    text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
                 }
             }
 
@@ -258,9 +259,8 @@ PageStack {
                     property string cover: model.cover
                     property string length: model.length
                     property string file: model.file
-                    icon: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
-                    iconFrame: false
                     progression: false
+                    height: styleMusic.artists.itemHeight
                     MouseArea {
                         anchors.fill: parent
                         onDoubleClicked: {
@@ -281,22 +281,28 @@ PageStack {
                             trackClicked(artistTracksModel, index)  // play track
                         }
                     }
-                    Rectangle {
-                        id: highlight
+                    UbuntuShape {
+                        id: trackCover
                         anchors.left: parent.left
-                        visible: false
-                        width: units.gu(.75)
-                        height: parent.height
-                        color: styleMusic.listView.highlightColor;
+                        anchors.leftMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        width: styleMusic.common.albumSize
+                        height: styleMusic.common.albumSize
+                        image: Image {
+                            source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                        }
                     }
+
                     Label {
                         id: trackTitle
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "medium"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
-                        anchors.top: parent.top
+                        fontSize: "small"
+                        color: styleMusic.common.music
+                        anchors.left: trackCover.right
+                        anchors.leftMargin: units.gu(2)
+                        anchors.top: trackCover.top
                         anchors.topMargin: untits.gu(2)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
@@ -305,10 +311,11 @@ PageStack {
                         id: trackAlbum
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
-                        fontSize: "small"
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(8)
+                        fontSize: "x-small"
+                        anchors.left: trackCover.right
+                        anchors.leftMargin: units.gu(2)
                         anchors.top: trackTitle.bottom
+                        anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
                         text: album
                     }
@@ -328,13 +335,13 @@ PageStack {
                                if(expandable.visible) {
                                    customdebug("clicked collapse")
                                    expandable.visible = false
-                                   track.height = styleMusic.albums.itemHeight
+                                   track.height = styleMusic.artists.itemHeight
 
                                }
                                else {
                                    customdebug("clicked expand")
                                    expandable.visible = true
-                                   track.height = styleMusic.albums.expandedHeight
+                                   track.height = styleMusic.artists.expandedHeight
                                }
                            }
                        }
@@ -344,10 +351,7 @@ PageStack {
                         id: expandable
                         visible: false
                         anchors.top: parent.buttom
-                        width: parent.fill
-                        height: styleMusic.albums.expandHeight
-                        color: "black"
-                        opacity: 0.7
+                        height: styleMusic.artists.expandHeight
                         MouseArea {
                            anchors.fill: parent
                            onClicked: {
@@ -358,9 +362,9 @@ PageStack {
                         Row {
                             id: playlistRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.topMargin: styleMusic.artists.expandedTopMargin
                             anchors.left: parent.left
-                            anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                            anchors.leftMargin: styleMusic.artists.expandedLeftMargin
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
                             Icon {
@@ -380,7 +384,7 @@ PageStack {
                                anchors.fill: parent
                                onClicked: {
                                    expandable.visible = false
-                                   track.height = styleMusic.common.itemHeight
+                                   track.height = styleMusic.artists.itemHeight
                                    chosenArtist = artist
                                    chosenTitle = title
                                    chosenTrack = file
@@ -400,7 +404,7 @@ PageStack {
                         Row {
                             id: queueRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.topMargin: styleMusic.artists.expandedTopMargin
                             anchors.left: playlistRow.left
                             anchors.leftMargin: units.gu(15)
                             height: styleMusic.common.expandedItem
@@ -422,7 +426,7 @@ PageStack {
                                anchors.fill: parent
                                onClicked: {
                                    expandable.visible = false
-                                   track.height = styleMusic.common.itemHeight
+                                   track.height = styleMusic.artists.itemHeight
                                    console.debug("Debug: Add track to queue: " + title)
                                    trackQueue.model.append({"title": title, "artist": artist, "file": track, "album": album, "cover": cover, "genre": genre})
                              }
