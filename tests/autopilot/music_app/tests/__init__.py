@@ -42,11 +42,11 @@ class MusicTestCase(AutopilotTestCase):
     installed_location = "/usr/share/music-app/music-app.qml"
 
     def setup_environment(self):
-        if os.path.exists(self.installed_location):
-            launch = self.launch_test_installed
-            test_type = 'local'
-        elif os.path.exists(self.local_location):
+        if os.path.exists(self.local_location):
             launch = self.launch_test_local
+            test_type = 'local'
+        elif os.path.exists(self.installed_location):
+            launch = self.launch_test_installed
             test_type = 'deb'
         else:
             launch = self.launch_test_click
