@@ -287,7 +287,6 @@ Page {
                         Rectangle {
                             id: expandable
                             visible: false
-                            anchors.top: parent.buttom
                             height: styleMusic.albums.expandHeight
                             MouseArea {
                                anchors.fill: parent

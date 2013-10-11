@@ -1070,7 +1070,6 @@ PageStack {
                         Rectangle {
                             id: expandable
                             visible: false
-                            anchors.top: parent.buttom
                             width: parent.fill
                             height: styleMusic.common.expandHeight
                             MouseArea {
