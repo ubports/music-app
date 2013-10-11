@@ -286,17 +286,11 @@ PageStack {
 
                        Rectangle {
                            id: expandable
-                           visible: false
-                           anchors.top: parent.buttom
+                           anchors.fill: parent
+                           color: "transparent"
                            height: styleMusic.common.expandHeight
-                           MouseArea {
-                              anchors.fill: parent
-                              onClicked: {
-                                  customdebug("User pressed outside the playlist item and expanded items.")
-                            }
-                          }
-
-                           Column {
+                           visible: false
+                           Rectangle {
                                id: editColumn
                                anchors.top: parent.top
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
@@ -333,12 +327,11 @@ PageStack {
                                 }
                            }
 
-                           Column {
+                           Rectangle {
                                id: deleteColumn
                                anchors.top: parent.top
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
-                               anchors.left: editColumn.right
-                               anchors.leftMargin: units.gu(2)
+                               anchors.horizontalCenter: parent.horizontalCenter
                                Rectangle {
                                    color: "transparent"
                                    height: styleMusic.common.expandedItem
@@ -370,12 +363,13 @@ PageStack {
                                 }
                             }
                            // share
-                           Column {
+                           Rectangle {
                                id: shareColumn
                                anchors.top: parent.top
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
+                               anchors.right: parent.right
                                visible: false
                                Rectangle {
                                    color: "transparent"
@@ -568,23 +562,17 @@ PageStack {
 
             Rectangle {
                 id: expandableInfo
-                visible: false
-                anchors.top: parent.buttom
-                width: parent.fill
+                anchors.fill: parent
+                color: "transparent"
                 height: styleMusic.common.expandHeight
-                MouseArea {
-                   anchors.fill: parent
-                   onClicked: {
-                       customdebug("User pressed outside the playlist item and expanded items.")
-                 }
-               }
-
-                Column {
+                visible: false
+                Rectangle {
                     id: editColumn
                     anchors.top: parent.top
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: parent.left
                     anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                    color: "transparent"
                     Rectangle {
                         id: editRow
                         color: "transparent"
@@ -616,12 +604,12 @@ PageStack {
                     }
                 }
 
-                Column {
+                Rectangle {
                     id: deleteColumn
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: parent.top
                     anchors.topMargin: styleMusic.common.expandedTopMargin
-                    anchors.left: editColumn.right
-                    anchors.leftMargin: units.gu(2)
+                    color: "transparent"
                     Rectangle {
                         id: deleteRow
                         color: "transparent"
@@ -652,12 +640,14 @@ PageStack {
                     }
                  }
                 // share
-                Column {
+                Rectangle {
                     id: shareColumn
                     anchors.top: parent.top
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: deleteColumn.right
                     anchors.leftMargin: units.gu(2)
+                    anchors.right: parent.right
+                    color: "transparent"
                     visible: false
                     Rectangle {
                         id: shareRow
