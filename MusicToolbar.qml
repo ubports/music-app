@@ -574,15 +574,18 @@ Rectangle {
                     radius: height / 2
                     width: height
 
-                    Image {
-                        id: nowPlayingPlayIndicator
+                    UbuntuShape {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         height: units.gu(6)
-                        opacity: .7
-                        source: player.playbackState === MediaPlayer.PlayingState ?
-                                  "images/pause.png" : "images/play.png"
                         width: height
+                        image: Image {
+                            id: nowPlayingPlayIndicator
+                            opacity: .7
+                            source: player.playbackState === MediaPlayer.PlayingState ?
+                                      "images/pause.png" : "images/play.png"
+                            width: height
+                        }
                     }
 
                     MouseArea {
