@@ -140,7 +140,6 @@ Page {
     ListItem.ThinDivider {
         id: divider
         anchors.top: recentlist.bottom
-        anchors.bottom: genrs
     }
     ListItem.Standard {
         id: genres

@@ -219,12 +219,13 @@ PageStack {
                          }
                        }
                         // add to playlist
-                        Row {
+                        Rectangle {
                             id: playlistRow
                             anchors.top: parent.top
                             anchors.topMargin: styleMusic.common.expandedTopMargin
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                            color: "transparent"
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
                             Icon {
@@ -261,12 +262,13 @@ PageStack {
                            }
                         }
                         // Queue
-                        Row {
+                        Rectangle {
                             id: queueRow
                             anchors.top: parent.top
                             anchors.topMargin: styleMusic.common.expandedTopMargin
                             anchors.left: playlistRow.left
                             anchors.leftMargin: units.gu(15)
+                            color: "transparent"
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
                             Image {
@@ -293,12 +295,13 @@ PageStack {
                            }
                         }
                         // Share
-                        Row {
+                        Rectangle {
                             id: shareRow
                             anchors.top: parent.top
                             anchors.topMargin: styleMusic.common.expandedTopMargin
                             anchors.left: queueRow.left
                             anchors.leftMargin: units.gu(15)
+                            color: "transparent"
                             height: styleMusic.common.expandedItem
                             width: units.gu(15)
                             visible: false

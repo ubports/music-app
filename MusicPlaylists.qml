@@ -255,7 +255,7 @@ PageStack {
                        //Icon {
                        Image {
                            id: expandItem
-                           anchors.left: playlistname.right
+                           anchors.left: playlistName.right
                          //  name: "dropdown-menu"
                            source: "images/dropdown-menu.svg"
                            anchors.right: parent.right
@@ -303,7 +303,8 @@ PageStack {
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: parent.left
                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
-                               Row {
+                               Rectangle {
+                                   color: "transparent"
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
                                    Icon {
@@ -583,8 +584,9 @@ PageStack {
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: parent.left
                     anchors.leftMargin: styleMusic.common.expandedLeftMargin
-                    Row {
+                    Rectangle {
                         id: editRow
+                        color: "transparent"
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
                         Icon {
@@ -619,8 +621,9 @@ PageStack {
                     anchors.topMargin: styleMusic.common.expandedTopMargin
                     anchors.left: editColumn.right
                     anchors.leftMargin: units.gu(2)
-                    Row {
+                    Rectangle {
                         id: deleteRow
+                        color: "transparent"
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
                         Icon {
@@ -655,8 +658,9 @@ PageStack {
                     anchors.left: deleteColumn.right
                     anchors.leftMargin: units.gu(2)
                     visible: false
-                    Row {
+                    Rectangle {
                         id: shareRow
+                        color: "transparent"
                         height: styleMusic.common.expandedItem
                         width: units.gu(15)
                         Icon {

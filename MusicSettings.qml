@@ -101,15 +101,14 @@ ComposerSheet {
         }
 
         // Snap to current track
-        Row {
+        Rectangle {
             id: snapRow
+            color: "transparent"
             width: parent.width
             anchors.top: equaliser.bottom
             anchors.topMargin: units.gu(2)
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.bottom: shuffleRow.top
-            anchors.bottomMargin: units.gu(2)
             anchors.leftMargin: units.gu(2)
             Label {
                 id: snapLabel
@@ -123,12 +122,13 @@ ComposerSheet {
             }
         }
         // Accounts
-        Row {
+        Rectangle {
             id: accounts
             anchors.top: equaliser.bottom
             anchors.topMargin: units.gu(12)
             anchors.bottom: streaming.top
             anchors.bottomMargin: units.gu(2)
+            color: "transparent"
             width: parent.width
 
             Label {
@@ -145,7 +145,7 @@ ComposerSheet {
                 anchors.topMargin: units.gu(5)
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.bottomMargin: untits.gu(8)
+                anchors.bottomMargin: units.gu(8)
                 text: i18n.tr("Last.fm")
                 subText: i18n.tr("Login to scrobble and import playlists")
                 width: parent.width
@@ -163,10 +163,11 @@ ComposerSheet {
 
         // Music Streaming
         // Activate in 1.+
-        Row {
+        Rectangle {
             id: streaming
             anchors.top: equaliser.bottom
             anchors.topMargin: units.gu(24)
+            color: "transparent"
             width: parent.width
             Label {
                 text: i18n.tr("Music Streaming")
@@ -188,10 +189,11 @@ ComposerSheet {
                 }
             }
 
-            Row {
+            Rectangle {
                 id: wifiRow
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(10)
+                color: "transparent"
                 width: parent.width
                 Label {
                     id: streamwifiLabel

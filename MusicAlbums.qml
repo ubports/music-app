@@ -296,12 +296,13 @@ Page {
                              }
                            }
                             // add to playlist
-                            Row {
+                            Rectangle {
                                 id: playlistRow
                                 anchors.top: parent.top
                                 anchors.topMargin: styleMusic.albums.expandedTopMargin
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
+                                color: "transparent"
                                 height: styleMusic.common.expandedItem
                                 width: units.gu(15)
                                 Icon {
@@ -338,12 +339,13 @@ Page {
                                }
                             }
                             // Queue
-                            Row {
+                            Rectangle {
                                 id: queueRow
                                 anchors.top: parent.top
                                 anchors.topMargin: styleMusic.albums.expandedTopMargin
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
+                                color: "transparent"
                                 height: styleMusic.common.expandedItem
                                 width: units.gu(15)
                                 Image {
