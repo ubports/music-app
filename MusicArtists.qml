@@ -112,7 +112,7 @@ PageStack {
                        width: styleMusic.common.albumSize
                        height: styleMusic.common.albumSize
                        image: Image {
-                           source: Library.getArtistCovers(artist).length > 0 ? Library.getArtistCovers(artist)[0] : "images/cover_default.png"
+                           source: Library.getArtistCovers(artist).length > 0 && Library.getArtistCovers(artist)[0] !== "" ? Library.getArtistCovers(artist)[0] : "images/cover_default.png"
                        }
                     }
 
