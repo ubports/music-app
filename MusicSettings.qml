@@ -174,7 +174,7 @@ ComposerSheet {
                 anchors.topMargin: units.gu(5)
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.bottomMargin: untits.gu(8)
+                anchors.bottomMargin: units.gu(8)
                 text: i18n.tr("Last.fm")
                 subText: i18n.tr("Login to scrobble and import playlists")
                 width: parent.width
