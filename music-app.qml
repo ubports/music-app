@@ -360,7 +360,19 @@ MainView {
 
         console.debug(player.source, Qt.resolvedUrl(file))
 
-        if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
+        // Clear the play queue and load the new tracks - if not trackQueue
+        // Don't reload queue if model, query and parameters are the same
+        // Same file different pages is treated as a new session
+        if (libraryModel !== trackQueue &&
+                (currentModel !== libraryModel ||
+                    currentQuery !== libraryModel.query ||
+                        currentParam !== libraryModel.param ||
+                            queueChanged === true))
+        {
+                trackQueue.model.clear()
+                addQueueFromModel(libraryModel)
+        }
+        else if (player.source == Qt.resolvedUrl(file))
         {
             if (play === false)
             {
@@ -383,20 +395,6 @@ MainView {
             }
 
             return
-        }
-
-        // Clear the play queue and load the new tracks - if not trackQueue
-        if (libraryModel !== trackQueue)
-        {
-            // Don't reload queue if model, query and parameters are the same
-            if (currentModel !== libraryModel ||
-                    currentQuery !== libraryModel.query ||
-                        currentParam !== libraryModel.param ||
-                            queueChanged === true)
-            {
-                trackQueue.model.clear()
-                addQueueFromModel(libraryModel)
-            }
         }
 
         // Current index must be updated before player.source
