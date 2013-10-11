@@ -40,10 +40,8 @@ class TestMainWindow(MusicTestCase):
     def test_play_pause(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
-        self.main_view.show_toolbar()
+        self.main_view.open_toolbar()
 
-        self.assertThat(self.main_view.get_play_button,
-                        Eventually(NotEquals(None)))
         playbutton = self.main_view.get_play_button()
 
         """ Track is not playing"""
@@ -66,8 +64,6 @@ class TestMainWindow(MusicTestCase):
         label = self.main_view.get_player_control_title()
         self.pointing_device.click_object(label)
 
-        self.assertThat(self.main_view.get_forward_button,
-                        Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
 
         title = lambda: self.main_view.currentTracktitle
