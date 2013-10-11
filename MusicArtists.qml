@@ -303,7 +303,7 @@ PageStack {
                         anchors.left: trackCover.right
                         anchors.leftMargin: units.gu(2)
                         anchors.top: trackCover.top
-                        anchors.topMargin: untits.gu(2)
+                        anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
                         text: track.title == "" ? track.file : track.title
                     }
@@ -444,7 +444,6 @@ PageStack {
                     states: State {
                         name: "Current"
                         when: track.ListView.isCurrentItem
-                        PropertyChanges { target: highlight; visible: true }
                     }
                 }
             }

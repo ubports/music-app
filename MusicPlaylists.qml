@@ -255,7 +255,6 @@ PageStack {
                        //Icon {
                        Image {
                            id: expandItem
-                           anchors.left: playlistName.right
                          //  name: "dropdown-menu"
                            source: "images/dropdown-menu.svg"
                            anchors.right: parent.right
@@ -340,7 +339,8 @@ PageStack {
                                anchors.topMargin: styleMusic.playlist.expandedTopMargin
                                anchors.left: editColumn.right
                                anchors.leftMargin: units.gu(2)
-                               Row {
+                               Rectangle {
+                                   color: "transparent"
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
                                    Icon {
@@ -377,7 +377,8 @@ PageStack {
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
                                visible: false
-                               Row {
+                               Rectangle {
+                                   color: "transparent"
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
                                    Icon {
