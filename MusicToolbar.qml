@@ -399,16 +399,15 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
-                    height: units.gu(6)
-                    width: height
+                    width: units.gu(6)
                     visible: currentPageStack !== null && currentParentPage !== null
 
-                    //Icon { // use this
-                    Label {
+                    Image {
+                        height: units.gu(3)
+                        source: Qt.resolvedUrl("images/back.svg")
+                        width: height
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        text: i18n.tr("Back")
-                      //  name: "back" // use this
                     }
 
                     MouseArea {
