@@ -50,7 +50,7 @@ Page {
         anchors.topMargin: units.gu(1)
         //anchors.bottom: genres.top
         spacing: units.gu(2)
-        height: units.gu(23)
+        height: units.gu(19)
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
@@ -64,8 +64,8 @@ Page {
             id: recentDelegate
             Item {
                 id: recentItem
-                height: units.gu(21)
-                width: units.gu(21)
+                height: units.gu(17)
+                width: units.gu(17)
                 UbuntuShape {
                     id: recentShape
                     height: recentItem.width
@@ -154,7 +154,7 @@ Page {
         anchors.top: genres.bottom
         anchors.topMargin: units.gu(1)
         spacing: units.gu(2)
-        height: units.gu(23)
+        height: units.gu(19)
         model: genreModel.model
         delegate: genreDelegate
         header: Item {
@@ -167,8 +167,8 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
-                height: units.gu(21)
-                width: units.gu(21)
+                height: units.gu(17)
+                width: units.gu(17)
                 UbuntuShape {
                     id: genreShape
                     height: genreItem.width
