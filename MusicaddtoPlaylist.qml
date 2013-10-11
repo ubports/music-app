@@ -71,10 +71,10 @@ import "playlists.js" as Playlists
                     height: units.gu(8)
                     property string name: model.name
                     property string count: model.count
-                    property string cover0: model.cover0
-                    property string cover1: model.cover1
-                    property string cover2: model.cover2
-                    property string cover3: model.cover3
+                    property string cover0: model.cover0 || ""
+                    property string cover1: model.cover1 || ""
+                    property string cover2: model.cover2 || ""
+                    property string cover3: model.cover3 || ""
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")

@@ -167,10 +167,10 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
-                       property string cover0: model.cover0
-                       property string cover1: model.cover1
-                       property string cover2: model.cover2
-                       property string cover3: model.cover3
+                       property string cover0: model.cover0 || ""
+                       property string cover1: model.cover1 || ""
+                       property string cover2: model.cover2 || ""
+                       property string cover3: model.cover3 || ""
                        iconFrame: false
                        height: styleMusic.playlist.playlistItemHeight
 
