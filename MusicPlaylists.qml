@@ -745,6 +745,7 @@ PageStack {
                                 Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
 
                                 playlistlist.model.remove(index);
+                                playlistModel.get(oldPlaylistIndex).count -= 1;
                                 queueChanged = true;
                             }
                         }
