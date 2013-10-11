@@ -9,7 +9,7 @@
 
 import tempfile
 
-import mock
+#import mock
 import os
 import os.path
 import shutil

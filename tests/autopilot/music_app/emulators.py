@@ -7,7 +7,6 @@
 
 """Music app autopilot emulators."""
 from ubuntuuitoolkit import emulators as toolkit_emulators
-from autopilot.input import Mouse
 from time import sleep
 
 
@@ -46,7 +45,8 @@ class MainView(toolkit_emulators.MainView):
         return self.select_single_retry("UbuntuShape", objectName="playshape")
 
     def get_forward_button(self):
-        return self.select_single_retry("UbuntuShape", objectName="forwardshape")
+        return self.select_single_retry("UbuntuShape",
+                                        objectName="forwardshape")
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")
