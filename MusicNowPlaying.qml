@@ -561,10 +561,13 @@ Page {
         color: styleMusic.nowPlaying.foregroundColor
         height: units.gu(3)
 
-        Label {
+        Image {
+            id: expandItem
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            text: i18n.tr("Back")
+            source: "images/dropdown-menu.svg"
+            height: units.gu(2)
+            width: height
         }
 
         MouseArea {
