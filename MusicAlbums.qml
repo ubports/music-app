@@ -362,7 +362,7 @@ Page {
                                        expandable.visible = false
                                        track.height = styleMusic.albums.itemHeight
                                        console.debug("Debug: Add track to queue: " + title)
-                                       trackQueue.model.append({"title": title, "artist": artist, "file": track, "album": album, "cover": cover, "genre": genre})
+                                       trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
                                  }
                                }
                             }
