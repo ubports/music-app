@@ -38,11 +38,13 @@ Page {
         {
             header.hide();
             header.visible = false;
+            header.opacity = 0;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
         }
         else
         {
             header.visible = true;
+            header.opacity = 1;
             header.show();
         }
     }
