@@ -264,23 +264,26 @@ PageStack {
                            anchors.topMargin: units.gu(4)
                            height: styleMusic.common.expandedItem
                            width: styleMusic.common.expandedItem
+                       }
 
-                           MouseArea {
-                              anchors.fill: parent
-                              onClicked: {
-                                  if(expandable.visible) {
-                                      customdebug("clicked collapse")
-                                      expandable.visible = false
-                                      playlist.height = styleMusic.playlist.playlistItemHeight
-                                  }
-                                  else {
-                                      customdebug("clicked expand")
-                                      expandable.visible = true
-                                      playlist.height = styleMusic.playlists.expandedHeight
-                                  }
+                       MouseArea {
+                           anchors.bottom: parent.bottom
+                           anchors.right: parent.right
+                           anchors.top: parent.top
+                           width: styleMusic.common.expandedItem * 3
+                           onClicked: {
+                              if(expandable.visible) {
+                                  customdebug("clicked collapse")
+                                  expandable.visible = false
+                                  playlist.height = styleMusic.playlist.playlistItemHeight
+                              }
+                              else {
+                                  customdebug("clicked expand")
+                                  expandable.visible = true
+                                  playlist.height = styleMusic.playlists.expandedHeight
                               }
                           }
-                       }
+                      }
 
                        Rectangle {
                            id: expandable
@@ -539,24 +542,27 @@ PageStack {
                 source: "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
+            }
 
-                MouseArea {
-                   anchors.fill: parent
-                   onClicked: {
-                       if(expandableInfo.visible) {
-                           customdebug("clicked collapse")
-                           expandableInfo.visible = false
-                           playlistInfo.height = styleMusic.playlist.infoHeight
+            MouseArea {
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.top: parent.top
+                width: styleMusic.common.expandedItem * 3
+                onClicked: {
+                   if(expandableInfo.visible) {
+                       customdebug("clicked collapse")
+                       expandableInfo.visible = false
+                       playlistInfo.height = styleMusic.playlist.infoHeight
 
-                       }
-                       else {
-                           customdebug("clicked expand")
-                           expandableInfo.visible = true
-                           playlistInfo.height = styleMusic.playlist.expandedHeight
-                       }
+                   }
+                   else {
+                       customdebug("clicked expand")
+                       expandableInfo.visible = true
+                       playlistInfo.height = styleMusic.playlist.expandedHeight
                    }
                }
-            }
+           }
 
             Rectangle {
                 id: expandableInfo

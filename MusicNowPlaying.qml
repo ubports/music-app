@@ -487,25 +487,28 @@ Page {
                         name: "add"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
-
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               chosenArtist = artist
-                               chosenTitle = title
-                               chosenTrack = file
-                               chosenAlbum = album
-                               chosenCover = cover
-                               chosenGenre = genre
-                               chosenIndex = index
-                               customdebug("Add track to playlist")
-                               PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
-                               {
-                                   title: i18n.tr("Select playlist")
-                               } )
-                           }
-                       }
                     }
+
+                    MouseArea {
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        width: styleMusic.common.expandedItem * 3
+                        onClicked: {
+                           chosenArtist = artist
+                           chosenTitle = title
+                           chosenTrack = file
+                           chosenAlbum = album
+                           chosenCover = cover
+                           chosenGenre = genre
+                           chosenIndex = index
+                           customdebug("Add track to playlist")
+                           PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                           {
+                               title: i18n.tr("Select playlist")
+                           } )
+                       }
+                   }
                 }
                 states: State {
                     name: "current"

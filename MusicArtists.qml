@@ -328,24 +328,27 @@ PageStack {
                         source: "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
+                    }
 
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               if(expandable.visible) {
-                                   customdebug("clicked collapse")
-                                   expandable.visible = false
-                                   track.height = styleMusic.artists.itemHeight
+                    MouseArea {
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        width: styleMusic.common.expandedItem * 3
+                        onClicked: {
+                           if(expandable.visible) {
+                               customdebug("clicked collapse")
+                               expandable.visible = false
+                               track.height = styleMusic.artists.itemHeight
 
-                               }
-                               else {
-                                   customdebug("clicked expand")
-                                   expandable.visible = true
-                                   track.height = styleMusic.artists.expandedHeight
-                               }
+                           }
+                           else {
+                               customdebug("clicked expand")
+                               expandable.visible = true
+                               track.height = styleMusic.artists.expandedHeight
                            }
                        }
-                    }
+                   }
 
                     Rectangle {
                         id: expandable

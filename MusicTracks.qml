@@ -175,31 +175,34 @@ PageStack {
                         source: "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
+                    }
 
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               if(expandable.visible) {
-                                   customdebug("clicked collapse")
-                                   expandable.visible = false
-                                   track.height = styleMusic.common.itemHeight
-                                   Rotation: {
-                                       source: expandItem;
-                                       angle: 0;
-                                   }
+                    MouseArea {
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        width: styleMusic.common.expandedItem * 3
+                        onClicked: {
+                           if(expandable.visible) {
+                               customdebug("clicked collapse")
+                               expandable.visible = false
+                               track.height = styleMusic.common.itemHeight
+                               Rotation: {
+                                   source: expandItem;
+                                   angle: 0;
                                }
-                               else {
-                                   customdebug("clicked expand")
-                                   expandable.visible = true
-                                   track.height = styleMusic.common.expandedHeight
-                                   Rotation: {
-                                       source: expandItem;
-                                       angle: 180;
-                                   }
+                           }
+                           else {
+                               customdebug("clicked expand")
+                               expandable.visible = true
+                               track.height = styleMusic.common.expandedHeight
+                               Rotation: {
+                                   source: expandItem;
+                                   angle: 180;
                                }
                            }
                        }
-                    }
+                   }
 
                     Rectangle {
                         id: expandable
