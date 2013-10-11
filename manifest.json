@@ -1,0 +1,16 @@
+{
+    "description": "Music application for Ubuntu", 
+    "architecture": "armhf",
+    "framework": "ubuntu-sdk-13.10", 
+    "hooks": {
+        "clock": {
+            "apparmor": "apparmor/music.json", 
+            "desktop": "music-app.desktop"
+        }
+    }, 
+    "icon": "images/music.png", 
+    "maintainer": "Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>", 
+    "name": "com.ubuntu.music", 
+    "title": "music", 
+    "version": "1.0"
+}

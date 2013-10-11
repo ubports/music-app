@@ -39,7 +39,7 @@ class MusicTestCase(AutopilotTestCase):
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
-    installed_location = "/usr/share/music-app/music-app.qml"
+    installed_location = "/usr/lib/python2.7/dist-packages/music_app/"
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -65,6 +65,7 @@ class MusicTestCase(AutopilotTestCase):
         launch()
 
     def launch_test_local(self):
+        logger.debug("Running via local installation")
         self.app = self.launch_test_application(
             "qmlscene",
             self.local_location,
@@ -72,6 +73,7 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_installed(self):
+        logger.debug("Running via installed debian package")
         self.app = self.launch_test_application(
             "qmlscene",
             self.installed_location,
@@ -80,6 +82,7 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_click(self):
+        logger.debug("Running via click package")
         self.app = self.launch_click_package(
             "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
@@ -126,6 +129,7 @@ class MusicTestCase(AutopilotTestCase):
         return temp_dir
 
     def _create_music_library(self):
+        logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
         logger.debug("Music path set to %s" % musicpath)
@@ -138,6 +142,8 @@ class MusicTestCase(AutopilotTestCase):
             content_dir = os.path.join(self.working_dir, 'music_app/content/')
         else:
             content_dir = '/usr/lib/python2.7/dist-packages/music_app/content/'
+
+        logger.debug("Content dir set to %s" % content_dir)
 
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
