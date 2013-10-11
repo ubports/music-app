@@ -1,5 +1,6 @@
 {
-    "description": "Music application", 
+    "description": "Music application for Ubuntu", 
+    "architecture": "armhf",
     "framework": "ubuntu-sdk-13.10", 
     "hooks": {
         "clock": {
