@@ -1,8 +1,14 @@
+music-app (1.0) raring; urgency=low
+
+  * Finalize changes before Saucy 13.10 release.
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Thur, 10 Oct 2013 04:21:11 -0500
+
 music-app (0.9) raring; urgency=low
 
   * A LOT of changes.
 
- -- Daniel Holm <d.holmen@gmail.com>  Thur, 10 Okt 2013 00:39:50 +0200
+ -- Daniel Holm <d.holmen@gmail.com>  Thur, 10 Oct 2013 00:39:50 +0200
 
 music-app (0.7) raring; urgency=low
 
