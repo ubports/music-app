@@ -51,7 +51,6 @@ class MainView(toolkit_emulators.MainView):
 
         self.pointing_device.drag(line_x, start_y, line_x, stop_y)
 
-
     def get_play_button(self):
         return self.select_single_retry("UbuntuShape", objectName="playshape")
 
