@@ -521,6 +521,7 @@ Rectangle {
                     onClicked: {
                         // Invert shuffle settings
                         Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
                     }
                 }
             }
@@ -666,6 +667,7 @@ Rectangle {
                     onClicked: {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
                     }
                 }
             }
