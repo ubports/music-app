@@ -41,6 +41,18 @@ class MainView(toolkit_emulators.MainView):
             tries = tries - 1
         return item
 
+    def show_toolbar(self):
+        # Get the toolbar object and create a mouse
+        toolbar = self.get_toolbar()
+
+        # Move to the toolbar and get the position
+        self.pointing_device.move_to_object(toolbar)
+        x1, y1 = self.pointing_device.position()
+
+        y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
+
+        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
+
     def get_play_button(self):
         return self.select_single_retry("UbuntuShape", objectName="playshape")
 

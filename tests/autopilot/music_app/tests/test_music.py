@@ -40,7 +40,7 @@ class TestMainWindow(MusicTestCase):
     def test_play_pause(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
-        self.main_view.open_toolbar()
+        self.main_view.show_toolbar()
 
         playbutton = self.main_view.get_play_button()
 
