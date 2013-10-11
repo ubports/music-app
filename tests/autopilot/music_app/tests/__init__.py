@@ -42,8 +42,8 @@ class MusicTestCase(AutopilotTestCase):
     installed_location = "/usr/share/music-app/music-app.qml"
 
     def setUp(self):
-        self._patch_home()
-        self._create_music_library()
+        tempdir = self._patch_home()
+        self._create_music_library(tempdir)
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
         if os.path.exists(self.local_location):
@@ -86,20 +86,22 @@ class MusicTestCase(AutopilotTestCase):
         self.addCleanup(shutil.rmtree, temp_dir)
         #if the Xauthority file is in home directory
         #make sure we copy it to temp home, otherwise do nothing
-        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
-        if os.path.isfile(xauth):
-            logger.debug("Copying .Xauthority to fake home " + temp_dir)
-            shutil.copyfile(
-                os.path.expanduser(os.path.join('~', '.Xauthority')),
-                os.path.join(temp_dir, '.Xauthority'))
-        patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
-        patcher.start()
-        logger.debug("Patched home to fake home directory " + temp_dir)
-        self.addCleanup(patcher.stop)
+        #xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        #if os.path.isfile(xauth):
+        #    logger.debug("Copying .Xauthority to fake home " + temp_dir)
+        #    shutil.copyfile(
+        #        os.path.expanduser(os.path.join('~', '.Xauthority')),
+        #        os.path.join(temp_dir, '.Xauthority'))
+        #patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
+        #patcher.start()
+        #logger.debug("Patched home to fake home directory " + temp_dir)
+        #self.addCleanup(patcher.stop)
+        return temp_dir
 
-    def _create_music_library(self):
+    def _create_music_library(self, tempdir):
         #use fake home
-        home = os.environ['HOME']
+        #home = os.environ['HOME']
+        home = tempdir
         logger.debug("Home set to " + home)
         musicpath = home + '/Music'
         logger.debug("Music path set to " + musicpath)
