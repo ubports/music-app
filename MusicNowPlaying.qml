@@ -557,9 +557,35 @@ Page {
         id: nowPlayingBackButton
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: parent.top
         color: styleMusic.nowPlaying.foregroundColor
         height: units.gu(3)
+
+        state: musicToolbar.opened ? "shown" : "hidden"
+        states: [
+            State {
+                name: "shown"
+                PropertyChanges {
+                    target: nowPlayingBackButton
+                    y: 0
+                }
+            },
+            State {
+                name: "hidden"
+                PropertyChanges {
+                    target: nowPlayingBackButton
+                    y: -height
+                }
+            }
+        ]
+
+        transitions: Transition {
+             from: "hidden,shown"
+             to: "shown,hidden"
+             NumberAnimation {
+                 duration: 100
+                 properties: "y"
+             }
+         }
 
         Image {
             id: expandItem
