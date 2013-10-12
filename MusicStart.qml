@@ -131,6 +131,7 @@ Page {
                         player.source = Qt.resolvedUrl(file)
                         player.play()
                         nowPlaying.visible = true
+                        musicToolbar.showToolbar()
                     }
                 }
             }
@@ -202,6 +203,7 @@ Page {
                         player.source = Qt.resolvedUrl(file)
                         player.play()
                         nowPlaying.visible = true
+                        musicToolbar.showToolbar();
                     }
                 }
                 UbuntuShape {  // Background so can see text in current state

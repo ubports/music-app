@@ -408,6 +408,8 @@ MainView {
                 // Show the Now Playing page and make sure the track is visible
                 nowPlaying.visible = true;
                 nowPlaying.ensureVisibleIndex = index;
+
+                musicToolbar.showToolbar();
             }
 
             return
@@ -442,6 +444,8 @@ MainView {
             // Show the Now Playing page and make sure the track is visible
             nowPlaying.visible = true;
             nowPlaying.ensureVisibleIndex = index;
+
+            musicToolbar.showToolbar();
         }
 
         return file
