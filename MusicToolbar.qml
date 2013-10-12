@@ -346,13 +346,20 @@ Rectangle {
                         height: units.gu(3.5)
                         radius: height / 2
                         width: height
+
                         UbuntuShape {
                             anchors.fill: parent
                             objectName: "playshape"  // objectName doesn't work on Rectangle?
-                            image: Image {
+                            height: units.gu(6)
+                            color: player.playbackState === MediaPlayer.PlayingState ? "#800000" : "#DD4814"
+
+                            Image {
                                 id: playindicator
-                                anchors.fill: parent
-                                opacity: .7
+                                height: units.gu(3)
+                                width: height
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                opacity: 1
                                 source: player.playbackState === MediaPlayer.PlayingState ?
                                           "images/pause.png" : "images/play.png"
                             }
@@ -542,12 +549,16 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                image: Image {
+                Image {
                     id: nowPlayingPreviousIndicator
-                    anchors.fill: parent
+                    height: units.gu(3)
+                    width: height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "images/back.png"
-                    opacity: .7
+                    opacity: 1
                 }
 
                 MouseArea {
@@ -585,12 +596,17 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         height: units.gu(6)
                         width: height
-                        image: Image {
+                        color: player.playbackState === MediaPlayer.PlayingState ? "#800000" : "#DD4814"
+
+                        Image {
                             id: nowPlayingPlayIndicator
-                            opacity: .7
+                            height: units.gu(5)
+                            width: height
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
+                            opacity: 1
                             source: player.playbackState === MediaPlayer.PlayingState ?
                                       "images/pause.png" : "images/play.png"
-                            width: height
                         }
                     }
 
@@ -638,12 +654,16 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "forwardshape"
                 width: height
+                color: "#000000"
 
-                image: Image {
+                Image {
                     id: nowPlayingNextIndicator
-                    anchors.fill: parent
+                    height: units.gu(3)
+                    width: height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "images/forward.png"
-                    opacity: .7
+                    opacity: 1
                 }
 
                 MouseArea {
