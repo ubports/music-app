@@ -508,12 +508,16 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: i18n.tr("Shuf")
-                    verticalAlignment: Text.AlignVCenter
+                Image {
+                    id: shuffleIcon
+                    height: units.gu(3)
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "images/shuffle.png"
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .25
                 }
 
                 MouseArea {
@@ -523,6 +527,7 @@ Rectangle {
                         // Invert shuffle settings
                         Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
                         mainView.random = Settings.getSetting("shuffle") === "1"
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
                     }
                 }
             }
@@ -657,12 +662,17 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: i18n.tr("Rep")
+                Image {
+                    id: repeatIcon
+                    height: units.gu(3)
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "images/repeat.png"
                     verticalAlignment: Text.AlignVCenter
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .25
                 }
 
                 MouseArea {
@@ -671,6 +681,7 @@ Rectangle {
                     onClicked: {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
                     }
                 }
             }
