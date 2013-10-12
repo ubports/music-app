@@ -520,14 +520,19 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: expandItem.x - x - units.gu(3.5)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
-                        width: expandItem.x - x - units.gu(3.5)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
+                    PropertyChanges {
+                        target: expandItem
+
+                    }
+
                     PropertyChanges {
                         target: trackBg
                         opacity: 0.75
