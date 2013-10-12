@@ -467,7 +467,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -477,7 +477,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Icon {
