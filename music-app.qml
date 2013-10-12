@@ -93,6 +93,12 @@ MainView {
         onTriggered: player.stop()
     }
     Action {
+        id: backAction
+        text: i18n.tr("Back")
+        keywords: i18n.tr("Go back to last page")
+        onTriggered: musicToolbar.goBack();
+    }
+    Action {
         id: settingsAction
         text: i18n.tr("Settings")
         keywords: i18n.tr("Music Settings")
@@ -108,7 +114,7 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
@@ -146,10 +152,12 @@ MainView {
         }
     }
 
+    // Design stuff
     Style { id: styleMusic }
-
     width: units.gu(50)
     height: units.gu(75)
+
+    // RUn on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
@@ -197,7 +205,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '0.7'
+    property string appVersion: '1.0'
     property bool isPlaying: false
     property bool random: false
     property bool scrobble: false
@@ -366,7 +374,19 @@ MainView {
 
         console.debug(player.source, Qt.resolvedUrl(file))
 
-        if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
+        // Clear the play queue and load the new tracks - if not trackQueue
+        // Don't reload queue if model, query and parameters are the same
+        // Same file different pages is treated as a new session
+        if (libraryModel !== trackQueue &&
+                (currentModel !== libraryModel ||
+                    currentQuery !== libraryModel.query ||
+                        currentParam !== libraryModel.param ||
+                            queueChanged === true))
+        {
+                trackQueue.model.clear()
+                addQueueFromModel(libraryModel)
+        }
+        else if (player.source == Qt.resolvedUrl(file))
         {
             if (play === false)
             {
@@ -389,20 +409,6 @@ MainView {
             }
 
             return
-        }
-
-        // Clear the play queue and load the new tracks - if not trackQueue
-        if (libraryModel !== trackQueue)
-        {
-            // Don't reload queue if model, query and parameters are the same
-            if (currentModel !== libraryModel ||
-                    currentQuery !== libraryModel.query ||
-                        currentParam !== libraryModel.param ||
-                            queueChanged === true)
-            {
-                trackQueue.model.clear()
-                addQueueFromModel(libraryModel)
-            }
         }
 
         // Current index must be updated before player.source
@@ -463,16 +469,6 @@ MainView {
         listmodel.set(index, {"title": i18n.tr("Undo")} )
         // set the removed track in undo listmodel
         undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
-    }
-
-    // random color for non-found cover art
-    function get_random_color() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.round(Math.random() * 15)];
-        }
-        return color;
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -637,7 +633,7 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
-                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
+                    //console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
                     Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
                 }
             }
@@ -844,14 +840,13 @@ MainView {
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
                              playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
+                             PopupUtils.close(dialogueNewPlaylist)
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
                              newplaylistoutput.visible = true
                              newplaylistoutput.text = i18n.tr("Error: "+newList)
                          }
-
-                         PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
                          newplaylistoutput.visible = true

@@ -278,7 +278,7 @@ Rectangle {
                     anchors.margins: units.gu(1)
                     anchors.top: parent.top
                     color: styleMusic.playerControls.labelColor
-                    text: "No songs queued"
+                    text: i18n.tr("No songs queued")
                     fontSize: "large"
                 }
 
@@ -288,7 +288,7 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.margins: units.gu(1)
                     anchors.top: noSongsInQueueLabel.bottom
-                    text: "Tap on a song to start playing"
+                    text: i18n.tr("Tap on a song to start playing")
                 }
             }
 
@@ -399,14 +399,15 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
-                    height: units.gu(6)
-                    width: height
+                    width: units.gu(6)
                     visible: currentPageStack !== null && currentParentPage !== null
 
-                    Label {
+                    Image {
+                        height: units.gu(3)
+                        source: Qt.resolvedUrl("images/back.svg")
+                        width: height
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "Back"
                     }
 
                     MouseArea {
@@ -507,12 +508,16 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: "Shuf"
-                    verticalAlignment: Text.AlignVCenter
+                Image {
+                    id: shuffleIcon
+                    height: units.gu(3)
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "images/shuffle.png"
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .25
                 }
 
                 MouseArea {
@@ -522,6 +527,9 @@ Rectangle {
                         // Invert shuffle settings
                         Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+
+                        mainView.random = Settings.getSetting("shuffle") === "1"
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
                     }
                 }
             }
@@ -572,15 +580,18 @@ Rectangle {
                     radius: height / 2
                     width: height
 
-                    Image {
-                        id: nowPlayingPlayIndicator
+                    UbuntuShape {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         height: units.gu(6)
-                        opacity: .7
-                        source: player.playbackState === MediaPlayer.PlayingState ?
-                                  "images/pause.png" : "images/play.png"
                         width: height
+                        image: Image {
+                            id: nowPlayingPlayIndicator
+                            opacity: .7
+                            source: player.playbackState === MediaPlayer.PlayingState ?
+                                      "images/pause.png" : "images/play.png"
+                            width: height
+                        }
                     }
 
                     MouseArea {
@@ -653,12 +664,17 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                Label {
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    text: "Rep"
+                Image {
+                    id: repeatIcon
+                    height: units.gu(3)
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "images/repeat.png"
                     verticalAlignment: Text.AlignVCenter
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .25
                 }
 
                 MouseArea {
@@ -668,6 +684,7 @@ Rectangle {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
                         console.debug("Repeat:", Settings.getSetting("repeat") === "1")
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
                     }
                 }
             }
