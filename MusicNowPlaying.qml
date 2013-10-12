@@ -520,12 +520,12 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(3.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(3.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
