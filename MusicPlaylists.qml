@@ -37,11 +37,12 @@ PageStack {
     property string oldPlaylistName: ""
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
+    property string inPlaylist: ""
 
     // function that adds each playlist in the listmodel to show it in the app
     function addtoPlaylistModel(element,index,array) {
         customdebug("Playlist #" + element.id + " = " + element.name);
-        playlistModel.append({"id": element.id, "name": element.name, "count": element.count});
+        playlistModel.append({"id": element.id, "name": element.name, "count": element.count, "cover0": element.cover0, "cover1": element.cover1, "cover2": element.cover2, "cover3": element.cover3 });
     }
 
     // Remove playlist dialog
@@ -59,6 +60,10 @@ PageStack {
                      Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
                      playlistModel.remove(oldPlaylistIndex)
                      PopupUtils.close(dialogueRemovePlaylist)
+                     if (inPlaylist) {
+                         customdebug("Back to playlists")
+                         pageStack.pop()
+                     }
                 }
              }
              Button {
@@ -81,20 +86,25 @@ PageStack {
                  placeholderText: oldPlaylistName
              }
              ListItem.Standard {
-                 id: newplaylistoutput
+                 id: editplaylistoutput
+                 visible: false
              }
 
              Button {
                  text: i18n.tr("Change")
                  onClicked: {
+                     editplaylistoutput.visible = true
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
                          var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
                          console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
                          playlistModel.set(oldPlaylistIndex, {"name": playlistName.text})
                          PopupUtils.close(dialogueEditPlaylist)
+                         if (inPlaylist) {
+                             playlistInfoLabel.text = playlistName.text
+                         }
                      }
                      else {
-                        newplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        editplaylistoutput.text = i18n.tr("You didn't type in a name.")
                      }
                 }
              }
@@ -104,50 +114,6 @@ PageStack {
                  onClicked: PopupUtils.close(dialogueEditPlaylist)
              }
          }
-    }
-
-    // Popover to change name and remove playlists
-    Component {
-        id: playlistPopoverComponent
-        Popover {
-            id: playlistPopover
-            Column {
-                id: containerLayout
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    right: parent.right
-                }
-                ListItem.Standard {
-                    Label {
-                        text: i18n.tr("Change name")
-                        color: styleMusic.popover.labelColor
-                        fontSize: "large"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    onClicked: {
-                        console.debug("Debug: Change name of playlist.")
-                        PopupUtils.open(editPlaylistDialog, mainView)
-                        PopupUtils.close(playlistPopover)
-                    }
-                }
-                ListItem.Standard {
-                    Label {
-                        text: i18n.tr("Remove")
-                        color: styleMusic.popover.labelColor
-                        fontSize: "large"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    onClicked: {
-                        console.debug("Debug: Remove playlist.")
-                        PopupUtils.open(removePlaylistDialog, mainView)
-                        PopupUtils.close(playlistPopover)
-                    }
-                }
-            }
-        }
     }
 
     Component.onCompleted: {
@@ -201,8 +167,12 @@ PageStack {
                        id: playlist
                        property string name: model.name
                        property string count: model.count
+                       property string cover0: model.cover0 || ""
+                       property string cover1: model.cover1 || ""
+                       property string cover2: model.cover2 || ""
+                       property string cover3: model.cover3 || ""
                        iconFrame: false
-                       height: styleMusic.common.itemHeight
+                       height: styleMusic.playlist.playlistItemHeight
 
                        UbuntuShape {
                            id: cover0
@@ -210,10 +180,12 @@ PageStack {
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: styleMusic.common.albumSize
-                           height: styleMusic.common.albumSize
-                           color: get_random_color()
+                           height: styleMusic.playlist.playlistAlbumSize
+                           width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 3
+                           image: Image {
+                               source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover1
@@ -221,10 +193,12 @@ PageStack {
                            anchors.leftMargin: units.gu(3)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: styleMusic.common.albumSize
-                           height: styleMusic.common.albumSize
-                           color: get_random_color()
+                           height: styleMusic.playlist.playlistAlbumSize
+                           width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 2
+                           image: Image {
+                               source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover2
@@ -232,10 +206,12 @@ PageStack {
                            anchors.leftMargin: units.gu(2)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: styleMusic.common.albumSize
-                           height: styleMusic.common.albumSize
-                           color: get_random_color()
+                           height: styleMusic.playlist.playlistAlbumSize
+                           width: styleMusic.playlist.playlistAlbumSize
                            visible: playlist.count > 1
+                           image: Image {
+                               source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                           }
                        }
                        UbuntuShape {
                            id: cover3
@@ -243,11 +219,10 @@ PageStack {
                            anchors.leftMargin: units.gu(1)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(1)
-                           width: styleMusic.common.albumSize
-                           height: styleMusic.common.albumSize
-                           color: get_random_color()
+                           height: styleMusic.playlist.playlistAlbumSize
+                           width: styleMusic.playlist.playlistAlbumSize
                            image: Image {
-                               source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                               source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
                            }
                        }
                        // songs count
@@ -256,10 +231,9 @@ PageStack {
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
-                           anchors.bottomMargin: 5
+                           anchors.topMargin: units.gu(2)
                            anchors.right: parent.right
-                           fontSize: "medium"
+                           fontSize: "x-small"
                            height: units.gu(1)
                            text: playlist.count + i18n.tr(" songs")
                        }
@@ -268,31 +242,182 @@ PageStack {
                            id: playlistName
                            wrapMode: Text.NoWrap
                            maximumLineCount: 1
-                           fontSize: "large"
+                           fontSize: "medium"
+                           color: styleMusic.common.music
                            anchors.left: cover3.right
                            anchors.leftMargin: units.gu(4)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(3)
-                           anchors.bottomMargin: 5
+                           anchors.top: playlistCount.bottom
+                           anchors.topMargin: units.gu(1)
                            anchors.right: parent.right
                            text: playlist.name
                        }
 
-                    onPressAndHold: {
-                        customdebug("Pressed and held playlist "+name+" : "+index)
-                        // show a dialog to change name and remove list
-                        oldPlaylistName = name
-                        oldPlaylistID = id
-                        oldPlaylistIndex = index
-                        PopupUtils.open(playlistPopoverComponent, mainView)
-                    }
+                       //Icon {
+                       Image {
+                           id: expandItem
+                         //  name: "dropdown-menu"
+                           source: "images/dropdown-menu.svg"
+                           anchors.right: parent.right
+                           anchors.rightMargin: units.gu(2)
+                           anchors.top: parent.top
+                           anchors.topMargin: units.gu(4)
+                           height: styleMusic.common.expandedItem
+                           width: styleMusic.common.expandedItem
+                       }
+
+                       MouseArea {
+                           anchors.bottom: parent.bottom
+                           anchors.right: parent.right
+                           anchors.top: parent.top
+                           width: styleMusic.common.expandedItem * 3
+                           onClicked: {
+                              if(expandable.visible) {
+                                  customdebug("clicked collapse")
+                                  expandable.visible = false
+                                  playlist.height = styleMusic.playlist.playlistItemHeight
+                              }
+                              else {
+                                  customdebug("clicked expand")
+                                  expandable.visible = true
+                                  playlist.height = styleMusic.playlists.expandedHeight
+                              }
+                          }
+                      }
+
+                       Rectangle {
+                           id: expandable
+                           anchors.fill: parent
+                           color: "transparent"
+                           height: styleMusic.common.expandHeight
+                           visible: false
+                           Rectangle {
+                               id: editColumn
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.left: parent.left
+                               anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                               Rectangle {
+                                   color: "transparent"
+                                   height: styleMusic.common.expandedItem
+                                   width: units.gu(15)
+                                   Icon {
+                                       id: editPlaylist
+                                       name: "edit"
+                                       height: styleMusic.common.expandedItem
+                                       width: styleMusic.common.expandedItem
+                                   }
+                                   Label {
+                                       text: i18n.tr("Edit")
+                                       fontSize: "small"
+                                       anchors.left: editPlaylist.right
+                                       anchors.leftMargin: units.gu(0.5)
+                                   }
+                                   MouseArea {
+                                      anchors.fill: parent
+                                      onClicked: {
+                                          expandable.visible = false
+                                          playlist.height = styleMusic.playlist.playlistItemHeight
+                                          customdebug("Edit playlist")
+                                          oldPlaylistName = name
+                                          oldPlaylistID = id
+                                          oldPlaylistIndex = index
+                                          PopupUtils.open(editPlaylistDialog, mainView)
+                                    }
+                                  }
+                                }
+                           }
+
+                           Rectangle {
+                               id: deleteColumn
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.horizontalCenter: parent.horizontalCenter
+                               Rectangle {
+                                   color: "transparent"
+                                   height: styleMusic.common.expandedItem
+                                   width: units.gu(15)
+                                   Icon {
+                                       id: deletePlaylist
+                                       name: "delete"
+                                       height: styleMusic.common.expandedItem
+                                       width: styleMusic.common.expandedItem
+                                   }
+                                   Label {
+                                       text: i18n.tr("Delete")
+                                       fontSize: "small"
+                                       anchors.left: deletePlaylist.right
+                                       anchors.leftMargin: units.gu(0.5)
+                                   }
+                                   MouseArea {
+                                      anchors.fill: parent
+                                      onClicked: {
+                                          expandable.visible = false
+                                          playlist.height = styleMusic.playlist.playlistItemHeight
+                                          customdebug("Delete")
+                                          oldPlaylistName = name
+                                          oldPlaylistID = id
+                                          oldPlaylistIndex = index
+                                          PopupUtils.open(removePlaylistDialog, mainView)
+                                    }
+                                  }
+                                }
+                            }
+                           // share
+                           Rectangle {
+                               id: shareColumn
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.left: deleteColumn.right
+                               anchors.leftMargin: units.gu(2)
+                               anchors.right: parent.right
+                               visible: false
+                               Rectangle {
+                                   color: "transparent"
+                                   height: styleMusic.common.expandedItem
+                                   width: units.gu(15)
+                                   Icon {
+                                       id: sharePlaylist
+                                       name: "share"
+                                       height: styleMusic.common.expandedItem
+                                       width: styleMusic.common.expandedItem
+                                   }
+                                   Label {
+                                       text: i18n.tr("Share")
+                                       fontSize: "small"
+                                       anchors.left: sharePlaylist.right
+                                       anchors.leftMargin: units.gu(0.5)
+                                   }
+                                   MouseArea {
+                                      anchors.fill: parent
+                                      onClicked: {
+                                          expandable.visible = false
+                                          playlist.height = styleMusic.playlist.playlistItemHeight
+                                          customdebug("Share")
+                                          inPlaylist = true
+                                    }
+                                  }
+                                }
+                            }
+                       }
 
                     onClicked: {
                         customdebug("Playlist chosen: " + name)
+                        expandable.visible = false
+                        playlist.height = styleMusic.playlist.playlistItemHeight
                         playlisttracksModel.filterPlaylistTracks(name)
                         playlistlist.playlistName = name
                         pageStack.push(playlistpage) // show the chosen playlists content
                         playlistpage.title = name + " " + "("+ count +")" // change name of the tab
+                        // for removal or edit in playlist
+                        oldPlaylistName = name
+                        oldPlaylistID = id
+                        oldPlaylistIndex = index
+                        expandable.visible = false
+                        playlistInfo.count = playlist.count
+                        playlistInfo.cover0 = playlist.cover0
+                        playlistInfo.cover1 = playlist.cover1
+                        playlistInfo.cover2 = playlist.cover2
+                        playlistInfo.cover3 = playlist.cover3
                     }
                 }
             }
@@ -304,6 +429,7 @@ PageStack {
         id: playlistpage
         title: i18n.tr("Playlist")
         tools: null
+        visible: false
 
         onVisibleChanged: {
             if (visible === true)
@@ -312,64 +438,71 @@ PageStack {
             }
         }
 
-        Component.onCompleted: {
-            onPlayingTrackChange.connect(updateHighlightPlaylist)
-        }
-
-        function updateHighlightPlaylist(file)
-        {
-            console.debug("MusicPlaylist update highlight:", file)
-            playlistlist.currentIndex = playlisttracksModel.indexOf(file)
-        }
-
         // playlist name and info
         Rectangle {
             id: playlistInfo
             anchors.top: parent.top
             width: parent.width
-            height: units.gu(12)
+            height: styleMusic.playlist.infoHeight
             color: styleMusic.playerControls.backgroundColor
             //opacity: 0.7
 
+            property int count: 0
+            property string cover0: ""
+            property string cover1: ""
+            property string cover2: ""
+            property string cover3: ""
+
             UbuntuShape {
-               id: cover0
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(4)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(1)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               color: get_random_color()
+                id: cover0
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(5)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 3
+                image: Image {
+                    source: playlistInfo.cover3 !== "" ? playlistInfo.cover3 : Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover1
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(3)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(1)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               color: get_random_color()
+                id: cover1
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(4)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 2
+                image: Image {
+                    source: playlistInfo.cover2 !== "" ? playlistInfo.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover2
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(2)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(1)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               color: get_random_color()
+                id: cover2
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(3)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                visible: playlistInfo.count > 1
+                image: Image {
+                    source: playlistInfo.cover1 !== "" ? playlistInfo.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
             UbuntuShape {
-               id: cover3
-               anchors.left: parent.left
-               anchors.leftMargin: units.gu(1)
-               anchors.top: parent.top
-               anchors.topMargin: units.gu(1)
-               width: styleMusic.common.albumSize
-               height: styleMusic.common.albumSize
-               color: get_random_color()
+                id: cover3
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(2)
+                width: styleMusic.common.albumSize
+                height: styleMusic.common.albumSize
+                image: Image {
+                    source: playlistInfo.cover0 !== "" ? playlistInfo.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                }
             }
 
             Label {
@@ -378,31 +511,186 @@ PageStack {
                 color: styleMusic.common.white
                 fontSize: "large"
                 anchors.left: parent.left
-                anchors.leftMargin: units.gu(15)
+                anchors.leftMargin: units.gu(16)
                 anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
+                anchors.topMargin: units.gu(2.5)
             }
 
             Label {
                 id: playlistInfoCount
-                text: playlistslist.count + i18n.tr(" songs")
+                text: playlistlist.count + i18n.tr(" songs")
                 color: styleMusic.common.white
                 fontSize: "medium"
                 anchors.left: parent.left
-                anchors.leftMargin: units.gu(15)
+                anchors.leftMargin: units.gu(16)
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(5)
+            }
+
+            //Icon { use for 1.0
+            Image {
+                id: expandInfoItem
+                anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
+                anchors.top: parent.top
+                anchors.topMargin: units.gu(4)
+                //name: "dropdown-menu" use for 1.0
+                source: "images/dropdown-menu.svg"
+                height: styleMusic.common.expandedItem
+                width: styleMusic.common.expandedItem
+            }
+
+            MouseArea {
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.top: parent.top
+                width: styleMusic.common.expandedItem * 3
+                onClicked: {
+                   if(expandableInfo.visible) {
+                       customdebug("clicked collapse")
+                       expandableInfo.visible = false
+                       playlistInfo.height = styleMusic.playlist.infoHeight
+
+                   }
+                   else {
+                       customdebug("clicked expand")
+                       expandableInfo.visible = true
+                       playlistInfo.height = styleMusic.playlist.expandedHeight
+                   }
+               }
+           }
+
+            Rectangle {
+                id: expandableInfo
+                anchors.fill: parent
+                color: "transparent"
+                height: styleMusic.common.expandHeight
+                visible: false
+                Rectangle {
+                    id: editColumn
+                    anchors.top: parent.top
+                    anchors.topMargin: styleMusic.common.expandedTopMargin
+                    anchors.left: parent.left
+                    anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                    color: "transparent"
+                    Rectangle {
+                        id: editRow
+                        color: "transparent"
+                        height: styleMusic.common.expandedItem
+                        width: units.gu(15)
+                        Icon {
+                            id: editPlaylist
+                            name: "edit"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+                        }
+                        Label {
+                            text: i18n.tr("Edit")
+                            fontSize: "small"
+                            wrapMode: Text.WordWrap
+                            anchors.left: editPlaylist.right
+                            anchors.leftMargin: units.gu(0.5)
+                        }
+                        MouseArea {
+                           anchors.fill: parent
+                           onClicked: {
+                               expandableInfo.visible = false
+                               playlistInfo.height = styleMusic.playlist.infoHeight
+                               customdebug("Edit playlist")
+                               inPlaylist = true
+                               PopupUtils.open(editPlaylistDialog, mainView)
+                         }
+                       }
+                    }
+                }
+
+                Rectangle {
+                    id: deleteColumn
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: styleMusic.common.expandedTopMargin
+                    color: "transparent"
+                    Rectangle {
+                        id: deleteRow
+                        color: "transparent"
+                        height: styleMusic.common.expandedItem
+                        width: units.gu(15)
+                        Icon {
+                            id: deletePlaylist
+                            name: "delete"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+                        }
+                        Label {
+                            text: i18n.tr("Delete")
+                            fontSize: "small"
+                            anchors.left: deletePlaylist.right
+                            anchors.leftMargin: units.gu(0.5)
+                        }
+                        MouseArea {
+                           anchors.fill: parent
+                           onClicked: {
+                               expandableInfo.visible = false
+                               playlistInfo.height = styleMusic.playlist.infoHeight
+                               customdebug("Delete")
+                               inPlaylist = true
+                               PopupUtils.open(removePlaylistDialog, mainView)
+                         }
+                       }
+                    }
+                 }
+                // share
+                Rectangle {
+                    id: shareColumn
+                    anchors.top: parent.top
+                    anchors.topMargin: styleMusic.common.expandedTopMargin
+                    anchors.left: deleteColumn.right
+                    anchors.leftMargin: units.gu(2)
+                    anchors.right: parent.right
+                    color: "transparent"
+                    visible: false
+                    Rectangle {
+                        id: shareRow
+                        color: "transparent"
+                        height: styleMusic.common.expandedItem
+                        width: units.gu(15)
+                        Icon {
+                            id: sharePlaylist
+                            name: "share"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+                        }
+                        Label {
+                            text: i18n.tr("Share")
+                            fontSize: "small"
+                            anchors.left: sharePlaylist.right
+                            anchors.leftMargin: units.gu(0.5)
+                        }
+                        MouseArea {
+                           anchors.fill: parent
+                           onClicked: {
+                               expandableInfo.visible = false
+                               playlistInfo.height = styleMusic.playlist.infoHeight
+                               customdebug("Share")
+                               inPlaylist = true
+                         }
+                       }
+                    }
+                 }
             }
         }
 
         ListView {
             id: playlistlist
-            anchors.fill: parent
+            anchors.bottom: parent.bottom
+            anchors.top: playlistInfo.bottom
+            width: parent.width
             anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             highlightFollowsCurrentItem: false
             model: playlisttracksModel.model
             delegate: playlisttrackDelegate
             state: "normal"
+            z: -1
             states: [
                 State {
                     name: "normal"
@@ -428,7 +716,7 @@ PageStack {
                 console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
-            property int normalHeight: units.gu(6.5)
+            property int normalHeight: styleMusic.common.itemHeight
             property string playlistName: ""
             property int transitionDuration: 250
 
@@ -436,7 +724,13 @@ PageStack {
                 id: playlisttrackDelegate
                 ListItem.Standard {
                     id: playlistTracks
-                    height: units.gu(12)
+                    property string artist: model.artist
+                    property string album: model.album
+                    property string title: model.title
+                    property string cover: model.cover
+                    property string length: model.length
+                    property string file: model.file
+                    height: playlistlist.normalHeight
 
                     SwipeDelete {
                         id: swipeBackground
@@ -451,6 +745,7 @@ PageStack {
                                 Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
 
                                 playlistlist.model.remove(index);
+                                playlistModel.get(oldPlaylistIndex).count -= 1;
                                 queueChanged = true;
                             }
                         }
@@ -654,7 +949,7 @@ PageStack {
                     Rectangle {
                         id: trackContainer;
                         anchors.fill: parent
-                        anchors.margins: units.gu(0.5)
+                        anchors.margins: units.gu(1)
                         color: "transparent"
 
                         NumberAnimation {
@@ -674,17 +969,15 @@ PageStack {
                         }
 
                         UbuntuShape {
-                            id: trackImage
+                            id: trackCover
                             anchors.left: parent.left
-                            anchors.leftMargin: units.gu(0.5)
+                            anchors.leftMargin: units.gu(1)
                             anchors.top: parent.top
                             anchors.verticalCenter: parent.verticalCenter
                             width: styleMusic.common.albumSize
                             height: styleMusic.common.albumSize
                             image: Image {
                                 source: cover !== "" ? cover :  Qt.resolvedUrl("images/cover_default_icon.png")
-                                width: styleMusic.common.albumSize
-                                height: styleMusic.common.albumSize
                             }
                             UbuntuShape {  // Background so can see text in current state
                                 id: trackBg
@@ -697,36 +990,95 @@ PageStack {
                         }
 
                         Label {
-                            id: trackTitle
+                            id: trackArtist
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "x-small"
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
                             anchors.top: parent.top
-                            anchors.topMargin: units.gu(0.5)
-                            elide: Text.ElideRight
-                            height: units.gu(1)
-                            text: title == "" ? file : title
-                            width: parent.width - x
-                            x: trackImage.x + trackImage.width + units.gu(1)
+                            anchors.topMargin: units.gu(1)
+                            text: playlistTracks.artist == "" ? "" : playlistTracks.artist
                         }
                         Label {
-                            id: trackArtistAlbum
-                            anchors.top: trackTitle.bottom
+                            id: trackTitle
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 1
+                            fontSize: "small"
+                            color: styleMusic.common.music
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
+                            anchors.top: trackArtist.bottom
                             anchors.topMargin: units.gu(1)
-                            elide: Text.ElideRight
-                            text: artist == "" ? "" : artist + " - " + album
-                            width: parent.width - x
-                            x: trackImage.x + trackImage.width + units.gu(1)
+                            text: playlistTracks.title == "" ? playlistTracks.file : playlistTracks.title
                         }
-                        Rectangle {
-                            id: highlight
-                            anchors.left: parent.left
+                        Label {
+                            id: trackAlbum
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "xx-small"
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(11)
+                            anchors.top: trackTitle.bottom
+                            anchors.topMargin: units.gu(2)
+                            text: playlistTracks.album
+                        }
+                        Label {
+                            id: trackDuration
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "small"
+                            color: styleMusic.common.music
+                            anchors.left: trackCover.left
+                            anchors.leftMargin: units.gu(12)
+                            anchors.top: trackAlbum.bottom
                             visible: false
-                            width: units.gu(.75)
-                            height: parent.height
-                            color: styleMusic.listView.highlightColor;
+                            text: ""
                         }
                         states: State {
                             name: "Current"
                             when: playlistTracks.ListView.isCurrentItem
-                            PropertyChanges { target: highlight; visible: true }
+                        }
+                        Image {
+                            visible: false // activate when cover art stops expanding togehter with the row
+                            id: expandItem
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(2)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(4)
+                            source: "images/select.png"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: {
+                                   if(expandable.visible) {
+                                       customdebug("clicked collapse")
+                                       expandable.visible = false
+                                       playlistTracks.height = styleMusic.common.itemHeight
+
+                                   }
+                                   else {
+                                       customdebug("clicked expand")
+                                       expandable.visible = true
+                                       playlistTracks.height = styleMusic.common.expandedHeight
+                                   }
+                               }
+                           }
+                        }
+
+                        Rectangle {
+                            id: expandable
+                            visible: false
+                            width: parent.fill
+                            height: styleMusic.common.expandHeight
+                            MouseArea {
+                               anchors.fill: parent
+                               onClicked: {
+                                   customdebug("User pressed outside the playlist item and expanded items.")
+                             }
+                           }
                         }
                     }
                 }

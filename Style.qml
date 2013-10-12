@@ -33,8 +33,15 @@ QtObject {
     property QtObject common: QtObject {
         property color black: "#000000";
         property color white: "#FFFFFF";
-        property int albumSize: units.gu(10)
-        property int itemHeight: units.gu(12)
+        property color music: "#333333";
+        property color expandedColor: "#000000";
+        property int albumSize: units.gu(10);
+        property int itemHeight: units.gu(12);
+        property int expandedHeight: units.gu(20);
+        property int expandHeight: units.gu(10);
+        property int expandedItem: units.gu(2);
+        property int expandedTopMargin: units.gu(14.5);
+        property int expandedLeftMargin: units.gu(5);
     }
 
     property QtObject dialog: QtObject {
@@ -68,6 +75,8 @@ QtObject {
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
+        property int expandedTopMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(5);
     }
 
     property QtObject playerControls: QtObject {
@@ -81,11 +90,39 @@ QtObject {
         property color labelColor: UbuntuColors.coolGrey;
     }
 
+    property QtObject playlists: QtObject {
+        property int expandedHeight: units.gu(15);
+    }
+
+    property QtObject playlist: QtObject {
+        property int infoHeight: units.gu(14);
+        property int expandedHeight: units.gu(18.5);
+        property int expandedTopMargin: units.gu(11);
+        property int playlistItemHeight: units.gu(10);
+        property int playlistAlbumSize: units.gu(8);
+    }
+
     property QtObject toolbar: QtObject {
         property color fullBackgroundColor: "#212121";
         property color fullInnerPlayCircleColor: "#0d0d0d";
         property color fullOuterPlayCircleColor: "#363636";
         property color fullProgressBackgroundColor: "#252525";
         property color fullProgressTroughColor: UbuntuColors.orange;
+    }
+
+    property QtObject albums: QtObject {
+        property int itemHeight: units.gu(4);
+        property int expandHeight: units.gu(5);
+        property int expandedHeight: units.gu(9);
+        property int expandedTopMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(5);
+    }
+
+    property QtObject artists: QtObject {
+        property int itemHeight: units.gu(12.5);
+        property int expandHeight: units.gu(5);
+        property int expandedHeight: units.gu(17.5);
+        property int expandedTopMargin: units.gu(13.5);
+        property int expandedLeftMargin: units.gu(5);
     }
 }
