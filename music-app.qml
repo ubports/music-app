@@ -183,7 +183,9 @@ MainView {
             // initialize settings
             console.debug("reset settings")
             Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-            //Settings.setSetting("scrobble", "0") // default state of shuffle
+            Settings.setSetting("snaptrack", "1") // default state of snaptrack
+            Settings.setSetting("shuffle", "0") // default state of shuffle
+            Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
         Library.reset()
