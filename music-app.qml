@@ -295,17 +295,23 @@ MainView {
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex += direction
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === 1) {
+            } else if(direction === 1 && Settings.getSetting("repeat") === "1") {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = 0
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === -1) {
+            } else if(direction === -1 && Settings.getSetting("repeat") === "1") {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = trackQueue.model.count - 1
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             }
+            else
+            {
+                player.stop()
+                return;
+            }
+
             console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         }
         player.stop()  // Add stop so that if same song is selected it restarts

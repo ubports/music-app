@@ -526,6 +526,8 @@ Rectangle {
                     onClicked: {
                         // Invert shuffle settings
                         Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+
                         mainView.random = Settings.getSetting("shuffle") === "1"
                         shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
                     }
@@ -681,6 +683,7 @@ Rectangle {
                     onClicked: {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
                         repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
                     }
                 }
