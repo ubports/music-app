@@ -184,6 +184,8 @@ Page {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1.5)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: mainpage.artist
                     }
                     Label {
@@ -197,6 +199,8 @@ Page {
                         anchors.top: albumArtist.bottom
                         anchors.topMargin: units.gu(0.8)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: mainpage.album
                     }
                     Label {
@@ -209,6 +213,8 @@ Page {
                         anchors.top: albumLabel.bottom
                         anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: mainpage.year + " | " + albumTracksModel.model.count + i18n.tr(" songs")
                     }
                 }
@@ -253,6 +259,9 @@ Page {
                             anchors.topMargin: units.gu(1)
                             anchors.bottom: parent.bottom
                             anchors.bottomMargin: units.gu(1)
+                            anchors.right: expandItem.left
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
                             text: model.title == "" ? model.file : model.title
                         }
 

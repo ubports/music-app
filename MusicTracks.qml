@@ -96,6 +96,9 @@ PageStack {
                         anchors.leftMargin: units.gu(11)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(1.5)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: artist == "" ? "" : artist
                     }
                     Label {
@@ -108,6 +111,9 @@ PageStack {
                         anchors.leftMargin: units.gu(11)
                         anchors.top: trackArtist.bottom
                         anchors.topMargin: units.gu(1)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: track.title == "" ? track.file : track.title
                     }
                     Label {
@@ -119,6 +125,9 @@ PageStack {
                         anchors.leftMargin: units.gu(11)
                         anchors.top: trackTitle.bottom
                         anchors.topMargin: units.gu(2)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: album
                     }
                     Label {
@@ -130,6 +139,9 @@ PageStack {
                         anchors.left: trackCover.left
                         anchors.leftMargin: units.gu(12)
                         anchors.top: trackAlbum.bottom
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         visible: false
                         text: ""
                     }

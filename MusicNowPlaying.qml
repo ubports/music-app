@@ -467,7 +467,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -477,7 +477,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Icon {
@@ -520,14 +520,19 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
+                    PropertyChanges {
+                        target: expandItem
+
+                    }
+
                     PropertyChanges {
                         target: trackBg
                         opacity: 0.75
