@@ -558,7 +558,7 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         color: styleMusic.nowPlaying.foregroundColor
-        height: units.gu(3)
+        height: units.gu(3.1)
 
         state: musicToolbar.opened ? "shown" : "hidden"
         states: [
@@ -602,6 +602,16 @@ Page {
             onClicked: {
                 musicToolbar.goBack();
             }
+        }
+
+        /* Border at the bottom */
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            color: styleMusic.common.white
+            height: units.gu(0.1)
+            opacity: 0.1
         }
     }
 }
