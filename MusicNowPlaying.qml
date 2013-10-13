@@ -499,20 +499,20 @@ Page {
                     }
                     Image {
                         id: expandItem
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(2)
                         source: "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
+                        x: parent.x + parent.width - width - units.gu(2)
                     }
 
                     MouseArea {
-                        anchors.bottom: parent.bottom
-                        anchors.right: parent.right
+                        id: expandItemMouseArea
                         anchors.top: parent.top
+                        height: queuelist.normalHeight
                         width: styleMusic.common.expandedItem * 3
+                        x: parent.x + parent.width - width
 
                         onClicked: {
                            if(expandable.visible) {
@@ -667,6 +667,14 @@ Page {
                     PropertyChanges {
                         target: trackBg
                         opacity: 0.75
+                    }
+                    PropertyChanges {
+                        target: expandItem
+                        x: trackImage.x + trackImage.width - expandItem.width - units.gu(2)
+                    }
+                    PropertyChanges {
+                        target: expandItemMouseArea
+                        x: trackImage.x + trackImage.width - expandItemMouseArea.width
                     }
                 }
                 transitions: Transition {
