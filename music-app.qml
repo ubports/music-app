@@ -238,6 +238,7 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
+    signal collapseExpand(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
