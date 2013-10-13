@@ -299,7 +299,8 @@ Rectangle {
                 visible: trackQueue.isEmpty === false
 
                 /* Settings button */
-                Rectangle {
+                // TODO: Enable settings when it is practical
+                /* Rectangle {
                     id: playerControlsSettings
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -325,12 +326,12 @@ Rectangle {
                                             } )
                         }
                     }
-                }
+                } */
 
                 /* Play/Pause button TODO: image and colours needs updating */
                 Rectangle {
                     id: playerControlsPlayButton
-                    anchors.right: playerControlsSettings.left
+                    anchors.right: parent.right
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     antialiasing: true
