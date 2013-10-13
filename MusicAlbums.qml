@@ -145,10 +145,6 @@ Page {
             contentsHeight: parent.height
             contentsWidth: parent.width
 
-            // Blurred background
-            BlurredBackground {
-            }
-
             ListView {
                 clip: true
                 id: albumtrackslist
