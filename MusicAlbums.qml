@@ -55,6 +55,8 @@ Page {
         id: albumlist
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors.leftMargin: units.gu(1)
+        anchors.topMargin: units.gu(1)
         cellHeight: units.gu(14)
         cellWidth: units.gu(14)
         model: albumModel.model
