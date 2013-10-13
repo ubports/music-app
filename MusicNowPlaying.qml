@@ -514,24 +514,6 @@ Page {
                         anchors.top: parent.top
                         width: styleMusic.common.expandedItem * 3
 
-                        Component.onCompleted: {
-                            collapseExpand.connect(onCollapseExpand);
-                        }
-
-                        function onCollapseExpand(indexCol)
-                        {
-                            if ((indexCol === index || indexCol === -1) && expandable.visible === true)
-                            {
-                                customdebug("auto collapse")
-                                expandable.visible = false
-                                queueListItem.height = queueListItem.cachedHeight
-                                Rotation: {
-                                    source: expandItem;
-                                    angle: 0;
-                                }
-                            }
-                        }
-
                         onClicked: {
                            if(expandable.visible) {
                                customdebug("clicked collapse");
@@ -569,6 +551,25 @@ Page {
                            customdebug("User pressed outside the playlist item and expanded items.")
                        }
                     }
+
+                    Component.onCompleted: {
+                        collapseExpand.connect(onCollapseExpand);
+                    }
+
+                    function onCollapseExpand(indexCol)
+                    {
+                        if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                        {
+                            customdebug("auto collapse")
+                            expandable.visible = false
+                            queueListItem.height = queueListItem.cachedHeight
+                            Rotation: {
+                                source: expandItem;
+                                angle: 0;
+                            }
+                        }
+                    }
+
                     // add to playlist
                     Rectangle {
                         id: playlistRow
