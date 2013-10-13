@@ -834,7 +834,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
-                color: "#000"
+                color: styleMusic.common.black
                 height: units.gu(0.2)
                 opacity: 0.1
             }
