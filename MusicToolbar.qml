@@ -299,11 +299,13 @@ Rectangle {
                 visible: trackQueue.isEmpty === false
 
                 /* Settings button */
-                UbuntuShape {
+                Rectangle {
                     id: playerControlsSettings
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     width: units.gu(6)
+                    height: width
+                    color: "transparent"
 
                     Image {
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -332,34 +334,82 @@ Rectangle {
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     antialiasing: true
-                    color: "#222"
-                    height: units.gu(6)
+                    color: "#444"
+                    height: units.gu(7)
                     radius: height / 2
                     width: height
 
+                    // draws the outer shadow/highlight
                     Rectangle {
-                        id: playerControlsPlayInnerCircle
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
+                        id: sourceOutter
+                        anchors { fill: parent; margins: -units.gu(0.1) }
+                        radius: (width / 2)
                         antialiasing: true
-                        color: "#444"
-                        height: units.gu(3.5)
-                        radius: height / 2
-                        width: height
-                        UbuntuShape {
-                            anchors.fill: parent
-                            objectName: "playshape"  // objectName doesn't work on Rectangle?
-                            image: Image {
-                                id: playindicator
-                                anchors.fill: parent
-                                opacity: .7
-                                source: player.playbackState === MediaPlayer.PlayingState ?
-                                          "images/pause.png" : "images/play.png"
-                            }
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: "black" }
+                            GradientStop { position: 0.5; color: "transparent" }
+                            GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
                         }
 
+                        Rectangle {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            antialiasing: true
+                            color: "#444"
+                            height: playerControlsPlayButton.height - units.gu(.1)
+                            radius: height / 2
+                            width: height
+
+                            Rectangle {
+                                id: playerControlsPlayInnerCircle
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                antialiasing: true
+                                height: units.gu(4.5)
+                                radius: height / 2
+                                width: height
+                                color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                // draws the inner shadow/highlight
+                                Rectangle {
+                                    id: sourceInner
+                                    anchors { fill: parent; margins: -units.gu(0.1) }
+                                    radius: (width / 2)
+                                    antialiasing: true
+                                    gradient: Gradient {
+                                        GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
+                                        GradientStop { position: 0.5; color: "transparent" }
+                                        GradientStop { position: 1.0; color: "black" }
+                                    }
+
+                                    Rectangle {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        antialiasing: true
+                                        height: playerControlsPlayInnerCircle.height - units.gu(.1)
+                                        radius: height / 2
+                                        width: height
+                                        color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                        Image {
+                                            id: playindicator
+                                            height: units.gu(4)
+                                            width: height
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            opacity: 1
+                                            source: player.playbackState === MediaPlayer.PlayingState ?
+                                                      "images/pause.png" : "images/play.png"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+
                     MouseArea {
+                        objectName: "playshape"  // objectName doesn't work on Rectangle?
+
                         anchors.fill: parent
 
                         function inCircle(x, y) {
@@ -542,12 +592,16 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
+                color: "#000000"
 
-                image: Image {
+                Image {
                     id: nowPlayingPreviousIndicator
-                    anchors.fill: parent
+                    height: units.gu(3)
+                    width: height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "images/back.png"
-                    opacity: .7
+                    opacity: 1
                 }
 
                 MouseArea {
@@ -571,58 +625,102 @@ Rectangle {
                 radius: height / 2
                 width: height
 
+                // draws the outter shadow/highlight
                 Rectangle {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    id: sourceOutterFull
+                    anchors { fill: parent; margins: -units.gu(0.1) }
+                    radius: (width / 2)
                     antialiasing: true
-                    color: styleMusic.toolbar.fullInnerPlayCircleColor
-                    height: units.gu(8)
-                    radius: height / 2
-                    width: height
-
-                    UbuntuShape {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: units.gu(6)
-                        width: height
-                        image: Image {
-                            id: nowPlayingPlayIndicator
-                            opacity: .7
-                            source: player.playbackState === MediaPlayer.PlayingState ?
-                                      "images/pause.png" : "images/play.png"
-                            width: height
-                        }
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "black" }
+                        GradientStop { position: 0.5; color: "transparent" }
+                        GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
                     }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        id: nowPlayingPlayMouseArea
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        antialiasing: true
+                        color: styleMusic.toolbar.fullOuterPlayCircleColor
+                        height: nowPlayingPlayButton.height - units.gu(.1)
+                        radius: height / 2
+                        width: height
 
-                        function inCircle(x, y) {
-                            /*
-                              Function that returns true if the mouse is inside the circle
-                                Length = root((y2-y1)^2 + (x2-x1)^2)
-                             */
-                            x = Math.pow(x - (width / 2), 2);
-                            y = Math.pow(y - (height / 2), 2);
+                        Rectangle {
+                            id: nowPlayingPlayButtonInner
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
+                            antialiasing: true
+                            color: styleMusic.toolbar.fullInnerPlayCircleColor
+                            height: units.gu(8)
+                            radius: height / 2
+                            width: height
 
-                            return Math.pow((x + y), 0.5) <= parent.radius;
-                        }
+                            // draws the inner shadow/highlight
+                            Rectangle {
+                                id: sourceInnerFull
+                                anchors { fill: parent; margins: -units.gu(0.1) }
+                                radius: (width / 2)
+                                antialiasing: true
+                                gradient: Gradient {
+                                    GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
+                                    GradientStop { position: 0.5; color: "transparent" }
+                                    GradientStop { position: 1.0; color: "black" }
+                                }
 
-                        onClicked:
-                        {
-                            if (!inCircle(mouse.x, mouse.y))
-                            {
-                                return;
-                            }
+                                Rectangle {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    antialiasing: true
+                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
+                                    height: nowPlayingPlayButtonInner.height - units.gu(.1)
+                                    radius: height / 2
+                                    width: height
 
-                            if (player.playbackState === MediaPlayer.PlayingState)
-                            {
-                                player.pause()
-                            }
-                            else
-                            {
-                                player.play()
+                                    Image {
+                                        id: nowPlayingPlayIndicator
+                                        height: units.gu(5)
+                                        width: height
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        opacity: 1
+                                        source: player.playbackState === MediaPlayer.PlayingState ?
+                                                  "images/pause.png" : "images/play.png"
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        id: nowPlayingPlayMouseArea
+
+                                        function inCircle(x, y) {
+                                            /*
+                                              Function that returns true if the mouse is inside the circle
+                                                Length = root((y2-y1)^2 + (x2-x1)^2)
+                                             */
+                                            x = Math.pow(x - (width / 2), 2);
+                                            y = Math.pow(y - (height / 2), 2);
+
+                                            return Math.pow((x + y), 0.5) <= parent.radius;
+                                        }
+
+                                        onClicked:
+                                        {
+                                            if (!inCircle(mouse.x, mouse.y))
+                                            {
+                                                return;
+                                            }
+
+                                            if (player.playbackState === MediaPlayer.PlayingState)
+                                            {
+                                                player.pause()
+                                            }
+                                            else
+                                            {
+                                                player.play()
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -638,12 +736,16 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "forwardshape"
                 width: height
+                color: "#000000"
 
-                image: Image {
+                Image {
                     id: nowPlayingNextIndicator
-                    anchors.fill: parent
+                    height: units.gu(3)
+                    width: height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     source: "images/forward.png"
-                    opacity: .7
+                    opacity: 1
                 }
 
                 MouseArea {
