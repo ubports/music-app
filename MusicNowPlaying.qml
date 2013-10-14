@@ -107,6 +107,15 @@ Page {
             }
         ]
 
+        property bool scrollLock: false
+
+        onContentYChanged: {
+            if (!scrollLock)
+            {
+                musicToolbar.hideToolbar();
+            }
+        }
+
         property int currentHeight: units.gu(40)
         property int normalHeight: units.gu(6.5)
         property int transitionDuration: 250  // transition length of animations
@@ -547,10 +556,20 @@ Page {
                     }
 
                     onRunningChanged: {
+                        if (running)
+                        {
+                            queuelist.scrollLock = true;
+                        }
+
                         if (running === false && ensureVisibleIndex != -1)
                         {
                             queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Visible);
                             ensureVisibleIndex = -1;
+                        }
+
+                        if (!running)
+                        {
+                            queuelist.scrollLock = false;
                         }
                     }
                 }
@@ -606,6 +625,7 @@ Page {
 
             onClicked: {
                 musicToolbar.goBack();
+                musicToolbar.hideToolbar();
             }
         }
 
