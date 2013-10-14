@@ -21,6 +21,7 @@ import QtMultimedia 5.0
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import "common"
 import "meta-database.js" as Library
@@ -37,11 +38,13 @@ Page {
         {
             header.hide();
             header.visible = false;
+            header.opacity = 0;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
         }
         else
         {
             header.visible = true;
+            header.opacity = 1;
             header.show();
         }
     }
@@ -464,7 +467,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -474,9 +477,40 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
+                    Icon {
+                        id: expandItem
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(2)
+                        name: "add"
+                        height: styleMusic.common.expandedItem
+                        width: styleMusic.common.expandedItem
+                    }
+
+                    MouseArea {
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        width: styleMusic.common.expandedItem * 3
+                        onClicked: {
+                           chosenArtist = artist
+                           chosenTitle = title
+                           chosenTrack = file
+                           chosenAlbum = album
+                           chosenCover = cover
+                           chosenGenre = genre
+                           chosenIndex = index
+                           customdebug("Add track to playlist")
+                           PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                           {
+                               title: i18n.tr("Select playlist")
+                           } )
+                       }
+                   }
                 }
                 states: State {
                     name: "current"
@@ -486,14 +520,19 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
+                    PropertyChanges {
+                        target: expandItem
+
+                    }
+
                     PropertyChanges {
                         target: trackBg
                         opacity: 0.75
@@ -523,14 +562,43 @@ Page {
         id: nowPlayingBackButton
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: parent.top
         color: styleMusic.nowPlaying.foregroundColor
-        height: units.gu(3)
+        height: units.gu(3.1)
 
-        Label {
+        state: musicToolbar.opened ? "shown" : "hidden"
+        states: [
+            State {
+                name: "shown"
+                PropertyChanges {
+                    target: nowPlayingBackButton
+                    y: 0
+                }
+            },
+            State {
+                name: "hidden"
+                PropertyChanges {
+                    target: nowPlayingBackButton
+                    y: -height
+                }
+            }
+        ]
+
+        transitions: Transition {
+             from: "hidden,shown"
+             to: "shown,hidden"
+             NumberAnimation {
+                 duration: 100
+                 properties: "y"
+             }
+         }
+
+        Image {
+            id: expandItem
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            text: i18n.tr("Back")
+            source: "images/dropdown-menu.svg"
+            height: units.gu(2)
+            width: height
         }
 
         MouseArea {
@@ -539,6 +607,16 @@ Page {
             onClicked: {
                 musicToolbar.goBack();
             }
+        }
+
+        /* Border at the bottom */
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            color: styleMusic.common.white
+            height: units.gu(0.1)
+            opacity: 0.1
         }
     }
 }

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-10-01 14:36+0000\n"
+"PO-Revision-Date: 2013-10-12 18:36+0000\n"
 "Last-Translator: Zonov Roman <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-02 05:40+0000\n"
-"X-Generator: Launchpad (build 16774)\n"
+"X-Launchpad-Export-Date: 2013-10-13 05:40+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: ../LoginLastFM.qml:38
 msgid "LastFM"
@@ -150,7 +150,7 @@ msgstr "Электроника"
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr ""
+msgstr "В квартире"
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
@@ -181,6 +181,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Остановиться на текущей песне \n"
+"когда открывается тулбар"
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"

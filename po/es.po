@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-09-28 09:30+0000\n"
-"Last-Translator: Jorge Luis Granda <costeelation@hotmail.com>\n"
+"PO-Revision-Date: 2013-10-12 07:51+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-29 05:48+0000\n"
-"X-Generator: Launchpad (build 16774)\n"
+"X-Launchpad-Export-Date: 2013-10-13 05:40+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: ../LoginLastFM.qml:38
 msgid "LastFM"
@@ -88,7 +88,7 @@ msgstr "Nueva"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr "¿Está seguro?"
+msgstr "¿Está seguro?"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
@@ -110,7 +110,7 @@ msgstr "Modificar nombre"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr "Introduzca un nuevo nombre para la lista de reproducción."
+msgstr "Escriba un nombre nuevo para la lista."
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:164
 msgid "Music Streaming"
-msgstr "Streaming de música"
+msgstr "Transmisión de música"
 
 #: ../MusicSettings.qml:173
 msgid "Ubuntu One"
@@ -210,11 +210,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:174
 msgid "Sign in to stream your cloud music"
-msgstr "Inicie sesión para hacer stream de su música en la nube"
+msgstr "Inicie sesión para transmitir en directo su música en la nube"
 
 #: ../MusicSettings.qml:187
 msgid "Stream only on Wi-Fi"
-msgstr "Stream solo con Wi-Fi"
+msgstr "Transmitir solo con wifi"
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
@@ -303,7 +303,7 @@ msgstr "Lista de reproducción nueva"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr "Nombre de su lista de reproducción."
+msgstr "Dele un nombre a la lista."
 
 #: ../music-app.qml:767
 msgid "Name"
