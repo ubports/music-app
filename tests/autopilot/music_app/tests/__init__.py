@@ -40,7 +40,7 @@ class MusicTestCase(AutopilotTestCase):
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
-    installed_location = "/usr/lib/python2.7/dist-packages/music_app/"
+    installed_location = "/usr/share/music-app/music-app.qml"
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
