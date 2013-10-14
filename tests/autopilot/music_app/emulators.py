@@ -52,14 +52,16 @@ class MainView(toolkit_emulators.MainView):
         self.pointing_device.release()
 
     def show_toolbar(self):
-        #Ripped from emulator, this needs to be removed
-        #and replaced with the open_toolbar routine
-        x, y, _, _ = self.globalRect
-        line_x = x + self.width * 0.50
-        start_y = y + self.height - 1
-        stop_y = y + self.height - self.get_toolbar().height
+        # Get the toolbar object and create a mouse
+        toolbar = self.get_toolbar()
 
-        self.pointing_device.drag(line_x, start_y, line_x, stop_y)
+        # Move to the toolbar and get the position
+        self.pointing_device.move_to_object(toolbar)
+        x1, y1 = self.pointing_device.position()
+
+        y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
+
+        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_play_button(self):
         return self.select_single("*", objectName="playshape")
