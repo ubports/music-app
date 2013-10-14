@@ -167,8 +167,8 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
-                height: units.gu(19)
-                width: units.gu(19)
+                height: units.gu(20)
+                width: units.gu(20)
                 UbuntuShape {
                     id: genreShape
                     height: genreItem.width
