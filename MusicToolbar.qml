@@ -25,7 +25,7 @@ import "settings.js" as Settings
 
 Rectangle {
     id: musicToolbarContainer
-    color: styleMusic.playerControls.backgroundColor
+    color: "transparent"
     height: fullHeight
     state: "minimized"
     width: parent.width
@@ -232,6 +232,7 @@ Rectangle {
     /* Expanded toolbar */
     Rectangle {
         id: musicToolbarExpandedContainer
+        color: styleMusic.playerControls.backgroundColor
         anchors.left: parent.left
         anchors.top: musicToolbarSmallProgressBackground.bottom
         height: expandedHeight
@@ -541,6 +542,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         color: styleMusic.toolbar.fullBackgroundColor
+        opacity: .95
         height: fullHeight
         width: parent.width
 
@@ -554,14 +556,13 @@ Rectangle {
             width: parent.width
 
             /* Shuffle button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingShuffleButton
                 anchors.right: nowPlayingPreviousButton.left
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
                     id: shuffleIcon
@@ -570,7 +571,7 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/shuffle.png"
-                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .25
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
                 }
 
                 MouseArea {
@@ -582,13 +583,13 @@ Rectangle {
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
 
                         mainView.random = Settings.getSetting("shuffle") === "1"
-                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
                     }
                 }
             }
 
             /* Previous button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingPreviousButton
                 anchors.right: nowPlayingPlayButton.left
                 anchors.rightMargin: units.gu(1)
@@ -596,7 +597,6 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "previousshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingPreviousIndicator
@@ -733,7 +733,7 @@ Rectangle {
             }
 
             /* Next button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingNextButton
                 anchors.left: nowPlayingPlayButton.right
                 anchors.leftMargin: units.gu(1)
@@ -741,7 +741,6 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "forwardshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingNextIndicator
@@ -764,7 +763,7 @@ Rectangle {
             }
 
             /* Repeat button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingRepeatButton
                 objectName: "repeatShape"
                 anchors.left: nowPlayingNextButton.right
@@ -772,7 +771,6 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
                     id: repeatIcon
@@ -782,7 +780,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/repeat.png"
                     verticalAlignment: Text.AlignVCenter
-                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .25
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
                 }
 
                 MouseArea {
@@ -792,7 +790,7 @@ Rectangle {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
                         console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
                     }
                 }
             }

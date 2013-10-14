@@ -56,7 +56,7 @@ Page {
     Rectangle {
         anchors.fill: parent
         color: styleMusic.nowPlaying.backgroundColor
-        opacity: 0.9 // change later
+        opacity: 0.95 // change later
         MouseArea {  // Block events to lower layers
             anchors.fill: parent
         }
