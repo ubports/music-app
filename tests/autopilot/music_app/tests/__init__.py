@@ -13,6 +13,7 @@ import mock
 import os
 import os.path
 import shutil
+#import subprocess
 import logging
 
 from autopilot.input import Mouse, Touch, Pointer
@@ -41,19 +42,31 @@ class MusicTestCase(AutopilotTestCase):
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
 
+    def setup_environment(self):
+        if os.path.exists(self.local_location):
+            launch = self.launch_test_local
+            test_type = 'local'
+        elif os.path.exists(self.installed_location):
+            launch = self.launch_test_installed
+            test_type = 'deb'
+        else:
+            launch = self.launch_test_click
+            test_type = 'click'
+        return launch, test_type
+
     def setUp(self):
-        self._patch_home()
+        launch, self.test_type = self.setup_environment()
+        if self.test_type != 'click':
+            self.home_dir = self._patch_home()
+        else:
+            self.home_dir = self._save_home()
         self._create_music_library()
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
-        if os.path.exists(self.local_location):
-            self.launch_test_local()
-        elif os.path.exists(self.installed_location):
-            self.launch_test_installed()
-        else:
-            self.launch_test_click()
+        launch()
 
     def launch_test_local(self):
+        logger.debug("Running via local installation")
         self.app = self.launch_test_application(
             "qmlscene",
             self.local_location,
@@ -61,6 +74,7 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_installed(self):
+        logger.debug("Running via installed debian package")
         self.app = self.launch_test_application(
             "qmlscene",
             self.installed_location,
@@ -69,9 +83,26 @@ class MusicTestCase(AutopilotTestCase):
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_click(self):
+        logger.debug("Running via click package")
         self.app = self.launch_click_package(
             "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+
+    def _save_home(self):
+        logger.debug('Saving HOME')
+        home_dir = os.environ['HOME']
+        backup_list = ('Music', )  # '.cache/mediascanner')
+        backup_path = [os.path.join(home_dir, i) for i in backup_list]
+        backups = [(i, '%s.bak' % i) for i in backup_path if os.path.exists(i)]
+        for b in backups:
+            logger.debug('backing up %s to %s' % b)
+            try:
+                shutil.rmtree(b[1])
+            except:
+                pass
+            shutil.move(b[0], b[1])
+            #self.addCleanup(shutil.move(b[1], b[0]))
+        return home_dir
 
     def _patch_home(self):
         #make a temp dir
@@ -96,45 +127,54 @@ class MusicTestCase(AutopilotTestCase):
         patcher.start()
         logger.debug("Patched home to fake home directory " + temp_dir)
         self.addCleanup(patcher.stop)
+        return temp_dir
 
     def _create_music_library(self):
-        #use fake home
-        home = os.environ['HOME']
-        logger.debug("Home set to " + home)
-        musicpath = home + '/Music'
-        logger.debug("Music path set to " + musicpath)
-        mediascannerpath = home + '/.cache/mediascanner'
+        logger.debug("Creating music library for %s test" % self.test_type)
+        logger.debug("Home set to %s" % self.home_dir)
+        musicpath = os.path.join(self.home_dir, 'Music')
+        logger.debug("Music path set to %s" % musicpath)
+        mediascannerpath = os.path.join(self.home_dir, '.cache/mediascanner')
         os.mkdir(musicpath)
-        logger.debug("Mediascanner path set to " + mediascannerpath)
+        logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
-        #copy over the music and index
-        if os.path.exists(self.local_location):
-            shutil.copy(self.working_dir + '/music_app/content/'
-                        + '1.ogg',
-                        musicpath)
-            shutil.copy(self.working_dir + '/music_app/content/'
-                        + '2.ogg',
-                        musicpath)
-            shutil.copytree(self.working_dir +
-                            '/music_app/content/mediascanner',
+        #set content path
+        if self.test_type == 'local' or self.test_type == 'click':
+            content_dir = os.path.join(self.working_dir, 'music_app/content/')
+        else:
+            content_dir = '/usr/lib/python2.7/dist-packages/music_app/content/'
+
+        logger.debug("Content dir set to %s" % content_dir)
+
+        #stop media scanner
+        #if self.test_type == 'click':
+        #    subprocess.check_call(['stop', 'mediascanner'])
+
+        #copy content
+        shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
+        shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
+        if self.test_type != 'click':
+            shutil.copytree(os.path.join(content_dir, 'mediascanner'),
                             mediascannerpath)
 
-        else:
-            pkg_dir = '/usr/lib/python2.7/dist-packages/music_app/'
-            shutil.copy(pkg_dir + 'content/' + '1.ogg', musicpath)
-            shutil.copy(pkg_dir + 'content/' + '2.ogg', musicpath)
-            shutil.copytree(pkg_dir + 'content/mediascanner', mediascannerpath)
-
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
 
+        if self.test_type != 'click':
+            self._patch_mediascanner_home(mediascannerpath)
+            logger.debug(
+                "Mediascanner database copied, files " +
+                str(os.listdir(mediascannerpath)))
+
+        #start media scanner
+        #if self.test_type == 'click':
+        #    subprocess.check_call(['start', 'mediascanner'])
+
+    def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
         logger.debug("Patching fake mediascanner database")
-        relhome = home[1:]
+        relhome = self.home_dir[1:]
         dblocation = "home/autopilot-music-app"
         dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
         #patch mediaindex
@@ -142,14 +182,9 @@ class MusicTestCase(AutopilotTestCase):
                                 "/mediaindex", dblocation, relhome)
 
         #patch file indexes
-        self._file_find_replace(mediascannerpath + "/" +
-                                dbfoldername + "/_0.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" +
-                                dbfoldername + "/_1.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" +
-                                dbfoldername + "/_2.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" +
-                                dbfoldername + "/_3.cfs", dblocation, relhome)
+        index_template = '%s/%s/_%%s.cfs' % (mediascannerpath, dbfoldername)
+        for i in range(4):
+            self._file_find_replace(index_template % i, dblocation, relhome)
 
     def _file_find_replace(self, in_filename, find, replace):
         #replace all occurences of string find with string replace
