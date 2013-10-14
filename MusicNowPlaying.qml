@@ -98,6 +98,9 @@ Page {
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
         delegate: queueDelegate
+        footer: ListItem.Base {
+            height: nowPlaying.height - queuelist.currentHeight - nowPlayingBackButton.height
+        }
         model: trackQueue.model
         highlightFollowsCurrentItem: false
         state: "normal"
