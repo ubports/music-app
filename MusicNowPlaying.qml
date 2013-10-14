@@ -114,7 +114,7 @@ Page {
             }
         ]
 
-        property int currentHeight: units.gu(40)
+        property int currentHeight: units.gu(46)
         property int normalHeight: units.gu(6.5)
         property int transitionDuration: 250  // transition length of animations
 
@@ -446,7 +446,7 @@ Page {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1.5)
                         anchors.top: parent.top
-                        height: (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight) - units.gu(1)
+                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(6) : queuelist.normalHeight) - units.gu(1)
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
@@ -460,14 +460,6 @@ Page {
                                 anchors.horizontalCenter = undefined
                             }
                         }
-                        UbuntuShape {  // Background so can see text in current state
-                            id: trackBg
-                            anchors.top: parent.top
-                            color: styleMusic.common.black
-                            height: units.gu(6)
-                            opacity: 0
-                            width: parent.width
-                        }
                         Behavior on height {
                             NumberAnimation {
                                 target: trackImage;
@@ -478,41 +470,38 @@ Page {
                     }
                     Label {
                         id: nowPlayingTitle
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(0.5)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
+                        y: trackImage.y + units.gu(0.5)
                     }
                     Label {
                         id: nowPlayingAlbumArtist
-                        anchors.top: nowPlayingTitle.bottom
-                        anchors.topMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
+                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1)
                     }
                     Image {
                         id: expandItem
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(2)
                         source: "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                         x: parent.x + parent.width - width - units.gu(2)
+                        y: trackImage.y + units.gu(2)
                     }
 
                     MouseArea {
                         id: expandItemMouseArea
-                        anchors.top: parent.top
                         height: queuelist.normalHeight
                         width: styleMusic.common.expandedItem * 3
                         x: parent.x + parent.width - width
+                        y: trackImage.y
 
                         onClicked: {
                            if(expandable.visible) {
@@ -658,20 +647,17 @@ Page {
                         target: nowPlayingTitle
                         width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
+                        y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
                         width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
+                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1)
                     }
                     PropertyChanges {
                         target: expandItem
-
-                    }
-
-                    PropertyChanges {
-                        target: trackBg
-                        opacity: 0.75
+                        y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: expandItem
@@ -680,6 +666,7 @@ Page {
                     PropertyChanges {
                         target: expandItemMouseArea
                         x: trackImage.x + trackImage.width - expandItemMouseArea.width
+                        y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                 }
                 transitions: Transition {
@@ -687,7 +674,7 @@ Page {
                     to: "current,"
                     NumberAnimation {
                         duration: queuelist.transitionDuration
-                        properties: "height,opacity,width,x"
+                        properties: "height,opacity,width,x,y"
                     }
 
                     onRunningChanged: {

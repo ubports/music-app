@@ -75,7 +75,7 @@ QtObject {
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
-        property int expandedHeightCurrent: units.gu(45);
+        property int expandedHeightCurrent: units.gu(51);
         property int expandedHeightNormal: units.gu(11.5);
         property int expandedTopMargin: units.gu(5);
         property int expandedLeftMargin: units.gu(5);
