@@ -657,11 +657,8 @@ Page {
                     }
                     PropertyChanges {
                         target: expandItem
-                        y: trackImage.y + trackImage.height + units.gu(0.5)
-                    }
-                    PropertyChanges {
-                        target: expandItem
                         x: trackImage.x + trackImage.width - expandItem.width - units.gu(2)
+                        y: trackImage.y + trackImage.height + units.gu(2.5)
                     }
                     PropertyChanges {
                         target: expandItemMouseArea
