@@ -657,19 +657,19 @@ Page {
                     PropertyChanges {
                         target: nowPlayingArtist
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(1)
+                        x: trackImage.x + units.gu(2)
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(1)
+                        x: trackImage.x + units.gu(2)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbum
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(1)
+                        x: trackImage.x + units.gu(2)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                     PropertyChanges {
