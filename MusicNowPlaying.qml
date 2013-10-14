@@ -37,17 +37,15 @@ Page {
         if (visible === true)
         {
             queuelist.scrollLock = true;
-            header.hide();
-            header.visible = false;
             header.opacity = 0;
+            header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
             queuelist.scrollLock = false;
         }
         else
         {
-            header.visible = true;
+            header.enabled = true;
             header.opacity = 1;
-            header.show();
         }
     }
 
