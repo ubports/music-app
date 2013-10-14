@@ -36,10 +36,12 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
+            queuelist.scrollLock = true;
             header.hide();
             header.visible = false;
             header.opacity = 0;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
+            queuelist.scrollLock = false;
         }
         else
         {
@@ -625,7 +627,6 @@ Page {
 
             onClicked: {
                 musicToolbar.goBack();
-                musicToolbar.hideToolbar();
             }
         }
 

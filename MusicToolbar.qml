@@ -197,6 +197,8 @@ Rectangle {
             currentPage.visible = false
             currentParentPage.visible = true
         }
+
+        musicToolbar.hideToolbar();
     }
 
     // Hide the toolbar
