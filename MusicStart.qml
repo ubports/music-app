@@ -113,7 +113,7 @@ Page {
                         anchors.bottomMargin: units.gu(2)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: album
                         fontSize: "small"
@@ -240,7 +240,7 @@ Page {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: genre === "" ? "None" : genre
                         fontSize: "small"
