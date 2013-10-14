@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-14 18:30+0200\n"
+"POT-Creation-Date: 2013-10-14 18:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,22 +58,24 @@ msgstr ""
 msgid "Albums"
 msgstr ""
 
-#: ../MusicAlbums.qml:214 ../MusicArtists.qml:162 ../MusicArtists.qml:238
-#: ../MusicStart.qml:230
-msgid " songs"
-msgstr ""
+#: ../MusicAlbums.qml:214
+#, qt-format
+msgid "%1 | %2 song"
+msgid_plural "%1 | %2 songs"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../MusicAlbums.qml:321 ../MusicArtists.qml:394 ../MusicNowPlaying.qml:579
+#: ../MusicAlbums.qml:321 ../MusicArtists.qml:395 ../MusicNowPlaying.qml:579
 #: ../MusicTracks.qml:249 ../music-app.qml:804
 msgid "Add to playlist"
 msgstr ""
 
-#: ../MusicAlbums.qml:342 ../MusicArtists.qml:415 ../MusicNowPlaying.qml:600
+#: ../MusicAlbums.qml:342 ../MusicArtists.qml:416 ../MusicNowPlaying.qml:600
 #: ../MusicTracks.qml:270 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:815
 msgid "Select playlist"
 msgstr ""
 
-#: ../MusicAlbums.qml:364 ../MusicArtists.qml:437 ../MusicNowPlaying.qml:33
+#: ../MusicAlbums.qml:364 ../MusicArtists.qml:438 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:292
 msgid "Queue"
 msgstr ""
@@ -86,8 +88,20 @@ msgstr ""
 msgid " albums"
 msgstr ""
 
+#: ../MusicArtists.qml:162 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
+#: ../MusicPlaylists.qml:535 ../MusicStart.qml:231
+#, qt-format
+msgid "%1 song"
+msgid_plural "%1 songs"
+msgstr[0] ""
+msgstr[1] ""
+
 #: ../MusicArtists.qml:189
 msgid "Tracks"
+msgstr ""
+
+#: ../MusicArtists.qml:238 ../MusicStart.qml:230
+msgid " songs"
 msgstr ""
 
 #. TRANSLATORS: this refers to sharing a playlist
@@ -135,13 +149,6 @@ msgstr ""
 #: ../MusicPlaylists.qml:146 ../music-app.qml:946
 msgid "Playlists"
 msgstr ""
-
-#: ../MusicPlaylists.qml:244 ../MusicPlaylists.qml:535
-#, qt-format
-msgid "%1 song"
-msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:319 ../MusicPlaylists.qml:605

@@ -228,6 +228,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: model.total + i18n.tr(" songs")
+			text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
                         fontSize: "x-small"
                     }
                     Label {
