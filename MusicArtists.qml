@@ -235,7 +235,6 @@ PageStack {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artistTracksModel.model.count + i18n.tr(" songs")
 		    text: i18n.tr("%1 song", "%1 songs", artistTracksModel.model.count).arg(artistTracksModel.model.count)
                 }
                 Label {
