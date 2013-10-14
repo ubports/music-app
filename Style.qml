@@ -105,7 +105,7 @@ QtObject {
     }
 
     property QtObject toolbar: QtObject {
-        property color fullBackgroundColor: "#0d0d0d";
+        property color fullBackgroundColor: "#0f0f0f";
         property color fullInnerPlayCircleColor: "#0d0d0d";
         property color fullOuterPlayCircleColor: "#363636";
         property color fullProgressBackgroundColor: "#252525";

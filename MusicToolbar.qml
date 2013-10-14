@@ -542,7 +542,6 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         color: styleMusic.toolbar.fullBackgroundColor
-        opacity: .95
         height: fullHeight
         width: parent.width
 
@@ -558,8 +557,8 @@ Rectangle {
             /* Shuffle button */
             Item {
                 id: nowPlayingShuffleButton
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
+                anchors.left: nowPlayingNextButton.right
+                anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
@@ -683,7 +682,7 @@ Rectangle {
 
                                     Image {
                                         id: nowPlayingPlayIndicator
-                                        height: units.gu(5)
+                                        height: units.gu(6)
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
@@ -766,8 +765,8 @@ Rectangle {
             Item {
                 id: nowPlayingRepeatButton
                 objectName: "repeatShape"
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
+                anchors.right: nowPlayingPreviousButton.left
+                anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
