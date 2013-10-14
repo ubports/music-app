@@ -98,7 +98,8 @@ Page {
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
         delegate: queueDelegate
-        footer: ListItem.Base {
+        footer: Rectangle {
+            color: "transparent"
             height: nowPlaying.height - queuelist.currentHeight - nowPlayingBackButton.height
         }
         model: trackQueue.model
