@@ -484,7 +484,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Label {
@@ -494,7 +494,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist + " - " + album
-                        width: parent.width - x
+                        width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                     }
                     Image {
@@ -656,14 +656,19 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbumArtist
-                        width: trackBg.width - units.gu(2)
+                        width: expandItem.x - x - units.gu(2.5)
                         x: trackImage.x + units.gu(1)
                     }
+                    PropertyChanges {
+                        target: expandItem
+
+                    }
+
                     PropertyChanges {
                         target: trackBg
                         opacity: 0.75
@@ -702,7 +707,7 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         color: styleMusic.nowPlaying.foregroundColor
-        height: units.gu(3)
+        height: units.gu(3.1)
 
         state: musicToolbar.opened ? "shown" : "hidden"
         states: [
@@ -746,6 +751,16 @@ Page {
             onClicked: {
                 musicToolbar.goBack();
             }
+        }
+
+        /* Border at the bottom */
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            color: styleMusic.common.white
+            height: units.gu(0.1)
+            opacity: 0.1
         }
     }
 }

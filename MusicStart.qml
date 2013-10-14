@@ -90,30 +90,34 @@ Page {
                     height: units.gu(6)
                     opacity: .75
                     width: parent.width
-                }
-                Label {
-                    id: albumArtist
-                    anchors.top: albumBg.top
-                    anchors.topMargin: units.gu(1)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    text: artist
-                    fontSize: "x-small"
-                    width: parent.width
-                }
-                Label {
-                    id: albumLabel
-                    anchors.top: albumArtist.bottom
-                    anchors.topMargin: units.gu(0.5)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: units.gu(2)
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    text: album
-                    fontSize: "small"
-                    width: parent.width
+                    Label {
+                        id: albumArtist
+                        anchors.top: albumBg.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: artist
+                        fontSize: "x-small"
+                    }
+                    Label {
+                        id: albumLabel
+                        anchors.top: albumArtist.bottom
+                        anchors.topMargin: units.gu(0.5)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(2)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: album
+                        fontSize: "small"
+                    }
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -213,30 +217,34 @@ Page {
                     height: units.gu(6)
                     opacity: .75
                     width: parent.width
-                }
-                Label {
-                    id: genreTotal
-                    anchors.top: genreBg.top
-                    anchors.topMargin: units.gu(1)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    text: model.total + i18n.tr(" songs")
-                    fontSize: "x-small"
-                    width: parent.width
-                }
-                Label {
-                    id: genreLabel
-                    anchors.top: genreTotal.bottom
-                    anchors.topMargin: units.gu(0.5)
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: units.gu(2)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    text: genre === "" ? "None" : genre
-                    fontSize: "small"
-                    width: parent.width
+                    Label {
+                        id: genreTotal
+                        anchors.top: genreBg.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: model.total + i18n.tr(" songs")
+                        fontSize: "x-small"
+                    }
+                    Label {
+                        id: genreLabel
+                        anchors.top: genreTotal.bottom
+                        anchors.topMargin: units.gu(0.5)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(2)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: genre === "" ? "None" : genre
+                        fontSize: "small"
+                    }
                 }
             }
         }

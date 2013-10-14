@@ -149,6 +149,7 @@ import "playlists.js" as Playlists
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(4)
                         anchors.right: parent.right
+                        elide: Text.ElideRight
                         text: playlist.name + " ("+playlist.count+")"
                     }
              }

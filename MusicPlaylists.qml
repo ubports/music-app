@@ -232,7 +232,9 @@ PageStack {
                            anchors.leftMargin: units.gu(4)
                            anchors.top: parent.top
                            anchors.topMargin: units.gu(2)
-                           anchors.right: parent.right
+                           anchors.right: expandItem.left
+                           anchors.rightMargin: units.gu(1.5)
+                           elide: Text.ElideRight
                            fontSize: "x-small"
                            height: units.gu(1)
                            text: playlist.count + i18n.tr(" songs")
@@ -248,7 +250,9 @@ PageStack {
                            anchors.leftMargin: units.gu(4)
                            anchors.top: playlistCount.bottom
                            anchors.topMargin: units.gu(1)
-                           anchors.right: parent.right
+                           anchors.right: expandItem.left
+                           anchors.rightMargin: units.gu(1.5)
+                           elide: Text.ElideRight
                            text: playlist.name
                        }
 
@@ -514,6 +518,9 @@ PageStack {
                 anchors.leftMargin: units.gu(16)
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(2.5)
+                anchors.right: expandInfoItem.left
+                anchors.rightMargin: units.gu(1.5)
+                elide: Text.ElideRight
             }
 
             Label {
@@ -525,6 +532,9 @@ PageStack {
                 anchors.leftMargin: units.gu(16)
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(5)
+                anchors.right: expandInfoItem.left
+                anchors.rightMargin: units.gu(1.5)
+                elide: Text.ElideRight
             }
 
             //Icon { use for 1.0
@@ -998,6 +1008,9 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(1)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
                             text: playlistTracks.artist == "" ? "" : playlistTracks.artist
                         }
                         Label {
@@ -1010,6 +1023,9 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: trackArtist.bottom
                             anchors.topMargin: units.gu(1)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
                             text: playlistTracks.title == "" ? playlistTracks.file : playlistTracks.title
                         }
                         Label {
@@ -1021,6 +1037,9 @@ PageStack {
                             anchors.leftMargin: units.gu(11)
                             anchors.top: trackTitle.bottom
                             anchors.topMargin: units.gu(2)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
                             text: playlistTracks.album
                         }
                         Label {
@@ -1032,6 +1051,9 @@ PageStack {
                             anchors.left: trackCover.left
                             anchors.leftMargin: units.gu(12)
                             anchors.top: trackAlbum.bottom
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
                             visible: false
                             text: ""
                         }

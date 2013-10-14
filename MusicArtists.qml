@@ -127,6 +127,8 @@ PageStack {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: artist // !== '' ? artist : i18n.tr("Unknown Artist") fix this
                     }
 
@@ -140,6 +142,8 @@ PageStack {
                         anchors.top: trackArtistAlbum.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: Library.getArtistCovers(artist).length + i18n.tr(" albums") // model for number of albums?
                     }
 
@@ -153,6 +157,8 @@ PageStack {
                         anchors.top: trackArtistAlbums.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: Library.getArtistTracks(artist).length + i18n.tr(" songs") //fix
                     }
                     onFocusChanged: {
@@ -227,6 +233,8 @@ PageStack {
                     anchors.top: parent.top
                     anchors.topMargin: units.gu(3)
                     anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1.5)
+                    elide: Text.ElideRight
                     text: artistTracksModel.model.count + i18n.tr(" songs")
                 }
                 Label {
@@ -240,6 +248,8 @@ PageStack {
                     anchors.top: albumCount.bottom
                     anchors.topMargin: units.gu(1)
                     anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1.5)
+                    elide: Text.ElideRight
                     text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
                 }
             }
@@ -304,7 +314,9 @@ PageStack {
                         anchors.leftMargin: units.gu(2)
                         anchors.top: trackCover.top
                         anchors.topMargin: units.gu(2)
-                        anchors.right: parent.right
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: track.title == "" ? track.file : track.title
                     }
                     Label {
@@ -316,7 +328,9 @@ PageStack {
                         anchors.leftMargin: units.gu(2)
                         anchors.top: trackTitle.bottom
                         anchors.topMargin: units.gu(2)
-                        anchors.right: parent.right
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
                         text: album
                     }
                     Image {
