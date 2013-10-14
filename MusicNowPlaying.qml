@@ -71,7 +71,7 @@ Page {
         if (shown && currentPage === nowPlaying && Settings.getSetting("snaptrack") === "1")
         {
             // Then position the view at the current index
-            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Contain);
+            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
         }
     }
 
