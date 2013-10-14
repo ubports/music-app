@@ -40,7 +40,7 @@ Page {
 
     ListItem.Standard {
         id: recentlyPlayed
-        text: i18n.tr("Recently Played")
+        text: i18n.tr("Recent")
     }
 
     ListView {
@@ -50,7 +50,7 @@ Page {
         anchors.topMargin: units.gu(1)
         //anchors.bottom: genres.top
         spacing: units.gu(2)
-        height: units.gu(19)
+        height: units.gu(22)
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
@@ -64,8 +64,8 @@ Page {
             id: recentDelegate
             Item {
                 id: recentItem
-                height: units.gu(17)
-                width: units.gu(17)
+                height: units.gu(20)
+                width: units.gu(20)
                 UbuntuShape {
                     id: recentShape
                     height: recentItem.width
@@ -158,7 +158,7 @@ Page {
         anchors.top: genres.bottom
         anchors.topMargin: units.gu(1)
         spacing: units.gu(2)
-        height: units.gu(19)
+        height: units.gu(22)
         model: genreModel.model
         delegate: genreDelegate
         header: Item {
@@ -171,8 +171,8 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
-                height: units.gu(17)
-                width: units.gu(17)
+                height: units.gu(20)
+                width: units.gu(20)
                 UbuntuShape {
                     id: genreShape
                     height: genreItem.width
