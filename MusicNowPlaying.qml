@@ -36,10 +36,12 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
+            queuelist.scrollLock = true;
             header.hide();
             header.visible = false;
             header.opacity = 0;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
+            queuelist.scrollLock = false;
         }
         else
         {
@@ -70,8 +72,12 @@ Page {
         // If the toolbar is shown, the page is now playing and snaptrack is enabled
         if (shown && currentPage === nowPlaying && Settings.getSetting("snaptrack") === "1")
         {
+            queuelist.scrollLock = true;
+
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
+
+            queuelist.scrollLock = false;
         }
     }
 
@@ -113,6 +119,15 @@ Page {
                 }
             }
         ]
+
+        property bool scrollLock: false
+
+        onContentYChanged: {
+            if (!scrollLock)
+            {
+                musicToolbar.hideToolbar();
+            }
+        }
 
         property int normalHeight: units.gu(10)
         property int currentHeight: units.gu(50)
@@ -692,10 +707,20 @@ Page {
                     }
 
                     onRunningChanged: {
+                        if (running)
+                        {
+                            queuelist.scrollLock = true;
+                        }
+
                         if (running === false && ensureVisibleIndex != -1)
                         {
                             queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Visible);
                             ensureVisibleIndex = -1;
+                        }
+
+                        if (!running)
+                        {
+                            queuelist.scrollLock = false;
                         }
                     }
                 }
