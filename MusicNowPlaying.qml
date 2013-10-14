@@ -108,7 +108,7 @@ Page {
         ]
 
         property int currentHeight: units.gu(40)
-        property int normalHeight: units.gu(6.5)
+        property int normalHeight: units.gu(10)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -442,7 +442,7 @@ Page {
                             source: cover !== "" ? cover : "images/cover_default.png"
                         }
                         onHeightChanged: {
-                            if (height > units.gu(7)) {
+                            if (height > queuelist.normalHeight) {
                                 anchors.left = undefined
                                 anchors.horizontalCenter = parent.horizontalCenter
                             } else {
