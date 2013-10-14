@@ -17,6 +17,10 @@ class MainView(toolkit_emulators.MainView):
     """
     retry_delay = 0.2
 
+    def get_toolbar(self):
+        return self.select_single("MusicToolbar",
+                                  objectName="musicToolbarObject")
+
     def select_many_retry(self, object_type, **kwargs):
         """Returns the item that is searched for with app.select_many
         In case of no item was not found (not created yet) a second attempt is
@@ -41,6 +45,12 @@ class MainView(toolkit_emulators.MainView):
             tries = tries - 1
         return item
 
+    def tap_item(self, item):
+        self.pointing_device.move_to_object(item)
+        self.pointing_device.press()
+        sleep(2)
+        self.pointing_device.release()
+
     def show_toolbar(self):
         #Ripped from emulator, this needs to be removed
         #and replaced with the open_toolbar routine
@@ -52,11 +62,19 @@ class MainView(toolkit_emulators.MainView):
         self.pointing_device.drag(line_x, start_y, line_x, stop_y)
 
     def get_play_button(self):
-        return self.select_single_retry("UbuntuShape", objectName="playshape")
+        return self.select_single("*", objectName="playshape")
+
+    def get_now_playing_play_button(self):
+        return self.select_single("*", objectName="nowPlayingPlayShape")
+
+    def get_repeat_button(self):
+        return self.select_single("UbuntuShape", objectName="repeatShape")
 
     def get_forward_button(self):
-        return self.select_single_retry("UbuntuShape",
-                                        objectName="forwardshape")
+        return self.select_single("UbuntuShape", objectName="forwardshape")
+
+    def get_previous_button(self):
+        return self.select_single("UbuntuShape", objectName="previousshape")
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")

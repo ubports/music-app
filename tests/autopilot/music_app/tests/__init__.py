@@ -13,6 +13,7 @@ import mock
 import os
 import os.path
 import shutil
+#import subprocess
 import logging
 
 from autopilot.input import Mouse, Touch, Pointer
@@ -90,7 +91,7 @@ class MusicTestCase(AutopilotTestCase):
     def _save_home(self):
         logger.debug('Saving HOME')
         home_dir = os.environ['HOME']
-        backup_list = ('Music', '.cache/mediascanner')
+        backup_list = ('Music', )  # '.cache/mediascanner')
         backup_path = [os.path.join(home_dir, i) for i in backup_list]
         backups = [(i, '%s.bak' % i) for i in backup_path if os.path.exists(i)]
         for b in backups:
@@ -145,17 +146,30 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Content dir set to %s" % content_dir)
 
+        #stop media scanner
+        #if self.test_type == 'click':
+        #    subprocess.check_call(['stop', 'mediascanner'])
+
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
-        shutil.copytree(os.path.join(content_dir, 'mediascanner'),
-                        mediascannerpath)
+        if self.test_type != 'click':
+            shutil.copytree(os.path.join(content_dir, 'mediascanner'),
+                            mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
 
+        if self.test_type != 'click':
+            self._patch_mediascanner_home(mediascannerpath)
+            logger.debug(
+                "Mediascanner database copied, files " +
+                str(os.listdir(mediascannerpath)))
+
+        #start media scanner
+        #if self.test_type == 'click':
+        #    subprocess.check_call(['start', 'mediascanner'])
+
+    def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
