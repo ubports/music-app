@@ -1,0 +1,9 @@
+[
+{
+    "package": "qtdeclarative5-qtpowerd0.1",
+    "ppa": "ppa:ubuntu-touch-coreapps-drivers/daily"
+},
+{
+    "package": "qtdeclarative5-qtgrilo0.1"
+}
+]

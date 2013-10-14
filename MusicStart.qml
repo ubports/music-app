@@ -29,44 +29,34 @@ import "playlists.js" as Playlists
 
 Page {
     id: mainpage
+    title: i18n.tr("Music")
 
-    tools: ToolbarItems {
-        // Settings dialog
-        ToolbarButton {
-            objectName: "settingsaction"
-            iconSource: Qt.resolvedUrl("images/settings.png")
-            text: i18n.tr("Settings")
-
-            onTriggered: {
-                console.debug('Debug: Show settings')
-                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                {
-                                    title: i18n.tr("Settings")
-                                } )
-            }
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.setPage(mainpage);
         }
     }
 
-    title: i18n.tr("Music")
-
     ListItem.Standard {
         id: recentlyPlayed
-        text: "Recently Played"
+        text: i18n.tr("Recently Played")
     }
 
     ListView {
         id: recentlist
         width: parent.width
         anchors.top: recentlyPlayed.bottom
+        anchors.topMargin: units.gu(1)
         //anchors.bottom: genres.top
         spacing: units.gu(2)
-        height: units.gu(13)
+        height: units.gu(19)
         // TODO: Update when view counts are collected
         model: albumModel.model
         delegate: recentDelegate
         header: Item {
             id: spacer
-            width: units.gu(2)
+            width: units.gu(1)
         }
         orientation: ListView.Horizontal
 
@@ -74,8 +64,8 @@ Page {
             id: recentDelegate
             Item {
                 id: recentItem
-                height: units.gu(13)
-                width: units.gu(13)
+                height: units.gu(17)
+                width: units.gu(17)
                 UbuntuShape {
                     id: recentShape
                     height: recentItem.width
@@ -97,29 +87,37 @@ Page {
                     id: albumBg
                     anchors.bottom: parent.bottom
                     color: styleMusic.common.black
-                    height: units.gu(4)
+                    height: units.gu(6)
                     opacity: .75
                     width: parent.width
-                }
-                Label {
-                    id: albumLabel
-                    anchors.bottom: albumArtist.top
-                    horizontalAlignment: Text.AlignHCenter
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: album
-                    fontSize: "small"
-                    width: parent.width
-                }
-                Label {
-                    id: albumArtist
-                    anchors.bottom: parent.bottom
-                    horizontalAlignment: Text.AlignHCenter
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: artist
-                    fontSize: "small"
-                    width: parent.width
+                    Label {
+                        id: albumArtist
+                        anchors.top: albumBg.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: artist
+                        fontSize: "x-small"
+                    }
+                    Label {
+                        id: albumLabel
+                        anchors.top: albumArtist.bottom
+                        anchors.topMargin: units.gu(0.5)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(2)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: album
+                        fontSize: "small"
+                    }
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -137,29 +135,35 @@ Page {
                         player.source = Qt.resolvedUrl(file)
                         player.play()
                         nowPlaying.visible = true
+                        musicToolbar.showToolbar()
                     }
                 }
             }
         }
     }
 
+    ListItem.ThinDivider {
+        id: divider
+        anchors.top: recentlist.bottom
+    }
     ListItem.Standard {
         id: genres
-        anchors.top: recentlist.bottom
-        text: "Genres"
+        anchors.top: divider.bottom
+        text: i18n.tr("Genres")
     }
     // TODO: add music genres. frequency of play? most tracks?
     ListView {
         id: genrelist
         width: parent.width
         anchors.top: genres.bottom
+        anchors.topMargin: units.gu(1)
         spacing: units.gu(2)
-        height: units.gu(13)
+        height: units.gu(19)
         model: genreModel.model
         delegate: genreDelegate
         header: Item {
             id: spacer
-            width: units.gu(2)
+            width: units.gu(1)
         }
         orientation: ListView.Horizontal
 
@@ -167,8 +171,8 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
-                height: units.gu(13)
-                width: units.gu(13)
+                height: units.gu(17)
+                width: units.gu(17)
                 UbuntuShape {
                     id: genreShape
                     height: genreItem.width
@@ -203,35 +207,44 @@ Page {
                         player.source = Qt.resolvedUrl(file)
                         player.play()
                         nowPlaying.visible = true
+                        musicToolbar.showToolbar();
                     }
                 }
                 UbuntuShape {  // Background so can see text in current state
                     id: genreBg
                     anchors.bottom: parent.bottom
                     color: styleMusic.common.black
-                    height: units.gu(4)
+                    height: units.gu(6)
                     opacity: .75
                     width: parent.width
-                }
-                Label {
-                    id: genreLabel
-                    anchors.bottom: genreTotal.top
-                    horizontalAlignment: Text.AlignHCenter
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: genre === "" ? "None" : genre
-                    fontSize: "small"
-                    width: parent.width
-                }
-                Label {
-                    id: genreTotal
-                    anchors.bottom: parent.bottom
-                    horizontalAlignment: Text.AlignHCenter
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    text: "(" + model.total + ")"
-                    fontSize: "small"
-                    width: parent.width
+                    Label {
+                        id: genreTotal
+                        anchors.top: genreBg.top
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: model.total + i18n.tr(" songs")
+                        fontSize: "x-small"
+                    }
+                    Label {
+                        id: genreLabel
+                        anchors.top: genreTotal.bottom
+                        anchors.topMargin: units.gu(0.5)
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(2)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: genre === "" ? "None" : genre
+                        fontSize: "small"
+                    }
                 }
             }
         }

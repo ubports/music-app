@@ -1,4 +1,4 @@
-# German translation for music-app
+# Burmese translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,46 +8,46 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-26 08:38+0200\n"
-"PO-Revision-Date: 2013-10-03 11:54+0000\n"
-"Last-Translator: SaGrLand <sg@samuel-greef.de>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2013-10-09 10:46+0000\n"
+"Last-Translator: Pyae Sone <Unknown>\n"
+"Language-Team: Burmese <my@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-04 05:47+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-10-10 05:28+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: ../LoginLastFM.qml:38
 msgid "LastFM"
-msgstr "LastFM"
+msgstr ""
 
 #: ../LoginLastFM.qml:44
 msgid "Login to be able to scrobble."
-msgstr "Melden Sie sich an um zu scrobbeln."
+msgstr ""
 
 #: ../LoginLastFM.qml:52
 msgid "Username"
-msgstr "Benutzername"
+msgstr "အသုံးပြုသူအမည်"
 
 #: ../LoginLastFM.qml:62
 msgid "Password"
-msgstr "Passwort"
+msgstr "စကားဝှက်"
 
 #: ../LoginLastFM.qml:84
 msgid "Login"
-msgstr "Anmelden"
+msgstr "ဝင်"
 
 #: ../LoginLastFM.qml:91
 msgid "Trying to login..."
-msgstr "Anmelden …"
+msgstr "ဝင်ရန်ကြိုးစားနေသည်"
 
 #: ../LoginLastFM.qml:105
 msgid "Login Successful"
-msgstr "Anmeldung erfolgreich"
+msgstr "ဝင်ရောက်မှုအောင်မြင်သည်"
 
 #: ../LoginLastFM.qml:111
 msgid "Login Failed"
-msgstr "Anmeldung fehlgeschlagen"
+msgstr "ဝင်ရောက်မှုမအောင်မြင်"
 
 #: ../LoginLastFM.qml:117
 msgid "You forgot to set your username and/or password"
@@ -55,78 +55,78 @@ msgstr ""
 
 #: ../MusicAlbums.qml:39 ../music-app.qml:847
 msgid "Albums"
-msgstr "Alben"
+msgstr "အယ်လ်ဘမ်များ"
 
 #: ../MusicAlbums.qml:50 ../MusicAlbums.qml:56 ../MusicArtists.qml:56
 #: ../MusicArtists.qml:62 ../MusicPlaylists.qml:67 ../MusicPlaylists.qml:73
 #: ../MusicSettings.qml:30 ../MusicStart.qml:38 ../MusicStart.qml:44
 #: ../MusicTracks.qml:46 ../MusicTracks.qml:52 ../music-app.qml:94
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "Settings"
 
 #: ../MusicAlbums.qml:178 ../MusicArtists.qml:124
 msgid "Tracks"
-msgstr "Titel"
+msgstr "သီချင်းများ"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:834
 msgid "Artists"
-msgstr "Interpreten"
+msgstr "အနုပညာရှင်"
 
 #: ../MusicNowPlaying.qml:695
 msgid "Back"
-msgstr "Zurück"
+msgstr "နောက်သို့"
 
 #: ../MusicNowPlaying.qml:786 ../common/SwipeDelete.qml:58
 #: ../common/SwipeDelete.qml:77
 msgid "Clear"
-msgstr "Löschen"
+msgstr "ရှင်းလင်းမည်"
 
 #: ../MusicPlaylists.qml:55
 msgid "New"
-msgstr "Neue"
+msgstr "အသစ်"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:85
 msgid "Are you sure?"
-msgstr "Sind Sie sich sicher?"
+msgstr "သေချာသလား။"
 
 #: ../MusicPlaylists.qml:86
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "သင်၏ဖွင့်မည့်စာရင်းကိုဖျက်လိမ့်မည်"
 
 #: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:172
 msgid "Remove"
-msgstr "Löschen"
+msgstr "ဖယ်ရှား"
 
 #: ../MusicPlaylists.qml:98 ../MusicPlaylists.qml:136 ../music-app.qml:802
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "ပယ်ဖျက်မည်"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #. TRANSLATORS: this is a also a popup to rename a playlist
 #: ../MusicPlaylists.qml:111 ../MusicPlaylists.qml:158
 msgid "Change name"
-msgstr "Namen ändern"
+msgstr "အမည်ပြောင်းမည်"
 
 #: ../MusicPlaylists.qml:112
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "ဖွင့်မည့်စာရင်းအမည်အသစ်ရိုက်ထည့်ပါ"
 
 #: ../MusicPlaylists.qml:122
 msgid "Change"
-msgstr "Ändern"
+msgstr "ပြောင်းမည်"
 
 #: ../MusicPlaylists.qml:131
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "အမည်မှာဘာမှမရိုက်ရသေးပါ"
 
 #: ../MusicPlaylists.qml:208 ../music-app.qml:874
 msgid "Playlists"
-msgstr "Wiedergabelisten"
+msgstr "ဖွင့်ရန်စာရင်းများ"
 
 #: ../MusicPlaylists.qml:308
 msgid "Playlist"
-msgstr "Wiedergabeliste"
+msgstr "ဖွင့်ရန်စာရင်း"
 
 #: ../MusicSettings.qml:76
 msgid "Equaliser"
@@ -134,7 +134,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:77
 msgid "Default"
-msgstr "Vorgabe"
+msgstr "မူလပုံစံ"
 
 #: ../MusicSettings.qml:78
 msgid "Accoustic"
@@ -142,39 +142,39 @@ msgstr ""
 
 #: ../MusicSettings.qml:79
 msgid "Classical"
-msgstr "Klassisch"
+msgstr ""
 
 #: ../MusicSettings.qml:80
 msgid "Electronic"
-msgstr "Elektronisch"
+msgstr ""
 
 #: ../MusicSettings.qml:81
 msgid "Flat"
-msgstr "Einfach"
+msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Hip Hop"
-msgstr "Hip-Hop"
+msgstr ""
 
 #: ../MusicSettings.qml:83
 msgid "Jazz"
-msgstr "Jazz"
+msgstr "ဂျက်ဇ်"
 
 #: ../MusicSettings.qml:84
 msgid "Metal"
-msgstr "Metall"
+msgstr ""
 
 #: ../MusicSettings.qml:85
 msgid "Pop"
-msgstr "Pop"
+msgstr "ပေါ့ပ်"
 
 #: ../MusicSettings.qml:86
 msgid "Rock"
-msgstr "Rock"
+msgstr "ရော့ခ်"
 
 #: ../MusicSettings.qml:87
 msgid "Custom"
-msgstr "Benutzerdefiniert"
+msgstr "စိတ်ကြိုက်"
 
 #: ../MusicSettings.qml:100
 msgid ""
@@ -184,15 +184,15 @@ msgstr ""
 
 #: ../MusicSettings.qml:117
 msgid "Shuffle"
-msgstr "Zufällige Wiedergabe"
+msgstr ""
 
 #: ../MusicSettings.qml:134
 msgid "Accounts"
-msgstr "Konten"
+msgstr "အကောင့်များ"
 
 #: ../MusicSettings.qml:141 ../MusicSettings.qml:150
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
 #: ../MusicSettings.qml:142
 msgid ""
@@ -218,104 +218,104 @@ msgstr ""
 
 #: ../MusicSettings.qml:222
 msgid "Clean everything!"
-msgstr ""
+msgstr "အားလုံးရှင်းပြီးပြီ"
 
 #: ../MusicStart.qml:50 ../MusicTracks.qml:58 ../music-app.qml:163
 #: ../music-app.qml:821 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Musik"
+msgstr "ဂီတ"
 
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:750
 msgid "Select playlist"
-msgstr ""
+msgstr "ဖွင့်မည့်စာရင်းရွေးပါ"
 
 #: ../MusicaddtoPlaylist.qml:126
 msgid "New playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "ဖွင့်မည့်စာရင်းအသစ်"
 
 #: ../music-app.qml:62
 msgid "Next"
-msgstr "Weiter"
+msgstr "နောက်သို့"
 
 #: ../music-app.qml:63
 msgid "Next Track"
-msgstr "Nächster Titel"
+msgstr "နောက်တစ်ပုဒ်"
 
 #: ../music-app.qml:69
 msgid "Pause"
-msgstr "Pause"
+msgstr "ခဏနား"
 
 #: ../music-app.qml:69
 msgid "Play"
-msgstr "Wiedergabe"
+msgstr "ဖွင့်"
 
 #: ../music-app.qml:71
 msgid "Pause Playback"
-msgstr "Wiedergabe unterbrechen"
+msgstr ""
 
 #: ../music-app.qml:71
 msgid "Continue or start playback"
-msgstr "Wiedergabe fortsetzen oder starten"
+msgstr "ဆက်မည် သို့ ပြန်ဖွင့်မည်"
 
 #: ../music-app.qml:82
 msgid "Previous"
-msgstr "Vorheriger"
+msgstr "ရှေ့သို့"
 
 #: ../music-app.qml:83
 msgid "Previous Track"
-msgstr "Vorheriger Titel"
+msgstr "ရှေ့တစ်ပုဒ်"
 
 #: ../music-app.qml:88
 msgid "Stop"
-msgstr "Stopp"
+msgstr "ရပ်မည်"
 
 #: ../music-app.qml:89
 msgid "Stop Playback"
-msgstr "Wiedergabe anhalten"
+msgstr ""
 
 #: ../music-app.qml:95
 msgid "Music Settings"
-msgstr "Musik-Einstellungen"
+msgstr ""
 
 #: ../music-app.qml:103
 msgid "Quit"
-msgstr "Beenden"
+msgstr "ထွက်"
 
 #: ../music-app.qml:104
 msgid "Close application"
-msgstr "Anwendung schließen"
+msgstr "Application ပိတ်မည်"
 
 #: ../music-app.qml:418
 msgid "Undo"
-msgstr "Rückgängig"
+msgstr "နောက်ပြန်"
 
 #: ../music-app.qml:725
 msgid "Add to queue"
-msgstr "Zur Warteschlange hinzufügen"
+msgstr ""
 
 #: ../music-app.qml:739
 msgid "Add to playlist"
-msgstr "Zur Wiedergabeliste hinzufügen"
+msgstr "ဖွင့်မည့်စာရင်းထဲသို့ထည့်မည်"
 
 #: ../music-app.qml:763
 msgid "New Playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "ဖွင့်မည့်စာရင်းအသစ်"
 
 #: ../music-app.qml:764
 msgid "Name your playlist."
-msgstr "Benennen Sie ihre Wiedergabeliste"
+msgstr "သင်၏စာရင်းကိုအမည်ပေးပါ"
 
 #: ../music-app.qml:767
 msgid "Name"
-msgstr "Name"
+msgstr "အမည်"
 
 #: ../music-app.qml:775
 msgid "Create"
-msgstr "Erstellen"
+msgstr ""
 
 #: ../music-app.qml:789
 msgid "Error: "
-msgstr "Fehler: "
+msgstr ""
 
 #: ../music-app.qml:796
 msgid "Error: You didn't type a name."
@@ -323,4 +323,4 @@ msgstr ""
 
 #: ../music-app.qml:860
 msgid "Songs"
-msgstr "Titel"
+msgstr ""

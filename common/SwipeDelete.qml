@@ -44,14 +44,16 @@ Rectangle {
     Rectangle {
         id: swipeBackgroundLeft
         anchors.left: parent.left
-        color: styleMusic.mainView.backgroundColor
+        color: styleMusic.common.black
+        opacity: 0.7
         height: parent.height
         width: parent.width / 3
 
         Label {
             id: swipeBackgroundLeftText
-            anchors.fill: parent
             anchors.margins: units.gu(2)
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignRight
@@ -63,14 +65,16 @@ Rectangle {
     Rectangle {
         id: swipeBackgroundRight
         anchors.right: parent.right
-        color: styleMusic.mainView.backgroundColor
+        color: styleMusic.common.black
+        opacity: 0.7
         height: parent.height
         width: parent.width / 3
 
         Label {
             id: swipeBackgroundRightText
-            anchors.fill: parent
+            anchors.left: parent.left
             anchors.margins: units.gu(2)
+            anchors.verticalCenter: parent.verticalCenter
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignLeft

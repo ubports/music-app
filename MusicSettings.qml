@@ -30,6 +30,17 @@ ComposerSheet {
     title: i18n.tr("Settings")
     contentsHeight: parent.height;
 
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.disableToolbar()
+        }
+        else
+        {
+            musicToolbar.enableToolbar()
+        }
+    }
+
     onCancelClicked: PopupUtils.close(musicSettings)
     onConfirmClicked: {
         PopupUtils.close(musicSettings)
@@ -52,10 +63,6 @@ ComposerSheet {
             Settings.setSetting("wifiswitch",wifiSwitch.checked)
         }*/
 
-
-        // MOVE TO TOOLBAR
-        Settings.setSetting("shuffle", shuffleSwitch.checked) // save shuffle state
-
         // -- random = shuffleSwitch.checked // set shuffle state variable
         //console.debug("Debug: Shuffle: "+ shuffleSwitch.checked)
 
@@ -64,168 +71,168 @@ ComposerSheet {
         //console.debug("Debug: Scrobble: "+ scrobbleSwitch.checked)
     }
 
-    Column {
-        spacing: units.gu(2)
+    // Activate in 1.+
+    ListItem.ItemSelector {
+        id: equaliser
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        enabled: false
+        text: i18n.tr("Equaliser")
+        model: [i18n.tr("Default"),
+              i18n.tr("Accoustic"),
+              i18n.tr("Classical"),
+              i18n.tr("Electronic"),
+              i18n.tr("Flat"),
+              i18n.tr("Hip Hop"),
+              i18n.tr("Jazz"),
+              i18n.tr("Metal"),
+              i18n.tr("Pop"),
+              i18n.tr("Rock"),
+              i18n.tr("Custom")]
+        onDelegateClicked: {
+            customdebug("Value changed to "+index)
+            //equaliserChange(index)
+        }
+    }
+
+    // Snap to current track
+    Rectangle {
+        id: snapRow
+        color: "transparent"
+        width: parent.width
+        anchors.top: equaliser.bottom
+        anchors.topMargin: units.gu(2)
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: units.gu(2)
+        Label {
+            id: snapLabel
+            anchors.verticalCenter: snapSwitch.verticalCenter
+            text: i18n.tr("Snap to current song \nwhen opening toolbar")
+        }
+        Switch {
+            id: snapSwitch
+            checked: Settings.getSetting("snaptrack") === "1"
+            anchors.right: parent.right
+        }
+    }
+    // Accounts
+    Rectangle {
+        id: accounts
+        anchors.top: equaliser.bottom
+        anchors.topMargin: units.gu(12)
+        anchors.bottom: streaming.top
+        anchors.bottomMargin: units.gu(2)
+        color: "transparent"
         width: parent.width
 
-        // Activate in 1.+
-        ListItem.ItemSelector {
-            id: equaliser
+        Label {
+            id: accountLabel
+            text: i18n.tr("Accounts")
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(2)
+        }
+
+        // lastfm
+        ListItem.Subtitled {
+            id: lastfmProg
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(5)
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottomMargin: units.gu(8)
+            text: i18n.tr("Last.fm")
+            subText: i18n.tr("Login to scrobble and import playlists")
+            width: parent.width
+            progression: true
             enabled: false
-            visible: false
-            text: i18n.tr("Equaliser")
-            model: [i18n.tr("Default"),
-                  i18n.tr("Accoustic"),
-                  i18n.tr("Classical"),
-                  i18n.tr("Electronic"),
-                  i18n.tr("Flat"),
-                  i18n.tr("Hip Hop"),
-                  i18n.tr("Jazz"),
-                  i18n.tr("Metal"),
-                  i18n.tr("Pop"),
-                  i18n.tr("Rock"),
-                  i18n.tr("Custom")]
-            onDelegateClicked: {
-                customdebug("Value changed to "+index)
-                //equaliserChange(index)
-            }
-        }
-
-        // Snap to current track
-        Rectangle {
-            width: parent.width
-            anchors.top: equaliser.bottom
-            Label {
-                id: snapLabel
-                text: i18n.tr("Snap to current song \nwhen opening toolbar")
-                color: styleMusic.musicSettings.labelColor
-            }
-            Switch {
-                id: snapSwitch
-                checked: Settings.getSetting("snaptrack") === "1"
-                anchors.right: parent.right
-            }
-        }
-
-        // Shuffle or not
-        // MOVE THIS TO NEW TOOLBAR
-        Rectangle {
-            id: shuffleRow
-            width: parent.width
-            Label {
-                id: shuffleLabel
-                text: i18n.tr("Shuffle")
-                color: styleMusic.musicSettings.labelColor
-                // make it stawy to the right with a certain margin
-            }
-            Switch {
-                id: shuffleSwitch
-                checked: Settings.getSetting("shuffle") === "1"
-                anchors.right: parent.right
-            }
-        }
-
-        // Accounts
-        Rectangle {
-            id: accountsColumn
-            anchors.top: shuffleRow.bottom
-            anchors.topMargin: units.gu(20)
-            Label {
-                text: i18n.tr("Accounts")
-                color: styleMusic.musicSettings.labelColor
-            }
-
-            // lastfm
-            ListItem.Subtitled {
-                id: lasftfmProg
-                text: i18n.tr("Last.fm")
-                subText: i18n.tr("Login to scrobble and \nimport playlists")
-                width: parent.width
-                progression: true
-                enabled: true
-                visible: false
-                onClicked: {
-                    PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
-                                    {
-                                        title: i18n.tr("Last.fm")
-                                    } )
-                    PopupUtils.close(musicSettings)
-                }
-            }
-        }
-
-        // Music Streaming
-        // Activate in 1.+
-        Rectangle {
-            id: streamingColumn
-            anchors.top: accountsColumn.bottom
-            anchors.topMargin: units.gu(20)
-            Label {
-                text: i18n.tr("Music Streaming")
-                color: styleMusic.musicSettings.labelColor
-                visible: true
-            }
-
-            Column {
-                // Ubuntu One
-                ListItem.Subtitled {
-                    id: musicStreamProg
-                    text: i18n.tr("Ubuntu One")
-                    subText: i18n.tr("Sign in to stream your cloud music")
-                    enabled: false
-                    visible: false
-                    progression: true
-                    onClicked: {
-                        customdebug("I'm Ron Burgendy...?")
-                    }
-                }
-
-                Row {
-                    spacing: units.gu(2)
-                    Label {
-                        id: streamwifiLabel
-                        text: i18n.tr("Stream only on Wi-Fi")
-                        color: styleMusic.musicSettings.labelColor
-                        enabled: false // check if account is connected
-                        visible: false
-                    }
-                    Switch {
-                        id: wifiSwitch
-                        checked: Settings.getSetting("wifiswitch") === "1"
-                        enabled: false // check if account is connected
-                        visible: false
-                        //anchors.right: parent.right
-                    }
-                }
-            }
-        }
-
-        /* MOVE THIS STUFF
-        // import playlists from lastfm
-        Row {
-            spacing: units.gu(2)
-            Button {
-                id: lastfmPlaylists
-                text: i18n.tr("Import playlists from last.fm")
-                width: units.gu(30)
-                color: "#c94212"
-                enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
-                onClicked: {
-                    console.debug("Debug: import playlists from last.fm")
-                    Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
-                }
-            }
-        } */
-
-        // developer button - KILLS YOUR CAT!
-        Button {
-            text: i18n.tr("Clean everything!")
-            color: "red"
-            visible: args.values.debug
             onClicked: {
-                Settings.reset()
-                Playlists.reset()
+                PopupUtils.open(Qt.resolvedUrl("LoginLastFM.qml"), mainView,
+                {
+                    title: i18n.tr("Last.fm")
+                } )
+                PopupUtils.close(musicSettings)
             }
+        }
+    }
+
+    // Music Streaming
+    // Activate in 1.+
+    Rectangle {
+        id: streaming
+        anchors.top: equaliser.bottom
+        anchors.topMargin: units.gu(24)
+        color: "transparent"
+        width: parent.width
+        Label {
+            text: i18n.tr("Music Streaming")
+            visible: true
+        }
+        // Ubuntu One
+        ListItem.Subtitled {
+            id: musicStreamProg
+            anchors.top: parent.bottom
+            anchors.topMargin: units.gu(2)
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: i18n.tr("Ubuntu One")
+            subText: i18n.tr("Sign in to stream your cloud music")
+            enabled: false
+            progression: true
+            onClicked: {
+                customdebug("I'm Ron Burgendy...?")
+            }
+        }
+
+        Rectangle {
+            id: wifiRow
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(10)
+            color: "transparent"
+            width: parent.width
+            Label {
+                id: streamwifiLabel
+                text: i18n.tr("Stream only on Wi-Fi")
+                enabled: false // check if account is connected
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
+                anchors.verticalCenter: wifiSwitch.verticalCenter
+            }
+            Switch {
+                id: wifiSwitch
+                checked: Settings.getSetting("wifiswitch") === "1"
+                enabled: false // check if account is connected
+                anchors.right: parent.right
+            }
+        }
+    }
+
+    /* MOVE THIS STUFF
+    // import playlists from lastfm
+    Row {
+        spacing: units.gu(2)
+        Button {
+            id: lastfmPlaylists
+            text: i18n.tr("Import playlists from last.fm")
+            width: units.gu(30)
+            color: "#c94212"
+            enabled: Settings.getSetting("scrobble") === "1" // only if scrobble is activated.
+            onClicked: {
+                console.debug("Debug: import playlists from last.fm")
+                Scrobble.getPlaylists(Settings.getSetting("lastfmusername"))
+            }
+        }
+    } */
+
+    // developer button - KILLS YOUR CAT!
+    Button {
+        text: i18n.tr("Clean everything!")
+        color: "red"
+        visible: args.values.debug
+        onClicked: {
+            Settings.reset()
+            Playlists.reset()
         }
     }
 }

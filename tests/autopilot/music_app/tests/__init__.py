@@ -20,7 +20,7 @@ from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
-from music_app.emulators import MainView
+from music_app import emulators
 
 logger = logging.getLogger(__name__)
 
@@ -57,18 +57,20 @@ class MusicTestCase(AutopilotTestCase):
         self.app = self.launch_test_application(
             "qmlscene",
             self.local_location,
-            app_type='qt')
+            app_type='qt',
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_installed(self):
         self.app = self.launch_test_application(
             "qmlscene",
             self.installed_location,
             "--desktop_file_hint=/usr/share/applications/music-app.desktop",
-            app_type='qt')
+            app_type='qt',
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_click(self):
         self.app = self.launch_click_package(
-            "com.ubuntu.music-app",
+            "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def _patch_home(self):
@@ -82,6 +84,14 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(temp_dir)
         logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+        #if the Xauthority file is in home directory
+        #make sure we copy it to temp home, otherwise do nothing
+        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        if os.path.isfile(xauth):
+            logger.debug("Copying .Xauthority to fake home " + temp_dir)
+            shutil.copyfile(
+                os.path.expanduser(os.path.join('~', '.Xauthority')),
+                os.path.join(temp_dir, '.Xauthority'))
         patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
         patcher.start()
         logger.debug("Patched home to fake home directory " + temp_dir)
@@ -97,29 +107,28 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(musicpath)
         logger.debug("Mediascanner path set to " + mediascannerpath)
 
-        #copy over our index
-        shutil.copytree(self.working_dir + '/music_app/content/mediascanner',
-                        mediascannerpath)
-
-        logger.debug("Mediascanner database copied, files " + str(os.listdir(mediascannerpath)))
-
-        #copy over the music
+        #copy over the music and index
         if os.path.exists(self.local_location):
             shutil.copy(self.working_dir + '/music_app/content/'
-                +'1.ogg',
-                musicpath)
+                        + '1.ogg',
+                        musicpath)
             shutil.copy(self.working_dir + '/music_app/content/'
-                +'2.ogg',
-                musicpath)
+                        + '2.ogg',
+                        musicpath)
+            shutil.copytree(self.working_dir +
+                            '/music_app/content/mediascanner',
+                            mediascannerpath)
+
         else:
-            shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
-            +'1.ogg',
-            musicpath)
-            shutil.copy('/usr/lib/python2.7/dist-packages/music_app/content/'
-            +'2.ogg',
-            musicpath)
+            pkg_dir = '/usr/lib/python2.7/dist-packages/music_app/'
+            shutil.copy(pkg_dir + 'content/' + '1.ogg', musicpath)
+            shutil.copy(pkg_dir + 'content/' + '2.ogg', musicpath)
+            shutil.copytree(pkg_dir + 'content/mediascanner', mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
         #do some inline db patching
         #patch mediaindex to proper home
@@ -129,13 +138,18 @@ class MusicTestCase(AutopilotTestCase):
         dblocation = "home/autopilot-music-app"
         dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
         #patch mediaindex
-        self._file_find_replace(mediascannerpath + "/mediaindex", dblocation, relhome)
+        self._file_find_replace(mediascannerpath +
+                                "/mediaindex", dblocation, relhome)
 
         #patch file indexes
-        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_0.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_1.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_2.cfs", dblocation, relhome)
-        self._file_find_replace(mediascannerpath + "/" + dbfoldername + "/_3.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" +
+                                dbfoldername + "/_0.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" +
+                                dbfoldername + "/_1.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" +
+                                dbfoldername + "/_2.cfs", dblocation, relhome)
+        self._file_find_replace(mediascannerpath + "/" +
+                                dbfoldername + "/_3.cfs", dblocation, relhome)
 
     def _file_find_replace(self, in_filename, find, replace):
         #replace all occurences of string find with string replace
@@ -152,7 +166,6 @@ class MusicTestCase(AutopilotTestCase):
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
 
-
     @property
     def main_view(self):
-        return MainView(self.app)
+        return self.app.select_single(emulators.MainView)

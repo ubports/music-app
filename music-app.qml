@@ -36,7 +36,7 @@ import "common"
 
 MainView {
     objectName: "music"
-    applicationName: "music-app"
+    applicationName: "com.ubuntu.music"
     id: mainView
 
     // Arguments during startup
@@ -93,6 +93,12 @@ MainView {
         onTriggered: player.stop()
     }
     Action {
+        id: backAction
+        text: i18n.tr("Back")
+        keywords: i18n.tr("Go back to last page")
+        onTriggered: musicToolbar.goBack();
+    }
+    Action {
         id: settingsAction
         text: i18n.tr("Settings")
         keywords: i18n.tr("Music Settings")
@@ -108,12 +114,50 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, settingsAction, quitAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
+    // signal to open new URIs
+    // TODO currently this only allows playing file:// URIs of known files
+    // (already in the database), not e.g. http:// URIs or files in directories
+    // not picked up by Grilo
+    Connections {
+        target: UriHandler
+        onOpened: {
+            // clear play queue
+            trackQueue.model.clear()
+            for (var i=0; i < uris.length; i++) {
+                console.debug("URI=" + uris[i])
+                // skip non-file:// URIs
+                if (uris[i].substring(0, 7) !== "file://") {
+                    console.debug("Unsupported URI " + uris[i] + ", skipping")
+                    continue
+                }
+
+                // search pathname in library
+                var file = decodeURIComponent(uris[i])
+                var index = libraryModel.indexOf(file)
+                if (index <= -1) {
+                    console.debug("Unknown file " + file + ", skipping")
+                    continue
+                }
+
+                // enqueue
+                trackQueue.model.append(libraryModel.model.get(index))
+
+                // play first URI
+                if (i == 0) {
+                    trackClicked(trackQueue, 0, true)
+                }
+            }
+        }
+    }
+
+    // Design stuff
     Style { id: styleMusic }
-
     width: units.gu(50)
     height: units.gu(75)
+
+    // RUn on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
@@ -139,7 +183,9 @@ MainView {
             // initialize settings
             console.debug("reset settings")
             Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-            //Settings.setSetting("scrobble", "0") // default state of shuffle
+            Settings.setSetting("snaptrack", "1") // default state of snaptrack
+            Settings.setSetting("shuffle", "0") // default state of shuffle
+            Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
         Library.reset()
@@ -161,7 +207,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '0.8'
+    property string appVersion: '1.0'
     property bool isPlaying: false
     property bool random: false
     property bool scrobble: false
@@ -169,7 +215,6 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-
     property string chosenTrack: ""
     property string chosenTitle: ""
     property string chosenArtist: ""
@@ -177,7 +222,6 @@ MainView {
     property string chosenCover: ""
     property string chosenGenre: ""
     property int chosenIndex: 0
-
     property string currentArtist: ""
     property string currentAlbum: ""
     property string currentTracktitle: ""
@@ -194,8 +238,8 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
-
     signal onPlayingTrackChange(string source)
+    signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     // FUNCTIONS
 
@@ -204,7 +248,7 @@ MainView {
         var debug = true; // set to "0" for not debugging
         //if (args.values.debug) { // *USE LATER*
         if (debug) {
-            console.debug("Debug: "+text);
+            console.debug(i18n.tr("Debug: ")+text);
         }
     }
 
@@ -253,17 +297,23 @@ MainView {
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex += direction
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === 1) {
+            } else if(direction === 1 && Settings.getSetting("repeat") === "1") {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = 0
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === -1) {
+            } else if(direction === -1 && Settings.getSetting("repeat") === "1") {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = trackQueue.model.count - 1
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             }
+            else
+            {
+                player.stop()
+                return;
+            }
+
             console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
         }
         player.stop()  // Add stop so that if same song is selected it restarts
@@ -326,7 +376,19 @@ MainView {
 
         console.debug(player.source, Qt.resolvedUrl(file))
 
-        if (player.source == Qt.resolvedUrl(file))  // same file different pages what should happen then?
+        // Clear the play queue and load the new tracks - if not trackQueue
+        // Don't reload queue if model, query and parameters are the same
+        // Same file different pages is treated as a new session
+        if (libraryModel !== trackQueue &&
+                (currentModel !== libraryModel ||
+                    currentQuery !== libraryModel.query ||
+                        currentParam !== libraryModel.param ||
+                            queueChanged === true))
+        {
+                trackQueue.model.clear()
+                addQueueFromModel(libraryModel)
+        }
+        else if (player.source == Qt.resolvedUrl(file))
         {
             if (play === false)
             {
@@ -342,23 +404,15 @@ MainView {
             else
             {
                 player.play()
+
+                // Show the Now Playing page and make sure the track is visible
+                nowPlaying.visible = true;
+                nowPlaying.ensureVisibleIndex = index;
+
+                musicToolbar.showToolbar();
             }
 
             return
-        }
-
-        // Clear the play queue and load the new tracks - if not trackQueue
-        if (libraryModel !== trackQueue)
-        {
-            // Don't reload queue if model, query and parameters are the same
-            if (currentModel !== libraryModel ||
-                    currentQuery !== libraryModel.query ||
-                        currentParam !== libraryModel.param ||
-                            queueChanged === true)
-            {
-                trackQueue.model.clear()
-                addQueueFromModel(libraryModel)
-            }
         }
 
         // Current index must be updated before player.source
@@ -387,8 +441,11 @@ MainView {
 
         if (play === true)
         {
-            nowPlaying.visible = true // Make the queue and Now Playing page active
+            // Show the Now Playing page and make sure the track is visible
+            nowPlaying.visible = true;
             nowPlaying.ensureVisibleIndex = index;
+
+            musicToolbar.showToolbar();
         }
 
         return file
@@ -418,16 +475,6 @@ MainView {
         listmodel.set(index, {"title": i18n.tr("Undo")} )
         // set the removed track in undo listmodel
         undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
-    }
-
-    // random color for non-found cover art
-    function get_random_color() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.round(Math.random() * 15)];
-        }
-        return color;
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -554,6 +601,7 @@ MainView {
 
     GriloModel {
         id: griloModel
+        property bool loaded: false
 
         source: GriloBrowse {
             id: browser
@@ -575,6 +623,10 @@ MainView {
                 }
             }
             onBaseMediaChanged: refresh();
+
+            onFinished: {
+                griloModel.loaded = true
+            }
         }
 
         onCountChanged: {
@@ -587,7 +639,7 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
-                    console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
+                    //console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
                     Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
                 }
             }
@@ -610,7 +662,9 @@ MainView {
         onCountChanged: {
             if (argFile === model.get(count - 1).file)
             {
-                trackClicked(libraryModel, count - 1, true)
+                trackQueue.model.clear();
+                trackQueue.model.append(model.get(count - 1));
+                trackClicked(trackQueue, 0, true);
             }
         }
     }
@@ -686,10 +740,6 @@ MainView {
         id: undo
     }
 
-    LoadingSpinnerComponent {
-        id:loading
-    }
-
     Timer {
         id: timer
         interval: 200; repeat: true
@@ -709,42 +759,17 @@ MainView {
                 genreModel.filterGenres()
                 timer.stop()
                 loading.visible = false
-
-                // Check if tracks have been found, if none then show message
-                if (counted === 0)
-                {
-                    header.opacity = 0;
-                    libraryEmpty.visible = true;
-                }
             }
             counted = griloModel.count
         }
     }
 
     // Blurred background
-    Rectangle {
-        anchors.fill: parent
-        // the album art
-        Image {
-            id: backgroundImage
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            source: mainView.currentCoverFull
-            height: parent.height
-            width: height
-        }
-        // the blur
-        FastBlur {
-            anchors.fill: backgroundImage
-            source: backgroundImage
-            radius: units.dp(42)
-        }
-        // transparent white layer
-        Rectangle {
-            anchors.fill: parent
-            color: "white"
-            opacity: 0.7
-        }
+    BlurredBackground {
+    }
+
+    LoadingSpinnerComponent {
+        id:loading
     }
 
     // Popover for tracks, queue and add to playlist, for example
@@ -821,14 +846,13 @@ MainView {
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
                              playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
+                             PopupUtils.close(dialogueNewPlaylist)
                          }
                          else {
                              console.debug("Debug: Something went wrong: "+newList)
                              newplaylistoutput.visible = true
                              newplaylistoutput.text = i18n.tr("Error: "+newList)
                          }
-
-                         PopupUtils.close(dialogueNewPlaylist)
                      }
                      else {
                          newplaylistoutput.visible = true
@@ -845,9 +869,17 @@ MainView {
          }
     }
 
+    MusicToolbar {
+        id: musicToolbar
+        objectName: "musicToolbarObject"
+        z: 200  // put on top of everything else
+
+        property bool animating: false
+        property bool opened: false
+    }
+
     PageStack {
         id: pageStack
-        anchors.top: mainView.top
         Tabs {
             id: tabs
             anchors.fill: parent
@@ -917,226 +949,16 @@ MainView {
                     id: musicPlaylistPage
                 }
             }
+
+            function getCurrentTab()
+            {
+                musicToolbar.currentTab = selectedTab;
+            }
+
+            onSelectedTabChanged: {
+                getCurrentTab();
+            }
         } // end of tabs
-    }
-
-    // player controls at the bottom
-    Rectangle {
-        id: playerControls
-        anchors.bottom: parent.bottom
-        //anchors.top: filelist.bottom
-        height: units.gu(8)
-        width: parent.width
-        color: styleMusic.playerControls.backgroundColor
-
-        state: trackQueue.isEmpty === true ? "disabled" : "enabled"
-
-        states: [
-            State {
-                name: "disabled"
-                PropertyChanges {
-                    target: disabledPlayerControlsGroup
-                    visible: true
-                }
-                PropertyChanges {
-                    target: enabledPlayerControlsGroup
-                    visible: false
-                }
-            },
-            State {
-                name: "enabled"
-                PropertyChanges {
-                    target: disabledPlayerControlsGroup
-                    visible: false
-                }
-                PropertyChanges {
-                    target: enabledPlayerControlsGroup
-                    visible: true
-                }
-            }
-        ]
-
-        Rectangle {
-            id: disabledPlayerControlsGroup
-            anchors.fill: parent
-            color: "transparent"
-            visible: trackQueue.isEmpty === true
-
-            Label {
-                id: noSongsInQueueLabel
-                anchors.left: parent.left
-                anchors.margins: units.gu(1)
-                anchors.top: parent.top
-                color: styleMusic.playerControls.labelColor
-                text: "No songs queued"
-                fontSize: "large"
-            }
-
-            Label {
-                id: tabToStartPlayingLabel
-                color: styleMusic.playerControls.labelColor
-                anchors.left: parent.left
-                anchors.margins: units.gu(1)
-                anchors.top: noSongsInQueueLabel.bottom
-                text: "Tap on a song to start playing"
-            }
-        }
-
-        Rectangle {
-            id: enabledPlayerControlsGroup
-            anchors.fill: parent
-            color: "transparent"
-            visible: trackQueue.isEmpty === false
-
-            UbuntuShape {
-                id: forwardshape
-                objectName: "forwardshape"
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(2)
-                radius: "none"
-                image: Image {
-                    id: forwardindicator
-                    source: "images/forward.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        nextSong()
-                    }
-                }
-            }
-            UbuntuShape {
-                id: playshape
-                objectName: "playshape"
-                height: units.gu(5)
-                width: units.gu(5)
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: forwardshape.left
-                anchors.rightMargin: units.gu(1)
-                radius: "none"
-                image: Image {
-                    id: playindicator
-                    source: player.playbackState === MediaPlayer.PlayingState ?
-                              "images/pause.png" : "images/play.png"
-                    anchors.right: parent.right
-                    anchors.centerIn: parent
-                    opacity: .7
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (player.playbackState === MediaPlayer.PlayingState)  {
-                            player.pause()
-                        } else {
-                            player.play()
-                        }
-                    }
-                }
-            }
-            Image {
-                id: iconbottom
-                source: mainView.currentCoverSmall
-                width: units.gu(6)
-                height: units.gu(6)
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        nowPlaying.visible = true
-                    }
-                }
-            }
-            Label {
-                id: fileTitleBottom
-                width: mainView.width - iconbottom.width
-                                      - iconbottom.anchors.leftMargin
-                                      - playshape.width
-                                      - playshape.anchors.rightMargin
-                                      - forwardshape.width
-                                      - forwardshape.anchors.rightMargin
-                                      - anchors.leftMargin
-                wrapMode: Text.Wrap
-                color: styleMusic.playerControls.labelColor
-                maximumLineCount: 1
-                fontSize: "medium"
-                anchors.left: iconbottom.right
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1)
-                anchors.leftMargin: units.gu(1)
-                text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
-            }
-            Label {
-                id: fileArtistAlbumBottom
-                width: mainView.width - iconbottom.width
-                                      - iconbottom.anchors.leftMargin
-                                      - playshape.width
-                                      - playshape.anchors.rightMargin
-                                      - forwardshape.width
-                                      - forwardshape.anchors.rightMargin
-                                      - anchors.leftMargin
-                wrapMode: Text.Wrap
-                color: styleMusic.playerControls.labelColor
-                maximumLineCount: 1
-                fontSize: "small"
-                anchors.left: iconbottom.right
-                anchors.top: fileTitleBottom.bottom
-                anchors.leftMargin: units.gu(1)
-                text: mainView.currentArtist == "" ? "" : mainView.currentArtist + " - " + mainView.currentAlbum
-            }
-            Rectangle {
-                id: fileDurationProgressContainer
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: units.gu(1)
-                color: styleMusic.playerControls.backgroundColor
-                height: units.gu(0.5);
-                width: parent.width
-
-                Rectangle {
-                    id: fileDurationProgressBackground
-                    color: styleMusic.playerControls.progressBackgroundColor;
-                    anchors.bottom: parent.bottom
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    visible: player.duration > 0 ? true : false
-                    width: parent.width
-                }
-
-                Rectangle {
-                    id: fileDurationProgressArea
-                    anchors.bottom: parent.bottom
-                    color: styleMusic.playerControls.progressForegroundColor;
-                    height: units.gu(0.5);
-                    radius: units.gu(0.5);
-                    visible: player.duration > 0 ? true : false
-                    width: (player.position / player.duration) * fileDurationProgressContainer.width;
-                }
-            }
-
-            Label {
-                id: fileDurationBottom
-                anchors.top: fileArtistAlbumBottom.bottom
-                anchors.leftMargin: units.gu(1)
-                anchors.left: iconbottom.right
-                color: styleMusic.playerControls.labelColor
-                fontSize: "small"
-                maximumLineCount: 1
-                text: player.duration > 0 ?
-                          player.positionStr+" / "+player.durationStr
-                        : ""
-                width: units.gu(30)
-                wrapMode: Text.Wrap
-            }
-        }
     }
 
     MusicNowPlaying {
@@ -1159,7 +981,7 @@ MainView {
         id: libraryEmpty
         anchors.fill: parent
         color: styleMusic.libraryEmpty.backgroundColor
-        visible: false
+        visible: griloModel.count === 0 && griloModel.loaded === true
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
