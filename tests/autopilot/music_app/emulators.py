@@ -68,8 +68,17 @@ class MainView(toolkit_emulators.MainView):
     def get_play_button(self):
         return self.select_single("*", objectName="playshape")
 
+    def get_now_playing_play_button(self):
+        return self.select_single("*", objectName="nowPlayingPlayShape")
+
+    def get_repeat_button(self):
+        return self.select_single("UbuntuShape", objectName="repeatShape")
+
     def get_forward_button(self):
         return self.select_single("UbuntuShape", objectName="forwardshape")
+
+    def get_previous_button(self):
+        return self.select_single("UbuntuShape", objectName="previousshape")
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")

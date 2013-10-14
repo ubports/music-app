@@ -592,6 +592,7 @@ Rectangle {
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
+                objectName: "previousshape"
                 width: height
                 color: "#000000"
 
@@ -690,6 +691,7 @@ Rectangle {
                                     }
 
                                     MouseArea {
+                                        objectName: "nowPlayingPlayShape"
                                         anchors.fill: parent
                                         id: nowPlayingPlayMouseArea
 
@@ -762,6 +764,7 @@ Rectangle {
             /* Repeat button */
             UbuntuShape {
                 id: nowPlayingRepeatButton
+                objectName: "repeatShape"
                 anchors.left: nowPlayingNextButton.right
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
