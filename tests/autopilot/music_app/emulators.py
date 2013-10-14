@@ -7,7 +7,6 @@
 
 """Music app autopilot emulators."""
 from ubuntuuitoolkit import emulators as toolkit_emulators
-from autopilot.input import Mouse
 from time import sleep
 
 
@@ -55,15 +54,14 @@ class MainView(toolkit_emulators.MainView):
     def show_toolbar(self):
         # Get the toolbar object and create a mouse
         toolbar = self.get_toolbar()
-        mouse = Mouse.create()
 
         # Move to the toolbar and get the position
-        mouse.move_to_object(toolbar)
-        x1, y1 = mouse.position()
+        self.pointing_device.move_to_object(toolbar)
+        x1, y1 = self.pointing_device.position()
 
         y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
 
-        mouse.drag(x1, y1, x1, y1 - toolbar.height)
+        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_play_button(self):
         return self.select_single("*", objectName="playshape")
