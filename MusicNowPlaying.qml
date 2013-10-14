@@ -75,7 +75,7 @@ Page {
             queuelist.scrollLock = true;
 
             // Then position the view at the current index
-            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Contain);
+            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
 
             queuelist.scrollLock = false;
         }
@@ -130,7 +130,7 @@ Page {
         }
 
         property int normalHeight: units.gu(10)
-        property int currentHeight: units.gu(46)
+        property int currentHeight: units.gu(50)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -461,7 +461,7 @@ Page {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1.5)
                         anchors.top: parent.top
-                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(6) : queuelist.normalHeight) - units.gu(1)
+                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(1)
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
@@ -484,6 +484,16 @@ Page {
                         }
                     }
                     Label {
+                        id: nowPlayingArtist
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        height: units.gu(1)
+                        text: artist
+                        width: expandItem.x - x - units.gu(1.5)
+                        x: trackImage.x + trackImage.width + units.gu(1)
+                        y: trackImage.y + units.gu(1)
+                    }
+                    Label {
                         id: nowPlayingTitle
                         color: styleMusic.common.white
                         elide: Text.ElideRight
@@ -491,16 +501,17 @@ Page {
                         text: title
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
-                        y: trackImage.y + units.gu(0.5)
+                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     Label {
-                        id: nowPlayingAlbumArtist
+                        id: nowPlayingAlbum
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: artist + " - " + album
+                        height: units.gu(1)
+                        text: album
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
-                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1)
+                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                     Image {
                         id: expandItem
@@ -508,7 +519,7 @@ Page {
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                         x: parent.x + parent.width - width - units.gu(2)
-                        y: trackImage.y + units.gu(2)
+                        y: trackImage.y + (queuelist.normalHeight / 2) - (styleMusic.common.expandedItem / 2)
                     }
 
                     MouseArea {
@@ -659,21 +670,27 @@ Page {
                         height: queuelist.currentHeight
                     }
                     PropertyChanges {
-                        target: nowPlayingTitle
+                        target: nowPlayingArtist
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(1)
+                        x: trackImage.x + units.gu(2)
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
-                        target: nowPlayingAlbumArtist
+                        target: nowPlayingTitle
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(1)
-                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1)
+                        x: trackImage.x + units.gu(2)
+                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
+                    }
+                    PropertyChanges {
+                        target: nowPlayingAlbum
+                        width: expandItem.x - x - units.gu(2.5)
+                        x: trackImage.x + units.gu(2)
+                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: expandItem
                         x: trackImage.x + trackImage.width - expandItem.width - units.gu(2)
-                        y: trackImage.y + trackImage.height + units.gu(2.5)
+                        y: trackImage.y + trackImage.height + units.gu(4) - (expandItem.height / 2)
                     }
                     PropertyChanges {
                         target: expandItemMouseArea
