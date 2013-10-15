@@ -104,6 +104,7 @@ Page {
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
+        spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false
@@ -134,7 +135,7 @@ Page {
             }
         }
 
-        property int normalHeight: units.gu(10)
+        property int normalHeight: units.gu(12)
         property int currentHeight: units.gu(50)
         property int transitionDuration: 250  // transition length of animations
 
@@ -466,7 +467,7 @@ Page {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1.5)
                         anchors.top: parent.top
-                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(1)
+                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(6) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
@@ -552,7 +553,7 @@ Page {
                                collapseExpand(-1);  // collapse all others first
                                expandable.visible = true;
                                queueListItem.cachedHeight = queueListItem.height;
-                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal;
+                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal + units.gu(2);
                                Rotation: {
                                    source: expandItem;
                                    angle: 180;
