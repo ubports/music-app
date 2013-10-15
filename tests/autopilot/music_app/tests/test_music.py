@@ -16,6 +16,7 @@ from music_app.tests import MusicTestCase
 
 import time
 
+
 class TestMainWindow(MusicTestCase):
 
     def setUp(self):
@@ -107,7 +108,8 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))
 
     def test_previous_and_mp3(self):
-        """ Test going to previous track, last item must be an MP3 (Music Library must exist) """
+        """ Test going to previous track, last item must be an MP3
+            (Music Library must exist) """
 
         self.main_view.show_toolbar()
 
@@ -183,10 +185,10 @@ class TestMainWindow(MusicTestCase):
                 self.pointing_device.click_object(forwardbutton)
 
                 """ Track is playing"""
-                self.assertThat(self.main_view.isPlaying,
-				Eventually(Equals(True)))
+                self.assertThat(self.main_view.isPlaying, \
+                                Eventually(Equals(True)))
                 if self.main_view.currentTracktitle == "TestMP3Title" and \
-		   self.main_view.currentArtist == "TestMP3Artist":
+                    self.main_view.currentArtist == "TestMP3Artist":
                     break
                 else:
                     forward = not forward
@@ -195,15 +197,15 @@ class TestMainWindow(MusicTestCase):
                 self.pointing_device.click_object(previousbutton)
 
                 """ Track is playing"""
-                self.assertThat(self.main_view.isPlaying,
-				Eventually(Equals(True)))
+                self.assertThat(self.main_view.isPlaying, \
+                                Eventually(Equals(True)))
                 if self.main_view.currentTracktitle == "Swansong" and \
-		   self.main_view.currentArtist == "Josh Woodward":
+                    self.main_view.currentArtist == "Josh Woodward":
                     break
                 else:
                     forward = not forward
                     count += 1
 
             self.pointing_device.click_object(playbutton)
-            self.assertThat(self.main_view.isPlaying,
-			    Eventually(Equals(False)))
+            self.assertThat(self.main_view.isPlaying, \
+                Eventually(Equals(False)))
