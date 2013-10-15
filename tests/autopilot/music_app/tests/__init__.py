@@ -176,7 +176,7 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Patching fake mediascanner database")
         relhome = self.home_dir[1:]
         dblocation = "home/autopilot-music-app"
-        dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
+        dbfoldername = "08efb777-896b-4308-b0bf-1605dfb3c52c"
         #patch mediaindex
         self._file_find_replace(mediascannerpath +
                                 "/mediaindex", dblocation, relhome)
