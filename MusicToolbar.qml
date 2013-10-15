@@ -454,6 +454,7 @@ Rectangle {
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     width: units.gu(6)
+                    height: width
                     visible: currentPageStack !== null && currentParentPage !== null
 
                     Image {
