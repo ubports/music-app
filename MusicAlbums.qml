@@ -294,8 +294,9 @@ Page {
 
                         Rectangle {
                             id: expandable
-                            visible: false
+                            color: "transparent"
                             height: styleMusic.albums.expandHeight
+                            visible: false
                             MouseArea {
                                anchors.fill: parent
                                onClicked: {
@@ -317,11 +318,23 @@ Page {
                                 }
                             }
 
+                            // background for expander
+                            Rectangle {
+                                anchors.top: parent.top
+                                anchors.topMargin: styleMusic.albums.itemHeight
+                                color: styleMusic.common.black
+                                height: styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight
+                                width: track.width
+                                opacity: 0.4
+                            }
+
                             // add to playlist
                             Rectangle {
                                 id: playlistRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 color: "transparent"
@@ -329,16 +342,18 @@ Page {
                                 width: units.gu(15)
                                 Icon {
                                     id: playlistTrack
+                                    color: styleMusic.common.white
                                     name: "add"
                                     height: styleMusic.common.expandedItem
                                     width: styleMusic.common.expandedItem
                                 }
                                 Label {
-                                    text: i18n.tr("Add to playlist")
-                                    wrapMode: Text.WordWrap
-                                    fontSize: "small"
                                     anchors.left: playlistTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    color: styleMusic.common.white
+                                    fontSize: "small"
+                                    text: i18n.tr("Add to playlist")
+                                    wrapMode: Text.WordWrap
                                 }
                                 MouseArea {
                                    anchors.fill: parent
@@ -364,7 +379,9 @@ Page {
                             Rectangle {
                                 id: queueRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 color: "transparent"
@@ -377,11 +394,12 @@ Page {
                                     width: styleMusic.common.expandedItem
                                 }
                                 Label {
-                                    text: i18n.tr("Queue")
-                                    wrapMode: Text.WordWrap
-                                    fontSize: "small"
                                     anchors.left: queueTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    color: styleMusic.common.white
+                                    fontSize: "small"
+                                    text: i18n.tr("Queue")
+                                    wrapMode: Text.WordWrap
                                 }
                                 MouseArea {
                                    anchors.fill: parent

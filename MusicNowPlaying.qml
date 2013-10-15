@@ -564,11 +564,9 @@ Page {
 
                 Rectangle {
                     id: expandable
-                    visible: false
-                    width: parent.fill
+                    color: "transparent"
                     height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal
-                    color: "black"
-                    opacity: 0.7
+                    visible: false
                     MouseArea {
                        anchors.fill: parent
                        onClicked: {
@@ -594,11 +592,26 @@ Page {
                         }
                     }
 
+                    // background for expander
+                    Rectangle {
+                        anchors.top: parent.top
+                        anchors.topMargin: queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight
+                        color: styleMusic.common.black
+                        height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight : styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight
+                        width: queueListItem.width
+                        opacity: 0.4
+                    }
+
                     // add to playlist
                     Rectangle {
                         id: playlistRow
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(1) + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                        anchors.topMargin: ((queueListItem.state === "current" ?
+                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
+                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
+                                            / 2)
+                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                                           - (height / 2)
                         anchors.left: parent.left
                         anchors.leftMargin: styleMusic.common.expandedLeftMargin
                         color: "transparent"
@@ -606,16 +619,18 @@ Page {
                         width: units.gu(15)
                         Icon {
                             id: playlistTrack
+                            color: styleMusic.common.white
                             name: "add"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
                         Label {
-                            text: i18n.tr("Add to playlist")
-                            wrapMode: Text.WordWrap
-                            fontSize: "small"
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            color: styleMusic.common.white
+                            fontSize: "small"
+                            wrapMode: Text.WordWrap
+                            text: i18n.tr("Add to playlist")
                         }
                         MouseArea {
                            anchors.fill: parent
@@ -641,7 +656,12 @@ Page {
                     Rectangle {
                         id: shareRow
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(2.5) + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                        anchors.topMargin: ((queueListItem.state === "current" ?
+                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
+                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
+                                            / 2)
+                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                                           - (height / 2)
                         anchors.left: playlistRow.left
                         anchors.leftMargin: units.gu(15)
                         color: "transparent"
