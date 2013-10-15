@@ -15,6 +15,7 @@ import os.path
 import shutil
 #import subprocess
 import logging
+import music_app
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
@@ -139,10 +140,8 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
         #set content path
-        if self.test_type == 'local' or self.test_type == 'click':
-            content_dir = os.path.join(self.working_dir, 'music_app/content/')
-        else:
-            content_dir = '/usr/lib/python2.7/dist-packages/music_app/content/'
+        content_dir = os.path.join(os.path.dirname(music_app.__file__),
+                                   'content')
 
         logger.debug("Content dir set to %s" % content_dir)
 
