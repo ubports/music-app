@@ -765,6 +765,7 @@ Rectangle {
             /* Shuffle button */
             Item {
                 id: nowPlayingShuffleButton
+                objectName: "shuffleShape"
                 anchors.left: nowPlayingNextButton.right
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
