@@ -523,7 +523,7 @@ Page {
                     }
                     Image {
                         id: expandItem
-                        source: "images/dropdown-menu.svg"
+                        source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                         x: parent.x + parent.width - width - units.gu(2)

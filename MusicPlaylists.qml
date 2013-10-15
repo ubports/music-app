@@ -260,7 +260,7 @@ PageStack {
                        Image {
                            id: expandItem
                          //  name: "dropdown-menu"
-                           source: "images/dropdown-menu.svg"
+                           source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                            anchors.right: parent.right
                            anchors.rightMargin: units.gu(2)
                            anchors.top: parent.top
@@ -545,7 +545,7 @@ PageStack {
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(4)
                 //name: "dropdown-menu" use for 1.0
-                source: "images/dropdown-menu.svg"
+                source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
             }
