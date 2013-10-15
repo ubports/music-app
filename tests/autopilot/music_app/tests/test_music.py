@@ -203,7 +203,3 @@ class TestMainWindow(MusicTestCase):
                 else:
                     forward = not forward
                     count += 1
-
-            self.pointing_device.click_object(playbutton)
-            self.assertThat(self.main_view.isPlaying,
-                            Eventually(Equals(False)))
