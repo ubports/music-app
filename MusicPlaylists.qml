@@ -310,6 +310,16 @@ PageStack {
                                }
                            }
 
+                           // background for expander
+                           Rectangle {
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.playlist.playlistItemHeight
+                               color: styleMusic.common.black
+                               height: styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight
+                               width: playlist.width
+                               opacity: 0.4
+                           }
+
                            Rectangle {
                                id: editColumn
                                anchors.top: parent.top
@@ -327,10 +337,11 @@ PageStack {
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Edit")
-                                       fontSize: "small"
                                        anchors.left: editPlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Edit")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -342,8 +353,8 @@ PageStack {
                                           oldPlaylistID = id
                                           oldPlaylistIndex = index
                                           PopupUtils.open(editPlaylistDialog, mainView)
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                            }
 
@@ -363,10 +374,11 @@ PageStack {
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Delete")
-                                       fontSize: "small"
                                        anchors.left: deletePlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Delete")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -378,8 +390,8 @@ PageStack {
                                           oldPlaylistID = id
                                           oldPlaylistIndex = index
                                           PopupUtils.open(removePlaylistDialog, mainView)
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                             }
                            // share
@@ -402,10 +414,11 @@ PageStack {
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Share")
-                                       fontSize: "small"
                                        anchors.left: sharePlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Share")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -414,8 +427,8 @@ PageStack {
                                           playlist.height = styleMusic.playlist.playlistItemHeight
                                           customdebug("Share")
                                           inPlaylist = true
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                             }
                        }

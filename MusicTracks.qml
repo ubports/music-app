@@ -219,11 +219,9 @@ PageStack {
 
                     Rectangle {
                         id: expandable
-                        visible: false
-                        width: parent.fill
+                        color: "transparent"
                         height: styleMusic.common.expandHeight
-                        color: "black"
-                        opacity: 0.7
+                        visible: false
                         MouseArea {
                            anchors.fill: parent
                            onClicked: {
@@ -245,6 +243,16 @@ PageStack {
                             }
                         }
 
+                        // background for expander
+                        Rectangle {
+                            anchors.top: parent.top
+                            anchors.topMargin: styleMusic.common.itemHeight
+                            color: styleMusic.common.black
+                            height: styleMusic.common.expandedHeight - styleMusic.common.itemHeight
+                            width: track.width
+                            opacity: 0.4
+                        }
+
                         // add to playlist
                         Rectangle {
                             id: playlistRow
@@ -262,11 +270,12 @@ PageStack {
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Add to playlist")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: playlistTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Add to playlist")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -305,11 +314,12 @@ PageStack {
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Queue")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: queueTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Queue")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -318,8 +328,8 @@ PageStack {
                                    track.height = styleMusic.common.itemHeight
                                    console.debug("Debug: Add track to queue: " + title)
                                    trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
-                             }
-                           }
+                               }
+                            }
                         }
                         // Share
                         Rectangle {
@@ -339,11 +349,12 @@ PageStack {
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Share")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: shareTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Share")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -351,8 +362,8 @@ PageStack {
                                    expandable.visible = false
                                    track.height = styleMusic.common.itemHeight
                                    customdebug("Share")
-                             }
-                           }
+                               }
+                            }
                         }
                     }
                 }
