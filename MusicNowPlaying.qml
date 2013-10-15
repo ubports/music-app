@@ -494,7 +494,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: artist
-			fontSize: 'small'
+                        fontSize: 'small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: trackImage.y + units.gu(1)
@@ -505,7 +505,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
-			fontSize: 'medium'
+                        fontSize: 'medium'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
@@ -516,7 +516,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: album
-			fontSize: 'x-small'
+                        fontSize: 'x-small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
@@ -549,6 +549,7 @@ Page {
                            }
                            else {
                                customdebug("clicked expand");
+                               collapseExpand(-1);  // collapse all others first
                                expandable.visible = true;
                                queueListItem.cachedHeight = queueListItem.height;
                                queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal;
