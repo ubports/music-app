@@ -37,10 +37,10 @@ QtObject {
         property color expandedColor: "#000000";
         property int albumSize: units.gu(10);
         property int itemHeight: units.gu(12);
-        property int expandedHeight: units.gu(20);
+        property int expandedHeight: units.gu(17.5);
         property int expandHeight: units.gu(10);
         property int expandedItem: units.gu(2);
-        property int expandedTopMargin: units.gu(14.5);
+        property int expandedTopMargin: units.gu(13.5);
         property int expandedLeftMargin: units.gu(5);
     }
 
