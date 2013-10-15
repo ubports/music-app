@@ -77,7 +77,10 @@ Page {
 
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
-            queuelist.contentY -= header.height;
+            if (queuelist.contentY > 0)
+            {
+                queuelist.contentY -= header.height;
+            }
 
             queuelist.scrollLock = false;
         }
