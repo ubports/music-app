@@ -37,6 +37,7 @@ Page {
         if (visible === true)
         {
             queuelist.scrollLock = true;
+            header.y -= header.height;
             header.opacity = 0;
             header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
@@ -46,6 +47,7 @@ Page {
         {
             header.enabled = true;
             header.opacity = 1;
+            header.y = 0;
         }
     }
 
@@ -98,10 +100,6 @@ Page {
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
         delegate: queueDelegate
-        footer: Rectangle {
-            color: "transparent"
-            height: nowPlaying.height - queuelist.currentHeight - nowPlayingBackButton.height
-        }
         model: trackQueue.model
         highlightFollowsCurrentItem: false
         state: "normal"
