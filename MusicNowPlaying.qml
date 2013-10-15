@@ -49,7 +49,7 @@ Page {
         }
     }
 
-    property int ensureVisibleIndex: -1
+    property int ensureVisibleIndex: 0  // ensure first index is visible at startup
 
     Rectangle {
         anchors.fill: parent
@@ -716,8 +716,10 @@ Page {
 
                         if (running === false && ensureVisibleIndex != -1)
                         {
-                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Visible);
+                            queuelist.scrollLock = true;
+                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
                             ensureVisibleIndex = -1;
+                            queuelist.scrollLock = false;
                         }
 
                         if (!running)
