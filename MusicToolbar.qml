@@ -565,7 +565,7 @@ Rectangle {
 
                 Image {
                     id: shuffleIcon
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -599,7 +599,7 @@ Rectangle {
 
                 Image {
                     id: nowPlayingPreviousIndicator
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -743,7 +743,7 @@ Rectangle {
 
                 Image {
                     id: nowPlayingNextIndicator
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -773,7 +773,7 @@ Rectangle {
 
                 Image {
                     id: repeatIcon
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
