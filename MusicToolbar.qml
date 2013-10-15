@@ -403,7 +403,7 @@ Rectangle {
                                             anchors.verticalCenter: parent.verticalCenter
                                             opacity: 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
-                                                      "images/pause.png" : "images/play.png"
+                                                      Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
                                     }
                                 }
@@ -570,7 +570,7 @@ Rectangle {
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: "images/shuffle.png"
+                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
                     opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
                 }
 
@@ -604,7 +604,7 @@ Rectangle {
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "images/back.png"
+                    source: Qt.resolvedUrl("images/media-skip-backward.svg")
                     opacity: 1
                 }
 
@@ -689,7 +689,7 @@ Rectangle {
                                         anchors.verticalCenter: parent.verticalCenter
                                         opacity: 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
-                                                  "images/pause.png" : "images/play.png"
+                                                  Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
 
                                     MouseArea {
@@ -748,7 +748,7 @@ Rectangle {
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "images/forward.png"
+                    source: Qt.resolvedUrl("images/media-skip-forward.svg")
                     opacity: 1
                 }
 
@@ -778,7 +778,7 @@ Rectangle {
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: "images/repeat.png"
+                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
                     verticalAlignment: Text.AlignVCenter
                     opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
                 }
