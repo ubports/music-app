@@ -185,7 +185,7 @@ class TestMainWindow(MusicTestCase):
                 """ Track is playing"""
                 self.assertThat(self.main_view.isPlaying,
 				Eventually(Equals(True)))
-                if self.main_view.currentTracktitle == "TestMP3Title" and
+                if self.main_view.currentTracktitle == "TestMP3Title" and \
 		   self.main_view.currentArtist == "TestMP3Artist":
                     break
                 else:
@@ -197,7 +197,7 @@ class TestMainWindow(MusicTestCase):
                 """ Track is playing"""
                 self.assertThat(self.main_view.isPlaying,
 				Eventually(Equals(True)))
-                if self.main_view.currentTracktitle == "Swansong" and
+                if self.main_view.currentTracktitle == "Swansong" and \
 		   self.main_view.currentArtist == "Josh Woodward":
                     break
                 else:
