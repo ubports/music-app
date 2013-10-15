@@ -38,20 +38,21 @@ Page {
         {
             queuelist.scrollLock = true;
             header.hide();
-            header.visible = false;
             header.opacity = 0;
+            header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
+            queuelist.anchors.topMargin = -header.height + nowPlayingBackButton.height
             queuelist.scrollLock = false;
         }
         else
         {
-            header.visible = true;
+            header.enabled = true;
             header.opacity = 1;
             header.show();
         }
     }
 
-    property int ensureVisibleIndex: -1
+    property int ensureVisibleIndex: 0  // ensure first index is visible at startup
 
     Rectangle {
         anchors.fill: parent
@@ -76,6 +77,10 @@ Page {
 
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
+            if (queuelist.contentY > 0)
+            {
+                queuelist.contentY -= header.height;
+            }
 
             queuelist.scrollLock = false;
         }
@@ -489,6 +494,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: artist
+			fontSize: 'small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: trackImage.y + units.gu(1)
@@ -499,6 +505,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
+			fontSize: 'medium'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
@@ -509,6 +516,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: album
+			fontSize: 'x-small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
@@ -714,8 +722,11 @@ Page {
 
                         if (running === false && ensureVisibleIndex != -1)
                         {
-                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Visible);
+                            queuelist.scrollLock = true;
+                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
+                            queuelist.contentY -= header.height;
                             ensureVisibleIndex = -1;
+                            queuelist.scrollLock = false;
                         }
 
                         if (!running)
