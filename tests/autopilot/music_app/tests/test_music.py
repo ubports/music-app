@@ -188,7 +188,7 @@ class TestMainWindow(MusicTestCase):
                 self.assertThat(self.main_view.isPlaying,
                                 Eventually(Equals(True)))
                 if (self.main_view.currentTracktitle == "TestMP3Title" and
-                self.main_view.currentArtist == "TestMP3Artist"):
+                        self.main_view.currentArtist == "TestMP3Artist"):
                     break
                 else:
                     forward = not forward
@@ -200,7 +200,7 @@ class TestMainWindow(MusicTestCase):
                 self.assertThat(self.main_view.isPlaying,
                                 Eventually(Equals(True)))
                 if (self.main_view.currentTracktitle == "Swansong" and
-                self.main_view.currentArtist == "Josh Woodward"):
+                        self.main_view.currentArtist == "Josh Woodward"):
                     break
                 else:
                     forward = not forward
