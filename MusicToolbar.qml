@@ -939,8 +939,8 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
-                color: styleMusic.common.black
-                height: units.gu(0.2)
+                color: styleMusic.common.white
+                height: units.gu(0.1)
                 opacity: 0.1
             }
         }
