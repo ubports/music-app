@@ -282,6 +282,7 @@ PageStack {
                               }
                               else {
                                   customdebug("clicked expand")
+                                  collapseExpand(-1);  // collapse all others
                                   expandable.visible = true
                                   playlist.height = styleMusic.playlists.expandedHeight
                               }
@@ -294,6 +295,21 @@ PageStack {
                            color: "transparent"
                            height: styleMusic.common.expandHeight
                            visible: false
+
+                           Component.onCompleted: {
+                               collapseExpand.connect(onCollapseExpand);
+                           }
+
+                           function onCollapseExpand(indexCol)
+                           {
+                               if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                               {
+                                   customdebug("auto collapse")
+                                   expandable.visible = false
+                                   playlist.height = styleMusic.playlist.playlistItemHeight
+                               }
+                           }
+
                            Rectangle {
                                id: editColumn
                                anchors.top: parent.top
@@ -545,7 +561,7 @@ PageStack {
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(4)
                 //name: "dropdown-menu" use for 1.0
-                source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
+                source: expandableInfo.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
             }

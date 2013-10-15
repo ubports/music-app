@@ -285,6 +285,7 @@ Page {
                                }
                                else {
                                    customdebug("clicked expand")
+                                   collapseExpand(-1);  // collapse all others
                                    expandable.visible = true
                                    track.height = styleMusic.albums.expandedHeight
                                }
@@ -299,8 +300,23 @@ Page {
                                anchors.fill: parent
                                onClicked: {
                                    customdebug("User pressed outside the playlist item and expanded items.")
-                             }
-                           }
+                               }
+                            }
+
+                            Component.onCompleted: {
+                                collapseExpand.connect(onCollapseExpand);
+                            }
+
+                            function onCollapseExpand(indexCol)
+                            {
+                                if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                                {
+                                    customdebug("auto collapse")
+                                    expandable.visible = false
+                                    track.height = styleMusic.albums.itemHeight
+                                }
+                            }
+
                             // add to playlist
                             Rectangle {
                                 id: playlistRow
