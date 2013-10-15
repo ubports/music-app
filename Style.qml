@@ -68,7 +68,7 @@ QtObject {
     }
 
     property QtObject nowPlaying: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#1d1d1d"
         property color foregroundColor: "#454545"
         property color labelColor: common.white;
         property color labelSecondaryColor: "#AAA";
