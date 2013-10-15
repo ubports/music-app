@@ -489,6 +489,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: artist
+			fontSize: 'small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: trackImage.y + units.gu(1)
@@ -499,6 +500,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: title
+			fontSize: 'medium'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
@@ -509,6 +511,7 @@ Page {
                         elide: Text.ElideRight
                         height: units.gu(1)
                         text: album
+			fontSize: 'x-small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
