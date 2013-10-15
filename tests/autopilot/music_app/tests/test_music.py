@@ -14,8 +14,6 @@ from testtools.matchers import Equals, NotEquals, LessThan
 
 from music_app.tests import MusicTestCase
 
-import time
-
 
 class TestMainWindow(MusicTestCase):
 
