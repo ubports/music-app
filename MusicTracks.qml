@@ -267,6 +267,7 @@ PageStack {
                             width: units.gu(15)
                             Icon {
                                 id: playlistTrack
+                                color: styleMusic.common.white
                                 name: "add"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
@@ -350,6 +351,7 @@ PageStack {
                             visible: false
                             Icon {
                                 id: shareTrack
+                                color: styleMusic.common.white
                                 name: "share"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem

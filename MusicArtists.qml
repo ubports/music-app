@@ -416,6 +416,7 @@ PageStack {
                             width: units.gu(15)
                             Icon {
                                 id: playlistTrack
+                                color: styleMusic.common.white
                                 name: "add"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem

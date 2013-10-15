@@ -335,6 +335,7 @@ PageStack {
                                    width: units.gu(15)
                                    Icon {
                                        id: editPlaylist
+                                       color: styleMusic.common.white
                                        name: "edit"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
@@ -375,6 +376,7 @@ PageStack {
                                    width: units.gu(15)
                                    Icon {
                                        id: deletePlaylist
+                                       color: styleMusic.common.white
                                        name: "delete"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
@@ -417,6 +419,7 @@ PageStack {
                                    width: units.gu(15)
                                    Icon {
                                        id: sharePlaylist
+                                       color: styleMusic.common.white
                                        name: "share"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
