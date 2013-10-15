@@ -282,6 +282,7 @@ PageStack {
                               }
                               else {
                                   customdebug("clicked expand")
+                                  collapseExpand(-1);  // collapse all others
                                   expandable.visible = true
                                   playlist.height = styleMusic.playlists.expandedHeight
                               }
@@ -294,27 +295,57 @@ PageStack {
                            color: "transparent"
                            height: styleMusic.common.expandHeight
                            visible: false
+
+                           Component.onCompleted: {
+                               collapseExpand.connect(onCollapseExpand);
+                           }
+
+                           function onCollapseExpand(indexCol)
+                           {
+                               if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                               {
+                                   customdebug("auto collapse")
+                                   expandable.visible = false
+                                   playlist.height = styleMusic.playlist.playlistItemHeight
+                               }
+                           }
+
+                           // background for expander
+                           Rectangle {
+                               anchors.top: parent.top
+                               anchors.topMargin: styleMusic.playlist.playlistItemHeight
+                               color: styleMusic.common.black
+                               height: styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight
+                               width: playlist.width
+                               opacity: 0.4
+                           }
+
                            Rectangle {
                                id: editColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.left: parent.left
                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                               height: styleMusic.common.expandedItem
                                Rectangle {
                                    color: "transparent"
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
                                    Icon {
                                        id: editPlaylist
+                                       color: styleMusic.common.white
                                        name: "edit"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Edit")
-                                       fontSize: "small"
                                        anchors.left: editPlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Edit")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -326,31 +357,36 @@ PageStack {
                                           oldPlaylistID = id
                                           oldPlaylistIndex = index
                                           PopupUtils.open(editPlaylistDialog, mainView)
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                            }
 
                            Rectangle {
                                id: deleteColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.horizontalCenter: parent.horizontalCenter
+                               height: styleMusic.common.expandedItem
                                Rectangle {
                                    color: "transparent"
                                    height: styleMusic.common.expandedItem
                                    width: units.gu(15)
                                    Icon {
                                        id: deletePlaylist
+                                       color: styleMusic.common.white
                                        name: "delete"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Delete")
-                                       fontSize: "small"
                                        anchors.left: deletePlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Delete")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -362,15 +398,17 @@ PageStack {
                                           oldPlaylistID = id
                                           oldPlaylistIndex = index
                                           PopupUtils.open(removePlaylistDialog, mainView)
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                             }
                            // share
                            Rectangle {
                                id: shareColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
                                anchors.right: parent.right
@@ -381,15 +419,17 @@ PageStack {
                                    width: units.gu(15)
                                    Icon {
                                        id: sharePlaylist
+                                       color: styleMusic.common.white
                                        name: "share"
                                        height: styleMusic.common.expandedItem
                                        width: styleMusic.common.expandedItem
                                    }
                                    Label {
-                                       text: i18n.tr("Share")
-                                       fontSize: "small"
                                        anchors.left: sharePlaylist.right
                                        anchors.leftMargin: units.gu(0.5)
+                                       color: styleMusic.common.white
+                                       fontSize: "small"
+                                       text: i18n.tr("Share")
                                    }
                                    MouseArea {
                                       anchors.fill: parent
@@ -398,8 +438,8 @@ PageStack {
                                           playlist.height = styleMusic.playlist.playlistItemHeight
                                           customdebug("Share")
                                           inPlaylist = true
-                                    }
-                                  }
+                                      }
+                                   }
                                 }
                             }
                        }
@@ -545,7 +585,7 @@ PageStack {
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(4)
                 //name: "dropdown-menu" use for 1.0
-                source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
+                source: expandableInfo.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
             }

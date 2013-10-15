@@ -206,6 +206,7 @@ PageStack {
                            }
                            else {
                                customdebug("clicked expand")
+                               collapseExpand(-1);  // collapse all others
                                expandable.visible = true
                                track.height = styleMusic.common.expandedHeight
                                Rotation: {
@@ -218,22 +219,47 @@ PageStack {
 
                     Rectangle {
                         id: expandable
-                        visible: false
-                        width: parent.fill
+                        color: "transparent"
                         height: styleMusic.common.expandHeight
-                        color: "black"
-                        opacity: 0.7
+                        visible: false
                         MouseArea {
                            anchors.fill: parent
                            onClicked: {
                                customdebug("User pressed outside the playlist item and expanded items.")
-                         }
-                       }
+                           }
+                        }
+
+                        Component.onCompleted: {
+                            collapseExpand.connect(onCollapseExpand);
+                        }
+
+                        function onCollapseExpand(indexCol)
+                        {
+                            if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                            {
+                                customdebug("auto collapse")
+                                expandable.visible = false
+                                track.height = styleMusic.common.itemHeight
+                            }
+                        }
+
+                        // background for expander
+                        Rectangle {
+                            anchors.top: parent.top
+                            anchors.topMargin: styleMusic.common.itemHeight
+                            color: styleMusic.common.black
+                            height: styleMusic.common.expandedHeight - styleMusic.common.itemHeight
+                            width: track.width
+                            opacity: 0.4
+                        }
+
                         // add to playlist
                         Rectangle {
                             id: playlistRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
+                                               + styleMusic.common.itemHeight
+                                               - (height / 2)
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.common.expandedLeftMargin
                             color: "transparent"
@@ -241,16 +267,18 @@ PageStack {
                             width: units.gu(15)
                             Icon {
                                 id: playlistTrack
+                                color: styleMusic.common.white
                                 name: "add"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Add to playlist")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: playlistTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Add to playlist")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -276,7 +304,9 @@ PageStack {
                         Rectangle {
                             id: queueRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
+                                               + styleMusic.common.itemHeight
+                                               - (height / 2)
                             anchors.left: playlistRow.left
                             anchors.leftMargin: units.gu(15)
                             color: "transparent"
@@ -289,11 +319,12 @@ PageStack {
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Queue")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: queueTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Queue")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -302,14 +333,16 @@ PageStack {
                                    track.height = styleMusic.common.itemHeight
                                    console.debug("Debug: Add track to queue: " + title)
                                    trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
-                             }
-                           }
+                               }
+                            }
                         }
                         // Share
                         Rectangle {
                             id: shareRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.common.expandedTopMargin
+                            anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
+                                               + styleMusic.common.itemHeight
+                                               - (height / 2)
                             anchors.left: queueRow.left
                             anchors.leftMargin: units.gu(15)
                             color: "transparent"
@@ -318,16 +351,18 @@ PageStack {
                             visible: false
                             Icon {
                                 id: shareTrack
+                                color: styleMusic.common.white
                                 name: "share"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
                             }
                             Label {
-                                text: i18n.tr("Share")
-                                wrapMode: Text.WordWrap
-                                fontSize: "small"
                                 anchors.left: shareTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                text: i18n.tr("Share")
+                                wrapMode: Text.WordWrap
                             }
                             MouseArea {
                                anchors.fill: parent
@@ -335,8 +370,8 @@ PageStack {
                                    expandable.visible = false
                                    track.height = styleMusic.common.itemHeight
                                    customdebug("Share")
-                             }
-                           }
+                               }
+                            }
                         }
                     }
                 }

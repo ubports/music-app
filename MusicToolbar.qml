@@ -656,7 +656,7 @@ Rectangle {
                             anchors.verticalCenter: parent.verticalCenter
                             antialiasing: true
                             color: styleMusic.toolbar.fullInnerPlayCircleColor
-                            height: units.gu(8)
+                            height: units.gu(7)
                             radius: height / 2
                             width: height
 
@@ -810,20 +810,24 @@ Rectangle {
             Label {
                 id: musicToolbarFullPositionLabel
                 anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
                 anchors.top: parent.top
                 color: styleMusic.nowPlaying.labelColor
+                fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 text: player.positionStr
                 verticalAlignment: Text.AlignVCenter
-                width: units.gu(6)
+                width: units.gu(3)
             }
 
             /* Progress bar */
             Rectangle {
                 id: musicToolbarFullProgressBarContainer
                 anchors.left: musicToolbarFullPositionLabel.right
+                anchors.leftMargin: units.gu(2)
                 anchors.right: musicToolbarFullDurationLabel.left
+                anchors.rightMargin: units.gu(2)
                 anchors.verticalCenter: parent.verticalCenter
                 color: "transparent"
                 height: units.gu(1);
@@ -927,13 +931,15 @@ Rectangle {
             Label {
                 id: musicToolbarFullDurationLabel
                 anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
                 anchors.top: parent.top
                 color: styleMusic.nowPlaying.labelColor
+                fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 text: player.durationStr
                 verticalAlignment: Text.AlignVCenter
-                width: units.gu(6)
+                width: units.gu(3)
             }
 
             /* Border at the bottom */
