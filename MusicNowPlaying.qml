@@ -37,17 +37,18 @@ Page {
         if (visible === true)
         {
             queuelist.scrollLock = true;
-            header.y -= header.height;
+            header.hide();
             header.opacity = 0;
             header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
+            queuelist.anchors.topMargin = -header.height + nowPlayingBackButton.height
             queuelist.scrollLock = false;
         }
         else
         {
             header.enabled = true;
             header.opacity = 1;
-            header.y = 0;
+            header.show();
         }
     }
 
@@ -76,6 +77,7 @@ Page {
 
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
+            queuelist.contentY -= header.height;
 
             queuelist.scrollLock = false;
         }
@@ -716,6 +718,7 @@ Page {
                         {
                             queuelist.scrollLock = true;
                             queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
+                            queuelist.contentY -= header.height;
                             ensureVisibleIndex = -1;
                             queuelist.scrollLock = false;
                         }
