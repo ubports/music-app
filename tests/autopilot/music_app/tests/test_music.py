@@ -148,10 +148,6 @@ class TestMainWindow(MusicTestCase):
         label = self.main_view.get_player_control_title()
         self.pointing_device.click_object(label)
 
-        self.assertThat(self.main_view.get_now_playing_play_button,
-                        Eventually(NotEquals(None)))
-        playbutton = self.main_view.get_now_playing_play_button()
-
         self.assertThat(self.main_view.get_shuffle_button,
                         Eventually(NotEquals(None)))
         shufflebutton = self.main_view.get_shuffle_button()
