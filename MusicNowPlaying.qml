@@ -528,7 +528,7 @@ Page {
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                         x: parent.x + parent.width - width - units.gu(2)
-                        y: trackImage.y + (queuelist.normalHeight / 2) - (styleMusic.common.expandedItem / 2)
+                        y: trackImage.y + (queuelist.normalHeight / 2) - (styleMusic.common.expandedItem / 2) - units.gu(1)  // -margin
                     }
 
                     MouseArea {
@@ -536,7 +536,7 @@ Page {
                         height: queuelist.normalHeight
                         width: styleMusic.common.expandedItem * 3
                         x: parent.x + parent.width - width
-                        y: trackImage.y
+                        y: trackImage.y - units.gu(1)  // -margin
 
                         onClicked: {
                            if(expandable.visible) {
