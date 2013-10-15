@@ -2,9 +2,9 @@
 format=Ubuntu Media Scanner Meta Index 1.0
 
 [media:home/autopilot-music-app/Music]
-segments=0309ce50-6465-4cb6-8204-8398591480c9
+segments=d15682c3-89f1-4e41-abfc-531e4740e5a7
 relative-path=home/autopilot-music-app/Music
 
 [media:]
-segments=900b75aa-acb3-4a39-b6f5-2ecddbf75e61
+segments=7d246d8c-5e6d-4fe8-8271-1472eb02c3ab
 relative-path=
