@@ -184,7 +184,7 @@ PageStack {
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(4)
                       //  name: "dropdown-menu" Use for 1.0
-                        source: "images/dropdown-menu.svg"
+                        source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                     }

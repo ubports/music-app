@@ -339,7 +339,7 @@ PageStack {
                         anchors.rightMargin: units.gu(2)
                         anchors.top: parent.top
                         anchors.topMargin: units.gu(2)
-                        source: "images/dropdown-menu.svg"
+                        source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                     }
