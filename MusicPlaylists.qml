@@ -263,10 +263,9 @@ PageStack {
                            source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                            anchors.right: parent.right
                            anchors.rightMargin: units.gu(2)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(4)
                            height: styleMusic.common.expandedItem
                            width: styleMusic.common.expandedItem
+                           y: parent.y + (styleMusic.playlist.playlistItemHeight / 2) - (height / 2)
                        }
 
                        MouseArea {
@@ -582,12 +581,11 @@ PageStack {
                 id: expandInfoItem
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(2)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(4)
                 //name: "dropdown-menu" use for 1.0
                 source: expandableInfo.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                 height: styleMusic.common.expandedItem
                 width: styleMusic.common.expandedItem
+                y: parent.y + (styleMusic.playlist.infoHeight / 2) - (height / 2)
             }
 
             MouseArea {
