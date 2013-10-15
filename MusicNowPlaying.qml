@@ -606,7 +606,12 @@ Page {
                     Rectangle {
                         id: playlistRow
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(1) + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                        anchors.topMargin: ((queueListItem.state === "current" ?
+                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
+                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
+                                            / 2)
+                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                                           - (height / 2)
                         anchors.left: parent.left
                         anchors.leftMargin: styleMusic.common.expandedLeftMargin
                         color: "transparent"
@@ -650,7 +655,12 @@ Page {
                     Rectangle {
                         id: shareRow
                         anchors.top: parent.top
-                        anchors.topMargin: units.gu(2.5) + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                        anchors.topMargin: ((queueListItem.state === "current" ?
+                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
+                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
+                                            / 2)
+                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
+                                           - (height / 2)
                         anchors.left: playlistRow.left
                         anchors.leftMargin: units.gu(15)
                         color: "transparent"

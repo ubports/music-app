@@ -323,9 +323,12 @@ PageStack {
                            Rectangle {
                                id: editColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.left: parent.left
                                anchors.leftMargin: styleMusic.common.expandedLeftMargin
+                               height: styleMusic.common.expandedItem
                                Rectangle {
                                    color: "transparent"
                                    height: styleMusic.common.expandedItem
@@ -361,8 +364,11 @@ PageStack {
                            Rectangle {
                                id: deleteColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.horizontalCenter: parent.horizontalCenter
+                               height: styleMusic.common.expandedItem
                                Rectangle {
                                    color: "transparent"
                                    height: styleMusic.common.expandedItem
@@ -398,7 +404,9 @@ PageStack {
                            Rectangle {
                                id: shareColumn
                                anchors.top: parent.top
-                               anchors.topMargin: styleMusic.playlist.expandedTopMargin
+                               anchors.topMargin: ((styleMusic.playlists.expandedHeight - styleMusic.playlist.playlistItemHeight) / 2)
+                                                  + styleMusic.playlist.playlistItemHeight
+                                                  - (height / 2)
                                anchors.left: deleteColumn.right
                                anchors.leftMargin: units.gu(2)
                                anchors.right: parent.right

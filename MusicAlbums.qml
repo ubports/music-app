@@ -332,7 +332,9 @@ Page {
                             Rectangle {
                                 id: playlistRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 color: "transparent"
@@ -376,7 +378,9 @@ Page {
                             Rectangle {
                                 id: queueRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 color: "transparent"

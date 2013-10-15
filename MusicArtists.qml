@@ -405,7 +405,10 @@ PageStack {
                         Rectangle {
                             id: playlistRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.artists.expandedTopMargin
+                            anchors.topMargin: ((styleMusic.artists.expandedHeight - styleMusic.artists.itemHeight) / 2)
+                                               + styleMusic.artists.itemHeight
+                                               - (height / 2)
+
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.artists.expandedLeftMargin
                             color: "transparent"
@@ -449,7 +452,9 @@ PageStack {
                         Rectangle {
                             id: queueRow
                             anchors.top: parent.top
-                            anchors.topMargin: styleMusic.artists.expandedTopMargin
+                            anchors.topMargin: ((styleMusic.artists.expandedHeight - styleMusic.artists.itemHeight) / 2)
+                                               + styleMusic.artists.itemHeight
+                                               - (height / 2)
                             anchors.left: playlistRow.left
                             anchors.leftMargin: units.gu(15)
                             color: "transparent"
