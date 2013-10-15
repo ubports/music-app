@@ -136,7 +136,7 @@ Page {
         }
 
         property int normalHeight: units.gu(12)
-        property int currentHeight: units.gu(50)
+        property int currentHeight: units.gu(54)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -467,7 +467,7 @@ Page {
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1.5)
                         anchors.top: parent.top
-                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(6) : queuelist.normalHeight) - units.gu(2)
+                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
@@ -553,7 +553,7 @@ Page {
                                collapseExpand(-1);  // collapse all others first
                                expandable.visible = true;
                                queueListItem.cachedHeight = queueListItem.height;
-                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal + units.gu(2);
+                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal;
                                Rotation: {
                                    source: expandItem;
                                    angle: 180;
