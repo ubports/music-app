@@ -555,35 +555,35 @@ Rectangle {
             height: parent.height - musicToolbarFullProgressContainer.height
             width: parent.width
 
-            /* Shuffle button */
+            /* Repeat button */
             Item {
-                id: nowPlayingShuffleButton
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
+                id: nowPlayingRepeatButton
+                objectName: "repeatShape"
+                anchors.right: nowPlayingPreviousButton.left
+                anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
 
                 Image {
-                    id: shuffleIcon
+                    id: repeatIcon
                     height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
-                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
+                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
+                    verticalAlignment: Text.AlignVCenter
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
                 }
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
-                        // Invert shuffle settings
-                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
-                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
-
-                        mainView.random = Settings.getSetting("shuffle") === "1"
-                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
+                        // Invert repeat settings
+                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
                     }
                 }
             }
@@ -762,35 +762,35 @@ Rectangle {
                 }
             }
 
-            /* Repeat button */
+            /* Shuffle button */
             Item {
-                id: nowPlayingRepeatButton
-                objectName: "repeatShape"
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
+                id: nowPlayingShuffleButton
+                anchors.left: nowPlayingNextButton.right
+                anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
 
                 Image {
-                    id: repeatIcon
+                    id: shuffleIcon
                     height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
-                    verticalAlignment: Text.AlignVCenter
-                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
+                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
                 }
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
-                        // Invert repeat settings
-                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
-                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
+                        // Invert shuffle settings
+                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+
+                        mainView.random = Settings.getSetting("shuffle") === "1"
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
                     }
                 }
             }
