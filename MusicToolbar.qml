@@ -448,7 +448,7 @@ Rectangle {
                 }
 
                 /* Back button to go up pageStack */
-                UbuntuShape {
+                Item {
                     id: playerControlBackButton
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
