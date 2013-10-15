@@ -232,7 +232,7 @@ Rectangle {
     /* Expanded toolbar */
     Rectangle {
         id: musicToolbarExpandedContainer
-        color: styleMusic.playerControls.backgroundColor
+        color: "transparent"
         anchors.left: parent.left
         anchors.top: musicToolbarSmallProgressBackground.bottom
         height: expandedHeight

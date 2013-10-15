@@ -82,7 +82,7 @@ QtObject {
     }
 
     property QtObject playerControls: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#0f0f0f";
         property color labelColor: common.white;
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
