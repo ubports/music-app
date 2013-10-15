@@ -27,7 +27,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 
-// LastFM login dialog
+// Last.fm login dialog
 DefaultSheet {
     id: lastfmroot
     contentsHeight: parent.height;
@@ -38,7 +38,7 @@ DefaultSheet {
     }
 
     // Dialog data
-    title: i18n.tr("LastFM")
+    title: i18n.tr("Last.fm")
 
     Column {
         spacing: units.gu(2)
@@ -93,7 +93,7 @@ DefaultSheet {
                 loginstatetext.visible = true
                 loginstatetext.text = i18n.tr("Trying to login...")
                 Settings.initialize()
-                console.debug("Debug: Login to LastFM clicked.")
+                console.debug("Debug: Login to Last.fm clicked.")
                 // try to login
                 Settings.setSetting("lastfmusername", usernameField.text) // save lastfm username
                 Settings.setSetting("lastfmpassword", passField.text) // save lastfm password (should be passed by ha hash function)
