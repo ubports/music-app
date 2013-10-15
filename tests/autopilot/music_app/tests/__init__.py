@@ -183,7 +183,7 @@ class MusicTestCase(AutopilotTestCase):
 
         #patch file indexes
         index_template = '%s/%s/_%%s.cfs' % (mediascannerpath, dbfoldername)
-        for i in range(4):
+        for i in range(5):
             self._file_find_replace(index_template % i, dblocation, relhome)
 
     def _file_find_replace(self, in_filename, find, replace):
