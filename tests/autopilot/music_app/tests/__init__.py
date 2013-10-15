@@ -153,6 +153,7 @@ class MusicTestCase(AutopilotTestCase):
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
+        shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
         if self.test_type != 'click':
             shutil.copytree(os.path.join(content_dir, 'mediascanner'),
                             mediascannerpath)
