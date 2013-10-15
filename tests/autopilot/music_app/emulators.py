@@ -72,6 +72,9 @@ class MainView(toolkit_emulators.MainView):
     def get_repeat_button(self):
         return self.select_single("*", objectName="repeatShape")
 
+    def get_shuffle_button(self):
+        return self.select_single("*", objectName="shuffleShape")
+
     def get_forward_button(self):
         return self.select_single("*", objectName="forwardshape")
 
