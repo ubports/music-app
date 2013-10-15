@@ -57,7 +57,7 @@ Page {
     Rectangle {
         anchors.fill: parent
         color: styleMusic.nowPlaying.backgroundColor
-        opacity: 0.9 // change later
+        opacity: 0.95 // change later
         MouseArea {  // Block events to lower layers
             anchors.fill: parent
         }
@@ -743,7 +743,7 @@ Page {
         id: nowPlayingBackButton
         anchors.left: parent.left
         anchors.right: parent.right
-        color: styleMusic.nowPlaying.foregroundColor
+        color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
 
         state: musicToolbar.opened ? "shown" : "hidden"
@@ -797,7 +797,7 @@ Page {
             anchors.right: parent.right
             color: styleMusic.common.white
             height: units.gu(0.1)
-            opacity: 0.1
+            opacity: 0.2
         }
     }
 }

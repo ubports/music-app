@@ -25,7 +25,7 @@ import "settings.js" as Settings
 
 Rectangle {
     id: musicToolbarContainer
-    color: styleMusic.playerControls.backgroundColor
+    color: "transparent"
     height: fullHeight
     state: "minimized"
     width: parent.width
@@ -232,6 +232,7 @@ Rectangle {
     /* Expanded toolbar */
     Rectangle {
         id: musicToolbarExpandedContainer
+        color: "transparent"
         anchors.left: parent.left
         anchors.top: musicToolbarSmallProgressBackground.bottom
         height: expandedHeight
@@ -447,12 +448,13 @@ Rectangle {
                 }
 
                 /* Back button to go up pageStack */
-                UbuntuShape {
+                Item {
                     id: playerControlBackButton
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     width: units.gu(6)
+                    height: width
                     visible: currentPageStack !== null && currentParentPage !== null
 
                     Image {
@@ -554,23 +556,22 @@ Rectangle {
             width: parent.width
 
             /* Shuffle button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingShuffleButton
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
+                anchors.left: nowPlayingNextButton.right
+                anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
                     id: shuffleIcon
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/shuffle.png"
-                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .25
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
                 }
 
                 MouseArea {
@@ -582,13 +583,13 @@ Rectangle {
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
 
                         mainView.random = Settings.getSetting("shuffle") === "1"
-                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
                     }
                 }
             }
 
             /* Previous button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingPreviousButton
                 anchors.right: nowPlayingPlayButton.left
                 anchors.rightMargin: units.gu(1)
@@ -596,11 +597,10 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "previousshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingPreviousIndicator
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -683,7 +683,7 @@ Rectangle {
 
                                     Image {
                                         id: nowPlayingPlayIndicator
-                                        height: units.gu(5)
+                                        height: units.gu(6)
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
@@ -733,7 +733,7 @@ Rectangle {
             }
 
             /* Next button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingNextButton
                 anchors.left: nowPlayingPlayButton.right
                 anchors.leftMargin: units.gu(1)
@@ -741,11 +741,10 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "forwardshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingNextIndicator
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -764,25 +763,24 @@ Rectangle {
             }
 
             /* Repeat button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingRepeatButton
                 objectName: "repeatShape"
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
+                anchors.right: nowPlayingPreviousButton.left
+                anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
                     id: repeatIcon
-                    height: units.gu(3)
+                    height: units.gu(2.5)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/repeat.png"
                     verticalAlignment: Text.AlignVCenter
-                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .25
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
                 }
 
                 MouseArea {
@@ -792,7 +790,7 @@ Rectangle {
                         // Invert repeat settings
                         Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
                         console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
                     }
                 }
             }
@@ -942,8 +940,8 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
-                color: styleMusic.common.black
-                height: units.gu(0.2)
+                color: styleMusic.common.white
+                height: units.gu(0.1)
                 opacity: 0.1
             }
         }

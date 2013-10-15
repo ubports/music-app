@@ -68,7 +68,7 @@ QtObject {
     }
 
     property QtObject nowPlaying: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#1d1d1d"
         property color foregroundColor: "#454545"
         property color labelColor: common.white;
         property color labelSecondaryColor: "#AAA";
@@ -82,7 +82,7 @@ QtObject {
     }
 
     property QtObject playerControls: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#0f0f0f";
         property color labelColor: common.white;
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
@@ -105,7 +105,7 @@ QtObject {
     }
 
     property QtObject toolbar: QtObject {
-        property color fullBackgroundColor: "#212121";
+        property color fullBackgroundColor: "#0f0f0f";
         property color fullInnerPlayCircleColor: "#0d0d0d";
         property color fullOuterPlayCircleColor: "#363636";
         property color fullProgressBackgroundColor: "#252525";
