@@ -125,6 +125,9 @@ Page {
                 }
             }
         ]
+        footer: Item {
+            height: mainView.height - styleMusic.nowPlaying.expandedHeightCurrent + units.gu(8)
+        }
 
         property bool scrollLock: false
 
