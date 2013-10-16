@@ -125,7 +125,7 @@ Page {
                 }
             }
         ]
-        footer: ListItem.Standard {
+        footer: Item {
             height: mainView.height - styleMusic.nowPlaying.expandedHeightCurrent + units.gu(8)
         }
 
