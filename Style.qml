@@ -41,7 +41,7 @@ QtObject {
         property int expandHeight: units.gu(10);
         property int expandedItem: units.gu(2);
         property int expandedTopMargin: units.gu(13.5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject dialog: QtObject {
@@ -78,7 +78,7 @@ QtObject {
         property int expandedHeightCurrent: units.gu(53);
         property int expandedHeightNormal: units.gu(17);
         property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject playerControls: QtObject {
@@ -117,7 +117,7 @@ QtObject {
         property int expandHeight: units.gu(5);
         property int expandedHeight: units.gu(9);
         property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject artists: QtObject {
@@ -125,6 +125,6 @@ QtObject {
         property int expandHeight: units.gu(5);
         property int expandedHeight: units.gu(17.5);
         property int expandedTopMargin: units.gu(13.5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 }
