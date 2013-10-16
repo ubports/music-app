@@ -19,6 +19,6 @@ Depends: libautopilot-qt,
          python-mock,
          music-app (= ${source:Version}),
          ubuntu-ui-toolkit-autopilot,
-         gstreamer1.0-fluendo-mp3
+         gstreamer1.0-plugins-bad
 Description: Autopilot tests for Music App
  This package contains the autopilot tests for the Music App
