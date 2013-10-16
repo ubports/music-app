@@ -136,7 +136,7 @@ Page {
         }
 
         property int normalHeight: units.gu(12)
-        property int currentHeight: units.gu(50)
+        property int currentHeight: units.gu(48)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
