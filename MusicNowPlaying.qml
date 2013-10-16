@@ -702,29 +702,27 @@ Page {
                     PropertyChanges {
                         target: nowPlayingArtist
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(2)
+                        x: trackImage.x
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(2)
+                        x: trackImage.x
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbum
                         width: expandItem.x - x - units.gu(2.5)
-                        x: trackImage.x + units.gu(2)
+                        x: trackImage.x
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: expandItem
-                        x: trackImage.x + trackImage.width - expandItem.width - units.gu(2)
                         y: trackImage.y + trackImage.height + units.gu(4) - (expandItem.height / 2)
                     }
                     PropertyChanges {
                         target: expandItemMouseArea
-                        x: trackImage.x + trackImage.width - expandItemMouseArea.width
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                 }
