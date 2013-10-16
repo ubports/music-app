@@ -54,10 +54,13 @@ Page {
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
 
+    BlurredBackground {
+    }
+
     Rectangle {
         anchors.fill: parent
         color: styleMusic.nowPlaying.backgroundColor
-        opacity: 0.95 // change later
+        opacity: 0.75 // change later
         MouseArea {  // Block events to lower layers
             anchors.fill: parent
         }
