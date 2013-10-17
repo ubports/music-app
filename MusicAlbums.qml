@@ -88,13 +88,14 @@ Page {
                     Rectangle {  // Background so can see text in current state
                         id: albumBg
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
+                        anchors.bottomMargin: units.gu(1.5)
                         color: styleMusic.common.black
-                        height: units.gu(3)
+                        height: units.gu(3.5)
                         width: parent.width
                         Label {
                             id: albumLabel
                             anchors.top: parent.top
+                            anchors.topMargin: units.gu(.5)
                             horizontalAlignment: Text.AlignHCenter
                             color: styleMusic.common.white
                             elide: Text.ElideRight
