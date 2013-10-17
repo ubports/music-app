@@ -251,6 +251,8 @@ Page {
                                     focus = true
                                 }
                                 trackClicked(albumTracksModel, index)  // play track
+                                Library.addRecent(album, artist, cover, album, "album")
+
                                 // TODO: This closes the SDK defined sheet
                                 //       component. It should be able to close
                                 //       albumSheet.

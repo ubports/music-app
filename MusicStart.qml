@@ -36,11 +36,14 @@ Page {
         {
             musicToolbar.setPage(mainpage);
         }
+        Library.getRecent()
+
     }
 
     ListItem.Standard {
         id: recentlyPlayed
         text: i18n.tr("Recent")
+        visible: !Library.isRecentEmpty()
     }
 
     ListView {
@@ -59,6 +62,7 @@ Page {
             width: units.gu(1)
         }
         orientation: ListView.Horizontal
+        visible: !Library.isRecentEmpty()
 
         Component {
             id: recentDelegate
@@ -149,7 +153,7 @@ Page {
 
     ListItem.ThinDivider {
         id: divider
-        anchors.top: recentlist.bottom
+        anchors.top: recentlist.visible ? recentlist.bottom : mainpage.top
     }
     ListItem.Standard {
         id: genres
