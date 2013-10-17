@@ -177,25 +177,15 @@ class TestMainWindow(MusicTestCase):
             self.assertThat(count, LessThan(10))
             if forward:
                 self.pointing_device.click_object(forwardbutton)
-
-                """ Track is playing"""
-                self.assertThat(self.main_view.isPlaying,
-                                Eventually(Equals(True)))
-                if (self.main_view.currentTracktitle == "TestMP3Title" and
-                        self.main_view.currentArtist == "TestMP3Artist"):
-                    break
-                else:
-                    forward = not forward
-                    count += 1
             else:
                 self.pointing_device.click_object(previousbutton)
 
-                """ Track is playing"""
-                self.assertThat(self.main_view.isPlaying,
-                                Eventually(Equals(True)))
-                if (self.main_view.currentTracktitle == "Swansong" and
-                        self.main_view.currentArtist == "Josh Woodward"):
-                    break
-                else:
-                    forward = not forward
-                    count += 1
+            """ Track is playing"""
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(True)))
+            if (self.main_view.currentTracktitle == "TestMP3Title" and
+                    self.main_view.currentArtist == "TestMP3Artist"):
+                break
+            else:
+                forward = not forward
+                count += 1
