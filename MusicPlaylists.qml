@@ -831,6 +831,8 @@ PageStack {
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
                             Library.addRecent(oldPlaylistName, "Playlist", cover, oldPlaylistName, "playlist")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
                         }
 
                         onMouseXChanged: {

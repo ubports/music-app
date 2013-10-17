@@ -43,7 +43,7 @@ Page {
     ListItem.Standard {
         id: recentlyPlayed
         text: i18n.tr("Recent")
-        visible: !Library.isRecentEmpty()
+        visible: mainView.hasRecent
     }
 
     ListView {
@@ -55,14 +55,14 @@ Page {
         spacing: units.gu(2)
         height: units.gu(22)
         // TODO: Update when view counts are collected
-        model: albumModel.model
+        model: recentModel.model
         delegate: recentDelegate
         header: Item {
             id: spacer
             width: units.gu(1)
         }
         orientation: ListView.Horizontal
-        visible: !Library.isRecentEmpty()
+        visible: mainView.hasRecent
 
         Component {
             id: recentDelegate
@@ -77,13 +77,12 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        property string artist: model.artist
-                        property string album: model.album
                         property string title: model.title
+                        property string title2: model.title2
                         property string cover: model.cover
-                        property string length: model.length
-                        property string file: model.file
-                        property string year: model.year
+                        property string type: model.type
+                        property string time: model.time
+                        property string key: model.key
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
                 }
@@ -102,10 +101,10 @@ Page {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: artist
-                        fontSize: "x-small"
+                        text: title
+                        fontSize: "small"
                     }
                 }
                 UbuntuShape {  // Background so can see text in current state
@@ -122,21 +121,33 @@ Page {
                         anchors.bottomMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.common.white
+                        color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: album
-                        fontSize: "small"
+                        text: title2
+                        fontSize: "x-small"
                     }
                 }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        recentAlbumTracksModel.filterAlbumTracks(album)
-                        trackQueue.model.clear()
-                        addQueueFromModel(recentAlbumTracksModel)
-                        currentModel = recentAlbumTracksModel
-                        currentQuery = recentAlbumTracksModel.query
-                        currentParam = recentAlbumTracksModel.param
+                        if (type === "album") {
+                            recentAlbumTracksModel.filterAlbumTracks(key)
+                            trackQueue.model.clear()
+                            addQueueFromModel(recentAlbumTracksModel)
+                            currentModel = recentAlbumTracksModel
+                            currentQuery = recentAlbumTracksModel.query
+                            currentParam = recentAlbumTracksModel.param
+                        } else if (type === "playlist") {
+                            recentPlaylistTracksModel.filterPlaylistTracks(key)
+                            trackQueue.model.clear()
+                            addQueueFromModel(recentPlaylistTracksModel)
+                            currentModel = recentPlaylistTracksModel
+                            currentQuery = recentPlaylistTracksModel.query
+                            currentParam = recentPlaylistTracksModel.param
+                        }
+                        Library.addRecent(title, title2, cover, key, type)
+                        mainView.hasRecent = true
+                        recentModel.filterRecent()
                         var file = trackQueue.model.get(0).file
                         currentIndex = trackQueue.indexOf(file)
                         queueChanged = true

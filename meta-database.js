@@ -287,7 +287,7 @@ function addRecent(title, title2, cover, key, type) {
     console.log("RECENT " + key + title + title2 + cover)
 
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO recent (time, key, title, title2, cover, type) VALUES (?,?,?,?,?,?);', [new Date(), key, title, title2, cover, type]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO recent (time, title, title2, cover, key, type) VALUES (?,?,?,?,?,?);', [new Date(), title, title2, cover, key, type]);
               if (rs.rowsAffected > 0) {
                 console.log("RECENT add OK")
                 res = "OK";
@@ -303,7 +303,7 @@ function getRecent() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM recent ORDER BY time DESC");
+        var rs = tx.executeSql("SELECT * FROM recent ORDER BY time DESC LIMIT 15");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Cover:"+dbItem.cover + ", Type:"+dbItem.type);
