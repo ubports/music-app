@@ -96,12 +96,15 @@ Page {
                             id: albumLabel
                             anchors.top: parent.top
                             anchors.topMargin: units.gu(.5)
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(.25)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(.25)
                             horizontalAlignment: Text.AlignHCenter
                             color: styleMusic.common.white
                             elide: Text.ElideRight
                             text: album
                             fontSize: "small"
-                            width: parent.width
                         }
                     }
                     UbuntuShape {  // Background so can see text in current state
@@ -114,12 +117,15 @@ Page {
                             id: albumArtist
                             anchors.bottom: parent.bottom
                             anchors.bottomMargin: units.gu(.5)
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(.25)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(.25)
                             horizontalAlignment: Text.AlignHCenter
                             color: styleMusic.nowPlaying.labelSecondaryColor
                             elide: Text.ElideRight
                             text: artist
                             fontSize: "x-small"
-                            width: parent.width
                         }
                     }
                 }
