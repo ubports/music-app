@@ -96,7 +96,7 @@ Page {
                             id: albumLabel
                             anchors.top: parent.top
                             horizontalAlignment: Text.AlignHCenter
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             elide: Text.ElideRight
                             text: album
                             fontSize: "small"
@@ -112,11 +112,12 @@ Page {
                         Label {
                             id: albumArtist
                             anchors.bottom: parent.bottom
+                            anchors.bottomMargin: units.gu(.5)
                             horizontalAlignment: Text.AlignHCenter
                             color: styleMusic.nowPlaying.labelSecondaryColor
                             elide: Text.ElideRight
                             text: artist
-                            fontSize: "small"
+                            fontSize: "x-small"
                             width: parent.width
                         }
                     }
