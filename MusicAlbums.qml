@@ -85,35 +85,41 @@ Page {
                         property string year: model.year
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
-                    UbuntuShape {  // Background so can see text in current state
+                    Rectangle {  // Background so can see text in current state
                         id: albumBg
                         anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
                         color: styleMusic.common.black
-                        height: units.gu(4)
-                        opacity: .75
+                        height: units.gu(3)
                         width: parent.width
+                        Label {
+                            id: albumLabel
+                            anchors.top: parent.top
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: album
+                            fontSize: "small"
+                            width: parent.width
+                        }
                     }
-                    Label {
-                        id: albumLabel
-                        anchors.bottom: albumArtist.top
-                        horizontalAlignment: Text.AlignHCenter
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        text: album
-                        fontSize: "small"
-                        width: parent.width
-                    }
-                    Label {
-                        id: albumArtist
+                    UbuntuShape {  // Background so can see text in current state
+                        id: albumBg2
                         anchors.bottom: parent.bottom
-                        horizontalAlignment: Text.AlignHCenter
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        text: artist
-                        fontSize: "small"
+                        color: styleMusic.common.black
+                        height: units.gu(2)
                         width: parent.width
+                        Label {
+                            id: albumArtist
+                            anchors.bottom: parent.bottom
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: artist
+                            fontSize: "small"
+                            width: parent.width
+                        }
                     }
-
                 }
 
                 MouseArea {
