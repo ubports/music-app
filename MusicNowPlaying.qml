@@ -181,13 +181,16 @@ Page {
                             }
 
                             // Remove item from queue and clear caches
+                            var row = trackQueue.model.get(index);
+                            var undoData = {'artist': row.artist, 'album': row.album, 'title': row.title,
+                                'index': row.index, 'file': row.file}
                             queueChanged = true;
                             trackQueue.model.remove(index);
                             currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
 
                             // undo
-                            console.debug("removed :"+index+title+artist+album+file)
-                            undoRemoval("trackQueue.model",index,title,artist,album,file)
+                            console.debug("removed :"+undoData.file)
+                            undoRemoval(trackQueue.model,undoData)
                         }
                     }
                 }

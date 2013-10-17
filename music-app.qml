@@ -471,11 +471,11 @@ MainView {
     }
 
     // undo removal function to use when swipe to remove
-    function undoRemoval (listmodel,index,title,artist,album,file) {
+    function undoRemoval(listmodel,row) {
         // show an undo button instead of removed track
-        listmodel.set(index, {"title": i18n.tr("Undo")} )
+        //listmodel.insert(row.index, {"title": i18n.tr("Undo")} )
         // set the removed track in undo listmodel
-        undo.set(0, {"artist": artist, "title": title, "album": album, "path": file})
+        undo.set(0, row)
     }
 
     // WHERE THE MAGIC HAPPENS
