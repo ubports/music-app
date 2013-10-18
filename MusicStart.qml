@@ -36,14 +36,28 @@ Page {
         {
             musicToolbar.setPage(mainpage);
         }
-        Library.getRecent()
-
     }
 
     ListItem.Standard {
         id: recentlyPlayed
         text: i18n.tr("Recent")
-        visible: mainView.hasRecent
+    }
+    ListItem.Standard {
+        id: recentlistempty
+        anchors.top: recentlyPlayed.bottom
+        anchors.topMargin: units.gu(1)
+        height: units.gu(22)
+        visible: !mainView.hasRecent
+
+        Label {
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            color: styleMusic.nowPlaying.labelSecondaryColor
+            anchors.fill: parent
+            elide: Text.ElideRight
+            fontSize: "large"
+            text: i18n.tr("No recent albums or playlists")
+        }
     }
 
     ListView {
@@ -164,7 +178,7 @@ Page {
 
     ListItem.ThinDivider {
         id: divider
-        anchors.top: recentlist.visible ? recentlist.bottom : mainpage.top
+        anchors.top: recentlist.visible ? recentlist.bottom : recentlistempty.bottom
     }
     ListItem.Standard {
         id: genres
