@@ -10,7 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, NotEquals
+from testtools.matchers import Equals, NotEquals, LessThan
 
 from music_app.tests import MusicTestCase
 
@@ -105,8 +105,9 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(title, Eventually(Equals("Swansong")))
         self.assertThat(artist, Eventually(Equals("Josh Woodward")))
 
-    def test_previous(self):
-        """ Test going to previous track (Music Library must exist) """
+    def test_previous_and_mp3(self):
+        """ Test going to previous track, last item must be an MP3
+            (Music Library must exist) """
 
         self.main_view.show_toolbar()
 
@@ -135,5 +136,56 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is playing"""
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
-        self.assertThat(title, Eventually(Equals("Swansong")))
-        self.assertThat(artist, Eventually(Equals("Josh Woodward")))
+        self.assertThat(title, Eventually(Equals("TestMP3Title")))
+        self.assertThat(artist, Eventually(Equals("TestMP3Artist")))
+
+    def test_shuffle(self):
+        """ Test shuffle (Music Library must exist) """
+
+        self.main_view.show_toolbar()
+
+        # switch to the now playing page
+        label = self.main_view.get_player_control_title()
+        self.pointing_device.click_object(label)
+
+        self.assertThat(self.main_view.get_shuffle_button,
+                        Eventually(NotEquals(None)))
+        shufflebutton = self.main_view.get_shuffle_button()
+
+        self.assertThat(self.main_view.get_forward_button,
+                        Eventually(NotEquals(None)))
+        forwardbutton = self.main_view.get_forward_button()
+
+        self.assertThat(self.main_view.get_previous_button,
+                        Eventually(NotEquals(None)))
+        previousbutton = self.main_view.get_previous_button()
+
+        title = lambda: self.main_view.currentTracktitle
+        artist = lambda: self.main_view.currentArtist
+        self.assertThat(title,
+                        Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
+        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
+
+        """ Track is not playing, shuffle is turned on"""
+        self.assertThat(self.main_view.isPlaying, Equals(False))
+        self.pointing_device.click_object(shufflebutton)
+        self.assertThat(self.main_view.random, Eventually(Equals(True)))
+
+        forward = True
+        count = 0
+        while True:
+            self.assertThat(count, LessThan(10))
+            if forward:
+                self.pointing_device.click_object(forwardbutton)
+            else:
+                self.pointing_device.click_object(previousbutton)
+
+            """ Track is playing"""
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(True)))
+            if (self.main_view.currentTracktitle == "TestMP3Title" and
+                    self.main_view.currentArtist == "TestMP3Artist"):
+                break
+            else:
+                forward = not forward
+                count += 1

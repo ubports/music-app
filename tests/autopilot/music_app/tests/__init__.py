@@ -152,6 +152,7 @@ class MusicTestCase(AutopilotTestCase):
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
+        shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
         if self.test_type != 'click':
             shutil.copytree(os.path.join(content_dir, 'mediascanner'),
                             mediascannerpath)
@@ -175,14 +176,14 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Patching fake mediascanner database")
         relhome = self.home_dir[1:]
         dblocation = "home/autopilot-music-app"
-        dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
+        dbfoldername = "d15682c3-89f1-4e41-abfc-531e4740e5a7"
         #patch mediaindex
         self._file_find_replace(mediascannerpath +
                                 "/mediaindex", dblocation, relhome)
 
         #patch file indexes
         index_template = '%s/%s/_%%s.cfs' % (mediascannerpath, dbfoldername)
-        for i in range(4):
+        for i in range(5):
             self._file_find_replace(index_template % i, dblocation, relhome)
 
     def _file_find_replace(self, in_filename, find, replace):
