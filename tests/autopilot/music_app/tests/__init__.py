@@ -15,6 +15,7 @@ import os.path
 import shutil
 #import subprocess
 import logging
+import music_app
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
@@ -139,10 +140,8 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
         #set content path
-        if self.test_type == 'local' or self.test_type == 'click':
-            content_dir = os.path.join(self.working_dir, 'music_app/content/')
-        else:
-            content_dir = '/usr/lib/python2.7/dist-packages/music_app/content/'
+        content_dir = os.path.join(os.path.dirname(music_app.__file__),
+                                   'content')
 
         logger.debug("Content dir set to %s" % content_dir)
 
@@ -153,6 +152,7 @@ class MusicTestCase(AutopilotTestCase):
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
+        shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
         if self.test_type != 'click':
             shutil.copytree(os.path.join(content_dir, 'mediascanner'),
                             mediascannerpath)
@@ -176,14 +176,14 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Patching fake mediascanner database")
         relhome = self.home_dir[1:]
         dblocation = "home/autopilot-music-app"
-        dbfoldername = "ea50858c-4b21-4f87-9005-40aa960a84a3"
+        dbfoldername = "d15682c3-89f1-4e41-abfc-531e4740e5a7"
         #patch mediaindex
         self._file_find_replace(mediascannerpath +
                                 "/mediaindex", dblocation, relhome)
 
         #patch file indexes
         index_template = '%s/%s/_%%s.cfs' % (mediascannerpath, dbfoldername)
-        for i in range(4):
+        for i in range(5):
             self._file_find_replace(index_template % i, dblocation, relhome)
 
     def _file_find_replace(self, in_filename, find, replace):

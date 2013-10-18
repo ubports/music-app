@@ -85,35 +85,49 @@ Page {
                         property string year: model.year
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
-                    UbuntuShape {  // Background so can see text in current state
+                    Rectangle {  // Background so can see text in current state
                         id: albumBg
                         anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1.5)
                         color: styleMusic.common.black
-                        height: units.gu(4)
-                        opacity: .75
+                        height: units.gu(3.5)
                         width: parent.width
+                        Label {
+                            id: albumLabel
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(.5)
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(.25)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(.25)
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.common.white
+                            elide: Text.ElideRight
+                            text: album
+                            fontSize: "small"
+                        }
                     }
-                    Label {
-                        id: albumLabel
-                        anchors.bottom: albumArtist.top
-                        horizontalAlignment: Text.AlignHCenter
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        text: album
-                        fontSize: "small"
-                        width: parent.width
-                    }
-                    Label {
-                        id: albumArtist
+                    UbuntuShape {  // Background so can see text in current state
+                        id: albumBg2
                         anchors.bottom: parent.bottom
-                        horizontalAlignment: Text.AlignHCenter
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        text: artist
-                        fontSize: "small"
+                        color: styleMusic.common.black
+                        height: units.gu(2)
                         width: parent.width
+                        Label {
+                            id: albumArtist
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: units.gu(.5)
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(.25)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(.25)
+                            horizontalAlignment: Text.AlignHCenter
+                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            elide: Text.ElideRight
+                            text: artist
+                            fontSize: "x-small"
+                        }
                     }
-
                 }
 
                 MouseArea {
@@ -265,11 +279,10 @@ Page {
                             id: expandItem
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
-                            anchors.top: parent.top
-                            anchors.topMargin: units.gu(1)
-                            source: "images/dropdown-menu.svg"
+                            source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
+                            y: parent.y + (styleMusic.albums.itemHeight / 2) - (height / 2)
                         }
 
                         MouseArea {
@@ -285,6 +298,7 @@ Page {
                                }
                                else {
                                    customdebug("clicked expand")
+                                   collapseExpand(-1);  // collapse all others
                                    expandable.visible = true
                                    track.height = styleMusic.albums.expandedHeight
                                }
@@ -293,19 +307,47 @@ Page {
 
                         Rectangle {
                             id: expandable
-                            visible: false
+                            color: "transparent"
                             height: styleMusic.albums.expandHeight
+                            visible: false
                             MouseArea {
                                anchors.fill: parent
                                onClicked: {
                                    customdebug("User pressed outside the playlist item and expanded items.")
-                             }
-                           }
+                               }
+                            }
+
+                            Component.onCompleted: {
+                                collapseExpand.connect(onCollapseExpand);
+                            }
+
+                            function onCollapseExpand(indexCol)
+                            {
+                                if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                                {
+                                    customdebug("auto collapse")
+                                    expandable.visible = false
+                                    track.height = styleMusic.albums.itemHeight
+                                }
+                            }
+
+                            // background for expander
+                            Rectangle {
+                                anchors.top: parent.top
+                                anchors.topMargin: styleMusic.albums.itemHeight
+                                color: styleMusic.common.black
+                                height: styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight
+                                width: track.width
+                                opacity: 0.4
+                            }
+
                             // add to playlist
                             Rectangle {
                                 id: playlistRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 color: "transparent"
@@ -313,16 +355,18 @@ Page {
                                 width: units.gu(15)
                                 Icon {
                                     id: playlistTrack
+                                    color: styleMusic.common.white
                                     name: "add"
                                     height: styleMusic.common.expandedItem
                                     width: styleMusic.common.expandedItem
                                 }
                                 Label {
-                                    text: i18n.tr("Add to playlist")
-                                    wrapMode: Text.WordWrap
-                                    fontSize: "small"
                                     anchors.left: playlistTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    color: styleMusic.common.white
+                                    fontSize: "small"
+                                    text: i18n.tr("Add to playlist")
+                                    wrapMode: Text.WordWrap
                                 }
                                 MouseArea {
                                    anchors.fill: parent
@@ -348,7 +392,9 @@ Page {
                             Rectangle {
                                 id: queueRow
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.expandedTopMargin
+                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
+                                                   + styleMusic.albums.itemHeight
+                                                   - (height / 2)
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 color: "transparent"
@@ -361,11 +407,12 @@ Page {
                                     width: styleMusic.common.expandedItem
                                 }
                                 Label {
-                                    text: i18n.tr("Queue")
-                                    wrapMode: Text.WordWrap
-                                    fontSize: "small"
                                     anchors.left: queueTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    color: styleMusic.common.white
+                                    fontSize: "small"
+                                    text: i18n.tr("Queue")
+                                    wrapMode: Text.WordWrap
                                 }
                                 MouseArea {
                                    anchors.fill: parent

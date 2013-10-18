@@ -25,7 +25,7 @@ import "settings.js" as Settings
 
 Rectangle {
     id: musicToolbarContainer
-    color: styleMusic.playerControls.backgroundColor
+    color: "transparent"
     height: fullHeight
     state: "minimized"
     width: parent.width
@@ -197,6 +197,8 @@ Rectangle {
             currentPage.visible = false
             currentParentPage.visible = true
         }
+
+        musicToolbar.hideToolbar();
     }
 
     // Hide the toolbar
@@ -230,6 +232,7 @@ Rectangle {
     /* Expanded toolbar */
     Rectangle {
         id: musicToolbarExpandedContainer
+        color: "transparent"
         anchors.left: parent.left
         anchors.top: musicToolbarSmallProgressBackground.bottom
         height: expandedHeight
@@ -400,7 +403,7 @@ Rectangle {
                                             anchors.verticalCenter: parent.verticalCenter
                                             opacity: 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
-                                                      "images/pause.png" : "images/play.png"
+                                                      Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
                                     }
                                 }
@@ -445,12 +448,13 @@ Rectangle {
                 }
 
                 /* Back button to go up pageStack */
-                UbuntuShape {
+                Item {
                     id: playerControlBackButton
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     width: units.gu(6)
+                    height: width
                     visible: currentPageStack !== null && currentParentPage !== null
 
                     Image {
@@ -551,42 +555,41 @@ Rectangle {
             height: parent.height - musicToolbarFullProgressContainer.height
             width: parent.width
 
-            /* Shuffle button */
-            UbuntuShape {
-                id: nowPlayingShuffleButton
+            /* Repeat button */
+            Item {
+                id: nowPlayingRepeatButton
+                objectName: "repeatShape"
                 anchors.right: nowPlayingPreviousButton.left
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
-                    id: shuffleIcon
+                    id: repeatIcon
                     height: units.gu(3)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: "images/shuffle.png"
-                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .25
+                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
+                    verticalAlignment: Text.AlignVCenter
+                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
                 }
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
-                        // Invert shuffle settings
-                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
-                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
-
-                        mainView.random = Settings.getSetting("shuffle") === "1"
-                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .25
+                        // Invert repeat settings
+                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
+                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
+                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
                     }
                 }
             }
 
             /* Previous button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingPreviousButton
                 anchors.right: nowPlayingPlayButton.left
                 anchors.rightMargin: units.gu(1)
@@ -594,7 +597,6 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "previousshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingPreviousIndicator
@@ -602,7 +604,7 @@ Rectangle {
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "images/back.png"
+                    source: Qt.resolvedUrl("images/media-skip-backward.svg")
                     opacity: 1
                 }
 
@@ -654,7 +656,7 @@ Rectangle {
                             anchors.verticalCenter: parent.verticalCenter
                             antialiasing: true
                             color: styleMusic.toolbar.fullInnerPlayCircleColor
-                            height: units.gu(8)
+                            height: units.gu(7)
                             radius: height / 2
                             width: height
 
@@ -681,13 +683,13 @@ Rectangle {
 
                                     Image {
                                         id: nowPlayingPlayIndicator
-                                        height: units.gu(5)
+                                        height: units.gu(6)
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
                                         opacity: 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
-                                                  "images/pause.png" : "images/play.png"
+                                                  Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
 
                                     MouseArea {
@@ -731,7 +733,7 @@ Rectangle {
             }
 
             /* Next button */
-            UbuntuShape {
+            Item {
                 id: nowPlayingNextButton
                 anchors.left: nowPlayingPlayButton.right
                 anchors.leftMargin: units.gu(1)
@@ -739,7 +741,6 @@ Rectangle {
                 height: units.gu(6)
                 objectName: "forwardshape"
                 width: height
-                color: "#000000"
 
                 Image {
                     id: nowPlayingNextIndicator
@@ -747,7 +748,7 @@ Rectangle {
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "images/forward.png"
+                    source: Qt.resolvedUrl("images/media-skip-forward.svg")
                     opacity: 1
                 }
 
@@ -761,36 +762,36 @@ Rectangle {
                 }
             }
 
-            /* Repeat button */
-            UbuntuShape {
-                id: nowPlayingRepeatButton
-                objectName: "repeatShape"
+            /* Shuffle button */
+            Item {
+                id: nowPlayingShuffleButton
+                objectName: "shuffleShape"
                 anchors.left: nowPlayingNextButton.right
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 width: height
-                color: "#000000"
 
                 Image {
-                    id: repeatIcon
+                    id: shuffleIcon
                     height: units.gu(3)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: "images/repeat.png"
-                    verticalAlignment: Text.AlignVCenter
-                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .25
+                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
+                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
                 }
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
-                        // Invert repeat settings
-                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
-                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .25
+                        // Invert shuffle settings
+                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+
+                        mainView.random = Settings.getSetting("shuffle") === "1"
+                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
                     }
                 }
             }
@@ -809,20 +810,24 @@ Rectangle {
             Label {
                 id: musicToolbarFullPositionLabel
                 anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
                 anchors.top: parent.top
                 color: styleMusic.nowPlaying.labelColor
+                fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 text: player.positionStr
                 verticalAlignment: Text.AlignVCenter
-                width: units.gu(6)
+                width: units.gu(3)
             }
 
             /* Progress bar */
             Rectangle {
                 id: musicToolbarFullProgressBarContainer
                 anchors.left: musicToolbarFullPositionLabel.right
+                anchors.leftMargin: units.gu(2)
                 anchors.right: musicToolbarFullDurationLabel.left
+                anchors.rightMargin: units.gu(2)
                 anchors.verticalCenter: parent.verticalCenter
                 color: "transparent"
                 height: units.gu(1);
@@ -926,13 +931,15 @@ Rectangle {
             Label {
                 id: musicToolbarFullDurationLabel
                 anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
                 anchors.top: parent.top
                 color: styleMusic.nowPlaying.labelColor
+                fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 text: player.durationStr
                 verticalAlignment: Text.AlignVCenter
-                width: units.gu(6)
+                width: units.gu(3)
             }
 
             /* Border at the bottom */
@@ -940,8 +947,8 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
-                color: styleMusic.common.black
-                height: units.gu(0.2)
+                color: styleMusic.common.white
+                height: units.gu(0.1)
                 opacity: 0.1
             }
         }

@@ -37,11 +37,11 @@ QtObject {
         property color expandedColor: "#000000";
         property int albumSize: units.gu(10);
         property int itemHeight: units.gu(12);
-        property int expandedHeight: units.gu(20);
+        property int expandedHeight: units.gu(17.5);
         property int expandHeight: units.gu(10);
         property int expandedItem: units.gu(2);
-        property int expandedTopMargin: units.gu(14.5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedTopMargin: units.gu(13.5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject dialog: QtObject {
@@ -68,21 +68,21 @@ QtObject {
     }
 
     property QtObject nowPlaying: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#1d1d1d"
         property color foregroundColor: "#454545"
         property color labelColor: common.white;
         property color labelSecondaryColor: "#AAA";
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
-        property int expandedHeightCurrent: units.gu(51);
-        property int expandedHeightNormal: units.gu(11.5);
+        property int expandedHeightCurrent: units.gu(53);
+        property int expandedHeightNormal: units.gu(17);
         property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject playerControls: QtObject {
-        property color backgroundColor: UbuntuColors.coolGrey;
+        property color backgroundColor: "#0f0f0f";
         property color labelColor: common.white;
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
@@ -105,7 +105,7 @@ QtObject {
     }
 
     property QtObject toolbar: QtObject {
-        property color fullBackgroundColor: "#212121";
+        property color fullBackgroundColor: "#0f0f0f";
         property color fullInnerPlayCircleColor: "#0d0d0d";
         property color fullOuterPlayCircleColor: "#363636";
         property color fullProgressBackgroundColor: "#252525";
@@ -117,7 +117,7 @@ QtObject {
         property int expandHeight: units.gu(5);
         property int expandedHeight: units.gu(9);
         property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject artists: QtObject {
@@ -125,6 +125,6 @@ QtObject {
         property int expandHeight: units.gu(5);
         property int expandedHeight: units.gu(17.5);
         property int expandedTopMargin: units.gu(13.5);
-        property int expandedLeftMargin: units.gu(5);
+        property int expandedLeftMargin: units.gu(2);
     }
 }

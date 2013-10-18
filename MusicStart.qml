@@ -83,12 +83,12 @@ Page {
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
                 }
-                UbuntuShape {  // Background so can see text in current state
+                Rectangle {  // Background so can see text in current state
                     id: albumBg
                     anchors.bottom: parent.bottom
+                    anchors.bottomMargin: units.gu(2)
                     color: styleMusic.common.black
-                    height: units.gu(6)
-                    opacity: .75
+                    height: units.gu(4)
                     width: parent.width
                     Label {
                         id: albumArtist
@@ -103,17 +103,22 @@ Page {
                         text: artist
                         fontSize: "x-small"
                     }
+                }
+                UbuntuShape {  // Background so can see text in current state
+                    id: albumBg2
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.common.black
+                    height: units.gu(3)
+                    width: parent.width
                     Label {
                         id: albumLabel
-                        anchors.top: albumArtist.bottom
-                        anchors.topMargin: units.gu(0.5)
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1)
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
+                        anchors.bottomMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: album
                         fontSize: "small"
@@ -210,12 +215,12 @@ Page {
                         musicToolbar.showToolbar();
                     }
                 }
-                UbuntuShape {  // Background so can see text in current state
+                Rectangle {  // Background so can see text in current state
                     id: genreBg
                     anchors.bottom: parent.bottom
+                    anchors.bottomMargin: units.gu(2)
                     color: styleMusic.common.black
-                    height: units.gu(6)
-                    opacity: .75
+                    height: units.gu(4)
                     width: parent.width
                     Label {
                         id: genreTotal
@@ -230,17 +235,22 @@ Page {
 			text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
                         fontSize: "x-small"
                     }
+                }
+                UbuntuShape {  // Background so can see text in current state
+                    id: genreBg2
+                    anchors.bottom: parent.bottom
+                    color: styleMusic.common.black
+                    height: units.gu(3)
+                    width: parent.width
                     Label {
                         id: genreLabel
-                        anchors.top: genreTotal.bottom
-                        anchors.topMargin: units.gu(0.5)
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
+                        anchors.bottomMargin: units.gu(1)
                         anchors.left: parent.left
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: genre === "" ? "None" : genre
                         fontSize: "small"
