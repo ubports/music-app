@@ -10,6 +10,12 @@ music-app (0.9) raring; urgency=low
 
  -- Daniel Holm <d.holmen@gmail.com>  Thur, 10 Oct 2013 00:39:50 +0200
 
+music-app (0.8) saucy; urgency=low
+
+  * Added support for building and shipping translations
+
+ -- David Planella <david.planella@ubuntu.com>  Thu, 26 Sep 2013 09:52:47 +0200
+
 music-app (0.7) raring; urgency=low
 
   * Now uses mediascanner.
@@ -24,7 +30,7 @@ music-app (0.6.5) raring; urgency=low
   * Fixed issue with toolbar not showing up in Playlists tab.
   * Clean up and smaller fixes.
 
- -- Daniel Holm <d.holmen@gmail.com>  Tat, 21 Sep 2013 14:41:50 +0200
+ -- Daniel Holm <d.holmen@gmail.com>  Sat, 21 Sep 2013 14:41:50 +0200
 
 music-app (0.6) raring; urgency=low
 

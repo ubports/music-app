@@ -1,2 +1,4 @@
 *.qmlproject.user
 
+.build
+po/Makefile

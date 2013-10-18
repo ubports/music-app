@@ -9,4 +9,3 @@ Type=Application
 StartupNotify=true
 X-Ubuntu-Single-Instance=true
 X-Ubuntu-Touch=true
-Name[sv_SE]=Musik

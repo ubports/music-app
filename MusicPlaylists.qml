@@ -50,6 +50,7 @@ PageStack {
          id: removePlaylistDialog
          Dialog {
              id: dialogueRemovePlaylist
+             // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
              title: i18n.tr("Are you sure?")
              text: i18n.tr("This will delete your playlist.")
 
@@ -79,6 +80,7 @@ PageStack {
          id: editPlaylistDialog
          Dialog {
              id: dialogueEditPlaylist
+             // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
              title: i18n.tr("Change name")
              text: i18n.tr("Enter the new name of the playlist.")
              TextField {
@@ -139,6 +141,8 @@ PageStack {
     // page for the playlists
     Page {
         id: listspage
+	// TRANSLATORS: this is the name of the playlists page shown in the tab header.
+	// Remember to keep the translation short to fit the screen width
         title: i18n.tr("Playlists")
 
         onVisibleChanged: {
@@ -237,7 +241,7 @@ PageStack {
                            elide: Text.ElideRight
                            fontSize: "x-small"
                            height: units.gu(1)
-                           text: playlist.count + i18n.tr(" songs")
+                           text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                        }
                        // playlist name
                        Label {
@@ -344,6 +348,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
+				       // TRANSLATORS: this refers to editing a playlist
                                        text: i18n.tr("Edit")
                                    }
                                    MouseArea {
@@ -385,6 +390,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
+				       // TRANSLATORS: this refers to deleting a playlist
                                        text: i18n.tr("Delete")
                                    }
                                    MouseArea {
@@ -428,6 +434,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
+				       // TRANSLATORS: this refers to sharing a playlist
                                        text: i18n.tr("Share")
                                    }
                                    MouseArea {
@@ -564,7 +571,7 @@ PageStack {
 
             Label {
                 id: playlistInfoCount
-                text: playlistlist.count + i18n.tr(" songs")
+		text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                 color: styleMusic.common.white
                 fontSize: "medium"
                 anchors.left: parent.left

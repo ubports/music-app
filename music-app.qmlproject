@@ -15,6 +15,21 @@ Project {
     ImageFiles {
         directory: "."
     }
+    /* Shows the desktop file in the project view */
+    Files {
+        filter: "*.desktop"
+    }
+    /* Shows the README files in the project view */
+    Files {
+        filter: "README*"
+    }
+    /* Shows the translation files and the .pro file used to generate the .pot template */
+    Files {
+        filter: "*.po*"
+    }
+    Files {
+        filter: "*.pro"
+    }
     /* List of plugin directories passed to QML runtime */
     // importPaths: [ "../exampleplugin" ]
 }
