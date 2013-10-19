@@ -55,6 +55,15 @@ function reset() {
       });
 }
 
+function clearRecentHistory() {
+    var db = getDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql('DROP TABLE IF EXISTS recent');
+            tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME, title TEXT, title2 TEXT, cover TEXT, key TEXT UNIQUE, type TEXT)");
+      });
+}
+
 // This function is used to flush the buffer of metadata to the db
 function writeDb()
 {

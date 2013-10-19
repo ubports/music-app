@@ -42,18 +42,19 @@ Page {
         id: recentlyPlayed
         text: i18n.tr("Recent")
     }
-    ListItem.Standard {
+    Item {
         id: recentlistempty
         anchors.top: recentlyPlayed.bottom
         anchors.topMargin: units.gu(1)
         height: units.gu(22)
+        width: parent.width
         visible: !mainView.hasRecent
 
         Label {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             color: styleMusic.nowPlaying.labelSecondaryColor
-            anchors.fill: parent
+            anchors.centerIn: parent
             elide: Text.ElideRight
             fontSize: "large"
             text: i18n.tr("No recent albums or playlists")
@@ -65,7 +66,6 @@ Page {
         width: parent.width
         anchors.top: recentlyPlayed.bottom
         anchors.topMargin: units.gu(1)
-        //anchors.bottom: genres.top
         spacing: units.gu(2)
         height: units.gu(22)
         // TODO: Update when view counts are collected
@@ -74,6 +74,23 @@ Page {
         header: Item {
             id: spacer
             width: units.gu(1)
+        }
+        footer: Item {
+            id: clearRecent
+            width: units.gu(20)
+            height: units.gu(20)
+            visible: mainView.hasRecent
+            Button {
+                id: clearRecentButton
+                anchors.centerIn: parent
+                text: "Clear History"
+                visible: mainView.hasRecent
+                onClicked: {
+                    Library.clearRecentHistory()
+                    mainView.hasRecent = false
+                    recentModel.filterRecent()
+                }
+            }
         }
         orientation: ListView.Horizontal
         visible: mainView.hasRecent
