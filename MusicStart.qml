@@ -79,12 +79,11 @@ Page {
             id: clearRecent
             width: units.gu(20)
             height: units.gu(20)
-            visible: mainView.hasRecent
+            visible: mainView.hasRecent && !loading.visible
             Button {
                 id: clearRecentButton
                 anchors.centerIn: parent
                 text: "Clear History"
-                visible: mainView.hasRecent
                 onClicked: {
                     Library.clearRecentHistory()
                     mainView.hasRecent = false
