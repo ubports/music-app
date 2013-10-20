@@ -32,11 +32,7 @@ function initialize() {
             // If the table exists, this is skipped
             //tx.executeSql('DROP TABLE metadata');
             tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
-
-            // "key" is the search criteria for the type.
-            // file a for aong, album title for album, and
-            //tx.executeSql('DROP TABLE recent');
-            tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME, title TEXT, title2 TEXT, cover TEXT, key TEXT UNIQUE, type TEXT)");
+            createRecent();
       });
 }
 function reset() {
@@ -47,7 +43,14 @@ function reset() {
             // If the table exists, this is skipped
             tx.executeSql('DROP TABLE IF EXISTS metadata');
             tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
+            createRecent();
+      });
+}
 
+function createRecent() {
+    var db = getDatabase();
+    db.transaction(
+        function(tx) {
             // "key" is the search criteria for the type.
             // album title for album, and playlist title for playlist
             //tx.executeSql('DROP TABLE recent');
@@ -327,6 +330,7 @@ function isRecentEmpty() {
     var res = 0;
 
     db.transaction( function(tx) {
+        createRecent();
         var rs = tx.executeSql("SELECT count(*) as value FROM recent")
         if (rs.rows.item(0).value > 0) {
             res = rs.rows.item(0).value;
