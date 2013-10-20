@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-10-18 04:56+0000\n"
+"PO-Revision-Date: 2013-10-20 04:31+0000\n"
 "Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2013-10-19 05:29+0000\n"
+"X-Launchpad-Export-Date: 2013-10-20 05:07+0000\n"
 "X-Generator: Launchpad (build 16807)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -62,8 +62,7 @@ msgstr "專輯"
 #, qt-format
 msgid "%1 | %2 song"
 msgid_plural "%1 | %2 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 | %2 首歌"
 
 #: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
 #: ../MusicTracks.qml:279 ../music-app.qml:804
@@ -78,7 +77,7 @@ msgstr "選取播放清單"
 #: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:325
 msgid "Queue"
-msgstr ""
+msgstr "佇列"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:906
 msgid "Artists"
@@ -88,16 +87,14 @@ msgstr "歌手"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 個專輯"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 首歌"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
@@ -107,16 +104,16 @@ msgstr "歌曲"
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
 msgid "Are you sure?"
-msgstr "確定？"
+msgstr "確定嗎？"
 
 #: ../MusicPlaylists.qml:55
 msgid "This will delete your playlist."
-msgstr "會刪除播放清單"
+msgstr "會刪除播放清單。"
 
 #: ../MusicPlaylists.qml:58
 msgid "Remove"
@@ -152,12 +149,12 @@ msgstr "播放清單"
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: ../MusicPlaylists.qml:480
 msgid "Playlist"
@@ -177,39 +174,39 @@ msgstr "預設"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr ""
+msgstr "原音 (Accoustic)"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "古典音樂 (Classical)"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "電子音樂 (Electronic)"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr ""
+msgstr "平穩 (Flat)"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "嘻哈 (Hip Hop)"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "爵士樂 (Jazz)"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "金屬樂 (Metal)"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "流行曲 (Pop)"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "搖滾樂 (Rock)"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
@@ -220,6 +217,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"開啟工具列時\n"
+"貼住目前歌曲"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
@@ -227,7 +226,7 @@ msgstr "帳號"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "登入以 scrobble 和匯入播放清單"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -256,19 +255,19 @@ msgstr "音樂"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr ""
+msgstr "最近播放"
 
 #: ../MusicStart.qml:157
 msgid "Genres"
-msgstr ""
+msgstr "風格"
 
 #: ../MusicToolbar.qml:284
 msgid "No songs queued"
-msgstr ""
+msgstr "未有佇列歌曲"
 
 #: ../MusicToolbar.qml:294
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "輕觸歌曲開始播放"
 
 #: ../MusicaddtoPlaylist.qml:160
 msgid "New playlist"
@@ -320,7 +319,7 @@ msgstr "返回"
 
 #: ../music-app.qml:98
 msgid "Go back to last page"
-msgstr ""
+msgstr "返回上一版"
 
 #: ../music-app.qml:104
 msgid "Music Settings"
@@ -336,7 +335,7 @@ msgstr "關閉應用程式"
 
 #: ../music-app.qml:252
 msgid "Debug: "
-msgstr ""
+msgstr "除錯： "
 
 #: ../music-app.qml:790
 msgid "Add to queue"
@@ -372,7 +371,7 @@ msgstr "歌曲"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr ""
+msgstr "載入中..."
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"

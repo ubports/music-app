@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-09-28 10:53+0000\n"
+"PO-Revision-Date: 2013-10-19 16:42+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2013-10-19 05:29+0000\n"
+"X-Launchpad-Export-Date: 2013-10-20 05:07+0000\n"
 "X-Generator: Launchpad (build 16807)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -63,8 +63,9 @@ msgstr "Альбоми"
 #, qt-format
 msgid "%1 | %2 song"
 msgid_plural "%1 | %2 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 | %2 композиція"
+msgstr[1] "%1 | %2 композиції"
+msgstr[2] "%1 | %2 композицій"
 
 #: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
 #: ../MusicTracks.qml:279 ../music-app.qml:804
@@ -79,7 +80,7 @@ msgstr "Виберіть список відтворення"
 #: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:325
 msgid "Queue"
-msgstr ""
+msgstr "Додати до черги"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:906
 msgid "Artists"
@@ -89,16 +90,18 @@ msgstr "Виконавці"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 альбом"
+msgstr[1] "%1 альбоми"
+msgstr[2] "%1 альбомів"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 композиція"
+msgstr[1] "%1 композиції"
+msgstr[2] "%1 композицій"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
@@ -108,7 +111,7 @@ msgstr "Композиції"
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "Оприлюднити"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
@@ -153,12 +156,12 @@ msgstr "Списки відтворення"
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
 msgid "Edit"
-msgstr ""
+msgstr "Змінити"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
 msgid "Delete"
-msgstr ""
+msgstr "Вилучити"
 
 #: ../MusicPlaylists.qml:480
 msgid "Playlist"
@@ -230,7 +233,7 @@ msgstr "Облікові записи"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Увійдіть для синхронізації та імпортування списків відтворення"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -259,19 +262,19 @@ msgstr "Музика"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr ""
+msgstr "Нещодавні"
 
 #: ../MusicStart.qml:157
 msgid "Genres"
-msgstr ""
+msgstr "Жанри"
 
 #: ../MusicToolbar.qml:284
 msgid "No songs queued"
-msgstr ""
+msgstr "У черзі немає композицій"
 
 #: ../MusicToolbar.qml:294
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Натисніть пункт композиції, щоб розпочати відтворення"
 
 #: ../MusicaddtoPlaylist.qml:160
 msgid "New playlist"
@@ -323,7 +326,7 @@ msgstr "Назад"
 
 #: ../music-app.qml:98
 msgid "Go back to last page"
-msgstr ""
+msgstr "Повернутися до останньої сторінки"
 
 #: ../music-app.qml:104
 msgid "Music Settings"
@@ -339,7 +342,7 @@ msgstr "Закрити вікно програми"
 
 #: ../music-app.qml:252
 msgid "Debug: "
-msgstr ""
+msgstr "Діагностика: "
 
 #: ../music-app.qml:790
 msgid "Add to queue"
@@ -375,7 +378,7 @@ msgstr "Композиції"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr ""
+msgstr "Завантаження…"
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"
