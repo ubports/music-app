@@ -296,6 +296,14 @@ MainView {
                     || (currentIndex > 0 && direction === -1)) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
+
+                // Seek to start if threshold not reached when selecting previous
+                if (direction === -1 && (player.position / 1000) > 5)
+                {
+                    player.seek(0);  // seek to start
+                    return;
+                }
+
                 currentIndex += direction
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
             } else if(direction === 1 && Settings.getSetting("repeat") === "1") {
