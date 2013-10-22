@@ -258,8 +258,8 @@ MainView {
     }
 
 
-    function nextSong(startPlaying) {
-        getSong(1, startPlaying)
+    function nextSong(startPlaying, fromControls) {
+        getSong(1, startPlaying, fromControls)
     }
 
     function stopSong() {
@@ -267,7 +267,7 @@ MainView {
         player.source = "";  // changing to "" triggers the player to stop and removes the highlight
     }
 
-    function getSong(direction, startPlaying) {
+    function getSong(direction, startPlaying, fromControls) {
         if (trackQueue.model.count == 0)
         {
             customdebug("No tracks in queue.");
@@ -277,6 +277,11 @@ MainView {
         if (startPlaying === undefined)  // default startPlaying to true
         {
             startPlaying = true;
+        }
+
+        if (fromControls === undefined)  // default fromControls to true
+        {
+            fromControls = true;
         }
 
         if (random) {
@@ -298,12 +303,12 @@ MainView {
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex += direction
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === 1 && Settings.getSetting("repeat") === "1") {
+            } else if(direction === 1 && (Settings.getSetting("repeat") === "1" || fromControls)) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = 0
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === -1 && Settings.getSetting("repeat") === "1") {
+            } else if(direction === -1 && (Settings.getSetting("repeat") === "1" || fromControls)) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
                 currentIndex = trackQueue.model.count - 1
@@ -517,7 +522,7 @@ MainView {
                     console.debug("Debug: no scrobbling")
                 }
 
-                nextSong() // next track
+                nextSong (true, false) // next track
             }
         }
 
