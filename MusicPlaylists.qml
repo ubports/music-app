@@ -289,8 +289,8 @@ PageStack {
                                   expandable.visible = true
                                   playlist.height = styleMusic.playlists.expandedHeight
                               }
-                          }
-                      }
+                           }
+                       }
 
                        Rectangle {
                            id: expandable
@@ -837,6 +837,9 @@ PageStack {
                         onClicked: {
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
+                            Library.addRecent(oldPlaylistName, "Playlist", cover, oldPlaylistName, "playlist")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
                         }
 
                         onMouseXChanged: {

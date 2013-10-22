@@ -209,6 +209,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.0'
     property bool isPlaying: false
+    property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
     property bool scrobble: false
     property string lastfmusername
@@ -698,7 +699,13 @@ MainView {
     }
 
     LibraryListModel {
+        id: recentModel
+    }
+    LibraryListModel {
         id: recentAlbumTracksModel
+    }
+    LibraryListModel {
+        id: recentPlaylistTracksModel
     }
 
     LibraryListModel {
@@ -770,6 +777,7 @@ MainView {
                 libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
+                recentModel.filterRecent()
                 genreModel.filterGenres()
                 timer.stop()
                 loading.visible = false

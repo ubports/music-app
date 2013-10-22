@@ -159,6 +159,25 @@ Item {
         }
     }
 
+    function filterRecent() {
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
+        console.log("called LibraryListModel::filterRecent()")
+
+        // Save query for queue
+        query = Library.getRecent
+        param = null
+
+        var library = Library.getRecent()
+
+        for ( var key in library ) {
+            var add = library[key];
+            console.log("add.recent: "+add.recent)
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
+
     function filterGenres() {
         worker.sendMessage({'clear': true, 'model': libraryModel})
 
