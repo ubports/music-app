@@ -297,7 +297,7 @@ MainView {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
 
-                // Seek to start if threshold not reached when selecting previous
+                // Seek to start if threshold reached when selecting previous
                 if (direction === -1 && (player.position / 1000) > 5)
                 {
                     player.seek(0);  // seek to start
