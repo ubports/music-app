@@ -28,6 +28,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import QtGraphicalEffects 1.0
+import UserMetrics 0.1
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
@@ -152,6 +153,15 @@ MainView {
         }
     }
 
+    // UserMetrics to show Music stuff on welcome screen
+    Metric {
+        id: tracksMetric
+        name: "music-metrics"
+        format: "%1 tracks played today"
+        emptyFormat: "No tracks played today"
+        domain: "com.ubuntu.music"
+    }
+
     // Design stuff
     Style { id: styleMusic }
     width: units.gu(50)
@@ -208,6 +218,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.0'
+    property int tracksPlayed: 0
     property bool isPlaying: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
@@ -252,6 +263,13 @@ MainView {
         if (debug) {
             console.debug(i18n.tr("Debug: ")+text);
         }
+    }
+
+    // update tracks played
+    function updateMetric() {
+        // should later use the number of tracks played TODAY, based on recent DB.
+        tracksPlayed = tracksPlayed+1
+        tracksMetric.update(tracksPlayed)
     }
 
     function previousSong(startPlaying) {
