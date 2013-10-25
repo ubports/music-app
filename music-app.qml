@@ -266,7 +266,7 @@ MainView {
     }
 
     // update tracks played
-    function updateMetric() {
+    function updateMetrics() {
         // should later use the number of tracks played TODAY, based on recent DB.
         tracksPlayed = tracksPlayed+1
         tracksMetric.update(tracksPlayed)
@@ -365,6 +365,7 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
+        updateMetrics() // update usermetrics on welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
