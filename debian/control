@@ -30,7 +30,7 @@ Description: Music player for Ubuntu Touch
 Package: music-app-autopilot
 Architecture: all
 Depends: ${misc:Depends},
-         libautopilot-qt,
+         libautopilot-qt (>= 1.4),
          libqt5test5,
          python-mock,
          music-app (= ${source:Version}),
