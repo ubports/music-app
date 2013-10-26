@@ -928,7 +928,7 @@ MainView {
                 anchors.fill: parent
                 title: i18n.tr("Songs")
                 onVisibleChanged: {
-                    if (visible && !populated && !loading.visible) {
+                    if (visible && !populated && griloModel.loaded) {
                         libraryModel.populate()
                         populated = true
                     }
