@@ -928,8 +928,9 @@ MainView {
                 anchors.fill: parent
                 title: i18n.tr("Songs")
                 onVisibleChanged: {
-                    if (visible && !populated) {
+                    if (visible && !populated && !loading.visible) {
                         libraryModel.populate()
+                        populated = true
                     }
                 }
 
