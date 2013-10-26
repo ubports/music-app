@@ -640,25 +640,26 @@ MainView {
             onBaseMediaChanged: refresh();
 
             onFinished: {
-                griloModel.loaded = true
-            }
-        }
-
-        onCountChanged: {
-            if (count > 0) {
-                timer.start()
-                for (var i = timer.counted; i < griloModel.count; i++)
+                for (var i = 0; i < griloModel.count; i++)
                 {
-                    var file = griloModel.get(i).url.toString()
+                    var media = griloModel.get(i)
+                    var file = media.url.toString()
                     if (file.indexOf("file://") == 0)
                     {
                         file = file.slice(7, file.length)
                     }
-                    //console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
-                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
+                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                    Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
                 }
+                Library.writeDb()
+                libraryModel.populate()
+                albumModel.filterAlbums()
+                artistModel.filterArtists()
+                recentModel.filterRecent()
+                genreModel.filterGenres()
+                loading.visible = false
+                griloModel.loaded = true
             }
-
         }
     }
 
@@ -759,31 +760,6 @@ MainView {
     // ListModel for Undo functionality
     ListModel {
         id: undo
-    }
-
-    Timer {
-        id: timer
-        interval: 200; repeat: true
-        running: false
-        triggeredOnStart: false
-        property int counted: 0
-
-        onTriggered: {
-            console.log("Counted: " + counted)
-            console.log("griloModel.count: " + griloModel.count)
-            if (counted === griloModel.count) {
-                console.log("MOVING ON")
-                Library.writeDb()
-                libraryModel.populate()
-                albumModel.filterAlbums()
-                artistModel.filterArtists()
-                recentModel.filterRecent()
-                genreModel.filterGenres()
-                timer.stop()
-                loading.visible = false
-            }
-            counted = griloModel.count
-        }
     }
 
     // Blurred background
