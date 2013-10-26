@@ -652,8 +652,6 @@ MainView {
                     Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
                 }
                 Library.writeDb()
-                albumModel.filterAlbums()
-                artistModel.filterArtists()
                 recentModel.filterRecent()
                 genreModel.filterGenres()
                 loading.visible = false
@@ -896,10 +894,17 @@ MainView {
 
             // Second tab is arists
             Tab {
+                property bool populated: false
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
                 title: i18n.tr("Artists")
+                onVisibleChanged: {
+                    if (visible && !populated && griloModel.loaded) {
+                        artistModel.filterArtists()
+                        populated = true
+                    }
+                }
 
                 // tab content
                 page: MusicArtists {
@@ -909,10 +914,17 @@ MainView {
 
             // third tab is albums
             Tab {
+                property bool populated: false
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
                 title: i18n.tr("Albums")
+                onVisibleChanged: {
+                    if (visible && !populated && griloModel.loaded) {
+                        albumModel.filterAlbums()
+                        populated = true
+                    }
+                }
 
                 // Tab content begins here
                 page: MusicAlbums {
