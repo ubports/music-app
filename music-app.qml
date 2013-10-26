@@ -652,7 +652,6 @@ MainView {
                     Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
                 }
                 Library.writeDb()
-                libraryModel.populate()
                 albumModel.filterAlbums()
                 artistModel.filterArtists()
                 recentModel.filterRecent()
@@ -923,10 +922,16 @@ MainView {
 
             // fourth tab is all songs
             Tab {
+                property bool populated: false
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
+                onVisibleChanged: {
+                    if (visible && !populated) {
+                        libraryModel.populate()
+                    }
+                }
 
                 // Tab content begins here
                 page: MusicTracks {
