@@ -1,0 +1,381 @@
+# Tamil translation for music-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the music-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: music-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-18 09:09+0200\n"
+"PO-Revision-Date: 2013-10-25 10:28+0000\n"
+"Last-Translator: Thangamani Arun - தங்கமணி அருண் <thangam.arunx@gmail.com>\n"
+"Language-Team: Tamil <ta@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2013-10-26 06:27+0000\n"
+"X-Generator: Launchpad (build 16810)\n"
+
+#: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: ../LoginLastFM.qml:47
+msgid "Login to be able to scrobble."
+msgstr "scrobble செய்வதற்கு உள்நுழை."
+
+#: ../LoginLastFM.qml:55
+msgid "Username"
+msgstr "பயனர்பெயர்"
+
+#: ../LoginLastFM.qml:65
+msgid "Password"
+msgstr "கடவுச்சொல்"
+
+#: ../LoginLastFM.qml:87
+msgid "Login"
+msgstr "உள்நுழை"
+
+#: ../LoginLastFM.qml:94
+msgid "Trying to login..."
+msgstr "உள்நுழை முயற்சிக்கிறது..."
+
+#: ../LoginLastFM.qml:108
+msgid "Login Successful"
+msgstr "உள்நுழைவு வெற்றி"
+
+#: ../LoginLastFM.qml:114
+msgid "Login Failed"
+msgstr "உள்நுழைவு தோழ்வியுற்றது"
+
+#: ../LoginLastFM.qml:120
+msgid "You forgot to set your username and/or password"
+msgstr ""
+"நீங்க உங்களுடைய பயனர்பெயரை மற்றும்/அல்லது கடவுச்சொல்லை அமைக்க "
+"மறந்துவிட்டீர்கள்"
+
+#: ../MusicAlbums.qml:33 ../music-app.qml:919
+msgid "Albums"
+msgstr "படத்தொகுப்புகள்"
+
+#: ../MusicAlbums.qml:228
+#, qt-format
+msgid "%1 | %2 song"
+msgid_plural "%1 | %2 songs"
+msgstr[0] "%1 | %2 பாடல்"
+msgstr[1] "%1 | %2 பாடல்கள்"
+
+#: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
+#: ../MusicTracks.qml:279 ../music-app.qml:804
+msgid "Add to playlist"
+msgstr "பாடல்பட்டியலில் சேர்"
+
+#: ../MusicAlbums.qml:386 ../MusicArtists.qml:447 ../MusicNowPlaying.qml:660
+#: ../MusicTracks.qml:297 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:815
+msgid "Select playlist"
+msgstr "பாடல்பட்டியலை தேர்ந்தெடு"
+
+#: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
+#: ../MusicTracks.qml:325
+msgid "Queue"
+msgstr "வரிசை"
+
+#: ../MusicArtists.qml:39 ../music-app.qml:906
+msgid "Artists"
+msgstr "கலைஞர்கள்"
+
+#: ../MusicArtists.qml:148
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 படத்தொகுப்பு"
+msgstr[1] "%1 படத்தொகுப்புகள்"
+
+#: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
+#: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
+#, qt-format
+msgid "%1 song"
+msgid_plural "%1 songs"
+msgstr[0] "%1 பாடல்"
+msgstr[1] "%1 பாடல்கள்"
+
+#: ../MusicArtists.qml:190
+msgid "Tracks"
+msgstr "தடங்கள்"
+
+#. TRANSLATORS: this refers to sharing a playlist
+#: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
+#: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
+msgid "Share"
+msgstr "பகிர்"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../MusicPlaylists.qml:54
+msgid "Are you sure?"
+msgstr "நிச்சயமாக?"
+
+#: ../MusicPlaylists.qml:55
+msgid "This will delete your playlist."
+msgstr "இது உங்களுடைய பாடல் பட்டியலை நீக்கிவிடும்."
+
+#: ../MusicPlaylists.qml:58
+msgid "Remove"
+msgstr "நீக்கு"
+
+#: ../MusicPlaylists.qml:71 ../MusicPlaylists.qml:114 ../music-app.qml:866
+msgid "Cancel"
+msgstr "ரத்துசெய்"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../MusicPlaylists.qml:84
+msgid "Change name"
+msgstr "பெயரை மாற்று"
+
+#: ../MusicPlaylists.qml:85
+msgid "Enter the new name of the playlist."
+msgstr "புதிய பெயரை பாடல்பட்டியலுக்கு உள்ளிடு."
+
+#: ../MusicPlaylists.qml:96
+msgid "Change"
+msgstr "மாற்று"
+
+#: ../MusicPlaylists.qml:109
+msgid "You didn't type in a name."
+msgstr "நீங்கள் பெயரில் தட்டவெயில்லை."
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:146 ../music-app.qml:946
+msgid "Playlists"
+msgstr "பாடல் பட்டியல்கள்"
+
+#. TRANSLATORS: this refers to editing a playlist
+#: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
+msgid "Edit"
+msgstr "திருத்து"
+
+#. TRANSLATORS: this refers to deleting a playlist
+#: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
+msgid "Delete"
+msgstr "நீக்கு"
+
+#: ../MusicPlaylists.qml:480
+msgid "Playlist"
+msgstr "பாடல் பட்டியல்"
+
+#: ../MusicSettings.qml:30 ../music-app.qml:103
+msgid "Settings"
+msgstr "அமைப்புகள்"
+
+#: ../MusicSettings.qml:81
+msgid "Equaliser"
+msgstr "சமன்படுத்தி"
+
+#: ../MusicSettings.qml:82
+msgid "Default"
+msgstr "இயல்புநிலை"
+
+#: ../MusicSettings.qml:83
+msgid "Accoustic"
+msgstr "ஒலியியற்பண்பு"
+
+#: ../MusicSettings.qml:84
+msgid "Classical"
+msgstr "பாரம்பரிய"
+
+#: ../MusicSettings.qml:85
+msgid "Electronic"
+msgstr "மின்னணு"
+
+#: ../MusicSettings.qml:86
+msgid "Flat"
+msgstr "தட்டை"
+
+#: ../MusicSettings.qml:87
+msgid "Hip Hop"
+msgstr "ஹிப் ஹாப்"
+
+#: ../MusicSettings.qml:88
+msgid "Jazz"
+msgstr "ஜாஸ்"
+
+#: ../MusicSettings.qml:89
+msgid "Metal"
+msgstr "உலோகம்"
+
+#: ../MusicSettings.qml:90
+msgid "Pop"
+msgstr "பாப்"
+
+#: ../MusicSettings.qml:91
+msgid "Rock"
+msgstr "ராக்"
+
+#: ../MusicSettings.qml:92
+msgid "Custom"
+msgstr "தனிபயன்"
+
+#: ../MusicSettings.qml:112
+msgid ""
+"Snap to current song \n"
+"when opening toolbar"
+msgstr "தற்போதைய பாடலுடன் பொருத்து"
+
+#: ../MusicSettings.qml:132
+msgid "Accounts"
+msgstr "கணக்குகள்"
+
+#: ../MusicSettings.qml:146
+msgid "Login to scrobble and import playlists"
+msgstr "scrobble உள்நுழை மற்றும் பாடல்பட்டில்களை இறக்குமதி செய்"
+
+#: ../MusicSettings.qml:169
+msgid "Music Streaming"
+msgstr "இசை ஸ்ட்ரீமிங்"
+
+#: ../MusicSettings.qml:179
+msgid "Ubuntu One"
+msgstr "உபுண்டு ஒன்று"
+
+#: ../MusicSettings.qml:180
+msgid "Sign in to stream your cloud music"
+msgstr "உங்கள் மேக இசையை ஸ்ட்ரீமிங் செய்ய உள்நுழை"
+
+#: ../MusicSettings.qml:196
+msgid "Stream only on Wi-Fi"
+msgstr "வை-பை மூலம் மட்டுமே ஸ்ட்ரீம்"
+
+#: ../MusicSettings.qml:230
+msgid "Clean everything!"
+msgstr "அனைத்தையும் சுத்தம் செய்!"
+
+#: ../MusicStart.qml:32 ../MusicTracks.qml:40 ../music-app.qml:209
+#: ../music-app.qml:893 ../.build/music-app.desktop.js:1
+msgid "Music"
+msgstr "இசை"
+
+#: ../MusicStart.qml:43
+msgid "Recent"
+msgstr "சமீபத்திய"
+
+#: ../MusicStart.qml:157
+msgid "Genres"
+msgstr "பாணிகள்"
+
+#: ../MusicToolbar.qml:284
+msgid "No songs queued"
+msgstr "எந்த பாடலும் வரிசையில் இல்லை"
+
+#: ../MusicToolbar.qml:294
+msgid "Tap on a song to start playing"
+msgstr "ஒரு பாடலின் மீது தட்டுவதன் மூலம் இயக்கலாம்"
+
+#: ../MusicaddtoPlaylist.qml:160
+msgid "New playlist"
+msgstr "புதிய இசைப்பட்டியல்"
+
+#: ../music-app.qml:65
+msgid "Next"
+msgstr "அடுத்து"
+
+#: ../music-app.qml:66
+msgid "Next Track"
+msgstr "அடுத்த தடம்"
+
+#: ../music-app.qml:72
+msgid "Pause"
+msgstr "இடைநிறுத்து"
+
+#: ../music-app.qml:72
+msgid "Play"
+msgstr "இயக்கு"
+
+#: ../music-app.qml:74
+msgid "Pause Playback"
+msgstr "இயக்கத்தை இடைநிறுத்து"
+
+#: ../music-app.qml:74
+msgid "Continue or start playback"
+msgstr "இயக்கத்தை தொடரவும் அல்லது தொடங்கவும்"
+
+#: ../music-app.qml:85
+msgid "Previous"
+msgstr "முந்தைய"
+
+#: ../music-app.qml:86
+msgid "Previous Track"
+msgstr "முந்தைய தடம்"
+
+#: ../music-app.qml:91
+msgid "Stop"
+msgstr "நிறுத்து"
+
+#: ../music-app.qml:92
+msgid "Stop Playback"
+msgstr "இயக்கியை நிறுத்து"
+
+#: ../music-app.qml:97
+msgid "Back"
+msgstr "பின்னால்"
+
+#: ../music-app.qml:98
+msgid "Go back to last page"
+msgstr "கடைசி பக்கத்திற்கு பின்னால் செல்"
+
+#: ../music-app.qml:104
+msgid "Music Settings"
+msgstr "இசை அமைப்புகள்"
+
+#: ../music-app.qml:112
+msgid "Quit"
+msgstr "வெளியேறு"
+
+#: ../music-app.qml:113
+msgid "Close application"
+msgstr "பயன்பாட்டை மூடு"
+
+#: ../music-app.qml:252
+msgid "Debug: "
+msgstr "பிழைத்திருத்தம் "
+
+#: ../music-app.qml:790
+msgid "Add to queue"
+msgstr "வரிசையில் சேர்"
+
+#: ../music-app.qml:828
+msgid "New Playlist"
+msgstr "புதிய இசைப்பட்டியல்"
+
+#: ../music-app.qml:829
+msgid "Name your playlist."
+msgstr "உங்களுடைய இசைப்பட்டியலை பெயரிடுக"
+
+#: ../music-app.qml:832
+msgid "Name"
+msgstr "பெயர்"
+
+#: ../music-app.qml:840
+msgid "Create"
+msgstr "உருவாக்கு"
+
+#: ../music-app.qml:855
+msgid "Error: "
+msgstr "பிழை: "
+
+#: ../music-app.qml:860
+msgid "Error: You didn't type a name."
+msgstr "பிழை: நீங்க பெயரை தட்டச்சு செய்யவில்லை."
+
+#: ../music-app.qml:932
+msgid "Songs"
+msgstr "பாடல்கள்"
+
+#: ../common/LoadingSpinnerComponent.qml:43
+msgid "Loading..."
+msgstr "ஏற்றுகிறது..."
+
+#: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
+msgid "Clear"
+msgstr "துடை"
