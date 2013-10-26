@@ -1,14 +1,16 @@
 {
-    "description": "description of music-app",
-    "framework": "ubuntu-sdk-13.10",
+    "description": "Music application for Ubuntu", 
+    "architecture": "armhf",
+    "framework": "ubuntu-sdk-13.10", 
     "hooks": {
-        "music-app": {
-            "apparmor": "music-app.json",
+        "music": {
+            "apparmor": "apparmor/music.json", 
             "desktop": "music-app.desktop"
         }
-    },
-    "maintainer": "Daniel Holm <admin@danielholm.se>",
-    "name": "com.ubuntu.developer.danielholm.music-app",
-    "title": "music-app",
-    "version": "0.1"
+    }, 
+    "icon": "images/music.png", 
+    "maintainer": "Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>", 
+    "name": "com.ubuntu.music", 
+    "title": "music", 
+    "version": "1.0"
 }
