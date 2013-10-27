@@ -1,4 +1,4 @@
-# German translation for music-app
+# Chinese (Hong Kong) translation for music-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-10-26 18:18+0000\n"
-"Last-Translator: Torsten Franz <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2013-10-26 07:04+0000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
+"Language-Team: Chinese (Hong Kong) <zh_HK@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2013-10-27 06:15+0000\n"
 "X-Generator: Launchpad (build 16810)\n"
 
@@ -24,214 +24,213 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:47
 msgid "Login to be able to scrobble."
-msgstr "Melden Sie sich an um zu scrobbeln."
+msgstr "登入才能 scrobble。"
 
 #: ../LoginLastFM.qml:55
 msgid "Username"
-msgstr "Benutzername"
+msgstr "用戶名稱"
 
 #: ../LoginLastFM.qml:65
 msgid "Password"
-msgstr "Passwort"
+msgstr "密碼"
 
 #: ../LoginLastFM.qml:87
 msgid "Login"
-msgstr "Anmelden"
+msgstr "登入"
 
 #: ../LoginLastFM.qml:94
 msgid "Trying to login..."
-msgstr "Anmelden …"
+msgstr "正嘗試登入..."
 
 #: ../LoginLastFM.qml:108
 msgid "Login Successful"
-msgstr "Anmeldung erfolgreich"
+msgstr "成功登入"
 
 #: ../LoginLastFM.qml:114
 msgid "Login Failed"
-msgstr "Anmeldung fehlgeschlagen"
+msgstr "未能登入"
 
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "你忘了設定用戶名稱 及/或 密碼"
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:919
 msgid "Albums"
-msgstr "Alben"
+msgstr "專輯"
 
 #: ../MusicAlbums.qml:228
 #, qt-format
 msgid "%1 | %2 song"
 msgid_plural "%1 | %2 songs"
-msgstr[0] "%1 | %2 Titel"
-msgstr[1] "%1 | %2 Titel"
+msgstr[0] "%1 | %2 首歌"
 
 #: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
 #: ../MusicTracks.qml:279 ../music-app.qml:804
 msgid "Add to playlist"
-msgstr "Zur Wiedergabeliste hinzufügen"
+msgstr "加至播放清單"
 
 #: ../MusicAlbums.qml:386 ../MusicArtists.qml:447 ../MusicNowPlaying.qml:660
 #: ../MusicTracks.qml:297 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:815
 msgid "Select playlist"
-msgstr "Wiedergabeliste auswählen"
+msgstr "選取播放清單"
 
 #: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:325
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "佇列"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:906
 msgid "Artists"
-msgstr "Interpreten"
+msgstr "歌手"
 
 #: ../MusicArtists.qml:148
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 Album"
-msgstr[1] "%1 Alben"
+msgstr[0] "%1 個專輯"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 Titel"
-msgstr[1] "%1 Titel"
+msgstr[0] "%1 首歌"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
-msgstr "Titel"
+msgstr "歌曲"
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
 msgid "Are you sure?"
-msgstr "Sind Sie sich sicher?"
+msgstr "確定嗎？"
 
 #: ../MusicPlaylists.qml:55
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "會刪除播放清單。"
 
 #: ../MusicPlaylists.qml:58
 msgid "Remove"
-msgstr "Löschen"
+msgstr "移除"
 
 #: ../MusicPlaylists.qml:71 ../MusicPlaylists.qml:114 ../music-app.qml:866
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "取消"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:84
 msgid "Change name"
-msgstr "Namen ändern"
+msgstr "更改名稱"
 
 #: ../MusicPlaylists.qml:85
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "為播放清單輸入新名稱。"
 
 #: ../MusicPlaylists.qml:96
 msgid "Change"
-msgstr "Ändern"
+msgstr "更改"
 
 #: ../MusicPlaylists.qml:109
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "未有輸入名稱。"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:146 ../music-app.qml:946
 msgid "Playlists"
-msgstr "Wiedergabelisten"
+msgstr "播放清單"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr "編輯"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
 msgid "Delete"
-msgstr "Löschen"
+msgstr "刪除"
 
 #: ../MusicPlaylists.qml:480
 msgid "Playlist"
-msgstr "Wiedergabeliste"
+msgstr "播放清單"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:103
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "設定"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "均衡器"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "Vorgabe"
+msgstr "預設"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr ""
+msgstr "原音 (Accoustic)"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "Klassisch"
+msgstr "古典音樂 (Classical)"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "Elektronisch"
+msgstr "電子音樂 (Electronic)"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "Einfach"
+msgstr "平穩 (Flat)"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "Hip-Hop"
+msgstr "嘻哈 (Hip Hop)"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "Jazz"
+msgstr "爵士樂 (Jazz)"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "Metall"
+msgstr "金屬樂 (Metal)"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "Pop"
+msgstr "流行曲 (Pop)"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "Rock"
+msgstr "搖滾樂 (Rock)"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr "Benutzerdefiniert"
+msgstr "自訂"
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"開啟工具列時\n"
+"貼住目前歌曲"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr "Konten"
+msgstr "帳號"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "登入以 scrobble 和匯入播放清單"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "音樂串流"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
@@ -239,141 +238,141 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "登入以串流雲端音樂"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "只在有 Wi-Fi 時串流"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "Alles löschen!"
+msgstr "清除所有東西！"
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:40 ../music-app.qml:209
 #: ../music-app.qml:893 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "Musik"
+msgstr "音樂"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr "Zuletzt verwendet"
+msgstr "最近播放"
 
 #: ../MusicStart.qml:157
 msgid "Genres"
-msgstr ""
+msgstr "風格"
 
 #: ../MusicToolbar.qml:284
 msgid "No songs queued"
-msgstr "Keine Titel in der Warteschlange"
+msgstr "未有佇列歌曲"
 
 #: ../MusicToolbar.qml:294
 msgid "Tap on a song to start playing"
-msgstr "Tippen Sie auf einen Titel um ihn abzuspielen"
+msgstr "輕觸歌曲開始播放"
 
 #: ../MusicaddtoPlaylist.qml:160
 msgid "New playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "新增播放清單"
 
 #: ../music-app.qml:65
 msgid "Next"
-msgstr "Weiter"
+msgstr "下一首"
 
 #: ../music-app.qml:66
 msgid "Next Track"
-msgstr "Nächster Titel"
+msgstr "下一首"
 
 #: ../music-app.qml:72
 msgid "Pause"
-msgstr "Pause"
+msgstr "暫停"
 
 #: ../music-app.qml:72
 msgid "Play"
-msgstr "Wiedergabe"
+msgstr "播放"
 
 #: ../music-app.qml:74
 msgid "Pause Playback"
-msgstr "Wiedergabe unterbrechen"
+msgstr "暫停播放"
 
 #: ../music-app.qml:74
 msgid "Continue or start playback"
-msgstr "Wiedergabe fortsetzen oder starten"
+msgstr "繼續或開始播放"
 
 #: ../music-app.qml:85
 msgid "Previous"
-msgstr "Vorheriger"
+msgstr "上一首"
 
 #: ../music-app.qml:86
 msgid "Previous Track"
-msgstr "Vorheriger Titel"
+msgstr "上一首"
 
 #: ../music-app.qml:91
 msgid "Stop"
-msgstr "Stopp"
+msgstr "停止"
 
 #: ../music-app.qml:92
 msgid "Stop Playback"
-msgstr "Wiedergabe anhalten"
+msgstr "停止播放"
 
 #: ../music-app.qml:97
 msgid "Back"
-msgstr "Zurück"
+msgstr "返回"
 
 #: ../music-app.qml:98
 msgid "Go back to last page"
-msgstr "Gehen Sie zurück zur letzten Seite"
+msgstr "返回上一版"
 
 #: ../music-app.qml:104
 msgid "Music Settings"
-msgstr "Musik-Einstellungen"
+msgstr "音樂設定"
 
 #: ../music-app.qml:112
 msgid "Quit"
-msgstr "Beenden"
+msgstr "結束"
 
 #: ../music-app.qml:113
 msgid "Close application"
-msgstr "Anwendung schließen"
+msgstr "關閉應用程式"
 
 #: ../music-app.qml:252
 msgid "Debug: "
-msgstr "Debug: "
+msgstr "除錯： "
 
 #: ../music-app.qml:790
 msgid "Add to queue"
-msgstr "Zur Warteschlange hinzufügen"
+msgstr "加至佇列"
 
 #: ../music-app.qml:828
 msgid "New Playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "新播放清單"
 
 #: ../music-app.qml:829
 msgid "Name your playlist."
-msgstr "Benennen Sie ihre Wiedergabeliste"
+msgstr "為播放清單命名。"
 
 #: ../music-app.qml:832
 msgid "Name"
-msgstr "Name"
+msgstr "名稱"
 
 #: ../music-app.qml:840
 msgid "Create"
-msgstr "Erstellen"
+msgstr "建立"
 
 #: ../music-app.qml:855
 msgid "Error: "
-msgstr "Fehler: "
+msgstr "出錯： "
 
 #: ../music-app.qml:860
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "出錯：未有輸入名稱。"
 
 #: ../music-app.qml:932
 msgid "Songs"
-msgstr "Titel"
+msgstr "歌曲"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr "Ladevorgang …"
+msgstr "載入中…"
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"
-msgstr "Löschen"
+msgstr "清除"
