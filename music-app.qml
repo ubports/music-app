@@ -155,10 +155,18 @@ MainView {
 
     // UserMetrics to show Music stuff on welcome screen
     Metric {
-        id: tracksMetric
+        id: songsMetric
         name: "music-metrics"
-        format: "%1 tracks played today"
-        emptyFormat: "No tracks played today"
+        format: "<b>%1</b> songs played today"
+        emptyFormat: "No songs played today"
+        domain: "com.ubuntu.music"
+    }
+
+    Metric {
+        id: minutesMetric
+        name: "music-metrics"
+        format: "Spent <b>%1</b> minutes listening to music today"
+        emptyFormat: "Haven't listening to any music today"
         domain: "com.ubuntu.music"
     }
 
@@ -218,7 +226,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.0'
-    property int tracksPlayed: 0
+    property int minutesPlayed: 0
     property bool isPlaying: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
@@ -266,10 +274,14 @@ MainView {
     }
 
     // update tracks played
-    function updateMetrics() {
+    function updateMetrics(songLength) {
+        // convert from milliseconds
+        songLength = songLength / 1000
+        songLength = songLength / 60
         // should later use the number of tracks played TODAY, based on recent DB.
-        tracksPlayed = tracksPlayed+1
-        tracksMetric.update(tracksPlayed)
+        minutesPlayed = minutesPlayed + songLength
+        songsMetric.increment() // add one and let the api take care of the rest
+        minutesMetric.update(minutesPlayed) // update minutes manually
     }
 
     function previousSong(startPlaying) {
@@ -365,7 +377,7 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
-        updateMetrics() // update usermetrics on welcome screen
+        updateMetrics(player.duration()) // update usermetrics on welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
