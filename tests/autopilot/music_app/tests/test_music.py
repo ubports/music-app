@@ -31,62 +31,72 @@ class TestMainWindow(MusicTestCase):
         """ tests if the music library is populated from our
         fake mediascanner database"""
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
+
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
         self.assertThat(title,
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-    def test_play_pause(self):
+    def test_play_pause_library(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         self.main_view.show_toolbar()
 
-        playbutton = self.main_view.get_play_button()
+        # click back button
+        back_button = self.main_view.get_back_button()
+        self.pointing_device.click_object(back_button)
 
-        """ Track is not playing"""
-        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
-        self.pointing_device.click_object(playbutton)
+        self.main_view.show_toolbar()
+        playbutton = self.main_view.get_play_button()
 
         """ Track is playing"""
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+        self.pointing_device.click_object(playbutton)
 
         """ Track is not playing"""
-        self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        """ Track is playing"""
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         self.main_view.show_toolbar()
-
-        # switch to the now playing page
-        label = self.main_view.get_player_control_title()
-        self.pointing_device.click_object(label)
 
         self.assertThat(self.main_view.get_now_playing_play_button,
                         Eventually(NotEquals(None)))
         playbutton = self.main_view.get_now_playing_play_button()
 
-        """ Track is not playing"""
-        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
-        self.pointing_device.click_object(playbutton)
-
         """ Track is playing"""
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+        self.pointing_device.click_object(playbutton)
 
         """ Track is not playing"""
-        self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        """ Track is playing"""
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
     def test_next(self):
         """ Test going to next track (Music Library must exist) """
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         self.main_view.show_toolbar()
-
-        # switch to the now playing page
-        label = self.main_view.get_player_control_title()
-        self.pointing_device.click_object(label)
 
         forwardbutton = self.main_view.get_forward_button()
 
@@ -96,8 +106,8 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-        """ Track is not playing"""
-        self.assertThat(self.main_view.isPlaying, Equals(False))
+        """ Track is playing"""
+        self.assertThat(self.main_view.isPlaying, Equals(True))
         self.pointing_device.click_object(forwardbutton)
 
         """ Track is playing"""
@@ -109,11 +119,10 @@ class TestMainWindow(MusicTestCase):
         """ Test going to previous track, last item must be an MP3
             (Music Library must exist) """
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         self.main_view.show_toolbar()
-
-        # switch to the now playing page
-        label = self.main_view.get_player_control_title()
-        self.pointing_device.click_object(label)
 
         self.assertThat(self.main_view.get_repeat_button,
                         Eventually(NotEquals(None)))
@@ -129,8 +138,8 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-        """ Track is not playing, repeat is off"""
-        self.assertThat(self.main_view.isPlaying, Equals(False))
+        """ Track is playing, repeat is off"""
+        self.assertThat(self.main_view.isPlaying, Equals(True))
         self.pointing_device.click_object(repeatbutton)
         self.pointing_device.click_object(previousbutton)
 
@@ -142,11 +151,10 @@ class TestMainWindow(MusicTestCase):
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
 
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         self.main_view.show_toolbar()
-
-        # switch to the now playing page
-        label = self.main_view.get_player_control_title()
-        self.pointing_device.click_object(label)
 
         self.assertThat(self.main_view.get_shuffle_button,
                         Eventually(NotEquals(None)))
@@ -166,8 +174,8 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-        """ Track is not playing, shuffle is turned on"""
-        self.assertThat(self.main_view.isPlaying, Equals(False))
+        """ Track is playing, shuffle is turned on"""
+        self.assertThat(self.main_view.isPlaying, Equals(True))
         self.pointing_device.click_object(shufflebutton)
         self.assertThat(self.main_view.random, Eventually(Equals(True)))
 

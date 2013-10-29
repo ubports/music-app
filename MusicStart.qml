@@ -221,6 +221,7 @@ Page {
             id: genreDelegate
             Item {
                 id: genreItem
+                objectName: "genreItemObject"
                 height: units.gu(20)
                 width: units.gu(20)
                 UbuntuShape {
