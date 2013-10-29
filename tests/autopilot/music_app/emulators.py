@@ -93,4 +93,3 @@ class MainView(toolkit_emulators.MainView):
 
     def get_back_button(self):
         return self.select_single("*", objectName="nowPlayingBackButtonObject")
-
