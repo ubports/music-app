@@ -28,6 +28,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
 import QtGraphicalEffects 1.0
+import UserMetrics 0.1
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
@@ -152,12 +153,21 @@ MainView {
         }
     }
 
+    // UserMetrics to show Music stuff on welcome screen
+    Metric {
+        id: songsMetric
+        name: "music-metrics"
+        format: "<b>%1</b> songs played today"
+        emptyFormat: "No songs played today"
+        domain: "com.ubuntu.music"
+    }
+
     // Design stuff
     Style { id: styleMusic }
     width: units.gu(50)
     height: units.gu(75)
 
-    // RUn on startup
+    // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
@@ -347,6 +357,7 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
+        songsMetric.increment() // Increment song count on Welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
@@ -449,6 +460,7 @@ MainView {
         if (play === true)
         {
             player.play()
+            songsMetric.increment() // Increment song count on Welcome screen
         }
 
         console.log("Source: " + player.source.toString())

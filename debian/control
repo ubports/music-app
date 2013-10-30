@@ -21,6 +21,7 @@ Depends: ${misc:Depends},
          qtdeclarative5-qtmultimedia-plugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-usermetrics0.1,
          qtdeclarative5-window-plugin,
          qtdeclarative5-xmllistmodel-plugin,
          qmlscene
