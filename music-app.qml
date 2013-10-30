@@ -654,6 +654,7 @@ MainView {
                 Library.writeDb()
                 recentModel.filterRecent()
                 genreModel.filterGenres()
+                libraryModel.populate()
                 loading.visible = false
                 griloModel.loaded = true
             }
@@ -939,12 +940,13 @@ MainView {
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
-                onVisibleChanged: {
+                // TODO: offloading this revents file arguments from working
+                /* onVisibleChanged: {
                     if (visible && !populated && griloModel.loaded) {
                         libraryModel.populate()
                         populated = true
                     }
-                }
+                } */
 
                 // Tab content begins here
                 page: MusicTracks {
