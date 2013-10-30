@@ -47,7 +47,6 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        self.main_view.show_toolbar()
 
         # click back button
         back_button = self.main_view.get_back_button()
@@ -73,7 +72,6 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        self.main_view.show_toolbar()
 
         self.assertThat(self.main_view.get_now_playing_play_button,
                         Eventually(NotEquals(None)))
@@ -96,7 +94,6 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        self.main_view.show_toolbar()
 
         forwardbutton = self.main_view.get_forward_button()
 
@@ -122,7 +119,6 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        self.main_view.show_toolbar()
 
         self.assertThat(self.main_view.get_repeat_button,
                         Eventually(NotEquals(None)))
@@ -154,7 +150,6 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        self.main_view.show_toolbar()
 
         self.assertThat(self.main_view.get_shuffle_button,
                         Eventually(NotEquals(None)))
