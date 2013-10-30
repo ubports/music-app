@@ -162,20 +162,12 @@ MainView {
         domain: "com.ubuntu.music"
     }
 
-    Metric {
-        id: minutesMetric
-        name: "music-metrics"
-        format: "Spent <b>%1</b> minutes listening to music today"
-        emptyFormat: "Haven't listening to any music today"
-        domain: "com.ubuntu.music"
-    }
-
     // Design stuff
     Style { id: styleMusic }
     width: units.gu(50)
     height: units.gu(75)
 
-    // RUn on startup
+    // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
@@ -226,7 +218,6 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.0'
-    property int minutesPlayed: 0
     property bool isPlaying: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
@@ -271,17 +262,6 @@ MainView {
         if (debug) {
             console.debug(i18n.tr("Debug: ")+text);
         }
-    }
-
-    // update tracks played
-    function updateMetrics(songLength) {
-        // convert from milliseconds
-        songLength = songLength / 1000
-        songLength = songLength / 60
-        // should later use the number of tracks played TODAY, based on recent DB.
-        minutesPlayed = minutesPlayed + songLength
-        songsMetric.increment() // add one and let the api take care of the rest
-        minutesMetric.update(minutesPlayed) // update minutes manually
     }
 
     function previousSong(startPlaying) {
@@ -377,7 +357,7 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
-        updateMetrics(player.duration()) // update usermetrics on welcome screen
+        songsMetric.increment() // Increment song count on Welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
@@ -480,6 +460,7 @@ MainView {
         if (play === true)
         {
             player.play()
+            songsMetric.increment() // Increment song count on Welcome screen
         }
 
         console.log("Source: " + player.source.toString())
