@@ -1,14 +1,26 @@
+music-app (1.1) raring; urgency=low
+
+  * Blurred album art added to the now playing queue
+  * Solid labels on cover art
+  * Test shuffle and mp3 playback
+  * Enable translations
+  * Add recent albums and playlists to Music tab
+  * Introduce user metrics of songs played
+  * Optimize music library loading time
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Tue, 29 Oct 2013 20:16:34 -0500
+
 music-app (1.0) raring; urgency=low
 
   * Finalize changes before Saucy 13.10 release.
 
- -- Victor Thompson <victor.thompson@gmail.com>  Thur, 10 Oct 2013 04:21:11 -0500
+ -- Victor Thompson <victor.thompson@gmail.com>  Thu, 10 Oct 2013 04:21:11 -0500
 
 music-app (0.9) raring; urgency=low
 
   * A LOT of changes.
 
- -- Daniel Holm <d.holmen@gmail.com>  Thur, 10 Oct 2013 00:39:50 +0200
+ -- Daniel Holm <d.holmen@gmail.com>  Thu, 10 Oct 2013 00:39:50 +0200
 
 music-app (0.8) saucy; urgency=low
 

@@ -207,7 +207,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '1.0'
+    property string appVersion: '1.1'
     property bool isPlaying: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
