@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, NotEquals, LessThan
+from unittest import skip
 
 from music_app.tests import MusicTestCase
 
@@ -144,6 +145,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(title, Eventually(Equals("TestMP3Title")))
         self.assertThat(artist, Eventually(Equals("TestMP3Artist")))
 
+    @skip('Test needs work')
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
 
