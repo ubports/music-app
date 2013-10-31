@@ -217,7 +217,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '1.0'
+    property string appVersion: '1.1'
     property bool isPlaying: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
@@ -652,25 +652,24 @@ MainView {
             onBaseMediaChanged: refresh();
 
             onFinished: {
-                griloModel.loaded = true
-            }
-        }
-
-        onCountChanged: {
-            if (count > 0) {
-                timer.start()
-                for (var i = timer.counted; i < griloModel.count; i++)
+                for (var i = 0; i < griloModel.count; i++)
                 {
-                    var file = griloModel.get(i).url.toString()
+                    var media = griloModel.get(i)
+                    var file = media.url.toString()
                     if (file.indexOf("file://") == 0)
                     {
                         file = file.slice(7, file.length)
                     }
-                    //console.log("Artist:"+ griloModel.get(i).artist + ", Album:"+griloModel.get(i).album + ", Title:"+griloModel.get(i).title + ", File:"+file + ", Cover:"+griloModel.get(i).thumbnail + ", Number:"+griloModel.get(i).trackNumber + ", Genre:"+griloModel.get(i).genre);
-                    Library.setMetadata(file, griloModel.get(i).title, griloModel.get(i).artist, griloModel.get(i).album, griloModel.get(i).thumbnail, griloModel.get(i).year, griloModel.get(i).trackNumber, griloModel.get(i).duration, griloModel.get(i).genre)
+                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                    Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
                 }
+                Library.writeDb()
+                recentModel.filterRecent()
+                genreModel.filterGenres()
+                libraryModel.populate()
+                loading.visible = false
+                griloModel.loaded = true
             }
-
         }
     }
 
@@ -771,31 +770,6 @@ MainView {
     // ListModel for Undo functionality
     ListModel {
         id: undo
-    }
-
-    Timer {
-        id: timer
-        interval: 200; repeat: true
-        running: false
-        triggeredOnStart: false
-        property int counted: 0
-
-        onTriggered: {
-            console.log("Counted: " + counted)
-            console.log("griloModel.count: " + griloModel.count)
-            if (counted === griloModel.count) {
-                console.log("MOVING ON")
-                Library.writeDb()
-                libraryModel.populate()
-                albumModel.filterAlbums()
-                artistModel.filterArtists()
-                recentModel.filterRecent()
-                genreModel.filterGenres()
-                timer.stop()
-                loading.visible = false
-            }
-            counted = griloModel.count
-        }
     }
 
     // Blurred background
@@ -933,10 +907,17 @@ MainView {
 
             // Second tab is arists
             Tab {
+                property bool populated: false
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
                 title: i18n.tr("Artists")
+                onVisibleChanged: {
+                    if (visible && !populated && griloModel.loaded) {
+                        artistModel.filterArtists()
+                        populated = true
+                    }
+                }
 
                 // tab content
                 page: MusicArtists {
@@ -946,10 +927,17 @@ MainView {
 
             // third tab is albums
             Tab {
+                property bool populated: false
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
                 title: i18n.tr("Albums")
+                onVisibleChanged: {
+                    if (visible && !populated && griloModel.loaded) {
+                        albumModel.filterAlbums()
+                        populated = true
+                    }
+                }
 
                 // Tab content begins here
                 page: MusicAlbums {
@@ -959,10 +947,18 @@ MainView {
 
             // fourth tab is all songs
             Tab {
+                property bool populated: false
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
+                // TODO: offloading this revents file arguments from working
+                /* onVisibleChanged: {
+                    if (visible && !populated && griloModel.loaded) {
+                        libraryModel.populate()
+                        populated = true
+                    }
+                } */
 
                 // Tab content begins here
                 page: MusicTracks {

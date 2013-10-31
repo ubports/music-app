@@ -812,6 +812,7 @@ Page {
         }
 
         MouseArea {
+            objectName: "nowPlayingBackButtonObject"
             anchors.fill: parent
 
             onClicked: {

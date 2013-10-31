@@ -87,3 +87,9 @@ class MainView(toolkit_emulators.MainView):
     def get_spinner(self):
         return self.select_single("ActivityIndicator",
                                   objectName="LoadingSpinner")
+
+    def get_first_genre_item(self):
+        return self.select_single("*", objectName="genreItemObject")
+
+    def get_back_button(self):
+        return self.select_single("*", objectName="nowPlayingBackButtonObject")

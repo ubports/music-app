@@ -214,4 +214,8 @@ Item {
             worker.sendMessage({'add': add, 'model': libraryModel})
         }
     }
+
+    function clear() {
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+    }
 }
