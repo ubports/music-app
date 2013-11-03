@@ -787,11 +787,11 @@ Rectangle {
 
                     onClicked: {
                         // Invert shuffle settings
-                        Settings.setSetting("shuffle", !(Settings.getSetting("shuffle") === "1"))
+                        mainView.random = !mainView.random
+                        shuffleIcon.opacity = mainView.random ? 1 : .4
+                        Settings.setSetting("shuffle", mainView.random)
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
 
-                        mainView.random = Settings.getSetting("shuffle") === "1"
-                        shuffleIcon.opacity = Settings.getSetting("shuffle") === "1" ? 1 : .4
                     }
                 }
             }
