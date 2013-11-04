@@ -136,14 +136,24 @@ MainView {
 
                 // search pathname in library
                 var file = decodeURIComponent(uris[i])
-                var index = libraryModel.indexOf(file)
+                var index = -1;
+
+                for (var j=0; j < griloModel.count; j++)
+                {
+                    if (griloModel.get(j).url.toString() == file)
+                    {
+                        index = j;
+                    }
+                }
+
                 if (index <= -1) {
                     console.debug("Unknown file " + file + ", skipping")
                     continue
                 }
 
                 // enqueue
-                trackQueue.model.append(libraryModel.model.get(index))
+                var media = griloModel.get(index);
+                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
 
                 // play first URI
                 if (i == 0) {
@@ -198,7 +208,7 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        Library.reset()
+        //Library.reset()
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -651,7 +661,37 @@ MainView {
             }
             onBaseMediaChanged: refresh();
 
+            function exists(haystack, needle)
+            {
+                var found = false;
+
+                for (var i=0; i < haystack.length; i++)
+                {
+                    for (var k in haystack[i])
+                    {
+                        if (haystack[i][k] === needle[k])
+                        {
+                            found = true;
+                        }
+                        else
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+
+                    if (found === true)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
             onFinished: {
+                var currentLibrary = Library.getAll();
+
                 for (var i = 0; i < griloModel.count; i++)
                 {
                     var media = griloModel.get(i)
@@ -660,13 +700,42 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
-                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                    Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+
+                    if (argFile === file)
+                    {
+                        trackQueue.model.clear();
+                        trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                        trackClicked(trackQueue, 0, true);
+
+                        // FIXME: tmp fix - grilo model has everything twice!
+                        // this causes the second time it finds the track to
+                        // actually pause it :/
+                        argFile = true;
+                    }
+
+                    var record = {artist: media.artist, album: media.album, title: media.title, file: file, cover: media.thumbnail.toString(), length: media.duration.toString(), year: media.year.toString(), genre: media.genre};
+                    // {artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre}
+
+                    // Only write to database if the record has actually changed
+                    var index = exists(currentLibrary, record);
+
+                    if (index === -1)
+                    {
+                        //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                        Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+                    }
+                    else
+                    {
+                        currentLibrary.pop(index);
+                    }
                 }
+
+                // TODO: anything left in currentLibrary has either been deleted or changed
+                // deleted items will need to be removed from the database
+
                 Library.writeDb()
                 recentModel.filterRecent()
                 genreModel.filterGenres()
-                libraryModel.populate()
                 loading.visible = false
                 griloModel.loaded = true
             }
@@ -684,15 +753,6 @@ MainView {
 
     LibraryListModel {
         id: libraryModel
-
-        onCountChanged: {
-            if (argFile === model.get(count - 1).file)
-            {
-                trackQueue.model.clear();
-                trackQueue.model.append(model.get(count - 1));
-                trackClicked(trackQueue, 0, true);
-            }
-        }
     }
 
     LibraryListModel {
@@ -952,13 +1012,12 @@ MainView {
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
-                // TODO: offloading this revents file arguments from working
-                /* onVisibleChanged: {
+                onVisibleChanged: {
                     if (visible && !populated && griloModel.loaded) {
                         libraryModel.populate()
                         populated = true
                     }
-                } */
+                }
 
                 // Tab content begins here
                 page: MusicTracks {
