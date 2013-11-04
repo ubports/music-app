@@ -209,6 +209,7 @@ MainView {
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
         //Library.reset()
+        Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -664,9 +665,11 @@ MainView {
             function exists(haystack, needle)
             {
                 var found = false;
+                var changed = false;
 
                 for (var i=0; i < haystack.length; i++)
                 {
+
                     for (var k in haystack[i])
                     {
                         if (haystack[i][k] === needle[k])
@@ -675,6 +678,11 @@ MainView {
                         }
                         else
                         {
+                            if (haystack[i]["file"] === needle["file"])
+                            {
+                                changed = true;  // file is same (not removed)
+                            }
+
                             found = false;
                             break;
                         }
@@ -682,15 +690,24 @@ MainView {
 
                     if (found === true)
                     {
-                        return true;
+                        return i;  // in grilo and lib - same
+                    }
+
+                    if (changed === true)
+                    {
+                        return -i - 1;  // in grilo and lib - different
                     }
                 }
 
-                return false;
+                return false;  // in grilo not in lib
             }
 
             onFinished: {
                 var currentLibrary = Library.getAll();
+
+                // FIXME: remove when grilo is fixed
+                var files = [];
+                var duplicates = 0;
 
                 for (var i = 0; i < griloModel.count; i++)
                 {
@@ -700,6 +717,14 @@ MainView {
                     {
                         file = file.slice(7, file.length)
                     }
+
+                    // FIXME: grilo appears to supply duplicates
+                    if (files.indexOf(file) > -1)
+                    {
+                        duplicates++;
+                        continue;
+                    }
+                    files.push(file);
 
                     if (argFile === file)
                     {
@@ -714,26 +739,37 @@ MainView {
                     }
 
                     var record = {artist: media.artist, album: media.album, title: media.title, file: file, cover: media.thumbnail.toString(), length: media.duration.toString(), year: media.year.toString(), genre: media.genre};
-                    // {artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre}
 
                     // Only write to database if the record has actually changed
                     var index = exists(currentLibrary, record);
 
-                    if (index === -1)
+                    if (index === false || index < 0)  // in grilo !in lib or lib out of date
                     {
                         //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
                         Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+
+                        if (index < 0)
+                        {
+                            index = -(index + 1);
+                        }
                     }
-                    else
+
+                    if (index !== false)
                     {
-                        currentLibrary.pop(index);
+                        currentLibrary.splice(index, 1);
                     }
                 }
 
-                // TODO: anything left in currentLibrary has either been deleted or changed
-                // deleted items will need to be removed from the database
-
                 Library.writeDb()
+
+                // Any items left in currentLibrary aren't in the grilo model so have been deleted
+                if (currentLibrary.length > 0)
+                {
+                    Library.removeFiles(currentLibrary);
+                }
+
+                console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
+
                 recentModel.filterRecent()
                 genreModel.filterGenres()
                 loading.visible = false

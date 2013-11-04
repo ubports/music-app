@@ -106,6 +106,22 @@ function setMetadata(file, title, artist, album, cover, year, number, length, ge
     }
 }
 
+
+function removeFiles(files)
+{
+    var db = getDatabase();
+
+    db.transaction(function(tx) {
+        for (var i=0; i < files.length; i++)
+        {
+            for (var k in files[i])
+            {
+                tx.executeSql('DELETE FROM metadata WHERE file=?;', files[i]["file"]);
+            }
+        }
+    });
+}
+
 // This function is used to retrieve meta data from the database
 function getMetadata(file,type) {
    var db = getDatabase();
