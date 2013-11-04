@@ -664,46 +664,59 @@ MainView {
 
             function exists(haystack, needle)
             {
-                var found = false;
-                var changed = false;
+                var keyToFind = needle["file"];
 
-                for (var i=0; i < haystack.length; i++)
+                var upper = haystack.length - 1;
+                var lower = 0;
+                var i = Math.floor(haystack.length / 2);
+
+                while (upper >= lower)
                 {
+                    var key = haystack[i]["file"];
 
-                    for (var k in haystack[i])
+                    if (keyToFind < key)
                     {
-                        if (haystack[i][k] === needle[k])
+                        upper = i - 1;
+                    }
+                    else if (keyToFind > key)
+                    {
+                        lower = i + 1;
+                    }
+                    else
+                    {
+                        var found = false;
+
+                        for (var k in haystack[i])
                         {
-                            found = true;
+                            if (haystack[i][k] === needle[k])
+                            {
+                                found = true;
+                            }
+                            else
+                            {
+                                found = false;
+                                break;
+                            }
+                        }
+
+                        if (found === true)
+                        {
+                            return i;  // in grilo and lib - same
                         }
                         else
                         {
-                            if (haystack[i]["file"] === needle["file"])
-                            {
-                                changed = true;  // file is same (not removed)
-                            }
-
-                            found = false;
-                            break;
+                            return -i - 1;  // in grilo and lib - different
                         }
                     }
 
-                    if (found === true)
-                    {
-                        return i;  // in grilo and lib - same
-                    }
-
-                    if (changed === true)
-                    {
-                        return -i - 1;  // in grilo and lib - different
-                    }
+                    i = Math.floor((upper + lower) / 2);
                 }
 
                 return false;  // in grilo not in lib
             }
 
             onFinished: {
-                var currentLibrary = Library.getAll();
+                var currentLibrary = Library.getAllFileOrder();
 
                 // FIXME: remove when grilo is fixed
                 var files = [];
@@ -765,6 +778,7 @@ MainView {
                 // Any items left in currentLibrary aren't in the grilo model so have been deleted
                 if (currentLibrary.length > 0)
                 {
+                    console.debug("Removing deleted songs:", currentLibrary.length);
                     Library.removeFiles(currentLibrary);
                 }
 
