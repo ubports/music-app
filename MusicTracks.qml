@@ -164,14 +164,6 @@ PageStack {
                             }
                         }
                     }
-                    Component.onCompleted: {
-                        // Set first track as current track
-                        if (trackQueue.model.count === 0 && !argFile) {
-                            trackClicked(libraryModel, index, false)
-                        }
-
-                        console.log("Title:" + title + " Artist: " + artist)
-                    }
                     states: State {
                         name: "Current"
                         when: track.ListView.isCurrentItem
