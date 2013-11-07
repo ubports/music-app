@@ -33,18 +33,6 @@ class MainView(toolkit_emulators.MainView):
             tries = tries - 1
         return items
 
-    def select_single_retry(self, object_type, **kwargs):
-        """Returns the item that is searched for with app.select_single
-        In case of the item was not found (not created yet) a second attempt is
-        taken 1 second later."""
-        item = self.select_single(object_type, **kwargs)
-        tries = 10
-        while item is None and tries > 0:
-            sleep(self.retry_delay)
-            item = self.select_single(object_type, **kwargs)
-            tries = tries - 1
-        return item
-
     def tap_item(self, item):
         self.pointing_device.move_to_object(item)
         self.pointing_device.press()
@@ -64,22 +52,22 @@ class MainView(toolkit_emulators.MainView):
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_play_button(self):
-        return self.select_single("*", objectName="playshape")
+        return self.wait_select_single("*", objectName="playshape")
 
     def get_now_playing_play_button(self):
-        return self.select_single("*", objectName="nowPlayingPlayShape")
+        return self.wait_select_single("*", objectName="nowPlayingPlayShape")
 
     def get_repeat_button(self):
-        return self.select_single("*", objectName="repeatShape")
+        return self.wait_select_single("*", objectName="repeatShape")
 
     def get_shuffle_button(self):
-        return self.select_single("*", objectName="shuffleShape")
+        return self.wait_select_single("*", objectName="shuffleShape")
 
     def get_forward_button(self):
-        return self.select_single("*", objectName="forwardshape")
+        return self.wait_select_single("*", objectName="forwardshape")
 
     def get_previous_button(self):
-        return self.select_single("*", objectName="previousshape")
+        return self.wait_select_single("*", objectName="previousshape")
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")
@@ -89,7 +77,7 @@ class MainView(toolkit_emulators.MainView):
                                   objectName="LoadingSpinner")
 
     def get_first_genre_item(self):
-        return self.select_single("*", objectName="genreItemObject")
+        return self.wait_select_single("*", objectName="genreItemObject")
 
     def get_back_button(self):
         return self.select_single("*", objectName="nowPlayingBackButtonObject")
