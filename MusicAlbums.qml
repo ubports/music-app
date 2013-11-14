@@ -49,8 +49,9 @@ Page {
         anchors.fill: parent
         anchors.leftMargin: units.gu(1)
         anchors.topMargin: units.gu(1)
-        cellHeight: units.gu(14)
-        cellWidth: units.gu(14)
+        anchors.bottomMargin: units.gu(1)
+        cellHeight: (parent.height - units.gu(2))/3
+        cellWidth: (parent.height - units.gu(2))/3
         model: albumModel.model
         delegate: albumDelegate
         flow: GridView.TopToBottom
