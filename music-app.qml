@@ -285,7 +285,6 @@ MainView {
         //   1. The song has reached End of Media and we are moving to the next track naturally
         //   2. The user has gone to a different song utilizing a control (next, previous,
         if (player.position > 10000) {
-            console.log("VIC")
             songsMetric.increment()
         }
 
