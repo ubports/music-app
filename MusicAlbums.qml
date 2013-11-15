@@ -85,48 +85,48 @@ Page {
                         property string year: model.year
                         source: cover !== "" ? cover : "images/cover_default.png"
                     }
-                    Rectangle {  // Background so can see text in current state
-                        id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1.5)
-                        color: styleMusic.common.black
-                        height: units.gu(3.5)
-                        width: parent.width
-                        Label {
-                            id: albumLabel
-                            anchors.top: parent.top
-                            anchors.topMargin: units.gu(.5)
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(.25)
-                            anchors.right: parent.right
-                            anchors.rightMargin: units.gu(.25)
-                            horizontalAlignment: Text.AlignHCenter
-                            color: styleMusic.common.white
-                            elide: Text.ElideRight
-                            text: album
-                            fontSize: "small"
-                        }
-                    }
                     UbuntuShape {  // Background so can see text in current state
                         id: albumBg2
                         anchors.bottom: parent.bottom
                         color: styleMusic.common.black
-                        height: units.gu(2)
+                        height: units.gu(4)
                         width: parent.width
-                        Label {
-                            id: albumArtist
-                            anchors.bottom: parent.bottom
-                            anchors.bottomMargin: units.gu(.5)
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(.25)
-                            anchors.right: parent.right
-                            anchors.rightMargin: units.gu(.25)
-                            horizontalAlignment: Text.AlignHCenter
-                            color: styleMusic.nowPlaying.labelSecondaryColor
-                            elide: Text.ElideRight
-                            text: artist
-                            fontSize: "x-small"
-                        }
+                    }
+                    Rectangle {  // Background so can see text in current state
+                        id: albumBg
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(2)
+                        color: styleMusic.common.black
+                        height: units.gu(3)
+                        width: parent.width
+                    }
+                    Label {
+                        id: albumArtist
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(1)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(.25)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(.25)
+                        horizontalAlignment: Text.AlignHCenter
+                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        elide: Text.ElideRight
+                        text: artist
+                        fontSize: "x-small"
+                    }
+                    Label {
+                        id: albumLabel
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: units.gu(3)
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(.25)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(.25)
+                        horizontalAlignment: Text.AlignHCenter
+                        color: styleMusic.common.white
+                        elide: Text.ElideRight
+                        text: album
+                        fontSize: "small"
                     }
                 }
 
