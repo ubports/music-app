@@ -164,6 +164,10 @@ class TestMainWindow(MusicTestCase):
         count = 0
         while True:
             self.assertThat(count, LessThan(100))
+
+            if (!self.main_view.toolbarShown):
+                self.main_view.show_toolbar()
+
             if forward:
                 self.pointing_device.click_object(forwardbutton)
             else:
