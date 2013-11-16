@@ -145,7 +145,7 @@ PageStack {
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
                         // model for number of albums?
-			text: i18n.tr("%1 album", "%1 albums", Library.getArtistCovers(artist).length).arg(Library.getArtistCovers(artist).length)
+                        text: i18n.tr("%1 album", "%1 albums", Library.getArtistCovers(artist).length).arg(Library.getArtistCovers(artist).length)
                     }
 
                     Label {
@@ -160,7 +160,7 @@ PageStack {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-			text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
+                        text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
                     }
                     onFocusChanged: {
                     }
@@ -236,7 +236,7 @@ PageStack {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-		    text: i18n.tr("%1 song", "%1 songs", artistTracksModel.model.count).arg(artistTracksModel.model.count)
+                    text: i18n.tr("%1 song", "%1 songs", artistTracksModel.model.count).arg(artistTracksModel.model.count)
                 }
                 Label {
                     id: albumArtist

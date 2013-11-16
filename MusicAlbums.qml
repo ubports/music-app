@@ -44,30 +44,24 @@ Page {
         id: musicSettings
     }
 
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
     GridView {
         id: albumlist
         anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.leftMargin: units.gu(1)
         anchors.topMargin: units.gu(1)
-        cellHeight: units.gu(14)
-        cellWidth: units.gu(14)
+        anchors.bottomMargin: units.gu(1)
+        cellHeight: (parent.height - units.gu(2))/3
+        cellWidth: (parent.height - units.gu(2))/3
         model: albumModel.model
         delegate: albumDelegate
+        flow: GridView.TopToBottom
 
         Component {
             id: albumDelegate
             Item {
                 id: albumItem
-                height: units.gu(13)
-                width: units.gu(13)
+                height: albumlist.cellHeight - units.gu(1)
+                width: albumlist.cellHeight - units.gu(1)
                 anchors.margins: units.gu(1)
                 UbuntuShape {
                     id: albumShape
