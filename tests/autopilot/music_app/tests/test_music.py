@@ -165,7 +165,7 @@ class TestMainWindow(MusicTestCase):
         while True:
             self.assertThat(count, LessThan(100))
 
-            if (!self.main_view.toolbarShown):
+            if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
             if forward:
