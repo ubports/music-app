@@ -666,7 +666,11 @@ MainView {
                 Library.writeDb()
                 recentModel.filterRecent()
                 genreModel.filterGenres()
+                startTab.populated = true
+                startTab.loading = false
                 libraryModel.populate()
+                tracksTab.populated = true
+                tracksTab.loading = false
                 loading.visible = false
                 griloModel.loaded = true
             }
@@ -697,6 +701,11 @@ MainView {
 
     LibraryListModel {
         id: artistModel
+        onCountChanged: {
+            loading.visible = false
+            artistsTab.loading = false
+            artistsTab.populated = true
+        }
     }
     LibraryListModel {
         id: artistTracksModel
@@ -704,6 +713,11 @@ MainView {
 
     LibraryListModel {
         id: albumModel
+        onCountChanged: {
+            loading.visible = false
+            albumsTab.loading = false
+            albumsTab.populated = true
+        }
     }
     LibraryListModel {
         id: albumTracksModel
@@ -894,6 +908,8 @@ MainView {
 
             // First tab is all music
             Tab {
+                property bool populated: false
+                property bool loading: true
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -908,16 +924,11 @@ MainView {
             // Second tab is arists
             Tab {
                 property bool populated: false
+                property bool loading: false
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
                 title: i18n.tr("Artists")
-                onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        artistModel.filterArtists()
-                        populated = true
-                    }
-                }
 
                 // tab content
                 page: MusicArtists {
@@ -928,16 +939,11 @@ MainView {
             // third tab is albums
             Tab {
                 property bool populated: false
+                property bool loading: false
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
                 title: i18n.tr("Albums")
-                onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        albumModel.filterAlbums()
-                        populated = true
-                    }
-                }
 
                 // Tab content begins here
                 page: MusicAlbums {
@@ -948,6 +954,7 @@ MainView {
             // fourth tab is all songs
             Tab {
                 property bool populated: false
+                property bool loading: true
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
@@ -969,6 +976,8 @@ MainView {
 
             // fifth tab is the playlists
             Tab {
+                property bool populated: true
+                property bool loading: false
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
@@ -980,13 +989,20 @@ MainView {
                 }
             }
 
-            function getCurrentTab()
-            {
-                musicToolbar.currentTab = selectedTab;
-            }
-
             onSelectedTabChanged: {
-                getCurrentTab();
+
+                musicToolbar.currentTab = selectedTab;
+
+                if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
+                    loading.visible = true
+                    selectedTab.loading = true
+                    if (selectedTab.objectName === "albumstab") {
+                        albumModel.filterAlbums()
+                    } else if (selectedTab.objectName === "artiststab") {
+                        artistModel.filterArtists()
+                    }
+                }
+                loading.visible = selectedTab.loading || !selectedTab.populated
             }
         } // end of tabs
     }
