@@ -279,6 +279,15 @@ MainView {
     }
 
     function getSong(direction, startPlaying, fromControls) {
+
+        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
+        // This takes care of the two reasons for incrementing:
+        //   1. The song has reached End of Media and we are moving to the next track naturally
+        //   2. The user has gone to a different song utilizing a control (next, previous,
+        if (player.position > 10000) {
+            songsMetric.increment()
+        }
+
         if (trackQueue.model.count == 0)
         {
             customdebug("No tracks in queue.");
@@ -357,7 +366,6 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
-        songsMetric.increment() // Increment song count on Welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
@@ -399,6 +407,13 @@ MainView {
         }
 
         var file = libraryModel.model.get(index).file
+
+        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
+        // This takes care of the following reason for incrementing:
+        //   1. The user has clicked on a different track
+        if (Qt.resolvedUrl(file).toString() !== player.source.toString() && play && player.position > 10000) {
+            songsMetric.increment()
+        }
 
         console.debug(player.source, Qt.resolvedUrl(file))
 
@@ -460,7 +475,6 @@ MainView {
         if (play === true)
         {
             player.play()
-            songsMetric.increment() // Increment song count on Welcome screen
         }
 
         console.log("Source: " + player.source.toString())
