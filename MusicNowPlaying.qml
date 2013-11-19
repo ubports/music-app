@@ -171,6 +171,19 @@ Page {
                     }
                 }
 
+                function onCollapseSwipeDelete(indexCol)
+                {
+                    if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
+                    {
+                        customdebug("auto collapse swipeDelete")
+                        queueListItemResetStartAnimation.start();
+                    }
+                }
+
+                Component.onCompleted: {
+                    collapseSwipeDelete.connect(onCollapseSwipeDelete);
+                }
+
                 MouseArea {
                     id: queueArea
                     anchors.fill: parent
@@ -348,11 +361,15 @@ Page {
                         }
                         else if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
                         {
-                            // Remove if moved > 10 units otherwise reset
-                            if (Math.abs(queueListItem.x - startX) > units.gu(10))
+                            var moved = Math.abs(queueListItem.x - startX);
+
+                            // Make sure that item has been dragged far enough
+                            if (moved > queueListItem.width / 2 || (swipeBackground.primed === true && moved > units.gu(5)))
                             {
                                 if (swipeBackground.primed === false)
                                 {
+                                    collapseSwipeDelete(index);  // collapse other swipeDeletes
+
                                     // Move the listitem half way across to reveal the delete button
                                     queueListItemPrepareRemoveAnimation.start();
                                 }

@@ -48,7 +48,7 @@ Rectangle {
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignRight
-            text: i18n.tr("Delete")
+            text: i18n.tr("Clear")
             verticalAlignment: Text.AlignVCenter
         }
         Icon {
@@ -57,7 +57,7 @@ Rectangle {
             anchors.right: swipeBackgroundLeftText.left
             anchors.verticalCenter: parent.verticalCenter
             name: "delete"
-            height: parent.height
+            height: units.gu(6)
             width: height
         }
         MouseArea {
@@ -83,7 +83,7 @@ Rectangle {
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignLeft
-            text: i18n.tr("Delete")
+            text: i18n.tr("Clear")
             verticalAlignment: Text.AlignVCenter
         }
         Icon {
@@ -92,7 +92,7 @@ Rectangle {
             anchors.margins: units.gu(2)
             anchors.verticalCenter: parent.verticalCenter
             name: "delete"
-            height: parent.height
+            height: units.gu(6)
             width: height
         }
         MouseArea {
