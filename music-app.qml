@@ -900,8 +900,14 @@ MainView {
     }
 
     // create the listmodel to use for playlists
-    ListModel {
+    LibraryListModel {
         id: playlistModel
+
+        onCountChanged: {
+            loading.visible = false
+            playlistTab.loading = false
+            playlistTab.populated = true
+        }
     }
 
     // create the listmodel for tracks in playlists
@@ -995,7 +1001,7 @@ MainView {
                              console.debug("Debug: User created a new playlist named: "+playlistName.text)
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
+                             playlistModel.model.append({"id": index, "name": playlistName.text, "count": "0"})
                              PopupUtils.close(dialogueNewPlaylist)
                          }
                          else {
@@ -1100,7 +1106,8 @@ MainView {
 
             // fifth tab is the playlists
             Tab {
-                property bool populated: true
+                property bool populated: false
+                property var loader: playlistModel.filterPlaylists
                 property bool loading: false
                 id: playlistTab
                 objectName: "playlisttab"
@@ -1113,9 +1120,8 @@ MainView {
                 }
             }
 
-            onSelectedTabChanged: {
-                musicToolbar.currentTab = selectedTab;
-
+            function ensurePopulated(selectedTab)
+            {
                 if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
                     loading.visible = true
                     selectedTab.loading = true
@@ -1126,6 +1132,12 @@ MainView {
                     }
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
+            }
+
+            onSelectedTabChanged: {
+                musicToolbar.currentTab = selectedTab;
+
+                ensurePopulated(selectedTab);
             }
         } // end of tabs
     }

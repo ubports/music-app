@@ -39,12 +39,6 @@ PageStack {
     property string oldPlaylistID: ""
     property string inPlaylist: ""
 
-    // function that adds each playlist in the listmodel to show it in the app
-    function addtoPlaylistModel(element,index,array) {
-        customdebug("Playlist #" + element.id + " = " + element.name);
-        playlistModel.append({"id": element.id, "name": element.name, "count": element.count, "cover0": element.cover0, "cover1": element.cover1, "cover2": element.cover2, "cover3": element.cover3 });
-    }
-
     // Remove playlist dialog
     Component {
          id: removePlaylistDialog
@@ -59,7 +53,7 @@ PageStack {
                  onClicked: {
                      // removing playlist
                      Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
-                     playlistModel.remove(oldPlaylistIndex)
+                     playlistModel.model.remove(oldPlaylistIndex)
                      PopupUtils.close(dialogueRemovePlaylist)
                      if (inPlaylist) {
                          customdebug("Back to playlists")
@@ -99,7 +93,7 @@ PageStack {
                      if (playlistName.text.length > 0) { // make sure something is acually inputed
                          var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
                          console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-                         playlistModel.set(oldPlaylistIndex, {"name": playlistName.text})
+                         playlistModel.model.set(oldPlaylistIndex, {"name": playlistName.text})
                          PopupUtils.close(dialogueEditPlaylist)
                          if (inPlaylist) {
                              playlistInfoLabel.text = playlistName.text
@@ -128,10 +122,6 @@ PageStack {
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
-
-        // get playlists in an array
-        var playlist = Playlists.getPlaylists(); // get the playlist from the database
-        playlist.forEach(addtoPlaylistModel) // send each item on playlist array to the model to show it
     }
 
     MusicSettings {
@@ -156,7 +146,7 @@ PageStack {
             id: playlistslist
             anchors.fill: parent
             anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-            model: playlistModel
+            model: playlistModel.model
             delegate: playlistDelegate
             onCountChanged: {
                 customdebug("onCountChanged: " + playlistslist.count)
@@ -800,7 +790,7 @@ PageStack {
                                 Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
 
                                 playlistlist.model.remove(index);
-                                playlistModel.get(oldPlaylistIndex).count -= 1;
+                                playlistModel.model.get(oldPlaylistIndex).count -= 1;
                                 queueChanged = true;
                             }
                         }

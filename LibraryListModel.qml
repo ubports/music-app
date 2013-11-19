@@ -141,6 +141,24 @@ Item {
         }
     }
 
+    function filterPlaylists() {
+        worker.sendMessage({'clear': true, 'model': libraryModel})
+
+        console.log("called LibraryListModel::filterPlaylistTracks()")
+
+        // Save query for queue
+        query = Playlists.getPlaylists
+        param = null
+
+        var playlists = Playlists.getPlaylists();
+
+        for ( var key in playlists ) {
+            var add = playlists[key];
+            console.log(JSON.stringify(add))
+            worker.sendMessage({'add': add, 'model': libraryModel})
+        }
+    }
+
     function filterPlaylistTracks(playlist) {
         worker.sendMessage({'clear': true, 'model': libraryModel})
 
