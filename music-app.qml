@@ -251,6 +251,7 @@ MainView {
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
     signal collapseExpand(int index);
+    signal collapseSwipeDelete(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
@@ -509,14 +510,6 @@ MainView {
         }
 
         currentCover = trackQueue.model.get(currentIndex).cover !== "" ? trackQueue.model.get(currentIndex).cover : "images/cover_default_icon.png"
-    }
-
-    // undo removal function to use when swipe to remove
-    function undoRemoval(listmodel,row) {
-        // show an undo button instead of removed track
-        //listmodel.insert(row.index, {"title": i18n.tr("Undo")} )
-        // set the removed track in undo listmodel
-        undo.set(0, row)
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -794,11 +787,6 @@ MainView {
     // create the listmodel for tracks in playlists
     LibraryListModel {
         id: playlisttracksModel
-    }
-
-    // ListModel for Undo functionality
-    ListModel {
-        id: undo
     }
 
     // Blurred background
