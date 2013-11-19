@@ -260,6 +260,7 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
+    property bool toolbarShown: musicToolbar.shown
     signal collapseExpand(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
@@ -290,6 +291,15 @@ MainView {
     }
 
     function getSong(direction, startPlaying, fromControls) {
+
+        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
+        // This takes care of the two reasons for incrementing:
+        //   1. The song has reached End of Media and we are moving to the next track naturally
+        //   2. The user has gone to a different song utilizing a control (next, previous,
+        if (player.position > 10000) {
+            songsMetric.increment()
+        }
+
         if (trackQueue.model.count == 0)
         {
             customdebug("No tracks in queue.");
@@ -368,7 +378,6 @@ MainView {
         else {
             console.debug("Debug: no scrobbling")
         }
-        songsMetric.increment() // Increment song count on Welcome screen
     }
 
     // Add items from a stored query in libraryModel into the queue
@@ -410,6 +419,13 @@ MainView {
         }
 
         var file = libraryModel.model.get(index).file
+
+        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
+        // This takes care of the following reason for incrementing:
+        //   1. The user has clicked on a different track
+        if (Qt.resolvedUrl(file).toString() !== player.source.toString() && play && player.position > 10000) {
+            songsMetric.increment()
+        }
 
         console.debug(player.source, Qt.resolvedUrl(file))
 
@@ -471,7 +487,6 @@ MainView {
         if (play === true)
         {
             player.play()
-            songsMetric.increment() // Increment song count on Welcome screen
         }
 
         console.log("Source: " + player.source.toString())
@@ -786,6 +801,8 @@ MainView {
 
                 recentModel.filterRecent()
                 genreModel.filterGenres()
+                startTab.populated = true
+                startTab.loading = false
                 loading.visible = false
                 griloModel.loaded = true
             }
@@ -803,10 +820,20 @@ MainView {
 
     LibraryListModel {
         id: libraryModel
+        onCountChanged: {
+            loading.visible = false
+            tracksTab.loading = false
+            tracksTab.populated = true
+        }
     }
 
     LibraryListModel {
         id: artistModel
+        onCountChanged: {
+            loading.visible = false
+            artistsTab.loading = false
+            artistsTab.populated = true
+        }
     }
     LibraryListModel {
         id: artistTracksModel
@@ -814,6 +841,11 @@ MainView {
 
     LibraryListModel {
         id: albumModel
+        onCountChanged: {
+            loading.visible = false
+            albumsTab.loading = false
+            albumsTab.populated = true
+        }
     }
     LibraryListModel {
         id: albumTracksModel
@@ -1004,6 +1036,8 @@ MainView {
 
             // First tab is all music
             Tab {
+                property bool populated: false
+                property bool loading: true
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -1018,16 +1052,12 @@ MainView {
             // Second tab is arists
             Tab {
                 property bool populated: false
+                property var loader: artistModel.filterArtists
+                property bool loading: false
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
                 title: i18n.tr("Artists")
-                onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        artistModel.filterArtists()
-                        populated = true
-                    }
-                }
 
                 // tab content
                 page: MusicArtists {
@@ -1038,16 +1068,12 @@ MainView {
             // third tab is albums
             Tab {
                 property bool populated: false
+                property var loader: albumModel.filterAlbums
+                property bool loading: false
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
                 title: i18n.tr("Albums")
-                onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        albumModel.filterAlbums()
-                        populated = true
-                    }
-                }
 
                 // Tab content begins here
                 page: MusicAlbums {
@@ -1058,16 +1084,12 @@ MainView {
             // fourth tab is all songs
             Tab {
                 property bool populated: false
+                property var loader: libraryModel.populate
+                property bool loading: false
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
-                onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        libraryModel.populate()
-                        populated = true
-                    }
-                }
 
                 // Tab content begins here
                 page: MusicTracks {
@@ -1078,6 +1100,8 @@ MainView {
 
             // fifth tab is the playlists
             Tab {
+                property bool populated: true
+                property bool loading: false
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
@@ -1089,13 +1113,19 @@ MainView {
                 }
             }
 
-            function getCurrentTab()
-            {
-                musicToolbar.currentTab = selectedTab;
-            }
-
             onSelectedTabChanged: {
-                getCurrentTab();
+                musicToolbar.currentTab = selectedTab;
+
+                if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
+                    loading.visible = true
+                    selectedTab.loading = true
+
+                    if (selectedTab.loader !== undefined)
+                    {
+                        selectedTab.loader()
+                    }
+                }
+                loading.visible = selectedTab.loading || !selectedTab.populated
             }
         } // end of tabs
     }

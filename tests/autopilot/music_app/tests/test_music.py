@@ -10,8 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, NotEquals, LessThan
-from unittest import skip
+from testtools.matchers import Equals, LessThan
 
 from music_app.tests import MusicTestCase
 
@@ -23,8 +22,6 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(
             self.main_view.visible, Eventually(Equals(True)))
         #wait for activity indicator to stop spinning
-        self.assertThat(
-            self.main_view.get_spinner, Eventually(NotEquals(None)))
         spinner = lambda: self.main_view.get_spinner().running
         self.assertThat(spinner, Eventually(Equals(False)))
 
@@ -74,8 +71,6 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        self.assertThat(self.main_view.get_now_playing_play_button,
-                        Eventually(NotEquals(None)))
         playbutton = self.main_view.get_now_playing_play_button()
 
         """ Track is playing"""
@@ -121,12 +116,8 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        self.assertThat(self.main_view.get_repeat_button,
-                        Eventually(NotEquals(None)))
         repeatbutton = self.main_view.get_repeat_button()
 
-        self.assertThat(self.main_view.get_previous_button,
-                        Eventually(NotEquals(None)))
         previousbutton = self.main_view.get_previous_button()
 
         title = lambda: self.main_view.currentTracktitle
@@ -145,7 +136,6 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(title, Eventually(Equals("TestMP3Title")))
         self.assertThat(artist, Eventually(Equals("TestMP3Artist")))
 
-    @skip('Test needs work')
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
 
@@ -153,16 +143,10 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        self.assertThat(self.main_view.get_shuffle_button,
-                        Eventually(NotEquals(None)))
         shufflebutton = self.main_view.get_shuffle_button()
 
-        self.assertThat(self.main_view.get_forward_button,
-                        Eventually(NotEquals(None)))
         forwardbutton = self.main_view.get_forward_button()
 
-        self.assertThat(self.main_view.get_previous_button,
-                        Eventually(NotEquals(None)))
         previousbutton = self.main_view.get_previous_button()
 
         title = lambda: self.main_view.currentTracktitle
@@ -179,7 +163,11 @@ class TestMainWindow(MusicTestCase):
         forward = True
         count = 0
         while True:
-            self.assertThat(count, LessThan(10))
+            self.assertThat(count, LessThan(100))
+
+            if (not self.main_view.toolbarShown):
+                self.main_view.show_toolbar()
+
             if forward:
                 self.pointing_device.click_object(forwardbutton)
             else:

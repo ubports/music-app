@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-10-17 12:26+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-11-15 16:27+0000\n"
+"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2013-10-19 05:29+0000\n"
-"X-Generator: Launchpad (build 16807)\n"
+"X-Launchpad-Export-Date: 2013-11-16 06:27+0000\n"
+"X-Generator: Launchpad (build 16831)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -29,91 +29,100 @@ msgstr ""
 
 #: ../LoginLastFM.qml:55
 msgid "Username"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: ../LoginLastFM.qml:65
 msgid "Password"
-msgstr ""
+msgstr "كلمة السر"
 
 #: ../LoginLastFM.qml:87
 msgid "Login"
-msgstr ""
+msgstr "ولوج"
 
 #: ../LoginLastFM.qml:94
 msgid "Trying to login..."
-msgstr ""
+msgstr "يحاول الولوج..."
 
 #: ../LoginLastFM.qml:108
 msgid "Login Successful"
-msgstr ""
+msgstr "تم الولوج بنجاح إلى حسابك"
 
 #: ../LoginLastFM.qml:114
 msgid "Login Failed"
-msgstr ""
+msgstr "فشل الولوج إلى حسابك"
 
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "لقد نسيت وضع اسم المستخدم و/أو كلمة السر"
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:919
 msgid "Albums"
-msgstr ""
+msgstr "الألبومات"
 
 #: ../MusicAlbums.qml:228
 #, qt-format
 msgid "%1 | %2 song"
 msgid_plural "%1 | %2 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 | %2 أغنية"
+msgstr[1] "%1 | أغنية واحدة (%2)"
+msgstr[2] "%1 | أغنيتين (%2)"
 
 #: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
 #: ../MusicTracks.qml:279 ../music-app.qml:804
 msgid "Add to playlist"
-msgstr ""
+msgstr "أضف إلى قائمة تشغيل"
 
 #: ../MusicAlbums.qml:386 ../MusicArtists.qml:447 ../MusicNowPlaying.qml:660
 #: ../MusicTracks.qml:297 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:815
 msgid "Select playlist"
-msgstr ""
+msgstr "اختر قائمة تشغيل"
 
 #: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:325
 msgid "Queue"
-msgstr ""
+msgstr "الاصطفاف"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:906
 msgid "Artists"
-msgstr ""
+msgstr "الفنانين"
 
 #: ../MusicArtists.qml:148
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 فنان"
+msgstr[1] "فنان واحد (%1)"
+msgstr[2] "فنانيّن (%1)"
+msgstr[3] "%1 فنانين"
+msgstr[4] "%1 فنانا"
+msgstr[5] "%1 فنان"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 أغنية"
+msgstr[1] "أغنية واحدة (%1)"
+msgstr[2] "أغنيتين (%1)"
+msgstr[3] "%1 أغاني"
+msgstr[4] "%1 أغنية"
+msgstr[5] "%1 أغنية"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
-msgstr ""
+msgstr "المقطوعات"
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "مشاركة"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
 msgid "Are you sure?"
-msgstr ""
+msgstr "هل أنت  متأكد؟"
 
 #: ../MusicPlaylists.qml:55
 msgid "This will delete your playlist."
