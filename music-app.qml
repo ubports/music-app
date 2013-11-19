@@ -249,6 +249,7 @@ MainView {
                                           currentCover :
                                           "images/cover_default.png"
     property bool queueChanged: false
+    property bool toolbarShown: musicToolbar.shown
     signal collapseExpand(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
