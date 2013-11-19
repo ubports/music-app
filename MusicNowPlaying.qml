@@ -166,31 +166,7 @@ Page {
                     onDeleteStateChanged: {
                         if (deleteState === true)
                         {
-                            // Remove the item
-                            if (index == queuelist.currentIndex)
-                            {
-                                if (queuelist.count > 1)
-                                {
-                                    // Next song and only play if currently playing
-                                    nextSong(isPlaying);
-                                }
-                                else
-                                {
-                                    stopSong();
-                                }
-                            }
-
-                            // Remove item from queue and clear caches
-                            var row = trackQueue.model.get(index);
-                            var undoData = {'artist': row.artist, 'album': row.album, 'title': row.title,
-                                'index': row.index, 'file': row.file}
-                            queueChanged = true;
-                            trackQueue.model.remove(index);
-                            currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
-
-                            // undo
-                            console.debug("removed :"+undoData.file)
-                            undoRemoval(trackQueue.model,undoData)
+                            queueListItemRemoveAnimation.start();
                         }
                     }
                 }
@@ -375,25 +351,31 @@ Page {
                             // Remove if moved > 10 units otherwise reset
                             if (Math.abs(queueListItem.x - startX) > units.gu(10))
                             {
-                                /*
-                                 * Remove the listitem
-                                 *
-                                 * Remove the listitem to relevant side (queueListItemRemoveAnimation)
-                                 * Reduce height of listitem and remove the item
-                                 *   (swipeDeleteAnimation [called on queueListItemRemoveAnimation complete])
-                                 */
-                                swipeBackground.runSwipeDeletePrepareAnimation();  // fade out the clear text
-                                queueListItemRemoveAnimation.start();  // remove item from listview
+                                if (swipeBackground.primed === false)
+                                {
+                                    // Move the listitem half way across to reveal the delete button
+                                    queueListItemPrepareRemoveAnimation.start();
+                                }
+                                else
+                                {
+                                    // Check that actually swiping to cancel
+                                    if (swipeBackground.direction !== "" &&
+                                            swipeBackground.direction !== swipeBackground.state)
+                                    {
+                                        // Reset the listitem to the centre
+                                        queueListItemResetStartAnimation.start();
+                                    }
+                                    else
+                                    {
+                                        // Reset the listitem to the centre
+                                        queueListItemResetAnimation.start();
+                                    }
+                                }
                             }
                             else
                             {
-                                /*
-                                 * Reset the listitem
-                                 *
-                                 * Remove the swipeDelete to relevant side (swipeResetAnimation)
-                                 * Reset the listitem to the centre (queueListItemResetAnimation)
-                                 */
-                                queueListItemResetAnimation.start();  // reset item position
+                                // Reset the listitem to the centre
+                                queueListItemResetAnimation.start();
                             }
                         }
 
@@ -420,23 +402,83 @@ Page {
                         }
                     }
 
-                    /*
-                     * Animation to remove an item from the list
-                     * - Removes listitem to relevant side
-                     * - Calls swipeDeleteAnimation to delete the listitem
-                     */
+                    // Animation to reset the x, y of the item
+                    ParallelAnimation {
+                        id: queueListItemResetStartAnimation
+                        running: false
+                        NumberAnimation {  // reset X
+                            target: queueListItem
+                            property: "x"
+                            to: 0
+                            duration: queuelist.transitionDuration
+                        }
+                        NumberAnimation {  // reset Y
+                            target: queueListItem
+                            property: "y"
+                            to: queueArea.startY
+                            duration: queuelist.transitionDuration
+                        }
+                        onRunningChanged: {
+                            if (running === true)
+                            {
+                                swipeBackground.direction = "";
+                                swipeBackground.primed = false;
+                            }
+                        }
+                    }
+
+                    // Move the listitem half way across to reveal the delete button
                     NumberAnimation {
-                        id: queueListItemRemoveAnimation
+                        id: queueListItemPrepareRemoveAnimation
                         target: queueListItem
                         property: "x"
-                        to: swipeBackground.state == "swipingRight" ? queueListItem.width : 0 - queueListItem.width
+                        to: swipeBackground.state == "swipingRight" ? queueListItem.width / 2 : 0 - (queueListItem.width / 2)
                         duration: queuelist.transitionDuration
-
                         onRunningChanged: {
-                            // Remove from queue once animation has finished
-                            if (running == false)
+                            if (running === true)
                             {
-                                swipeBackground.runSwipeDeleteAnimation();
+                                swipeBackground.direction = swipeBackground.state;
+                                swipeBackground.primed = true;
+                            }
+                        }
+                    }
+
+                    ParallelAnimation {
+                        id: queueListItemRemoveAnimation
+                        running: false
+                        NumberAnimation {  // 'slide' up
+                            target: queueListItem
+                            property: "height"
+                            to: 0
+                            duration: queuelist.transitionDuration
+                        }
+                        NumberAnimation {  // 'slide' in direction of removal
+                            target: queueListItem
+                            property: "x"
+                            to: swipeBackground.direction === "swipingLeft" ? 0 - queueListItem.width : queueListItem.width
+                            duration: queuelist.transitionDuration
+                        }
+                        onRunningChanged: {
+                            if (running === false)
+                            {
+                                // Remove the item
+                                if (index == queuelist.currentIndex)
+                                {
+                                    if (queuelist.count > 1)
+                                    {
+                                        // Next song and only play if currently playing
+                                        nextSong(isPlaying);
+                                    }
+                                    else
+                                    {
+                                        stopSong();
+                                    }
+                                }
+
+                                // Remove item from queue and clear caches
+                                trackQueue.model.remove(index);
+                                queueChanged = true;
+                                currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
                             }
                         }
                     }

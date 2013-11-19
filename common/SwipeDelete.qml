@@ -28,18 +28,10 @@ Rectangle {
     width: parent.width * 3
     x: 0 - parent.width  // start out of view
 
+    property string direction: ""
     property int duration: 0
     property bool deleteState: false
-
-    function runSwipeDeletePrepareAnimation()
-    {
-        swipeDeletePrepareAnimation.start();
-    }
-
-    function runSwipeDeleteAnimation()
-    {
-        swipeDeleteAnimation.start();
-    }
+    property bool primed: false
 
     Rectangle {
         id: swipeBackgroundLeft
@@ -48,7 +40,6 @@ Rectangle {
         opacity: 0.7
         height: parent.height
         width: parent.width / 3
-
         Label {
             id: swipeBackgroundLeftText
             anchors.margins: units.gu(2)
@@ -57,8 +48,23 @@ Rectangle {
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignRight
-            text: i18n.tr("Clear")
+            text: i18n.tr("Delete")
             verticalAlignment: Text.AlignVCenter
+        }
+        Icon {
+            id: swipeBackgroundLeftImage
+            anchors.margins: units.gu(2)
+            anchors.right: swipeBackgroundLeftText.left
+            anchors.verticalCenter: parent.verticalCenter
+            name: "delete"
+            height: parent.height
+            width: height
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                deleteState = true;
+            }
         }
     }
 
@@ -69,7 +75,6 @@ Rectangle {
         opacity: 0.7
         height: parent.height
         width: parent.width / 3
-
         Label {
             id: swipeBackgroundRightText
             anchors.left: parent.left
@@ -78,44 +83,21 @@ Rectangle {
             color: styleMusic.common.white
             fontSize: "large"
             horizontalAlignment: Text.AlignLeft
-            text: i18n.tr("Clear")
+            text: i18n.tr("Delete")
             verticalAlignment: Text.AlignVCenter
         }
-    }
-
-    // Fade out the text in prepartion for removal
-    ParallelAnimation {
-        id: swipeDeletePrepareAnimation
-        running: false
-        NumberAnimation {
-            target: swipeBackgroundLeftText
-            property: "opacity"
-            to: 0
-            duration: swipeBackground.duration
+        Icon {
+            id: swipeBackgroundRightImage
+            anchors.left: swipeBackgroundRightText.right
+            anchors.margins: units.gu(2)
+            anchors.verticalCenter: parent.verticalCenter
+            name: "delete"
+            height: parent.height
+            width: height
         }
-        NumberAnimation {
-            target: swipeBackgroundRightText
-            property: "opacity"
-            to: 0
-            duration: swipeBackground.duration
-        }
-    }
-
-    /*
-     * Animation to remove the swipe object
-     * - Reduces the height to 0 to 'pull up' the row below
-     * - On animation finish it removes the item from the model
-     */
-    NumberAnimation {
-        id: swipeDeleteAnimation
-        target: swipeBackground
-        properties: "height"
-        to: 0
-        duration: swipeBackground.duration
-
-        onRunningChanged: {
-            if (running == false)
-            {
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
                 deleteState = true;
             }
         }
