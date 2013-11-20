@@ -486,6 +486,10 @@ PageStack {
             {
                 musicToolbar.setPage(playlistpage, listspage, pageStack);
             }
+            else
+            {
+                collapseSwipeDelete(-1);  // collapse all expands
+            }
         }
 
         // playlist name and info
@@ -799,6 +803,19 @@ PageStack {
                         }
                     }
 
+                    function onCollapseSwipeDelete(indexCol)
+                    {
+                        if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
+                        {
+                            customdebug("auto collapse swipeDelete")
+                            playlistTracksResetStartAnimation.start();
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        collapseSwipeDelete.connect(onCollapseSwipeDelete);
+                    }
+
                     MouseArea {
                         id: playlistTrackArea
                         anchors.fill: parent
@@ -828,6 +845,7 @@ PageStack {
                         }
 
                         onClicked: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
                             Library.addRecent(oldPlaylistName, "Playlist", cover, oldPlaylistName, "playlist")
@@ -877,6 +895,7 @@ PageStack {
                         }
 
                         onPressAndHold: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("Pressed and held track playlist "+file)
                             playlistlist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
@@ -935,6 +954,8 @@ PageStack {
                                 {
                                     if (swipeBackground.primed === false)
                                     {
+                                        collapseSwipeDelete(index); // collapse other swipeDeletes
+
                                         // Move the listitem half way across to reveal the delete button
                                         playlistTracksPrepareRemoveAnimation.start();
                                     }

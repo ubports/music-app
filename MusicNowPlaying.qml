@@ -171,6 +171,19 @@ Page {
                     }
                 }
 
+                function onCollapseSwipeDelete(indexCol)
+                {
+                    if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
+                    {
+                        customdebug("auto collapse swipeDelete")
+                        queueListItemResetStartAnimation.start();
+                    }
+                }
+
+                Component.onCompleted: {
+                    collapseSwipeDelete.connect(onCollapseSwipeDelete);
+                }
+
                 MouseArea {
                     id: queueArea
                     anchors.fill: parent
@@ -254,6 +267,8 @@ Page {
                     }
 
                     onClicked: {
+                        collapseSwipeDelete(-1);  // collapse all expands
+
                         customdebug("File: " + file) // debugger
                         trackClicked(trackQueue, index) // play track
                     }
@@ -303,6 +318,7 @@ Page {
                         // Must be in a normal state to change to reorder state
                         if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             collapseExpand(-1);  // collapse all
                             customdebug("Pressed and held queued track "+file)
                             queuelist.state = "reorder";  // enable reordering state
@@ -355,6 +371,8 @@ Page {
                             {
                                 if (swipeBackground.primed === false)
                                 {
+                                    collapseSwipeDelete(index); // collapse other swipeDeletes
+
                                     // Move the listitem half way across to reveal the delete button
                                     queueListItemPrepareRemoveAnimation.start();
                                 }
@@ -860,6 +878,7 @@ Page {
             anchors.fill: parent
 
             onClicked: {
+                collapseSwipeDelete(-1);  // collapse all expands
                 musicToolbar.goBack();
             }
         }

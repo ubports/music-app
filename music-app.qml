@@ -251,6 +251,7 @@ MainView {
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
     signal collapseExpand(int index);
+    signal collapseSwipeDelete(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
