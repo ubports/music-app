@@ -486,6 +486,10 @@ PageStack {
             {
                 musicToolbar.setPage(playlistpage, listspage, pageStack);
             }
+            else
+            {
+                collapseSwipeDelete(-1);  // collapse all expands
+            }
         }
 
         // playlist name and info
@@ -841,6 +845,7 @@ PageStack {
                         }
 
                         onClicked: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
                             Library.addRecent(oldPlaylistName, "Playlist", cover, oldPlaylistName, "playlist")
@@ -890,6 +895,7 @@ PageStack {
                         }
 
                         onPressAndHold: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("Pressed and held track playlist "+file)
                             playlistlist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();

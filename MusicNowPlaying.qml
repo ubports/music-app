@@ -267,6 +267,7 @@ Page {
                     }
 
                     onClicked: {
+                        collapseSwipeDelete(-1);  // collapse all expands
                         customdebug("File: " + file) // debugger
                         trackClicked(trackQueue, index) // play track
                     }
@@ -316,6 +317,7 @@ Page {
                         // Must be in a normal state to change to reorder state
                         if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             collapseExpand(-1);  // collapse all
                             customdebug("Pressed and held queued track "+file)
                             queuelist.state = "reorder";  // enable reordering state
@@ -875,6 +877,7 @@ Page {
             anchors.fill: parent
 
             onClicked: {
+                collapseSwipeDelete(-1);  // collapse all expands
                 musicToolbar.goBack();
             }
         }
