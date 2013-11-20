@@ -268,7 +268,6 @@ Page {
 
                     onClicked: {
                         collapseSwipeDelete(-1);  // collapse all expands
-
                         customdebug("File: " + file) // debugger
                         trackClicked(trackQueue, index) // play track
                     }
@@ -371,7 +370,7 @@ Page {
                             {
                                 if (swipeBackground.primed === false)
                                 {
-                                    collapseSwipeDelete(index); // collapse other swipeDeletes
+                                    collapseSwipeDelete(index);  // collapse other swipeDeletes
 
                                     // Move the listitem half way across to reveal the delete button
                                     queueListItemPrepareRemoveAnimation.start();

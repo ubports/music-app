@@ -954,7 +954,7 @@ PageStack {
                                 {
                                     if (swipeBackground.primed === false)
                                     {
-                                        collapseSwipeDelete(index); // collapse other swipeDeletes
+                                        collapseSwipeDelete(index);  // collapse other swipeDeletes
 
                                         // Move the listitem half way across to reveal the delete button
                                         playlistTracksPrepareRemoveAnimation.start();
