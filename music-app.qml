@@ -281,6 +281,12 @@ MainView {
     }
 
     function getSong(direction, startPlaying, fromControls) {
+        // Seek to start if threshold reached when selecting previous
+        if (direction === -1 && (player.position / 1000) > 5)
+        {
+            player.seek(0);  // seek to start
+            return;
+        }
 
         // Increment song count on Welcome screen if song has been playing for over 10 seconds.
         // This takes care of the two reasons for incrementing:
@@ -323,13 +329,6 @@ MainView {
                     || (currentIndex > 0 && direction === -1)) {
                 console.log("currentIndex: " + currentIndex)
                 console.log("trackQueue.count: " + trackQueue.model.count)
-
-                // Seek to start if threshold reached when selecting previous
-                if (direction === -1 && (player.position / 1000) > 5)
-                {
-                    player.seek(0);  // seek to start
-                    return;
-                }
 
                 currentIndex += direction
                 player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
