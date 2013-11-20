@@ -677,6 +677,13 @@ MainView {
             }
             onBaseMediaChanged: refresh();
 
+            /* Check if the file (needle) exists in the library (haystack)
+             * Searches the the haystack using a binary search
+             *
+             * false if the file in in grilo but not in the haystack
+             * positive if the file is the same (number is the actual index)
+             * negative if the file has changed, actual index is -(i + 1)
+             */
             function exists(haystack, needle)
             {
                 var keyToFind = needle["file"];
@@ -732,6 +739,7 @@ MainView {
 
             onFinished: {
                 var currentLibrary = Library.getAllFileOrder();
+                var read_arg = false;
 
                 // FIXME: remove when grilo is fixed
                 var files = [];
@@ -741,12 +749,12 @@ MainView {
                 {
                     var media = griloModel.get(i)
                     var file = media.url.toString()
-                    if (file.indexOf("file://") == 0)
+                    if (file.indexOf("file://") === 0)
                     {
                         file = file.slice(7, file.length)
                     }
 
-                    // FIXME: grilo appears to supply duplicates
+                    // FIXME: grilo can supply duplicates
                     if (files.indexOf(file) > -1)
                     {
                         duplicates++;
@@ -754,16 +762,16 @@ MainView {
                     }
                     files.push(file);
 
-                    if (argFile === file)
+                    if (read_arg === false && argFile === file)
                     {
                         trackQueue.model.clear();
                         trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
                         trackClicked(trackQueue, 0, true);
 
-                        // FIXME: tmp fix - grilo model has everything twice!
-                        // this causes the second time it finds the track to
-                        // actually pause it :/
-                        argFile = true;
+                        // grilo model sometimes has duplicates
+                        // causing the track to be paused the second time
+                        // this ignores the second time
+                        read_arg = true;
                     }
 
                     var record = {artist: media.artist, album: media.album, title: media.title, file: file, cover: media.thumbnail.toString(), length: media.duration.toString(), year: media.year.toString(), genre: media.genre};
