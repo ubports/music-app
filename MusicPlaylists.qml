@@ -799,19 +799,6 @@ PageStack {
                         }
                     }
 
-                    function onCollapseSwipeDelete(indexCol)
-                    {
-                        if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
-                        {
-                            customdebug("auto collapse swipeDelete")
-                            playlistTracksResetStartAnimation.start();
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        collapseSwipeDelete.connect(onCollapseSwipeDelete);
-                    }
-
                     MouseArea {
                         id: playlistTrackArea
                         anchors.fill: parent
@@ -948,8 +935,6 @@ PageStack {
                                 {
                                     if (swipeBackground.primed === false)
                                     {
-                                        collapseSwipeDelete(index);  // collapse other swipeDeletes
-
                                         // Move the listitem half way across to reveal the delete button
                                         playlistTracksPrepareRemoveAnimation.start();
                                     }

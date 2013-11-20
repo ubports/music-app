@@ -171,19 +171,6 @@ Page {
                     }
                 }
 
-                function onCollapseSwipeDelete(indexCol)
-                {
-                    if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
-                    {
-                        customdebug("auto collapse swipeDelete")
-                        queueListItemResetStartAnimation.start();
-                    }
-                }
-
-                Component.onCompleted: {
-                    collapseSwipeDelete.connect(onCollapseSwipeDelete);
-                }
-
                 MouseArea {
                     id: queueArea
                     anchors.fill: parent
@@ -368,8 +355,6 @@ Page {
                             {
                                 if (swipeBackground.primed === false)
                                 {
-                                    collapseSwipeDelete(index);  // collapse other swipeDeletes
-
                                     // Move the listitem half way across to reveal the delete button
                                     queueListItemPrepareRemoveAnimation.start();
                                 }
