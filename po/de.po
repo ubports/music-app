@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-10-26 18:18+0000\n"
-"Last-Translator: Torsten Franz <Unknown>\n"
+"PO-Revision-Date: 2013-11-20 13:17+0000\n"
+"Last-Translator: SaGrLand <sg@samuel-greef.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2013-11-06 05:54+0000\n"
-"X-Generator: Launchpad (build 16820)\n"
+"X-Launchpad-Export-Date: 2013-11-21 06:43+0000\n"
+"X-Generator: Launchpad (build 16831)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:47
 msgid "Login to be able to scrobble."
-msgstr "Melden Sie sich an um zu scrobbeln."
+msgstr "Melden Sie sich an, um zu scrobbeln."
 
 #: ../LoginLastFM.qml:55
 msgid "Username"
@@ -53,6 +53,7 @@ msgstr "Anmeldung fehlgeschlagen"
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
 msgstr ""
+"Sie haben Ihren Benutzernamen und/oder Ihr Passwort nicht eingestellt"
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:919
 msgid "Albums"
@@ -107,7 +108,7 @@ msgstr "Titel"
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "Teilen"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
@@ -116,7 +117,7 @@ msgstr "Sind Sie sich sicher?"
 
 #: ../MusicPlaylists.qml:55
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "Dieses wird Ihre Wiedergabeliste löschen."
 
 #: ../MusicPlaylists.qml:58
 msgid "Remove"
@@ -133,7 +134,7 @@ msgstr "Namen ändern"
 
 #: ../MusicPlaylists.qml:85
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Geben Sie einen neuen Namen für diese Wiedergabeliste ein."
 
 #: ../MusicPlaylists.qml:96
 msgid "Change"
@@ -141,7 +142,7 @@ msgstr "Ändern"
 
 #: ../MusicPlaylists.qml:109
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "Sie haben keinen Namen eingegeben."
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -169,7 +170,7 @@ msgstr "Einstellungen"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "Equalizer"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
@@ -177,7 +178,7 @@ msgstr "Vorgabe"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr ""
+msgstr "Akustisch"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -201,7 +202,7 @@ msgstr "Jazz"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "Metall"
+msgstr "Metal"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
@@ -220,6 +221,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Springe zum aktuellen Lied, \n"
+"sobald Toolbar geöffnet wird."
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
@@ -227,11 +230,11 @@ msgstr "Konten"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Einloggen zum Scrobbeln und Wiedergabeliste importieren."
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "Musik-Streaming"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
@@ -239,11 +242,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Anmelden, um Musik aus der Cloud zu streamen"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Streame nur mit WLAN-Verbindung"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
@@ -364,7 +367,7 @@ msgstr "Fehler: "
 
 #: ../music-app.qml:860
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Fehler: Sie haben kein Namen eingegeben"
 
 #: ../music-app.qml:932
 msgid "Songs"
