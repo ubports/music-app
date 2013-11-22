@@ -188,6 +188,10 @@ class TestMainWindow(MusicTestCase):
                     self.main_view.currentArtist == "TestMP3Artist"):
                 break
             else:
+                """ Show toolbar if hidden """
+                if (not self.main_view.toolbarShown):
+                    self.main_view.show_toolbar()
+
                 """ Pause track """
                 self.pointing_device.click_object(playbutton)
                 self.assertThat(self.main_view.isPlaying,
