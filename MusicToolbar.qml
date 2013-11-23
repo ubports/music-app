@@ -51,6 +51,14 @@ Rectangle {
     property bool shown: false
     property int transitionDuration: 100
 
+    onYChanged: {
+y: parent.height
+        if (y > mainView.height - units.gu(1) && nowPlaying.visible)
+            musicToolbarSmallProgressBackground.opacity = 1
+        else if (y < mainView.height - units.gu(1) && nowPlaying.visible)
+            musicToolbarSmallProgressBackground.opacity = 0
+    }
+
     // Shown/hide relevant child items depending on mode
     onCurrentModeChanged: {
         musicToolbarExpandedContainer.visible = currentMode !== "full"
