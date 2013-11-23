@@ -55,7 +55,7 @@ Rectangle {
 y: parent.height
         if (y > mainView.height - units.gu(1) && nowPlaying.visible)
             musicToolbarSmallProgressBackground.opacity = 1
-        else if (y < mainView.height - units.gu(1) && nowPlaying.visible)
+        else if (y <= mainView.height - units.gu(1) && nowPlaying.visible)
             musicToolbarSmallProgressBackground.opacity = 0
     }
 
