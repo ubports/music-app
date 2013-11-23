@@ -40,6 +40,13 @@ Page {
     property string file: ""
     property string year: ""
 
+    onVisibleChanged: {
+        if (visible === true)
+        {
+            musicToolbar.setPage(mainpage);
+        }
+    }
+
     MusicSettings {
         id: musicSettings
     }
