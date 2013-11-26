@@ -103,5 +103,5 @@ class MainView(toolkit_emulators.MainView):
     def get_album_sheet_close_button(self):
         closebuttons = self.close_buttons()
         for item in closebuttons:
-            if item.enabled == True:
+            if item.enabled:
                 return item
