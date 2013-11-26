@@ -103,6 +103,7 @@ Page {
                     }
                     Label {
                         id: albumArtist
+                        objectName: "albums-albumartist"
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         anchors.left: parent.left
@@ -187,6 +188,7 @@ Page {
                     }
                     Label {
                         id: albumArtist
+                        objectName: "albumsheet-albumartist"
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "small"

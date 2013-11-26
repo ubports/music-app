@@ -10,7 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, LessThan
+from testtools.matchers import Equals, NotEquals, Is, Not, LessThan
 
 from music_app.tests import MusicTestCase
 
@@ -198,3 +198,27 @@ class TestMainWindow(MusicTestCase):
                                 Eventually(Equals(False)))
                 forward = not forward
                 count += 1
+
+    def test_show_albums_sheet(self):
+        """ tests navigating to the Albums tab and 
+            displaying the album sheet"""
+
+        artistName = "Benjamin Kerensa"
+        
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+        albumstab = self.main_view.get_albumstab()
+
+        #select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.assertThat(albumartist.text, Eventually(Equals(artistName )))
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.main_view.get_album_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        # click on close button to close album sheet
+        closebutton = self.main_view.get_album_sheet_close_button()
+        self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_album_sheet_artist(), Not(Is(None)))
