@@ -220,4 +220,4 @@ class TestMainWindow(MusicTestCase):
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
         self.pointing_device.click_object(closebutton)
-        self.assertThat(self.main_view.get_album_sheet_artist(), Not(Is(None)))
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
