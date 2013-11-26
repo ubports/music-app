@@ -90,7 +90,7 @@ class MainView(toolkit_emulators.MainView):
 
     def get_albums_albumartist(self, artistName):
         albumartistList = self.get_albums_albumartist_list()
-        for item  in albumartistList:
+        for item in albumartistList:
             if item.text == artistName:
                 return item
 
@@ -102,6 +102,6 @@ class MainView(toolkit_emulators.MainView):
 
     def get_album_sheet_close_button(self):
         closebuttons = self.close_buttons()
-        for item  in closebuttons:
+        for item in closebuttons:
             if item.enabled == True:
-               return item
+                return item

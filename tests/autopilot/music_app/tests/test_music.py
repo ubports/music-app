@@ -200,18 +200,17 @@ class TestMainWindow(MusicTestCase):
                 count += 1
 
     def test_show_albums_sheet(self):
-        """ tests navigating to the Albums tab and 
-            displaying the album sheet"""
+        """tests navigating to the Albums tab and displaying the album sheet"""
 
         artistName = "Benjamin Kerensa"
-        
+
         # switch to albums tab
         self.main_view.switch_to_tab("albumstab")
         albumstab = self.main_view.get_albumstab()
 
         #select album
         albumartist = self.main_view.get_albums_albumartist(artistName)
-        self.assertThat(albumartist.text, Eventually(Equals(artistName )))
+        self.assertThat(albumartist.text, Eventually(Equals(artistName)))
         self.pointing_device.click_object(albumartist)
 
         #get album sheet album artist
