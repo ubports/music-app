@@ -206,8 +206,6 @@ class TestMainWindow(MusicTestCase):
 
         # switch to albums tab
         self.main_view.switch_to_tab("albumstab")
-        albumstab = self.main_view.get_albumstab()
-        self.assertThat(albumstab, Not(Is(None)))
 
         #select album
         albumartist = self.main_view.get_albums_albumartist(artistName)
