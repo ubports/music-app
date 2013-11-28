@@ -682,7 +682,7 @@ Page {
                                                  styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
                                             / 2)
                                            + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
-                                           - (height / 2)
+                                           - height
                         anchors.left: parent.left
                         anchors.leftMargin: styleMusic.common.expandedLeftMargin
                         color: "transparent"
@@ -690,6 +690,8 @@ Page {
                         width: units.gu(15)
                         Icon {
                             id: playlistTrack
+                            anchors.top: parent.top
+                            anchors.topMargin: height/2
                             color: styleMusic.common.white
                             name: "add"
                             height: styleMusic.common.expandedItem
@@ -698,9 +700,11 @@ Page {
                         Label {
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            anchors.top: parent.top
                             color: styleMusic.common.white
                             fontSize: "small"
                             wrapMode: Text.WordWrap
+                            width: units.gu(5)
                             text: i18n.tr("Add to playlist")
                         }
                         MouseArea {
