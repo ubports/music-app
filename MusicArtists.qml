@@ -407,7 +407,7 @@ PageStack {
                             anchors.top: parent.top
                             anchors.topMargin: ((styleMusic.artists.expandedHeight - styleMusic.artists.itemHeight) / 2)
                                                + styleMusic.artists.itemHeight
-                                               - (height / 2)
+                                               - height
 
                             anchors.left: parent.left
                             anchors.leftMargin: styleMusic.artists.expandedLeftMargin
@@ -416,6 +416,8 @@ PageStack {
                             width: units.gu(15)
                             Icon {
                                 id: playlistTrack
+                                anchors.top: parent.top
+                                anchors.topMargin: height/2
                                 color: styleMusic.common.white
                                 name: "add"
                                 height: styleMusic.common.expandedItem
@@ -424,8 +426,10 @@ PageStack {
                             Label {
                                 anchors.left: playlistTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                anchors.top: parent.top
                                 color: styleMusic.common.white
                                 fontSize: "small"
+                                width: units.gu(5)
                                 text: i18n.tr("Add to playlist")
                                 wrapMode: Text.WordWrap
                             }
@@ -455,7 +459,7 @@ PageStack {
                             anchors.top: parent.top
                             anchors.topMargin: ((styleMusic.artists.expandedHeight - styleMusic.artists.itemHeight) / 2)
                                                + styleMusic.artists.itemHeight
-                                               - (height / 2)
+                                               - height
                             anchors.left: playlistRow.left
                             anchors.leftMargin: units.gu(15)
                             color: "transparent"
@@ -463,6 +467,8 @@ PageStack {
                             width: units.gu(15)
                             Image {
                                 id: queueTrack
+                                anchors.top: parent.top
+                                anchors.topMargin: height/2
                                 source: "images/queue.png"
                                 height: styleMusic.common.expandedItem
                                 width: styleMusic.common.expandedItem
@@ -470,9 +476,11 @@ PageStack {
                             Label {
                                 anchors.left: queueTrack.right
                                 anchors.leftMargin: units.gu(0.5)
+                                anchors.top: parent.top
                                 color: styleMusic.common.white
                                 fontSize: "small"
-                                text: i18n.tr("Queue")
+                                width: units.gu(5)
+                                text: i18n.tr("Add to queue")
                                 wrapMode: Text.WordWrap
                             }
                             MouseArea {
