@@ -145,7 +145,7 @@ PageStack {
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
                         // model for number of albums?
-                        text: i18n.tr("%1 album", "%1 albums", Library.getArtistCovers(artist).length).arg(Library.getArtistCovers(artist).length)
+                        text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
                     }
 
                     Label {
