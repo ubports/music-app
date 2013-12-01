@@ -340,6 +340,7 @@ Page {
 
                             // background for expander
                             Rectangle {
+                                id: expandedBackground
                                 anchors.top: parent.top
                                 anchors.topMargin: styleMusic.albums.itemHeight
                                 color: styleMusic.common.black
@@ -351,15 +352,11 @@ Page {
                             // add to playlist
                             Rectangle {
                                 id: playlistRow
-                                anchors.top: parent.top
-                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
-                                                   + styleMusic.albums.itemHeight
-                                                   - height
-
+                                anchors.top: expandedBackground.top
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 color: "transparent"
-                                height: styleMusic.common.expandedItem
+                                height: expandedBackground.height
                                 width: units.gu(15)
                                 Icon {
                                     id: playlistTrack
@@ -374,9 +371,11 @@ Page {
                                     anchors.left: playlistTrack.right
                                     anchors.leftMargin: units.gu(0.5)
                                     anchors.top: parent.top
+                                    anchors.topMargin: units.gu(0.5)
                                     color: styleMusic.common.white
                                     fontSize: "small"
                                     width: units.gu(5)
+                                    height: parent.height
                                     text: i18n.tr("Add to playlist")
                                     wrapMode: Text.WordWrap
                                 }
@@ -403,14 +402,11 @@ Page {
                             // Queue
                             Rectangle {
                                 id: queueRow
-                                anchors.top: parent.top
-                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
-                                                   + styleMusic.albums.itemHeight
-                                                   - height
+                                anchors.top: expandedBackground.top
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 color: "transparent"
-                                height: styleMusic.common.expandedItem
+                                height: expandedBackground.height
                                 width: units.gu(15)
                                 Image {
                                     id: queueTrack
@@ -424,9 +420,11 @@ Page {
                                     anchors.left: queueTrack.right
                                     anchors.leftMargin: units.gu(0.5)
                                     anchors.top: parent.top
+                                    anchors.topMargin: units.gu(0.5)
                                     color: styleMusic.common.white
                                     fontSize: "small"
                                     width: units.gu(5)
+                                    height: parent.height
                                     text: i18n.tr("Add to queue")
                                     wrapMode: Text.WordWrap
                                 }
