@@ -226,7 +226,7 @@ class TestMainWindow(MusicTestCase):
 
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
-        
+
         # switch to albums tab
         self.main_view.switch_to_tab("albumstab")
 
@@ -240,7 +240,8 @@ class TestMainWindow(MusicTestCase):
 
         #get track item to add to queue
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackicon = self.main_view.get_album_sheet_listview_trackicon(trackTitle)
+        trackicon = self.main_view.get_album_sheet_listview_trackicon(
+            trackTitle)
         self.pointing_device.click_object(trackicon)
 
         #click on Add to queue
@@ -250,8 +251,8 @@ class TestMainWindow(MusicTestCase):
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
         self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
-        
+
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
         self.pointing_device.click_object(closebutton)
-        self.assertThat(self.main_view.get_albumstab(), Not(Is(None))) 
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
