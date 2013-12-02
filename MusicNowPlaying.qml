@@ -104,6 +104,7 @@ Page {
 
     ListView {
         id: queuelist
+        objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
@@ -665,6 +666,7 @@ Page {
 
                     // background for expander
                     Rectangle {
+                        id: expandedBackground
                         anchors.top: parent.top
                         anchors.topMargin: queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight
                         color: styleMusic.common.black
@@ -676,20 +678,16 @@ Page {
                     // add to playlist
                     Rectangle {
                         id: playlistRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((queueListItem.state === "current" ?
-                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
-                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
-                                            / 2)
-                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
-                                           - (height / 2)
+                        anchors.top: expandedBackground.top
                         anchors.left: parent.left
                         anchors.leftMargin: styleMusic.common.expandedLeftMargin
                         color: "transparent"
-                        height: styleMusic.common.expandedItem
+                        height: expandedBackground.height
                         width: units.gu(15)
                         Icon {
                             id: playlistTrack
+                            anchors.top: parent.top
+                            anchors.topMargin: height/2
                             color: styleMusic.common.white
                             name: "add"
                             height: styleMusic.common.expandedItem
@@ -698,9 +696,13 @@ Page {
                         Label {
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(0.5)
                             color: styleMusic.common.white
                             fontSize: "small"
                             wrapMode: Text.WordWrap
+                            width: units.gu(5)
+                            height: parent.height
                             text: i18n.tr("Add to playlist")
                         }
                         MouseArea {

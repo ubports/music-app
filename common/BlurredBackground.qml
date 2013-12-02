@@ -29,8 +29,8 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         source: mainView.currentCoverFull // this has to be fixed for the default cover art to work - cant find in this dir
-        height: parent.height
-        width: height
+        height: Math.max(parent.height, parent.width)
+        width: Math.max(parent.height, parent.width)
     }
     // the blur
     FastBlur {

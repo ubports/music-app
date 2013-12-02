@@ -241,6 +241,7 @@ Page {
 
                     ListItem.Standard {
                         id: track
+                        objectName: "albumsheet-track"
                         iconFrame: false
                         progression: false
                         height: styleMusic.albums.itemHeight
@@ -267,6 +268,7 @@ Page {
 
                         Label {
                             id: trackTitle
+                            objectName: "albumsheet-tracktitle"
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "medium"
@@ -284,6 +286,7 @@ Page {
 
                         Image {
                             id: expandItem
+                            objectName: "albumsheet-expanditem"
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
                             source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
@@ -340,6 +343,7 @@ Page {
 
                             // background for expander
                             Rectangle {
+                                id: expandedBackground
                                 anchors.top: parent.top
                                 anchors.topMargin: styleMusic.albums.itemHeight
                                 color: styleMusic.common.black
@@ -351,17 +355,16 @@ Page {
                             // add to playlist
                             Rectangle {
                                 id: playlistRow
-                                anchors.top: parent.top
-                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
-                                                   + styleMusic.albums.itemHeight
-                                                   - (height / 2)
+                                anchors.top: expandedBackground.top
                                 anchors.left: parent.left
                                 anchors.leftMargin: styleMusic.albums.expandedLeftMargin
                                 color: "transparent"
-                                height: styleMusic.common.expandedItem
+                                height: expandedBackground.height
                                 width: units.gu(15)
                                 Icon {
                                     id: playlistTrack
+                                    anchors.top: parent.top
+                                    anchors.topMargin: height/2
                                     color: styleMusic.common.white
                                     name: "add"
                                     height: styleMusic.common.expandedItem
@@ -370,8 +373,12 @@ Page {
                                 Label {
                                     anchors.left: playlistTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    anchors.top: parent.top
+                                    anchors.topMargin: units.gu(0.5)
                                     color: styleMusic.common.white
                                     fontSize: "small"
+                                    width: units.gu(5)
+                                    height: parent.height
                                     text: i18n.tr("Add to playlist")
                                     wrapMode: Text.WordWrap
                                 }
@@ -398,17 +405,17 @@ Page {
                             // Queue
                             Rectangle {
                                 id: queueRow
-                                anchors.top: parent.top
-                                anchors.topMargin: ((styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight) / 2)
-                                                   + styleMusic.albums.itemHeight
-                                                   - (height / 2)
+                                anchors.top: expandedBackground.top
                                 anchors.left: playlistRow.left
                                 anchors.leftMargin: units.gu(15)
                                 color: "transparent"
-                                height: styleMusic.common.expandedItem
+                                height: expandedBackground.height
                                 width: units.gu(15)
                                 Image {
                                     id: queueTrack
+                                    objectName: "albumsheet-queuetrack"
+                                    anchors.top: parent.top
+                                    anchors.topMargin: height/2
                                     source: "images/queue.png"
                                     height: styleMusic.common.expandedItem
                                     width: styleMusic.common.expandedItem
@@ -416,9 +423,13 @@ Page {
                                 Label {
                                     anchors.left: queueTrack.right
                                     anchors.leftMargin: units.gu(0.5)
+                                    anchors.top: parent.top
+                                    anchors.topMargin: units.gu(0.5)
                                     color: styleMusic.common.white
                                     fontSize: "small"
-                                    text: i18n.tr("Queue")
+                                    width: units.gu(5)
+                                    height: parent.height
+                                    text: i18n.tr("Add to queue")
                                     wrapMode: Text.WordWrap
                                 }
                                 MouseArea {
