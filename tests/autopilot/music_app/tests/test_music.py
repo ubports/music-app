@@ -10,7 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, LessThan
+from testtools.matchers import Equals, Is, Not, LessThan
 
 from music_app.tests import MusicTestCase
 
@@ -116,7 +116,15 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
+        playbutton = self.main_view.get_now_playing_play_button()
+
+        """ Pause track """
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        """ Repeat is off """
         repeatbutton = self.main_view.get_repeat_button()
+        self.pointing_device.click_object(repeatbutton)
 
         previousbutton = self.main_view.get_previous_button()
 
@@ -126,12 +134,10 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-        """ Track is playing, repeat is off"""
-        self.assertThat(self.main_view.isPlaying, Equals(True))
-        self.pointing_device.click_object(repeatbutton)
+        """ Select previous """
         self.pointing_device.click_object(previousbutton)
 
-        """ Track is playing"""
+        """ Track is playing """
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
         self.assertThat(title, Eventually(Equals("TestMP3Title")))
         self.assertThat(artist, Eventually(Equals("TestMP3Artist")))
@@ -148,6 +154,8 @@ class TestMainWindow(MusicTestCase):
         forwardbutton = self.main_view.get_forward_button()
 
         previousbutton = self.main_view.get_previous_button()
+
+        playbutton = self.main_view.get_now_playing_play_button()
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
@@ -180,5 +188,34 @@ class TestMainWindow(MusicTestCase):
                     self.main_view.currentArtist == "TestMP3Artist"):
                 break
             else:
+                """ Show toolbar if hidden """
+                if (not self.main_view.toolbarShown):
+                    self.main_view.show_toolbar()
+
+                """ Pause track """
+                self.pointing_device.click_object(playbutton)
+                self.assertThat(self.main_view.isPlaying,
+                                Eventually(Equals(False)))
                 forward = not forward
                 count += 1
+
+    def test_show_albums_sheet(self):
+        """tests navigating to the Albums tab and displaying the album sheet"""
+
+        artistName = "Benjamin Kerensa"
+
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.main_view.get_album_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        # click on close button to close album sheet
+        closebutton = self.main_view.get_album_sheet_close_button()
+        self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))

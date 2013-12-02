@@ -228,6 +228,7 @@ Page {
 
                     // background for expander
                     Rectangle {
+                        id: expandedBackground
                         anchors.top: parent.top
                         anchors.topMargin: styleMusic.common.itemHeight
                         color: styleMusic.common.black
@@ -239,17 +240,16 @@ Page {
                     // add to playlist
                     Rectangle {
                         id: playlistRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
-                                           + styleMusic.common.itemHeight
-                                           - (height / 2)
+                        anchors.top: expandedBackground.top
                         anchors.left: parent.left
                         anchors.leftMargin: styleMusic.common.expandedLeftMargin
                         color: "transparent"
-                        height: styleMusic.common.expandedItem
+                        height: expandedBackground.height
                         width: units.gu(15)
                         Icon {
                             id: playlistTrack
+                            anchors.top: parent.top
+                            anchors.topMargin: height/2
                             color: styleMusic.common.white
                             name: "add"
                             height: styleMusic.common.expandedItem
@@ -258,8 +258,12 @@ Page {
                         Label {
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(0.5)
                             color: styleMusic.common.white
                             fontSize: "small"
+                            width: units.gu(5)
+                            height: parent.height
                             text: i18n.tr("Add to playlist")
                             wrapMode: Text.WordWrap
                         }
@@ -286,17 +290,16 @@ Page {
                     // Queue
                     Rectangle {
                         id: queueRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
-                                           + styleMusic.common.itemHeight
-                                           - (height / 2)
+                        anchors.top: expandedBackground.top
                         anchors.left: playlistRow.left
                         anchors.leftMargin: units.gu(15)
                         color: "transparent"
-                        height: styleMusic.common.expandedItem
+                        height: expandedBackground.height
                         width: units.gu(15)
                         Image {
                             id: queueTrack
+                            anchors.top: parent.top
+                            anchors.topMargin: height/2
                             source: "images/queue.png"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
@@ -304,9 +307,13 @@ Page {
                         Label {
                             anchors.left: queueTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(0.5)
                             color: styleMusic.common.white
                             fontSize: "small"
-                            text: i18n.tr("Queue")
+                            width: units.gu(5)
+                            height: parent.height
+                            text: i18n.tr("Add to queue")
                             wrapMode: Text.WordWrap
                         }
                         MouseArea {
@@ -322,14 +329,11 @@ Page {
                     // Share
                     Rectangle {
                         id: shareRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((styleMusic.common.expandedHeight - styleMusic.common.itemHeight) / 2)
-                                           + styleMusic.common.itemHeight
-                                           - (height / 2)
+                        anchors.top: expandedBackground.top
                         anchors.left: queueRow.left
                         anchors.leftMargin: units.gu(15)
                         color: "transparent"
-                        height: styleMusic.common.expandedItem
+                        height: expandedBackground.height
                         width: units.gu(15)
                         visible: false
                         Icon {
@@ -342,9 +346,13 @@ Page {
                         Label {
                             anchors.left: shareTrack.right
                             anchors.leftMargin: units.gu(0.5)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(0.5)
                             color: styleMusic.common.white
                             fontSize: "small"
                             text: i18n.tr("Share")
+                            width: units.gu(5)
+                            height: parent.height
                             wrapMode: Text.WordWrap
                         }
                         MouseArea {

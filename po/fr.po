@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-10-14 13:21+0000\n"
-"Last-Translator: Sylvain Prado <Unknown>\n"
+"PO-Revision-Date: 2013-11-20 09:08+0000\n"
+"Last-Translator: londumas <helion331990@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2013-11-06 05:54+0000\n"
-"X-Generator: Launchpad (build 16820)\n"
+"X-Launchpad-Export-Date: 2013-11-21 06:43+0000\n"
+"X-Generator: Launchpad (build 16831)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -89,8 +89,8 @@ msgstr "Artistes"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 albums"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
@@ -108,7 +108,7 @@ msgstr "Morceaux"
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "Partager"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
@@ -153,12 +153,12 @@ msgstr "Listes de lecture"
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: ../MusicPlaylists.qml:480
 msgid "Playlist"
@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../MusicStart.qml:157
 msgid "Genres"
-msgstr ""
+msgstr "Genres"
 
 #: ../MusicToolbar.qml:284
 msgid "No songs queued"
@@ -321,7 +321,7 @@ msgstr "Retour"
 
 #: ../music-app.qml:98
 msgid "Go back to last page"
-msgstr ""
+msgstr "Revenir à la dernière page"
 
 #: ../music-app.qml:104
 msgid "Music Settings"
@@ -337,7 +337,7 @@ msgstr "Fermer l'application"
 
 #: ../music-app.qml:252
 msgid "Debug: "
-msgstr ""
+msgstr "Débogaga : "
 
 #: ../music-app.qml:790
 msgid "Add to queue"
@@ -373,7 +373,7 @@ msgstr "Morceaux"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr ""
+msgstr "Chargement en cours…"
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"

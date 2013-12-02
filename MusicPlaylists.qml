@@ -476,6 +476,10 @@ PageStack {
             {
                 musicToolbar.setPage(playlistpage, listspage, pageStack);
             }
+            else
+            {
+                collapseSwipeDelete(-1);  // collapse all expands
+            }
         }
 
         // playlist name and info
@@ -784,16 +788,22 @@ PageStack {
                         onDeleteStateChanged: {
                             if (deleteState === true)
                             {
-                                console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
-
-                                var realID = Playlists.getRealID(playlistlist.playlistName, index);
-                                Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
-
-                                playlistlist.model.remove(index);
-                                playlistModel.model.get(oldPlaylistIndex).count -= 1;
-                                queueChanged = true;
+                                playlistTracksRemoveAnimation.start();
                             }
                         }
+                    }
+
+                    function onCollapseSwipeDelete(indexCol)
+                    {
+                        if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
+                        {
+                            customdebug("auto collapse swipeDelete")
+                            playlistTracksResetStartAnimation.start();
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        collapseSwipeDelete.connect(onCollapseSwipeDelete);
                     }
 
                     MouseArea {
@@ -825,6 +835,7 @@ PageStack {
                         }
 
                         onClicked: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("File: " + file) // debugger
                             trackClicked(playlisttracksModel, index) // play track
                             Library.addRecent(oldPlaylistName, "Playlist", cover, oldPlaylistName, "playlist")
@@ -874,6 +885,7 @@ PageStack {
                         }
 
                         onPressAndHold: {
+                            collapseSwipeDelete(-1);  // collapse all expands
                             customdebug("Pressed and held track playlist "+file)
                             playlistlist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
@@ -925,28 +937,38 @@ PageStack {
                             }
                             else if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
                             {
-                                // Remove if moved > 10 units otherwise reset
-                                if (Math.abs(playlistTracks.x - startX) > units.gu(10))
+                                var moved = Math.abs(playlistTracks.x - startX);
+
+                                // Make sure that item has been dragged far enough
+                                if (moved > playlistTracks.width / 2 || (swipeBackground.primed === true && moved > units.gu(5)))
                                 {
-                                    /*
-                                     * Remove the listitem
-                                     *
-                                     * Remove the listitem to relevant side (playlistTracksRemoveAnimation)
-                                     * Reduce height of listitem and remove the item
-                                     *   (swipeDeleteAnimation [called on playlistTracksRemoveAnimation complete])
-                                     */
-                                    swipeBackground.runSwipeDeletePrepareAnimation();  // fade out the clear text
-                                    playlistTracksRemoveAnimation.start();  // remove item from listview
+                                    if (swipeBackground.primed === false)
+                                    {
+                                        collapseSwipeDelete(index);  // collapse other swipeDeletes
+
+                                        // Move the listitem half way across to reveal the delete button
+                                        playlistTracksPrepareRemoveAnimation.start();
+                                    }
+                                    else
+                                    {
+                                        // Check that actually swiping to cancel
+                                        if (swipeBackground.direction !== "" &&
+                                                swipeBackground.direction !== swipeBackground.state)
+                                        {
+                                            // Reset the listitem to the centre
+                                            playlistTracksResetStartAnimation.start();
+                                        }
+                                        else
+                                        {
+                                            // Reset the listitem to the centre
+                                            playlistTracksResetAnimation.start();
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    /*
-                                     * Reset the listitem
-                                     *
-                                     * Remove the swipeDelete to relevant side (swipeResetAnimation)
-                                     * Reset the listitem to the centre (playlistTracksResetAnimation)
-                                     */
-                                    playlistTracksResetAnimation.start();  // reset item position
+                                    // Reset the listitem to the centre
+                                    playlistTracksResetAnimation.start();
                                 }
                             }
 
@@ -973,23 +995,73 @@ PageStack {
                             }
                         }
 
-                        /*
-                         * Animation to remove an item from the list
-                         * - Removes listitem to relevant side
-                         * - Calls swipeDeleteAnimation to delete the listitem
-                         */
+                        // Animation to reset the x, y of the item
+                        ParallelAnimation {
+                            id: playlistTracksResetStartAnimation
+                            running: false
+                            NumberAnimation {  // reset X
+                                target: playlistTracks
+                                property: "x"
+                                to: 0
+                                duration: playlistlist.transitionDuration
+                            }
+                            NumberAnimation {  // reset Y
+                                target: playlistTracks
+                                property: "y"
+                                to: playlistTrackArea.startY
+                                duration: playlistlist.transitionDuration
+                            }
+                            onRunningChanged: {
+                                if (running === true)
+                                {
+                                    swipeBackground.direction = "";
+                                    swipeBackground.primed = false;
+                                }
+                            }
+                        }
+
+                        // Move the listitem half way across to reveal the delete button
                         NumberAnimation {
-                            id: playlistTracksRemoveAnimation
+                            id: playlistTracksPrepareRemoveAnimation
                             target: playlistTracks
                             property: "x"
-                            to: swipeBackground.state == "swipingRight" ? playlistTracks.width : 0 - playlistTracks.width
+                            to: swipeBackground.state == "swipingRight" ? playlistTracks.width / 2 : 0 - (playlistTracks.width / 2)
                             duration: playlistlist.transitionDuration
-
                             onRunningChanged: {
-                                // Remove from queue once animation has finished
-                                if (running == false)
+                                if (running === true)
                                 {
-                                    swipeBackground.runSwipeDeleteAnimation();
+                                    swipeBackground.direction = swipeBackground.state;
+                                    swipeBackground.primed = true;
+                                }
+                            }
+                        }
+
+                        ParallelAnimation {
+                            id: playlistTracksRemoveAnimation
+                            running: false
+                            NumberAnimation {  // 'slide' up
+                                target: playlistTracks
+                                property: "height"
+                                to: 0
+                                duration: playlistlist.transitionDuration
+                            }
+                            NumberAnimation {  // 'slide' in direction of removal
+                                target: playlistTracks
+                                property: "x"
+                                to: swipeBackground.direction === "swipingLeft" ? 0 - playlistTracks.width : playlistTracks.width
+                                duration: playlistlist.transitionDuration
+                            }
+                            onRunningChanged: {
+                                if (running === false)
+                                {
+                                    console.debug("Remove from playlist: " + playlistlist.playlistName + " file: " + file);
+
+                                    var realID = Playlists.getRealID(playlistlist.playlistName, index);
+                                    Playlists.removeFromPlaylist(playlistlist.playlistName, realID);
+
+                                    playlistlist.model.remove(index);
+                                    playlistModel.model.get(oldPlaylistIndex).count -= 1;
+                                    queueChanged = true;
                                 }
                             }
                         }

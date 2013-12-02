@@ -81,3 +81,27 @@ class MainView(toolkit_emulators.MainView):
 
     def get_back_button(self):
         return self.select_single("*", objectName="nowPlayingBackButtonObject")
+
+    def get_albumstab(self):
+        return self.select_single("Tab", objectName="albumstab")
+
+    def get_albums_albumartist_list(self):
+        return self.select_many("Label", objectName="albums-albumartist")
+
+    def get_albums_albumartist(self, artistName):
+        albumartistList = self.get_albums_albumartist_list()
+        for item in albumartistList:
+            if item.text == artistName:
+                return item
+
+    def get_album_sheet_artist(self):
+        return self.select_single("Label", objectName="albumsheet-albumartist")
+
+    def close_buttons(self):
+        return self.select_many("Button", text="close")
+
+    def get_album_sheet_close_button(self):
+        closebuttons = self.close_buttons()
+        for item in closebuttons:
+            if item.enabled:
+                return item
