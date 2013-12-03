@@ -10,7 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, Is, Not, LessThan
+from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
 
 from music_app.tests import MusicTestCase
 
@@ -222,6 +222,7 @@ class TestMainWindow(MusicTestCase):
 
     def test_add_song_to_queue_from_albums_sheet(self):
 
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         artistName = "Benjamin Kerensa"
 
         # get number of tracks in queue before queuing a track
@@ -239,7 +240,6 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
 
         #get track item to add to queue
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackicon = self.main_view.get_album_sheet_listview_trackicon(
             trackTitle)
         self.pointing_device.click_object(trackicon)
@@ -251,6 +251,13 @@ class TestMainWindow(MusicTestCase):
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
         self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        #Assert that the song added to the list is not playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        #verity song's metadata matches the item added to the Now Playing view
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
