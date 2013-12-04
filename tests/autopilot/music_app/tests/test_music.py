@@ -258,6 +258,12 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
         #verity song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()

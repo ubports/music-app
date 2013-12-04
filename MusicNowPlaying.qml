@@ -562,6 +562,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingArtist
+                        objectName: "nowplayingartist"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -573,6 +574,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingTitle
+                        objectName: "nowplayingtitle"
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -584,6 +586,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingAlbum
+                        objectName: "nowplayingalbum"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
