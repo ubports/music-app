@@ -251,6 +251,20 @@ function getArtistCovers(artist) {
     return res;
 }
 
+function getArtistAlbumCount(artist) {
+    var res = 0;
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT count(DISTINCT album) AS value FROM metadata WHERE artist=?", [artist]);
+        if (rs.rows.item(0).value > 0) {
+            res = rs.rows.item(0).value;
+        } else {
+            res = 0;
+        }
+    });
+    return res;
+}
+
 function getAlbums() {
     var res = [];
     var db = getDatabase();
