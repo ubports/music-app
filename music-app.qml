@@ -848,10 +848,16 @@ MainView {
 
     LibraryListModel {
         id: recentModel
+        property bool complete: false
         onCountChanged: {
-            loading.visible = false
-            startTab.loading = false
-            startTab.populated = true
+            complete = true;
+
+            if (genreModel.complete)
+            {
+                loading.visible = false
+                startTab.loading = false
+                startTab.populated = true
+            }
         }
     }
     LibraryListModel {
@@ -863,10 +869,16 @@ MainView {
 
     LibraryListModel {
         id: genreModel
+        property bool complete: false
         onCountChanged: {
-            loading.visible = false
-            startTab.loading = false
-            startTab.populated = true
+            complete = true;
+
+            if (recentModel.complete)
+            {
+                loading.visible = false
+                startTab.loading = false
+                startTab.populated = true
+            }
         }
     }
 
