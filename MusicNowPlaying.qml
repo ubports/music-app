@@ -36,13 +36,11 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
-            queuelist.scrollLock = true;
             header.hide();
             header.opacity = 0;
             header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
             queuelist.anchors.topMargin = -header.height + nowPlayingBackButton.height
-            queuelist.scrollLock = false;
         }
         else
         {
@@ -76,16 +74,12 @@ Page {
         // If the toolbar is shown, the page is now playing and snaptrack is enabled
         if (shown && currentPage === nowPlaying && Settings.getSetting("snaptrack") === "1")
         {
-            queuelist.scrollLock = true;
-
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
             if (queuelist.contentY > 0)
             {
                 queuelist.contentY -= header.height;
             }
-
-            queuelist.scrollLock = false;
         }
     }
 
@@ -132,21 +126,16 @@ Page {
             height: mainView.height - styleMusic.nowPlaying.expandedHeightCurrent + units.gu(8)
         }
 
-        property bool scrollLock: false
-
-        onContentYChanged: {
-            if (!scrollLock)
-            {
-                musicToolbar.hideToolbar();
-            }
-        }
-
         property int normalHeight: units.gu(12)
         property int currentHeight: units.gu(48)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
             customdebug("Queue: Now has: " + queuelist.count + " tracks")
+        }
+
+        onMovementStarted: {
+            musicToolbar.hideToolbar();
         }
 
         Component {
@@ -806,23 +795,11 @@ Page {
                     }
 
                     onRunningChanged: {
-                        if (running)
-                        {
-                            queuelist.scrollLock = true;
-                        }
-
                         if (running === false && ensureVisibleIndex != -1)
                         {
-                            queuelist.scrollLock = true;
                             queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
                             queuelist.contentY -= header.height;
                             ensureVisibleIndex = -1;
-                            queuelist.scrollLock = false;
-                        }
-
-                        if (!running)
-                        {
-                            queuelist.scrollLock = false;
                         }
                     }
                 }

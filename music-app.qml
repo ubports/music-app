@@ -136,14 +136,24 @@ MainView {
 
                 // search pathname in library
                 var file = decodeURIComponent(uris[i])
-                var index = libraryModel.indexOf(file)
+                var index = -1;
+
+                for (var j=0; j < griloModel.count; j++)
+                {
+                    if (griloModel.get(j).url.toString() == file)
+                    {
+                        index = j;
+                    }
+                }
+
                 if (index <= -1) {
                     console.debug("Unknown file " + file + ", skipping")
                     continue
                 }
 
                 // enqueue
-                trackQueue.model.append(libraryModel.model.get(index))
+                var media = griloModel.get(index);
+                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
 
                 // play first URI
                 if (i == 0) {
@@ -198,7 +208,8 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        Library.reset()
+        //Library.reset()
+        Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -658,26 +669,140 @@ MainView {
             }
             onBaseMediaChanged: refresh();
 
+            /* Check if the file (needle) exists in the library (haystack)
+             * Searches the the haystack using a binary search
+             *
+             * false if the file in in grilo but not in the haystack
+             * positive if the file is the same (number is the actual index)
+             * negative if the file has changed, actual index is -(i + 1)
+             */
+            function exists(haystack, needle)
+            {
+                var keyToFind = needle["file"];
+
+                var upper = haystack.length - 1;
+                var lower = 0;
+                var i = Math.floor(haystack.length / 2);
+
+                while (upper >= lower)
+                {
+                    var key = haystack[i]["file"];
+
+                    if (keyToFind < key)
+                    {
+                        upper = i - 1;
+                    }
+                    else if (keyToFind > key)
+                    {
+                        lower = i + 1;
+                    }
+                    else
+                    {
+                        var found = false;
+
+                        for (var k in haystack[i])
+                        {
+                            if (haystack[i][k] === needle[k])
+                            {
+                                found = true;
+                            }
+                            else
+                            {
+                                found = false;
+                                break;
+                            }
+                        }
+
+                        if (found === true)
+                        {
+                            return i;  // in grilo and lib - same
+                        }
+                        else
+                        {
+                            return -i - 1;  // in grilo and lib - different
+                        }
+                    }
+
+                    i = Math.floor((upper + lower) / 2);
+                }
+
+                return false;  // in grilo not in lib
+            }
+
             onFinished: {
+                var currentLibrary = Library.getAllFileOrder();
+                var read_arg = false;
+
+                // FIXME: remove when grilo is fixed
+                var files = [];
+                var duplicates = 0;
+
                 for (var i = 0; i < griloModel.count; i++)
                 {
                     var media = griloModel.get(i)
                     var file = media.url.toString()
-                    if (file.indexOf("file://") == 0)
+                    if (file.indexOf("file://") === 0)
                     {
                         file = file.slice(7, file.length)
                     }
-                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                    Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+
+                    // FIXME: grilo can supply duplicates
+                    if (files.indexOf(file) > -1)
+                    {
+                        duplicates++;
+                        continue;
+                    }
+                    files.push(file);
+
+                    if (read_arg === false && argFile === file)
+                    {
+                        trackQueue.model.clear();
+                        trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                        trackClicked(trackQueue, 0, true);
+
+                        // grilo model sometimes has duplicates
+                        // causing the track to be paused the second time
+                        // this ignores the second time
+                        read_arg = true;
+                    }
+
+                    var record = {artist: media.artist, album: media.album, title: media.title, file: file, cover: media.thumbnail.toString(), length: media.duration.toString(), year: media.year.toString(), genre: media.genre};
+
+                    // Only write to database if the record has actually changed
+                    var index = exists(currentLibrary, record);
+
+                    if (index === false || index < 0)  // in grilo !in lib or lib out of date
+                    {
+                        //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                        Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+
+                        if (index < 0)
+                        {
+                            index = -(index + 1);
+                        }
+                    }
+
+                    if (index !== false)
+                    {
+                        currentLibrary.splice(index, 1);
+                    }
                 }
+
                 Library.writeDb()
+
+                // Any items left in currentLibrary aren't in the grilo model so have been deleted
+                if (currentLibrary.length > 0)
+                {
+                    console.debug("Removing deleted songs:", currentLibrary.length);
+                    Library.removeFiles(currentLibrary);
+                }
+
+                console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
+
                 recentModel.filterRecent()
                 genreModel.filterGenres()
                 startTab.populated = true
                 startTab.loading = false
-                libraryModel.populate()
-                tracksTab.populated = true
-                tracksTab.loading = false
                 loading.visible = false
                 griloModel.loaded = true
             }
@@ -695,14 +820,10 @@ MainView {
 
     LibraryListModel {
         id: libraryModel
-
         onCountChanged: {
-            if (argFile === model.get(count - 1).file)
-            {
-                trackQueue.model.clear();
-                trackQueue.model.append(model.get(count - 1));
-                trackClicked(trackQueue, 0, true);
-            }
+            loading.visible = false
+            tracksTab.loading = false
+            tracksTab.populated = true
         }
     }
 
@@ -779,8 +900,14 @@ MainView {
     }
 
     // create the listmodel to use for playlists
-    ListModel {
+    LibraryListModel {
         id: playlistModel
+
+        onCountChanged: {
+            loading.visible = false
+            playlistTab.loading = false
+            playlistTab.populated = true
+        }
     }
 
     // create the listmodel for tracks in playlists
@@ -869,7 +996,7 @@ MainView {
                              console.debug("Debug: User created a new playlist named: "+playlistName.text)
                              // add the new playlist to the tab
                              var index = Playlists.getID(); // get the latest ID
-                             playlistModel.append({"id": index, "name": playlistName.text, "count": "0"})
+                             playlistModel.model.append({"id": index, "name": playlistName.text, "count": "0"})
                              PopupUtils.close(dialogueNewPlaylist)
                          }
                          else {
@@ -926,6 +1053,7 @@ MainView {
             // Second tab is arists
             Tab {
                 property bool populated: false
+                property var loader: artistModel.filterArtists
                 property bool loading: false
                 id: artistsTab
                 objectName: "artiststab"
@@ -941,6 +1069,7 @@ MainView {
             // third tab is albums
             Tab {
                 property bool populated: false
+                property var loader: albumModel.filterAlbums
                 property bool loading: false
                 id: albumsTab
                 objectName: "albumstab"
@@ -956,18 +1085,12 @@ MainView {
             // fourth tab is all songs
             Tab {
                 property bool populated: false
-                property bool loading: true
+                property var loader: libraryModel.populate
+                property bool loading: false
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
                 title: i18n.tr("Songs")
-                // TODO: offloading this revents file arguments from working
-                /* onVisibleChanged: {
-                    if (visible && !populated && griloModel.loaded) {
-                        libraryModel.populate()
-                        populated = true
-                    }
-                } */
 
                 // Tab content begins here
                 page: MusicTracks {
@@ -978,7 +1101,8 @@ MainView {
 
             // fifth tab is the playlists
             Tab {
-                property bool populated: true
+                property bool populated: false
+                property var loader: playlistModel.filterPlaylists
                 property bool loading: false
                 id: playlistTab
                 objectName: "playlisttab"
@@ -991,20 +1115,24 @@ MainView {
                 }
             }
 
-            onSelectedTabChanged: {
-
-                musicToolbar.currentTab = selectedTab;
-
+            function ensurePopulated(selectedTab)
+            {
                 if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
                     loading.visible = true
                     selectedTab.loading = true
-                    if (selectedTab.objectName === "albumstab") {
-                        albumModel.filterAlbums()
-                    } else if (selectedTab.objectName === "artiststab") {
-                        artistModel.filterArtists()
+
+                    if (selectedTab.loader !== undefined)
+                    {
+                        selectedTab.loader()
                     }
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
+            }
+
+            onSelectedTabChanged: {
+                musicToolbar.currentTab = selectedTab;
+
+                ensurePopulated(selectedTab);
             }
         } // end of tabs
     }
