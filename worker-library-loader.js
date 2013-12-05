@@ -27,4 +27,6 @@ WorkerScript.onMessage = function(msg) {
         msg.model.append(msg.add);
     }
     msg.model.sync();   // updates the changes to the list
+
+    WorkerScript.sendMessage({});
 }

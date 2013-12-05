@@ -44,6 +44,7 @@ import "playlists.js" as Playlists
          // check the four latest track in each playlist
          // get the cover art of them
          // print them in the icon
+         tabs.ensurePopulated(playlistTab);
      }
 
      onVisibleChanged: {
@@ -65,7 +66,7 @@ import "playlists.js" as Playlists
              id: addtoPlaylistView
              width: parent.width
              height: parent.width
-             model: playlistModel
+             model: playlistModel.model
              delegate: ListItem.Standard {
                     id: playlist
                     height: units.gu(8)
@@ -79,7 +80,7 @@ import "playlists.js" as Playlists
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
                         var count = Playlists.getPlaylistCount(name) // get the new count
-                        playlistModel.set(index, {"count": count}) // update number ot tracks in playlist
+                        playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
                     UbuntuShape {
