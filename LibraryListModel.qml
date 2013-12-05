@@ -25,6 +25,16 @@ Item {
     property alias count: libraryModel.count
     property var query: null
     property var param: null
+    property bool canLoad: true
+
+    onCanLoadChanged: {
+        /* If canLoad has been set back to true then check if there are any
+          remaining items to load in the model */
+        if (canLoad && worker.list !== null && !worker.completed)
+        {
+            worker.process();
+        }
+    }
 
     WorkerScript {
          id: worker
@@ -40,16 +50,9 @@ Item {
          }
 
          onMessage: {
-             if (i < list.length)
+             if (canLoad)  // pause if the model is not allowed to load
              {
-                 console.log(JSON.stringify(list[i]));
-                 worker.sendMessage({'add': list[i],
-                                     'model': libraryModel});
-                 i++;
-             }
-             else
-             {
-                 completed = true;
+                 process();
              }
          }
 
@@ -57,6 +60,22 @@ Item {
          {
              i = 0;
              completed = false;
+         }
+
+         // Add the next item in the list to the model otherwise set complete
+         function process()
+         {
+             if (worker.i < worker.list.length)
+             {
+                 console.log(JSON.stringify(worker.list[worker.i]));
+                 worker.sendMessage({'add': worker.list[worker.i],
+                                     'model': libraryModel});
+                 worker.i++;
+             }
+             else
+             {
+                 worker.completed = true;
+             }
          }
     }
 

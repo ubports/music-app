@@ -798,13 +798,8 @@ MainView {
                 }
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
-
-                recentModel.filterRecent()
-                genreModel.filterGenres()
-                startTab.populated = true
-                startTab.loading = false
-                loading.visible = false
                 griloModel.loaded = true
+                tabs.ensurePopulated(startTab);
             }
         }
     }
@@ -853,6 +848,17 @@ MainView {
 
     LibraryListModel {
         id: recentModel
+        property bool complete: false
+        onCountChanged: {
+            complete = true;
+
+            if (genreModel.complete || genreModel.query().length === 0)
+            {
+                loading.visible = false
+                startTab.loading = false
+                startTab.populated = true
+            }
+        }
     }
     LibraryListModel {
         id: recentAlbumTracksModel
@@ -863,6 +869,17 @@ MainView {
 
     LibraryListModel {
         id: genreModel
+        property bool complete: false
+        onCountChanged: {
+            complete = true;
+
+            if (recentModel.complete || recentModel.query().length === 0)
+            {
+                loading.visible = false
+                startTab.loading = false
+                startTab.populated = true
+            }
+        }
     }
 
     LibraryListModel {
@@ -1038,7 +1055,9 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property bool loading: true
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property bool loading: false
+                property var model: [recentModel, genreModel]
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -1053,8 +1072,9 @@ MainView {
             // Second tab is arists
             Tab {
                 property bool populated: false
-                property var loader: artistModel.filterArtists
+                property var loader: [artistModel.filterArtists]
                 property bool loading: false
+                property var model: [artistModel, artistTracksModel]
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
@@ -1069,8 +1089,9 @@ MainView {
             // third tab is albums
             Tab {
                 property bool populated: false
-                property var loader: albumModel.filterAlbums
+                property var loader: [albumModel.filterAlbums]
                 property bool loading: false
+                property var model: [albumModel, albumTracksModel]
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
@@ -1085,8 +1106,9 @@ MainView {
             // fourth tab is all songs
             Tab {
                 property bool populated: false
-                property var loader: libraryModel.populate
+                property var loader: [libraryModel.populate]
                 property bool loading: false
+                property var model: [libraryModel]
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
@@ -1102,8 +1124,9 @@ MainView {
             // fifth tab is the playlists
             Tab {
                 property bool populated: false
-                property var loader: playlistModel.filterPlaylists
+                property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
+                property var model: [playlistModel, playlisttracksModel]
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
@@ -1115,21 +1138,45 @@ MainView {
                 }
             }
 
+            // Set the models in the tab to allow/disallow loading
+            function allowLoading(tabToLoad, state)
+            {
+                if (tabToLoad.model !== undefined)
+                {
+                    for (var i=0; i < tabToLoad.model.length; i++)
+                    {
+                        tabToLoad.model[i].canLoad = state;
+                    }
+                }
+            }
+
             function ensurePopulated(selectedTab)
             {
+                allowLoading(selectedTab, true);  // allow loading of the models
+
                 if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
                     loading.visible = true
                     selectedTab.loading = true
 
                     if (selectedTab.loader !== undefined)
                     {
-                        selectedTab.loader()
+                        for (var i=0; i < selectedTab.loader.length; i++)
+                        {
+                            selectedTab.loader[i]();
+                        }
                     }
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
             }
 
             onSelectedTabChanged: {
+                // pause loading of the models in the old tab
+                if (musicToolbar.currentTab !== selectedTab &&
+                        musicToolbar.currentTab !== null)
+                {
+                    allowLoading(musicToolbar.currentTab, false);
+                }
+
                 musicToolbar.currentTab = selectedTab;
 
                 ensurePopulated(selectedTab);
