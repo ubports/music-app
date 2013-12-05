@@ -32,14 +32,7 @@ Item {
           remaining items to load in the model */
         if (canLoad && worker.list !== null && !worker.completed)
         {
-            if (worker.i < worker.list.length)
-            {
-                worker.i = worker.process(worker.i, worker.list, libraryModel);
-            }
-            else
-            {
-                worker.completed = true;
-            }
+            worker.process();
         }
     }
 
@@ -59,7 +52,7 @@ Item {
          onMessage: {
              if (canLoad)  // pause if the model is not allowed to load
              {
-                 process(i, list, model);
+                 process();
              }
          }
 
@@ -70,13 +63,13 @@ Item {
          }
 
          // Add the next item in the list to the model otherwise set complete
-         function process(i, list, model)
+         function process()
          {
              if (worker.i < worker.list.length)
              {
-                 console.log(JSON.stringify(list[i]));
-                 worker.sendMessage({'add': list[i],
-                                     'model': model});
+                 console.log(JSON.stringify(worker.list[worker.i]));
+                 worker.sendMessage({'add': worker.list[worker.i],
+                                     'model': libraryModel});
                  worker.i++;
              }
              else

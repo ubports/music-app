@@ -798,13 +798,8 @@ MainView {
                 }
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
-
-                recentModel.filterRecent()
-                genreModel.filterGenres()
-                startTab.populated = true
-                startTab.loading = false
-                loading.visible = false
                 griloModel.loaded = true
+                tabs.ensurePopulated(startTab);
             }
         }
     }
@@ -853,6 +848,11 @@ MainView {
 
     LibraryListModel {
         id: recentModel
+        onCountChanged: {
+            loading.visible = false
+            startTab.loading = false
+            startTab.populated = true
+        }
     }
     LibraryListModel {
         id: recentAlbumTracksModel
@@ -863,6 +863,11 @@ MainView {
 
     LibraryListModel {
         id: genreModel
+        onCountChanged: {
+            loading.visible = false
+            startTab.loading = false
+            startTab.populated = true
+        }
     }
 
     LibraryListModel {
@@ -1038,7 +1043,9 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property bool loading: true
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property bool loading: false
+                property var model: [recentModel, genreModel]
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -1053,7 +1060,7 @@ MainView {
             // Second tab is arists
             Tab {
                 property bool populated: false
-                property var loader: artistModel.filterArtists
+                property var loader: [artistModel.filterArtists]
                 property bool loading: false
                 property var model: [artistModel, artistTracksModel]
                 id: artistsTab
@@ -1070,7 +1077,7 @@ MainView {
             // third tab is albums
             Tab {
                 property bool populated: false
-                property var loader: albumModel.filterAlbums
+                property var loader: [albumModel.filterAlbums]
                 property bool loading: false
                 property var model: [albumModel, albumTracksModel]
                 id: albumsTab
@@ -1087,7 +1094,7 @@ MainView {
             // fourth tab is all songs
             Tab {
                 property bool populated: false
-                property var loader: libraryModel.populate
+                property var loader: [libraryModel.populate]
                 property bool loading: false
                 property var model: [libraryModel]
                 id: tracksTab
@@ -1105,7 +1112,7 @@ MainView {
             // fifth tab is the playlists
             Tab {
                 property bool populated: false
-                property var loader: playlistModel.filterPlaylists
+                property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
                 property var model: [playlistModel, playlisttracksModel]
                 id: playlistTab
@@ -1141,7 +1148,10 @@ MainView {
 
                     if (selectedTab.loader !== undefined)
                     {
-                        selectedTab.loader()
+                        for (var i=0; i < selectedTab.loader.length; i++)
+                        {
+                            selectedTab.loader[i]();
+                        }
                     }
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
