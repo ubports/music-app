@@ -310,4 +310,3 @@ class TestMainWindow(MusicTestCase):
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
             trackTitle)
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
-
