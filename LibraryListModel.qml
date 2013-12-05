@@ -42,6 +42,7 @@ Item {
          onMessage: {
              if (i < list.length)
              {
+                 console.log(JSON.stringify(list[i]));
                  worker.sendMessage({'add': list[i],
                                      'model': libraryModel});
                  i++;
