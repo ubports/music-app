@@ -852,7 +852,7 @@ MainView {
         onCountChanged: {
             complete = true;
 
-            if (genreModel.complete)
+            if (genreModel.complete || genreModel.model.count === 0)
             {
                 loading.visible = false
                 startTab.loading = false
@@ -873,7 +873,7 @@ MainView {
         onCountChanged: {
             complete = true;
 
-            if (recentModel.complete)
+            if (recentModel.complete || recentModel.model.count === 0)
             {
                 loading.visible = false
                 startTab.loading = false
