@@ -105,3 +105,45 @@ class MainView(toolkit_emulators.MainView):
         for item in closebuttons:
             if item.enabled:
                 return item
+
+    def get_album_sheet_listview_tracktitle(self, trackTitle):
+        tracktitles = self.select_many(
+            "Label", objectName="albumsheet-tracktitle")
+        for item in tracktitles:
+            if item.text == trackTitle:
+                return item
+
+    def get_album_sheet_listview_trackicon(self, trackTitle):
+        tracktitle = self.get_album_sheet_listview_tracktitle(trackTitle)
+        tracktitle_position = tracktitle.globalRect[1]
+        trackicons = self.select_many(
+            "QQuickImage", objectName="albumsheet-expanditem")
+        for item in trackicons:
+            if item.globalRect[1] == tracktitle_position:
+                return item
+
+    def get_album_sheet_queuetrack_image(self):
+        queuetracks = self.select_many_retry(
+            "QQuickImage", objectName="albumsheet-queuetrack")
+        for item in queuetracks:
+            if item.visible:
+                return item
+
+    def get_queue_track_count(self):
+        queuelist = self.select_single(
+            "QQuickListView", objectName="queuelist")
+        return queuelist.count
+
+    def get_queue_now_playing_artist(self, artistName):
+        playingartists = self.select_many(
+            "Label", objectName="nowplayingartist")
+        for item in playingartists:
+            if item.text == artistName:
+                return item
+
+    def get_queue_now_playing_title(self, trackTitle):
+        playingtitles = self.select_many(
+            "Label", objectName="nowplayingtitle")
+        for item in playingtitles:
+            if item.text == trackTitle:
+                return item

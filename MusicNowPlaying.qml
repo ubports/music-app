@@ -98,6 +98,7 @@ Page {
 
     ListView {
         id: queuelist
+        objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         anchors.topMargin: nowPlayingBackButton.height
@@ -550,6 +551,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingArtist
+                        objectName: "nowplayingartist"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -561,6 +563,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingTitle
+                        objectName: "nowplayingtitle"
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -572,6 +575,7 @@ Page {
                     }
                     Label {
                         id: nowPlayingAlbum
+                        objectName: "nowplayingalbum"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)

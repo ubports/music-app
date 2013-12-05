@@ -241,6 +241,7 @@ Page {
 
                     ListItem.Standard {
                         id: track
+                        objectName: "albumsheet-track"
                         iconFrame: false
                         progression: false
                         height: styleMusic.albums.itemHeight
@@ -267,6 +268,7 @@ Page {
 
                         Label {
                             id: trackTitle
+                            objectName: "albumsheet-tracktitle"
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "medium"
@@ -284,6 +286,7 @@ Page {
 
                         Image {
                             id: expandItem
+                            objectName: "albumsheet-expanditem"
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(2)
                             source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
@@ -410,6 +413,7 @@ Page {
                                 width: units.gu(15)
                                 Image {
                                     id: queueTrack
+                                    objectName: "albumsheet-queuetrack"
                                     anchors.top: parent.top
                                     anchors.topMargin: height/2
                                     source: "images/queue.png"

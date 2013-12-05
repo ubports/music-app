@@ -10,7 +10,7 @@
 from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, Is, Not, LessThan
+from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
 
 from music_app.tests import MusicTestCase
 
@@ -214,6 +214,56 @@ class TestMainWindow(MusicTestCase):
         #get album sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
         self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        # click on close button to close album sheet
+        closebutton = self.main_view.get_album_sheet_close_button()
+        self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
+
+    def test_add_song_to_queue_from_albums_sheet(self):
+
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+        artistName = "Benjamin Kerensa"
+
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.main_view.get_album_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        #get track item to add to queue
+        trackicon = self.main_view.get_album_sheet_listview_trackicon(
+            trackTitle)
+        self.pointing_device.click_object(trackicon)
+
+        #click on Add to queue
+        queueTrackImage = self.main_view.get_album_sheet_queuetrack_image()
+        self.pointing_device.click_object(queueTrackImage)
+
+        # verify track queue has added one to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        #Assert that the song added to the list is not playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        #verity song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
