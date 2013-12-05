@@ -1055,6 +1055,7 @@ MainView {
                 property bool populated: false
                 property var loader: artistModel.filterArtists
                 property bool loading: false
+                property var model: [artistModel, artistTracksModel]
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
@@ -1071,6 +1072,7 @@ MainView {
                 property bool populated: false
                 property var loader: albumModel.filterAlbums
                 property bool loading: false
+                property var model: [albumModel, albumTracksModel]
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
@@ -1087,6 +1089,7 @@ MainView {
                 property bool populated: false
                 property var loader: libraryModel.populate
                 property bool loading: false
+                property var model: [libraryModel]
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
@@ -1104,6 +1107,7 @@ MainView {
                 property bool populated: false
                 property var loader: playlistModel.filterPlaylists
                 property bool loading: false
+                property var model: [playlistModel, playlisttracksModel]
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
@@ -1115,8 +1119,22 @@ MainView {
                 }
             }
 
+            // Set the models in the tab to allow/disallow loading
+            function allowLoading(tabToLoad, state)
+            {
+                if (tabToLoad.model !== undefined)
+                {
+                    for (var i=0; i < tabToLoad.model.length; i++)
+                    {
+                        tabToLoad.model[i].canLoad = state;
+                    }
+                }
+            }
+
             function ensurePopulated(selectedTab)
             {
+                allowLoading(selectedTab, true);  // allow loading of the models
+
                 if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
                     loading.visible = true
                     selectedTab.loading = true
@@ -1130,6 +1148,13 @@ MainView {
             }
 
             onSelectedTabChanged: {
+                // pause loading of the models in the old tab
+                if (musicToolbar.currentTab !== selectedTab &&
+                        musicToolbar.currentTab !== null)
+                {
+                    allowLoading(musicToolbar.currentTab, false);
+                }
+
                 musicToolbar.currentTab = selectedTab;
 
                 ensurePopulated(selectedTab);
