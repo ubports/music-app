@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-11-23 18:34+0000\n"
+"PO-Revision-Date: 2013-12-04 22:02+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2013-11-24 05:50+0000\n"
-"X-Generator: Launchpad (build 16831)\n"
+"X-Launchpad-Export-Date: 2013-12-05 06:12+0000\n"
+"X-Generator: Launchpad (build 16863)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -377,15 +377,15 @@ msgstr "خطأ: "
 
 #: ../music-app.qml:860
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "خطأ: أنت لم تكتب اسما."
 
 #: ../music-app.qml:932
 msgid "Songs"
-msgstr ""
+msgstr "أغاني"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr ""
+msgstr "يُحمّل..."
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"
