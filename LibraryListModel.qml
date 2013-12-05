@@ -29,6 +29,34 @@ Item {
     WorkerScript {
          id: worker
          source: "worker-library-loader.js"
+
+         property bool completed: false
+         property int i: 0
+         property var list: null
+
+         onListChanged: {
+             reset();
+             clear();
+         }
+
+         onMessage: {
+             if (i < list.length)
+             {
+                 worker.sendMessage({'add': list[i],
+                                     'model': libraryModel});
+                 i++;
+             }
+             else
+             {
+                 completed = true;
+             }
+         }
+
+         function reset()
+         {
+             i = 0;
+             completed = false;
+         }
     }
 
     function indexOf(file)
@@ -50,190 +78,109 @@ Item {
     }
 
     function populate() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::populate()")
 
         // Save query for queue
         query = Library.getAll
         param = null
 
-        var library = Library.getAll()
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getAll();
     }
 
     function filterArtists() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterArtists()")
 
         // Save query for queue
         query = Library.getArtists
         param = null
 
-        var library = Library.getArtists()
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log("add.artist: "+add.artist)
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getArtists();
     }
 
     function filterArtistTracks(artist) {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterArtistTracks()")
 
         // Save query for queue
         query = Library.getArtistTracks
         param = artist
 
-        var library = Library.getArtistTracks(artist)
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getArtistTracks(artist);
     }
 
     function filterAlbums() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterAlbums()")
 
         // Save query for queue
         query = Library.getAlbums
         param = null
 
-        var library = Library.getAlbums()
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log("add.album: "+add.album)
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getAlbums();
     }
 
     function filterAlbumTracks(album) {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterAlbumTracks()")
 
         // Save query for queue
         query = Library.getAlbumTracks
         param = album
 
-        var library = Library.getAlbumTracks(album)
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getAlbumTracks(album);
     }
 
     function filterPlaylists() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterPlaylistTracks()")
 
         // Save query for queue
         query = Playlists.getPlaylists
         param = null
 
-        var playlists = Playlists.getPlaylists();
-
-        for ( var key in playlists ) {
-            var add = playlists[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Playlists.getPlaylists();
     }
 
     function filterPlaylistTracks(playlist) {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterPlaylistTracks()")
 
         // Save query for queue
         query = Playlists.getPlaylistTracks
         param = playlist
 
-        var tracks = Playlists.getPlaylistTracks(playlist)
-
-        for ( var key in tracks ) {
-            var add = tracks[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Playlists.getPlaylistTracks(playlist);
     }
 
     function filterRecent() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterRecent()")
 
         // Save query for queue
         query = Library.getRecent
         param = null
 
-        var library = Library.getRecent()
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log("add.recent: "+add.recent)
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getRecent();
     }
 
     function filterGenres() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterGenres()")
 
         // Save query for queue
         query = Library.getGenres
         param = null
 
-        var library = Library.getGenres()
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log("add.genre: "+add.Genre)
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getGenres();
     }
 
     function filterGenreTracks(genre) {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
-
         console.log("called LibraryListModel::filterGenreTracks()")
 
         // Save query for queue
         query = Library.getGenreTracks
         param = genre
 
-        var library = Library.getGenreTracks(genre)
-
-        for ( var key in library ) {
-            var add = library[key];
-            console.log(JSON.stringify(add))
-            worker.sendMessage({'add': add, 'model': libraryModel})
-        }
+        worker.list = Library.getGenreTracks(genre);
     }
 
     function clear() {
-        worker.sendMessage({'clear': true, 'model': libraryModel})
+        if (worker.list !== null)
+        {
+            worker.sendMessage({'clear': true, 'model': libraryModel})
+        }
     }
 }
