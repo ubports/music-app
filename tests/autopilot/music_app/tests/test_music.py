@@ -303,7 +303,7 @@ class TestMainWindow(MusicTestCase):
         endtracksCount = self.main_view.get_queue_track_count()
         self.assertThat(endtracksCount, GreaterThan(initialtracksCount))
 
-        #verity song's metadata matches the item added to the Now Playing view
+        #verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
             artistName)
         self.assertThat(str(queueArtistName.text), Equals(artistName))
