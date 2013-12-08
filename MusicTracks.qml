@@ -307,6 +307,7 @@ Page {
                             width: styleMusic.common.expandedItem
                         }
                         Label {
+                            objectName: "songstab_addtoqueue"
                             anchors.left: queueTrack.right
                             anchors.leftMargin: units.gu(0.5)
                             anchors.top: parent.top

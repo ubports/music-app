@@ -163,3 +163,10 @@ class MainView(toolkit_emulators.MainView):
         for item in trackimages:
             if item.globalRect[1] == trackimage_position:
                 return item
+
+    def get_songs_tab_add_to_queue_label(self):
+        addtoqueue = self.select_many(
+            "Label", objectName="songstab_addtoqueue")
+        for item in addtoqueue:
+            if item.visible:
+                return item

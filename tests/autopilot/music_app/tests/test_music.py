@@ -301,3 +301,37 @@ class TestMainWindow(MusicTestCase):
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
             trackTitle)
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+
+    def test_add_song_to_queue_from_songs_tab(self):
+
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+        artistName = "Benjamin Kerensa"
+
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        # switch to songs tab
+        self.main_view.switch_to_tab("trackstab")
+
+       #get track item to add to queue
+        trackitem = self.main_view.get_songs_tab_trackimage(trackTitle)
+        self.pointing_device.click_object(trackitem)
+        addtoqueueButton = self.main_view.get_songs_tab_add_to_queue_label()
+        self.pointing_device.click_object(addtoqueueButton)
+
+        # verify track queue has added all songs to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        #Assert that the song added to the list is not playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        #verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
