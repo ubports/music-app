@@ -147,3 +147,19 @@ class MainView(toolkit_emulators.MainView):
         for item in playingtitles:
             if item.text == trackTitle:
                 return item
+
+    def get_songs_tab_tracktitle(self, trackTitle):
+        tracktitles = self.select_many_retry(
+            "Label", objectName="tracktitle")
+        for item in tracktitles:
+            if item.text == trackTitle:
+                return item
+
+    def get_songs_tab_trackimage(self, trackTitle):
+        trackimages = self.select_many_retry(
+            "QQuickImage", objectName="trackimage")
+        tracktitles = self.get_songs_tab_tracktitle(trackTitle)
+        trackimage_position = tracktitles.globalRect[1] + 8
+        for item in trackimages:
+            if item.globalRect[1] == trackimage_position:
+                return item

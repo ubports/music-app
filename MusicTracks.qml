@@ -95,6 +95,7 @@ Page {
                 }
                 Label {
                     id: trackTitle
+                    objectName: "tracktitle"
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "small"
@@ -163,6 +164,7 @@ Page {
                 //Icon { // use for 1.0
                 Image {
                     id: expandItem
+                    objectName: "trackimage"
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(2)
                     //  name: "dropdown-menu" Use for 1.0
