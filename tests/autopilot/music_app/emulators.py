@@ -170,3 +170,35 @@ class MainView(toolkit_emulators.MainView):
         for item in addtoqueue:
             if item.visible:
                 return item
+
+    def get_songs_tab_add_to_playlist_label(self):
+        addtoplaylist = self.select_many(
+            "Label", objectName="songstab_addtoplaylist")
+        for item in addtoplaylist:
+            if item.visible:
+                return item
+
+    def get_newplaylistButton(self):
+        return self.select_many_retry("Button", objectName="newplaylistButton")
+
+    def get_newPlaylistDialog_createButton(self):
+        return self.select_single(
+            "Button", objectName="newPlaylistDialog_createButton")
+
+    def get_newPlaylistDialog_name_textfield(self):
+        return self.select_single(
+            "TextField", objectName="playlistnameTextfield")
+
+    def get_addtoplaylistview(self):
+        return self.select_many_retry(
+            "QQuickListView", objectName="addtoplaylistview")
+
+    def get_playlistname(self, playlistname):
+        playlistnames = self.select_many_retry(
+            "Standard", objectName="playlist")
+        for item in playlistnames:
+            if item.name == playlistname:
+                return item
+
+    def get_playlistslist(self):
+        return self.select_single("QQuickListView", objectName="playlistslist")

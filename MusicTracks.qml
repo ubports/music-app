@@ -258,6 +258,7 @@ Page {
                             width: styleMusic.common.expandedItem
                         }
                         Label {
+                            objectName: "songstab_addtoplaylist"
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
                             anchors.top: parent.top

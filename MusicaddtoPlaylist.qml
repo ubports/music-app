@@ -64,11 +64,13 @@ import "playlists.js" as Playlists
          // show each playlist and make them chosable
          ListView {
              id: addtoPlaylistView
+             objectName: "addtoplaylistview"
              width: parent.width
              height: parent.width
              model: playlistModel.model
              delegate: ListItem.Standard {
                     id: playlist
+                    objectName: "playlist"
                     height: units.gu(8)
                     property string name: model.name
                     property string count: model.count
@@ -158,6 +160,7 @@ import "playlists.js" as Playlists
 
          Button {
              id: newPlaylistItem
+             objectName: "newplaylistButton"
              text: i18n.tr("New playlist")
              iconSource: "images/add.svg"
              iconPosition: "left"
