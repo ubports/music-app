@@ -161,12 +161,22 @@ class TestMainWindow(MusicTestCase):
         playbutton = self.main_view.get_now_playing_play_button()
 
         #play for a second, then pause
+        if not self.main_view.isPlaying:
+            logger.debug("Play not selected")
+            self.pointing_device.click_object(playbutton)
+        else:
+            logger.debug("Already playing")
+
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
         time.sleep(1)
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
-        self.pointing_device.click_object(shufflebutton)
+        if not self.main_view.random:
+            logger.debug("Turning on shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already on")
         self.assertThat(self.main_view.random, Eventually(Equals(True)))
 
         count = 0
