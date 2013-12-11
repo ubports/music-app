@@ -11,6 +11,8 @@ from __future__ import absolute_import
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
+from testtools.matchers import GreaterThan
+
 
 from music_app.tests import MusicTestCase
 
@@ -269,3 +271,42 @@ class TestMainWindow(MusicTestCase):
         closebutton = self.main_view.get_album_sheet_close_button()
         self.pointing_device.click_object(closebutton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
+
+    def test_add_album_to_queue_from_albums_sheet(self):
+
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+        artistName = "Benjamin Kerensa"
+
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.main_view.get_album_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        #get track item to add to queue
+        trackitem = self.main_view.get_album_sheet_listview_tracktitle(
+            trackTitle)
+        self.pointing_device.click_object(trackitem)
+
+        #Assert that a song form the album added to the list is playing
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        # verify track queue count is greater than initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, GreaterThan(initialtracksCount))
+
+        #verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
