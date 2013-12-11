@@ -10,10 +10,13 @@
 from __future__ import absolute_import
 
 import time
+import logging
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
 
 from music_app.tests import MusicTestCase
+
+logger = logging.getLogger(__name__)
 
 
 class TestMainWindow(MusicTestCase):
@@ -154,54 +157,47 @@ class TestMainWindow(MusicTestCase):
 
         forwardbutton = self.main_view.get_forward_button()
 
-        #previousbutton = self.main_view.get_previous_button()
-
         playbutton = self.main_view.get_now_playing_play_button()
 
         title = self.main_view.currentTracktitle
         artist = self.main_view.currentArtist
-        #self.assertThat(title,
-        #                Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
-        #self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
         """ Track is playing, shuffle is turned on"""
         self.assertThat(self.main_view.isPlaying, Equals(True))
         self.pointing_device.click_object(shufflebutton)
         self.assertThat(self.main_view.random, Eventually(Equals(True)))
 
-        forward = True
         count = 0
+        shuffled = False
         orgTitle = title
         orgArtist = artist
-        print "Original Song %s, %s" % (orgTitle, orgArtist)
+        logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
         while True:
             self.assertThat(count, LessThan(100))
 
             if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
-            #if forward:
             self.pointing_device.click_object(forwardbutton)
-            #else:
-            #    self.pointing_device.click_object(previousbutton)
 
             """ Track is playing"""
             self.assertThat(self.main_view.isPlaying,
                             Eventually(Equals(True)))
-            if (self.main_view.currentTracktitle == orgTitle and
-                    self.main_view.currentArtist == orgArtist):
+            curTitle = self.main_view.currentTracktitle
+            curArtist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (curTitle, curArtist))
+
+            if not shuffled and curTitle != orgTitle and curArtist != orgArtist:
+                shuffled = True
+            if curTitle == orgTitle and curArtist == orgArtist and shuffled:
+                #we switched and made it back to the original song
                 break
             else:
-                """ Show toolbar if hidden """
-                #if (not self.main_view.toolbarShown):
-                #    self.main_view.show_toolbar()
-
-                """ Pause track """
+                #play song, then pause before switching
                 self.pointing_device.click_object(playbutton)
                 self.assertThat(self.main_view.isPlaying,
                                 Eventually(Equals(False)))
                 time.sleep(1)
-                #forward = not forward
                 count += 1
 
     def test_show_albums_sheet(self):
