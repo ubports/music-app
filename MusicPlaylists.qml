@@ -131,8 +131,8 @@ PageStack {
     // page for the playlists
     Page {
         id: listspage
-	// TRANSLATORS: this is the name of the playlists page shown in the tab header.
-	// Remember to keep the translation short to fit the screen width
+        // TRANSLATORS: this is the name of the playlists page shown in the tab header.
+        // Remember to keep the translation short to fit the screen width
         title: i18n.tr("Playlists")
 
         onVisibleChanged: {
@@ -144,6 +144,7 @@ PageStack {
 
         ListView {
             id: playlistslist
+            objectName: "playlistslist"
             anchors.fill: parent
             anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             model: playlistModel.model
@@ -338,7 +339,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
-				       // TRANSLATORS: this refers to editing a playlist
+                                       // TRANSLATORS: this refers to editing a playlist
                                        text: i18n.tr("Edit")
                                    }
                                    MouseArea {
@@ -380,7 +381,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
-				       // TRANSLATORS: this refers to deleting a playlist
+                                       // TRANSLATORS: this refers to deleting a playlist
                                        text: i18n.tr("Delete")
                                    }
                                    MouseArea {
@@ -424,7 +425,7 @@ PageStack {
                                        anchors.leftMargin: units.gu(0.5)
                                        color: styleMusic.common.white
                                        fontSize: "small"
-				       // TRANSLATORS: this refers to sharing a playlist
+                                       // TRANSLATORS: this refers to sharing a playlist
                                        text: i18n.tr("Share")
                                    }
                                    MouseArea {
@@ -565,7 +566,7 @@ PageStack {
 
             Label {
                 id: playlistInfoCount
-		text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
+                text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                 color: styleMusic.common.white
                 fontSize: "medium"
                 anchors.left: parent.left

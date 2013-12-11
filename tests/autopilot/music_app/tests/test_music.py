@@ -223,6 +223,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_song_to_queue_from_albums_sheet(self):
+        """tests navigating to the Albums tab and adding a song to queue"""
 
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
         artistName = "Benjamin Kerensa"
@@ -259,7 +260,7 @@ class TestMainWindow(MusicTestCase):
                         Eventually(NotEquals(endtracksCount)))
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
-        #verity song's metadata matches the item added to the Now Playing view
+        #verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
             artistName)
         self.assertThat(str(queueArtistName.text), Equals(artistName))
@@ -272,7 +273,9 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(closebutton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
-    def test_add_album_to_queue_from_albums_sheet(self):
+    def test_add_songs_to_queue_from_songs_tab_and_play(self):
+        """tests navigating to the Songs tab and adding the library to the
+           queue with the selected item being played. """
 
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
         artistName = "Benjamin Kerensa"
@@ -280,33 +283,106 @@ class TestMainWindow(MusicTestCase):
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
+        # switch to songs tab
+        self.main_view.switch_to_tab("trackstab")
 
-        #select album
-        albumartist = self.main_view.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
-
-        #get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
-
-        #get track item to add to queue
-        trackitem = self.main_view.get_album_sheet_listview_tracktitle(
-            trackTitle)
+        # get track item to add to queue
+        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
-        #Assert that a song form the album added to the list is playing
+        # verify track queue has added all songs to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 3))
+
+        # Assert that the song added to the list is playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
-        # verify track queue count is greater than initial value
-        endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, GreaterThan(initialtracksCount))
-
-        #verify song's metadata matches the item added to the Now Playing view
+        # verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
             artistName)
         self.assertThat(str(queueArtistName.text), Equals(artistName))
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
             trackTitle)
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+
+    def test_add_song_to_queue_from_songs_tab(self):
+        """tests navigating to the Songs tab and adding a song from the library
+           to the queue via the expandable list view item. """
+
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+        artistName = "Benjamin Kerensa"
+
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        # switch to songs tab
+        self.main_view.switch_to_tab("trackstab")
+
+        # get track item to add to queue
+        trackitem = self.main_view.get_songs_tab_trackimage(trackTitle)
+        self.pointing_device.click_object(trackitem)
+        addtoqueueLabel = self.main_view.get_songs_tab_add_to_queue_label()
+        self.pointing_device.click_object(addtoqueueLabel)
+
+        # verify track queue has added all songs to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        # Assert that the song added to the list is not playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        # verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+
+    def test_create_playlist_from_songs_tab(self):
+        """tests navigating to the Songs tab and creating a playlist by
+           selecting a song to add it to a new playlist. """
+
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+
+        # switch to songs tab
+        self.main_view.switch_to_tab("trackstab")
+
+        # get track item to add to queue
+        trackitem = self.main_view.get_songs_tab_trackimage(trackTitle)
+        self.pointing_device.click_object(trackitem)
+        addtoplaylistLbl = self.main_view.get_songs_tab_add_to_playlist_label()
+        self.pointing_device.click_object(addtoplaylistLbl)
+
+        # get initial list view playlist count
+        playlist_count = self.main_view.get_addtoplaylistview()[0].count
+
+        # click on New playlist button
+        newplaylistButton = self.main_view.get_newplaylistButton()[0]
+        self.pointing_device.click_object(newplaylistButton)
+
+        # input playlist name
+        playlistNameFld = self.main_view.get_newPlaylistDialog_name_textfield()
+        self.pointing_device.click_object(playlistNameFld)
+        self.keyboard.type("MyPlaylist")
+
+        # click on get_newPlaylistDialog create Button
+        createButton = self.main_view.get_newPlaylistDialog_createButton()
+        self.pointing_device.click_object(createButton)
+
+        # verify playlist has been sucessfully created
+        palylist_final_count = self.main_view.get_addtoplaylistview()[0].count
+        self.assertThat(palylist_final_count, Equals(playlist_count + 1))
+        playlist = self.main_view.get_playlistname("MyPlaylist")
+        self.assertThat(playlist, Not(Is(None)))
+
+        # select playlist to add song to
+        self.pointing_device.click_object(playlist)
+
+        # verify song has been added to playlist
+        playlistslist = self.main_view.get_playlistslist()
+        self.assertThat(playlistslist.count, Equals(1))

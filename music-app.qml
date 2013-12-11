@@ -996,6 +996,7 @@ MainView {
              text: i18n.tr("Name your playlist.")
              TextField {
                  id: playlistName
+                 objectName: "playlistnameTextfield"
                  placeholderText: i18n.tr("Name")
              }
              ListItem.Standard {
@@ -1005,6 +1006,7 @@ MainView {
 
              Button {
                  text: i18n.tr("Create")
+                 objectName: "newPlaylistDialog_createButton"
                  onClicked: {
                      newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                      if (playlistName.text.length > 0) { // make sure something is acually inputed

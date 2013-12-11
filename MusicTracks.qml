@@ -95,6 +95,7 @@ Page {
                 }
                 Label {
                     id: trackTitle
+                    objectName: "tracktitle"
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "small"
@@ -163,6 +164,7 @@ Page {
                 //Icon { // use for 1.0
                 Image {
                     id: expandItem
+                    objectName: "trackimage"
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(2)
                     //  name: "dropdown-menu" Use for 1.0
@@ -256,6 +258,7 @@ Page {
                             width: styleMusic.common.expandedItem
                         }
                         Label {
+                            objectName: "songstab_addtoplaylist"
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
                             anchors.top: parent.top
@@ -305,6 +308,7 @@ Page {
                             width: styleMusic.common.expandedItem
                         }
                         Label {
+                            objectName: "songstab_addtoqueue"
                             anchors.left: queueTrack.right
                             anchors.leftMargin: units.gu(0.5)
                             anchors.top: parent.top
