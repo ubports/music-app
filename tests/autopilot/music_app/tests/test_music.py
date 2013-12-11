@@ -109,8 +109,8 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is playing """
         count = 0
-        while title != "Swansong" and artist != "Josh Woodward" \
-            and title != orgTitle and orgArtist != artist and count < 10:
+        while (title != "Swansong" and artist != "Josh Woodward" and
+               title != orgTitle and orgArtist != artist and count < 10):
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
             count = count + 1
@@ -145,8 +145,8 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is playing """
         count = 0
-        while title != "TestMP3Title" and artist != "TestMP3Artist" \
-            and title != orgTitle and orgArtist != artist and count < 10:
+        while (title != "TestMP3Title" and artist != "TestMP3Artist" and
+               title != orgTitle and orgArtist != artist and count < 10):
             self.pointing_device.click_object(previousbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
             count = count + 1
@@ -201,7 +201,6 @@ class TestMainWindow(MusicTestCase):
             title = self.main_view.currentTracktitle
             artist = self.main_view.currentArtist
             logger.debug("Current Song %s, %s" % (title, artist))
-
 
             if not shuffled and title != orgTitle and artist != orgArtist:
                 shuffled = True
