@@ -183,13 +183,13 @@ class TestMainWindow(MusicTestCase):
             """ Track is playing"""
             self.assertThat(self.main_view.isPlaying,
                             Eventually(Equals(True)))
-            curTitle = self.main_view.currentTracktitle
-            curArtist = self.main_view.currentArtist
-            logger.debug("Current Song %s, %s" % (curTitle, curArtist))
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (title, artist))
 
-            if not shuffled and curTitle != orgTitle and curArtist != orgArtist:
+            if not shuffled and title != orgTitle and artist != orgArtist:
                 shuffled = True
-            if curTitle == orgTitle and curArtist == orgArtist and shuffled:
+            if title == orgTitle and artist == orgArtist and shuffled:
                 #we switched and made it back to the original song
                 break
             else:
