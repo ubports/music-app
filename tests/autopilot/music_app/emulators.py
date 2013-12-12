@@ -159,7 +159,8 @@ class MainView(toolkit_emulators.MainView):
         trackimages = self.select_many_retry(
             "QQuickImage", objectName="trackimage")
         tracktitles = self.get_songs_tab_tracktitle(trackTitle)
-        trackimage_position = tracktitles.globalRect[1] + 8
+        imageheight = trackimages[0].height
+        trackimage_position = tracktitles.globalRect[1] + (imageheight / 2)
         for item in trackimages:
             if item.globalRect[1] == trackimage_position:
                 return item
