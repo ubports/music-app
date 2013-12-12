@@ -9,12 +9,16 @@
 
 from __future__ import absolute_import
 
+import time
+import logging
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
 from testtools.matchers import GreaterThan
 
 
 from music_app.tests import MusicTestCase
+
+logger = logging.getLogger(__name__)
 
 
 class TestMainWindow(MusicTestCase):
@@ -86,63 +90,117 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
-    def test_next(self):
+    def test_next_previous(self):
         """ Test going to next track (Music Library must exist) """
 
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        forwardbutton = self.main_view.get_forward_button()
+        playbutton = self.main_view.get_now_playing_play_button()
+        shufflebutton = self.main_view.get_shuffle_button()
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
-        self.assertThat(title,
-                        Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
-        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
 
-        """ Track is playing"""
-        self.assertThat(self.main_view.isPlaying, Equals(True))
-        self.pointing_device.click_object(forwardbutton)
+        orgTitle = self.main_view.currentTracktitle
+        orgArtist = self.main_view.currentArtist
 
-        """ Track is playing"""
+        #check original track
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
-        self.assertThat(title, Eventually(Equals("Swansong")))
-        self.assertThat(artist, Eventually(Equals("Josh Woodward")))
+        logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
-    def test_previous_and_mp3(self):
-        """ Test going to previous track, last item must be an MP3
-            (Music Library must exist) """
+        """ Pause track """
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        #ensure shuffle is off
+        if self.main_view.random:
+            logger.debug("Turning off shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already off")
+        self.assertThat(self.main_view.random, Eventually(Equals(False)))
+
+        """ Select next """
+        #goal is to go back and forth and ensure 2 different songs
+        forwardbutton = self.main_view.get_forward_button()
+        self.pointing_device.click_object(forwardbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        #ensure different song
+        self.assertThat(title, Eventually(NotEquals(orgTitle)))
+        self.assertThat(artist, Eventually(NotEquals(orgArtist)))
+        nextTitle = self.main_view.currentTracktitle
+        nextArtist = self.main_view.currentArtist
+        logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
+
+        """ Pause track """
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        """ Select previous """
+        previousbutton = self.main_view.get_previous_button()
+        self.pointing_device.click_object(previousbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        #ensure we're back to original song
+        self.assertThat(title, Eventually(Equals(orgTitle)))
+        self.assertThat(artist, Eventually(Equals(orgArtist)))
+
+    def test_mp3(self):
+        """ Test that mp3 "plays" or at least doesn't crash on load """
 
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
         playbutton = self.main_view.get_now_playing_play_button()
+        shufflebutton = self.main_view.get_shuffle_button()
 
-        """ Pause track """
-        self.pointing_device.click_object(playbutton)
-        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+        title = self.main_view.currentTracktitle
+        artist = self.main_view.currentArtist
 
-        """ Repeat is off """
-        repeatbutton = self.main_view.get_repeat_button()
-        self.pointing_device.click_object(repeatbutton)
+        #ensure track is playing
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
-        previousbutton = self.main_view.get_previous_button()
-
-        title = lambda: self.main_view.currentTracktitle
-        artist = lambda: self.main_view.currentArtist
-        self.assertThat(title,
-                        Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
-        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
-
-        """ Select previous """
-        self.pointing_device.click_object(previousbutton)
+        #ensure shuffle is off
+        if self.main_view.random:
+            logger.debug("Turning off shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already off")
+        self.assertThat(self.main_view.random, Eventually(Equals(False)))
 
         """ Track is playing """
+        count = 1
+        #ensure track appears before looping through queue more than once
+        #needs to contain test mp3 metadata and end in *.mp3
+        queue = self.main_view.get_queue_track_count()
+        while title != "TestMP3Title" and artist != "TestMP3Artist":
+            self.assertThat(count, LessThan(queue))
+
+            """ Pause track """
+            self.pointing_device.click_object(playbutton)
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(False)))
+
+            """ Select next """
+            forwardbutton = self.main_view.get_forward_button()
+            self.pointing_device.click_object(forwardbutton)
+            self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (title, artist))
+            logger.debug("File found %s" % self.main_view.currentFile)
+
+            count = count + 1
+
+        #make sure mp3 plays
+        self.assertThat(self.main_view.currentFile.endswith("mp3"),
+                        Equals(True))
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
-        self.assertThat(title, Eventually(Equals("TestMP3Title")))
-        self.assertThat(artist, Eventually(Equals("TestMP3Artist")))
 
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
@@ -151,55 +209,82 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
+        """ Track is playing, shuffle is turned on"""
         shufflebutton = self.main_view.get_shuffle_button()
-
         forwardbutton = self.main_view.get_forward_button()
-
+        playbutton = self.main_view.get_now_playing_play_button()
         previousbutton = self.main_view.get_previous_button()
 
-        playbutton = self.main_view.get_now_playing_play_button()
+        #play for a second, then pause
+        if not self.main_view.isPlaying:
+            logger.debug("Play not selected")
+            self.pointing_device.click_object(playbutton)
+        else:
+            logger.debug("Already playing")
 
-        title = lambda: self.main_view.currentTracktitle
-        artist = lambda: self.main_view.currentArtist
-        self.assertThat(title,
-                        Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
-        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+        time.sleep(1)
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
-        """ Track is playing, shuffle is turned on"""
-        self.assertThat(self.main_view.isPlaying, Equals(True))
-        self.pointing_device.click_object(shufflebutton)
-        self.assertThat(self.main_view.random, Eventually(Equals(True)))
-
-        forward = True
         count = 0
         while True:
             self.assertThat(count, LessThan(100))
 
+            #goal is to hit next under shuffle mode
+            #then verify original track is not the previous track
+            #this means a true shuffle happened
+            #if it doesn't try again, up to count times
+
+            orgTitle = self.main_view.currentTracktitle
+            orgArtist = self.main_view.currentArtist
+            logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
+
             if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
-            if forward:
-                self.pointing_device.click_object(forwardbutton)
+            #ensure shuffle is on
+            if not self.main_view.random:
+                logger.debug("Turning on shuffle")
+                self.pointing_device.click_object(shufflebutton)
             else:
-                self.pointing_device.click_object(previousbutton)
+                logger.debug("Shuffle already on")
+            self.assertThat(self.main_view.random, Eventually(Equals(True)))
 
-            """ Track is playing"""
+            self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying,
                             Eventually(Equals(True)))
-            if (self.main_view.currentTracktitle == "TestMP3Title" and
-                    self.main_view.currentArtist == "TestMP3Artist"):
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (title, artist))
+
+            #go back to previous and check against original
+            #play song, then pause before switching
+            time.sleep(1)
+            self.pointing_device.click_object(playbutton)
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(False)))
+
+            #ensure shuffle is off
+            if self.main_view.random:
+                logger.debug("Turning off shuffle")
+                self.pointing_device.click_object(shufflebutton)
+            else:
+                logger.debug("Shuffle already off")
+            self.assertThat(self.main_view.random, Eventually(Equals(False)))
+
+            self.pointing_device.click_object(previousbutton)
+
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+
+            if title != orgTitle and artist != orgArtist:
+                #we shuffled properly
+                logger.debug("Yay, shuffled %s, %s" % (title, artist))
                 break
             else:
-                """ Show toolbar if hidden """
-                if (not self.main_view.toolbarShown):
-                    self.main_view.show_toolbar()
-
-                """ Pause track """
-                self.pointing_device.click_object(playbutton)
-                self.assertThat(self.main_view.isPlaying,
-                                Eventually(Equals(False)))
-                forward = not forward
-                count += 1
+                logger.debug("Same track, no shuffle %s, %s" % (title, artist))
+            count += 1
 
     def test_show_albums_sheet(self):
         """tests navigating to the Albums tab and displaying the album sheet"""
