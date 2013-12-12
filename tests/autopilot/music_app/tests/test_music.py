@@ -173,8 +173,8 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.random, Eventually(Equals(False)))
 
         """ Track is playing """
-        count = 0
-        #only 3 total tracks, it has to appear within 3 clicks
+        count = 1
+        #only 3 total tracks, it has to appear within 2 clicks
         #needs to contain test mp3 metadata and end in *.mp3
         while title != "TestMP3Title" and artist != "TestMP3Artist":
             self.assertThat(count, LessThan(3))
