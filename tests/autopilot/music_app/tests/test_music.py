@@ -158,36 +158,45 @@ class TestMainWindow(MusicTestCase):
         playbutton = self.main_view.get_now_playing_play_button()
         shufflebutton = self.main_view.get_shuffle_button()
 
-        title = lambda: self.main_view.currentTracktitle
-        artist = lambda: self.main_view.currentArtist
+        title = self.main_view.currentTracktitle
+        artist = self.main_view.currentArtist
+
+        #ensure track is playing
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        #ensure shuffle is off
+        if self.main_view.random:
+            logger.debug("Turning off shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already off")
+        self.assertThat(self.main_view.random, Eventually(Equals(False)))
 
         """ Track is playing """
         count = 0
-        #only 3 total tracks, it has to appear within 2 clicks
+        #only 3 total tracks, it has to appear within 3 clicks
         #needs to contain test mp3 metadata and end in *.mp3
-        while (title != "TestMP3Title" and artist != "TestMP3Artist" and
-               not self.main_view.currentFile.endswith(".mp3") and count < 3):
+        while title != "TestMP3Title" and artist != "TestMP3Artist":
+            self.assertThat(count, LessThan(3))
+
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (title, artist))
 
             """ Pause track """
             self.pointing_device.click_object(playbutton)
             self.assertThat(self.main_view.isPlaying,
                             Eventually(Equals(False)))
 
-            #ensure shuffle is off
-            if self.main_view.random:
-                logger.debug("Turning off shuffle")
-                self.pointing_device.click_object(shufflebutton)
-            else:
-                logger.debug("Shuffle already off")
-            self.assertThat(self.main_view.random, Eventually(Equals(False)))
-
             """ Select next """
             forwardbutton = self.main_view.get_forward_button()
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
             count = count + 1
 
         #make sure mp3 plays
+        self.assertThat(self.main_view.currentFile.endswith("mp3"), Equals(True))
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
     def test_shuffle(self):
