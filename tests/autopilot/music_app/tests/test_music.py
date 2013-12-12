@@ -177,7 +177,6 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
         count = 0
-        shuffled = False
         while True:
             self.assertThat(count, LessThan(100))
 
