@@ -179,10 +179,6 @@ class TestMainWindow(MusicTestCase):
         while title != "TestMP3Title" and artist != "TestMP3Artist":
             self.assertThat(count, LessThan(3))
 
-            title = self.main_view.currentTracktitle
-            artist = self.main_view.currentArtist
-            logger.debug("Current Song %s, %s" % (title, artist))
-
             """ Pause track """
             self.pointing_device.click_object(playbutton)
             self.assertThat(self.main_view.isPlaying,
@@ -193,10 +189,16 @@ class TestMainWindow(MusicTestCase):
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+            logger.debug("Current Song %s, %s" % (title, artist))
+            logger.debug("File found %s" % self.main_view.currentFile)
+
             count = count + 1
 
         #make sure mp3 plays
-        self.assertThat(self.main_view.currentFile.endswith("mp3"), Equals(True))
+        self.assertThat(self.main_view.currentFile.endswith("mp3"),
+                        Equals(True))
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
     def test_shuffle(self):
