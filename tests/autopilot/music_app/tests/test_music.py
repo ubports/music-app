@@ -162,6 +162,7 @@ class TestMainWindow(MusicTestCase):
         shufflebutton = self.main_view.get_shuffle_button()
         forwardbutton = self.main_view.get_forward_button()
         playbutton = self.main_view.get_now_playing_play_button()
+        previousbutton = self.main_view.get_previous_button()
 
         #play for a second, then pause
         if not self.main_view.isPlaying:
@@ -175,45 +176,66 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
-        if not self.main_view.random:
-            logger.debug("Turning on shuffle")
-            self.pointing_device.click_object(shufflebutton)
-        else:
-            logger.debug("Shuffle already on")
-        self.assertThat(self.main_view.random, Eventually(Equals(True)))
-
         count = 0
         shuffled = False
-        orgTitle = self.main_view.currentTracktitle
-        orgArtist = self.main_view.currentArtist
-        logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
         while True:
             self.assertThat(count, LessThan(100))
+
+            #goal is to hit next under shuffle mode
+            #then verify original track is not the previous track
+            #this means a true shuffle happened
+            #if it doesn't try again, up to count times
+
+            orgTitle = self.main_view.currentTracktitle
+            orgArtist = self.main_view.currentArtist
+            logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
             if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
-            self.pointing_device.click_object(forwardbutton)
+            #ensure shuffle is on
+            if not self.main_view.random:
+                logger.debug("Turning on shuffle")
+                self.pointing_device.click_object(shufflebutton)
+            else:
+                logger.debug("Shuffle already on")
+            self.assertThat(self.main_view.random, Eventually(Equals(True)))
 
-            """ Track is playing"""
+            self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying,
                             Eventually(Equals(True)))
             title = self.main_view.currentTracktitle
             artist = self.main_view.currentArtist
             logger.debug("Current Song %s, %s" % (title, artist))
 
-            if not shuffled and title != orgTitle and artist != orgArtist:
-                shuffled = True
-            if title == orgTitle and artist == orgArtist and shuffled:
-                #we switched and made it back to the original song
+            #go back to previous and check against original
+            #play song, then pause before switching
+            time.sleep(1)
+            self.pointing_device.click_object(playbutton)
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(False)))
+
+            #ensure shuffle is off
+            if self.main_view.random:
+                logger.debug("Turning off shuffle")
+                self.pointing_device.click_object(shufflebutton)
+            else:
+                logger.debug("Shuffle already off")
+            self.assertThat(self.main_view.random, Eventually(Equals(False)))
+
+            self.pointing_device.click_object(previousbutton)
+
+            title = self.main_view.currentTracktitle
+            artist = self.main_view.currentArtist
+
+            if title != orgTitle and artist != orgArtist:
+                #we shuffled properly
+                logger.debug("Yay, shuffled %s, %s" % (title, artist))
                 break
             else:
-                #play song, then pause before switching
-                time.sleep(1)
-                self.pointing_device.click_object(playbutton)
-                self.assertThat(self.main_view.isPlaying,
-                                Eventually(Equals(False)))
-                count += 1
+                logger.debug("Same track, no shuffle %s, %s" % (title, artist))
+            count += 1
+
 
     def test_show_albums_sheet(self):
         """tests navigating to the Albums tab and displaying the album sheet"""
