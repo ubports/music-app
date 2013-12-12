@@ -90,34 +90,8 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
-    def test_next(self):
+    def test_next_previous(self):
         """ Test going to next track (Music Library must exist) """
-
-        # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-
-        forwardbutton = self.main_view.get_forward_button()
-
-        title = lambda: self.main_view.currentTracktitle
-        artist = lambda: self.main_view.currentArtist
-        orgTitle = title
-        orgArtist = artist
-
-        """ Select next """
-        self.pointing_device.click_object(forwardbutton)
-
-        """ Track is playing """
-        count = 0
-        while (title != "Swansong" and artist != "Josh Woodward" and
-               title != orgTitle and orgArtist != artist and count < 10):
-            self.pointing_device.click_object(forwardbutton)
-            self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
-            count = count + 1
-
-    def test_previous_and_mp3(self):
-        """ Test going to previous track, last item must be an MP3
-            (Music Library must exist) """
 
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
@@ -125,31 +99,94 @@ class TestMainWindow(MusicTestCase):
 
         playbutton = self.main_view.get_now_playing_play_button()
 
+        title = lambda: self.main_view.currentTracktitle
+        artist = lambda: self.main_view.currentArtist
+
+        orgTitle = self.main_view.currentTracktitle
+        orgArtist = self.main_view.currentArtist
+
+        #check original track
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+        logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
+
         """ Pause track """
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
 
-        """ Repeat is off """
-        repeatbutton = self.main_view.get_repeat_button()
-        self.pointing_device.click_object(repeatbutton)
+        #ensure shuffle is off
+        if self.main_view.random:
+            logger.debug("Turning off shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already off")
+        self.assertThat(self.main_view.random, Eventually(Equals(False)))
 
+        """ Select next """
+        #goal is to go back and forth and ensure 2 different songs
+        forwardbutton = self.main_view.get_forward_button()
+        self.pointing_device.click_object(forwardbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        #ensure different song
+        self.assertThat(title, Eventually(NotEquals(orgTitle)))
+        self.assertThat(artist, Eventually(NotEquals(orgArtist)))
+        nextTitle = self.main_view.currentTracktitle
+        nextArtist = self.main_view.currentArtist
+        logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
+
+        """ Pause track """
+        self.pointing_device.click_object(playbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+        """ Select previous """
         previousbutton = self.main_view.get_previous_button()
+        self.pointing_device.click_object(previousbutton)
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        #ensure we're back to original song
+        self.assertThat(title, Eventually(Equals(orgTitle)))
+        self.assertThat(artist, Eventually(Equals(orgArtist)))
+
+
+    def test_mp3(self):
+        """ Test that mp3 "plays" or at least doesn't crash on load """
+
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
+
+        playbutton = self.main_view.get_now_playing_play_button()
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
-        orgTitle = title
-        orgArtist = artist
-
-        """ Select previous """
-        self.pointing_device.click_object(previousbutton)
 
         """ Track is playing """
         count = 0
+        #only 3 total tracks, it has to appear within 2 clicks
         while (title != "TestMP3Title" and artist != "TestMP3Artist" and
-               title != orgTitle and orgArtist != artist and count < 10):
-            self.pointing_device.click_object(previousbutton)
+               not self.main_view.currentFile.endswith(".mp3") and count < 3):
+
+            """ Pause track """
+            self.pointing_device.click_object(playbutton)
+            self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+
+            #ensure shuffle is off
+            if self.main_view.random:
+                logger.debug("Turning off shuffle")
+                self.pointing_device.click_object(shufflebutton)
+            else:
+                logger.debug("Shuffle already off")
+            self.assertThat(self.main_view.random, Eventually(Equals(False)))
+
+            """ Select next """
+            #goal is to go back and forth and ensure 2 different songs
+            forwardbutton = self.main_view.get_forward_button()
+            self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
             count = count + 1
+
+        #make sure mp3 plays
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
 
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
