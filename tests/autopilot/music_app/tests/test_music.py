@@ -164,6 +164,7 @@ class TestMainWindow(MusicTestCase):
         """ Track is playing """
         count = 0
         #only 3 total tracks, it has to appear within 2 clicks
+        #needs to contain test mp3 metadata and end in *.mp3
         while (title != "TestMP3Title" and artist != "TestMP3Artist" and
                not self.main_view.currentFile.endswith(".mp3") and count < 3):
 
@@ -181,7 +182,6 @@ class TestMainWindow(MusicTestCase):
             self.assertThat(self.main_view.random, Eventually(Equals(False)))
 
             """ Select next """
-            #goal is to go back and forth and ensure 2 different songs
             forwardbutton = self.main_view.get_forward_button()
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
