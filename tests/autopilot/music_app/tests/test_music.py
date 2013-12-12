@@ -174,10 +174,11 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is playing """
         count = 1
-        #only 3 total tracks, it has to appear within 2 clicks
+        #ensure track appears before looping through queue more than once
         #needs to contain test mp3 metadata and end in *.mp3
+        queue = self.main_view.get_queue_track_count()
         while title != "TestMP3Title" and artist != "TestMP3Artist":
-            self.assertThat(count, LessThan(3))
+            self.assertThat(count, LessThan(queue))
 
             """ Pause track """
             self.pointing_device.click_object(playbutton)
