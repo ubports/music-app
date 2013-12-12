@@ -236,7 +236,6 @@ class TestMainWindow(MusicTestCase):
                 logger.debug("Same track, no shuffle %s, %s" % (title, artist))
             count += 1
 
-
     def test_show_albums_sheet(self):
         """tests navigating to the Albums tab and displaying the album sheet"""
 
