@@ -13,7 +13,6 @@ import time
 import logging
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
-from testtools.matchers import GreaterThan
 
 
 from music_app.tests import MusicTestCase
