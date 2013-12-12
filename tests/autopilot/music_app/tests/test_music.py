@@ -98,6 +98,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(first_genre_item)
 
         playbutton = self.main_view.get_now_playing_play_button()
+        shufflebutton = self.main_view.get_shuffle_button()
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
@@ -147,7 +148,6 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(title, Eventually(Equals(orgTitle)))
         self.assertThat(artist, Eventually(Equals(orgArtist)))
 
-
     def test_mp3(self):
         """ Test that mp3 "plays" or at least doesn't crash on load """
 
@@ -156,6 +156,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(first_genre_item)
 
         playbutton = self.main_view.get_now_playing_play_button()
+        shufflebutton = self.main_view.get_shuffle_button()
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
@@ -168,7 +169,8 @@ class TestMainWindow(MusicTestCase):
 
             """ Pause track """
             self.pointing_device.click_object(playbutton)
-            self.assertThat(self.main_view.isPlaying, Eventually(Equals(False)))
+            self.assertThat(self.main_view.isPlaying,
+                            Eventually(Equals(False)))
 
             #ensure shuffle is off
             if self.main_view.random:
