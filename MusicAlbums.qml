@@ -224,25 +224,11 @@ Page {
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: albumLabel.bottom
-                        anchors.topMargin: units.gu(1)
+                        anchors.topMargin: units.gu(2)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: mainpage.year
-                    }
-                    Label {
-                        id: albumSongCount
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "x-small"
-                        anchors.left: albumImage.right
-                        anchors.leftMargin: units.gu(1)
-                        anchors.top: albumYear.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
-                        elide: Text.ElideRight
-                        text: i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                        text: i18n.tr(mainpage.year + " | %1 song", mainpage.year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
                     }
                 }
 
