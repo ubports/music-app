@@ -47,6 +47,9 @@ class MusicTestCase(AutopilotTestCase):
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
+    sqlite_dir = os.path.expanduser(
+        "~/.local/share/com.ubuntu.music/Databases")
+    backup_dir = sqlite_dir + ".backup"
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -70,6 +73,10 @@ class MusicTestCase(AutopilotTestCase):
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
         launch()
+
+        #backup and wipe db's before testing
+        self.temp_move_sqlite_db()
+        self.addCleanup(self.restore_sqlite_db)
 
     def launch_test_local(self):
         logger.debug("Running via local installation")
@@ -205,6 +212,35 @@ class MusicTestCase(AutopilotTestCase):
         #remove original file and copy new file back
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
+
+    def temp_move_sqlite_db(self):
+        try:
+            shutil.rmtree(self.backup_dir)
+        except:
+            pass
+        else:
+            logger.warning("Prexisting backup database found and removed")
+
+        try:
+            shutil.move(self.sqlite_dir, self.backup_dir)
+        except:
+            logger.warning("No current database found")
+        else:
+            logger.debug("Backed up database")
+
+    def restore_sqlite_db(self):
+        if os.path.exists(self.backup_dir):
+            if os.path.exists(self.sqlite_dir):
+                try:
+                    shutil.rmtree(self.sqlite_dir)
+                except:
+                    logger.error("Failed to remove test database and restore" /
+                                 "database")
+                    return
+            try:
+                shutil.move(self.backup_dir, self.sqlite_dir)
+            except:
+                logger.error("Failed to restore database")
 
     @property
     def main_view(self):
