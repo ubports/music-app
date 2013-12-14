@@ -78,8 +78,6 @@ class MusicTestCase(AutopilotTestCase):
         super(MusicTestCase, self).setUp()
         launch()
 
-
-
     def launch_test_local(self):
         logger.debug("Running via local installation")
         self.app = self.launch_test_application(
