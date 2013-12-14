@@ -64,6 +64,10 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
+        #backup and wipe db's before testing
+        self.temp_move_sqlite_db()
+        self.addCleanup(self.restore_sqlite_db)
+
         launch, self.test_type = self.setup_environment()
         if self.test_type != 'click':
             self.home_dir = self._patch_home()
@@ -74,9 +78,7 @@ class MusicTestCase(AutopilotTestCase):
         super(MusicTestCase, self).setUp()
         launch()
 
-        #backup and wipe db's before testing
-        self.temp_move_sqlite_db()
-        self.addCleanup(self.restore_sqlite_db)
+
 
     def launch_test_local(self):
         logger.debug("Running via local installation")
