@@ -475,7 +475,7 @@ class TestMainWindow(MusicTestCase):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
 
-        artistName = "Josh Woodward"
+        artistName = "Benjamin Kerensa"
 
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
