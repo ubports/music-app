@@ -205,12 +205,10 @@ class MainView(toolkit_emulators.MainView):
         return self.select_single("QQuickListView", objectName="playlistslist")
 
     def get_MusicNowPlaying_page(self):
-        return self.select_single("MusicNowPlaying",
-            objectName="nowplayingpage")
+        return self.select_single(
+            "MusicNowPlaying", objectName="nowplayingpage")
 
     def get_swipedelete_icon(self):
-        swipedelete = self.select_single("SwipeDelete",
-            direction="swipingRight")
+        swipedelete = self.select_single(
+            "SwipeDelete", direction="swipingRight")
         return swipedelete.select_many("Icon",  name="delete")[1]
-
-

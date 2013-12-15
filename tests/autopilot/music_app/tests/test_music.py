@@ -475,7 +475,6 @@ class TestMainWindow(MusicTestCase):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
 
-        trackTitle = "Swansong"
         artistName = "Josh Woodward"
 
         # populate queue
@@ -483,7 +482,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(first_genre_item)
 
         # get initial queue count
-        initialqueueCount =  self.main_view.get_queue_track_count()
+        initialqueueCount = self.main_view.get_queue_track_count()
 
         # get song to delete
         artistToDelete = self.main_view.get_queue_now_playing_artist(
