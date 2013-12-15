@@ -815,19 +815,25 @@ MainView {
 
     LibraryListModel {
         id: libraryModel
-        onCountChanged: {
-            loading.visible = false
-            tracksTab.loading = false
-            tracksTab.populated = true
+        onPreLoadCompleteChanged: {
+            if (preLoadComplete)
+            {
+                loading.visible = false
+                tracksTab.loading = false
+                tracksTab.populated = true
+            }
         }
     }
 
     LibraryListModel {
         id: artistModel
-        onCountChanged: {
-            loading.visible = false
-            artistsTab.loading = false
-            artistsTab.populated = true
+        onPreLoadCompleteChanged: {
+            if (preLoadComplete)
+            {
+                loading.visible = false
+                artistsTab.loading = false
+                artistsTab.populated = true
+            }
         }
     }
     LibraryListModel {
@@ -836,10 +842,13 @@ MainView {
 
     LibraryListModel {
         id: albumModel
-        onCountChanged: {
-            loading.visible = false
-            albumsTab.loading = false
-            albumsTab.populated = true
+        onPreLoadCompleteChanged: {
+            if (preLoadComplete)
+            {
+                loading.visible = false
+                albumsTab.loading = false
+                albumsTab.populated = true
+            }
         }
     }
     LibraryListModel {
@@ -849,10 +858,11 @@ MainView {
     LibraryListModel {
         id: recentModel
         property bool complete: false
-        onCountChanged: {
+        onPreLoadCompleteChanged: {
             complete = true;
 
-            if (genreModel.complete || genreModel.query().length === 0)
+            if (preLoadComplete && (genreModel.complete ||
+                                    genreModel.query().length === 0))
             {
                 loading.visible = false
                 startTab.loading = false
@@ -870,10 +880,11 @@ MainView {
     LibraryListModel {
         id: genreModel
         property bool complete: false
-        onCountChanged: {
+        onPreLoadCompleteChanged: {
             complete = true;
 
-            if (recentModel.complete || recentModel.query().length === 0)
+            if (preLoadComplete && (recentModel.complete ||
+                                    recentModel.query().length === 0))
             {
                 loading.visible = false
                 startTab.loading = false
@@ -920,10 +931,13 @@ MainView {
     LibraryListModel {
         id: playlistModel
 
-        onCountChanged: {
-            loading.visible = false
-            playlistTab.loading = false
-            playlistTab.populated = true
+        onPreLoadCompleteChanged: {
+            if (preLoadComplete)
+            {
+                loading.visible = false
+                playlistTab.loading = false
+                playlistTab.populated = true
+            }
         }
     }
 

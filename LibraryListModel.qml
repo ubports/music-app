@@ -26,6 +26,7 @@ Item {
     property var query: null
     property var param: null
     property bool canLoad: true
+    property bool preLoadComplete: false
 
     onCanLoadChanged: {
         /* If canLoad has been set back to true then check if there are any
@@ -50,6 +51,11 @@ Item {
          }
 
          onMessage: {
+             if (i === 0)
+             {
+                 preLoadComplete = true;
+             }
+
              if (canLoad)  // pause if the model is not allowed to load
              {
                  process();
