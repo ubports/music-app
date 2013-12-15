@@ -470,3 +470,39 @@ class TestMainWindow(MusicTestCase):
         # verify song has been added to playlist
         playlistslist = self.main_view.get_playlistslist()
         self.assertThat(playlistslist.count, Equals(1))
+
+    def test_swipe_to_delete_song(self):
+        """tests navigating to the Now Playing queue, swiping to delete a
+        track, and confirming the delete action. """
+
+        trackTitle = "Swansong"
+        artistName = "Josh Woodward"
+
+        # populate queue
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
+
+        # get initial queue count
+        initialqueueCount =  self.main_view.get_queue_track_count()
+
+        # get song to delete
+        artistToDelete = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
+
+        # get coordinates to delete song
+        startX = int(artistToDelete.x + musicnowplayingpage.width * 0.30)
+        stopX = int(artistToDelete.x + musicnowplayingpage.width)
+        lineY = int(artistToDelete.globalRect[1])
+
+        # swipe to remove song
+        self.pointing_device.move(startX, lineY)
+        self.pointing_device.drag(startX, lineY, stopX, lineY)
+
+        # click on delete icon/label to confirm removal
+        swipedeleteicon = self.main_view.get_swipedelete_icon()
+        self.pointing_device.click_object(swipedeleteicon)
+
+        # verify song has been deleted
+        finalqueueCount = self.main_view.get_queue_track_count()
+        self.assertThat(finalqueueCount, Equals(initialqueueCount - 1))
