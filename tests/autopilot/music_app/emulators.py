@@ -183,11 +183,11 @@ class MainView(toolkit_emulators.MainView):
         return self.select_many_retry("Button", objectName="newplaylistButton")
 
     def get_newPlaylistDialog_createButton(self):
-        return self.select_single(
+        return self.wait_select_single(
             "Button", objectName="newPlaylistDialog_createButton")
 
     def get_newPlaylistDialog_name_textfield(self):
-        return self.select_single(
+        return self.wait_select_single(
             "TextField", objectName="playlistnameTextfield")
 
     def get_addtoplaylistview(self):
@@ -202,13 +202,13 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_playlistslist(self):
-        return self.select_single("QQuickListView", objectName="playlistslist")
+        return self.wait_select_single("QQuickListView", objectName="playlistslist")
 
     def get_MusicNowPlaying_page(self):
-        return self.select_single(
+        return self.wait_select_single(
             "MusicNowPlaying", objectName="nowplayingpage")
 
     def get_swipedelete_icon(self):
-        swipedelete = self.select_single(
+        swipedelete = self.wait_select_single(
             "SwipeDelete", direction="swipingRight")
         return swipedelete.select_many("Icon",  name="delete")[1]
