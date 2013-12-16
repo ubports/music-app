@@ -202,7 +202,8 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_playlistslist(self):
-        return self.wait_select_single("QQuickListView", objectName="playlistslist")
+        return self.wait_select_single(
+            "QQuickListView", objectName="playlistslist")
 
     def get_MusicNowPlaying_page(self):
         return self.wait_select_single(
