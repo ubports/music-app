@@ -147,3 +147,69 @@ class MainView(toolkit_emulators.MainView):
         for item in playingtitles:
             if item.text == trackTitle:
                 return item
+
+    def get_songs_tab_tracktitle(self, trackTitle):
+        tracktitles = self.select_many_retry(
+            "Label", objectName="tracktitle")
+        for item in tracktitles:
+            if item.text == trackTitle:
+                return item
+
+    def get_songs_tab_trackimage(self, trackTitle):
+        trackimages = self.select_many_retry(
+            "QQuickImage", objectName="trackimage")
+        tracktitles = self.get_songs_tab_tracktitle(trackTitle)
+        imageheight = trackimages[0].height
+        trackimage_position = tracktitles.globalRect[1] + (imageheight / 2)
+        for item in trackimages:
+            if item.globalRect[1] == trackimage_position:
+                return item
+
+    def get_songs_tab_add_to_queue_label(self):
+        addtoqueue = self.select_many(
+            "Label", objectName="songstab_addtoqueue")
+        for item in addtoqueue:
+            if item.visible:
+                return item
+
+    def get_songs_tab_add_to_playlist_label(self):
+        addtoplaylist = self.select_many(
+            "Label", objectName="songstab_addtoplaylist")
+        for item in addtoplaylist:
+            if item.visible:
+                return item
+
+    def get_newplaylistButton(self):
+        return self.select_many_retry("Button", objectName="newplaylistButton")
+
+    def get_newPlaylistDialog_createButton(self):
+        return self.wait_select_single(
+            "Button", objectName="newPlaylistDialog_createButton")
+
+    def get_newPlaylistDialog_name_textfield(self):
+        return self.wait_select_single(
+            "TextField", objectName="playlistnameTextfield")
+
+    def get_addtoplaylistview(self):
+        return self.select_many_retry(
+            "QQuickListView", objectName="addtoplaylistview")
+
+    def get_playlistname(self, playlistname):
+        playlistnames = self.select_many_retry(
+            "Standard", objectName="playlist")
+        for item in playlistnames:
+            if item.name == playlistname:
+                return item
+
+    def get_playlistslist(self):
+        return self.wait_select_single(
+            "QQuickListView", objectName="playlistslist")
+
+    def get_MusicNowPlaying_page(self):
+        return self.wait_select_single(
+            "MusicNowPlaying", objectName="nowplayingpage")
+
+    def get_swipedelete_icon(self):
+        swipedelete = self.wait_select_single(
+            "SwipeDelete", direction="swipingRight")
+        return swipedelete.select_many("Icon",  name="delete")[1]

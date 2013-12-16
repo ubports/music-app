@@ -29,6 +29,7 @@ import "settings.js" as Settings
 
 Page {
     id: nowPlaying
+    objectName: "nowplayingpage"
     anchors.fill: parent
     title: i18n.tr("Queue")
     visible: false
