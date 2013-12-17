@@ -228,7 +228,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: i18n.tr("%1 | %2 song", "%1 | %2 songs", albumTracksModel.model.count).arg(mainpage.year, albumTracksModel.model.count)
+                        text: i18n.tr(mainpage.year + " | %1 song", mainpage.year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
                     }
                 }
 
