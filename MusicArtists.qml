@@ -251,7 +251,7 @@ PageStack {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
+                    text: artisttrackslist.artist || i18n.tr("Unknown")
                 }
             }
 
@@ -318,7 +318,7 @@ PageStack {
                         anchors.right: expandItem.left
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: track.title == "" ? track.file : track.title
+                        text: track.title || track.file
                     }
                     Label {
                         id: trackAlbum
@@ -332,7 +332,7 @@ PageStack {
                         anchors.right: expandItem.left
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: album
+                        text: album || i18n.tr("Unknown")
                     }
                     Image {
                         id: expandItem
