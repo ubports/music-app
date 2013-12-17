@@ -1122,7 +1122,7 @@ PageStack {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: playlistTracks.artist == "" ? "" : playlistTracks.artist
+                            text: playlistTracks.artist || i18n.tr("Unknown")
                         }
                         Label {
                             id: trackTitle
@@ -1137,7 +1137,7 @@ PageStack {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: playlistTracks.title == "" ? playlistTracks.file : playlistTracks.title
+                            text: playlistTracks.title || playlistTracks.file
                         }
                         Label {
                             id: trackAlbum
@@ -1151,7 +1151,7 @@ PageStack {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: playlistTracks.album
+                            text: playlistTracks.album || i18n.tr("Unknown")
                         }
                         Label {
                             id: trackDuration

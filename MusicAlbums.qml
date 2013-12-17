@@ -113,7 +113,7 @@ Page {
                         horizontalAlignment: Text.AlignHCenter
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: artist
+                        text: artist || i18n.tr("Unknown")
                         fontSize: "x-small"
                     }
                     Label {
@@ -127,7 +127,7 @@ Page {
                         horizontalAlignment: Text.AlignHCenter
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: album
+                        text: album || i18n.tr("Unknown")
                         fontSize: "small"
                     }
                 }
@@ -199,7 +199,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: mainpage.artist
+                        text: mainpage.artist || i18n.tr("Unknown")
                     }
                     Label {
                         id: albumLabel
@@ -214,7 +214,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: mainpage.album
+                        text: mainpage.album || i18n.tr("Unknown")
                     }
                     Label {
                         id: albumYear
@@ -281,7 +281,7 @@ Page {
                             anchors.right: expandItem.left
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: model.title == "" ? model.file : model.title
+                            text: model.title || model.file
                         }
 
                         Image {

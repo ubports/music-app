@@ -556,7 +556,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: artist
+                        text: artist || i18n.tr("Unknown")
                         fontSize: 'small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
@@ -568,7 +568,7 @@ Page {
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: title
+                        text: title || i18n.tr("Unknown")
                         fontSize: 'medium'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
@@ -580,7 +580,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: album
+                        text: album || i18n.tr("Unknown")
                         fontSize: 'x-small'
                         width: expandItem.x - x - units.gu(1.5)
                         x: trackImage.x + trackImage.width + units.gu(1)

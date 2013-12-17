@@ -141,7 +141,7 @@ Page {
                     anchors.rightMargin: units.gu(1)
                     color: styleMusic.common.white
                     elide: Text.ElideRight
-                    text: title
+                    text: title || i18n.tr("Unknown")
                     fontSize: "small"
                 }
                 Label {
@@ -154,7 +154,7 @@ Page {
                     anchors.rightMargin: units.gu(1)
                     color: styleMusic.nowPlaying.labelSecondaryColor
                     elide: Text.ElideRight
-                    text: title2
+                    text: title2 || i18n.tr("Unknown")
                     fontSize: "x-small"
                 }
                 MouseArea {
@@ -286,7 +286,7 @@ Page {
                     anchors.rightMargin: units.gu(1)
                     color: styleMusic.common.white
                     elide: Text.ElideRight
-                    text: genre === "" ? "None" : genre
+                    text: genre || i18n.tr("Unknown")
                     fontSize: "small"
                 }
                 Label {

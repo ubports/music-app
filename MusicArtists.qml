@@ -129,7 +129,7 @@ PageStack {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: artist // !== '' ? artist : i18n.tr("Unknown Artist") fix this
+                        text: artist || i18n.tr("Unknown")
                     }
 
                     Label {

@@ -91,7 +91,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artist == "" ? "" : artist
+                    text: artist || i18n.tr("Unknown")
                 }
                 Label {
                     id: trackTitle
@@ -107,7 +107,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: track.title == "" ? track.file : track.title
+                    text: track.title || i18n.tr("Unknown")
                 }
                 Label {
                     id: trackAlbum
@@ -121,7 +121,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: album
+                    text: album || i18n.tr("Unknown")
                 }
                 Label {
                     id: trackDuration
