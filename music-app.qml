@@ -230,6 +230,7 @@ MainView {
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.1'
     property bool isPlaying: false
+    property bool songCounted: false
     property bool hasRecent: !Library.isRecentEmpty()
     property bool random: false
     property bool scrobble: false
@@ -292,19 +293,15 @@ MainView {
     }
 
     function getSong(direction, startPlaying, fromControls) {
+
+        // Reset the songCounted property to false since this is a new track
+        songCounted = false
+
         // Seek to start if threshold reached when selecting previous
         if (direction === -1 && (player.position / 1000) > 5)
         {
             player.seek(0);  // seek to start
             return;
-        }
-
-        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
-        // This takes care of the two reasons for incrementing:
-        //   1. The song has reached End of Media and we are moving to the next track naturally
-        //   2. The user has gone to a different song utilizing a control (next, previous,
-        if (player.position > 10000) {
-            songsMetric.increment()
         }
 
         if (trackQueue.model.count == 0)
@@ -420,13 +417,6 @@ MainView {
 
         var file = libraryModel.model.get(index).file
 
-        // Increment song count on Welcome screen if song has been playing for over 10 seconds.
-        // This takes care of the following reason for incrementing:
-        //   1. The user has clicked on a different track
-        if (Qt.resolvedUrl(file).toString() !== player.source.toString() && play && player.position > 10000) {
-            songsMetric.increment()
-        }
-
         console.debug(player.source, Qt.resolvedUrl(file))
 
         // Clear the play queue and load the new tracks - if not trackQueue
@@ -467,6 +457,9 @@ MainView {
 
             return
         }
+
+        // Reset the songCounted property to false since this is a new track
+        songCounted = false
 
         // Current index must be updated before player.source
         currentModel = libraryModel
@@ -580,6 +573,12 @@ MainView {
             if (seeking == false)
             {
                 positionStr = __durationToString(player.position)
+            }
+
+            // Increment song count on Welcome screen if song has been playing for over 10 seconds.
+            if (player.position > 10000 && !songCounted) {
+                songCounted = true
+                songsMetric.increment()
             }
 
             positionChange(position, duration)
