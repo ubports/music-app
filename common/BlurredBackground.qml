@@ -23,17 +23,20 @@ import QtGraphicalEffects 1.0
 // Blurred background
 Rectangle {
     anchors.fill: parent
+    property string cover: mainView.currentCoverFull
     // the album art
     Image {
         id: backgroundImage
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        source: mainView.currentCoverFull // this has to be fixed for the default cover art to work - cant find in this dir
+        source: cover // this has to be fixed for the default cover art to work - cant find in this dir
         height: Math.max(parent.height, parent.width)
         width: Math.max(parent.height, parent.width)
+        visible: false
     }
     // the blur
     FastBlur {
+        id: backgroundBlur
         anchors.fill: backgroundImage
         source: backgroundImage
         radius: units.dp(42)
@@ -43,6 +46,12 @@ Rectangle {
         anchors.fill: parent
         color: "white"
         opacity: 0.7
+    }
+    onCoverChanged: {
+        // TODO: This is a work around for LP:1261078. Ideally, there should be
+        //       a better way of getting the blur to repaint
+        backgroundBlur.source = null
+        backgroundBlur.source = backgroundImage
     }
 }
 
