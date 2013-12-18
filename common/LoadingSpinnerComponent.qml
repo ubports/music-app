@@ -23,7 +23,7 @@ import Ubuntu.Components 0.1
 Item {
     id: refresh
     height: units.gu(5)
-    width: units.gu(30)
+    width: parent.width
     visible: false
     anchors {
         horizontalCenter: parent.horizontalCenter
@@ -34,16 +34,17 @@ Item {
         id: loading
         objectName: "LoadingSpinner"
         anchors.verticalCenter: parent.verticalCenter
-        anchors.left:parent.left
-        anchors.leftMargin: units.gu(5)
+        anchors.right: loadingLabel.left
+        anchors.rightMargin: units.gu(1)
         running: refresh.visible
         z: 1
     }
     Label {
+        id: loadingLabel
         text: i18n.tr("Loading...")
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenterOffset: (loading.width / 2) + (loading.anchors.rightMargin / 2)
         anchors.verticalCenter: parent.verticalCenter
         fontSize: "large"
-        anchors.left: loading.right
-        anchors.leftMargin: units.gu(3)
     }
 }
