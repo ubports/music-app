@@ -281,7 +281,7 @@ Page {
                             anchors.right: expandItem.left
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: model.title || model.file
+                            text: model.title
                         }
 
                         Image {

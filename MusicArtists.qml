@@ -318,7 +318,7 @@ PageStack {
                         anchors.right: expandItem.left
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: track.title || track.file
+                        text: track.title
                     }
                     Label {
                         id: trackAlbum
