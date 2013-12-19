@@ -679,8 +679,7 @@ Page {
                         width: units.gu(15)
                         Icon {
                             id: playlistTrack
-                            anchors.top: parent.top
-                            anchors.topMargin: height/2
+                            anchors.verticalCenter: parent.verticalCenter
                             color: styleMusic.common.white
                             name: "add"
                             height: styleMusic.common.expandedItem
@@ -689,14 +688,13 @@ Page {
                         Label {
                             anchors.left: playlistTrack.right
                             anchors.leftMargin: units.gu(0.5)
-                            anchors.top: parent.top
-                            anchors.topMargin: units.gu(0.5)
+                            anchors.verticalCenter: parent.verticalCenter
                             color: styleMusic.common.white
                             fontSize: "small"
                             wrapMode: Text.WordWrap
-                            width: units.gu(5)
-                            height: parent.height
+                            width: parent.width - playlistTrack.width - units.gu(1)
                             text: i18n.tr("Add to playlist")
+                            maximumLineCount: 3
                         }
                         MouseArea {
                            anchors.fill: parent
