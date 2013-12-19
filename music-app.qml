@@ -753,10 +753,22 @@ MainView {
                     }
                     files.push(file);
 
+                    var record = {
+                        artist: media.artist || i18n.tr("Unknown"),
+                        album: media.album || i18n.tr("Unknown"),
+                        title: media.title || file,
+                        file: file,
+                        cover: media.thumbnail.toString(),
+                        length: media.duration.toString(),
+                        number: media.trackNumber,
+                        year: media.year.toString(),
+                        genre: media.genre || i18n.tr("Unknown")
+                    };
+
                     if (read_arg === false && argFile === file)
                     {
                         trackQueue.model.clear();
-                        trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                        trackQueue.model.append(record)
                         trackClicked(trackQueue, 0, true);
 
                         // grilo model sometimes has duplicates
@@ -765,15 +777,13 @@ MainView {
                         read_arg = true;
                     }
 
-                    var record = {artist: media.artist, album: media.album, title: media.title, file: file, cover: media.thumbnail.toString(), length: media.duration.toString(), year: media.year.toString(), genre: media.genre};
-
                     // Only write to database if the record has actually changed
                     var index = exists(currentLibrary, record);
 
                     if (index === false || index < 0)  // in grilo !in lib or lib out of date
                     {
                         //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                        Library.setMetadata(file, media.title, media.artist, media.album, media.thumbnail, media.year, media.trackNumber, media.duration, media.genre)
+                        Library.setMetadata(record)
 
                         if (index < 0)
                         {

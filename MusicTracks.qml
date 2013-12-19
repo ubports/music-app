@@ -91,7 +91,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artist || i18n.tr("Unknown")
+                    text: artist
                 }
                 Label {
                     id: trackTitle
@@ -107,7 +107,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: track.title || i18n.tr("Unknown")
+                    text: track.title
                 }
                 Label {
                     id: trackAlbum
@@ -121,7 +121,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: album || i18n.tr("Unknown")
+                    text: album
                 }
                 Label {
                     id: trackDuration

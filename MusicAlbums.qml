@@ -113,7 +113,7 @@ Page {
                         horizontalAlignment: Text.AlignHCenter
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: artist || i18n.tr("Unknown")
+                        text: artist
                         fontSize: "x-small"
                     }
                     Label {
@@ -127,7 +127,7 @@ Page {
                         horizontalAlignment: Text.AlignHCenter
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: album || i18n.tr("Unknown")
+                        text: album
                         fontSize: "small"
                     }
                 }
@@ -199,7 +199,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: mainpage.artist || i18n.tr("Unknown")
+                        text: mainpage.artist
                     }
                     Label {
                         id: albumLabel
@@ -214,7 +214,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: mainpage.album || i18n.tr("Unknown")
+                        text: mainpage.album
                     }
                     Label {
                         id: albumYear

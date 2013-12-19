@@ -96,8 +96,8 @@ function writeDb()
 }
 
 // This function is used to write meta data into the database
-function setMetadata(file, title, artist, album, cover, year, number, length, genre) {
-    buffer.push([file,title,artist,album,cover,year,number,length,genre]);  // Add metadata to buffer
+function setMetadata(record) {
+    buffer.push([record.file,record.title,record.artist,record.album,record.cover,record.year,record.number,record.length,record.genre]);  // Add metadata to buffer
 
     if (buffer.length >= maxBufferLength)
     {
@@ -203,7 +203,7 @@ function getAllFileOrder() {
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
+            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, number:dbItem.number, year:dbItem.year, genre:dbItem.genre});
         }
     });
     return res;

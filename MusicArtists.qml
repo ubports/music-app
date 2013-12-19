@@ -129,7 +129,7 @@ PageStack {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: artist || i18n.tr("Unknown")
+                        text: artist
                     }
 
                     Label {
@@ -251,7 +251,7 @@ PageStack {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artisttrackslist.artist || i18n.tr("Unknown")
+                    text: artisttrackslist.artist
                 }
             }
 
@@ -332,7 +332,7 @@ PageStack {
                         anchors.right: expandItem.left
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: album || i18n.tr("Unknown")
+                        text: album
                     }
                     Image {
                         id: expandItem
