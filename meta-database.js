@@ -363,7 +363,21 @@ function getRecent() {
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Cover:"+dbItem.cover + ", Type:"+dbItem.type);
-            res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, cover:dbItem.cover, key:dbItem.key, type:dbItem.type});
+
+            if (dbItem.type === "album")
+            {
+                res.push({time:dbItem.time,
+                             title:dbItem.title || i18n.tr("Unknown Album"),
+                             title2:dbItem.title2 || i18n.tr("Unknown Artist"),
+                             cover:dbItem.cover,
+                             key:dbItem.key || i18n.tr("Unknown Album"),
+                             type:dbItem.type
+                         });
+            }
+            else
+            {
+                res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, cover:dbItem.cover, key:dbItem.key, type:dbItem.type});
+            }
         }
     });
     return res;
