@@ -286,7 +286,7 @@ Page {
                     anchors.rightMargin: units.gu(1)
                     color: styleMusic.common.white
                     elide: Text.ElideRight
-                    text: genre === "" ? "None" : genre
+                    text: genre
                     fontSize: "small"
                 }
                 Label {

@@ -1122,7 +1122,7 @@ PageStack {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: playlistTracks.artist == "" ? "" : playlistTracks.artist
+                            text: playlistTracks.artist
                         }
                         Label {
                             id: trackTitle
@@ -1137,7 +1137,7 @@ PageStack {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: playlistTracks.title == "" ? playlistTracks.file : playlistTracks.title
+                            text: playlistTracks.title
                         }
                         Label {
                             id: trackAlbum

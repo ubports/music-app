@@ -91,7 +91,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artist == "" ? "" : artist
+                    text: artist
                 }
                 Label {
                     id: trackTitle
@@ -107,7 +107,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: track.title == "" ? track.file : track.title
+                    text: track.title
                 }
                 Label {
                     id: trackAlbum

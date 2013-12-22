@@ -129,7 +129,7 @@ PageStack {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: artist // !== '' ? artist : i18n.tr("Unknown Artist") fix this
+                        text: artist
                     }
 
                     Label {
@@ -251,7 +251,7 @@ PageStack {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artisttrackslist.artist == "" ? "" : artisttrackslist.artist
+                    text: artisttrackslist.artist
                 }
             }
 
@@ -318,7 +318,7 @@ PageStack {
                         anchors.right: expandItem.left
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: track.title == "" ? track.file : track.title
+                        text: track.title
                     }
                     Label {
                         id: trackAlbum
