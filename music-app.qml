@@ -167,8 +167,8 @@ MainView {
     Metric {
         id: songsMetric
         name: "music-metrics"
-        format: "<b>%1</b> songs played today"
-        emptyFormat: "No songs played today"
+        format: "<b>%1</b> " + i18n.tr("songs played today")
+        emptyFormat: i18n.tr("No songs played today")
         domain: "com.ubuntu.music"
     }
 
