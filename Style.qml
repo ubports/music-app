@@ -37,7 +37,7 @@ QtObject {
         property color expandedColor: "#000000";
         property int albumSize: units.gu(10);
         property int itemHeight: units.gu(12);
-        property int expandedHeight: units.gu(17.5);
+        property int expandedHeight: units.gu(19);
         property int expandHeight: units.gu(10);
         property int expandedItem: units.gu(2);
         property int expandedTopMargin: units.gu(13.5);
@@ -75,8 +75,8 @@ QtObject {
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
-        property int expandedHeightCurrent: units.gu(53);
-        property int expandedHeightNormal: units.gu(17);
+        property int expandedHeightCurrent: units.gu(55);
+        property int expandedHeightNormal: units.gu(19);
         property int expandedTopMargin: units.gu(5);
         property int expandedLeftMargin: units.gu(2);
     }
@@ -115,7 +115,7 @@ QtObject {
     property QtObject albums: QtObject {
         property int itemHeight: units.gu(4);
         property int expandHeight: units.gu(5);
-        property int expandedHeight: units.gu(9);
+        property int expandedHeight: units.gu(11);
         property int expandedTopMargin: units.gu(5);
         property int expandedLeftMargin: units.gu(2);
     }
@@ -123,7 +123,7 @@ QtObject {
     property QtObject artists: QtObject {
         property int itemHeight: units.gu(12.5);
         property int expandHeight: units.gu(5);
-        property int expandedHeight: units.gu(17.5);
+        property int expandedHeight: units.gu(19);
         property int expandedTopMargin: units.gu(13.5);
         property int expandedLeftMargin: units.gu(2);
     }
