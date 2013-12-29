@@ -97,6 +97,12 @@ Page {
         Component {
             id: recentDelegate
             Item {
+                property string title: model.title
+                property string title2: model.title2
+                property string cover: model.cover !== "" ? model.cover : "images/cover_default.png"
+                property string type: model.type
+                property string time: model.time
+                property string key: model.key
                 id: recentItem
                 height: units.gu(20)
                 width: units.gu(20)
@@ -107,13 +113,7 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        property string title: model.title
-                        property string title2: model.title2
-                        property string cover: model.cover
-                        property string type: model.type
-                        property string time: model.time
-                        property string key: model.key
-                        source: cover !== "" ? cover : "images/cover_default.png"
+                        source: cover
                     }
                 }
                 UbuntuShape {  // Background so can see text in current state
@@ -161,12 +161,13 @@ Page {
                     anchors.fill: parent
                     onClicked: {
                         if (type === "album") {
-                            recentAlbumTracksModel.filterAlbumTracks(key)
-                            trackQueue.model.clear()
-                            addQueueFromModel(recentAlbumTracksModel)
-                            currentModel = recentAlbumTracksModel
-                            currentQuery = recentAlbumTracksModel.query
-                            currentParam = recentAlbumTracksModel.param
+                            albumTracksModel.filterAlbumTracks(title)
+                            albumSheet.artist = title2
+                            albumSheet.album = title
+                            albumSheet.file = albumTracksModel.model.get(0).file
+                            albumSheet.year =  albumTracksModel.model.get(0).year
+                            albumSheet.cover =  cover
+                            PopupUtils.open(albumSheet.sheet)
                         } else if (type === "playlist") {
                             recentPlaylistTracksModel.filterPlaylistTracks(key)
                             trackQueue.model.clear()
@@ -174,18 +175,19 @@ Page {
                             currentModel = recentPlaylistTracksModel
                             currentQuery = recentPlaylistTracksModel.query
                             currentParam = recentPlaylistTracksModel.param
+
+                            Library.addRecent(title, title2, cover, key, type)
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
+                            var file = trackQueue.model.get(0).file
+                            currentIndex = trackQueue.indexOf(file)
+                            queueChanged = true
+                            player.stop()
+                            player.source = Qt.resolvedUrl(file)
+                            player.play()
+                            nowPlaying.visible = true
+                            musicToolbar.showToolbar()
                         }
-                        Library.addRecent(title, title2, cover, key, type)
-                        mainView.hasRecent = true
-                        recentModel.filterRecent()
-                        var file = trackQueue.model.get(0).file
-                        currentIndex = trackQueue.indexOf(file)
-                        queueChanged = true
-                        player.stop()
-                        player.source = Qt.resolvedUrl(file)
-                        player.play()
-                        nowPlaying.visible = true
-                        musicToolbar.showToolbar()
                     }
                 }
             }
@@ -220,6 +222,15 @@ Page {
         Component {
             id: genreDelegate
             Item {
+                property string artist: model.artist
+                property string album: model.album
+                property string title: model.title
+                property string cover: model.cover  !== "" ? model.cover : "images/cover_default.png"
+                property string length: model.length
+                property string file: model.file
+                property string year: model.year
+                property string genre: model.genre
+
                 id: genreItem
                 objectName: "genreItemObject"
                 height: units.gu(20)
@@ -231,15 +242,7 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        property string artist: model.artist
-                        property string album: model.album
-                        property string title: model.title
-                        property string cover: model.cover
-                        property string length: model.length
-                        property string file: model.file
-                        property string year: model.year
-                        property string genre: model.genre
-                        source: cover !== "" ? cover : "images/cover_default.png"
+                        source: cover
                     }
                 }
                 MouseArea {

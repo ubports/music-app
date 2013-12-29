@@ -133,6 +133,16 @@ Item {
         worker.list = Library.getArtistTracks(artist);
     }
 
+    function filterArtistAlbums(artist) {
+        console.log("called LibraryListModel::filterArtistAlbums()")
+
+        // Save query for queue
+        query = Library.getArtistAlbums
+        param = artist
+
+        worker.list = Library.getArtistAlbums(artist);
+    }
+
     function filterAlbums() {
         console.log("called LibraryListModel::filterAlbums()")
 
