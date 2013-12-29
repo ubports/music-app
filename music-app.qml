@@ -808,7 +808,7 @@ MainView {
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
-                tabs.ensurePopulated(startTab);
+                tabs.ensurePopulated(tabs.selectedTab);
             }
         }
     }
