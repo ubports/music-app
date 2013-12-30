@@ -185,7 +185,7 @@ function getAll() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY title ASC, artist ASC, album ASC, CAST(number AS int) ASC");
+        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY title COLLATE NOCASE ASC, artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -199,7 +199,7 @@ function getAllFileOrder() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY file ASC");
+        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY file COLLATE NOCASE ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -213,7 +213,7 @@ function getArtists() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata GROUP BY artist ORDER BY artist ASC");
+        var rs = tx.executeSql("SELECT * FROM metadata GROUP BY artist ORDER BY artist COLLATE NOCASE ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -227,7 +227,7 @@ function getArtistTracks(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [artist]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -241,7 +241,7 @@ function getArtistCovers(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist ASC, album ASC", [artist]);
+        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
@@ -269,7 +269,7 @@ function getAlbums() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata GROUP BY album ORDER BY album ASC");
+        var rs = tx.executeSql("SELECT * FROM metadata GROUP BY album ORDER BY album COLLATE NOCASE ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -284,7 +284,7 @@ function getAlbumTracks(album) {
     var db = getDatabase();
     //console.log("Album: " + album);
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [album]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [album]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -298,7 +298,7 @@ function getGenres() {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT *, count(genre) AS total FROM metadata GROUP BY genre ORDER BY genre ASC");
+        var rs = tx.executeSql("SELECT *, count(genre) AS total FROM metadata GROUP BY genre ORDER BY genre COLLATE NOCASE ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -313,7 +313,7 @@ function getGenreTracks(genre) {
     var db = getDatabase();
     //console.log("Genre: " + genre);
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist ASC, album ASC, CAST(number AS int) ASC", [genre]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [genre]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
