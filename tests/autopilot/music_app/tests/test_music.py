@@ -35,10 +35,11 @@ class TestMainWindow(MusicTestCase):
         fake mediascanner database"""
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         title = lambda: self.main_view.currentTracktitle
         artist = lambda: self.main_view.currentArtist
@@ -50,10 +51,11 @@ class TestMainWindow(MusicTestCase):
         """ Test playing and pausing a track (Music Library must exist) """
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         # click back button
         back_button = self.main_view.get_back_button()
@@ -77,10 +79,11 @@ class TestMainWindow(MusicTestCase):
         """ Test playing and pausing a track (Music Library must exist) """
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -99,10 +102,11 @@ class TestMainWindow(MusicTestCase):
         """ Test going to next track (Music Library must exist) """
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
         shufflebutton = self.main_view.get_shuffle_button()
@@ -159,10 +163,11 @@ class TestMainWindow(MusicTestCase):
         """ Test that mp3 "plays" or at least doesn't crash on load """
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
         shufflebutton = self.main_view.get_shuffle_button()
@@ -215,10 +220,11 @@ class TestMainWindow(MusicTestCase):
         """ Test shuffle (Music Library must exist) """
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         """ Track is playing, shuffle is turned on"""
         shufflebutton = self.main_view.get_shuffle_button()
@@ -490,10 +496,11 @@ class TestMainWindow(MusicTestCase):
         artistName = "Benjamin Kerensa"
 
         # populate queue
-        self.main_view.switch_to_tab("trackstab")
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(song)
 
         # get initial queue count
         initialqueueCount = self.main_view.get_queue_track_count()
