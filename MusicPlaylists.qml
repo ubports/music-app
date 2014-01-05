@@ -437,29 +437,17 @@ PageStack {
                                           inPlaylist = true
                                       }
                                    }
-                                }
-                            }
+                               }
+                           }
                        }
 
-                    onClicked: {
-                        customdebug("Playlist chosen: " + name)
-                        expandable.visible = false
-                        playlist.height = styleMusic.playlist.playlistItemHeight
-                        playlisttracksModel.filterPlaylistTracks(name)
-                        playlistlist.playlistName = name
-                        pageStack.push(playlistpage) // show the chosen playlists content
-                        playlistpage.title = name + " " + "("+ count +")" // change name of the tab
-                        // for removal or edit in playlist
-                        oldPlaylistName = name
-                        oldPlaylistID = id
-                        oldPlaylistIndex = index
-                        expandable.visible = false
-                        playlistInfo.count = playlist.count
-                        playlistInfo.cover0 = playlist.cover0
-                        playlistInfo.cover1 = playlist.cover1
-                        playlistInfo.cover2 = playlist.cover2
-                        playlistInfo.cover3 = playlist.cover3
-                    }
+                       onClicked: {
+                           albumTracksModel.filterPlaylistTracks(name)
+                           songsSheet.line1 = "Playlist"
+                           songsSheet.line2 = name
+                           songsSheet.cover =  playlist.cover0
+                           PopupUtils.open(songsSheet.sheet)
+                       }
                 }
             }
         }

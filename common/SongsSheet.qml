@@ -27,13 +27,14 @@ import "../meta-database.js" as Library
 Item {
     id: sheetItem
 
-    property string artist: ""
-    property string album: ""
+    property string line1: ""
+    property string line2: ""
     property string songtitle: ""
     property string cover: ""
     property string length: ""
     property string file: ""
     property string year: ""
+    property bool isAlbum: false
     property alias sheet: sheetComponent
 
     Component {
@@ -83,7 +84,7 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: artist
+                        text: line1
                     }
                     Label {
                         id: albumLabel
@@ -98,7 +99,7 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: album
+                        text: line2
                     }
                     Label {
                         id: albumYear
@@ -112,7 +113,9 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                        text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                                      : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+
                     }
                 }
 
@@ -139,9 +142,15 @@ Item {
                                     focus = true
                                 }
                                 trackClicked(albumTracksModel, index)  // play track
-                                Library.addRecent(album, artist, cover, album, "album")
-                                mainView.hasRecent = true
-                                recentModel.filterRecent()
+                                if (isAlbum) {
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                    mainView.hasRecent = true
+                                    recentModel.filterRecent()
+                                } else if (sheetItem.line1 == "Playlist") {
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    mainView.hasRecent = true
+                                    recentModel.filterRecent()
+                                }
 
                                 // TODO: This closes the SDK defined sheet
                                 //       component. It should be able to close
@@ -327,6 +336,11 @@ Item {
                         onFocusChanged: {
                         }
                         Component.onCompleted: {
+                            if (index === 0)
+                            {
+                                sheetItem.file = model.file;
+                                sheetItem.year = model.year;
+                            }
                         }
                     }
                 }

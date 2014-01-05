@@ -136,8 +136,9 @@ Item {
                                 PopupUtils.close(sheet)
 
                                 albumTracksModel.filterAlbumTracks(album)
-                                albumSheet.artist = artist
-                                albumSheet.album = model.album
+                                albumSheet.line1 = artist
+                                albumSheet.line2 = model.album
+                                albumSheet.isAlbum = true
                                 albumSheet.file = file
                                 albumSheet.year = year
                                 albumSheet.cover = Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")

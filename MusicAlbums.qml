@@ -133,12 +133,13 @@ Page {
                     }
                     onClicked: {
                         albumTracksModel.filterAlbumTracks(album)
-                        albumSheet.artist = artist
-                        albumSheet.album = album
-                        albumSheet.file = file
-                        albumSheet.year = year
-                        albumSheet.cover = cover
-                        PopupUtils.open(albumSheet.sheet)
+                        songsSheet.line1 = artist
+                        songsSheet.line2 = album
+                        songsSheet.isAlbum = true
+                        songsSheet.file = file
+                        songsSheet.year = year
+                        songsSheet.cover = cover
+                        PopupUtils.open(songsSheet.sheet)
                     }
                 }
             }

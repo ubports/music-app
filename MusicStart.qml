@@ -160,34 +160,16 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if (type === "album") {
+                        if (type === "playlist") {
+                            albumTracksModel.filterPlaylistTracks(key)
+                        } else {
                             albumTracksModel.filterAlbumTracks(title)
-                            albumSheet.artist = title2
-                            albumSheet.album = title
-                            albumSheet.file = albumTracksModel.model.get(0).file
-                            albumSheet.year =  albumTracksModel.model.get(0).year
-                            albumSheet.cover =  cover
-                            PopupUtils.open(albumSheet.sheet)
-                        } else if (type === "playlist") {
-                            recentPlaylistTracksModel.filterPlaylistTracks(key)
-                            trackQueue.model.clear()
-                            addQueueFromModel(recentPlaylistTracksModel)
-                            currentModel = recentPlaylistTracksModel
-                            currentQuery = recentPlaylistTracksModel.query
-                            currentParam = recentPlaylistTracksModel.param
-
-                            Library.addRecent(title, title2, cover, key, type)
-                            mainView.hasRecent = true
-                            recentModel.filterRecent()
-                            var file = trackQueue.model.get(0).file
-                            currentIndex = trackQueue.indexOf(file)
-                            queueChanged = true
-                            player.stop()
-                            player.source = Qt.resolvedUrl(file)
-                            player.play()
-                            nowPlaying.visible = true
-                            musicToolbar.showToolbar()
                         }
+                        songsSheet.line1 = title2
+                        songsSheet.line2 = title
+                        songsSheet.cover =  cover
+                        PopupUtils.open(songsSheet.sheet)
+                        songsSheet.isAlbum = (type === "album")
                     }
                 }
             }
@@ -248,20 +230,12 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        genreTracksModel.filterGenreTracks(genre)
-                        trackQueue.model.clear()
-                        addQueueFromModel(genreTracksModel)
-                        currentModel = genreTracksModel
-                        currentQuery = genreTracksModel.query
-                        currentParam = genreTracksModel.param
-                        var file = trackQueue.model.get(0).file
-                        currentIndex = trackQueue.indexOf(file)
-                        queueChanged = true
-                        player.stop()
-                        player.source = Qt.resolvedUrl(file)
-                        player.play()
-                        nowPlaying.visible = true
-                        musicToolbar.showToolbar();
+                        albumTracksModel.filterGenreTracks(genre)
+                        songsSheet.line1 = "Genre"
+                        songsSheet.line2 = genre
+                        songsSheet.isAlbum = false
+                        songsSheet.cover =  cover
+                        PopupUtils.open(songsSheet.sheet)
                     }
                 }
                 Rectangle {  // Background so can see text in current state
@@ -302,7 +276,7 @@ Page {
                     anchors.rightMargin: units.gu(1)
                     color: styleMusic.nowPlaying.labelSecondaryColor
                     elide: Text.ElideRight
-        text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
+                    text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
                     fontSize: "x-small"
                 }
             }
