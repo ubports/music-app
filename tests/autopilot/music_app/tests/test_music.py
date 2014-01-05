@@ -36,6 +36,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -50,6 +51,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -76,6 +78,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -97,6 +100,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -156,6 +160,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -211,6 +216,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
@@ -485,6 +491,7 @@ class TestMainWindow(MusicTestCase):
 
         # populate queue
         self.main_view.switch_to_tab("trackstab")
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
         trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
         self.pointing_device.click_object(trackitem)
 
