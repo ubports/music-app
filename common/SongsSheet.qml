@@ -163,6 +163,7 @@ Item {
                             id: trackTitle
                             objectName: "albumsheet-tracktitle"
                             wrapMode: Text.NoWrap
+                            height: parent.height
                             maximumLineCount: 1
                             fontSize: "medium"
                             anchors.left: parent.left
