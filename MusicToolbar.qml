@@ -192,23 +192,6 @@ y: parent.height
         }
     }
 
-    // Back button has been pressed, jump up pageStack or back to parent page
-    function goBack()
-    {
-        if (currentPageStack !== null)
-        {
-            currentPageStack.pop(currentPage)
-        }
-        else if (currentParentPage !== null)
-        {
-            currentParentPage.visible = false  // force switch
-            currentPage.visible = false
-            currentParentPage.visible = true
-        }
-
-        musicToolbar.hideToolbar();
-    }
-
     // Hide the toolbar
     function hideToolbar()
     {
@@ -455,37 +438,11 @@ y: parent.height
                     }
                 }
 
-                /* Back button to go up pageStack */
-                Item {
-                    id: playerControlBackButton
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: units.gu(6)
-                    height: width
-                    visible: currentPageStack !== null && currentParentPage !== null
-
-                    Image {
-                        height: units.gu(3)
-                        source: Qt.resolvedUrl("images/back.svg")
-                        width: height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            goBack();
-                        }
-                    }
-                }
-
                 /* Container holding the labels for the toolbar */
                 Rectangle {
                     id: playerControlLabelContainer
                     anchors.bottom: parent.bottom
-                    anchors.left: playerControlBackButton.right
+                    anchors.left: parent.left
                     anchors.right: playerControlsPlayButton.left
                     anchors.top: parent.top
                     color: "transparent"
