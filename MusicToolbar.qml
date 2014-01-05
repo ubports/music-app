@@ -192,6 +192,23 @@ y: parent.height
         }
     }
 
+    // Back button has been pressed, jump up pageStack or back to parent page
+    function goBack()
+    {
+        if (currentPageStack !== null)
+        {
+            currentPageStack.pop(currentPage)
+        }
+        else if (currentParentPage !== null)
+        {
+            currentParentPage.visible = false  // force switch
+            currentPage.visible = false
+            currentParentPage.visible = true
+        }
+
+        musicToolbar.hideToolbar();
+    }
+
     // Hide the toolbar
     function hideToolbar()
     {
