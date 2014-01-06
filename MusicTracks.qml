@@ -157,6 +157,14 @@ Page {
                         }
                     }
                 }
+                Component.onCompleted: {
+                    // TODO: Currently queue is empty when app starts.
+                    //       It may be best to load the queue from the
+                    //       last time the app was loaded.
+                    //if (trackQueue.model.count === 0 && !argFile) {
+                        // TODO: load previous queue items.
+                    //}
+                }
                 states: State {
                     name: "Current"
                     when: track.ListView.isCurrentItem
