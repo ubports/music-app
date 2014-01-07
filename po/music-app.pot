@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-29 18:24-0600\n"
+"POT-Creation-Date: 2014-01-07 07:34-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "You forgot to set your username and/or password"
 msgstr ""
 
-#: ../MusicAlbums.qml:33 ../music-app.qml:1123
+#: ../MusicAlbums.qml:33 ../music-app.qml:1124
 msgid "Albums"
 msgstr ""
 
@@ -66,21 +66,21 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
-#: ../MusicTracks.qml:267 ../music-app.qml:994
+#: ../MusicTracks.qml:267 ../music-app.qml:995
 msgid "Add to playlist"
 msgstr ""
 
 #: ../MusicAlbums.qml:398 ../MusicArtists.qml:448 ../MusicNowPlaying.qml:714
-#: ../MusicTracks.qml:286 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:1005
+#: ../MusicTracks.qml:286 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:1006
 msgid "Select playlist"
 msgstr ""
 
 #: ../MusicAlbums.qml:427 ../MusicArtists.qml:476 ../MusicTracks.qml:315
-#: ../music-app.qml:980
+#: ../music-app.qml:981
 msgid "Add to queue"
 msgstr ""
 
-#: ../MusicArtists.qml:39 ../music-app.qml:1106
+#: ../MusicArtists.qml:39 ../music-app.qml:1107
 msgid "Artists"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ../MusicPlaylists.qml:65 ../MusicPlaylists.qml:108 ../music-app.qml:1058
+#: ../MusicPlaylists.qml:65 ../MusicPlaylists.qml:108 ../music-app.qml:1059
 msgid "Cancel"
 msgstr ""
 
@@ -149,7 +149,7 @@ msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:136 ../music-app.qml:1158
+#: ../MusicPlaylists.qml:136 ../music-app.qml:1159
 msgid "Playlists"
 msgstr ""
 
@@ -253,8 +253,8 @@ msgstr ""
 msgid "Clean everything!"
 msgstr ""
 
-#: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:230
-#: ../music-app.qml:1089 ../.build/music-app.desktop.js:1
+#: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
+#: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
 msgid "Music"
 msgstr ""
 
@@ -342,55 +342,56 @@ msgstr ""
 msgid "Close application"
 msgstr ""
 
-#: ../music-app.qml:170
+#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
+#: ../music-app.qml:171
 msgid "songs played today"
 msgstr ""
 
-#: ../music-app.qml:171
+#: ../music-app.qml:172
 msgid "No songs played today"
 msgstr ""
 
-#: ../music-app.qml:277
+#: ../music-app.qml:278
 msgid "Debug: "
 msgstr ""
 
-#: ../music-app.qml:757 ../meta-database.js:371
+#: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
 msgstr ""
 
-#: ../music-app.qml:758 ../meta-database.js:370 ../meta-database.js:373
+#: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
 msgstr ""
 
-#: ../music-app.qml:765
+#: ../music-app.qml:766
 msgid "Unknown Genre"
 msgstr ""
 
-#: ../music-app.qml:1018
+#: ../music-app.qml:1019
 msgid "New Playlist"
 msgstr ""
 
-#: ../music-app.qml:1019
+#: ../music-app.qml:1020
 msgid "Name your playlist."
 msgstr ""
 
-#: ../music-app.qml:1023
+#: ../music-app.qml:1024
 msgid "Name"
 msgstr ""
 
-#: ../music-app.qml:1031
+#: ../music-app.qml:1032
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1047
+#: ../music-app.qml:1048
 msgid "Error: "
 msgstr ""
 
-#: ../music-app.qml:1052
+#: ../music-app.qml:1053
 msgid "Error: You didn't type a name."
 msgstr ""
 
-#: ../music-app.qml:1140
+#: ../music-app.qml:1141
 msgid "Songs"
 msgstr ""
 
