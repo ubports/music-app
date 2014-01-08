@@ -20,8 +20,13 @@ import Ubuntu.Components 0.1
 Row {
     id: coverRow
 
+    // Property (array) to store the cover images
     property var covers
+
+    // Property to set the size of the cover image
     property int size
+
+    // Property to get the playlist count to determine the visibility of a cover image
     property int count
 
     Repeater {
