@@ -214,6 +214,7 @@ y: parent.height
     {
         musicToolbarContainer.state = "minimized";
         shown = false;
+        toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
     // Set the current page, and any parent/stacks
@@ -1049,7 +1050,9 @@ y: parent.height
             startMouseY = mouse.y;
 
             // Restart autohide timer on mouse press inside toolbar
-            toolbarAutoHideTimer.restart();
+            if (toolbarAutoHideTimer.running) {
+                toolbarAutoHideTimer.restart();
+            }
         }
 
         onReleased: {
@@ -1130,6 +1133,7 @@ y: parent.height
     Timer {
         id: toolbarAutoHideTimer
         interval: 5000
+        repeat: false
         running: false
         onTriggered: {
             hideToolbar();
