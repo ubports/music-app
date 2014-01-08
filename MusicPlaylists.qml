@@ -169,66 +169,30 @@ PageStack {
                        iconFrame: false
                        height: styleMusic.playlist.playlistItemHeight
 
-                       UbuntuShape {
-                           id: cover0
-                           anchors.left: parent.left
-                           anchors.leftMargin: units.gu(4)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
-                           height: styleMusic.playlist.playlistAlbumSize
-                           width: styleMusic.playlist.playlistAlbumSize
-                           visible: playlist.count > 3
-                           image: Image {
-                               source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                       CoverRow {
+                           id: coverRow
+                           anchors {
+                               top: parent.top
+                               left: parent.left
+                               margins: units.gu(1)
                            }
+                           spacing: units.gu(-7)
+                           count: parseInt(playlist.count)
+                           size: styleMusic.playlist.playlistAlbumSize
+                           covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
                        }
-                       UbuntuShape {
-                           id: cover1
-                           anchors.left: parent.left
-                           anchors.leftMargin: units.gu(3)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
-                           height: styleMusic.playlist.playlistAlbumSize
-                           width: styleMusic.playlist.playlistAlbumSize
-                           visible: playlist.count > 2
-                           image: Image {
-                               source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                           }
-                       }
-                       UbuntuShape {
-                           id: cover2
-                           anchors.left: parent.left
-                           anchors.leftMargin: units.gu(2)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
-                           height: styleMusic.playlist.playlistAlbumSize
-                           width: styleMusic.playlist.playlistAlbumSize
-                           visible: playlist.count > 1
-                           image: Image {
-                               source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                           }
-                       }
-                       UbuntuShape {
-                           id: cover3
-                           anchors.left: parent.left
-                           anchors.leftMargin: units.gu(1)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(1)
-                           height: styleMusic.playlist.playlistAlbumSize
-                           width: styleMusic.playlist.playlistAlbumSize
-                           image: Image {
-                               source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                           }
-                       }
+
                        // songs count
                        Label {
                            id: playlistCount
-                           anchors.left: cover3.right
-                           anchors.leftMargin: units.gu(4)
-                           anchors.top: parent.top
-                           anchors.topMargin: units.gu(2)
-                           anchors.right: expandItem.left
-                           anchors.rightMargin: units.gu(1.5)
+                           anchors {
+                               top: parent.top
+                               left: parent.left
+                               right: expandItem.left
+                               topMargin: units.gu(2)
+                               leftMargin: units.gu(14)
+                               rightMargin: units.gu(1.5)
+                           }
                            elide: Text.ElideRight
                            fontSize: "x-small"
                            height: units.gu(1)
@@ -237,16 +201,17 @@ PageStack {
                        // playlist name
                        Label {
                            id: playlistName
+                           anchors {
+                               top: playlistCount.bottom
+                               left: playlistCount.left
+                               right: expandItem.left
+                               topMargin: units.gu(1)
+                               rightMargin: units.gu(1.5)
+                           }
                            wrapMode: Text.NoWrap
                            maximumLineCount: 1
                            fontSize: "medium"
                            color: styleMusic.common.music
-                           anchors.left: cover3.right
-                           anchors.leftMargin: units.gu(4)
-                           anchors.top: playlistCount.bottom
-                           anchors.topMargin: units.gu(1)
-                           anchors.right: expandItem.left
-                           anchors.rightMargin: units.gu(1.5)
                            elide: Text.ElideRight
                            text: playlist.name
                        }
@@ -498,83 +463,47 @@ PageStack {
             property string cover2: ""
             property string cover3: ""
 
-            UbuntuShape {
-                id: cover0
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(5)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(2)
-                width: styleMusic.common.albumSize
-                height: styleMusic.common.albumSize
-                visible: playlistInfo.count > 3
-                image: Image {
-                    source: playlistInfo.cover3 !== "" ? playlistInfo.cover3 : Qt.resolvedUrl("images/cover_default_icon.png")
+            CoverRow {
+                id: coverRow2
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    margins: units.gu(2)
                 }
-            }
-            UbuntuShape {
-                id: cover1
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(4)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(2)
-                width: styleMusic.common.albumSize
-                height: styleMusic.common.albumSize
-                visible: playlistInfo.count > 2
-                image: Image {
-                    source: playlistInfo.cover2 !== "" ? playlistInfo.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                }
-            }
-            UbuntuShape {
-                id: cover2
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(3)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(2)
-                width: styleMusic.common.albumSize
-                height: styleMusic.common.albumSize
-                visible: playlistInfo.count > 1
-                image: Image {
-                    source: playlistInfo.cover1 !== "" ? playlistInfo.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                }
-            }
-            UbuntuShape {
-                id: cover3
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(2)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(2)
-                width: styleMusic.common.albumSize
-                height: styleMusic.common.albumSize
-                image: Image {
-                    source: playlistInfo.cover0 !== "" ? playlistInfo.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                }
+                spacing: units.gu(-9)
+                count: playlistInfo.count
+                size: styleMusic.common.albumSize
+                covers: [playlistInfo.cover0, playlistInfo.cover1, playlistInfo.cover2, playlistInfo.cover3]
             }
 
             Label {
                 id: playlistInfoLabel
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: expandInfoItem.left
+                    topMargin: units.gu(2.5)
+                    leftMargin: units.gu(16)
+                    rightMargin: units.gu(1.5)
+                }
                 text: playlistlist.playlistName
                 color: styleMusic.common.white
                 fontSize: "large"
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(16)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(2.5)
-                anchors.right: expandInfoItem.left
-                anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
             }
 
             Label {
                 id: playlistInfoCount
+                anchors {
+                    top: playlistInfoLabel.bottom
+                    left: playlistInfoLabel.left
+                    right: expandInfoItem.left
+                    topMargin: units.gu(1)
+                    rightMargin: units.gu(1.5)
+                }
                 text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                 color: styleMusic.common.white
                 fontSize: "medium"
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(16)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(5)
-                anchors.right: expandInfoItem.left
-                anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
             }
 
