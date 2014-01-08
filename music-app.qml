@@ -45,8 +45,8 @@ MainView {
     Keys.onPressed: {
         if (event.key === Qt.Key_Alt) {
             // On alt key press show toolbar and start autohide timer
-            musicToolbar.showToolbar();
             musicToolbar.startAutohideTimer();
+            musicToolbar.showToolbar();
         }
     }
 
@@ -235,8 +235,8 @@ MainView {
         pageStack.push(tabs)
 
         // show toolbar hint at startup
-        musicToolbar.showToolbar();
         musicToolbar.startAutohideTimer();
+        musicToolbar.showToolbar();
     }
 
 
