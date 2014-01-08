@@ -24,6 +24,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Components.Popups 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
+import "common"
 
 /* NOTE:
  * Text is barly visible as of right now and a bug report has been filed:
@@ -85,73 +86,34 @@ import "playlists.js" as Playlists
                         playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
-                    UbuntuShape {
-                        id: cover0
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(4)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
-                        width: units.gu(6)
-                        visible: playlist.count > 3
-                        image: Image {
-                            source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+
+                    CoverRow {
+                        id: coverRow
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            margins: units.gu(1)
                         }
+                        spacing: units.gu(-5)
+                        count: parseInt(playlist.count)
+                        size: units.gu(6)
+                        covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
                     }
-                    UbuntuShape {
-                        id: cover1
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(3)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
-                        width: units.gu(6)
-                        visible: playlist.count > 2
-                        image: Image {
-                            source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                        }
-                    }
-                    UbuntuShape {
-                        id: cover2
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(2)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
-                        width: units.gu(6)
-                        visible: playlist.count > 1
-                        image: Image {
-                            source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                        }
-                    }
-                    UbuntuShape {
-                        id: cover3
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
-                        width: units.gu(6)
-                        image: Image {
-                            source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                        }
-                    }
+
                     Label {
                         id: playlistName
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            right: parent.right
+                            bottom: parent.bottom
+                            leftMargin: units.gu(11)
+                            topMargin: units.gu(2)
+                            bottomMargin: units.gu(4)
+                        }
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "medium"
-                        anchors.left: cover3.right
-                        anchors.leftMargin: units.gu(4)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(2)
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(4)
-                        anchors.right: parent.right
                         elide: Text.ElideRight
                         text: playlist.name + " ("+playlist.count+")"
                     }
