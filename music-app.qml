@@ -233,6 +233,10 @@ MainView {
 
         // push the page to view
         pageStack.push(tabs)
+
+        // show toolbar hint at startup
+        musicToolbar.showToolbar();
+        musicToolbar.startAutohideTimer();
     }
 
 
