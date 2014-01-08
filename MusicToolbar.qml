@@ -231,6 +231,18 @@ y: parent.height
         shown = true;
     }
 
+    // Start the autohidetimer
+    function startAutohideTimer()
+    {
+        if (toolbarAutoHideTimer.running) {
+            // Restart the timer if already running
+            toolbarAutoHideTimer.restart();
+        }
+        else {
+            toolbarAutoHideTimer.start();
+        }
+    }
+
     /* Mouse area to block events going to items under the toolbar */
     MouseArea {
         anchors.fill: parent
@@ -1035,6 +1047,9 @@ y: parent.height
             // Record starting positions for later
             startContainerY = musicToolbarContainer.y;
             startMouseY = mouse.y;
+
+            // Restart autohide on mouse press in toolbar
+            toolbarAutoHideTimer.restart();
         }
 
         onReleased: {
@@ -1108,6 +1123,16 @@ y: parent.height
 
             player.seek((fraction) * player.duration);
             player.seeking = false;
+        }
+    }
+
+    // Timer for autohide
+    Timer {
+        id: toolbarAutoHideTimer
+        interval: 5000
+        running: false
+        onTriggered: {
+            hideToolbar();
         }
     }
 }

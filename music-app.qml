@@ -40,6 +40,15 @@ MainView {
     applicationName: "com.ubuntu.music"
     id: mainView
 
+    // Global keyboard shortcuts
+    focus: true
+    Keys.onPressed: {
+        if (event.key === Qt.Key_Alt) {
+            musicToolbar.showToolbar();
+            musicToolbar.startAutohideTimer();
+        }
+    }
+
     // Arguments during startup
     Arguments {
         id: args
