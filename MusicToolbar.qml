@@ -1048,7 +1048,7 @@ y: parent.height
             startContainerY = musicToolbarContainer.y;
             startMouseY = mouse.y;
 
-            // Restart autohide on mouse press in toolbar
+            // Restart autohide timer on mouse press inside toolbar
             toolbarAutoHideTimer.restart();
         }
 
