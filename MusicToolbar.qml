@@ -240,7 +240,10 @@ y: parent.height
             toolbarAutoHideTimer.restart();
         }
         else {
-            toolbarAutoHideTimer.start();
+            if (!shown) {
+                // only start the timer if the toolbar is already shown
+                toolbarAutoHideTimer.start();
+            }
         }
     }
 
