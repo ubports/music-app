@@ -8,372 +8,377 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-18 09:09+0200\n"
-"PO-Revision-Date: 2013-09-29 09:20+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-01-07 09:22+0000\n"
+"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2013-12-23 05:49+0000\n"
-"X-Generator: Launchpad (build 16872)\n"
+"X-Launchpad-Export-Date: 2014-01-08 05:42+0000\n"
+"X-Generator: Launchpad (build 16877)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:47
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Příhlásit se pro příjem názvů skladeb."
 
 #: ../LoginLastFM.qml:55
 msgid "Username"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: ../LoginLastFM.qml:65
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: ../LoginLastFM.qml:87
 msgid "Login"
-msgstr ""
+msgstr "Přihlásit"
 
 #: ../LoginLastFM.qml:94
 msgid "Trying to login..."
-msgstr ""
+msgstr "Probíhá přihlašování..."
 
 #: ../LoginLastFM.qml:108
 msgid "Login Successful"
-msgstr ""
+msgstr "Přihlášení bylo úspěšné"
 
 #: ../LoginLastFM.qml:114
 msgid "Login Failed"
-msgstr ""
+msgstr "Přihlášení selhalo"
 
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "Zapoměli jste zadat uživatelské jméno nebo heslo"
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:919
 msgid "Albums"
-msgstr ""
+msgstr "Alba"
 
 #: ../MusicAlbums.qml:228
 #, qt-format
 msgid "%1 | %2 song"
 msgid_plural "%1 | %2 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 | %2 píseň"
+msgstr[1] "%1 | %2 písně"
+msgstr[2] "%1 | %2 písní"
 
 #: ../MusicAlbums.qml:368 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:643
 #: ../MusicTracks.qml:279 ../music-app.qml:804
 msgid "Add to playlist"
-msgstr ""
+msgstr "Přidat do seznamu skladeb"
 
 #: ../MusicAlbums.qml:386 ../MusicArtists.qml:447 ../MusicNowPlaying.qml:660
 #: ../MusicTracks.qml:297 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:815
 msgid "Select playlist"
-msgstr ""
+msgstr "Vybrat seznam skladeb"
 
 #: ../MusicAlbums.qml:414 ../MusicArtists.qml:475 ../MusicNowPlaying.qml:33
 #: ../MusicTracks.qml:325
 msgid "Queue"
-msgstr ""
+msgstr "Fronta"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:906
 msgid "Artists"
-msgstr ""
+msgstr "Interpreti"
 
 #: ../MusicArtists.qml:148
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 alba"
+msgstr[2] "%1 alb"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:244
 #: ../MusicPlaylists.qml:574 ../MusicStart.qml:235
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 píseň"
+msgstr[1] "%1 písně"
+msgstr[2] "%1 písní"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
-msgstr ""
+msgstr "Skladby"
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:688 ../MusicPlaylists.qml:438
 #: ../MusicPlaylists.qml:719 ../MusicTracks.qml:363
 msgid "Share"
-msgstr ""
+msgstr "Sdílet"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:54
 msgid "Are you sure?"
-msgstr ""
+msgstr "Jste si jistí?"
 
 #: ../MusicPlaylists.qml:55
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "Toto smaže seznam skladeb."
 
 #: ../MusicPlaylists.qml:58
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: ../MusicPlaylists.qml:71 ../MusicPlaylists.qml:114 ../music-app.qml:866
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:84
 msgid "Change name"
-msgstr ""
+msgstr "Změnit název"
 
 #: ../MusicPlaylists.qml:85
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Zadejte nový název seznamu skladeb."
 
 #: ../MusicPlaylists.qml:96
 msgid "Change"
-msgstr ""
+msgstr "Změnit"
 
 #: ../MusicPlaylists.qml:109
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "Nezadali jste název."
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:146 ../music-app.qml:946
 msgid "Playlists"
-msgstr ""
+msgstr "Seznamy skladeb"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:352 ../MusicPlaylists.qml:643
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:394 ../MusicPlaylists.qml:680
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: ../MusicPlaylists.qml:480
 msgid "Playlist"
-msgstr ""
+msgstr "Seznam skladeb"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:103
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "Ekvalizér"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "Výchozí"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr ""
+msgstr "Akustika"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "Klasická hudba"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "Elektronická"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr ""
+msgstr "Flat"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip Hop"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "Jazz"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Rock"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr ""
+msgstr "Vlastní"
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Přichytit k aktuální skladbě \n"
+"při otevření panelu nástrojů"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Účty"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Přihlásit se pro příjem názvů skladeb a importování seznamů skladeb"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "Streamování hudby"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Příhlásit se pro streamování hudby ve vašem cloudu"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Streamovat poze přes Wi-Fi"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Vyčistit vše!"
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:40 ../music-app.qml:209
 #: ../music-app.qml:893 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr ""
+msgstr "Hudba"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr ""
+msgstr "Nedávné"
 
 #: ../MusicStart.qml:157
 msgid "Genres"
-msgstr ""
+msgstr "Žánry"
 
 #: ../MusicToolbar.qml:284
 msgid "No songs queued"
-msgstr ""
+msgstr "Žádné skladby ve frontě"
 
 #: ../MusicToolbar.qml:294
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Vyberte skladbu pro přehrání"
 
 #: ../MusicaddtoPlaylist.qml:160
 msgid "New playlist"
-msgstr ""
+msgstr "Nový seznam skladeb"
 
 #: ../music-app.qml:65
 msgid "Next"
-msgstr ""
+msgstr "Další"
 
 #: ../music-app.qml:66
 msgid "Next Track"
-msgstr ""
+msgstr "Další skladba"
 
 #: ../music-app.qml:72
 msgid "Pause"
-msgstr ""
+msgstr "Pozastavit"
 
 #: ../music-app.qml:72
 msgid "Play"
-msgstr ""
+msgstr "Přehrát"
 
 #: ../music-app.qml:74
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pozastavit přehrávání"
 
 #: ../music-app.qml:74
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Pokračovat v přehrávání"
 
 #: ../music-app.qml:85
 msgid "Previous"
-msgstr ""
+msgstr "Předchozí"
 
 #: ../music-app.qml:86
 msgid "Previous Track"
-msgstr ""
+msgstr "Předchozí skladba"
 
 #: ../music-app.qml:91
 msgid "Stop"
-msgstr ""
+msgstr "Zastavit"
 
 #: ../music-app.qml:92
 msgid "Stop Playback"
-msgstr ""
+msgstr "Zastavit přehrávání"
 
 #: ../music-app.qml:97
 msgid "Back"
-msgstr ""
+msgstr "Zpět"
 
 #: ../music-app.qml:98
 msgid "Go back to last page"
-msgstr ""
+msgstr "Zpět na poslední stránku"
 
 #: ../music-app.qml:104
 msgid "Music Settings"
-msgstr ""
+msgstr "Nastavení hudby"
 
 #: ../music-app.qml:112
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: ../music-app.qml:113
 msgid "Close application"
-msgstr ""
+msgstr "Zavřít applikaci"
 
 #: ../music-app.qml:252
 msgid "Debug: "
-msgstr ""
+msgstr "Debug: "
 
 #: ../music-app.qml:790
 msgid "Add to queue"
-msgstr ""
+msgstr "Přidat do fronty"
 
 #: ../music-app.qml:828
 msgid "New Playlist"
-msgstr ""
+msgstr "Nový seznam skladeb"
 
 #: ../music-app.qml:829
 msgid "Name your playlist."
-msgstr ""
+msgstr "Pojmenujte svůj seznam skladeb."
 
 #: ../music-app.qml:832
 msgid "Name"
-msgstr ""
+msgstr "Název"
 
 #: ../music-app.qml:840
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 #: ../music-app.qml:855
 msgid "Error: "
-msgstr ""
+msgstr "Chyba: "
 
 #: ../music-app.qml:860
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Chyba: Nezadali jste název."
 
 #: ../music-app.qml:932
 msgid "Songs"
-msgstr ""
+msgstr "Skladby"
 
 #: ../common/LoadingSpinnerComponent.qml:43
 msgid "Loading..."
-msgstr ""
+msgstr "Načítání..."
 
 #: ../common/SwipeDelete.qml:60 ../common/SwipeDelete.qml:81
 msgid "Clear"
-msgstr ""
+msgstr "Vyčistit"
