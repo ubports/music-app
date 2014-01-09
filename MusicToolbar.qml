@@ -1045,9 +1045,7 @@ Rectangle {
             startMouseY = mouse.y;
 
             // Restart autohide timer on mouse press inside toolbar
-            if (toolbarAutoHideTimer.running) {
-                toolbarAutoHideTimer.restart();
-            }
+            startAutohideTimer();
         }
 
         onReleased: {
