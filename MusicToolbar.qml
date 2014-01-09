@@ -229,6 +229,7 @@ y: parent.height
     function showToolbar()
     {
         musicToolbarContainer.state = currentPage === nowPlaying ? "full" : "expanded";
+        startAutohideTimer();  // always attempt to autohide toolbar
         shown = true;
     }
 
@@ -1139,7 +1140,9 @@ y: parent.height
         repeat: false
         running: false
         onTriggered: {
-            hideToolbar();
+            if (currentPage !== nowPlaying) {  // don't autohide on now playing
+                hideToolbar();
+            }
         }
     }
 }
