@@ -17,7 +17,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Row {
+UbuntuShape {
     id: coverRow
 
     // Property (array) to store the cover images
@@ -29,15 +29,40 @@ Row {
     // Property to get the playlist count to determine the visibility of a cover image
     property int count
 
-    Repeater {
-        model: 4
-        delegate: UbuntuShape {
-            height: coverRow.size
-            width: height
-            visible: coverRow.count > index
-            image: Image {
+    width: size
+    height: size
+    radius: "medium"
+    image: finalImageRender
+
+    // Component to assemble the pictures in a row with appropriate spacing.
+    Row {
+        id: imageRow
+
+        width: coverRow.size
+        height: width
+
+        spacing: -coverRow.size + units.gu(1)
+
+        Repeater {
+            id: repeat
+            model: 4
+            delegate: Image {
+                width: coverRow.size
+                height: width
+                visible: coverRow.count > index
                 source: coverRow.covers[index] !== "" ? coverRow.covers[index] : Qt.resolvedUrl("../images/cover_default_icon.png")
             }
         }
     }
+
+    // Component to render the cover images as one image which is then passed as argument to the Ubuntu Shape widget.
+    ShaderEffectSource {
+        id: finalImageRender
+        sourceItem: imageRow
+        width: units.gu(1)
+        height: width
+        anchors.centerIn: parent
+        hideSource: true
+    }
 }
+

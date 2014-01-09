@@ -93,7 +93,6 @@ import "common"
                             left: parent.left
                             margins: units.gu(1)
                         }
-                        spacing: units.gu(-5)
                         count: parseInt(playlist.count)
                         size: units.gu(6)
                         covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]

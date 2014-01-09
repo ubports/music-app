@@ -176,7 +176,6 @@ PageStack {
                                left: parent.left
                                margins: units.gu(1)
                            }
-                           spacing: units.gu(-7)
                            count: parseInt(playlist.count)
                            size: styleMusic.playlist.playlistAlbumSize
                            covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
@@ -190,7 +189,7 @@ PageStack {
                                left: parent.left
                                right: expandItem.left
                                topMargin: units.gu(2)
-                               leftMargin: units.gu(14)
+                               leftMargin: units.gu(12)
                                rightMargin: units.gu(1.5)
                            }
                            elide: Text.ElideRight
@@ -470,7 +469,6 @@ PageStack {
                     left: parent.left
                     margins: units.gu(2)
                 }
-                spacing: units.gu(-9)
                 count: playlistInfo.count
                 size: styleMusic.common.albumSize
                 covers: [playlistInfo.cover0, playlistInfo.cover1, playlistInfo.cover2, playlistInfo.cover3]
@@ -483,7 +481,7 @@ PageStack {
                     left: parent.left
                     right: expandInfoItem.left
                     topMargin: units.gu(2.5)
-                    leftMargin: units.gu(16)
+                    leftMargin: units.gu(14)
                     rightMargin: units.gu(1.5)
                 }
                 text: playlistlist.playlistName
