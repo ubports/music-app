@@ -52,7 +52,7 @@ Rectangle {
     property int transitionDuration: 100
 
     onYChanged: {
-y: parent.height
+        y: parent.height
         if (y > mainView.height - units.gu(1) && currentMode === "full")
             musicToolbarSmallProgressBackground.opacity = 1
         else if (y <= mainView.height - units.gu(1) && currentMode === "full")
@@ -236,16 +236,7 @@ y: parent.height
     // Start the autohidetimer
     function startAutohideTimer()
     {
-        if (toolbarAutoHideTimer.running) {
-            // Restart the timer if already running
-            toolbarAutoHideTimer.restart();
-        }
-        else {
-            if (!shown) {
-                // only start the timer if the toolbar is already shown
-                toolbarAutoHideTimer.start();
-            }
-        }
+        toolbarAutoHideTimer.restart();
     }
 
     /* Mouse area to block events going to items under the toolbar */
@@ -428,7 +419,7 @@ y: parent.height
                                             anchors.verticalCenter: parent.verticalCenter
                                             opacity: 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
-                                                      Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                                        Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
                                     }
                                 }
@@ -714,7 +705,7 @@ y: parent.height
                                         anchors.verticalCenter: parent.verticalCenter
                                         opacity: 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
-                                                  Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                                    Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
 
                                     MouseArea {
