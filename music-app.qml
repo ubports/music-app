@@ -40,6 +40,15 @@ MainView {
     applicationName: "com.ubuntu.music"
     id: mainView
 
+    // Global keyboard shortcuts
+    focus: true
+    Keys.onPressed: {
+        if (event.key === Qt.Key_Alt) {
+            // On alt key press show toolbar and start autohide timer
+            musicToolbar.showToolbar();
+        }
+    }
+
     // Arguments during startup
     Arguments {
         id: args
@@ -70,9 +79,9 @@ MainView {
     Action {
         id: playsAction
         text: player.playbackState === MediaPlayer.PlayingState ?
-                   i18n.tr("Pause") : i18n.tr("Play")
+                  i18n.tr("Pause") : i18n.tr("Play")
         keywords: player.playbackState === MediaPlayer.PlayingState ?
-                   i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
+                      i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
         onTriggered: {
             if (player.playbackState === MediaPlayer.PlayingState)  {
                 player.pause()
@@ -224,6 +233,9 @@ MainView {
 
         // push the page to view
         pageStack.push(tabs)
+
+        // show toolbar hint at startup
+        musicToolbar.showToolbar();
     }
 
 
@@ -257,7 +269,7 @@ MainView {
     property string currentCover: ""
     property string currentCoverSmall: currentCover === "" ?
                                            "images/cover_default_icon.png" :
-                                            currentCover
+                                           currentCover
     property string currentCoverFull: currentCover !== "" ?
                                           currentCover :
                                           "images/cover_default.png"
@@ -425,12 +437,12 @@ MainView {
         // Same file different pages is treated as a new session
         if (libraryModel !== trackQueue &&
                 (currentModel !== libraryModel ||
-                    currentQuery !== libraryModel.query ||
-                        currentParam !== libraryModel.param ||
-                            queueChanged === true))
+                 currentQuery !== libraryModel.query ||
+                 currentParam !== libraryModel.param ||
+                 queueChanged === true))
         {
-                trackQueue.model.clear()
-                addQueueFromModel(libraryModel)
+            trackQueue.model.clear()
+            addQueueFromModel(libraryModel)
         }
         else if (player.source == Qt.resolvedUrl(file))
         {
@@ -586,9 +598,9 @@ MainView {
         }
 
         onPlaybackStateChanged: {
-          mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
-          QtPowerd.keepAlive = mainView.isPlaying
-          console.log("mainView.isPlaying=" + mainView.isPlaying + ", QtPowerd.keepAlive=" + QtPowerd.keepAlive)
+            mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
+            QtPowerd.keepAlive = mainView.isPlaying
+            console.log("mainView.isPlaying=" + mainView.isPlaying + ", QtPowerd.keepAlive=" + QtPowerd.keepAlive)
         }
     }
 
@@ -629,14 +641,14 @@ MainView {
             request += "<methodName>" + cmd + "</methodName>"
             request += "<params>"
             for (var i=0; i<params.length; i++) {
-            request += "<param><value>"
-            if (typeof(params[i])=="string") {
-                request += "<string>" + params[i] + "</string>"
-            }
-            if (typeof(params[i])=="number") {
-                request += "<int>" + params[i] + "</int>"
-            }
-            request += "</value></param>"
+                request += "<param><value>"
+                if (typeof(params[i])=="string") {
+                    request += "<string>" + params[i] + "</string>"
+                }
+                if (typeof(params[i])=="number") {
+                    request += "<int>" + params[i] + "</int>"
+                }
+                request += "</value></param>"
             }
             request += "</params>"
             request += "</methodCall>"
@@ -1013,54 +1025,54 @@ MainView {
 
     // New playlist dialog
     Component {
-         id: newPlaylistDialog
-         Dialog {
-             id: dialogueNewPlaylist
-             title: i18n.tr("New Playlist")
-             text: i18n.tr("Name your playlist.")
-             TextField {
-                 id: playlistName
-                 objectName: "playlistnameTextfield"
-                 placeholderText: i18n.tr("Name")
-             }
-             ListItem.Standard {
-                 id: newplaylistoutput
-                 visible: false // should only be visible when an error is made.
-             }
+        id: newPlaylistDialog
+        Dialog {
+            id: dialogueNewPlaylist
+            title: i18n.tr("New Playlist")
+            text: i18n.tr("Name your playlist.")
+            TextField {
+                id: playlistName
+                objectName: "playlistnameTextfield"
+                placeholderText: i18n.tr("Name")
+            }
+            ListItem.Standard {
+                id: newplaylistoutput
+                visible: false // should only be visible when an error is made.
+            }
 
-             Button {
-                 text: i18n.tr("Create")
-                 objectName: "newPlaylistDialog_createButton"
-                 onClicked: {
-                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
-                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                         var newList = Playlists.addPlaylist(playlistName.text)
-                         if (newList === "OK") {
-                             console.debug("Debug: User created a new playlist named: "+playlistName.text)
-                             // add the new playlist to the tab
-                             var index = Playlists.getID(); // get the latest ID
-                             playlistModel.model.append({"id": index, "name": playlistName.text, "count": "0"})
-                             PopupUtils.close(dialogueNewPlaylist)
-                         }
-                         else {
-                             console.debug("Debug: Something went wrong: "+newList)
-                             newplaylistoutput.visible = true
-                             newplaylistoutput.text = i18n.tr("Error: "+newList)
-                         }
-                     }
-                     else {
-                         newplaylistoutput.visible = true
-                         newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
-                     }
+            Button {
+                text: i18n.tr("Create")
+                objectName: "newPlaylistDialog_createButton"
+                onClicked: {
+                    newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
+                    if (playlistName.text.length > 0) { // make sure something is acually inputed
+                        var newList = Playlists.addPlaylist(playlistName.text)
+                        if (newList === "OK") {
+                            console.debug("Debug: User created a new playlist named: "+playlistName.text)
+                            // add the new playlist to the tab
+                            var index = Playlists.getID(); // get the latest ID
+                            playlistModel.model.append({"id": index, "name": playlistName.text, "count": "0"})
+                            PopupUtils.close(dialogueNewPlaylist)
+                        }
+                        else {
+                            console.debug("Debug: Something went wrong: "+newList)
+                            newplaylistoutput.visible = true
+                            newplaylistoutput.text = i18n.tr("Error: "+newList)
+                        }
+                    }
+                    else {
+                        newplaylistoutput.visible = true
+                        newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
+                    }
                 }
-             }
+            }
 
-             Button {
-                 text: i18n.tr("Cancel")
-                 color: styleMusic.dialog.buttonColor
-                 onClicked: PopupUtils.close(dialogueNewPlaylist)
-             }
-         }
+            Button {
+                text: i18n.tr("Cancel")
+                color: styleMusic.dialog.buttonColor
+                onClicked: PopupUtils.close(dialogueNewPlaylist)
+            }
+        }
     }
 
     MusicToolbar {
