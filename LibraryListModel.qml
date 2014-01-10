@@ -87,6 +87,8 @@ Item {
 
     function indexOf(file)
     {
+        file = file.toString();
+
         if (file.indexOf("file://") == 0)
         {
             file = file.slice(7, file.length)

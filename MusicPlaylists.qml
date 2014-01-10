@@ -117,11 +117,6 @@ PageStack {
         // fix pageStack bug the ugly way
         pageStack.push(playlistpage)
         pageStack.pop()
-
-        random = Settings.getSetting("shuffle") == "1" // shuffle state
-        scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-        lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-        lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
     }
 
     MusicSettings {
@@ -687,10 +682,6 @@ PageStack {
 
             onCountChanged: {
                 console.log("Tracks in playlist onCountChanged: " + playlistlist.count)
-                playlistlist.currentIndex = playlisttracksModel.indexOf(currentFile)
-            }
-            onCurrentIndexChanged: {
-                console.log("Tracks in playlist tracklist.currentIndex = " + playlistlist.currentIndex)
             }
 
             property int normalHeight: styleMusic.common.itemHeight

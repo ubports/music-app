@@ -179,11 +179,10 @@ Page {
                         mainView.hasRecent = true
                         recentModel.filterRecent()
                         var file = trackQueue.model.get(0).file
-                        currentIndex = trackQueue.indexOf(file)
                         queueChanged = true
-                        player.stop()
-                        player.source = Qt.resolvedUrl(file)
-                        player.play()
+
+                        player.playSong(file)
+
                         nowPlaying.visible = true
                         musicToolbar.showToolbar()
                     }
@@ -252,11 +251,10 @@ Page {
                         currentQuery = genreTracksModel.query
                         currentParam = genreTracksModel.param
                         var file = trackQueue.model.get(0).file
-                        currentIndex = trackQueue.indexOf(file)
                         queueChanged = true
-                        player.stop()
-                        player.source = Qt.resolvedUrl(file)
-                        player.play()
+
+                        player.playSong(file)
+
                         nowPlaying.visible = true
                         musicToolbar.showToolbar();
                     }

@@ -258,7 +258,7 @@ Rectangle {
             id: musicToolbarPlayerControls
             anchors.fill: parent
             color: styleMusic.playerControls.backgroundColor
-            state: trackQueue.isEmpty === true ? "disabled" : "enabled"
+            state: trackQueue.model.count === 0 ? "disabled" : "enabled"
 
             states: [
                 State {
@@ -450,14 +450,7 @@ Rectangle {
 
                             if (accepted)
                             {
-                                if (player.playbackState === MediaPlayer.PlayingState)
-                                {
-                                    player.pause()
-                                }
-                                else
-                                {
-                                    player.play()
-                                }
+                                player.toggle();
                             }
                         }
                     }
@@ -518,7 +511,8 @@ Rectangle {
                         elide: Text.ElideRight
                         fontSize: "medium"
                         objectName: "playercontroltitle"
-                        text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                        text: player.currentMeta.title === ""
+                              ? player.source : player.currentMeta.title
                     }
 
                     /* Artist of track */
@@ -532,7 +526,7 @@ Rectangle {
                         color: styleMusic.playerControls.labelColor
                         elide: Text.ElideRight
                         fontSize: "small"
-                        text: mainView.currentArtist
+                        text: player.currentMeta.artist
                     }
 
                     /* Album of track */
@@ -546,7 +540,7 @@ Rectangle {
                         color: styleMusic.playerControls.labelColor
                         elide: Text.ElideRight
                         fontSize: "small"
-                        text: mainView.currentAlbum
+                        text: player.currentMeta.album
                     }
                 }
             }
@@ -579,6 +573,7 @@ Rectangle {
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
+                opacity: player.repeat ? 1 : .4
                 width: height
 
                 Image {
@@ -589,7 +584,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
                     verticalAlignment: Text.AlignVCenter
-                    opacity: Settings.getSetting("repeat") === "1" ? 1 : .4
+                    opacity: player.repeat ? 1 : .4
                 }
 
                 MouseArea {
@@ -597,9 +592,7 @@ Rectangle {
 
                     onClicked: {
                         // Invert repeat settings
-                        Settings.setSetting("repeat", !(Settings.getSetting("repeat") === "1"))
-                        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-                        repeatIcon.opacity = Settings.getSetting("repeat") === "1" ? 1 : .4
+                        player.repeat = !player.repeat
                     }
                 }
             }
@@ -629,7 +622,7 @@ Rectangle {
                     id: nowPlayingPreviousMouseArea
                     onClicked:
                     {
-                        previousSong()
+                        player.previousSong()
                     }
                 }
             }
@@ -731,14 +724,7 @@ Rectangle {
                                                 return;
                                             }
 
-                                            if (player.playbackState === MediaPlayer.PlayingState)
-                                            {
-                                                player.pause()
-                                            }
-                                            else
-                                            {
-                                                player.play()
-                                            }
+                                            player.toggle();
                                         }
                                     }
                                 }
@@ -773,7 +759,7 @@ Rectangle {
                     id: nowPlayingNextMouseArea
                     onClicked:
                     {
-                        nextSong()
+                        player.nextSong()
                     }
                 }
             }
@@ -786,6 +772,7 @@ Rectangle {
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
+                opacity: player.shuffle ? 1 : .4
                 width: height
 
                 Image {
@@ -795,7 +782,7 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
-                    opacity: Settings.getSetting("shuffle") === "1" ? 1 : .4
+                    opacity: player.shuffle ? 1 : .4
                 }
 
                 MouseArea {
@@ -803,11 +790,7 @@ Rectangle {
 
                     onClicked: {
                         // Invert shuffle settings
-                        mainView.random = !mainView.random
-                        shuffleIcon.opacity = mainView.random ? 1 : .4
-                        Settings.setSetting("shuffle", mainView.random)
-                        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
-
+                        player.shuffle = !player.shuffle
                     }
                 }
             }
@@ -832,7 +815,7 @@ Rectangle {
                 fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
-                text: player.positionStr
+                text: durationToString(player.position)
                 verticalAlignment: Text.AlignVCenter
                 width: units.gu(3)
             }
@@ -882,19 +865,23 @@ Rectangle {
                     }
                 ]
 
-                // Connection from positionChanged signal
-                function updatePosition(position, duration)
-                {
-                    if (player.seeking == false)
-                    {
-                        musicToolbarFullProgressHandle.x = ((position / duration) * musicToolbarFullProgressBarContainer.width)
-                                - musicToolbarFullProgressHandle.width / 2;
+                property bool seeking: false
+
+                onSeekingChanged: {
+                    if (seeking === false) {
+                        musicToolbarFullPositionLabel.text = durationToString(player.position)
                     }
                 }
 
-                Component.onCompleted: {
-                    // Connect to signal from MediaPlayer
-                    player.positionChange.connect(updatePosition)
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        if (musicToolbarFullProgressBarContainer.seeking === false)
+                        {
+                            musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
+                                    - musicToolbarFullProgressHandle.width / 2;
+                        }
+                    }
                 }
 
                 // Black background behind the progress bar
@@ -931,14 +918,7 @@ Rectangle {
                     // On X change update the position string
                     onXChanged: {
                         var fraction = (x + (width / 2)) / parent.width;
-                        player.positionStr = __durationToString(fraction * player.duration);
-                    }
-
-                    transitions: Transition {
-                        NumberAnimation {
-                            properties: "x"
-                            duration: 1000
-                        }
+                        musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
                     }
                 }
             }
@@ -953,7 +933,7 @@ Rectangle {
                 fontSize: "x-small"
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
-                text: player.durationStr
+                text: durationToString(player.duration)
                 verticalAlignment: Text.AlignVCenter
                 width: units.gu(3)
             }
@@ -987,13 +967,11 @@ Rectangle {
             height: parent.height
             width: 0
 
-            function updatePosition(position, duration)
-            {
-                musicToolbarSmallProgressHint.width = (position / duration) * musicToolbarSmallProgressBackground.width
-            }
-
-            Component.onCompleted: {
-                player.positionChange.connect(updatePosition)
+            Connections {
+                target: player
+                onPositionChanged: {
+                    musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
+                }
             }
         }
     }
@@ -1105,7 +1083,8 @@ Rectangle {
         drag.target: musicToolbarFullProgressHandle
 
         onPressed: {
-            player.seeking = true;
+            musicToolbarFullProgressBarContainer.seeking = true;
+
             // Jump the handle to the current mouse position
             musicToolbarFullProgressHandle.x = mouse.x - (musicToolbarFullProgressHandle.width / 2);
         }
@@ -1118,7 +1097,7 @@ Rectangle {
             fraction = fraction > 1 ? 1 : fraction
 
             player.seek((fraction) * player.duration);
-            player.seeking = false;
+            musicToolbarFullProgressBarContainer.seeking = false;
         }
     }
 

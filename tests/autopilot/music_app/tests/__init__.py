@@ -243,5 +243,9 @@ class MusicTestCase(AutopilotTestCase):
                 logger.error("Failed to restore database")
 
     @property
+    def player(self):
+        return self.main_view.get_player()
+
+    @property
     def main_view(self):
         return self.app.select_single(emulators.MainView)

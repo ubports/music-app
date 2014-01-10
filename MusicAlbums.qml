@@ -232,10 +232,6 @@ Page {
                     }
                 }
 
-                onCountChanged: {
-                    albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
-                }
-
                 Component {
                     id: albumTracksDelegate
 

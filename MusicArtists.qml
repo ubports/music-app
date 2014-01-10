@@ -255,10 +255,6 @@ PageStack {
                 }
             }
 
-            onCountChanged: {
-                artisttrackslist.currentIndex = artistTracksModel.indexOf(currentFile)
-            }
-
             Component {
                 id: artistTracksDelegate
 

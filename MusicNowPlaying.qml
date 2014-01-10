@@ -66,8 +66,26 @@ Page {
     }
 
     Component.onCompleted: {
-        onPlayingTrackChange.connect(updateCurrentIndex)
         onToolbarShownChanged.connect(jumpToCurrent)
+    }
+
+    Connections {
+        target: player
+        onSourceChanged: {
+            if (player.source === "") {
+                return;
+            }
+
+            var index = trackQueue.indexOf(player.source);
+
+            // Collapse currently expanded track and the new current
+            collapseExpand(queuelist.currentIndex);
+            collapseExpand(index);
+
+            queuelist.currentIndex = index;
+
+            customdebug("MusicQueue update currentIndex: " + player.source);
+        }
     }
 
     function jumpToCurrent(shown, currentPage, currentTab)
@@ -82,19 +100,6 @@ Page {
                 queuelist.contentY -= header.height;
             }
         }
-    }
-
-    function updateCurrentIndex(file)
-    {
-        var index = trackQueue.indexOf(file);
-
-        // Collapse currently expanded track and the new current
-        collapseExpand(queuelist.currentIndex);
-        collapseExpand(index);
-
-        queuelist.currentIndex = index;
-
-        customdebug("MusicQueue update currentIndex: " + file);
     }
 
     ListView {
@@ -477,7 +482,7 @@ Page {
                                     if (queuelist.count > 1)
                                     {
                                         // Next song and only play if currently playing
-                                        nextSong(isPlaying);
+                                        nextSong(player.isPlaying);
                                     }
                                     else
                                     {
@@ -488,7 +493,7 @@ Page {
                                 // Remove item from queue and clear caches
                                 trackQueue.model.remove(index);
                                 queueChanged = true;
-                                currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
+                                currentIndex = trackQueue.indexOf(player.source);  // recalculate index
                             }
                         }
                     }
