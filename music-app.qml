@@ -167,6 +167,7 @@ MainView {
     Metric {
         id: songsMetric
         name: "music-metrics"
+        // TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
         format: "<b>%1</b> " + i18n.tr("songs played today")
         emptyFormat: i18n.tr("No songs played today")
         domain: "com.ubuntu.music"
