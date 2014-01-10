@@ -84,8 +84,8 @@ PageStack {
                         fontSize: "medium"
                         color: styleMusic.common.music
                         anchors {
-                            left: coverRow.left
-                            leftMargin: units.gu(14)
+                            left: coverRow.right
+                            leftMargin: units.gu(2)
                             top: parent.top
                             topMargin: units.gu(2)
                             right: parent.right
@@ -100,12 +100,13 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "x-small"
-                        anchors.left: coverRow.left
-                        anchors.leftMargin: units.gu(14)
-                        anchors.top: trackArtistAlbum.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
+                        anchors {
+                            left: trackArtistAlbum.left
+                            top: trackArtistAlbum.bottom
+                            topMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1.5)
+                        }
                         elide: Text.ElideRight
                         // model for number of albums?
                         text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
@@ -116,12 +117,13 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "x-small"
-                        anchors.left: coverRow.left
-                        anchors.leftMargin: units.gu(14)
-                        anchors.top: trackArtistAlbums.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
+                        anchors {
+                            left: trackArtistAlbum.left
+                            top: trackArtistAlbums.bottom
+                            topMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1.5)
+                        }
                         elide: Text.ElideRight
                         text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
                     }
