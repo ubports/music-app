@@ -403,7 +403,6 @@ MainView {
     // WHERE THE MAGIC HAPPENS
     Player {
         id: player
-        objectName: "player"
     }
 
     // Model to send the data

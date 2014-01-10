@@ -30,6 +30,7 @@ import "settings.js" as Settings
 
 MediaPlayer {
     muted: false
+    objectName: "player"
 
     property var currentMeta: {"album": "", "artist": "", "cover": "",
                                "title": ""}
