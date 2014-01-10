@@ -108,7 +108,7 @@ MediaPlayer {
         } else {
             if ((currentIndex < trackQueue.model.count - 1 && direction === 1 )
                     || (currentIndex > 0 && direction === -1)) {
-                newIndex = currentIndex + 1
+                newIndex = currentIndex + direction
             } else if(direction === 1 && (Settings.getSetting("repeat") === "1"
                                           || fromControls)) {
                 newIndex = 0
