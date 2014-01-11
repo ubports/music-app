@@ -115,10 +115,6 @@ Page {
                     Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
                     playlistModel.model.remove(oldPlaylistIndex)
                     PopupUtils.close(dialogueRemovePlaylist)
-                    if (inPlaylist) {
-                        customdebug("Back to playlists")
-                        pageStack.pop()
-                    }
                 }
             }
             Button {
@@ -160,66 +156,29 @@ Page {
                 iconFrame: false
                 height: styleMusic.playlist.playlistItemHeight
 
-                UbuntuShape {
-                    id: cover0
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(4)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    height: styleMusic.playlist.playlistAlbumSize
-                    width: styleMusic.playlist.playlistAlbumSize
-                    visible: playlist.count > 3
-                    image: Image {
-                        source: playlist.cover3 !== "" ? playlist.cover3 :  Qt.resolvedUrl("images/cover_default_icon.png")
+                CoverRow {
+                    id: coverRow
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        margins: units.gu(1)
                     }
+                    count: parseInt(playlist.count)
+                    size: styleMusic.playlist.playlistAlbumSize
+                    covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
                 }
-                UbuntuShape {
-                    id: cover1
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(3)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    height: styleMusic.playlist.playlistAlbumSize
-                    width: styleMusic.playlist.playlistAlbumSize
-                    visible: playlist.count > 2
-                    image: Image {
-                        source: playlist.cover2 !== "" ? playlist.cover2 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                    }
-                }
-                UbuntuShape {
-                    id: cover2
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(2)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    height: styleMusic.playlist.playlistAlbumSize
-                    width: styleMusic.playlist.playlistAlbumSize
-                    visible: playlist.count > 1
-                    image: Image {
-                        source: playlist.cover1 !== "" ? playlist.cover1 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                    }
-                }
-                UbuntuShape {
-                    id: cover3
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(1)
-                    height: styleMusic.playlist.playlistAlbumSize
-                    width: styleMusic.playlist.playlistAlbumSize
-                    image: Image {
-                        source: playlist.cover0 !== "" ? playlist.cover0 :  Qt.resolvedUrl("images/cover_default_icon.png")
-                    }
-                }
+
                 // songs count
                 Label {
                     id: playlistCount
-                    anchors.left: cover3.right
-                    anchors.leftMargin: units.gu(4)
-                    anchors.top: parent.top
-                    anchors.topMargin: units.gu(2)
-                    anchors.right: expandItem.left
-                    anchors.rightMargin: units.gu(1.5)
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: expandItem.left
+                        topMargin: units.gu(2)
+                        leftMargin: units.gu(12)
+                        rightMargin: units.gu(1.5)
+                    }
                     elide: Text.ElideRight
                     fontSize: "x-small"
                     height: units.gu(1)
@@ -228,16 +187,17 @@ Page {
                 // playlist name
                 Label {
                     id: playlistName
+                    anchors {
+                        top: playlistCount.bottom
+                        left: playlistCount.left
+                        right: expandItem.left
+                        topMargin: units.gu(1)
+                        rightMargin: units.gu(1.5)
+                    }
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "medium"
                     color: styleMusic.common.music
-                    anchors.left: cover3.right
-                    anchors.leftMargin: units.gu(4)
-                    anchors.top: playlistCount.bottom
-                    anchors.topMargin: units.gu(1)
-                    anchors.right: expandItem.left
-                    anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
                     text: playlist.name
                 }
@@ -435,7 +395,7 @@ Page {
                 onClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
                     songsSheet.line1 = "Playlist"
-                    songsSheet.line2 = name
+                    songsSheet.line2 = model.name
                     songsSheet.cover =  playlist.cover0
                     PopupUtils.open(songsSheet.sheet)
                 }

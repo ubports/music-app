@@ -52,7 +52,7 @@ Rectangle {
     property int transitionDuration: 100
 
     onYChanged: {
-y: parent.height
+        y: parent.height
         if (y > mainView.height - units.gu(1) && currentMode === "full")
             musicToolbarSmallProgressBackground.opacity = 1
         else if (y <= mainView.height - units.gu(1) && currentMode === "full")
@@ -214,6 +214,7 @@ y: parent.height
     {
         musicToolbarContainer.state = "minimized";
         shown = false;
+        toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
     // Set the current page, and any parent/stacks
@@ -228,7 +229,14 @@ y: parent.height
     function showToolbar()
     {
         musicToolbarContainer.state = currentPage === nowPlaying ? "full" : "expanded";
+        startAutohideTimer();  // always attempt to autohide toolbar
         shown = true;
+    }
+
+    // Start the autohidetimer
+    function startAutohideTimer()
+    {
+        toolbarAutoHideTimer.restart();
     }
 
     /* Mouse area to block events going to items under the toolbar */
@@ -411,7 +419,7 @@ y: parent.height
                                             anchors.verticalCenter: parent.verticalCenter
                                             opacity: 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
-                                                      Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                                        Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
                                     }
                                 }
@@ -671,7 +679,7 @@ y: parent.height
                                         anchors.verticalCenter: parent.verticalCenter
                                         opacity: 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
-                                                  Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                                    Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
 
                                     MouseArea {
@@ -1009,6 +1017,9 @@ y: parent.height
             // Record starting positions for later
             startContainerY = musicToolbarContainer.y;
             startMouseY = mouse.y;
+
+            // Restart autohide timer on mouse press inside toolbar
+            startAutohideTimer();
         }
 
         onReleased: {
@@ -1082,6 +1093,19 @@ y: parent.height
 
             player.seek((fraction) * player.duration);
             player.seeking = false;
+        }
+    }
+
+    // Timer for autohide
+    Timer {
+        id: toolbarAutoHideTimer
+        interval: 5000
+        repeat: false
+        running: false
+        onTriggered: {
+            if (currentPage !== nowPlaying) {  // don't autohide on now playing
+                hideToolbar();
+            }
         }
     }
 }
