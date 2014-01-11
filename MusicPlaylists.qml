@@ -394,6 +394,7 @@ Page {
 
                 onClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
+                    songsSheet.isAlbum = false
                     songsSheet.line1 = "Playlist"
                     songsSheet.line2 = model.name
                     songsSheet.cover =  playlist.cover0
