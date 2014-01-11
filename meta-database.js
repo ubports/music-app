@@ -349,19 +349,6 @@ function getGenreTracks(genre) {
     return res;
 }
 
-function getGenreCover(genre) {
-    var res = "";
-    var db = getDatabase();
-    //console.log("Genre: " + genre);
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT cover FROM metadata WHERE genre=? ORDER BY cover DESC", [genre]);
-        if (rs.rows.length > 0) {
-            res = rs.rows.item(0).value;
-        }
-    });
-    return res;
-}
-
 
 function size() {
     var db = getDatabase();
