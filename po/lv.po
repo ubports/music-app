@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-01-10 05:35+0000\n"
-"X-Generator: Launchpad (build 16884)\n"
+"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
+"X-Generator: Launchpad (build 16890)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -402,9 +402,3 @@ msgstr ""
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
 msgstr "Notīrīt"
-
-#, qt-format
-#~ msgid "%1 | %2 song"
-#~ msgid_plural "%1 | %2 songs"
-#~ msgstr[0] "%1 | %2 dziesma"
-#~ msgstr[1] "%1 | %2 dziesmas"
