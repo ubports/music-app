@@ -68,7 +68,7 @@ Item {
                         height: parent.height
                         width: height
                         image: Image {
-                            source: cover
+                            source: cover || "../images/cover_default.png"
                         }
                     }
                     Label {
