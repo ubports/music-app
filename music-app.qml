@@ -73,6 +73,7 @@ MainView {
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 nowPlaying.visible = true;
                 nowPlaying.positionAt(player.currentIndex);
+                musicToolbar.showToolbar();
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
                 player.toggle();
