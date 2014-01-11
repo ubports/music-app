@@ -25,6 +25,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
+import "common"
 
 PageStack {
     id: pageStack
@@ -64,56 +65,16 @@ PageStack {
                     property string artist: model.artist
                     height: styleMusic.common.itemHeight
 
-                    UbuntuShape {
-                       id: cover0
-                       anchors.left: parent.left
-                       anchors.leftMargin: units.gu(4)
-                       anchors.top: parent.top
-                       anchors.topMargin: units.gu(1)
-                       width: styleMusic.common.albumSize
-                       height: styleMusic.common.albumSize
-                       image: Image {
-                           source: Library.getArtistCovers(artist).length > 3 && Library.getArtistCovers(artist)[3] !== "" ? Library.getArtistCovers(artist)[3] : "images/cover_default.png"
-                       }
-                       visible: Library.getArtistCovers(artist).length > 3
-                    }
-                    UbuntuShape {
-                       id: cover1
-                       anchors.left: parent.left
-                       anchors.leftMargin: units.gu(3)
-                       anchors.top: parent.top
-                       anchors.topMargin: units.gu(1)
-                       width: styleMusic.common.albumSize
-                       height: styleMusic.common.albumSize
-                       image: Image {
-                           source: Library.getArtistCovers(artist).length > 2 && Library.getArtistCovers(artist)[2] !== "" ? Library.getArtistCovers(artist)[2] : "images/cover_default.png"
-                       }
-                       visible: Library.getArtistCovers(artist).length > 2
-                    }
-                    UbuntuShape {
-                       id: cover2
-                       anchors.left: parent.left
-                       anchors.leftMargin: units.gu(2)
-                       anchors.top: parent.top
-                       anchors.topMargin: units.gu(1)
-                       width: styleMusic.common.albumSize
-                       height: styleMusic.common.albumSize
-                       image: Image {
-                           source: Library.getArtistCovers(artist).length > 1 && Library.getArtistCovers(artist)[1] !== "" ? Library.getArtistCovers(artist)[1] : "images/cover_default.png"
-                       }
-                       visible: Library.getArtistCovers(artist).length > 1
-                    }
-                    UbuntuShape {
-                       id: cover3
-                       anchors.left: parent.left
-                       anchors.leftMargin: units.gu(1)
-                       anchors.top: parent.top
-                       anchors.topMargin: units.gu(1)
-                       width: styleMusic.common.albumSize
-                       height: styleMusic.common.albumSize
-                       image: Image {
-                           source: Library.getArtistCovers(artist).length > 0 && Library.getArtistCovers(artist)[0] !== "" ? Library.getArtistCovers(artist)[0] : "images/cover_default.png"
-                       }
+                    CoverRow {
+                        id: coverRow
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            margins: units.gu(1)
+                        }
+                        count: parseInt(Library.getArtistCovers(artist).length)
+                        size: styleMusic.common.albumSize
+                        covers: [Library.getArtistCovers(artist)[3] || "", Library.getArtistCovers(artist)[2] || "", Library.getArtistCovers(artist)[1] || "", Library.getArtistCovers(artist)[0] || ""]
                     }
 
                     Label {
@@ -122,12 +83,14 @@ PageStack {
                         maximumLineCount: 2
                         fontSize: "medium"
                         color: styleMusic.common.music
-                        anchors.left: cover3.left
-                        anchors.leftMargin: units.gu(14)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(2)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
+                        anchors {
+                            left: coverRow.right
+                            leftMargin: units.gu(2)
+                            top: parent.top
+                            topMargin: units.gu(2)
+                            right: parent.right
+                            rightMargin: units.gu(1.5)
+                        }
                         elide: Text.ElideRight
                         text: artist
                     }
@@ -137,12 +100,13 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "x-small"
-                        anchors.left: cover3.left
-                        anchors.leftMargin: units.gu(14)
-                        anchors.top: trackArtistAlbum.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
+                        anchors {
+                            left: trackArtistAlbum.left
+                            top: trackArtistAlbum.bottom
+                            topMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1.5)
+                        }
                         elide: Text.ElideRight
                         // model for number of albums?
                         text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
@@ -153,12 +117,13 @@ PageStack {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 2
                         fontSize: "x-small"
-                        anchors.left: cover3.left
-                        anchors.leftMargin: units.gu(14)
-                        anchors.top: trackArtistAlbums.bottom
-                        anchors.topMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1.5)
+                        anchors {
+                            left: trackArtistAlbum.left
+                            top: trackArtistAlbums.bottom
+                            topMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1.5)
+                        }
                         elide: Text.ElideRight
                         text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
                     }

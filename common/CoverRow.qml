@@ -49,7 +49,7 @@ UbuntuShape {
             delegate: Image {
                 width: coverRow.size
                 height: width
-                visible: coverRow.count > index
+                visible: coverRow.count > index || index == 0
                 source: coverRow.covers[index] !== "" ? coverRow.covers[index] : Qt.resolvedUrl("../images/cover_default_icon.png")
             }
         }
