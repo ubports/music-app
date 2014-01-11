@@ -67,7 +67,7 @@ Page {
                     }
                     count: parseInt(Library.getArtistCovers(artist).length)
                     size: styleMusic.common.albumSize
-                    covers: [Library.getArtistCovers(artist)[3] || "", Library.getArtistCovers(artist)[2] || "", Library.getArtistCovers(artist)[1] || "", Library.getArtistCovers(artist)[0] || ""]
+                    covers: [Library.getArtistCovers(artist)[0] || "", Library.getArtistCovers(artist)[1] || "", Library.getArtistCovers(artist)[2] || "", Library.getArtistCovers(artist)[3] || ""]
                 }
 
                 Label {

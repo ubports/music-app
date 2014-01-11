@@ -255,7 +255,7 @@ function getArtistCovers(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC", [artist]);
+        var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? AND cover <> '' ORDER BY album COLLATE NOCASE ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
