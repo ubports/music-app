@@ -99,7 +99,7 @@ Page {
             Item {
                 property string title: model.title
                 property string title2: model.title2
-                property string cover: model.cover !== "" ? model.cover : "images/cover_default.png"
+                property string cover: Library.getGenreCover(title) !== "" ? Library.getGenreCover(title) : "images/cover_default.png"
                 property string type: model.type
                 property string time: model.time
                 property string key: model.key
