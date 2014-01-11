@@ -37,6 +37,15 @@ DefaultSheet {
         PopupUtils.close(lastfmroot)
     }
 
+    onVisibleChanged: {
+        if (visible) {
+            musicToolbar.setSheet(lastfmroot)
+        }
+        else {
+            musicToolbar.removeSheet(lastfmroot)
+        }
+    }
+
     // Dialog data
     title: i18n.tr("Last.fm")
 
