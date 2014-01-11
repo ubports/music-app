@@ -50,6 +50,22 @@ MainView {
         else if(event.key === Qt.Key_Escape) {
             musicToolbar.goBack();  // Esc      Go back
         }
+        else if(event.modifiers === Qt.AltModifier) {
+            var position;
+
+            switch (event.key) {
+            case Qt.Key_Right:  //  Alt+Right   Seek forward +10secs
+                position = player.position + 10000 < player.duration
+                        ? player.position + 10000 : player.duration;
+                player.seek(position);
+                break;
+            case Qt.Key_Left:  //   Alt+Left    Seek backwards -10secs
+                position = player.position - 10000 > 0
+                        ? player.position - 10000 : 0;
+                player.seek(position);
+                break;
+            }
+        }
         else if(event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_Left:   //  Ctrl+Left   Previous Song
