@@ -130,11 +130,6 @@ Item {
                                     focus = true
                                 }
 
-                                // TODO: This closes the SDK defined sheet
-                                //       component. It should be able to close
-                                //       albumSheet.
-                                PopupUtils.close(sheet)
-
                                 albumTracksModel.filterAlbumTracks(album)
                                 albumSheet.line1 = artist
                                 albumSheet.line2 = model.album
@@ -143,6 +138,11 @@ Item {
                                 albumSheet.year = year
                                 albumSheet.cover = Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")
                                 PopupUtils.open(albumSheet.sheet)
+
+                                // TODO: This closes the SDK defined sheet
+                                //       component. It should be able to close
+                                //       albumSheet.
+                                PopupUtils.close(sheet)
                             }
                         }
                     }
