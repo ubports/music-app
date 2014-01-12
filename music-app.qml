@@ -405,6 +405,14 @@ MainView {
         id: player
     }
 
+    SongsSheet {
+        id: songsSheet
+    }
+
+    AlbumsSheet {
+        id: artistSheet
+    }
+
     // Model to send the data
     XmlListModel {
         id: scrobblemodel
@@ -575,7 +583,7 @@ MainView {
                         cover: media.thumbnail.toString(),
                         length: media.duration.toString(),
                         number: media.trackNumber,
-                        year: media.year.toString(),
+                        year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
 
@@ -662,6 +670,9 @@ MainView {
     LibraryListModel {
         id: artistTracksModel
     }
+    LibraryListModel {
+        id: artistAlbumsModel
+    }
 
     LibraryListModel {
         id: albumModel
@@ -747,11 +758,6 @@ MainView {
                 playlistTab.populated = true
             }
         }
-    }
-
-    // create the listmodel for tracks in playlists
-    LibraryListModel {
-        id: playlisttracksModel
     }
 
     // Blurred background
@@ -881,7 +887,7 @@ MainView {
                 property bool populated: false
                 property var loader: [recentModel.filterRecent, genreModel.filterGenres]
                 property bool loading: false
-                property var model: [recentModel, genreModel]
+                property var model: [recentModel, genreModel, albumTracksModel]
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -898,7 +904,7 @@ MainView {
                 property bool populated: false
                 property var loader: [artistModel.filterArtists]
                 property bool loading: false
-                property var model: [artistModel, artistTracksModel]
+                property var model: [artistModel, artistAlbumsModel, albumTracksModel]
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
@@ -950,7 +956,7 @@ MainView {
                 property bool populated: false
                 property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
-                property var model: [playlistModel, playlisttracksModel]
+                property var model: [playlistModel, albumTracksModel]
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
