@@ -52,7 +52,7 @@ class MainView(toolkit_emulators.MainView):
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
 
     def get_player(self):
-        return self.select_single("MediaPlayer", objectName="player")
+        return self.select_single("*", objectName="player")
 
     def get_play_button(self):
         return self.wait_select_single("*", objectName="playshape")
@@ -110,7 +110,7 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_album_sheet_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many(
+        tracktitles = self.select_many_retry(
             "Label", objectName="albumsheet-tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:

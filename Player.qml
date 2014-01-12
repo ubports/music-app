@@ -30,6 +30,7 @@ import "settings.js" as Settings
 
 MediaPlayer {
     muted: false
+    objectName: "player"
 
     property var currentMeta: {"album": "", "artist": "", "cover": "",
                                "title": ""}
@@ -61,7 +62,17 @@ MediaPlayer {
         }
         else {
             currentIndex = trackQueue.indexOf(source)
-            currentMeta = trackQueue.model.get(player.currentIndex)
+
+            var obj = trackQueue.model.get(player.currentIndex);
+            currentMeta = {
+                "artist": obj.artist,
+                "album": obj.album,
+                "title": obj.title,
+                "file": obj.file,
+                "cover": obj.cover,
+                "length": obj.length,
+                "year": obj.year,
+                "genre": obj.genre};
         }
 
         console.log("Source: " + source.toString())
