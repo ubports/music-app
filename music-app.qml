@@ -974,11 +974,6 @@ MainView {
         }
     }
 
-    // create the listmodel for tracks in playlists
-    LibraryListModel {
-        id: playlisttracksModel
-    }
-
     // Blurred background
     BlurredBackground {
     }
@@ -1175,7 +1170,7 @@ MainView {
                 property bool populated: false
                 property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
-                property var model: [playlistModel, playlisttracksModel]
+                property var model: [playlistModel, albumTracksModel]
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
