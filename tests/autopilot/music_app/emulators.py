@@ -107,7 +107,7 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_album_sheet_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many(
+        tracktitles = self.select_many_retry(
             "Label", objectName="albumsheet-tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:
