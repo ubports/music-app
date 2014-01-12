@@ -131,7 +131,7 @@ Item {
                         objectName: "albumsheet-track"
                         iconFrame: false
                         progression: false
-                        height: styleMusic.albums.itemHeight
+                        height: isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
 
                         MouseArea {
                             anchors.fill: parent
@@ -159,24 +159,74 @@ Item {
                             }
                         }
 
+                        UbuntuShape {
+                            id: trackCover
+                            anchors {
+                                left: parent.left
+                                leftMargin: units.gu(2)
+                                top: parent.top
+                                topMargin: units.gu(1)
+                            }
+                            width: styleMusic.common.albumSize
+                            height: styleMusic.common.albumSize
+                            visible: !isAlbum
+                            image: Image {
+                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/cover_default_icon.png")
+                            }
+                        }
+
+                        Label {
+                            id: trackArtist
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "x-small"
+                            visible: !isAlbum
+                            anchors {
+                                left: trackCover.right
+                                leftMargin: units.gu(2)
+                                top: parent.top
+                                topMargin: units.gu(1.5)
+                                right: expandItem.left
+                                rightMargin: units.gu(1.5)
+                            }
+                            elide: Text.ElideRight
+                            text: model.artist
+                        }
+
                         Label {
                             id: trackTitle
                             objectName: "albumsheet-tracktitle"
                             wrapMode: Text.NoWrap
-                            height: parent.height
-                            width: parent.width
                             maximumLineCount: 1
                             fontSize: "medium"
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(2)
-                            anchors.top: parent.top
-                            anchors.topMargin: units.gu(1)
-                            anchors.bottom: parent.bottom
-                            anchors.bottomMargin: units.gu(1)
-                            anchors.right: expandItem.left
-                            anchors.rightMargin: units.gu(1.5)
+                            anchors {
+                                left: isAlbum ? parent.left : trackCover.right
+                                leftMargin: units.gu(2)
+                                top: isAlbum ? parent.top : trackArtist.bottom
+                                topMargin: units.gu(1)
+                                right: expandItem.left
+                                rightMargin: units.gu(1.5)
+                            }
                             elide: Text.ElideRight
                             text: model.title
+                        }
+
+                        Label {
+                            id: trackAlbum
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "xx-small"
+                            visible: !isAlbum
+                            anchors {
+                                left: trackCover.right
+                                leftMargin: units.gu(2)
+                                top: trackTitle.bottom
+                                topMargin: units.gu(2)
+                                right: expandItem.left
+                                rightMargin: units.gu(1.5)
+                            }
+                            elide: Text.ElideRight
+                            text: model.album
                         }
 
                         Image {
@@ -187,7 +237,7 @@ Item {
                             source: expandable.visible ? "../images/dropdown-menu-up.svg" : "../images/dropdown-menu.svg"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
-                            y: parent.y + (styleMusic.albums.itemHeight / 2) - (height / 2)
+                            y: parent.y + ((isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)) / 2) - (height / 2)
                         }
 
                         MouseArea {
@@ -199,13 +249,13 @@ Item {
                                 if(expandable.visible) {
                                     customdebug("clicked collapse")
                                     expandable.visible = false
-                                    track.height = styleMusic.albums.itemHeight
+                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                 }
                                 else {
                                     customdebug("clicked expand")
                                     collapseExpand(-1);  // collapse all others
                                     expandable.visible = true
-                                    track.height = styleMusic.albums.expandedHeight
+                                    track.height = isAlbum ? styleMusic.albums.expandedHeight : styleMusic.common.expandedHeight
                                 }
                             }
                         }
@@ -232,7 +282,7 @@ Item {
                                 {
                                     customdebug("auto collapse")
                                     expandable.visible = false
-                                    track.height = styleMusic.albums.itemHeight
+                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + unis.gu(2)
                                 }
                             }
 
@@ -240,7 +290,7 @@ Item {
                             Rectangle {
                                 id: expandedBackground
                                 anchors.top: parent.top
-                                anchors.topMargin: styleMusic.albums.itemHeight
+                                anchors.topMargin: isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                 color: styleMusic.common.black
                                 height: styleMusic.albums.expandedHeight - styleMusic.albums.itemHeight
                                 width: track.width
@@ -279,7 +329,7 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                         expandable.visible = false
-                                        track.height = styleMusic.albums.itemHeight
+                                        track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         chosenArtist = artist
                                         chosenTitle = title
                                         chosenTrack = file
@@ -288,7 +338,7 @@ Item {
                                         chosenGenre = genre
                                         chosenIndex = index
                                         console.debug("Debug: Add track to playlist")
-                                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
+                                        PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
                                                         {
                                                             title: i18n.tr("Select playlist")
                                                         } )
@@ -327,7 +377,7 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                         expandable.visible = false
-                                        track.height = styleMusic.albums.itemHeight
+                                        track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         console.debug("Debug: Add track to queue: " + title)
                                         trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
                                     }
