@@ -228,26 +228,15 @@ function getRandomCovers(playlist, max) {
     // Get a list of unique covers for the playlist
     try {
         db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+            var rs = tx.executeSql("SELECT * FROM playlist WHERE playlist=? AND cover <> '' ;", [playlist]);
             for(var i = 0; i < rs.rows.length; i++) {
-                if (res.indexOf(rs.rows.item(i).cover) === -1
-                        && rs.rows.item(i).cover !== "") {
+                if (res.indexOf(rs.rows.item(i).cover) === -1) {
                     res.push(rs.rows.item(i).cover);
                 }
             }
         })
     } catch(e) {
         return [];
-    }
-
-    // Add blank if no covers exist
-    if (res.length === 0) {
-        res = [""];
-    }
-
-    // Randomly fill the array up to length of max with entries from the array
-    while (res.length < max) {
-        res.push(res[Math.floor(Math.random() * res.length)]);
     }
 
     return res;
