@@ -230,7 +230,8 @@ function getRandomCovers(playlist, max) {
         db.transaction(function(tx) {
             var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
             for(var i = 0; i < rs.rows.length; i++) {
-                if (res.indexOf(rs.rows.item(i).cover) === -1) {
+                if (res.indexOf(rs.rows.item(i).cover) === -1
+                        && rs.rows.item(i).cover !== "") {
                     res.push(rs.rows.item(i).cover);
                 }
             }
@@ -239,8 +240,13 @@ function getRandomCovers(playlist, max) {
         return [];
     }
 
+    // Add blank if no covers exist
+    if (res.length === 0) {
+        res = [""];
+    }
+
     // Randomly fill the array up to length of max with entries from the array
-    while (res.length < max && res.length !== 0) {
+    while (res.length < max) {
         res.push(res[Math.floor(Math.random() * res.length)]);
     }
 
