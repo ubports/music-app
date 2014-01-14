@@ -489,6 +489,58 @@ class TestMainWindow(MusicTestCase):
         playlistslist = self.main_view.get_playlistslist()
         self.assertThat(playlistslist.count, Equals(1))
 
+    def test_artists_tab_album(self):
+        """tests navigating to the Artists tab and playing an album"""
+
+        artistName = "Benjamin Kerensa"
+        trackTitle = "Foss Yeaaaah! (Radio Edit)"
+
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        # switch to artists tab
+        self.main_view.switch_to_tab("artiststab")
+
+        #select artist
+        artist = self.main_view.get_artists_artist(artistName)
+        self.pointing_device.click_object(artist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.main_view.get_artist_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        #select artist
+        artist = self.main_view.get_artists_artist(artistName)
+        self.pointing_device.click_object(artist)
+
+        #get song sheet album artist
+        sheet_albumartist = self.main_view.get_album_sheet_artist()
+        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+
+        # click on song to populate queue and start playing
+        self.pointing_device.click_object(sheet_albumartist)
+
+        #select artist
+        track = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        self.pointing_device.click_object(track)
+
+        # verify track queue has added all songs to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 2))
+
+        # Assert that the song added to the list is playing
+        self.assertThat(self.main_view.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
+
+        # verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            artistName)
+        self.assertThat(str(queueArtistName.text), Equals(artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            trackTitle)
+        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+
     def test_swipe_to_delete_song(self):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
