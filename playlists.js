@@ -144,6 +144,7 @@ function getPlaylists() {
    var db = getPlaylistsDatabase();
    var count = "";
    var res = new Array();
+   var covers;
 
    try {
        db.transaction(function(tx) {
@@ -151,13 +152,17 @@ function getPlaylists() {
            for(var i = 0; i < rs.rows.length; i++) {
                var dbItem = rs.rows.item(i);
                count = getPlaylistCount(dbItem.name);
-               res[dbItem.id] = {   'id': dbItem.id,
-                                    'name': dbItem.name,
-                                    'count': count,
-                                    'cover0': getRandomCover(dbItem.name),
-                                    'cover1': getRandomCover(dbItem.name),
-                                    'cover2': getRandomCover(dbItem.name),
-                                    'cover3': getRandomCover(dbItem.name)
+
+               covers = getRandomCovers(dbItem.name, 4)
+
+               res[dbItem.id] = {
+                   'id': dbItem.id,
+                   'name': dbItem.name,
+                   'count': count,
+                   'cover0': covers[0],
+                   'cover1': covers[1],
+                   'cover2': covers[2],
+                   'cover3': covers[3]
                }
             }
       })
@@ -216,28 +221,30 @@ function getPlaylistCount(playlist) {
     return res;
 }
 
-// retrieve tracks ids from playlist
-function getRandomCover(playlist) {
-   var db = getPlaylistDatabase();
-   var res = new Array();
+function getRandomCovers(playlist, max) {
+    var db = getPlaylistDatabase();
+    var res = [];
 
-   try {
-       db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
-         for(var i = 0; i < rs.rows.length; i++) {
-             var dbItem = rs.rows.item(i);
-             //console.log("ID: "+ dbItem.title +" " + dbItem.id);
-             res[i] = dbItem.cover;
-         }
-      })
-   } catch(e) {
-       return [];
-   }
+    // Get a list of unique covers for the playlist
+    try {
+        db.transaction(function(tx) {
+            var rs = tx.executeSql('SELECT * FROM playlist WHERE playlist=?;', [playlist]);
+            for(var i = 0; i < rs.rows.length; i++) {
+                if (res.indexOf(rs.rows.item(i).cover) === -1) {
+                    res.push(rs.rows.item(i).cover);
+                }
+            }
+        })
+    } catch(e) {
+        return [];
+    }
 
-   var randomNumber = Math.floor(Math.random()*res.length);
-   var randomCover = res[randomNumber];
-   //console.debug("Random cover is: ("+ randomNumber +")"+randomCover);
-   return randomCover;
+    // Randomly fill the array up to length of max with entries from the array
+    while (res.length < max && res.length !== 0) {
+        res.push(res[Math.floor(Math.random() * res.length)]);
+    }
+
+    return res;
 }
 
 // change name of playlist
