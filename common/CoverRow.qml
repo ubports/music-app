@@ -45,12 +45,12 @@ UbuntuShape {
 
         Repeater {
             id: repeat
-            model: 4
+            model: coverRow.count == 0 ? 1 : coverRow.count
             delegate: Image {
                 width: coverRow.size
                 height: width
-                visible: coverRow.count > index || index == 0
-                source: coverRow.covers[index] !== "" ? coverRow.covers[index] : Qt.resolvedUrl("../images/cover_default_icon.png")
+                source: coverRow.count === 0 || coverRow.covers[index] === ""
+                        ? Qt.resolvedUrl("../images/cover_default_icon.png") : coverRow.covers[index]
             }
         }
     }

@@ -74,10 +74,6 @@ import "common"
                     height: units.gu(8)
                     property string name: model.name
                     property string count: model.count
-                    property string cover0: model.cover0 || ""
-                    property string cover1: model.cover1 || ""
-                    property string cover2: model.cover2 || ""
-                    property string cover3: model.cover3 || ""
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
@@ -93,9 +89,9 @@ import "common"
                             left: parent.left
                             margins: units.gu(1)
                         }
-                        count: parseInt(playlist.count)
+                        count: parseInt(Playlists.getPlaylistCovers(playlist.name).length)
                         size: units.gu(6)
-                        covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
+                        covers: Playlists.getPlaylistCovers(playlist.name)
                     }
 
                     Label {
