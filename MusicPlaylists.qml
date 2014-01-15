@@ -150,9 +150,6 @@ Page {
                 property string name: model.name
                 property string count: model.count
                 property string cover0: model.cover0 || ""
-                property string cover1: model.cover1 || ""
-                property string cover2: model.cover2 || ""
-                property string cover3: model.cover3 || ""
                 iconFrame: false
                 height: styleMusic.playlist.playlistItemHeight
 
@@ -163,9 +160,9 @@ Page {
                         left: parent.left
                         margins: units.gu(1)
                     }
-                    count: parseInt(playlist.count)
+                    count: parseInt(Playlists.getRandomCovers(name).length)
                     size: styleMusic.playlist.playlistAlbumSize
-                    covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
+                    covers: Playlists.getRandomCovers(name)
                 }
 
                 // songs count
