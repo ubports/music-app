@@ -160,9 +160,9 @@ Page {
                         left: parent.left
                         margins: units.gu(1)
                     }
-                    count: parseInt(Playlists.getRandomCovers(name).length)
+                    count: parseInt(Playlists.getPlaylistCovers(name).length)
                     size: styleMusic.playlist.playlistAlbumSize
-                    covers: Playlists.getRandomCovers(name)
+                    covers: Playlists.getPlaylistCovers(name)
                 }
 
                 // songs count

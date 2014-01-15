@@ -89,9 +89,9 @@ import "common"
                             left: parent.left
                             margins: units.gu(1)
                         }
-                        count: parseInt(Playlists.getRandomCovers(playlist.name).length)
+                        count: parseInt(Playlists.getPlaylistCovers(playlist.name).length)
                         size: units.gu(6)
-                        covers: Playlists.getRandomCovers(playlist.name)
+                        covers: Playlists.getPlaylistCovers(playlist.name)
                     }
 
                     Label {

@@ -153,7 +153,7 @@ function getPlaylists() {
                var dbItem = rs.rows.item(i);
                count = getPlaylistCount(dbItem.name);
 
-               covers = getRandomCovers(dbItem.name, 4)
+               covers = getPlaylistCovers(dbItem.name, 4)
 
                res[dbItem.id] = {
                    'id': dbItem.id,
@@ -221,7 +221,7 @@ function getPlaylistCount(playlist) {
     return res;
 }
 
-function getRandomCovers(playlist, max) {
+function getPlaylistCovers(playlist, max) {
     var db = getPlaylistDatabase();
     var res = [];
 
