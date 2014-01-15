@@ -59,7 +59,7 @@ UbuntuShape {
     ShaderEffectSource {
         id: finalImageRender
         sourceItem: imageRow
-        width: units.gu(1)
+        width: units.gu(0.1)
         height: width
         anchors.centerIn: parent
         hideSource: true
