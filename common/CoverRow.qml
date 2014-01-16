@@ -29,6 +29,9 @@ UbuntuShape {
     // Property to get the playlist count to determine the visibility of a cover image
     property int count
 
+    // Property to set the spacing size, default to units.gu(1)
+    property var spacing: units.gu(1)
+
     width: size
     height: size
     radius: "medium"
@@ -41,7 +44,7 @@ UbuntuShape {
         width: coverRow.size
         height: width
 
-        spacing: -coverRow.size + units.gu(1)
+        spacing: -coverRow.size + coverRow.spacing
 
         Repeater {
             id: repeat
