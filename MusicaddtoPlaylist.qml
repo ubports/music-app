@@ -36,7 +36,7 @@ import "common"
  DefaultSheet {
      id: addtoPlaylist
      title: i18n.tr("Select playlist")
-     contentsHeight: parent.height;
+     contentsHeight: units.gu(80)
 
      onDoneClicked: PopupUtils.close(addtoPlaylist)
 
