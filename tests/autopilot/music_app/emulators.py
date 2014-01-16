@@ -99,7 +99,7 @@ class MainView(toolkit_emulators.MainView):
 
     def get_artist_sheet_artist(self):
         return self.select_single("Label",
-            objectName="artistsheet-albumartist")
+                                  objectName="artistsheet-albumartist")
 
     def get_artiststab(self):
         return self.select_single("Tab", objectName="artiststab")
