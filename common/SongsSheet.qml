@@ -284,7 +284,7 @@ Item {
                                 {
                                     customdebug("auto collapse")
                                     expandable.visible = false
-                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + unis.gu(2)
+                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                 }
                             }
 
