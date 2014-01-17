@@ -317,7 +317,7 @@ class TestMainWindow(MusicTestCase):
 
         #get album sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+        self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
@@ -507,7 +507,7 @@ class TestMainWindow(MusicTestCase):
 
         #get album sheet album artist
         sheet_albumartist = self.main_view.get_artist_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+        self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         #select artist
         artist = self.main_view.get_artists_artist(artistName)
