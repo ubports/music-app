@@ -342,7 +342,7 @@ class TestMainWindow(MusicTestCase):
 
         #get album sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+        self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         #get track item to add to queue
         trackicon = self.main_view.get_album_sheet_listview_trackicon(
@@ -515,7 +515,7 @@ class TestMainWindow(MusicTestCase):
 
         #get song sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Eventually(Equals(artistName)))
+        self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         # click on song to populate queue and start playing
         self.pointing_device.click_object(sheet_albumartist)
