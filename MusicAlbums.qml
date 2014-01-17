@@ -138,7 +138,7 @@ Page {
                         songsSheet.isAlbum = true
                         songsSheet.file = file
                         songsSheet.year = year
-                        songsSheet.cover = cover
+                        songsSheet.covers = [cover]
                         PopupUtils.open(songsSheet.sheet)
                     }
                 }
