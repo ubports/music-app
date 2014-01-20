@@ -280,6 +280,8 @@ MainView {
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
+    property bool wideAspect: width >= units.gu(50)
+
     // FUNCTIONS
 
     // Custom debug funtion that's easier to shut off

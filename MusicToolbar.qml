@@ -38,7 +38,8 @@ Rectangle {
     property var currentTab: null
 
     // The current mode of the controls
-    property string currentMode: currentPage === nowPlaying ? "full" : "expanded"
+    property string currentMode: wideAspect || currentPage === nowPlaying
+                                 ? "full" : "expanded"
 
     // Properties for the different heights
     property int minimizedHeight: units.gu(0.5)
@@ -212,8 +213,11 @@ Rectangle {
     // Hide the toolbar
     function hideToolbar()
     {
-        musicToolbarContainer.state = "minimized";
-        shown = false;
+        if (!wideAspect) {
+            musicToolbarContainer.state = "minimized";
+            shown = false;
+        }
+
         toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
@@ -228,7 +232,7 @@ Rectangle {
     // Show the toolbar
     function showToolbar()
     {
-        musicToolbarContainer.state = currentPage === nowPlaying ? "full" : "expanded";
+        musicToolbarContainer.state = currentMode;
         startAutohideTimer();  // always attempt to autohide toolbar
         shown = true;
     }
@@ -976,6 +980,7 @@ Rectangle {
     MouseArea {
         id: musicToolbarMouseArea
         anchors.fill: parent
+        enabled: !wideAspect
 
         property bool changed: false
         property int startContainerY: 0
