@@ -66,7 +66,7 @@ Rectangle {
         musicToolbarFullContainer.visible = currentMode === "full"
 
         // Update the container state if required
-        if (state !== "minimized")
+        if (state !== "minimized" || wideAspect)
         {
             state = currentMode
         }
@@ -549,6 +549,58 @@ Rectangle {
             height: parent.height - musicToolbarFullProgressContainer.height
             width: parent.width
 
+            /* Column for labels in wideAspect */
+            Column {
+                id: nowPlayingWideAspectLabels
+                visible: wideAspect
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1)
+                    right: nowPlayingRepeatButton.left
+                    rightMargin: units.gu(1)
+                    verticalCenter: parent.verticalCenter
+                }
+                /* Title of track */
+                Label {
+                    id: nowPlayingWideAspectTitle
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1)
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "medium"
+                    objectName: "playercontroltitle"
+                    text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                }
+
+                /* Artist of track */
+                Label {
+                    id: nowPlayingWideAspectArtist
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1)
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    text: mainView.currentArtist
+                }
+
+                /* Album of track */
+                Label {
+                    id: nowPlayingWideAspectAlbum
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1)
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    text: mainView.currentAlbum
+                }
+            }
+
             /* Repeat button */
             Item {
                 id: nowPlayingRepeatButton
@@ -786,6 +838,39 @@ Rectangle {
                         Settings.setSetting("shuffle", mainView.random)
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
 
+                    }
+                }
+            }
+
+            /* Go back to the queue */
+            Item {
+                id: nowPlayingWideAspectViewQueue
+                anchors {
+                    left: nowPlayingShuffleButton.right
+                    leftMargin: units.gu(1)
+                    right: parent.right
+                    rightMargin: units.gu(1)
+                    verticalCenter: parent.verticalCenter
+                }
+                height: parent.height
+                visible: wideAspect && currentPage !== nowPlaying && !trackQueue.isEmpty
+
+                Label {
+                    id: nowPlayingWideAspectViewQueueLabel
+                    anchors {
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: "View Queue"
+                }
+
+                MouseArea {
+                    anchors {
+                        fill: parent
+                    }
+                    onClicked: {
+                        nowPlaying.visible = true;
                     }
                 }
             }
