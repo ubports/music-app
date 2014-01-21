@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2013-11-25 19:24+0000\n"
+"PO-Revision-Date: 2014-01-20 14:55+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-01-21 06:23+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,8 +62,7 @@ msgstr "آلبوم‌ها"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 آهنگ"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -78,7 +77,7 @@ msgstr "انتخاب فهرست پخش"
 #: ../MusicAlbums.qml:427 ../MusicArtists.qml:476 ../MusicTracks.qml:315
 #: ../music-app.qml:981
 msgid "Add to queue"
-msgstr ""
+msgstr "افزودن به صف"
 
 #: ../MusicArtists.qml:39 ../music-app.qml:1107
 msgid "Artists"
@@ -118,285 +117,287 @@ msgstr "مطمئن هستید؟"
 
 #: ../MusicPlaylists.qml:49
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "این کار فهرست پخشتان را حذف می‌کند."
 
 #: ../MusicPlaylists.qml:52
 msgid "Remove"
-msgstr ""
+msgstr "برداشتن"
 
 #: ../MusicPlaylists.qml:65 ../MusicPlaylists.qml:108 ../music-app.qml:1059
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:78
 msgid "Change name"
-msgstr ""
+msgstr "تغییر نام"
 
 #: ../MusicPlaylists.qml:79
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "نام تازه‌ی فهرست پخش را وارد کنید"
 
 #: ../MusicPlaylists.qml:90
 msgid "Change"
-msgstr ""
+msgstr "تغییر"
 
 #: ../MusicPlaylists.qml:103
 msgid "You didn't type in a name."
-msgstr ""
+msgstr "نامی وارد نکرده اید."
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:136 ../music-app.qml:1159
 msgid "Playlists"
-msgstr ""
+msgstr "فهرست‌های پخش"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:343 ../MusicPlaylists.qml:638
 msgid "Edit"
-msgstr ""
+msgstr "ویرایش"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:385 ../MusicPlaylists.qml:675
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: ../MusicPlaylists.qml:471
 msgid "Playlist"
-msgstr ""
+msgstr "فهرست پخش"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:104
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات‌"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "اکولایزر"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "پیش‌گزیده"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr ""
+msgstr "صحبت"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "کلاسیک"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "الکترونیک"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr ""
+msgstr "صاف"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "هیپ‌هاپ"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "جز"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "متال"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "پاپ"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "راک"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr ""
+msgstr "سفارشی"
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"چشبیدن به آهنگ جاری \n"
+"هنگام گشودن نوارابزار"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "حساب‌ها"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "برای اسکروب کردن و وارد کردن فهرست‌های پخش وارد شوید"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "جاری کردن آهنگ"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "اوبونتو وان"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "برای جاری کردن آهنگ‌های روی ابرتان وارد شوید."
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "جاری کردن تنها روی اینترنت بی‌سیم"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "تمیز کردن همه‌چیز!"
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
 #: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr ""
+msgstr "آهنگ"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr ""
+msgstr "اخیر"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "آلبوم یا فهرست پخش اخیری نیست"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
-msgstr ""
+msgstr "سبک‌ها"
 
 #: ../MusicToolbar.qml:292
 msgid "No songs queued"
-msgstr ""
+msgstr "آهنگی صف نشده است"
 
 #: ../MusicToolbar.qml:302
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "برای شروع پخش، روی یک آهنگ ضربه بزنید"
 
 #: ../MusicaddtoPlaylist.qml:164
 msgid "New playlist"
-msgstr ""
+msgstr "فهرست پخش جدید"
 
 #: ../music-app.qml:66
 msgid "Next"
-msgstr ""
+msgstr "پسین"
 
 #: ../music-app.qml:67
 msgid "Next Track"
-msgstr ""
+msgstr "قطعه‌ی بعدی"
 
 #: ../music-app.qml:73
 msgid "Pause"
-msgstr ""
+msgstr "مکث"
 
 #: ../music-app.qml:73
 msgid "Play"
-msgstr ""
+msgstr "پخش"
 
 #: ../music-app.qml:75
 msgid "Pause Playback"
-msgstr ""
+msgstr "توقف پخش"
 
 #: ../music-app.qml:75
 msgid "Continue or start playback"
-msgstr ""
+msgstr "ادامه یا شروع پخش"
 
 #: ../music-app.qml:86
 msgid "Previous"
-msgstr ""
+msgstr "پیشین"
 
 #: ../music-app.qml:87
 msgid "Previous Track"
-msgstr ""
+msgstr "قطعه‌ی قبلی"
 
 #: ../music-app.qml:92
 msgid "Stop"
-msgstr ""
+msgstr "توقف"
 
 #: ../music-app.qml:93
 msgid "Stop Playback"
-msgstr ""
+msgstr "توقف پخش"
 
 #: ../music-app.qml:98
 msgid "Back"
-msgstr ""
+msgstr "بازگشت"
 
 #: ../music-app.qml:99
 msgid "Go back to last page"
-msgstr ""
+msgstr "رفتن به صفحه‌ی قبلی"
 
 #: ../music-app.qml:105
 msgid "Music Settings"
-msgstr ""
+msgstr "تنظیمات آهنگ"
 
 #: ../music-app.qml:113
 msgid "Quit"
-msgstr ""
+msgstr "خروج"
 
 #: ../music-app.qml:114
 msgid "Close application"
-msgstr ""
+msgstr "بستن برنامه"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "آهنگ امروز پخش شده"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "امروز آهنگی پخش نشده"
 
 #: ../music-app.qml:278
 msgid "Debug: "
-msgstr ""
+msgstr "رفع اشکال: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr ""
+msgstr "هنرمند ناشناس"
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr ""
+msgstr "آلبوم نامعلوم"
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr ""
+msgstr "سبک نامعین"
 
 #: ../music-app.qml:1019
 msgid "New Playlist"
-msgstr ""
+msgstr "فهرست پخش جدید"
 
 #: ../music-app.qml:1020
 msgid "Name your playlist."
-msgstr ""
+msgstr "فهرست پخش‌تان را نام‌گذاری کنید."
 
 #: ../music-app.qml:1024
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: ../music-app.qml:1032
 msgid "Create"
-msgstr ""
+msgstr "ساختن"
 
 #: ../music-app.qml:1048
 msgid "Error: "
-msgstr ""
+msgstr "خطا: "
 
 #: ../music-app.qml:1053
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "خطا: نامی وارد نکرده‌اید."
 
 #: ../music-app.qml:1141
 msgid "Songs"
-msgstr ""
+msgstr "آهنگ‌ها"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "در حال بارگذاری…"
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr ""
+msgstr "پاک‌سازی"
