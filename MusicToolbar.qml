@@ -69,6 +69,7 @@ Rectangle {
         if (state !== "minimized" || wideAspect)
         {
             state = currentMode
+            shown = true;
         }
     }
 
@@ -552,7 +553,6 @@ Rectangle {
             /* Column for labels in wideAspect */
             Column {
                 id: nowPlayingWideAspectLabels
-                visible: wideAspect
                 anchors {
                     left: parent.left
                     leftMargin: units.gu(1)
@@ -560,13 +560,17 @@ Rectangle {
                     rightMargin: units.gu(1)
                     verticalCenter: parent.verticalCenter
                 }
+                visible: wideAspect
+
                 /* Title of track */
                 Label {
                     id: nowPlayingWideAspectTitle
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(1)
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "medium"
@@ -577,10 +581,12 @@ Rectangle {
                 /* Artist of track */
                 Label {
                     id: nowPlayingWideAspectArtist
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(1)
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
@@ -590,14 +596,26 @@ Rectangle {
                 /* Album of track */
                 Label {
                     id: nowPlayingWideAspectAlbum
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(1)
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
                     text: mainView.currentAlbum
+                }
+            }
+            /* Clicking in the area shows the queue */
+            MouseArea {
+                anchors {
+                    fill: nowPlayingWideAspectLabels
+                }
+                enabled: !trackQueue.isEmpty
+                onClicked: {
+                    nowPlaying.visible = true;
                 }
             }
 
@@ -838,39 +856,6 @@ Rectangle {
                         Settings.setSetting("shuffle", mainView.random)
                         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
 
-                    }
-                }
-            }
-
-            /* Go back to the queue */
-            Item {
-                id: nowPlayingWideAspectViewQueue
-                anchors {
-                    left: nowPlayingShuffleButton.right
-                    leftMargin: units.gu(1)
-                    right: parent.right
-                    rightMargin: units.gu(1)
-                    verticalCenter: parent.verticalCenter
-                }
-                height: parent.height
-                visible: wideAspect && currentPage !== nowPlaying && !trackQueue.isEmpty
-
-                Label {
-                    id: nowPlayingWideAspectViewQueueLabel
-                    anchors {
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                        verticalCenter: parent.verticalCenter
-                    }
-                    text: "View Queue"
-                }
-
-                MouseArea {
-                    anchors {
-                        fill: parent
-                    }
-                    onClicked: {
-                        nowPlaying.visible = true;
                     }
                 }
             }
