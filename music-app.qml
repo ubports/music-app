@@ -1096,7 +1096,10 @@ MainView {
         id: pageStack
         Tabs {
             id: tabs
-            anchors.fill: parent
+            anchors {
+                bottomMargin: wideAspect ? musicToolbar.fullHeight : undefined
+                fill: parent
+            }
 
             // First tab is all music
             Tab {
