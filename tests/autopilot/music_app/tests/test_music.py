@@ -62,7 +62,11 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(back_button)
 
         self.main_view.show_toolbar()
-        playbutton = self.main_view.get_play_button()
+
+        if self.main_view.wideAspect:
+            playbutton = self.main_view.get_now_playing_play_button()
+        else:
+            playbutton = self.main_view.get_play_button()
 
         """ Track is playing"""
         self.assertThat(self.main_view.isPlaying, Eventually(Equals(True)))
