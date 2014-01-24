@@ -184,8 +184,8 @@ MainView {
 
     // Design stuff
     Style { id: styleMusic }
-    width: units.gu(50)
-    height: units.gu(75)
+    width: units.gu(100)
+    height: units.gu(80)
 
     // Run on startup
     Component.onCompleted: {
@@ -279,6 +279,8 @@ MainView {
     signal collapseSwipeDelete(int index);
     signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
+
+    property bool wideAspect: width >= units.gu(70)
 
     // FUNCTIONS
 
@@ -1094,7 +1096,10 @@ MainView {
         id: pageStack
         Tabs {
             id: tabs
-            anchors.fill: parent
+            anchors {
+                bottomMargin: wideAspect ? musicToolbar.fullHeight : undefined
+                fill: parent
+            }
 
             // First tab is all music
             Tab {
