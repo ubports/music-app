@@ -575,7 +575,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "medium"
                     objectName: "playercontroltitle"
-                    text: mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                    text: trackQueue.isEmpty ? "" : mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
                 }
 
                 /* Artist of track */
@@ -590,7 +590,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: mainView.currentArtist
+                    text: trackQueue.isEmpty ? "" : mainView.currentArtist
                 }
 
                 /* Album of track */
@@ -605,7 +605,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: mainView.currentAlbum
+                    text: trackQueue.isEmpty ? "" : mainView.currentAlbum
                 }
             }
             /* Clicking in the area shows the queue */
