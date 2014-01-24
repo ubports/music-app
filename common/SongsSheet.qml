@@ -43,8 +43,7 @@ Item {
             id: sheet
             anchors.bottomMargin: units.gu(.5)
             doneButton: false
-            contentsHeight: parent.height
-            contentsWidth: parent.width
+            contentsHeight: units.gu(80)
 
             ListView {
                 clip: true
