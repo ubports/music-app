@@ -184,8 +184,8 @@ MainView {
 
     // Design stuff
     Style { id: styleMusic }
-    width: units.gu(50)
-    height: units.gu(75)
+    width: units.gu(100)
+    height: units.gu(80)
 
     // Run on startup
     Component.onCompleted: {
