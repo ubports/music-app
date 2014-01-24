@@ -60,6 +60,9 @@ import "common"
 
      Rectangle {
          width: parent.width
+         height: parent.height
+         color: "transparent"
+         clip: true
 
          // show each playlist and make them chosable
          ListView {
