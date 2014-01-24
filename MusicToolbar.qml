@@ -660,6 +660,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "previousshape"
+                opacity: trackQueue.isEmpty ? .4 : 1
                 width: height
 
                 Image {
@@ -751,7 +752,7 @@ Rectangle {
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
-                                        opacity: 1
+                                        opacity: trackQueue.isEmpty ? .4 : 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
                                                     Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
@@ -804,6 +805,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "forwardshape"
+                opacity: trackQueue.isEmpty ? .4 : 1
                 width: height
 
                 Image {
