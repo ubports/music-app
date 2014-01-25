@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-18 23:47+0000\n"
-"Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
+"PO-Revision-Date: 2014-01-24 13:23+0000\n"
+"Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-01-19 06:02+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-01-25 06:42+0000\n"
+"X-Generator: Launchpad (build 16914)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -224,6 +224,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Ajustar a música atual \n"
+"quando abrir a barra de ferramentas"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
@@ -231,7 +233,7 @@ msgstr "Contas"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Fazer login no scrobble e importar as listas de reprodução"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -243,11 +245,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Fazer login para transmitir suas músicas armazenadas em nuvem"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Transmitir apenas através de Wi-Fi"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
@@ -264,7 +266,7 @@ msgstr "Recente"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "Nenhum álbum recente ou lista de reprodução"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
@@ -276,7 +278,7 @@ msgstr "Sem músicas na fila"
 
 #: ../MusicToolbar.qml:302
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Toque em um música para começar a reprodução"
 
 #: ../MusicaddtoPlaylist.qml:164
 msgid "New playlist"
@@ -328,7 +330,7 @@ msgstr "Voltar"
 
 #: ../music-app.qml:99
 msgid "Go back to last page"
-msgstr ""
+msgstr "Voltar para a última página"
 
 #: ../music-app.qml:105
 msgid "Music Settings"
@@ -345,15 +347,15 @@ msgstr "Encerrar aplicação"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "músicas tocadas hoje"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "Nenhuma música tocada hoje"
 
 #: ../music-app.qml:278
 msgid "Debug: "
-msgstr ""
+msgstr "Debug: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
