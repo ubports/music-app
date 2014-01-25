@@ -457,7 +457,15 @@ MainView {
 
             if (player.playbackState == MediaPlayer.PlayingState)
             {
-                player.pause()
+                if (musicToolbar.currentPage == nowPlaying) {
+                    player.pause()
+                } else { // We are not on the now playing page
+                    // Show the Now Playing page and make sure the track is visible
+                    nowPlaying.visible = true;
+                    nowPlaying.ensureVisibleIndex = index;
+
+                    musicToolbar.showToolbar();
+                }
             }
             else
             {
