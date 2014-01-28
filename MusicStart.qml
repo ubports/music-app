@@ -26,6 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
+import "common"
 
 Page {
     id: mainpage
@@ -99,22 +100,24 @@ Page {
             Item {
                 property string title: model.title
                 property string title2: model.title2
-                property string cover: model.cover !== "" ? model.cover : "images/cover_default.png"
+                property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [Library.getAlbumCover(title)]
                 property string type: model.type
                 property string time: model.time
                 property string key: model.key
                 id: recentItem
                 height: units.gu(20)
                 width: units.gu(20)
-                UbuntuShape {
+                CoverRow {
                     id: recentShape
-                    height: recentItem.width
-                    width: recentItem.width
-                    image: Image {
-                        id: icon
-                        fillMode: Image.Stretch
-                        source: cover
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        verticalCenter: parent.verticalCenter
                     }
+                    count: recentItem.covers.length
+                    size: recentItem.width
+                    covers: recentItem.covers
+                    spacing: units.gu(2)
                 }
                 UbuntuShape {  // Background so can see text in current state
                     id: albumBg2
@@ -168,7 +171,7 @@ Page {
 
                         songsSheet.line1 = title2
                         songsSheet.line2 = title
-                        songsSheet.cover =  cover
+                        songsSheet.covers =  recentItem.covers
                         PopupUtils.open(songsSheet.sheet)
                         songsSheet.isAlbum = (type === "album")
                     }
@@ -208,7 +211,7 @@ Page {
                 property string artist: model.artist
                 property string album: model.album
                 property string title: model.title
-                property string cover: model.cover  !== "" ? model.cover : "images/cover_default.png"
+                property var covers: Library.getGenreCovers(model.genre)
                 property string length: model.length
                 property string file: model.file
                 property string year: model.year
@@ -218,15 +221,17 @@ Page {
                 objectName: "genreItemObject"
                 height: units.gu(20)
                 width: units.gu(20)
-                UbuntuShape {
+                CoverRow {
                     id: genreShape
-                    height: genreItem.width
-                    width: genreItem.width
-                    image: Image {
-                        id: icon
-                        fillMode: Image.Stretch
-                        source: cover
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        verticalCenter: parent.verticalCenter
                     }
+                    count: genreItem.covers.length
+                    size: genreItem.width
+                    covers: genreItem.covers
+                    spacing: units.gu(2)
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -235,7 +240,7 @@ Page {
                         songsSheet.line1 = "Genre"
                         songsSheet.line2 = genre
                         songsSheet.isAlbum = false
-                        songsSheet.cover =  cover
+                        songsSheet.covers =  covers
                         PopupUtils.open(songsSheet.sheet)
                     }
                 }

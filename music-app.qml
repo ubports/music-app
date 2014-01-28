@@ -74,7 +74,7 @@ MainView {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: nextSong()
+        onTriggered: player.nextSong()
     }
     Action {
         id: playsAction
@@ -82,19 +82,13 @@ MainView {
                   i18n.tr("Pause") : i18n.tr("Play")
         keywords: player.playbackState === MediaPlayer.PlayingState ?
                       i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
-        onTriggered: {
-            if (player.playbackState === MediaPlayer.PlayingState)  {
-                player.pause()
-            } else {
-                player.play()
-            }
-        }
+        onTriggered: player.toggle()
     }
     Action {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
-        onTriggered: previousSong()
+        onTriggered: player.previousSong()
     }
     Action {
         id: stopAction
@@ -214,8 +208,8 @@ MainView {
 
     // Design stuff
     Style { id: styleMusic }
-    width: units.gu(50)
-    height: units.gu(75)
+    width: units.gu(100)
+    height: units.gu(80)
 
     // Run on startup
     Component.onCompleted: {
@@ -293,6 +287,8 @@ MainView {
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
+    property bool wideAspect: width >= units.gu(70)
+
     // FUNCTIONS
 
     // Custom debug funtion that's easier to shut off
@@ -364,7 +360,10 @@ MainView {
             // Same track so just toggle playing state
             if (play === true) {
                 console.log("Is current track: "+player.playbackState)
-                player.toggle()
+
+                if (musicToolbar.currentPage == nowPlaying) {
+                    player.toggle()
+                }
 
                 // Show the Now Playing page and make sure the track is visible
                 nowPlaying.visible = true;
@@ -880,7 +879,10 @@ MainView {
         id: pageStack
         Tabs {
             id: tabs
-            anchors.fill: parent
+            anchors {
+                bottomMargin: wideAspect ? musicToolbar.fullHeight : undefined
+                fill: parent
+            }
 
             // First tab is all music
             Tab {

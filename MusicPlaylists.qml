@@ -142,10 +142,7 @@ Page {
                 id: playlist
                 property string name: model.name
                 property string count: model.count
-                property string cover0: model.cover0 || ""
-                property string cover1: model.cover1 || ""
-                property string cover2: model.cover2 || ""
-                property string cover3: model.cover3 || ""
+                property var covers: Playlists.getPlaylistCovers(name)
                 iconFrame: false
                 height: styleMusic.playlist.playlistItemHeight
 
@@ -156,9 +153,9 @@ Page {
                         left: parent.left
                         margins: units.gu(1)
                     }
-                    count: parseInt(playlist.count)
+                    count: playlist.covers.length
                     size: styleMusic.playlist.playlistAlbumSize
-                    covers: [playlist.cover0, playlist.cover1, playlist.cover2, playlist.cover3]
+                    covers: playlist.covers
                 }
 
                 // songs count
@@ -390,7 +387,7 @@ Page {
                     songsSheet.isAlbum = false
                     songsSheet.line1 = "Playlist"
                     songsSheet.line2 = model.name
-                    songsSheet.cover =  playlist.cover0
+                    songsSheet.covers =  playlist.covers
                     PopupUtils.open(songsSheet.sheet)
                 }
             }

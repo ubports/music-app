@@ -38,7 +38,8 @@ Rectangle {
     property var currentTab: null
 
     // The current mode of the controls
-    property string currentMode: currentPage === nowPlaying ? "full" : "expanded"
+    property string currentMode: wideAspect || currentPage === nowPlaying
+                                 ? "full" : "expanded"
 
     // Properties for the different heights
     property int minimizedHeight: units.gu(0.5)
@@ -65,9 +66,10 @@ Rectangle {
         musicToolbarFullContainer.visible = currentMode === "full"
 
         // Update the container state if required
-        if (state !== "minimized")
+        if (state !== "minimized" || wideAspect)
         {
             state = currentMode
+            shown = true;
         }
     }
 
@@ -212,8 +214,11 @@ Rectangle {
     // Hide the toolbar
     function hideToolbar()
     {
-        musicToolbarContainer.state = "minimized";
-        shown = false;
+        if (!wideAspect) {
+            musicToolbarContainer.state = "minimized";
+            shown = false;
+        }
+
         toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
@@ -228,7 +233,7 @@ Rectangle {
     // Show the toolbar
     function showToolbar()
     {
-        musicToolbarContainer.state = currentPage === nowPlaying ? "full" : "expanded";
+        musicToolbarContainer.state = currentMode;
         startAutohideTimer();  // always attempt to autohide toolbar
         shown = true;
     }
@@ -539,6 +544,75 @@ Rectangle {
             height: parent.height - musicToolbarFullProgressContainer.height
             width: parent.width
 
+            /* Column for labels in wideAspect */
+            Column {
+                id: nowPlayingWideAspectLabels
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1)
+                    right: nowPlayingRepeatButton.left
+                    rightMargin: units.gu(1)
+                    verticalCenter: parent.verticalCenter
+                }
+                visible: wideAspect
+
+                /* Title of track */
+                Label {
+                    id: nowPlayingWideAspectTitle
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "medium"
+                    objectName: "playercontroltitle"
+                    text: trackQueue.isEmpty ? "" : mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                }
+
+                /* Artist of track */
+                Label {
+                    id: nowPlayingWideAspectArtist
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    text: trackQueue.isEmpty ? "" : mainView.currentArtist
+                }
+
+                /* Album of track */
+                Label {
+                    id: nowPlayingWideAspectAlbum
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
+                    color: styleMusic.playerControls.labelColor
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    text: trackQueue.isEmpty ? "" : mainView.currentAlbum
+                }
+            }
+            /* Clicking in the area shows the queue */
+            MouseArea {
+                anchors {
+                    fill: nowPlayingWideAspectLabels
+                }
+                enabled: !trackQueue.isEmpty
+                onClicked: {
+                    nowPlaying.visible = true;
+                }
+            }
+
             /* Repeat button */
             Item {
                 id: nowPlayingRepeatButton
@@ -579,6 +653,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "previousshape"
+                opacity: trackQueue.isEmpty ? .4 : 1
                 width: height
 
                 Image {
@@ -670,7 +745,7 @@ Rectangle {
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
-                                        opacity: 1
+                                        opacity: trackQueue.isEmpty ? .4 : 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
                                                     Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
@@ -716,6 +791,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "forwardshape"
+                opacity: trackQueue.isEmpty ? .4 : 1
                 width: height
 
                 Image {
@@ -954,6 +1030,7 @@ Rectangle {
     MouseArea {
         id: musicToolbarMouseArea
         anchors.fill: parent
+        enabled: !wideAspect
 
         property bool changed: false
         property int startContainerY: 0

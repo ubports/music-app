@@ -40,8 +40,7 @@ Item {
             id: sheet
             anchors.bottomMargin: units.gu(.5)
             doneButton: false
-            contentsHeight: parent.height
-            contentsWidth: parent.width
+            contentsHeight: units.gu(80)
 
             ListView {
                 clip: true
@@ -61,18 +60,20 @@ Item {
                         width: parent.width
                         height: units.gu(20)
 
-                        UbuntuShape {
+                        CoverRow {
                             id: albumImage
-                            anchors.left: parent.left
-                            anchors.top: parent.top
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.margins: units.gu(1)
-                            height: parent.height
-                            width: height
-                            image: Image {
-                                source: Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")
+                            anchors {
+                                top: parent.top
+                                left: parent.left
+                                margins: units.gu(1)
+                                verticalCenter: parent.verticalCenter
                             }
+                            count: 1
+                            size: parent.height
+                            covers: [Library.getAlbumCover(model.album)]
+                            spacing: units.gu(2)
                         }
+
                         Label {
                             id: albumArtist
                             objectName: "albumsheet-albumartist"
@@ -132,7 +133,7 @@ Item {
                                 albumSheet.isAlbum = true
                                 albumSheet.file = file
                                 albumSheet.year = year
-                                albumSheet.cover = Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")
+                                albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")]
                                 PopupUtils.open(albumSheet.sheet)
 
                                 // TODO: This closes the SDK defined sheet

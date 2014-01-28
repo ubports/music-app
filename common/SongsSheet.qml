@@ -30,7 +30,7 @@ Item {
     property string line1: ""
     property string line2: ""
     property string songtitle: ""
-    property string cover: ""
+    property var covers: []
     property string length: ""
     property string file: ""
     property string year: ""
@@ -43,8 +43,7 @@ Item {
             id: sheet
             anchors.bottomMargin: units.gu(.5)
             doneButton: false
-            contentsHeight: parent.height
-            contentsWidth: parent.width
+            contentsHeight: units.gu(80)
 
             ListView {
                 clip: true
@@ -59,18 +58,20 @@ Item {
                     width: parent.width
                     height: units.gu(20)
 
-                    UbuntuShape {
+                    CoverRow {
                         id: albumImage
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.margins: units.gu(1)
-                        height: parent.height
-                        width: height
-                        image: Image {
-                            source: cover || "../images/cover_default.png"
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            margins: units.gu(1)
+                            verticalCenter: parent.verticalCenter
                         }
+                        count: sheetItem.covers.length
+                        size: parent.height
+                        covers: sheetItem.covers
+                        spacing: units.gu(2)
                     }
+
                     Label {
                         id: albumArtist
                         objectName: "albumsheet-albumartist"
@@ -278,7 +279,7 @@ Item {
                                 {
                                     customdebug("auto collapse")
                                     expandable.visible = false
-                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + unis.gu(2)
+                                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                 }
                             }
 

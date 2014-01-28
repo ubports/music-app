@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2013-11-20 08:38+0000\n"
+"PO-Revision-Date: 2014-01-15 08:13+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-01-16 06:09+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,8 +62,8 @@ msgstr "אלבומים"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | שיר %1"
+msgstr[1] " | %1 שירים"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -105,7 +105,7 @@ msgstr "רצועות"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
-msgstr ""
+msgstr "תור"
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:742 ../MusicPlaylists.qml:429
@@ -266,7 +266,7 @@ msgstr "בשימוש לאחרונה"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "אין אלבומים או רשימות השמעה אחרונות"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
@@ -347,11 +347,11 @@ msgstr "סגירת היישום"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "שירים התנגנו היום"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "לא התנגנו שירים היום"
 
 #: ../music-app.qml:278
 msgid "Debug: "
@@ -359,15 +359,15 @@ msgstr "ניפוי שגיאות: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr ""
+msgstr "אמן לא ידוע"
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr ""
+msgstr "אלבום לא ידוע"
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr ""
+msgstr "סגנון לא ידוע"
 
 #: ../music-app.qml:1019
 msgid "New Playlist"
