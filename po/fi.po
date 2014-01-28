@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2013-11-16 11:12+0000\n"
+"PO-Revision-Date: 2014-01-15 11:27+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-01-16 06:09+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,8 +62,8 @@ msgstr "Levyt"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 kappale"
+msgstr[1] " | %1 kappaletta"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -251,7 +251,7 @@ msgstr "Suoratoista ainoastaan wifi-yhteydellä"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Tyhjennä kaikki!"
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
 #: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
@@ -264,7 +264,7 @@ msgstr "Viimeisimmät"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "Ei viimeisimpiä levyjä tai soittolistoja"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
@@ -276,7 +276,7 @@ msgstr "Ei kappaleita jonossa"
 
 #: ../MusicToolbar.qml:302
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Napauta kappaletta aloittaaksesi toiston"
 
 #: ../MusicaddtoPlaylist.qml:164
 msgid "New playlist"
@@ -345,11 +345,11 @@ msgstr "Sulje sovellus"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "kappaletta toistettu tänään"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "Kappaleita ei ole toistettu tänään"
 
 #: ../music-app.qml:278
 msgid "Debug: "
@@ -357,15 +357,15 @@ msgstr "Vianjäljitys: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Tuntematon esittäjä"
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr ""
+msgstr "Tuntematon levy"
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Tuntematon tyylilaji"
 
 #: ../music-app.qml:1019
 msgid "New Playlist"

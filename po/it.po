@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2013-09-28 08:58+0000\n"
+"PO-Revision-Date: 2014-01-24 12:53+0000\n"
 "Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-01-25 06:42+0000\n"
+"X-Generator: Launchpad (build 16914)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,8 +62,8 @@ msgstr "Album"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 brano"
+msgstr[1] " | %1 brani"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -88,16 +88,16 @@ msgstr "Artisti"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 album"
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:235
 #: ../MusicPlaylists.qml:569 ../MusicStart.qml:302
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 brano"
+msgstr[1] "%1 brani"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
@@ -105,13 +105,13 @@ msgstr "Brani"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
-msgstr ""
+msgstr "Coda"
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:742 ../MusicPlaylists.qml:429
 #: ../MusicPlaylists.qml:714 ../MusicTracks.qml:353
 msgid "Share"
-msgstr ""
+msgstr "Condividi"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:48
@@ -156,12 +156,12 @@ msgstr "Playlist"
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:343 ../MusicPlaylists.qml:638
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:385 ../MusicPlaylists.qml:675
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #: ../MusicPlaylists.qml:471
 msgid "Playlist"
@@ -233,7 +233,7 @@ msgstr "Account"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Accedi per lo scrobbling e l'importazione di playlist"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -262,23 +262,23 @@ msgstr "Musica"
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr ""
+msgstr "Recenti"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "Nessuna playlist o album recenti"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
-msgstr ""
+msgstr "Generi"
 
 #: ../MusicToolbar.qml:292
 msgid "No songs queued"
-msgstr ""
+msgstr "Nessun brano in coda"
 
 #: ../MusicToolbar.qml:302
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Seleziona un brano per avviare la riproduzione"
 
 #: ../MusicaddtoPlaylist.qml:164
 msgid "New playlist"
@@ -330,7 +330,7 @@ msgstr "Indietro"
 
 #: ../music-app.qml:99
 msgid "Go back to last page"
-msgstr ""
+msgstr "Torna all'ultima pagina"
 
 #: ../music-app.qml:105
 msgid "Music Settings"
@@ -347,27 +347,27 @@ msgstr "Chiudi l'applicazione"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "brani ascoltati oggi"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "Nessun brano ascoltato oggi"
 
 #: ../music-app.qml:278
 msgid "Debug: "
-msgstr ""
+msgstr "Debug: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Artista sconosciuto"
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr ""
+msgstr "Album sconosciuto"
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Genere sconosciuto"
 
 #: ../music-app.qml:1019
 msgid "New Playlist"
@@ -399,7 +399,7 @@ msgstr "Brani"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Caricamento..."
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"

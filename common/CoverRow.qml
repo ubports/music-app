@@ -29,6 +29,9 @@ UbuntuShape {
     // Property to get the playlist count to determine the visibility of a cover image
     property int count
 
+    // Property to set the spacing size, default to units.gu(1)
+    property var spacing: units.gu(1)
+
     width: size
     height: size
     radius: "medium"
@@ -41,16 +44,16 @@ UbuntuShape {
         width: coverRow.size
         height: width
 
-        spacing: -coverRow.size + units.gu(1)
+        spacing: -coverRow.size + coverRow.spacing
 
         Repeater {
             id: repeat
-            model: 4
+            model: coverRow.count == 0 ? 1 : coverRow.count
             delegate: Image {
                 width: coverRow.size
                 height: width
-                visible: coverRow.count > index || index == 0
-                source: coverRow.covers[index] !== "" ? coverRow.covers[index] : Qt.resolvedUrl("../images/cover_default_icon.png")
+                source: coverRow.count === 0 || coverRow.covers[index] === ""
+                        ? Qt.resolvedUrl("../images/cover_default_icon.png") : coverRow.covers[index]
             }
         }
     }
@@ -59,7 +62,7 @@ UbuntuShape {
     ShaderEffectSource {
         id: finalImageRender
         sourceItem: imageRow
-        width: units.gu(1)
+        width: units.gu(0.1)
         height: width
         anchors.centerIn: parent
         hideSource: true

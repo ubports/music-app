@@ -46,6 +46,7 @@ QtObject {
 
     property QtObject dialog: QtObject {
         property color buttonColor: UbuntuColors.coolGrey;
+        property color normalTextFieldColor: common.white
     }
 
     property QtObject libraryEmpty: QtObject {
@@ -127,4 +128,6 @@ QtObject {
         property int expandedTopMargin: units.gu(13.5);
         property int expandedLeftMargin: units.gu(2);
     }
+    
+    Component.onCompleted: Theme.palette.normal.field=styleMusic.dialog.normalTextFieldColor
 }

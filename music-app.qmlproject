@@ -30,6 +30,11 @@ Project {
     Files {
         filter: "*.pro"
     }
+    /* Shows the autopilot python files in the project view */
+    Files {
+        filter: "*.py"
+    }
+
     /* List of plugin directories passed to QML runtime */
     // importPaths: [ "../exampleplugin" ]
 }

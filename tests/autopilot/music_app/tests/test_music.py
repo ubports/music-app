@@ -13,6 +13,7 @@ import time
 import logging
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
+from testtools import skip
 
 
 from music_app.tests import MusicTestCase
@@ -62,7 +63,11 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(back_button)
 
         self.main_view.show_toolbar()
-        playbutton = self.main_view.get_play_button()
+
+        if self.main_view.wideAspect:
+            playbutton = self.main_view.get_now_playing_play_button()
+        else:
+            playbutton = self.main_view.get_play_button()
 
         """ Track is playing"""
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
@@ -445,6 +450,7 @@ class TestMainWindow(MusicTestCase):
             trackTitle)
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
 
+    @skip("Flaky test LP: 1272996")
     def test_create_playlist_from_songs_tab(self):
         """tests navigating to the Songs tab and creating a playlist by
            selecting a song to add it to a new playlist. """
