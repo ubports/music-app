@@ -294,7 +294,7 @@ Rectangle {
                 id: disabledPlayerControlsGroup
                 anchors.fill: parent
                 color: "transparent"
-                visible: trackQueue.isEmpty === true
+                visible: trackQueue.model.count === 0
 
                 Label {
                     id: noSongsInQueueLabel
@@ -320,7 +320,7 @@ Rectangle {
                 id: enabledPlayerControlsGroup
                 anchors.fill: parent
                 color: "transparent"
-                visible: trackQueue.isEmpty === false
+                visible: trackQueue.model.count !== 0
 
                 /* Settings button */
                 // TODO: Enable settings when it is practical
@@ -569,7 +569,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "medium"
                     objectName: "playercontroltitle"
-                    text: trackQueue.isEmpty ? "" : mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
+                    text: trackQueue.model.count === 0 ? "" : mainView.currentTracktitle === "" ? mainView.currentFile : mainView.currentTracktitle
                 }
 
                 /* Artist of track */
@@ -584,7 +584,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: trackQueue.isEmpty ? "" : mainView.currentArtist
+                    text: trackQueue.model.count === 0 ? "" : mainView.currentArtist
                 }
 
                 /* Album of track */
@@ -599,7 +599,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: trackQueue.isEmpty ? "" : mainView.currentAlbum
+                    text: trackQueue.model.count === 0 ? "" : mainView.currentAlbum
                 }
             }
             /* Clicking in the area shows the queue */
@@ -607,7 +607,7 @@ Rectangle {
                 anchors {
                     fill: nowPlayingWideAspectLabels
                 }
-                enabled: !trackQueue.isEmpty
+                enabled: trackQueue.model.count !== 0
                 onClicked: {
                     nowPlaying.visible = true;
                 }
@@ -653,7 +653,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "previousshape"
-                opacity: trackQueue.isEmpty ? .4 : 1
+                opacity: trackQueue.model.count === 0 ? .4 : 1
                 width: height
 
                 Image {
@@ -745,7 +745,7 @@ Rectangle {
                                         width: height
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         anchors.verticalCenter: parent.verticalCenter
-                                        opacity: trackQueue.isEmpty ? .4 : 1
+                                        opacity: trackQueue.model.count === 0 ? .4 : 1
                                         source: player.playbackState === MediaPlayer.PlayingState ?
                                                     Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                     }
@@ -791,7 +791,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 height: units.gu(6)
                 objectName: "forwardshape"
-                opacity: trackQueue.isEmpty ? .4 : 1
+                opacity: trackQueue.model.count === 0 ? .4 : 1
                 width: height
 
                 Image {
@@ -880,7 +880,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 color: "transparent"
                 height: units.gu(1);
-                state: trackQueue.isEmpty === true ? "disabled" : "enabled"
+                state: trackQueue.model.count === 0 ? "disabled" : "enabled"
 
                 states: [
                     State {
