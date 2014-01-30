@@ -63,13 +63,23 @@ import "common"
          placeholderText: "Search"
          hasClearButton: true
 
-         // Provide a small pause before going online to search
+         // Provide a small pause before search
          Timer {
              id: searchTimer
              interval: 2000
              repeat: false
              onTriggered: {
                  searchModel.filterSearch(searchField.text) // query the databse
+                 indicatorTimer.start()
+             }
+         }
+         // and onother one for the indicator
+         Timer {
+             id: indicatorTimer
+             interval: 2500
+             repeat: false
+             onTriggered: {
+                 searchActivity.running = false
              }
          }
 
