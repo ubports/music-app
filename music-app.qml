@@ -990,6 +990,11 @@ MainView {
         }
     }
 
+    // search model
+    LibraryListModel {
+        id: searchModel
+    }
+
     // Blurred background
     BlurredBackground {
     }

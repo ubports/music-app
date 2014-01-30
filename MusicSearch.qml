@@ -72,7 +72,7 @@ import "common"
 
          onTextChanged: {
             searchActivity.running = true // start the activity indicator
-            Library.search(searchField.text) // query the databse
+            searchModel.filterSearch(searchField.text) // query the databse
          }
 
          // Indicator to show search activity
