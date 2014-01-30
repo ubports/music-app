@@ -112,33 +112,94 @@ import "common"
              delegate: ListItem.Standard {
                     id: search
                     objectName: "playlist"
-                    height: units.gu(8)
-                    property string name: model.name
+                    width: parent.width
+                    height: styleMusic.common.itemHeight
+                    property string title: model.title
                     property string artist: model.artist
+                    property string file: model.file
+                    property string album: model.album
+                    property string cover: model.cover
+                    property string genre: model.genre
+
                     onClicked: {
-                        console.debug("Debug: "+chosenTrack+" added to "+name)
+                        console.debug("Debug: "+title+" added to queue")
                         // now play this track, but keep current queue
-                        // add to queue
-                        // play track from queue
+                        trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                        trackClicked(trackQueue, trackQueue.model.count - 1, true)
                         onDoneClicked: PopupUtils.close(searchTrack)
                     }
 
-                    Label {
-                        id: trackName
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            leftMargin: units.gu(11)
-                            topMargin: units.gu(2)
-                            bottomMargin: units.gu(4)
+                    UbuntuShape {
+                        id: trackCover
+                        anchors.left: parent.left
+                        anchors.leftMargin: units.gu(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1)
+                        width: styleMusic.common.albumSize
+                        height: styleMusic.common.albumSize
+                        image: Image {
+                            source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
                         }
+                    }
+
+                    Label {
+                        id: trackArtist
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "x-small"
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1.5)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        text: artist
+                    }
+                    Label {
+                        id: trackTitle
+                        objectName: "tracktitle"
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
-                        fontSize: "medium"
+                        fontSize: "small"
+                        color: styleMusic.common.music
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: trackArtist.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: track.artist + " - " + track.name
+                        text: title
+                    }
+                    Label {
+                        id: trackAlbum
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "xx-small"
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: trackTitle.bottom
+                        anchors.topMargin: units.gu(2)
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        text: album
+                    }
+                    Label {
+                        id: trackDuration
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        color: styleMusic.common.music
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(12)
+                        anchors.top: trackAlbum.bottom
+                        anchors.right: expandItem.left
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        visible: false
+                        text: ""
                     }
              }
          }
