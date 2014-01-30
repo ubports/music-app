@@ -111,9 +111,12 @@ import "common"
                     objectName: "playlist"
                     height: units.gu(8)
                     property string name: model.name
-                    property string count: model.count
+                    property string artist: model.artist
                     onClicked: {
                         console.debug("Debug: "+chosenTrack+" added to "+name)
+                        // now play this track, but keep current queue
+                        // add to queue
+                        // play track from queue
                         onDoneClicked: PopupUtils.close(searchTrack)
                     }
 
@@ -132,7 +135,7 @@ import "common"
                         maximumLineCount: 1
                         fontSize: "medium"
                         elide: Text.ElideRight
-                        text: track.name
+                        text: track.artist + " - " + track.name
                     }
              }
          }
