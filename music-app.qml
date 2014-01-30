@@ -71,6 +71,12 @@ MainView {
 
     // HUD Actions
     Action {
+        id: searchAction
+        text: i18n.tr("Search")
+        keywords: i18n.tr("Search Track")
+        //onTriggered:
+    }
+    Action {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")

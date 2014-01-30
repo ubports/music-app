@@ -39,12 +39,22 @@ Page {
         }
     }
 
+    Button {
+        id: searchButton
+        text: "Search"
+        onClicked: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+                                   {
+                                       title: i18n.tr("Search")
+                                   } )
+    }
+
     ListItem.Standard {
         id: recentlyPlayed
         text: i18n.tr("Recent")
+        anchors.top: searchButton.bottom
     }
     Item {
-        id: recentlistempty
+        id: recentlistempty       
         anchors.top: recentlyPlayed.bottom
         anchors.topMargin: units.gu(1)
         height: units.gu(22)
