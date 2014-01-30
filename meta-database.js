@@ -467,7 +467,7 @@ function search(input) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql('SELECT * FROM metadata WHERE track LIKE "?";', [input]); // WRONG! WHy?
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE track LIKE '%?%';", [input]); // WRONG! WHy?
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
