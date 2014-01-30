@@ -68,11 +68,14 @@ import "common"
              id: searchTimer
              interval: 2000
              repeat: false
+             onTriggered: {
+                 searchModel.filterSearch(searchField.text) // query the databse
+             }
          }
 
          onTextChanged: {
-            searchActivity.running = true // start the activity indicator
-            searchModel.filterSearch(searchField.text) // query the databse
+             searchTimer.start() // start the countdown, baby!
+             searchActivity.running = true // start the activity indicator
          }
 
          // Indicator to show search activity
