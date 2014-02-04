@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 9),
                qtdeclarative5-dev-tools,
                qt5-default,
                qtdeclarative5-qtquick2-plugin,
+               cmake,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/music-app
 Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
@@ -14,7 +15,6 @@ Package: music-app
 Architecture: all
 Depends: ${misc:Depends},
          grilo-plugins-0.2-mediascanner,
-         cmake,
          qtdeclarative5-qtgrilo0.1,
          qtdeclarative5-qtpowerd0.1 (>= 0.2~),
          qtdeclarative5-localstorage-plugin,
