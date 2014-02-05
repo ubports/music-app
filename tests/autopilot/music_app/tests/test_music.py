@@ -450,7 +450,6 @@ class TestMainWindow(MusicTestCase):
             trackTitle)
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
 
-    @skip("Flaky test LP: 1272996")
     def test_create_playlist_from_songs_tab(self):
         """tests navigating to the Songs tab and creating a playlist by
            selecting a song to add it to a new playlist. """
