@@ -13,7 +13,6 @@ import time
 import logging
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
-from testtools import skip
 
 
 from music_app.tests import MusicTestCase
@@ -475,6 +474,7 @@ class TestMainWindow(MusicTestCase):
         # input playlist name
         playlistNameFld = self.main_view.get_newPlaylistDialog_name_textfield()
         self.pointing_device.click_object(playlistNameFld)
+        playlistNameFld.focus.wait_for(True)
         self.keyboard.type("MyPlaylist")
 
         # click on get_newPlaylistDialog create Button
