@@ -69,8 +69,13 @@ import "common"
              interval: 2000
              repeat: false
              onTriggered: {
-                 searchModel.filterSearch(searchField.text) // query the databse
-                 indicatorTimer.start()
+                 if(searchField.text) {
+                     searchModel.filterSearch(searchField.text) // query the databse
+                 }
+                 else {
+                     customdebug("No search terms.")
+                 }
+                indicatorTimer.start()
              }
          }
          // and onother one for the indicator
