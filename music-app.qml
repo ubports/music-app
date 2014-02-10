@@ -74,7 +74,10 @@ MainView {
         id: searchAction
         text: i18n.tr("Search")
         keywords: i18n.tr("Search Track")
-        //onTriggered:
+        onTriggered: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+                     {
+                                         title: i18n.tr("Search")
+                     } )
     }
     Action {
         id: nextAction
