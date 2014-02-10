@@ -39,10 +39,11 @@ Page {
         }
     }
 
+    /* Dev button for search.
     Button {
         id: searchButton
         text: "Search"
-        anchors.top: parent
+        anchors.top: parent.top
         anchors.bottom: recentlyPlayed.top
         onClicked: {
             PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
@@ -51,6 +52,7 @@ Page {
             } )
         }
     }
+    */
 
     ListItem.Standard {
         id: recentlyPlayed
