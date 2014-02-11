@@ -133,7 +133,7 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
+    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files

@@ -62,6 +62,7 @@ import "common"
          width: parent.width/1.5
          placeholderText: "Search"
          hasClearButton: true
+         highlighted: true
 
          // Provide a small pause before search
          Timer {
