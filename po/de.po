@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-15 10:35+0000\n"
-"Last-Translator: Dennis Baudys <Unknown>\n"
+"PO-Revision-Date: 2014-02-02 19:53+0000\n"
+"Last-Translator: Lokke <accounts.lokke@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-01-16 06:09+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-02-03 05:58+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -53,7 +53,7 @@ msgstr "Anmeldung fehlgeschlagen"
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
 msgstr ""
-"Sie haben Ihren Benutzernamen und/oder Ihr Passwort nicht eingestellt"
+"Sie haben vergessen einen Benutzernamen und/oder Ihr Passwort anzugeben"
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:1124
 msgid "Albums"
@@ -234,7 +234,7 @@ msgstr "Konten"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "Einloggen zum Scrobbeln und Wiedergabeliste importieren."
+msgstr "Zum Scrobbeln und Importieren von Wiedergabelisten anmelden."
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -348,11 +348,11 @@ msgstr "Anwendung schließen"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "Heute gespielte Titel"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "Heute wurden keine Titel abgespielt"
 
 #: ../music-app.qml:278
 msgid "Debug: "

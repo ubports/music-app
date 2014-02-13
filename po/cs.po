@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-07 09:22+0000\n"
+"PO-Revision-Date: 2014-02-06 11:49+0000\n"
 "Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-01-11 06:37+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-02-07 07:17+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,8 +62,9 @@ msgstr "Alba"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 píseň"
+msgstr[1] " | %1 písně"
+msgstr[2] " | %1 písní"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -268,7 +269,7 @@ msgstr "Nedávné"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "Žádná nedávno přehrávaná alba nebo seznamy skladeb"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
@@ -349,11 +350,11 @@ msgstr "Zavřít applikaci"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr ""
+msgstr "skladeb přehráno dnes"
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr ""
+msgstr "Dnes nebyly přehrány žádné skladby."
 
 #: ../music-app.qml:278
 msgid "Debug: "
@@ -361,15 +362,15 @@ msgstr "Debug: "
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Neznámý interpret"
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr ""
+msgstr "Neznámé album"
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Neznámý žánr"
 
 #: ../music-app.qml:1019
 msgid "New Playlist"
