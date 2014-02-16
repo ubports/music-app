@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-22 18:15+0000\n"
+"PO-Revision-Date: 2014-02-16 00:23+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-01-23 05:59+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-02-16 06:46+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -63,8 +63,12 @@ msgstr "الألبومات"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 أغنية"
+msgstr[1] " | أغنية واحدة (%1)"
+msgstr[2] " | أغنيتين (%1)"
+msgstr[3] " | %1 أغاني"
+msgstr[4] " | %1 أغنية"
+msgstr[5] " | %1 أغنية"
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
@@ -273,7 +277,7 @@ msgstr "الأخيرة"
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr ""
+msgstr "لا ألبومات أو قوائم تشغيل تم تشغيلها موخرا"
 
 #: ../MusicStart.qml:202
 msgid "Genres"
