@@ -12,7 +12,7 @@ set(DESKTOP_FILE "${PROJECT_NAME}_${APP_NAME}.desktop")
 set(URLS_FILE "${PROJECT_NAME}_${APP_NAME}.url-dispatcher")
 set(APP_HARDCODE music-app)
 set(MAIN_QML music-app.qml)
-set(ICON music64.png)
+set(ICON music-app@30.png)
 set(AUTOPILOT_DIR music_app)
 
 
