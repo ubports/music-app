@@ -12,7 +12,7 @@ set(DESKTOP_FILE "${PROJECT_NAME}_${APP_NAME}.desktop")
 set(URLS_FILE "${PROJECT_NAME}_${APP_NAME}.url-dispatcher")
 set(APP_HARDCODE music-app)
 set(MAIN_QML music-app.qml)
-set(ICON music-app@30.png)
+set(ICON_FILE music-app@30.png)
 set(AUTOPILOT_DIR music_app)
 
 
@@ -24,13 +24,14 @@ if(CLICK_MODE)
     set(CMAKE_INSTALL_PREFIX /)
     set(CMAKE_INSTALL_BINDIR /)
     set(DATA_DIR /)
+    set(ICON ${ICON_FILE})
     set(EXEC "qmlscene ${MAIN_QML}")
     set(DESKTOP_DIR ${DATA_DIR})
     set(URLS_DIR ${DATA_DIR})
 else(CLICK_MODE)
     set(DATA_DIR ${CMAKE_INSTALL_DATADIR}/${APP_HARDCODE})
     set(EXEC ${APP_HARDCODE})
-    set(ICON ${CMAKE_INSTALL_PREFIX}/${DATA_DIR}/${ICON})
+    set(ICON ${CMAKE_INSTALL_PREFIX}/${DATA_DIR}/${ICON_FILE})
     configure_file(${APP_HARDCODE}.in
         ${CMAKE_CURRENT_BINARY_DIR}/${APP_HARDCODE})
     install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${APP_HARDCODE}
@@ -55,7 +56,7 @@ install(FILES Style.qml MusicStart.qml LoginLastFM.qml MusicAlbums.qml
         LibraryListModel.qml MusicaddtoPlaylist.qml settings.js
         scrobble.js playlists.js worker-library-loader.js
         meta-database.js DESTINATION ${DATA_DIR})
-install(FILES ${MAIN_QML} DESTINATION ${DATA_DIR})
+install(FILES ${MAIN_QML} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
 configure_file(${DESKTOP_FILE}.in ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
