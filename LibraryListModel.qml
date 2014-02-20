@@ -219,4 +219,10 @@ Item {
             worker.sendMessage({'clear': true, 'model': libraryModel})
         }
     }
+
+    function filterSearch(searchQuery) {
+        query = Library.search
+        param = searchQuery
+        worker.list = Library.search(searchQuery)
+    }
 }

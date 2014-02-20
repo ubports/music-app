@@ -124,8 +124,8 @@ import "common"
              iconSource: "images/add.svg"
              iconPosition: "left"
              width: parent.width
-             anchors.top: addtoPlaylistView.bottom
-             anchors.topMargin: units.gu(5)
+             anchors.bottom: parent.bottom
+             anchors.bottomMargin: units.gu(0.5)
              onClicked: {
                  customdebug("New playlist.")
                  PopupUtils.open(newPlaylistDialog, mainView)

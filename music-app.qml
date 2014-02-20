@@ -71,6 +71,15 @@ MainView {
 
     // HUD Actions
     Action {
+        id: searchAction
+        text: i18n.tr("Search")
+        keywords: i18n.tr("Search Track")
+        onTriggered: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+                     {
+                                         title: i18n.tr("Search")
+                     } )
+    }
+    Action {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
@@ -124,7 +133,7 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
+    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
@@ -982,6 +991,11 @@ MainView {
                 playlistTab.populated = true
             }
         }
+    }
+
+    // search model
+    LibraryListModel {
+        id: searchModel
     }
 
     // Blurred background

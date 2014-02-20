@@ -461,3 +461,19 @@ function isRecentEmpty() {
     return res === 0;
 }
 
+// Search track LIKE
+function search(input) {
+    console.debug("Got a new search: "+input)
+    input = "%" + input + "%" // workaround
+    var res = [];
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE title LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?;", [input,input,input,input]); // WRONG! WHy?
+        for(var i = 0; i < rs.rows.length; i++) {
+            var dbItem = rs.rows.item(i);
+            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
+            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
+        }
+    });
+    return res;
+}
