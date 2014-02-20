@@ -39,7 +39,7 @@ Page {
         }
     }
 
-    /* Dev button for search. */
+    /* Dev button for search.
     Button {
         id: searchButton
         text: "Search"
@@ -55,6 +55,7 @@ Page {
             } )
         }
     }
+    */
 
 
     ListItem.Standard {

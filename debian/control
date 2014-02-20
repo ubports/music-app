@@ -2,9 +2,10 @@ Source: music-app
 Section: misc
 Priority: extra
 Maintainer: Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>
-Build-Depends: debhelper (>= 9), 
-               qtdeclarative5-dev-tools,
+Build-Depends: cmake,
+               debhelper (>= 9),
                qt5-default,
+               qtdeclarative5-dev-tools,
                qtdeclarative5-qtquick2-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/music-app
@@ -12,31 +13,31 @@ Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 
 Package: music-app
 Architecture: all
-Depends: ${misc:Depends},
-         grilo-plugins-0.2-mediascanner,
-         qtdeclarative5-qtgrilo0.1,
-         qtdeclarative5-qtpowerd0.1 (>= 0.2~),
+Depends: grilo-plugins-0.2-mediascanner,
+         qmlscene,
          qtdeclarative5-localstorage-plugin,
          qtdeclarative5-particles-plugin,
+         qtdeclarative5-qtgrilo0.1,
          qtdeclarative5-qtmultimedia-plugin,
+         qtdeclarative5-qtpowerd0.1 (>= 0.2~),
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-usermetrics0.1,
          qtdeclarative5-window-plugin,
          qtdeclarative5-xmllistmodel-plugin,
-         qmlscene
+         ${misc:Depends},
 Description: Music player for Ubuntu Touch
  Touch enabled music player for Ubuntu
 
 Package: music-app-autopilot
 Architecture: all
-Depends: ${misc:Depends},
+Depends: gstreamer0.10-fluendo-mp3,
+         gstreamer1.0-fluendo-mp3,
          libautopilot-qt (>= 1.4),
          libqt5test5,
-         python-mock,
          music-app (= ${source:Version}),
+         python-mock,
          ubuntu-ui-toolkit-autopilot,
-         gstreamer0.10-fluendo-mp3,
-         gstreamer1.0-fluendo-mp3
+         ${misc:Depends},
 Description: Autopilot tests for Music App
  This package contains the autopilot tests for the Music App
