@@ -455,7 +455,8 @@ MainView {
             trackQueue.model.clear()
             addQueueFromModel(libraryModel)
         }
-        else if (player.source == Qt.resolvedUrl(file))
+        else if (player.source == Qt.resolvedUrl(file) &&
+                    currentIndex === index)
         {
             if (play === false)
             {
