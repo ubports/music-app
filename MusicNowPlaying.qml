@@ -86,13 +86,11 @@ Page {
 
     function updateCurrentIndex(file)
     {
-        var index = trackQueue.indexOf(file);
-
         // Collapse currently expanded track and the new current
         collapseExpand(queuelist.currentIndex);
         collapseExpand(index);
 
-        queuelist.currentIndex = index;
+        queuelist.currentIndex = currentIndex;
 
         customdebug("MusicQueue update currentIndex: " + file);
     }
@@ -485,10 +483,13 @@ Page {
                                     }
                                 }
 
+                                if (index < currentIndex) {
+                                    currentIndex -= 1;
+                                }
+
                                 // Remove item from queue and clear caches
                                 trackQueue.model.remove(index);
                                 queueChanged = true;
-                                currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
                             }
                         }
                     }
