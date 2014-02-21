@@ -52,9 +52,9 @@ file(GLOB SRC_FILES
 install(DIRECTORY common images DESTINATION ${DATA_DIR})
 install(FILES Style.qml MusicStart.qml LoginLastFM.qml MusicAlbums.qml
         MusicTracks.qml MusicArtists.qml MusicToolbar.qml
-        MusicSettings.qml MusicPlaylists.qml MusicNowPlaying.qml
-        LibraryListModel.qml MusicaddtoPlaylist.qml settings.js
-        scrobble.js playlists.js worker-library-loader.js
+        MusicSettings.qml MusicSearch.qml MusicPlaylists.qml
+        MusicNowPlaying.qml LibraryListModel.qml MusicaddtoPlaylist.qml
+        settings.js scrobble.js playlists.js worker-library-loader.js
         meta-database.js DESTINATION ${DATA_DIR})
 install(FILES ${MAIN_QML} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
