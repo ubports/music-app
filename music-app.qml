@@ -497,7 +497,8 @@ MainView {
         currentModel = libraryModel
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
-        currentIndex = trackQueue.indexOf(file)
+        currentIndex = trackQueue.model.get(index).file === file ?
+                    index : trackQueue.indexOf(file)  // pick given index first
         queueChanged = false
 
         console.log("Click of fileName: " + file)
