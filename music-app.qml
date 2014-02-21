@@ -509,6 +509,10 @@ MainView {
             player.stop()
         }
 
+        if (player.source == Qt.resolvedUrl(file)) {
+            onPlayingTrackChange(player.source)
+        }
+
         player.source = Qt.resolvedUrl(file)
 
         if (play === true)
