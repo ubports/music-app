@@ -88,9 +88,8 @@ Page {
     {
         // Collapse currently expanded track and the new current
         collapseExpand(queuelist.currentIndex);
-        collapseExpand(index);
-
         queuelist.currentIndex = currentIndex;
+        collapseExpand(queuelist.currentIndex);
 
         customdebug("MusicQueue update currentIndex: " + file);
     }
