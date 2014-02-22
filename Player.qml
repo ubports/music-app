@@ -61,8 +61,6 @@ MediaPlayer {
             player.stop()
         }
         else {
-            currentIndex = trackQueue.indexOf(source)
-
             var obj = trackQueue.model.get(player.currentIndex);
             currentMeta = {
                 "artist": obj.artist,
@@ -134,9 +132,10 @@ MediaPlayer {
         }
 
         if (startPlaying) {  // only start the track if told
-            playSong(trackQueue.model.get(newIndex).file)
+            playSong(trackQueue.model.get(newIndex).file, newIndex)
         }
         else {
+            currentIndex = newIndex
             source = Qt.resolvedUrl(trackQueue.model.get(newIndex).file)
         }
     }
@@ -145,8 +144,9 @@ MediaPlayer {
         getSong(1, startPlaying, fromControls)
     }
 
-    function playSong(filepath) {
+    function playSong(filepath, index) {
         player.stop();
+        currentIndex = index;
         player.source = Qt.resolvedUrl(filepath);
         player.play();
     }

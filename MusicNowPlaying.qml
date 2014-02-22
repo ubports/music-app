@@ -76,13 +76,10 @@ Page {
                 return;
             }
 
-            var index = trackQueue.indexOf(player.source);
-
             // Collapse currently expanded track and the new current
             collapseExpand(queuelist.currentIndex);
-            collapseExpand(index);
-
-            queuelist.currentIndex = index;
+            queuelist.currentIndex = player.currentIndex;
+            collapseExpand(queuelist.currentIndex);
 
             customdebug("MusicQueue update currentIndex: " + player.source);
         }
@@ -490,10 +487,13 @@ Page {
                                     }
                                 }
 
+                                if (index < currentIndex) {
+                                    currentIndex -= 1;
+                                }
+
                                 // Remove item from queue and clear caches
                                 trackQueue.model.remove(index);
                                 queueChanged = true;
-                                currentIndex = trackQueue.indexOf(player.source);  // recalculate index
                             }
                         }
                     }

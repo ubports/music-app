@@ -1,403 +1,405 @@
-# Khmer translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Serbian translation for music-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-02-10 02:48+0000\n"
-"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
-"Language-Team: Khmer <km@li.org>\n"
+"PO-Revision-Date: 2014-02-17 19:17+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-02-11 06:43+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2014-02-18 05:42+0000\n"
 "X-Generator: Launchpad (build 16916)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
 #: ../LoginLastFM.qml:47
 msgid "Login to be able to scrobble."
-msgstr "ចូល​ ដើម្បីអាច​ផ្ញើ​ព័ត៌មាន​បទ​ចម្រៀង។"
+msgstr ""
 
 #: ../LoginLastFM.qml:55
 msgid "Username"
-msgstr "អ្នក​ប្រើ"
+msgstr ""
 
 #: ../LoginLastFM.qml:65
 msgid "Password"
-msgstr "ពាក្យសម្ងាត់"
+msgstr ""
 
 #: ../LoginLastFM.qml:87
 msgid "Login"
-msgstr "ចូល"
+msgstr ""
 
 #: ../LoginLastFM.qml:94
 msgid "Trying to login..."
-msgstr "កំពុង​ព្យាយាម​ចូល..."
+msgstr ""
 
 #: ../LoginLastFM.qml:108
 msgid "Login Successful"
-msgstr "ចូល​បាន​ជោគជ័យ"
+msgstr ""
 
 #: ../LoginLastFM.qml:114
 msgid "Login Failed"
-msgstr "ចូល​បាន​បរាជ័យ"
+msgstr ""
 
 #: ../LoginLastFM.qml:120
 msgid "You forgot to set your username and/or password"
-msgstr "អ្នក​ភ្លេច​កំណត់​ឈ្មោះ​អ្នកប្រើ និង/ពាក្យ​សម្ងាត់​របស់​អ្នក"
+msgstr ""
 
 #: ../MusicAlbums.qml:33 ../music-app.qml:1124
 msgid "Albums"
-msgstr "អាល់ប៊ុម"
+msgstr ""
 
 #: ../MusicAlbums.qml:231
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] " | បទ​ចម្រៀង %1"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
 #: ../MusicTracks.qml:267 ../music-app.qml:995
 msgid "Add to playlist"
-msgstr "បន្ថែម​ទៅ​បញ្ជីចាក់"
+msgstr ""
 
 #: ../MusicAlbums.qml:398 ../MusicArtists.qml:448 ../MusicNowPlaying.qml:714
 #: ../MusicTracks.qml:286 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:1006
 msgid "Select playlist"
-msgstr "ជ្រើស​បញ្ជី​ចាក់"
+msgstr ""
 
 #: ../MusicAlbums.qml:427 ../MusicArtists.qml:476 ../MusicTracks.qml:315
 #: ../music-app.qml:981
 msgid "Add to queue"
-msgstr "បន្ថែម​ទៅ​ជួរ"
+msgstr ""
 
 #: ../MusicArtists.qml:39 ../music-app.qml:1107
 msgid "Artists"
-msgstr "សិល្បករ"
+msgstr ""
 
 #: ../MusicArtists.qml:148
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "អាល់ប៊ុម %1"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:235
 #: ../MusicPlaylists.qml:569 ../MusicStart.qml:302
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 បទ"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
-msgstr "បទ"
+msgstr ""
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
-msgstr "ដាក់ជា​ជួរ"
+msgstr ""
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:742 ../MusicPlaylists.qml:429
 #: ../MusicPlaylists.qml:714 ../MusicTracks.qml:353
 msgid "Share"
-msgstr "ចែក​រំលែក"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:48
 msgid "Are you sure?"
-msgstr "តើ​អ្នក​ប្រាកដ​ឬ?"
+msgstr ""
 
 #: ../MusicPlaylists.qml:49
 msgid "This will delete your playlist."
-msgstr "វា​នឹង​លុប​បញ្ជី​ចាក់​របស់​អ្នក។"
+msgstr ""
 
 #: ../MusicPlaylists.qml:52
 msgid "Remove"
-msgstr "លុប​ចេញ"
+msgstr ""
 
 #: ../MusicPlaylists.qml:65 ../MusicPlaylists.qml:108 ../music-app.qml:1059
 msgid "Cancel"
-msgstr "បោះ​បង់"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:78
 msgid "Change name"
-msgstr "ប្ដូរឈ្មោះ"
+msgstr ""
 
 #: ../MusicPlaylists.qml:79
 msgid "Enter the new name of the playlist."
-msgstr "បញ្ចូល​ឈ្មោះ​បញ្ជី​ចាក់​ថ្មី។"
+msgstr ""
 
 #: ../MusicPlaylists.qml:90
 msgid "Change"
-msgstr "ប្ដូរ"
+msgstr ""
 
 #: ../MusicPlaylists.qml:103
 msgid "You didn't type in a name."
-msgstr "អ្នក​មិន​បាន​បញ្ចូល​ឈ្មោះ។"
+msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:136 ../music-app.qml:1159
 msgid "Playlists"
-msgstr "បញ្ជី​ចាក់"
+msgstr ""
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:343 ../MusicPlaylists.qml:638
 msgid "Edit"
-msgstr "កែសម្រួល"
+msgstr ""
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:385 ../MusicPlaylists.qml:675
 msgid "Delete"
-msgstr "លុប"
+msgstr ""
 
 #: ../MusicPlaylists.qml:471
 msgid "Playlist"
-msgstr "បញ្ជី​ចាក់"
+msgstr ""
 
 #: ../MusicSettings.qml:30 ../music-app.qml:104
 msgid "Settings"
-msgstr "ការកំណត់"
+msgstr ""
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "អេហ្គុយ"
+msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "លំនាំដើម"
+msgstr ""
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr "អាគូសទីក"
+msgstr ""
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "ក្លាសីក"
+msgstr ""
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "អេឡិចត្រូនិក"
+msgstr ""
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "សំប៉ែត"
+msgstr ""
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "ហីបហប"
+msgstr ""
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "ហ្សាស់"
+msgstr ""
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "ម៉េតាល់"
+msgstr ""
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "ប្រជាប្រិយ"
+msgstr ""
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "រ៉ុក"
+msgstr ""
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr "ផ្ទាល់ខ្លួន"
+msgstr ""
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"ថត​បទ​ចម្រៀង​បច្ចុប្បន្ន\n"
-"នៅ​ពេល​បើក​របារ​ឧបករណ៍"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr "គណនី"
+msgstr ""
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "ចូល​ដើម្បី​អាច​រមូរ និង​នាំចូល​បញ្ជី​ចាក់"
+msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr "ចរន្ត​តន្ត្រី"
+msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr "Ubuntu One"
+msgstr ""
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr "ចូល​ដើម្បី​ចរន្ត​តន្ត្រី​ពពក​របស់​អ្នក"
+msgstr ""
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "ចរន្ត​តែ​លើវ៉ាយហ្វាយ"
+msgstr ""
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "សម្អាត​ទាំងអស់!"
+msgstr ""
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
 #: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
 msgid "Music"
-msgstr "តន្ត្រី"
+msgstr ""
 
 #: ../MusicStart.qml:43
 msgid "Recent"
-msgstr "ថ្មីៗ"
+msgstr ""
 
 #: ../MusicStart.qml:60
 msgid "No recent albums or playlists"
-msgstr "គ្មាន​អាល់ប៊ុម ឬ​បញ្ជីចាក់ថ្មីៗ"
+msgstr ""
 
 #: ../MusicStart.qml:202
 msgid "Genres"
-msgstr "ចង្វាក់"
+msgstr ""
 
 #: ../MusicToolbar.qml:292
 msgid "No songs queued"
-msgstr "គ្មាន​បទ​បាន​ដាក់​ជា​ជួរ"
+msgstr ""
 
 #: ../MusicToolbar.qml:302
 msgid "Tap on a song to start playing"
-msgstr "ប៉ះ​បទ​ចម្រៀង​ ដើម្បី​ចាប់ផ្ដើម​ចាក់"
+msgstr ""
 
 #: ../MusicaddtoPlaylist.qml:164
 msgid "New playlist"
-msgstr "បញ្ជី​ចាក់​ថ្មី"
+msgstr ""
 
 #: ../music-app.qml:66
 msgid "Next"
-msgstr "បន្ទាប់"
+msgstr ""
 
 #: ../music-app.qml:67
 msgid "Next Track"
-msgstr "បទ​បន្ទាប់"
+msgstr ""
 
 #: ../music-app.qml:73
 msgid "Pause"
-msgstr "ផ្អាក"
+msgstr ""
 
 #: ../music-app.qml:73
 msgid "Play"
-msgstr "ចាក់"
+msgstr ""
 
 #: ../music-app.qml:75
 msgid "Pause Playback"
-msgstr "ផ្អាក​ការ​ចាក់​ឡើងវិញ"
+msgstr ""
 
 #: ../music-app.qml:75
 msgid "Continue or start playback"
-msgstr "បន្ត ឬ​ចាប់ផ្ដើម​បញ្ជីចាក់"
+msgstr ""
 
 #: ../music-app.qml:86
 msgid "Previous"
-msgstr "មុន"
+msgstr ""
 
 #: ../music-app.qml:87
 msgid "Previous Track"
-msgstr "បទ​មុន"
+msgstr ""
 
 #: ../music-app.qml:92
 msgid "Stop"
-msgstr "ឈប់"
+msgstr ""
 
 #: ../music-app.qml:93
 msgid "Stop Playback"
-msgstr "បញ្ឈប់​បញ្ជីចាក់"
+msgstr ""
 
 #: ../music-app.qml:98
 msgid "Back"
-msgstr "ថយក្រោយ"
+msgstr ""
 
 #: ../music-app.qml:99
 msgid "Go back to last page"
-msgstr "ត្រឡប់​ទៅ​ទំព័រ​ចុងក្រោយ"
+msgstr ""
 
 #: ../music-app.qml:105
 msgid "Music Settings"
-msgstr "ការ​កំណត់​តន្ត្រី"
+msgstr ""
 
 #: ../music-app.qml:113
 msgid "Quit"
-msgstr "ចេញ"
+msgstr ""
 
 #: ../music-app.qml:114
 msgid "Close application"
-msgstr "បិទ​កម្មវិធី"
+msgstr ""
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:171
 msgid "songs played today"
-msgstr "បទ​ចម្រៀង​បាន​ចាក់​ថ្ងៃ​នេះ"
+msgstr ""
 
 #: ../music-app.qml:172
 msgid "No songs played today"
-msgstr "គ្មាន​បទ​ចម្រៀង​បាន​ចាក់​ថ្ងៃ​នេះ"
+msgstr ""
 
 #: ../music-app.qml:278
 msgid "Debug: "
-msgstr "កែ​កំហុស៖ "
+msgstr ""
 
 #: ../music-app.qml:758 ../meta-database.js:371
 msgid "Unknown Artist"
-msgstr "មិន​ស្គាល់​សិល្បករ​"
+msgstr ""
 
 #: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
 msgid "Unknown Album"
-msgstr "មិន​ស្គាល់​អាល់ប៊ុម"
+msgstr ""
 
 #: ../music-app.qml:766
 msgid "Unknown Genre"
-msgstr "មិន​ស្គាល់​ចង្វាក់"
+msgstr ""
 
 #: ../music-app.qml:1019
 msgid "New Playlist"
-msgstr "បញ្ជីចាក់​ថ្មី"
+msgstr ""
 
 #: ../music-app.qml:1020
 msgid "Name your playlist."
-msgstr "ដាក់​ឈ្មោះ​បញ្ជី​ចាក់​របស់​អ្នក។"
+msgstr ""
 
 #: ../music-app.qml:1024
 msgid "Name"
-msgstr "ឈ្មោះ"
+msgstr ""
 
 #: ../music-app.qml:1032
 msgid "Create"
-msgstr "បង្កើត"
+msgstr ""
 
 #: ../music-app.qml:1048
 msgid "Error: "
-msgstr "កំហុស៖ "
+msgstr ""
 
 #: ../music-app.qml:1053
 msgid "Error: You didn't type a name."
-msgstr "កំហុស៖ អ្នក​មិន​បាន​បញ្ចូល​ឈ្មោះ។"
+msgstr ""
 
 #: ../music-app.qml:1141
 msgid "Songs"
-msgstr "បទ​ចម្រៀង"
+msgstr ""
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr "កំពុង​ផ្ទុក..."
+msgstr ""
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr "សម្អាត"
+msgstr ""

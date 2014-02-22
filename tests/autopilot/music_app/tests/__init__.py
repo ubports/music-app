@@ -91,7 +91,6 @@ class MusicTestCase(AutopilotTestCase):
         self.app = self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.installed_location,
-            "--desktop_file_hint=/usr/share/applications/music-app.desktop",
             app_type='qt',
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
