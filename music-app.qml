@@ -1277,14 +1277,25 @@ MainView {
         color: styleMusic.libraryEmpty.backgroundColor
         visible: griloModel.count === 0 && griloModel.loaded === true
 
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            color: styleMusic.libraryEmpty.labelColor
-            fontSize: "medium"
-            text: "Please import music and restart the app"
-        }
+        Column {
+            anchors.centerIn: parent
 
+
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: styleMusic.libraryEmpty.labelColor
+                fontSize: "large"
+                font.bold: true
+                text: "No music found"
+            }
+
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: styleMusic.libraryEmpty.labelColor
+                fontSize: "medium"
+                text: "Please import music and restart the app"
+            }
+        }
     }
 
 } // end of main view
