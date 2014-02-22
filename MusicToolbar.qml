@@ -48,7 +48,7 @@ Rectangle {
     property int mouseAreaOffset: units.gu(2)
 
     // Properties and signals for the toolbar
-    property var cachedState: []
+    property var cachedStates: []
     property bool shown: false
     property int transitionDuration: 100
 
@@ -180,16 +180,16 @@ Rectangle {
     // Disable the toolbar for this page/view (eg a dialog)
     function disableToolbar()
     {
-        cachedState.push(state);
+        cachedStates.push(state);
         state = "hidden";
     }
 
     // Enable the toolbar (run when closing a page that disabled it)
     function enableToolbar()
     {
-        if (cachedState.length > 0)
+        if (cachedStates.length > 0)
         {
-            state = cachedState.pop();
+            state = cachedStates.pop();
         }
     }
 
