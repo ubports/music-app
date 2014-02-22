@@ -455,7 +455,8 @@ MainView {
             trackQueue.model.clear()
             addQueueFromModel(libraryModel)
         }
-        else if (player.source == Qt.resolvedUrl(file))
+        else if (player.source == Qt.resolvedUrl(file) &&
+                    currentIndex === index)
         {
             if (play === false)
             {
@@ -497,7 +498,8 @@ MainView {
         currentModel = libraryModel
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
-        currentIndex = trackQueue.indexOf(file)
+        currentIndex = trackQueue.model.get(index).file === file ?
+                    index : trackQueue.indexOf(file)  // pick given index first
         queueChanged = false
 
         console.log("Click of fileName: " + file)
@@ -505,6 +507,10 @@ MainView {
         if (play === true)
         {
             player.stop()
+        }
+
+        if (player.source == Qt.resolvedUrl(file)) {
+            onPlayingTrackChange(player.source)
         }
 
         player.source = Qt.resolvedUrl(file)
