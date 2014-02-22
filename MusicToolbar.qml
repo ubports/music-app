@@ -49,7 +49,7 @@ Rectangle {
     property int mouseAreaOffset: units.gu(2)
 
     // Properties and signals for the toolbar
-    property string cachedState: ""
+    property var cachedStates: []
     property bool shown: false
     property int transitionDuration: 100
 
@@ -181,17 +181,16 @@ Rectangle {
     // Disable the toolbar for this page/view (eg a dialog)
     function disableToolbar()
     {
-        cachedState = state;
+        cachedStates.push(state);
         state = "hidden";
     }
 
     // Enable the toolbar (run when closing a page that disabled it)
     function enableToolbar()
     {
-        if (cachedState !== "")
+        if (cachedStates.length > 0)
         {
-            state = cachedState;
-            cachedState = "";
+            state = cachedStates.pop();
         }
     }
 
@@ -859,6 +858,42 @@ Rectangle {
                     onClicked: {
                         // Invert shuffle settings
                         player.shuffle = !player.shuffle
+                    }
+                }
+            }
+
+            /* Search button in wideAspect */
+            Item {
+                id: nowPlayingSearchButton
+                objectName: "searchShape"
+                anchors {
+                    right: parent.right
+                    rightMargin: units.gu(1)
+                    verticalCenter: parent.verticalCenter
+                }
+                height: units.gu(6)
+                width: height
+                visible: wideAspect
+
+                Image {
+                    id: searchIcon
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        verticalCenter: parent.verticalCenter
+                    }
+                    height: units.gu(3)
+                    source: Qt.resolvedUrl("images/search.svg")
+                    width: height
+                }
+
+                MouseArea {
+                    anchors {
+                        fill: parent
+                    }
+
+                    onClicked: {
+                        PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"),
+                                        mainView, { title: i18n.tr("Search")} )
                     }
                 }
             }

@@ -120,6 +120,15 @@ MainView {
 
     // HUD Actions
     Action {
+        id: searchAction
+        text: i18n.tr("Search")
+        keywords: i18n.tr("Search Track")
+        onTriggered: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+                     {
+                                         title: i18n.tr("Search")
+                     } )
+    }
+    Action {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
@@ -167,7 +176,7 @@ MainView {
         onTriggered: Qt.quit()
     }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
+    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
@@ -313,7 +322,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '1.1'
+    property string appVersion: '1.2'
     property bool hasRecent: !Library.isRecentEmpty()
     property bool scrobble: false
     property string lastfmusername
@@ -404,7 +413,8 @@ MainView {
             trackQueue.model.clear()
             addQueueFromModel(libraryModel)
         }
-        else if (player.source == file)
+        else if (player.source == file &&
+                    player.currentIndex === index)
         {
             // Same track so just toggle playing state
             if (play === true) {
@@ -428,12 +438,16 @@ MainView {
         currentModel = libraryModel
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
+
+        if (Qt.resolvedUrl(trackQueue.model.get(index).file) != file) {
+            index = trackQueue.indexOf(file)  // pick given index first
+        }
         queueChanged = false
 
         console.log("Click of fileName: " + file)
 
         if (play === true) {
-            player.playSong(file)
+            player.playSong(file, index)
 
             // Show the Now Playing page and make sure the track is visible
             nowPlaying.visible = true;
@@ -806,6 +820,11 @@ MainView {
                 playlistTab.populated = true
             }
         }
+    }
+
+    // search model
+    LibraryListModel {
+        id: searchModel
     }
 
     // Blurred background

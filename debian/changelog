@@ -1,3 +1,16 @@
+music-app (1.2ubuntu1) UNRELEASED; urgency=medium
+
+  * Search functionality
+
+ -- Daniel Holm <d.holmen@gmail.com>  Thu, 20 Feb 2014 00:39:50 +0200
+
+
+music-app (1.1ubuntu1) UNRELEASED; urgency=medium
+
+  * New icon 
+
+ -- Alan Pope <alan.pope@canonical.com>  Tue, 18 Feb 2014 21:18:20 +0000
+
 music-app (1.1) raring; urgency=low
 
   * Blurred album art added to the now playing queue
