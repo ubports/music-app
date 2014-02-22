@@ -71,7 +71,7 @@ Page {
 
     Connections {
         target: player
-        onSourceChanged: {
+        onCurrentIndexChanged: {
             if (player.source === "") {
                 return;
             }

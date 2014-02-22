@@ -365,7 +365,7 @@ MainView {
             addQueueFromModel(libraryModel)
         }
         else if (player.source == file &&
-                    currentIndex === index)
+                    player.currentIndex === index)
         {
             // Same track so just toggle playing state
             if (play === true) {
@@ -389,8 +389,10 @@ MainView {
         currentModel = libraryModel
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
-        index = trackQueue.model.get(index).file === file ?
-                    index : trackQueue.indexOf(file)  // pick given index first
+
+        if (Qt.resolvedUrl(trackQueue.model.get(index).file) != file) {
+            index = trackQueue.indexOf(file)  // pick given index first
+        }
         queueChanged = false
 
         console.log("Click of fileName: " + file)
