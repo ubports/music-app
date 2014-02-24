@@ -94,7 +94,7 @@ MainView {
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
                 player.toggle();
                 break;
-            case Qt.Key_S:  //      Ctrl+S      Show Search popup
+            case Qt.Key_F:  //      Ctrl+F      Show Search popup
                 PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
                                 { title: i18n.tr("Search") })
                 break;
