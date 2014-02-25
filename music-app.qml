@@ -949,6 +949,56 @@ MainView {
 
     PageStack {
         id: pageStack
+
+        Page {
+            id: emptyPage
+            title: i18n.tr("Music")
+            visible: false
+
+            property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+
+            onNoMusicChanged: {
+                if (noMusic)
+                    pageStack.push(emptyPage)
+                else if (pageStack.currentPage == emptyPage)
+                    pageStack.pop()
+            }
+
+            tools: ToolbarItems {
+                back: null
+                locked: true
+                opened: false
+            }
+
+            // Overlay to show when no tracks detected on the device
+            Rectangle {
+                id: libraryEmpty
+                anchors.fill: parent
+                anchors.topMargin: -emptyPage.header.height
+                color: styleMusic.libraryEmpty.backgroundColor
+
+                Column {
+                    anchors.centerIn: parent
+
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "large"
+                        font.bold: true
+                        text: "No music found"
+                    }
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "medium"
+                        text: "Please import music and restart the app"
+                    }
+                }
+            }
+        }
+
         Tabs {
             id: tabs
             anchors {
@@ -965,7 +1015,7 @@ MainView {
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
-                title: i18n.tr("Music")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicStart {
@@ -982,7 +1032,7 @@ MainView {
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
-                title: i18n.tr("Artists")
+                title: page.title
 
                 // tab content
                 page: MusicArtists {
@@ -999,7 +1049,7 @@ MainView {
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
-                title: i18n.tr("Albums")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicAlbums {
@@ -1016,7 +1066,7 @@ MainView {
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
-                title: i18n.tr("Songs")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicTracks {
@@ -1034,7 +1084,7 @@ MainView {
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
-                title: i18n.tr("Playlists")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicPlaylists {
@@ -1094,23 +1144,6 @@ MainView {
 
     MusicaddtoPlaylist {
         id: addtoPlaylist
-    }
-
-    // Overlay to show when no tracks detected on the device
-    Rectangle {
-        id: libraryEmpty
-        anchors.fill: parent
-        color: styleMusic.libraryEmpty.backgroundColor
-        visible: griloModel.count === 0 && griloModel.loaded === true
-
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            color: styleMusic.libraryEmpty.labelColor
-            fontSize: "medium"
-            text: "Please import music and restart the app"
-        }
-
     }
 
 } // end of main view
