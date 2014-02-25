@@ -28,16 +28,19 @@ import "settings.js" as Settings
  */
 
 
-MediaPlayer {
-    muted: false
+Item {
     objectName: "player"
 
     property var currentMeta: {"album": "", "artist": "", "cover": "",
                                "title": ""}
     property int currentIndex: -1
+    property alias duration: mediaPlayer.duration
     property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
+    property alias playbackState: mediaPlayer.playbackState
+    property alias position: mediaPlayer.position
     property bool repeat: Settings.getSetting("repeat") === "1"
     property bool shuffle: Settings.getSetting("shuffle") === "1"
+    property alias source: mediaPlayer.source
 
     onRepeatChanged: {
         Settings.setSetting("repeat", repeat ? "1" : "0")
@@ -47,40 +50,6 @@ MediaPlayer {
     onShuffleChanged: {
         Settings.setSetting("shuffle", shuffle ? "1" : "0")
         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
-    }
-
-    onSourceChanged: {
-        // Force invalid source to ""
-        if (source === undefined || source === false) {
-            source = ""
-            return
-        }
-
-        if (source === "") {
-            currentIndex = -1
-            player.stop()
-        }
-        else {
-            var obj = trackQueue.model.get(player.currentIndex);
-            currentMeta = {
-                "artist": obj.artist,
-                "album": obj.album,
-                "title": obj.title,
-                "file": obj.file,
-                "cover": obj.cover,
-                "length": obj.length,
-                "year": obj.year,
-                "genre": obj.genre};
-        }
-
-        console.log("Source: " + source.toString())
-        console.log("Index: " + currentIndex)
-    }
-
-    onStatusChanged: {
-        if (status == MediaPlayer.EndOfMedia) {
-            nextSong(true, false) // next track
-        }
     }
 
     function getSong(direction, startPlaying, fromControls) {
@@ -144,6 +113,14 @@ MediaPlayer {
         getSong(1, startPlaying, fromControls)
     }
 
+    function pause() {
+        mediaPlayer.pause();
+    }
+
+    function play() {
+        mediaPlayer.play();
+    }
+
     function playSong(filepath, index) {
         player.stop();
         currentIndex = index;
@@ -155,12 +132,59 @@ MediaPlayer {
         getSong(-1, startPlaying)
     }
 
+    function seek(position) {
+        mediaPlayer.seek(position);
+    }
+
+    function stop() {
+        mediaPlayer.stop();
+    }
+
     function toggle() {
         if (player.playbackState == MediaPlayer.PlayingState) {
             player.pause()
         }
         else {
             player.play()
+        }
+    }
+
+    MediaPlayer {
+        id: mediaPlayer
+        muted: false
+
+        onSourceChanged: {
+            // Force invalid source to ""
+            if (source === undefined || source === false) {
+                source = ""
+                return
+            }
+
+            if (source === "") {
+                currentIndex = -1
+                player.stop()
+            }
+            else {
+                var obj = trackQueue.model.get(player.currentIndex);
+                currentMeta = {
+                    "artist": obj.artist,
+                    "album": obj.album,
+                    "title": obj.title,
+                    "file": obj.file,
+                    "cover": obj.cover,
+                    "length": obj.length,
+                    "year": obj.year,
+                    "genre": obj.genre};
+            }
+
+            console.log("Source: " + source.toString())
+            console.log("Index: " + currentIndex)
+        }
+
+        onStatusChanged: {
+            if (status == MediaPlayer.EndOfMedia) {
+                nextSong(true, false) // next track
+            }
         }
     }
 }
