@@ -29,7 +29,7 @@ import "playlists.js" as Playlists
 
 Page {
     id: mainpage
-    title: i18n.tr("Music")
+    title: i18n.tr("Songs")
 
     MusicSettings {
         id: musicSettings
