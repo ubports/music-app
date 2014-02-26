@@ -55,7 +55,7 @@ install(FILES Style.qml MusicStart.qml LoginLastFM.qml MusicAlbums.qml
         MusicSettings.qml MusicSearch.qml MusicPlaylists.qml
         MusicNowPlaying.qml LibraryListModel.qml MusicaddtoPlaylist.qml
         settings.js scrobble.js playlists.js worker-library-loader.js
-        meta-database.js DESTINATION ${DATA_DIR})
+        meta-database.js Player.qml DESTINATION ${DATA_DIR})
 install(FILES ${MAIN_QML} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
 configure_file(${DESKTOP_FILE}.in ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE})
