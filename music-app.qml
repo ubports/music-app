@@ -100,6 +100,15 @@ MainView {
         }
     }
     Action {
+        id: backAction
+        text: i18n.tr("Back")
+        keywords: i18n.tr("Go back to last page")
+        onTriggered: musicToolbar.goBack();
+    }
+
+    // With a default Quit action only the first 4 actions are used.
+    // The following actions are not currently displayed.
+    Action {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
@@ -112,12 +121,6 @@ MainView {
         onTriggered: player.stop()
     }
     Action {
-        id: backAction
-        text: i18n.tr("Back")
-        keywords: i18n.tr("Go back to last page")
-        onTriggered: musicToolbar.goBack();
-    }
-    Action {
         id: settingsAction
         text: i18n.tr("Settings")
         keywords: i18n.tr("Music Settings")
@@ -126,14 +129,8 @@ MainView {
             musicSettings.visible = true
         }
     }
-    Action {
-        id: quitAction
-        text: i18n.tr("Quit")
-        keywords: i18n.tr("Close application")
-        onTriggered: Qt.quit()
-    }
 
-    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
+    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction, settingsAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
