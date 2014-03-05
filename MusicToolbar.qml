@@ -479,7 +479,7 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            nowPlaying.visible = true
+                            tabs.setNowPlaying(true);
                         }
                     }
 
@@ -614,7 +614,7 @@ Rectangle {
                 }
                 enabled: !trackQueue.isEmpty
                 onClicked: {
-                    nowPlaying.visible = true;
+                    tabs.setNowPlaying(true);
                 }
             }
 

@@ -30,23 +30,13 @@ import "settings.js" as Settings
 Page {
     id: nowPlaying
     objectName: "nowplayingpage"
-    anchors.fill: parent
-    title: i18n.tr("Queue")
+    title: i18n.tr("Now Playing")
     visible: false
 
     onVisibleChanged: {
         if (visible === true)
         {
-            header.hide();
-            header.opacity = 0;
-            header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
-        }
-        else
-        {
-            header.enabled = true;
-            header.opacity = 1;
-            header.show();
         }
     }
 
@@ -94,7 +84,6 @@ Page {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        anchors.topMargin: nowPlayingBackButton.height
         spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
@@ -801,70 +790,6 @@ Page {
                     }
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: nowPlayingBackButton
-        anchors.left: parent.left
-        anchors.right: parent.right
-        color: styleMusic.toolbar.fullBackgroundColor
-        height: units.gu(3.1)
-
-        state: musicToolbar.opened ? "shown" : "hidden"
-        states: [
-            State {
-                name: "shown"
-                PropertyChanges {
-                    target: nowPlayingBackButton
-                    y: 0
-                }
-            },
-            State {
-                name: "hidden"
-                PropertyChanges {
-                    target: nowPlayingBackButton
-                    y: -height
-                }
-            }
-        ]
-
-        transitions: Transition {
-             from: "hidden,shown"
-             to: "shown,hidden"
-             NumberAnimation {
-                 duration: 100
-                 properties: "y"
-             }
-         }
-
-        Image {
-            id: expandItem
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            source: "images/dropdown-menu.svg"
-            height: units.gu(2)
-            width: height
-        }
-
-        MouseArea {
-            objectName: "nowPlayingBackButtonObject"
-            anchors.fill: parent
-
-            onClicked: {
-                collapseSwipeDelete(-1);  // collapse all expands
-                musicToolbar.goBack();
-            }
-        }
-
-        /* Border at the bottom */
-        Rectangle {
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            color: styleMusic.common.white
-            height: units.gu(0.1)
-            opacity: 0.2
         }
     }
 }
