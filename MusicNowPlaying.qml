@@ -482,8 +482,8 @@ Page {
                                     }
                                 }
 
-                                if (index < currentIndex) {
-                                    currentIndex -= 1;
+                                if (index < player.currentIndex) {
+                                    player.currentIndex -= 1;
                                 }
 
                                 // Remove item from queue and clear caches
