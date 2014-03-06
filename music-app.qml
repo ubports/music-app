@@ -227,8 +227,8 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        //Library.reset()
-        Library.initialize();
+        Library.reset()
+        //Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -775,7 +775,6 @@ MainView {
             }
 
             onFinished: {
-                var currentLibrary = Library.getAllFileOrder();
                 var read_arg = false;
 
                 // FIXME: remove when grilo is fixed
@@ -823,34 +822,11 @@ MainView {
                         read_arg = true;
                     }
 
-                    // Only write to database if the record has actually changed
-                    var index = exists(currentLibrary, record);
-
-                    if (index === false || index < 0)  // in grilo !in lib or lib out of date
-                    {
-                        //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                        Library.setMetadata(record)
-
-                        if (index < 0)
-                        {
-                            index = -(index + 1);
-                        }
-                    }
-
-                    if (index !== false)
-                    {
-                        currentLibrary.splice(index, 1);
-                    }
+                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                    Library.setMetadata(record)
                 }
 
                 Library.writeDb()
-
-                // Any items left in currentLibrary aren't in the grilo model so have been deleted
-                if (currentLibrary.length > 0)
-                {
-                    console.debug("Removing deleted songs:", currentLibrary.length);
-                    Library.removeFiles(currentLibrary);
-                }
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
