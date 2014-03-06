@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-12 14:37+0000\n"
-"Last-Translator: Volkan Gezer <Unknown>\n"
+"PO-Revision-Date: 2014-03-05 09:44+0000\n"
+"Last-Translator: Bera <ahmedbera@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-03-03 05:53+0000\n"
+"X-Launchpad-Export-Date: 2014-03-06 06:17+0000\n"
 "X-Generator: Launchpad (build 16948)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -177,7 +177,7 @@ msgstr "Ekolayzır"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "Öntanımlı"
+msgstr "Varsayılan"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
