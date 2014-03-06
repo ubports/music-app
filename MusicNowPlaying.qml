@@ -36,7 +36,7 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
-            musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
+            musicToolbar.setPage(nowPlaying, null, tabs.pageStack);
         }
     }
 
