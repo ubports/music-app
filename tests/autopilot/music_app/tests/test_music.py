@@ -41,7 +41,7 @@ class TestMainWindow(MusicTestCase):
         song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
-        title = lambda: self.player.currentMetaTrack
+        title = lambda: self.player.currentMetaTitle
         artist = lambda: self.player.currentMetaArtist
         self.assertThat(title,
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
@@ -211,7 +211,7 @@ class TestMainWindow(MusicTestCase):
             title = self.player.currentMetaTitle
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
-            logger.debug("File found %s" % self.main_view.currentFile)
+            logger.debug("File found %s" % self.player.currentFile)
 
             count = count + 1
 
@@ -275,7 +275,7 @@ class TestMainWindow(MusicTestCase):
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(True)))
-            title = self.main_view.currentMetaTitle
+            title = self.player.currentMetaTitle
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
 
