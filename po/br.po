@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-03-05 12:06+0000\n"
+"PO-Revision-Date: 2014-03-06 11:04+0000\n"
 "Last-Translator: Rouxel <vincent.rouxel@mailoo.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-03-06 06:17+0000\n"
+"X-Launchpad-Export-Date: 2014-03-07 07:29+0000\n"
 "X-Generator: Launchpad (build 16948)\n"
 
 #: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -101,7 +101,7 @@ msgstr[1] "%1 ton"
 
 #: ../MusicArtists.qml:190
 msgid "Tracks"
-msgstr "Roudennoù"
+msgstr "Tonioù"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
@@ -247,11 +247,11 @@ msgstr "Kevreañ evit selaou ho sonerezh diwar ar goumoulenn"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "selaou froudoù gant Wi-Fi hepken"
+msgstr "Selaou froudoù gant Wi-Fi hepken"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "Naetaat pep tra !"
+msgstr "Naetaat pep tra !"
 
 #: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
 #: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
@@ -328,7 +328,7 @@ msgstr "Distreiñ"
 
 #: ../music-app.qml:99
 msgid "Go back to last page"
-msgstr "Distro d'ar pajenn diwezhan"
+msgstr "Distro d'ar pajenn diwezhañ"
 
 #: ../music-app.qml:105
 msgid "Music Settings"
