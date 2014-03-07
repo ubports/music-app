@@ -211,7 +211,7 @@ class TestMainWindow(MusicTestCase):
             title = self.player.currentMetaTitle
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
-            logger.debug("File found %s" % self.player.currentFile)
+            logger.debug("File found %s" % self.player.currentMetaFile)
 
             count = count + 1
 
