@@ -4,6 +4,7 @@ Priority: extra
 Maintainer: Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>
 Build-Depends: cmake,
                debhelper (>= 9),
+               python,
                qt5-default,
                qtdeclarative5-dev-tools,
                qtdeclarative5-qtquick2-plugin,
