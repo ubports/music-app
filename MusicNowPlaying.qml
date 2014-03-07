@@ -474,11 +474,11 @@ Page {
                                     if (queuelist.count > 1)
                                     {
                                         // Next song and only play if currently playing
-                                        nextSong(player.isPlaying);
+                                        player.nextSong(player.isPlaying);
                                     }
                                     else
                                     {
-                                        stopSong();
+                                        player.stop();
                                     }
                                 }
 
