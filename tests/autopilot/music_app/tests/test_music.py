@@ -41,8 +41,8 @@ class TestMainWindow(MusicTestCase):
         song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
-        title = lambda: self.player.currentMeta.track
-        artist = lambda: self.player.currentMeta.artist
+        title = lambda: self.player.currentMetaTrack
+        artist = lambda: self.player.currentMetaArtist
         self.assertThat(title,
                         Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
         self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
@@ -115,11 +115,11 @@ class TestMainWindow(MusicTestCase):
         playbutton = self.main_view.get_now_playing_play_button()
         shufflebutton = self.main_view.get_shuffle_button()
 
-        title = lambda: self.player.currentMeta.title
-        artist = lambda: self.player.currentMeta.artist
+        title = lambda: self.player.currentMetaTitle
+        artist = lambda: self.player.currentMetaArtist
 
-        orgTitle = self.player.currentMeta.title
-        orgArtist = self.player.currentMeta.artist
+        orgTitle = self.player.currentMetaTitle
+        orgArtist = self.player.currentMetaArtist
 
         #check original track
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
@@ -146,8 +146,8 @@ class TestMainWindow(MusicTestCase):
         #ensure different song
         self.assertThat(title, Eventually(NotEquals(orgTitle)))
         self.assertThat(artist, Eventually(NotEquals(orgArtist)))
-        nextTitle = self.player.currentMeta.title
-        nextArtist = self.player.currentMeta.artist
+        nextTitle = self.player.currentMetaTitle
+        nextArtist = self.player.currentMetaArtist
         logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
 
         """ Pause track """
@@ -176,8 +176,8 @@ class TestMainWindow(MusicTestCase):
         playbutton = self.main_view.get_now_playing_play_button()
         shufflebutton = self.main_view.get_shuffle_button()
 
-        title = self.player.currentMeta.title
-        artist = self.player.currentMeta.artist
+        title = self.player.currentMetaTitle
+        artist = self.player.currentMetaArtist
 
         #ensure track is playing
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
@@ -208,8 +208,8 @@ class TestMainWindow(MusicTestCase):
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
-            title = self.player.currentMeta.title
-            artist = self.player.currentMeta.artist
+            title = self.player.currentMetaTitle
+            artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
             logger.debug("File found %s" % self.main_view.currentFile)
 
@@ -257,8 +257,8 @@ class TestMainWindow(MusicTestCase):
             #this means a true shuffle happened
             #if it doesn't try again, up to count times
 
-            orgTitle = self.player.currentMeta.title
-            orgArtist = self.player.currentMeta.artist
+            orgTitle = self.player.currentMetaTitle
+            orgArtist = self.player.currentMetaArtist
             logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
             if (not self.main_view.toolbarShown):
@@ -275,8 +275,8 @@ class TestMainWindow(MusicTestCase):
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(True)))
-            title = self.main_view.currentMeta.title
-            artist = self.player.currentMeta.artist
+            title = self.main_view.currentMetaTitle
+            artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
 
             #go back to previous and check against original
@@ -296,8 +296,8 @@ class TestMainWindow(MusicTestCase):
 
             self.pointing_device.click_object(previousbutton)
 
-            title = self.player.currentMeta.title
-            artist = self.player.currentMeta.artist
+            title = self.player.currentMetaTitle
+            artist = self.player.currentMetaArtist
 
             if title != orgTitle and artist != orgArtist:
                 #we shuffled properly
