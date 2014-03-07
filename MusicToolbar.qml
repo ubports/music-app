@@ -507,8 +507,8 @@ Rectangle {
                         elide: Text.ElideRight
                         fontSize: "medium"
                         objectName: "playercontroltitle"
-                        text: player.currentMeta.title === ""
-                              ? player.source : player.currentMeta.title
+                        text: player.currentMetaTitle === ""
+                              ? player.source : player.currentMetaTitle
                     }
 
                     /* Artist of track */
@@ -522,7 +522,7 @@ Rectangle {
                         color: styleMusic.playerControls.labelColor
                         elide: Text.ElideRight
                         fontSize: "small"
-                        text: player.currentMeta.artist
+                        text: player.currentMetaArtist
                     }
 
                     /* Album of track */
@@ -536,7 +536,7 @@ Rectangle {
                         color: styleMusic.playerControls.labelColor
                         elide: Text.ElideRight
                         fontSize: "small"
-                        text: player.currentMeta.album
+                        text: player.currentMetaAlbum
                     }
                 }
             }
@@ -586,7 +586,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "medium"
                     objectName: "playercontroltitle"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMeta.title === "" ? player.currentMeta.file : player.currentMeta.title
+                    text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
                 }
 
                 /* Artist of track */
@@ -601,7 +601,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMeta.artist
+                    text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
                 }
 
                 /* Album of track */
@@ -616,7 +616,7 @@ Rectangle {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "small"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMeta.album
+                    text: trackQueue.model.count === 0 ? "" : player.currentMetaAlbum
                 }
             }
             /* Clicking in the area shows the queue */

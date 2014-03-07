@@ -98,7 +98,24 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_album_sheet_artist(self):
-        return self.select_single("Label", objectName="albumsheet-albumartist")
+        return self.wait_select_single("Label",
+                                       objectName="albumsheet-albumartist")
+
+    def get_artist_sheet_artist(self):
+        return self.wait_select_single("Label",
+                                       objectName="artistsheet-albumartist")
+
+    def get_artiststab(self):
+        return self.select_single("Tab", objectName="artiststab")
+
+    def get_artists_artist_list(self):
+        return self.select_many("Label", objectName="artists-artist")
+
+    def get_artists_artist(self, artistName):
+        artistList = self.get_artists_artist_list()
+        for item in artistList:
+            if item.text == artistName:
+                return item
 
     def close_buttons(self):
         return self.select_many("Button", text="close")

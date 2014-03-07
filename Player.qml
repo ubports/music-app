@@ -31,8 +31,14 @@ import "settings.js" as Settings
 Item {
     objectName: "player"
 
-    property var currentMeta: {"album": "", "artist": "", "cover": "",
-                               "title": ""}
+    property string currentMetaAlbum: ""
+    property string currentMetaArtist: ""
+    property string currentMetaCover: ""
+    property string currentMetaFile: ""
+    property string currentMetaGenre: ""
+    property string currentMetaLength: ""
+    property string currentMetaTitle: ""
+    property string currentMetaYear: ""
     property int currentIndex: -1
     property alias duration: mediaPlayer.duration
     property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
@@ -166,15 +172,14 @@ Item {
             }
             else {
                 var obj = trackQueue.model.get(player.currentIndex);
-                currentMeta = {
-                    "artist": obj.artist,
-                    "album": obj.album,
-                    "title": obj.title,
-                    "file": obj.file,
-                    "cover": obj.cover,
-                    "length": obj.length,
-                    "year": obj.year,
-                    "genre": obj.genre};
+                currentMetaAlbum = obj.album;
+                currentMetaArtist = obj.artist;
+                currentMetaCover = obj.cover;
+                currentMetaFile = obj.file;
+                currentMetaGenre = obj.genre;
+                currentMetaLength = obj.length;
+                currentMetaTitle = obj.title;
+                currentMetaYear = obj.year;
             }
 
             console.log("Source: " + source.toString())

@@ -72,6 +72,7 @@ Page {
 
                 Label {
                     id: trackArtistAlbum
+                    objectName: "artists-artist"
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "medium"
