@@ -51,6 +51,9 @@ class MainView(toolkit_emulators.MainView):
 
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
 
+    def get_player(self):
+        return self.select_single("*", objectName="player")
+
     def get_play_button(self):
         return self.wait_select_single("*", objectName="playshape")
 

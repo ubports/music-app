@@ -42,13 +42,6 @@ Page {
     property string oldPlaylistID: ""
     property string inPlaylist: ""
 
-    Component.onCompleted: {
-        random = Settings.getSetting("shuffle") == "1" // shuffle state
-        scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-        lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-        lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
-    }
-
     onVisibleChanged: {
         if (visible === true)
         {

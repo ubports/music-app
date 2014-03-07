@@ -65,8 +65,23 @@ Page {
     }
 
     Component.onCompleted: {
-        onPlayingTrackChange.connect(updateCurrentIndex)
         onToolbarShownChanged.connect(jumpToCurrent)
+    }
+
+    Connections {
+        target: player
+        onCurrentIndexChanged: {
+            if (player.source === "") {
+                return;
+            }
+
+            // Collapse currently expanded track and the new current
+            collapseExpand(queuelist.currentIndex);
+            queuelist.currentIndex = player.currentIndex;
+            collapseExpand(queuelist.currentIndex);
+
+            customdebug("MusicQueue update currentIndex: " + player.source);
+        }
     }
 
     function jumpToCurrent(shown, currentPage, currentTab)
@@ -77,16 +92,6 @@ Page {
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
         }
-    }
-
-    function updateCurrentIndex(file)
-    {
-        // Collapse currently expanded track and the new current
-        collapseExpand(queuelist.currentIndex);
-        queuelist.currentIndex = currentIndex;
-        collapseExpand(queuelist.currentIndex);
-
-        customdebug("MusicQueue update currentIndex: " + file);
     }
 
     ListView {
@@ -469,16 +474,16 @@ Page {
                                     if (queuelist.count > 1)
                                     {
                                         // Next song and only play if currently playing
-                                        nextSong(isPlaying);
+                                        player.nextSong(player.isPlaying);
                                     }
                                     else
                                     {
-                                        stopSong();
+                                        player.stop();
                                     }
                                 }
 
-                                if (index < currentIndex) {
-                                    currentIndex -= 1;
+                                if (index < player.currentIndex) {
+                                    player.currentIndex -= 1;
                                 }
 
                                 // Remove item from queue and clear caches

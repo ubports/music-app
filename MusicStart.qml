@@ -187,6 +187,7 @@ Page {
                         } else {
                             albumTracksModel.filterAlbumTracks(title)
                         }
+
                         songsSheet.line1 = title2
                         songsSheet.line2 = title
                         songsSheet.covers =  recentItem.covers

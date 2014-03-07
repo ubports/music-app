@@ -51,10 +51,6 @@ Item {
                 model: artistAlbumsModel.model
                 delegate: albumTracksDelegate
 
-                onCountChanged: {
-                    albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
-                }
-
                 Component {
                     id: albumTracksDelegate
 
