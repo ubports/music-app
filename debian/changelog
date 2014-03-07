@@ -1,18 +1,13 @@
-music-app (1.2ubuntu2) UNRELEASED; urgency=medium
+music-app (1.2) trusty; urgency=medium
 
   [ Daniel Holm ]
   * Search functionality
 
   [ Alan Pope ]
   * Fix .desktop file [lp:#1284025] 
-
- -- Alan Pope <popey@ubuntu.com>  Mon, 24 Feb 2014 12:13:29 +0000
-
-music-app (1.1ubuntu1) UNRELEASED; urgency=medium
-
   * New icon 
 
- -- Alan Pope <alan.pope@canonical.com>  Tue, 18 Feb 2014 21:18:20 +0000
+ -- Alan Pope <popey@ubuntu.com>  Mon, 24 Feb 2014 12:13:29 +0000
 
 music-app (1.1) raring; urgency=low
 

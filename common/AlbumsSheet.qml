@@ -76,7 +76,7 @@ Item {
 
                         Label {
                             id: albumArtist
-                            objectName: "albumsheet-albumartist"
+                            objectName: "artistsheet-albumartist"
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "small"

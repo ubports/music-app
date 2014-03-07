@@ -278,10 +278,10 @@ function getAlbumCover(album) {
             var rs = tx.executeSql("SELECT cover FROM metadata WHERE album=? ORDER BY cover DESC", [album]);
             var dbItem = rs.rows.item(0);
             //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
-            if (res.indexOf(dbItem.cover) == -1) res = dbItem.cover;
+            if (rs.rows.length > 0) res = rs.rows.item(0).cover;
         });
     } catch(e) {
-        return [];
+        return "";
     }
 
     return res;
