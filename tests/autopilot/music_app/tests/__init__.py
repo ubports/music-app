@@ -9,7 +9,10 @@
 
 import tempfile
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 import os
 import os.path
 import shutil
