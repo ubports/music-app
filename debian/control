@@ -4,9 +4,8 @@ Priority: extra
 Maintainer: Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>
 Build-Depends: cmake,
                debhelper (>= 9),
+               python,
                qt5-default,
-               qtdeclarative5-dev-tools,
-               qtdeclarative5-qtquick2-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/music-app
 Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
