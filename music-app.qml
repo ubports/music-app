@@ -95,8 +95,10 @@ MainView {
                 player.toggle();
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
-                                { title: i18n.tr("Search") })
+                if (!searchSheet.sheetVisible) {
+                    PopupUtils.open(searchSheet.sheet, mainView,
+                                    { title: i18n.tr("Search") })
+                }
                 break;
             }
         }
@@ -476,6 +478,10 @@ MainView {
 
     AlbumsSheet {
         id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Model to send the data

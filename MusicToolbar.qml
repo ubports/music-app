@@ -892,8 +892,10 @@ Rectangle {
                     }
 
                     onClicked: {
-                        PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"),
-                                        mainView, { title: i18n.tr("Search")} )
+                        if (!searchSheet.sheetVisible) {
+                            PopupUtils.open(searchSheet.sheet,
+                                            mainView, { title: i18n.tr("Search")} )
+                        }
                     }
                 }
             }
