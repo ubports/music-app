@@ -81,7 +81,7 @@ import "common"
                         console.debug("Debug: "+chosenTrack+" added to "+name)
                         Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
                         var count = Playlists.getPlaylistCount(name) // get the new count
-                        playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
+                        playlistModel.model.set(index, {"count": count.toString()}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
 
