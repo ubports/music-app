@@ -83,22 +83,29 @@ MainView {
             case Qt.Key_R:  //      Ctrl+R      Repeat toggle
                 player.repeat = !player.repeat
                 break;
-            case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
-                player.shuffle = !player.shuffle
+            case Qt.Key_F:  //      Ctrl+F      Show Search popup
+                if (!searchSheet.sheetVisible) {
+                    PopupUtils.open(searchSheet.sheet, mainView,
+                                    { title: i18n.tr("Search") })
+                }
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 nowPlaying.visible = true;
                 nowPlaying.positionAt(player.currentIndex);
                 musicToolbar.showToolbar();
                 break;
+            case Qt.Key_N:  //      Ctrl+N      Show now playing
+                nowPlaying.visible = true;
+                musicToolbar.showToolbar();
+                break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
                 player.toggle();
                 break;
-            case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (!searchSheet.sheetVisible) {
-                    PopupUtils.open(searchSheet.sheet, mainView,
-                                    { title: i18n.tr("Search") })
-                }
+            case Qt.Key_Q:  //      Ctrl+Q      Quit the app
+                Qt.quit();
+                break;
+            case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
+                player.shuffle = !player.shuffle
                 break;
             }
         }

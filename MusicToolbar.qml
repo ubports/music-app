@@ -198,7 +198,7 @@ Rectangle {
     function goBack()
     {
         if (currentSheet.length > 0) {
-            PopupUtils.close(currentSheet.pop())
+            PopupUtils.close(currentSheet[currentSheet.length - 1])
             return;  // don't change toolbar state when going back from sheet
         }
         else if (currentPageStack !== null) {
