@@ -94,6 +94,11 @@ Page {
         }
     }
 
+    function positionAt(index) {
+        queuelist.positionViewAtIndex(index, ListView.Beginning);
+        queuelist.contentY -= header.height;
+    }
+
     ListView {
         id: queuelist
         objectName: "queuelist"

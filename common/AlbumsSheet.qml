@@ -42,6 +42,15 @@ Item {
             doneButton: false
             contentsHeight: units.gu(80)
 
+            onVisibleChanged: {
+                if (visible) {
+                    musicToolbar.setSheet(sheet)
+                }
+                else {
+                    musicToolbar.removeSheet(sheet)
+                }
+            }
+
             ListView {
                 clip: true
                 id: albumtrackslist

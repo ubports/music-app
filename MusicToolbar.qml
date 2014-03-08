@@ -35,6 +35,7 @@ Rectangle {
     property var currentParentPage: null
     property var currentPageStack: null
     property var currentPage: null
+    property var currentSheet: []
     property var currentTab: null
 
     // The current mode of the controls
@@ -196,12 +197,14 @@ Rectangle {
     // Back button has been pressed, jump up pageStack or back to parent page
     function goBack()
     {
-        if (currentPageStack !== null)
-        {
+        if (currentSheet.length > 0) {
+            PopupUtils.close(currentSheet[currentSheet.length - 1])
+            return;  // don't change toolbar state when going back from sheet
+        }
+        else if (currentPageStack !== null) {
             currentPageStack.pop(currentPage)
         }
-        else if (currentParentPage !== null)
-        {
+        else if (currentParentPage !== null) {
             currentParentPage.visible = false  // force switch
             currentPage.visible = false
             currentParentPage.visible = true
@@ -221,12 +224,27 @@ Rectangle {
         toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
+    // Remove sheet as it has been closed
+    function removeSheet(sheet)
+    {
+        var index = currentSheet.lastIndexOf(sheet);
+
+        if (index > -1) {
+            currentSheet.splice(index, 1);
+        }
+    }
+
     // Set the current page, and any parent/stacks
     function setPage(childPage, parentPage, pageStack)
     {
         currentPage = childPage;
         currentParentPage = parentPage === undefined ? null : parentPage;
         currentPageStack = pageStack === undefined ? null : pageStack;
+    }
+
+    // Set the current sheet (overrides page)
+    function setSheet(sheet) {
+        currentSheet.push(sheet)
     }
 
     // Show the toolbar
@@ -874,8 +892,10 @@ Rectangle {
                     }
 
                     onClicked: {
-                        PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"),
-                                        mainView, { title: i18n.tr("Search")} )
+                        if (!searchSheet.sheetVisible) {
+                            PopupUtils.open(searchSheet.sheet,
+                                            mainView, { title: i18n.tr("Search")} )
+                        }
                     }
                 }
             }

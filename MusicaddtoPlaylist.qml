@@ -48,13 +48,15 @@ import "common"
      }
 
      onVisibleChanged: {
-         if (visible === true)
+         if (visible)
          {
              musicToolbar.disableToolbar()
+             musicToolbar.setSheet(addtoPlaylist)
          }
          else
          {
              musicToolbar.enableToolbar()
+             musicToolbar.removeSheet(addtoPlaylist)
          }
      }
 

@@ -47,6 +47,7 @@ Item {
     property bool repeat: Settings.getSetting("repeat") === "1"
     property bool shuffle: Settings.getSetting("shuffle") === "1"
     property alias source: mediaPlayer.source
+    property alias volume: mediaPlayer.volume
 
     onRepeatChanged: {
         Settings.setSetting("repeat", repeat ? "1" : "0")

@@ -47,6 +47,68 @@ MainView {
             // On alt key press show toolbar and start autohide timer
             musicToolbar.showToolbar();
         }
+        else if(event.key === Qt.Key_Escape) {
+            musicToolbar.goBack();  // Esc      Go back
+        }
+        else if(event.modifiers === Qt.AltModifier) {
+            var position;
+
+            switch (event.key) {
+            case Qt.Key_Right:  //  Alt+Right   Seek forward +10secs
+                position = player.position + 10000 < player.duration
+                        ? player.position + 10000 : player.duration;
+                player.seek(position);
+                break;
+            case Qt.Key_Left:  //   Alt+Left    Seek backwards -10secs
+                position = player.position - 10000 > 0
+                        ? player.position - 10000 : 0;
+                player.seek(position);
+                break;
+            }
+        }
+        else if(event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_Left:   //  Ctrl+Left   Previous Song
+                player.previousSong(true);
+                break;
+            case Qt.Key_Right:  //  Ctrl+Right  Next Song
+                player.nextSong(true, true);
+                break;
+            case Qt.Key_Up:  //     Ctrl+Up     Volume up
+                player.volume = player.volume + .1 > 1 ? 1 : player.volume + .1
+                break;
+            case Qt.Key_Down:  //   Ctrl+Down   Volume down
+                player.volume = player.volume - .1 < 0 ? 0 : player.volume - .1
+                break;
+            case Qt.Key_R:  //      Ctrl+R      Repeat toggle
+                player.repeat = !player.repeat
+                break;
+            case Qt.Key_F:  //      Ctrl+F      Show Search popup
+                if (!searchSheet.sheetVisible) {
+                    PopupUtils.open(searchSheet.sheet, mainView,
+                                    { title: i18n.tr("Search") })
+                }
+                break;
+            case Qt.Key_J:  //      Ctrl+J      Jump to playing song
+                nowPlaying.visible = true;
+                nowPlaying.positionAt(player.currentIndex);
+                musicToolbar.showToolbar();
+                break;
+            case Qt.Key_N:  //      Ctrl+N      Show now playing
+                nowPlaying.visible = true;
+                musicToolbar.showToolbar();
+                break;
+            case Qt.Key_P:  //      Ctrl+P      Toggle playing state
+                player.toggle();
+                break;
+            case Qt.Key_Q:  //      Ctrl+Q      Quit the app
+                Qt.quit();
+                break;
+            case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
+                player.shuffle = !player.shuffle
+                break;
+            }
+        }
     }
 
     // Arguments during startup
@@ -423,6 +485,10 @@ MainView {
 
     AlbumsSheet {
         id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Model to send the data
