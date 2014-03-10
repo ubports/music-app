@@ -8,6 +8,9 @@ music-app (1.2ubuntu2) UNRELEASED; urgency=medium
   [ Dimitri John Ledkov ]
   * Use python 3 compatible mock import
 
+  [ Alan Pope ]
+  * Add -qt5 command line option [lp:#1288885]
+
   [ Victor Thompson ]
   * Add an autopilot test to test playing a song from the Artists tab. [lp:#1268455]
   * Remove duplicate quit in HUD and move back button so visible [lp:#1285838]
