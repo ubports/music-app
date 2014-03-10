@@ -1,4 +1,22 @@
-music-app (1.2ubuntu1) UNRELEASED; urgency=medium
+music-app (1.2ubuntu2) UNRELEASED; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Refactor media player to make it easier to change shuffle/repeat
+  * Added basic keyboard shortcuts
+  * Modify cmakelist to scan for *.qml files
+
+  [ Dimitri John Ledkov ]
+  * Use python 3 compatible mock import
+
+  [ Victor Thompson ]
+  * Add an autopilot test to test playing a song from the Artists tab. [lp:#1268455]
+  * Remove duplicate quit in HUD and move back button so visible [lp:#1285838]
+  * Rebuild library from scratch on each run [lp:#1287720]
+  * Fix PPA issue due to change log [lp:#1284637]
+
+ -- Andrew Hayzen <ahayzen@gmail.com>  Mon, 10 Mar 2014 18:12:00 +0000
+
+music-app (1.2ubuntu1); urgency=medium
 
   [ Daniel Holm ]
   * Search functionality
