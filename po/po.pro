@@ -10,14 +10,14 @@ TEMPLATE = subdirs
 PROJECTNAME = $$system(basename ../*.qmlproject)
 PROJECTNAME = $$replace(PROJECTNAME,.qmlproject,)
 
-DESKTOPFILE = ../$${PROJECTNAME}.desktop
+DESKTOPFILE = ../com.ubuntu.music_music.desktop.in
 
 SOURCECODE = ../*.qml \
              ../*.js \
              ../common/*.qml
 
 BUILDDIR = ../.build
-DESKTOPFILETEMP = $${BUILDDIR}/$${PROJECTNAME}.desktop.js
+DESKTOPFILETEMP = $${BUILDDIR}/com.ubuntu.music_music.desktop.in
 
 message("")
 message(" Project Name: $$PROJECTNAME ")
