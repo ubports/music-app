@@ -657,7 +657,7 @@ MainView {
                         album: media.album || i18n.tr("Unknown Album"),
                         title: media.title || file,
                         file: file,
-                        cover: media.thumbnail.toString(),
+                        cover: media.thumbnail.toString() || "",
                         length: media.duration.toString(),
                         number: media.trackNumber,
                         year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
