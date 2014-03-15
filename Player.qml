@@ -36,7 +36,6 @@ Item {
     property string currentMetaCover: ""
     property string currentMetaFile: ""
     property string currentMetaGenre: ""
-    property string currentMetaLength: ""
     property string currentMetaTitle: ""
     property string currentMetaYear: ""
     property int currentIndex: -1
@@ -178,7 +177,6 @@ Item {
                 currentMetaCover = obj.cover;
                 currentMetaFile = obj.file;
                 currentMetaGenre = obj.genre;
-                currentMetaLength = obj.length;
                 currentMetaTitle = obj.title;
                 currentMetaYear = obj.year;
             }
