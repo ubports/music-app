@@ -132,6 +132,11 @@ DefaultSheet {
             width: parent.width
             height: parent.width
             model: searchModel.model
+
+            onMovementStarted: {
+                searchTrackView.forceActiveFocus()
+            }
+
             delegate: ListItem.Standard {
                 id: search
                 objectName: "playlist"
