@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-03-10 18:38-0500\n"
-"PO-Revision-Date: 2014-01-15 11:27+0000\n"
+"PO-Revision-Date: 2014-03-15 14:47+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-03-12 05:29+0000\n"
+"X-Launchpad-Export-Date: 2014-03-16 06:09+0000\n"
 "X-Generator: Launchpad (build 16963)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -151,7 +151,7 @@ msgstr "Poista"
 #: ../MusicSearch.qml:41 ../MusicToolbar.qml:897 ../music-app.qml:89
 #: ../music-app.qml:137 ../music-app.qml:141
 msgid "Search"
-msgstr ""
+msgstr "Etsi"
 
 #: ../MusicSearch.qml:394 ../MusicTracks.qml:318 ../music-app.qml:844
 #: ../common/SongsSheet.qml:378
@@ -356,7 +356,7 @@ msgstr "Tuntematon levy"
 
 #: ../music-app.qml:663
 msgid "Unknown Year"
-msgstr ""
+msgstr "Tuntematon vuosi"
 
 #: ../music-app.qml:664
 msgid "Unknown Genre"
