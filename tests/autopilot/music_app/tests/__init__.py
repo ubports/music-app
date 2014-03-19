@@ -64,10 +64,6 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        #backup and wipe db's before testing
-        self.temp_move_sqlite_db()
-        self.addCleanup(self.restore_sqlite_db)
-
         launch, self.test_type = self.setup_environment()
         self.home_dir = self._patch_home()
         self._create_music_library()
