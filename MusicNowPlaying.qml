@@ -816,8 +816,11 @@ Page {
 
     Rectangle {
         id: nowPlayingBackButton
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
 
