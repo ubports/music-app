@@ -123,9 +123,11 @@ Item {
     // Show the toolbar
     function showToolbar()
     {
-        musicToolbarPanel.state = musicToolbarPanel.currentMode;
         startAutohideTimer();  // always attempt to autohide toolbar
-        musicToolbarPanel.open();
+
+        if (!musicToolbarPanel.opened) {
+            musicToolbarPanel.open();
+        }
     }
 
     // Start the autohidetimer
