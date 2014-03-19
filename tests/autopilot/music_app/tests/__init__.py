@@ -137,8 +137,8 @@ class MusicTestCase(AutopilotTestCase):
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-        shutil.copytree(os.path.join(content_dir, 'mediascanner'),
-                            mediascannerpath)
+        shutil.copytree(
+            os.path.join(content_dir, 'mediascanner'), mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
