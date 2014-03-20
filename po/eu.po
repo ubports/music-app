@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-03-10 18:38-0500\n"
-"PO-Revision-Date: 2014-01-19 23:17+0000\n"
+"PO-Revision-Date: 2014-03-19 23:19+0000\n"
 "Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-03-12 05:29+0000\n"
-"X-Generator: Launchpad (build 16963)\n"
+"X-Launchpad-Export-Date: 2014-03-20 06:22+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -151,7 +151,7 @@ msgstr "Ezabatu"
 #: ../MusicSearch.qml:41 ../MusicToolbar.qml:897 ../music-app.qml:89
 #: ../music-app.qml:137 ../music-app.qml:141
 msgid "Search"
-msgstr ""
+msgstr "Bilatu"
 
 #: ../MusicSearch.qml:394 ../MusicTracks.qml:318 ../music-app.qml:844
 #: ../common/SongsSheet.qml:378
@@ -226,7 +226,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "Musika-korrontea"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
@@ -234,11 +234,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Hasi saioa lainoko zure musika-korrontea erreproduzitzeko"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Erabili korrontea WiFi-arekin soilik"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
@@ -267,124 +267,124 @@ msgstr "Abestirik ez ilaran"
 
 #: ../MusicToolbar.qml:332
 msgid "Tap on a song to start playing"
-msgstr ""
+msgstr "Sakatu abestia erreproduzitzen hasteko"
 
 #: ../MusicTracks.qml:32
 msgid "Songs"
-msgstr ""
+msgstr "Abestiak"
 
 #: ../MusicaddtoPlaylist.qml:125
 msgid "New playlist"
-msgstr ""
+msgstr "Erreprodukzio-zerrenda berria"
 
 #: ../music-app.qml:138
 msgid "Search Track"
-msgstr ""
+msgstr "Bilatu pista"
 
 #: ../music-app.qml:146
 msgid "Next"
-msgstr ""
+msgstr "Hurrengoa"
 
 #: ../music-app.qml:147
 msgid "Next Track"
-msgstr ""
+msgstr "Hurrengo pista"
 
 #: ../music-app.qml:153
 msgid "Pause"
-msgstr ""
+msgstr "Pausatu"
 
 #: ../music-app.qml:153
 msgid "Play"
-msgstr ""
+msgstr "Erreproduzitu"
 
 #: ../music-app.qml:155
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pausatu erreprodukzioa"
 
 #: ../music-app.qml:155
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Jarraitu edo hasi erreprodukzioa"
 
 #: ../music-app.qml:160
 msgid "Back"
-msgstr ""
+msgstr "Itzuli"
 
 #: ../music-app.qml:161
 msgid "Go back to last page"
-msgstr ""
+msgstr "Itzuli azken orrira"
 
 #: ../music-app.qml:169
 msgid "Previous"
-msgstr ""
+msgstr "Aurrekoa"
 
 #: ../music-app.qml:170
 msgid "Previous Track"
-msgstr ""
+msgstr "Aurreko pista"
 
 #: ../music-app.qml:175
 msgid "Stop"
-msgstr ""
+msgstr "Gelditu"
 
 #: ../music-app.qml:176
 msgid "Stop Playback"
-msgstr ""
+msgstr "Gelditu erreprodukzioa"
 
 #: ../music-app.qml:184
 msgid "Music Settings"
-msgstr ""
+msgstr "Musikaren ezarpenak"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:244
 msgid "songs played today"
-msgstr ""
+msgstr "gaur erreproduzitutako abestiak"
 
 #: ../music-app.qml:245
 msgid "No songs played today"
-msgstr ""
+msgstr "Gaur ez da abestirik erreproduzitu"
 
 #: ../music-app.qml:369
 msgid "Debug: "
-msgstr ""
+msgstr "Arazketa: "
 
 #: ../music-app.qml:656 ../meta-database.js:431
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Artista ezezaguna"
 
 #: ../music-app.qml:657 ../meta-database.js:430 ../meta-database.js:433
 msgid "Unknown Album"
-msgstr ""
+msgstr "Album ezezaguna"
 
 #: ../music-app.qml:663
 msgid "Unknown Year"
-msgstr ""
+msgstr "Urte ezezaguna"
 
 #: ../music-app.qml:664
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Genero ezezaguna"
 
 #: ../music-app.qml:882
 msgid "New Playlist"
-msgstr ""
+msgstr "Erreprodukzio-zerrenda berria"
 
 #: ../music-app.qml:883
 msgid "Name your playlist."
-msgstr ""
+msgstr "Izendatu erreproduzkio-zerrenda."
 
 #: ../music-app.qml:887
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #: ../music-app.qml:895
 msgid "Create"
-msgstr ""
+msgstr "Sortu"
 
 #: ../music-app.qml:911
 msgid "Error: "
-msgstr ""
+msgstr "Errorea: "
 
 #: ../music-app.qml:916
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Errorea: ez duzu izenik idatzi."
 
 #: ../common/AlbumsSheet.qml:128 ../common/SongsSheet.qml:126
 #, qt-format
@@ -395,8 +395,8 @@ msgstr[1] " | %1 abesti"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr ""
+msgstr "Garbitu"
