@@ -136,10 +136,14 @@ MainView {
         id: searchAction
         text: i18n.tr("Search")
         keywords: i18n.tr("Search Track")
-        onTriggered: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+        onTriggered: {
+            if (!searchSheet.sheetVisible) {
+                PopupUtils.open(searchSheet.sheet, mainView,
                      {
                                          title: i18n.tr("Search")
                      } )
+            }
+        }
     }
     Action {
         id: nextAction

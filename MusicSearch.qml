@@ -147,6 +147,11 @@ Item {
                      width: parent.width
                      height: parent.width
                      model: searchModel.model
+
+                     onMovementStarted: {
+                         searchTrackView.forceActiveFocus()
+                     }
+
                      delegate: ListItem.Standard {
                             id: search
                             objectName: "playlist"
@@ -259,6 +264,7 @@ Item {
                                 anchors.top: parent.top
                                 width: styleMusic.common.expandedItem * 3
                                 onClicked: {
+                                    expandItem.forceActiveFocus()
                                     if(expandable.visible) {
                                         customdebug("clicked collapse")
                                         expandable.visible = false
