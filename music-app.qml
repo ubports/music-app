@@ -664,7 +664,7 @@ MainView {
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
 
-                    if (read_arg === false && argFile === file)
+                    if (read_arg === false && decodeURI(argFile) === decodeURI(file))
                     {
                         trackQueue.model.clear();
                         trackQueue.model.append(record)
