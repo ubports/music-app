@@ -146,6 +146,8 @@ Item {
         height: currentMode === "full" ? fullHeight : expandedHeight
         locked: wideAspect
 
+        __closeOnContentsClicks: false  // TODO: fix bug 1295720
+
         // The current mode of the controls
         property string currentMode: wideAspect || currentPage === nowPlaying
                                      ? "full" : "expanded"
