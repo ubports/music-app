@@ -217,7 +217,7 @@ MainView {
 
                 for (var j=0; j < griloModel.count; j++)
                 {
-                    if (griloModel.get(j).url.toString() == file)
+                    if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
                     {
                         index = j;
                     }
@@ -668,7 +668,7 @@ MainView {
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
 
-                    if (read_arg === false && decodeURI(argFile) === decodeURI(file))
+                    if (read_arg === false && decodeURIComponent(argFile) === decodeURIComponent(file))
                     {
                         trackQueue.model.clear();
                         trackQueue.model.append(record)
