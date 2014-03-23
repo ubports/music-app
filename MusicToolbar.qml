@@ -163,6 +163,10 @@ Item {
 
         onOpenedChanged: {
             onToolbarShownChanged(opened, currentPage, currentTab);
+
+            if (opened) {
+                startAutohideTimer();
+            }
         }
 
         /* Full toolbar */
