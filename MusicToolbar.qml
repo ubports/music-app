@@ -23,13 +23,12 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import "settings.js" as Settings
 
-Rectangle {
-    id: musicToolbarContainer
-    color: "transparent"
-    height: fullHeight
-    state: "minimized"
-    width: parent.width
-    x: parent.x
+Item {
+    anchors {
+        bottom: parent.bottom
+        left: parent.left
+        right: parent.right
+    }
 
     // Properties storing the current page info
     property var currentParentPage: null
@@ -38,143 +37,18 @@ Rectangle {
     property var currentSheet: []
     property var currentTab: null
 
-    // The current mode of the controls
-    property string currentMode: wideAspect || currentPage === nowPlaying
-                                 ? "full" : "expanded"
-
-    // Properties for the different heights
-    property int minimizedHeight: units.gu(0.5)
-    property int expandedHeight: units.gu(8)
-    property int fullHeight: units.gu(11)
-    property int mouseAreaOffset: units.gu(2)
-
     // Properties and signals for the toolbar
     property var cachedStates: []
     property bool shown: false
     property int transitionDuration: 100
 
-    onYChanged: {
-        y: parent.height
-        if (y > mainView.height - units.gu(1) && currentMode === "full")
-            musicToolbarSmallProgressBackground.opacity = 1
-        else if (y <= mainView.height - units.gu(1) && currentMode === "full")
-            musicToolbarSmallProgressBackground.opacity = 0
-    }
+    property alias minimizedHeight: musicToolbarPanel.minimizedHeight
+    property alias expandedHeight: musicToolbarPanel.expandedHeight
+    property alias fullHeight: musicToolbarPanel.fullHeight
+    property alias mouseAreaOffset: musicToolbarPanel.hintSize
 
-    // Shown/hide relevant child items depending on mode
-    onCurrentModeChanged: {
-        musicToolbarExpandedContainer.visible = currentMode !== "full"
-        musicToolbarFullContainer.visible = currentMode === "full"
-
-        // Update the container state if required
-        if (state !== "minimized" || wideAspect)
-        {
-            state = currentMode
-            shown = true;
-        }
-    }
-
-    // Emit toolbarShownChanged signal when the toolbar is shown/hidden
-    onShownChanged: {
-        onToolbarShownChanged(shown, currentPage, currentTab);
-        musicToolbar.opened = shown;
-    }
-
-    states: [
-        // State for when the toolbar is hidden
-        State {
-            name: "hidden"
-            PropertyChanges {
-                target: musicToolbarContainer
-                y: parent.height
-            }
-            PropertyChanges {
-                target: musicToolbarMouseArea
-                anchors.topMargin: 0
-            }
-            PropertyChanges {
-                target: musicToolbarSmallProgressBackground
-                opacity: 0
-            }
-            PropertyChanges {
-                target: musicToolbarFullProgressMouseArea
-                visible: false
-            }
-        },
-        // State for when the toolbar is minimized
-        State {
-            name: "minimized"
-            PropertyChanges {
-                target: musicToolbarContainer
-                y: parent.height - minimizedHeight
-            }
-            PropertyChanges {
-                target: musicToolbarMouseArea
-                anchors.topMargin: -mouseAreaOffset  // should allow drag from outside the item
-            }
-            PropertyChanges {
-                target: musicToolbarSmallProgressBackground
-                opacity: 1
-            }
-            PropertyChanges {
-                target: musicToolbarFullProgressMouseArea
-                visible: false
-            }
-        },
-        // State for when the toolbar is shown
-        State {
-            name: "expanded"
-            PropertyChanges {
-                target: musicToolbarContainer
-                y: parent.height - expandedHeight - minimizedHeight
-            }
-            PropertyChanges {
-                target: musicToolbarMouseArea
-                anchors.topMargin: 0
-            }
-            PropertyChanges {
-                target: musicToolbarSmallProgressBackground
-                opacity: 1
-            }
-            PropertyChanges {
-                target: musicToolbarFullProgressMouseArea
-                visible: false
-            }
-        },
-        // State for when the toolbar is shown on the now playing page
-        State {
-            name: "full"
-            PropertyChanges {
-                target: musicToolbarContainer
-                y: parent.height - fullHeight
-            }
-            PropertyChanges {
-                target: musicToolbarMouseArea
-                anchors.topMargin: 0
-            }
-            PropertyChanges {
-                target: musicToolbarSmallProgressBackground
-                opacity: 0
-            }
-            PropertyChanges {
-                target: musicToolbarFullProgressMouseArea
-                visible: true
-            }
-        }
-    ]
-
-    transitions: Transition {
-        from: "minimized,minimized,expanded,expanded,full,full"
-        to: "expanded,full,minimized,full,minimized,expanded"
-        NumberAnimation {
-            duration: transitionDuration
-            properties: "y,opacity"
-        }
-
-        onRunningChanged: {
-            musicToolbar.animating = running;
-        }
-    }
+    property alias animating: musicToolbarPanel.animating
+    property alias opened: musicToolbarPanel.opened
 
     /* Helper functions */
 
@@ -182,7 +56,7 @@ Rectangle {
     function disableToolbar()
     {
         cachedStates.push(state);
-        state = "hidden";
+        musicToolbarPanel.state = "hidden";
     }
 
     // Enable the toolbar (run when closing a page that disabled it)
@@ -190,7 +64,7 @@ Rectangle {
     {
         if (cachedStates.length > 0)
         {
-            state = cachedStates.pop();
+            musicToolbarPanel.state = cachedStates.pop();
         }
     }
 
@@ -210,15 +84,14 @@ Rectangle {
             currentParentPage.visible = true
         }
 
-        musicToolbar.hideToolbar();
+        hideToolbar();
     }
 
     // Hide the toolbar
     function hideToolbar()
     {
         if (!wideAspect) {
-            musicToolbarContainer.state = "minimized";
-            shown = false;
+            musicToolbarPanel.close();
         }
 
         toolbarAutoHideTimer.stop();  // cancel any autohide
@@ -250,9 +123,11 @@ Rectangle {
     // Show the toolbar
     function showToolbar()
     {
-        musicToolbarContainer.state = currentMode;
         startAutohideTimer();  // always attempt to autohide toolbar
-        shown = true;
+
+        if (!musicToolbarPanel.opened) {
+            musicToolbarPanel.open();
+        }
     }
 
     // Start the autohidetimer
@@ -261,129 +136,191 @@ Rectangle {
         toolbarAutoHideTimer.restart();
     }
 
-    /* Mouse area to block events going to items under the toolbar */
-    MouseArea {
-        anchors.fill: parent
-        onClicked: mouse.accepted = true
-    }
+    Panel {
+        id: musicToolbarPanel
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: currentMode === "full" ? fullHeight : expandedHeight
+        locked: wideAspect
 
-    /* Expanded toolbar */
-    Rectangle {
-        id: musicToolbarExpandedContainer
-        color: "transparent"
-        anchors.left: parent.left
-        anchors.top: musicToolbarSmallProgressBackground.bottom
-        height: expandedHeight
-        width: parent.width
+        __closeOnContentsClicks: false  // TODO: fix bug 1295720
 
-        Rectangle {
-            id: musicToolbarPlayerControls
-            anchors.fill: parent
-            color: styleMusic.playerControls.backgroundColor
-            state: trackQueue.model.count === 0 ? "disabled" : "enabled"
+        // The current mode of the controls
+        property string currentMode: wideAspect || currentPage === nowPlaying
+                                     ? "full" : "expanded"
 
-            states: [
-                State {
-                    name: "disabled"
-                    PropertyChanges {
-                        target: disabledPlayerControlsGroup
-                        visible: true
-                    }
-                    PropertyChanges {
-                        target: enabledPlayerControlsGroup
-                        visible: false
-                    }
-                },
-                State {
-                    name: "enabled"
-                    PropertyChanges {
-                        target: disabledPlayerControlsGroup
-                        visible: false
-                    }
-                    PropertyChanges {
-                        target: enabledPlayerControlsGroup
-                        visible: true
-                    }
-                }
-            ]
+        // Properties for the different heights
+        property int minimizedHeight: units.gu(0.5)
+        property int expandedHeight: units.gu(8)
+        property int fullHeight: units.gu(11)
 
-            Rectangle {
-                id: disabledPlayerControlsGroup
-                anchors.fill: parent
-                color: "transparent"
-                visible: trackQueue.model.count === 0
+        onCurrentModeChanged: {
+            musicToolbarFullProgressMouseArea.enabled = currentMode === "full"
+        }
 
-                Label {
-                    id: noSongsInQueueLabel
-                    anchors.left: parent.left
-                    anchors.margins: units.gu(1)
-                    anchors.top: parent.top
-                    color: styleMusic.playerControls.labelColor
-                    text: i18n.tr("No songs queued")
-                    fontSize: "large"
-                }
+        onOpenedChanged: {
+            onToolbarShownChanged(opened, currentPage, currentTab);
 
-                Label {
-                    id: tabToStartPlayingLabel
-                    color: styleMusic.playerControls.labelColor
-                    anchors.left: parent.left
-                    anchors.margins: units.gu(1)
-                    anchors.top: noSongsInQueueLabel.bottom
-                    text: i18n.tr("Tap on a song to start playing")
-                }
+            if (opened) {
+                startAutohideTimer();
             }
+        }
 
+        /* Full toolbar */
+        Rectangle {
+            id: musicToolbarFullContainer
+            anchors {
+                fill: parent
+            }
+            color: styleMusic.toolbar.fullBackgroundColor
+            visible: musicToolbarPanel.currentMode === "full"
+
+            /* Buttons component */
             Rectangle {
-                id: enabledPlayerControlsGroup
-                anchors.fill: parent
+                id: musicToolbarFullButtonsContainer
+                anchors.left: parent.left
+                anchors.top: musicToolbarFullProgressContainer.bottom
                 color: "transparent"
-                visible: trackQueue.model.count !== 0
+                height: parent.height - musicToolbarFullProgressContainer.height
+                width: parent.width
 
-                /* Settings button */
-                // TODO: Enable settings when it is practical
-                /* Rectangle {
-                    id: playerControlsSettings
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: units.gu(6)
-                    height: width
-                    color: "transparent"
-
-                    Image {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: units.gu(3)
-                        source: Qt.resolvedUrl("images/settings.png")
-                        width: height
+                /* Column for labels in wideAspect */
+                Column {
+                    id: nowPlayingWideAspectLabels
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        right: nowPlayingRepeatButton.left
+                        rightMargin: units.gu(1)
+                        verticalCenter: parent.verticalCenter
                     }
+                    visible: wideAspect
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            console.debug('Debug: Show settings')
-                            PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                            {
-                                                title: i18n.tr("Settings")
-                                            } )
+                    /* Clicking in the area shows the queue */
+                    function trigger() {
+                        if (trackQueue.model.count !== 0 && currentPage !== nowPlaying) {
+                            nowPlaying.visible = true;
                         }
                     }
-                } */
 
-                /* Play/Pause button TODO: image and colours needs updating */
-                Rectangle {
-                    id: playerControlsPlayButton
-                    anchors.right: parent.right
+                    /* Title of track */
+                    Label {
+                        id: nowPlayingWideAspectTitle
+                        anchors {
+                            left: parent.left
+                            leftMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1)
+                        }
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "medium"
+                        objectName: "playercontroltitle"
+                        text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
+                    }
+
+                    /* Artist of track */
+                    Label {
+                        id: nowPlayingWideAspectArtist
+                        anchors {
+                            left: parent.left
+                            leftMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1)
+                        }
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "small"
+                        text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
+                    }
+
+                    /* Album of track */
+                    Label {
+                        id: nowPlayingWideAspectAlbum
+                        anchors {
+                            left: parent.left
+                            leftMargin: units.gu(1)
+                            right: parent.right
+                            rightMargin: units.gu(1)
+                        }
+                        color: styleMusic.playerControls.labelColor
+                        elide: Text.ElideRight
+                        fontSize: "small"
+                        text: trackQueue.model.count === 0 ? "" : player.currentMetaAlbum
+                    }
+                }
+
+                /* Repeat button */
+                Item {
+                    id: nowPlayingRepeatButton
+                    objectName: "repeatShape"
+                    anchors.right: nowPlayingPreviousButton.left
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
+                    height: units.gu(6)
+                    opacity: player.repeat ? 1 : .4
+                    width: height
+
+                    function trigger() {
+                        // Invert repeat settings
+                        player.repeat = !player.repeat
+                    }
+
+                    Image {
+                        id: repeatIcon
+                        height: units.gu(3)
+                        width: height
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
+                        verticalAlignment: Text.AlignVCenter
+                        opacity: player.repeat ? 1 : .4
+                    }
+                }
+
+                /* Previous button */
+                Item {
+                    id: nowPlayingPreviousButton
+                    anchors.right: nowPlayingPlayButton.left
+                    anchors.rightMargin: units.gu(1)
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: units.gu(6)
+                    objectName: "previousshape"
+                    opacity: trackQueue.model.count === 0 ? .4 : 1
+                    width: height
+
+                    function trigger() {
+                        player.previousSong()
+                    }
+
+                    Image {
+                        id: nowPlayingPreviousIndicator
+                        height: units.gu(3)
+                        width: height
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: Qt.resolvedUrl("images/media-skip-backward.svg")
+                        opacity: 1
+                    }
+                }
+
+                /* Play/Pause button */
+                Rectangle {
+                    id: nowPlayingPlayButton
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
                     antialiasing: true
-                    color: "#444"
-                    height: units.gu(7)
+                    color: styleMusic.toolbar.fullOuterPlayCircleColor
+                    height: units.gu(12)
                     radius: height / 2
                     width: height
 
-                    // draws the outer shadow/highlight
+                    // draws the outter shadow/highlight
                     Rectangle {
-                        id: sourceOutter
+                        id: sourceOutterFull
                         anchors { fill: parent; margins: -units.gu(0.1) }
                         radius: (width / 2)
                         antialiasing: true
@@ -394,27 +331,27 @@ Rectangle {
                         }
 
                         Rectangle {
-                            anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
                             antialiasing: true
-                            color: "#444"
-                            height: playerControlsPlayButton.height - units.gu(.1)
+                            color: styleMusic.toolbar.fullOuterPlayCircleColor
+                            height: nowPlayingPlayButton.height - units.gu(.1)
                             radius: height / 2
                             width: height
 
                             Rectangle {
-                                id: playerControlsPlayInnerCircle
+                                id: nowPlayingPlayButtonInner
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
                                 antialiasing: true
-                                height: units.gu(4.5)
+                                color: styleMusic.toolbar.fullInnerPlayCircleColor
+                                height: units.gu(7)
                                 radius: height / 2
                                 width: height
-                                color: styleMusic.toolbar.fullInnerPlayCircleColor
 
                                 // draws the inner shadow/highlight
                                 Rectangle {
-                                    id: sourceInner
+                                    id: sourceInnerFull
                                     anchors { fill: parent; margins: -units.gu(0.1) }
                                     radius: (width / 2)
                                     antialiasing: true
@@ -425,21 +362,26 @@ Rectangle {
                                     }
 
                                     Rectangle {
-                                        anchors.verticalCenter: parent.verticalCenter
                                         anchors.horizontalCenter: parent.horizontalCenter
+                                        anchors.verticalCenter: parent.verticalCenter
                                         antialiasing: true
-                                        height: playerControlsPlayInnerCircle.height - units.gu(.1)
+                                        color: styleMusic.toolbar.fullInnerPlayCircleColor
+                                        height: nowPlayingPlayButtonInner.height - units.gu(.1)
+                                        objectName: "nowPlayingPlayShape"
                                         radius: height / 2
                                         width: height
-                                        color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                        function trigger() {
+                                            player.toggle();
+                                        }
 
                                         Image {
-                                            id: playindicator
-                                            height: units.gu(4)
+                                            id: nowPlayingPlayIndicator
+                                            height: units.gu(6)
                                             width: height
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.verticalCenter: parent.verticalCenter
-                                            opacity: 1
+                                            opacity: trackQueue.model.count === 0 ? .4 : 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
                                                         Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
@@ -448,775 +390,577 @@ Rectangle {
                             }
                         }
                     }
-
-                    MouseArea {
-                        objectName: "playshape"  // objectName doesn't work on Rectangle?
-
-                        anchors.fill: parent
-
-                        function inCircle(x, y) {
-                            /*
-                              Function that returns true if the mouse is inside the circle
-                                Length = root((y2-y1)^2 + (x2-x1)^2)
-                             */
-                            x = Math.pow(x - (width / 2), 2);
-                            y = Math.pow(y - (height / 2), 2);
-
-                            return Math.pow((x + y), 0.5) <= parent.radius;
-                        }
-
-                        onClicked: {
-                            var accepted = inCircle(mouse.x, mouse.y);
-
-                            mouse.accepted = accepted;
-
-                            if (accepted)
-                            {
-                                player.toggle();
-                            }
-                        }
-                    }
                 }
 
-                /* Container holding the labels for the toolbar */
-                Rectangle {
-                    id: playerControlLabelContainer
-                    anchors.bottom: parent.bottom
-                    anchors.left: parent.left
-                    anchors.right: playerControlsPlayButton.left
-                    anchors.top: parent.top
-                    color: "transparent"
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            nowPlaying.visible = true
-                        }
-                    }
-
-                    /* Title of track */
-                    Label {
-                        id: playerControlsTitle
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        anchors.top: parent.top
-                        anchors.topMargin: units.gu(1)
-                        color: styleMusic.playerControls.labelColor
-                        elide: Text.ElideRight
-                        fontSize: "medium"
-                        objectName: "playercontroltitle"
-                        text: player.currentMetaTitle === ""
-                              ? player.source : player.currentMetaTitle
-                    }
-
-                    /* Artist of track */
-                    Label {
-                        id: playerControlsArtist
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        anchors.top: playerControlsTitle.bottom
-                        color: styleMusic.playerControls.labelColor
-                        elide: Text.ElideRight
-                        fontSize: "small"
-                        text: player.currentMetaArtist
-                    }
-
-                    /* Album of track */
-                    Label {
-                        id: playerControlsAlbum
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        anchors.top: playerControlsArtist.bottom
-                        color: styleMusic.playerControls.labelColor
-                        elide: Text.ElideRight
-                        fontSize: "small"
-                        text: player.currentMetaAlbum
-                    }
-                }
-            }
-        }
-    }
-
-    /* Full toolbar */
-    Rectangle {
-        id: musicToolbarFullContainer
-        anchors.left: parent.left
-        anchors.top: parent.top
-        color: styleMusic.toolbar.fullBackgroundColor
-        height: fullHeight
-        width: parent.width
-
-        /* Buttons component */
-        Rectangle {
-            id: musicToolbarFullButtonsContainer
-            anchors.left: parent.left
-            anchors.top: musicToolbarFullProgressContainer.bottom
-            color: "transparent"
-            height: parent.height - musicToolbarFullProgressContainer.height
-            width: parent.width
-
-            /* Column for labels in wideAspect */
-            Column {
-                id: nowPlayingWideAspectLabels
-                anchors {
-                    left: parent.left
-                    leftMargin: units.gu(1)
-                    right: nowPlayingRepeatButton.left
-                    rightMargin: units.gu(1)
-                    verticalCenter: parent.verticalCenter
-                }
-                visible: wideAspect
-
-                /* Title of track */
-                Label {
-                    id: nowPlayingWideAspectTitle
-                    anchors {
-                        left: parent.left
-                        leftMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                    }
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "medium"
-                    objectName: "playercontroltitle"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
-                }
-
-                /* Artist of track */
-                Label {
-                    id: nowPlayingWideAspectArtist
-                    anchors {
-                        left: parent.left
-                        leftMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                    }
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
-                }
-
-                /* Album of track */
-                Label {
-                    id: nowPlayingWideAspectAlbum
-                    anchors {
-                        left: parent.left
-                        leftMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                    }
-                    color: styleMusic.playerControls.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMetaAlbum
-                }
-            }
-            /* Clicking in the area shows the queue */
-            MouseArea {
-                anchors {
-                    fill: nowPlayingWideAspectLabels
-                }
-                enabled: trackQueue.model.count !== 0
-                onClicked: {
-                    nowPlaying.visible = true;
-                }
-            }
-
-            /* Repeat button */
-            Item {
-                id: nowPlayingRepeatButton
-                objectName: "repeatShape"
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                opacity: player.repeat ? 1 : .4
-                width: height
-
-                Image {
-                    id: repeatIcon
-                    height: units.gu(3)
-                    width: height
+                /* Next button */
+                Item {
+                    id: nowPlayingNextButton
+                    anchors.left: nowPlayingPlayButton.right
+                    anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
-                    verticalAlignment: Text.AlignVCenter
-                    opacity: player.repeat ? 1 : .4
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: {
-                        // Invert repeat settings
-                        player.repeat = !player.repeat
-                    }
-                }
-            }
-
-            /* Previous button */
-            Item {
-                id: nowPlayingPreviousButton
-                anchors.right: nowPlayingPlayButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                objectName: "previousshape"
-                opacity: trackQueue.model.count === 0 ? .4 : 1
-                width: height
-
-                Image {
-                    id: nowPlayingPreviousIndicator
-                    height: units.gu(3)
+                    height: units.gu(6)
+                    objectName: "forwardshape"
+                    opacity: trackQueue.model.count === 0 ? .4 : 1
                     width: height
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: Qt.resolvedUrl("images/media-skip-backward.svg")
-                    opacity: 1
-                }
 
-                MouseArea {
-                    anchors.fill: parent
-                    id: nowPlayingPreviousMouseArea
-                    onClicked:
-                    {
-                        player.previousSong()
-                    }
-                }
-            }
-
-            /* Play/Pause button */
-            Rectangle {
-                id: nowPlayingPlayButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                antialiasing: true
-                color: styleMusic.toolbar.fullOuterPlayCircleColor
-                height: units.gu(12)
-                radius: height / 2
-                width: height
-
-                // draws the outter shadow/highlight
-                Rectangle {
-                    id: sourceOutterFull
-                    anchors { fill: parent; margins: -units.gu(0.1) }
-                    radius: (width / 2)
-                    antialiasing: true
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "black" }
-                        GradientStop { position: 0.5; color: "transparent" }
-                        GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
-                    }
-
-                    Rectangle {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        antialiasing: true
-                        color: styleMusic.toolbar.fullOuterPlayCircleColor
-                        height: nowPlayingPlayButton.height - units.gu(.1)
-                        radius: height / 2
-                        width: height
-
-                        Rectangle {
-                            id: nowPlayingPlayButtonInner
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            antialiasing: true
-                            color: styleMusic.toolbar.fullInnerPlayCircleColor
-                            height: units.gu(7)
-                            radius: height / 2
-                            width: height
-
-                            // draws the inner shadow/highlight
-                            Rectangle {
-                                id: sourceInnerFull
-                                anchors { fill: parent; margins: -units.gu(0.1) }
-                                radius: (width / 2)
-                                antialiasing: true
-                                gradient: Gradient {
-                                    GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
-                                    GradientStop { position: 0.5; color: "transparent" }
-                                    GradientStop { position: 1.0; color: "black" }
-                                }
-
-                                Rectangle {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    antialiasing: true
-                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
-                                    height: nowPlayingPlayButtonInner.height - units.gu(.1)
-                                    radius: height / 2
-                                    width: height
-
-                                    Image {
-                                        id: nowPlayingPlayIndicator
-                                        height: units.gu(6)
-                                        width: height
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        opacity: trackQueue.model.count === 0 ? .4 : 1
-                                        source: player.playbackState === MediaPlayer.PlayingState ?
-                                                    Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
-                                    }
-
-                                    MouseArea {
-                                        objectName: "nowPlayingPlayShape"
-                                        anchors.fill: parent
-                                        id: nowPlayingPlayMouseArea
-
-                                        function inCircle(x, y) {
-                                            /*
-                                              Function that returns true if the mouse is inside the circle
-                                                Length = root((y2-y1)^2 + (x2-x1)^2)
-                                             */
-                                            x = Math.pow(x - (width / 2), 2);
-                                            y = Math.pow(y - (height / 2), 2);
-
-                                            return Math.pow((x + y), 0.5) <= parent.radius;
-                                        }
-
-                                        onClicked:
-                                        {
-                                            if (!inCircle(mouse.x, mouse.y))
-                                            {
-                                                return;
-                                            }
-
-                                            player.toggle();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            /* Next button */
-            Item {
-                id: nowPlayingNextButton
-                anchors.left: nowPlayingPlayButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                objectName: "forwardshape"
-                opacity: trackQueue.model.count === 0 ? .4 : 1
-                width: height
-
-                Image {
-                    id: nowPlayingNextIndicator
-                    height: units.gu(3)
-                    width: height
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: Qt.resolvedUrl("images/media-skip-forward.svg")
-                    opacity: 1
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    id: nowPlayingNextMouseArea
-                    onClicked:
-                    {
+                    function trigger() {
                         player.nextSong()
                     }
+
+                    Image {
+                        id: nowPlayingNextIndicator
+                        height: units.gu(3)
+                        width: height
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: Qt.resolvedUrl("images/media-skip-forward.svg")
+                        opacity: 1
+                    }
                 }
-            }
 
-            /* Shuffle button */
-            Item {
-                id: nowPlayingShuffleButton
-                objectName: "shuffleShape"
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                height: units.gu(6)
-                opacity: player.shuffle ? 1 : .4
-                width: height
-
-                Image {
-                    id: shuffleIcon
-                    height: units.gu(3)
-                    width: height
+                /* Shuffle button */
+                Item {
+                    id: nowPlayingShuffleButton
+                    objectName: "shuffleShape"
+                    anchors.left: nowPlayingNextButton.right
+                    anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
+                    height: units.gu(6)
                     opacity: player.shuffle ? 1 : .4
-                }
+                    width: height
 
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: {
+                    function trigger() {
                         // Invert shuffle settings
                         player.shuffle = !player.shuffle
                     }
-                }
-            }
 
-            /* Search button in wideAspect */
-            Item {
-                id: nowPlayingSearchButton
-                objectName: "searchShape"
-                anchors {
-                    right: parent.right
-                    rightMargin: units.gu(1)
-                    verticalCenter: parent.verticalCenter
+                    Image {
+                        id: shuffleIcon
+                        height: units.gu(3)
+                        width: height
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
+                        opacity: player.shuffle ? 1 : .4
+                    }
                 }
-                height: units.gu(6)
-                width: height
-                visible: wideAspect
 
-                Image {
-                    id: searchIcon
+                /* Search button in wideAspect */
+                Item {
+                    id: nowPlayingSearchButton
+                    objectName: "searchShape"
                     anchors {
-                        horizontalCenter: parent.horizontalCenter
+                        right: parent.right
+                        rightMargin: units.gu(1)
                         verticalCenter: parent.verticalCenter
                     }
-                    height: units.gu(3)
-                    source: Qt.resolvedUrl("images/search.svg")
+                    height: units.gu(6)
                     width: height
-                }
+                    visible: wideAspect
 
-                MouseArea {
-                    anchors {
-                        fill: parent
-                    }
-
-                    onClicked: {
+                    function trigger() {
                         if (!searchSheet.sheetVisible) {
                             PopupUtils.open(searchSheet.sheet,
                                             mainView, { title: i18n.tr("Search")} )
                         }
                     }
+
+                    Image {
+                        id: searchIcon
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
+                        height: units.gu(3)
+                        source: Qt.resolvedUrl("images/search.svg")
+                        width: height
+                    }
+                }
+            }
+
+            /* Progress bar component */
+            Rectangle {
+                id: musicToolbarFullProgressContainer
+                anchors.left: parent.left
+                anchors.top: parent.top
+                color: styleMusic.toolbar.fullBackgroundColor
+                height: units.gu(3)
+                width: parent.width
+
+                /* Position label */
+                Label {
+                    id: musicToolbarFullPositionLabel
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(2)
+                    anchors.top: parent.top
+                    color: styleMusic.nowPlaying.labelColor
+                    fontSize: "x-small"
+                    height: parent.height
+                    horizontalAlignment: Text.AlignHCenter
+                    text: durationToString(player.position)
+                    verticalAlignment: Text.AlignVCenter
+                    width: units.gu(3)
+                }
+
+                /* Progress bar */
+                Rectangle {
+                    id: musicToolbarFullProgressBarContainer
+                    anchors.left: musicToolbarFullPositionLabel.right
+                    anchors.leftMargin: units.gu(2)
+                    anchors.right: musicToolbarFullDurationLabel.left
+                    anchors.rightMargin: units.gu(2)
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "transparent"
+                    height: units.gu(1);
+                    state: trackQueue.model.count === 0 ? "disabled" : "enabled"
+
+                    states: [
+                        State {
+                            name: "disabled"
+                            PropertyChanges {
+                                target: musicToolbarFullProgressMouseArea
+                                enabled: false
+                            }
+                            PropertyChanges {
+                                target: musicToolbarFullProgressTrough
+                                visible: false
+                            }
+                            PropertyChanges {
+                                target: musicToolbarFullProgressHandle
+                                visible: false
+                            }
+                        },
+                        State {
+                            name: "enabled"
+                            PropertyChanges {
+                                target: musicToolbarFullProgressMouseArea
+                                enabled: true
+                            }
+                            PropertyChanges {
+                                target: musicToolbarFullProgressTrough
+                                visible: true
+                            }
+                            PropertyChanges {
+                                target: musicToolbarFullProgressHandle
+                                visible: true
+                            }
+                        }
+                    ]
+
+                    property bool seeking: false
+
+                    onSeekingChanged: {
+                        if (seeking === false) {
+                            musicToolbarFullPositionLabel.text = durationToString(player.position)
+                        }
+                    }
+
+                    Connections {
+                        target: player
+                        onPositionChanged: {
+                            if (musicToolbarFullProgressBarContainer.seeking === false)
+                            {
+                                musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
+                                        - musicToolbarFullProgressHandle.width / 2;
+                            }
+                        }
+                    }
+
+                    // Black background behind the progress bar
+                    Rectangle {
+                        id: musicToolbarFullProgressBackground
+                        anchors.verticalCenter: parent.verticalCenter;
+                        color: styleMusic.toolbar.fullProgressBackgroundColor;
+                        height: parent.height;
+                        radius: units.gu(0.5)
+                        width: parent.width;
+                    }
+
+                    // The orange fill of the progress bar
+                    Rectangle {
+                        id: musicToolbarFullProgressTrough
+                        anchors.verticalCenter: parent.verticalCenter;
+                        antialiasing: true
+                        color: styleMusic.toolbar.fullProgressTroughColor;
+                        height: parent.height;
+                        radius: units.gu(0.5)
+                        width: musicToolbarFullProgressHandle.x + (height / 2);  // +radius
+                    }
+
+                    // The current position (handle) of the progress bar
+                    Rectangle {
+                        id: musicToolbarFullProgressHandle
+                        anchors.verticalCenter: musicToolbarFullProgressBackground.verticalCenter
+                        antialiasing: true
+                        color: styleMusic.nowPlaying.progressHandleColor
+                        height: units.gu(1.5)
+                        radius: height / 2
+                        width: height
+
+                        // On X change update the position string
+                        onXChanged: {
+                            var fraction = (x + (width / 2)) / parent.width;
+                            musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
+                        }
+                    }
+                }
+
+                /* Duration label */
+                Label {
+                    id: musicToolbarFullDurationLabel
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(2)
+                    anchors.top: parent.top
+                    color: styleMusic.nowPlaying.labelColor
+                    fontSize: "x-small"
+                    height: parent.height
+                    horizontalAlignment: Text.AlignHCenter
+                    text: durationToString(player.duration)
+                    verticalAlignment: Text.AlignVCenter
+                    width: units.gu(3)
+                }
+
+                /* Border at the bottom */
+                Rectangle {
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    color: styleMusic.common.white
+                    height: units.gu(0.1)
+                    opacity: 0.1
                 }
             }
         }
 
-        /* Progress bar component */
+        /* Expanded toolbar */
         Rectangle {
-            id: musicToolbarFullProgressContainer
-            anchors.left: parent.left
-            anchors.top: parent.top
-            color: styleMusic.toolbar.fullBackgroundColor
-            height: units.gu(3)
-            width: parent.width
-
-            /* Position label */
-            Label {
-                id: musicToolbarFullPositionLabel
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(2)
-                anchors.top: parent.top
-                color: styleMusic.nowPlaying.labelColor
-                fontSize: "x-small"
-                height: parent.height
-                horizontalAlignment: Text.AlignHCenter
-                text: durationToString(player.position)
-                verticalAlignment: Text.AlignVCenter
-                width: units.gu(3)
+            id: musicToolbarExpandedContainer
+            anchors {
+                fill: parent
             }
+            color: "transparent"
+            visible: musicToolbarPanel.currentMode === "expanded"
 
-            /* Progress bar */
             Rectangle {
-                id: musicToolbarFullProgressBarContainer
-                anchors.left: musicToolbarFullPositionLabel.right
-                anchors.leftMargin: units.gu(2)
-                anchors.right: musicToolbarFullDurationLabel.left
-                anchors.rightMargin: units.gu(2)
-                anchors.verticalCenter: parent.verticalCenter
-                color: "transparent"
-                height: units.gu(1);
+                id: musicToolbarPlayerControls
+                anchors.fill: parent
+                color: styleMusic.playerControls.backgroundColor
                 state: trackQueue.model.count === 0 ? "disabled" : "enabled"
 
                 states: [
                     State {
                         name: "disabled"
                         PropertyChanges {
-                            target: musicToolbarFullProgressMouseArea
-                            enabled: false
+                            target: disabledPlayerControlsGroup
+                            visible: true
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressTrough
-                            visible: false
-                        }
-                        PropertyChanges {
-                            target: musicToolbarFullProgressHandle
+                            target: enabledPlayerControlsGroup
                             visible: false
                         }
                     },
                     State {
                         name: "enabled"
                         PropertyChanges {
-                            target: musicToolbarFullProgressMouseArea
-                            enabled: true
+                            target: disabledPlayerControlsGroup
+                            visible: false
                         }
                         PropertyChanges {
-                            target: musicToolbarFullProgressTrough
-                            visible: true
-                        }
-                        PropertyChanges {
-                            target: musicToolbarFullProgressHandle
+                            target: enabledPlayerControlsGroup
                             visible: true
                         }
                     }
                 ]
 
-                property bool seeking: false
+                Rectangle {
+                    id: disabledPlayerControlsGroup
+                    anchors.fill: parent
+                    color: "transparent"
+                    visible: trackQueue.model.count === 0
 
-                onSeekingChanged: {
-                    if (seeking === false) {
-                        musicToolbarFullPositionLabel.text = durationToString(player.position)
+                    Label {
+                        id: noSongsInQueueLabel
+                        anchors.left: parent.left
+                        anchors.margins: units.gu(1)
+                        anchors.top: parent.top
+                        color: styleMusic.playerControls.labelColor
+                        text: i18n.tr("No songs queued")
+                        fontSize: "large"
+                    }
+
+                    Label {
+                        id: tabToStartPlayingLabel
+                        color: styleMusic.playerControls.labelColor
+                        anchors.left: parent.left
+                        anchors.margins: units.gu(1)
+                        anchors.top: noSongsInQueueLabel.bottom
+                        text: i18n.tr("Tap on a song to start playing")
                     }
                 }
+
+                Rectangle {
+                    id: enabledPlayerControlsGroup
+                    anchors.fill: parent
+                    color: "transparent"
+                    visible: trackQueue.model.count !== 0
+
+                    /* Settings button */
+                    // TODO: Enable settings when it is practical
+                    /* Rectangle {
+                        id: playerControlsSettings
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: units.gu(6)
+                        height: width
+                        color: "transparent"
+
+                        Image {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: units.gu(3)
+                            source: Qt.resolvedUrl("images/settings.png")
+                            width: height
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                console.debug('Debug: Show settings')
+                                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
+                                                {
+                                                    title: i18n.tr("Settings")
+                                                } )
+                            }
+                        }
+                    } */
+
+                    /* Play/Pause button TODO: image and colours needs updating */
+                    Rectangle {
+                        id: playerControlsPlayButton
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        anchors.verticalCenter: parent.verticalCenter
+                        antialiasing: true
+                        color: "#444"
+                        height: units.gu(7)
+                        radius: height / 2
+                        width: height
+
+                        function trigger() {
+                            player.toggle();
+                        }
+
+                        // draws the outer shadow/highlight
+                        Rectangle {
+                            id: sourceOutter
+                            anchors { fill: parent; margins: -units.gu(0.1) }
+                            radius: (width / 2)
+                            antialiasing: true
+                            gradient: Gradient {
+                                GradientStop { position: 0.0; color: "black" }
+                                GradientStop { position: 0.5; color: "transparent" }
+                                GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
+                            }
+
+                            Rectangle {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                antialiasing: true
+                                color: "#444"
+                                height: playerControlsPlayButton.height - units.gu(.1)
+                                radius: height / 2
+                                width: height
+
+                                Rectangle {
+                                    id: playerControlsPlayInnerCircle
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    antialiasing: true
+                                    height: units.gu(4.5)
+                                    radius: height / 2
+                                    width: height
+                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                    // draws the inner shadow/highlight
+                                    Rectangle {
+                                        id: sourceInner
+                                        anchors { fill: parent; margins: -units.gu(0.1) }
+                                        radius: (width / 2)
+                                        antialiasing: true
+                                        gradient: Gradient {
+                                            GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
+                                            GradientStop { position: 0.5; color: "transparent" }
+                                            GradientStop { position: 1.0; color: "black" }
+                                        }
+
+                                        Rectangle {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            antialiasing: true
+                                            height: playerControlsPlayInnerCircle.height - units.gu(.1)
+                                            radius: height / 2
+                                            width: height
+                                            color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                            Image {
+                                                id: playindicator
+                                                height: units.gu(4)
+                                                width: height
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                opacity: 1
+                                                source: player.playbackState === MediaPlayer.PlayingState ?
+                                                            Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    /* Container holding the labels for the toolbar */
+                    Rectangle {
+                        id: playerControlLabelContainer
+                        anchors.bottom: parent.bottom
+                        anchors.left: parent.left
+                        anchors.right: playerControlsPlayButton.left
+                        anchors.top: parent.top
+                        color: "transparent"
+
+                        /* Title of track */
+                        Label {
+                            id: playerControlsTitle
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(1)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(1)
+                            color: styleMusic.playerControls.labelColor
+                            elide: Text.ElideRight
+                            fontSize: "medium"
+                            objectName: "playercontroltitle"
+                            text: player.currentMetaTitle === ""
+                                  ? player.source : player.currentMetaTitle
+                        }
+
+                        /* Artist of track */
+                        Label {
+                            id: playerControlsArtist
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(1)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1)
+                            anchors.top: playerControlsTitle.bottom
+                            color: styleMusic.playerControls.labelColor
+                            elide: Text.ElideRight
+                            fontSize: "small"
+                            text: player.currentMetaArtist
+                        }
+
+                        /* Album of track */
+                        Label {
+                            id: playerControlsAlbum
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.gu(1)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1)
+                            anchors.top: playerControlsArtist.bottom
+                            color: styleMusic.playerControls.labelColor
+                            elide: Text.ElideRight
+                            fontSize: "small"
+                            text: player.currentMetaAlbum
+                        }
+                    }
+
+                    Rectangle {
+                        anchors.fill: playerControlLabelContainer
+                        color: "transparent"
+                        function trigger() {
+                            nowPlaying.visible = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Object which provides the progress bar when toolbar is minimized */
+        Rectangle {
+            id: musicToolbarSmallProgressBackground
+            anchors {
+                bottom: parent.top
+                left: parent.left
+                right: parent.right
+            }
+            color: styleMusic.common.black
+            height: musicToolbarPanel.minimizedHeight
+            visible: (!musicToolbarPanel.animating &&
+                        !musicToolbarPanel.opened)
+                     || musicToolbarPanel.currentMode == "expanded"
+
+            Rectangle {
+                id: musicToolbarSmallProgressHint
+                anchors.left: parent.left
+                anchors.top: parent.top
+                color: styleMusic.nowPlaying.progressForegroundColor
+                height: parent.height
+                width: 0
 
                 Connections {
                     target: player
                     onPositionChanged: {
-                        if (musicToolbarFullProgressBarContainer.seeking === false)
-                        {
-                            musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
-                                    - musicToolbarFullProgressHandle.width / 2;
-                        }
-                    }
-                }
-
-                // Black background behind the progress bar
-                Rectangle {
-                    id: musicToolbarFullProgressBackground
-                    anchors.verticalCenter: parent.verticalCenter;
-                    color: styleMusic.toolbar.fullProgressBackgroundColor;
-                    height: parent.height;
-                    radius: units.gu(0.5)
-                    width: parent.width;
-                }
-
-                // The orange fill of the progress bar
-                Rectangle {
-                    id: musicToolbarFullProgressTrough
-                    anchors.verticalCenter: parent.verticalCenter;
-                    antialiasing: true
-                    color: styleMusic.toolbar.fullProgressTroughColor;
-                    height: parent.height;
-                    radius: units.gu(0.5)
-                    width: musicToolbarFullProgressHandle.x + (height / 2);  // +radius
-                }
-
-                // The current position (handle) of the progress bar
-                Rectangle {
-                    id: musicToolbarFullProgressHandle
-                    anchors.verticalCenter: musicToolbarFullProgressBackground.verticalCenter
-                    antialiasing: true
-                    color: styleMusic.nowPlaying.progressHandleColor
-                    height: units.gu(1.5)
-                    radius: height / 2
-                    width: height
-
-                    // On X change update the position string
-                    onXChanged: {
-                        var fraction = (x + (width / 2)) / parent.width;
-                        musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
+                        musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
                     }
                 }
             }
+        }
 
-            /* Duration label */
-            Label {
-                id: musicToolbarFullDurationLabel
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(2)
-                anchors.top: parent.top
-                color: styleMusic.nowPlaying.labelColor
-                fontSize: "x-small"
-                height: parent.height
-                horizontalAlignment: Text.AlignHCenter
-                text: durationToString(player.duration)
-                verticalAlignment: Text.AlignVCenter
-                width: units.gu(3)
+        /* Mouse events for the progress bar
+               is after musicToolbarMouseArea so that it captures mouse events for dragging */
+        MouseArea {
+            id: musicToolbarFullProgressMouseArea
+            height: units.gu(2)
+            width: musicToolbarFullProgressBarContainer.width
+            x: musicToolbarFullProgressBarContainer.x
+            y: musicToolbarFullProgressBarContainer.y
+
+            drag.axis: Drag.XAxis
+            drag.minimumX: -(musicToolbarFullProgressHandle.width / 2)
+            drag.maximumX: musicToolbarFullProgressBarContainer.width - (musicToolbarFullProgressHandle.width / 2)
+            drag.target: musicToolbarFullProgressHandle
+
+            onPressed: {
+                musicToolbarFullProgressBarContainer.seeking = true;
+
+                // Jump the handle to the current mouse position
+                musicToolbarFullProgressHandle.x = mouse.x - (musicToolbarFullProgressHandle.width / 2);
             }
 
-            /* Border at the bottom */
-            Rectangle {
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                color: styleMusic.common.white
-                height: units.gu(0.1)
-                opacity: 0.1
+            onReleased: {
+                var fraction = mouse.x / musicToolbarFullProgressBarContainer.width;
+
+                // Limit the bounds of the fraction
+                fraction = fraction < 0 ? 0 : fraction
+                fraction = fraction > 1 ? 1 : fraction
+
+                player.seek((fraction) * player.duration);
+                musicToolbarFullProgressBarContainer.seeking = false;
             }
         }
-    }
 
-    /* Object which provides the progress bar when toolbar is minimized */
-    Rectangle {
-        id: musicToolbarSmallProgressBackground
-        anchors.left: parent.left
-        anchors.top: parent.top
-        color: styleMusic.common.black
-        height: minimizedHeight
-        width: parent.width
-
-        Rectangle {
-            id: musicToolbarSmallProgressHint
-            anchors.left: parent.left
-            anchors.top: parent.top
-            color: styleMusic.nowPlaying.progressForegroundColor
-            height: parent.height
-            width: 0
-
-            Connections {
-                target: player
-                onPositionChanged: {
-                    musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
+        // Timer for autohide
+        Timer {
+            id: toolbarAutoHideTimer
+            interval: 5000
+            repeat: false
+            running: false
+            onTriggered: {
+                if (currentPage !== nowPlaying) {  // don't autohide on now playing
+                    hideToolbar();
                 }
-            }
-        }
-    }
-
-    /* Object which captures mouse drags to show/hide the toolbar */
-    MouseArea {
-        id: musicToolbarMouseArea
-        anchors.fill: parent
-        enabled: !wideAspect
-
-        property bool changed: false
-        property int startContainerY: 0
-        property int startMouseY: 0
-
-        // Settings for dragging the container
-        drag.axis: Drag.YAxis
-        drag.maximumY: musicToolbarContainer.parent.height - minimizedHeight
-        drag.minimumY: currentMode === "full" ?
-                           musicToolbarContainer.parent.height - fullHeight :
-                           musicToolbarContainer.parent.height - expandedHeight - minimizedHeight
-        drag.target: musicToolbarContainer
-
-        propagateComposedEvents: true
-        onClicked: mouse.accepted = changed  // pass clicked evented to children unless changed (YAxis)
-
-        onMouseYChanged: {
-            // Mouse has been accepted with YAxis changed and set changed to true
-            mouse.accepted = true;
-            changed = true;
-        }
-
-        onPressAndHold: {
-            // If the item hasn't moved then run the hint animation
-            if (musicToolbarContainer.y === startContainerY)
-            {
-                musicToolbarContainerHintAnimation.start();
-                mouse.accepted = true;  // mouse has been accepted
-            }
-            else
-            {
-                mouse.accepted = false;
-            }
-        }
-
-        onPressed: {
-            mouse.accepted = false;  // mouse not accepted yet
-
-            // Record starting positions for later
-            startContainerY = musicToolbarContainer.y;
-            startMouseY = mouse.y;
-
-            // Restart autohide timer on mouse press inside toolbar
-            startAutohideTimer();
-        }
-
-        onReleased: {
-            mouse.accepted = changed;  // mouse is accepted if the YAxis has changed
-            changed = false;  // reset changed
-
-            // fix for flicker on first run (needs a value to have been set?)
-            musicToolbarContainer.y = musicToolbarContainer.y;
-
-            var diff = musicToolbarContainer.y - startContainerY;
-
-            if (diff > units.gu(3))
-            {
-                hideToolbar();
-            }
-            else if (diff < -units.gu(3))
-            {
-                showToolbar();
-            }
-            else
-            {
-                musicToolbarContainerReset.start();
-            }
-        }
-
-        // On pressandhold reveal part of the toolbar as a hint
-        NumberAnimation {
-            id: musicToolbarContainerHintAnimation
-            target: musicToolbarContainer
-            property: "y"
-            duration: musicToolbarContainer.transitionDuration
-            to: musicToolbarContainer.parent.height - minimizedHeight - units.gu(1.5)
-        }
-
-        // Animation to reset the toolbar if it hasn't been dragged far enough
-        NumberAnimation {
-            id: musicToolbarContainerReset
-            target: musicToolbarContainer
-            property: "y"
-            duration: musicToolbarContainer.transitionDuration
-            to: musicToolbarMouseArea.startContainerY
-        }
-    }
-
-    /* Mouse events for the progress bar
-       is after musicToolbarMouseArea so that it captures mouse events for dragging */
-    MouseArea {
-        id: musicToolbarFullProgressMouseArea
-        height: units.gu(2)
-        width: musicToolbarFullProgressBarContainer.width
-        x: musicToolbarFullProgressBarContainer.x
-        y: musicToolbarFullProgressBarContainer.y
-
-        drag.axis: Drag.XAxis
-        drag.minimumX: -(musicToolbarFullProgressHandle.width / 2)
-        drag.maximumX: musicToolbarFullProgressBarContainer.width - (musicToolbarFullProgressHandle.width / 2)
-        drag.target: musicToolbarFullProgressHandle
-
-        onPressed: {
-            musicToolbarFullProgressBarContainer.seeking = true;
-
-            // Jump the handle to the current mouse position
-            musicToolbarFullProgressHandle.x = mouse.x - (musicToolbarFullProgressHandle.width / 2);
-        }
-
-        onReleased: {
-            var fraction = mouse.x / musicToolbarFullProgressBarContainer.width;
-
-            // Limit the bounds of the fraction
-            fraction = fraction < 0 ? 0 : fraction
-            fraction = fraction > 1 ? 1 : fraction
-
-            player.seek((fraction) * player.duration);
-            musicToolbarFullProgressBarContainer.seeking = false;
-        }
-    }
-
-    // Timer for autohide
-    Timer {
-        id: toolbarAutoHideTimer
-        interval: 5000
-        repeat: false
-        running: false
-        onTriggered: {
-            if (currentPage !== nowPlaying) {  // don't autohide on now playing
-                hideToolbar();
             }
         }
     }
 }
+

@@ -816,8 +816,10 @@ Page {
 
     Rectangle {
         id: nowPlayingBackButton
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
 
@@ -825,28 +827,19 @@ Page {
         states: [
             State {
                 name: "shown"
-                PropertyChanges {
+                AnchorChanges {
                     target: nowPlayingBackButton
-                    y: 0
+                    anchors.top: parent.top
                 }
             },
             State {
                 name: "hidden"
-                PropertyChanges {
+                AnchorChanges {
                     target: nowPlayingBackButton
-                    y: -height
+                    anchors.bottom: parent.top
                 }
             }
         ]
-
-        transitions: Transition {
-             from: "hidden,shown"
-             to: "shown,hidden"
-             NumberAnimation {
-                 duration: 100
-                 properties: "y"
-             }
-         }
 
         Image {
             id: expandItem
