@@ -87,10 +87,9 @@ function getLatestTrackID(playlist) {
     try {
         db.transaction(function(tx) {
             // Get the maximum id for the playlist
-            var rs = tx.executeSql('SELECT MAX(id) FROM playlist WHERE playlist=?;',[playlist]);
-
+            var rs = tx.executeSql('SELECT id FROM playlist ORDER BY id DESC LIMIT 1');
             // Set res to max id or -1 if no ids exist
-            res = rs.rows.length === 0 ? -1 : rs.rows.item(0).id;
+            if (rs.rows.length > 0) res = rs.rows.item(0).id;
        })
     } catch(e) {
         return res;
