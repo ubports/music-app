@@ -167,7 +167,7 @@ Item {
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
-                                trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                trackQueue.append(model)
                                 trackClicked(trackQueue, trackQueue.model.count - 1, true)
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }
@@ -358,12 +358,7 @@ Item {
                                         onClicked: {
                                             expandable.visible = false
                                             search.height = styleMusic.common.itemHeight
-                                            chosenArtist = artist
-                                            chosenTitle = title
-                                            chosenTrack = file
-                                            chosenAlbum = album
-                                            chosenCover = cover
-                                            chosenGenre = genre
+                                            chosenElement = model
                                             chosenIndex = index
                                             console.debug("Debug: Add track to playlist")
                                             PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
@@ -407,7 +402,7 @@ Item {
                                             expandable.visible = false
                                             search.height = styleMusic.common.itemHeight
                                             console.debug("Debug: Add track to queue: " + title)
-                                            trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                            trackQueue.append(model)
                                         }
                                     }
                                 }

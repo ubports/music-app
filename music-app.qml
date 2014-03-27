@@ -228,8 +228,7 @@ MainView {
                 }
 
                 // enqueue
-                var media = griloModel.get(index);
-                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                trackQueue.append(griloModel.get(index));
 
                 // play first URI
                 if (i == 0) {
@@ -335,12 +334,7 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-    property string chosenTrack: ""
-    property string chosenTitle: ""
-    property string chosenArtist: ""
-    property string chosenAlbum: ""
-    property string chosenCover: ""
-    property string chosenGenre: ""
+    property var chosenElement: null
     property int chosenIndex: 0
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
@@ -385,7 +379,7 @@ MainView {
 
         for (var key in items)
         {
-            trackQueue.model.append(items[key])
+            trackQueue.append(items[key])
         }
     }
 
@@ -782,6 +776,17 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+
+        function append(listElement)
+        {
+            model.append({
+                             "album": listElement.album,
+                             "artist": listElement.artist,
+                             "cover": listElement.cover,
+                             "file": listElement.file,
+                             "title": listElement.title
+                         })
+        }
     }
 
     // list of songs, which has been removed.
@@ -842,9 +847,9 @@ MainView {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     onClicked: {
-                        console.debug("Debug: Add track to queue: " + chosenTitle)
+                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
+                        trackQueue.append(chosenElement)
                     }
                 }
                 ListItem.Standard {

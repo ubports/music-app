@@ -229,12 +229,7 @@ Item {
                                     expandable.visible = false
                                     albumInfo.height = albumInfo.height - units.gu(7)
                                     for (var i = 0; i < albumTracksModel.model.count; i++) {
-                                        trackQueue.model.append({"title": albumTracksModel.model.get(i).title,
-                                                                    "artist": albumTracksModel.model.get(i).artist,
-                                                                    "file": albumTracksModel.model.get(i).file,
-                                                                    "album": albumTracksModel.model.get(i).album,
-                                                                    "cover": albumTracksModel.model.get(i).cover,
-                                                                    "genre": albumTracksModel.model.get(i).genre})
+                                        trackQueue.append(albumTracksModel.model.get(i));
                                     }
                                 }
                             }
@@ -449,12 +444,7 @@ Item {
                                     onClicked: {
                                         expandable.visible = false
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
-                                        chosenArtist = artist
-                                        chosenTitle = title
-                                        chosenTrack = file
-                                        chosenAlbum = album
-                                        chosenCover = cover
-                                        chosenGenre = genre
+                                        chosenElement = model
                                         chosenIndex = index
                                         console.debug("Debug: Add track to playlist")
                                         PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
@@ -498,7 +488,7 @@ Item {
                                         expandable.visible = false
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         console.debug("Debug: Add track to queue: " + title)
-                                        trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                        trackQueue.append(model)
                                     }
                                 }
                             }

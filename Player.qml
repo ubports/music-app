@@ -35,9 +35,7 @@ Item {
     property string currentMetaArtist: ""
     property string currentMetaCover: ""
     property string currentMetaFile: ""
-    property string currentMetaGenre: ""
     property string currentMetaTitle: ""
-    property string currentMetaYear: ""
     property int currentIndex: -1
     property alias duration: mediaPlayer.duration
     property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
@@ -187,9 +185,7 @@ Item {
                 currentMetaArtist = obj.artist;
                 currentMetaCover = obj.cover;
                 currentMetaFile = obj.file;
-                currentMetaGenre = obj.genre;
                 currentMetaTitle = obj.title;
-                currentMetaYear = obj.year;
             }
 
             console.log("Source: " + source.toString())
