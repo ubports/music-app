@@ -236,12 +236,6 @@ Item {
                                                                     "cover": albumTracksModel.model.get(i).cover,
                                                                     "genre": albumTracksModel.model.get(i).genre})
                                     }
-                                    queueChanged = true;
-
-                                    if (trackQueue.model.count === albumTracksModel.model.count) {
-                                        player.currentIndex = 0;
-                                        player.source = Qt.resolvedUrl(albumTracksModel.model.get(0).file);
-                                    }
                                 }
                             }
                         }
@@ -505,10 +499,6 @@ Item {
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         console.debug("Debug: Add track to queue: " + title)
                                         trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
-                                        if (trackQueue.model.count === 1) {
-                                            player.currentIndex = 0;
-                                            player.source = Qt.resolvedUrl(albumTracksModel.model.get(0).file);
-                                        }
                                     }
                                 }
                             }
