@@ -63,8 +63,8 @@ Page {
         width:  mainpage.width
         height: mainpage.height
 
-        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height
-                                           :  genres.height + genrelist.height + albums.height + albumlist.height
+        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height + units.gu(7)
+                                           :  genres.height + genrelist.height + albums.height + albumlist.height + units.gu(5)
         contentWidth: width
 
         focus: true
@@ -72,6 +72,7 @@ Page {
         Column {
             height: mainpage.height
             width: mainpage.width
+            spacing: units.gu(1)
 
             ListItem.Standard {
                 id: recentlyPlayed
