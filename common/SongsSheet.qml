@@ -185,54 +185,6 @@ Item {
                             opacity: 0.4
                         }
 
-                        // add to playlist
-                        /*Rectangle {
-                            id: playlistRow
-                            anchors.top: expandedBackground.top
-                            anchors.left: parent.left
-                            anchors.leftMargin: styleMusic.albums.expandedLeftMargin
-                            color: "transparent"
-                            height: expandedBackground.height
-                            width: units.gu(15)
-                            Icon {
-                                id: playlistTrack
-                                anchors.verticalCenter: parent.verticalCenter
-                                color: styleMusic.common.white
-                                name: "add"
-                                height: styleMusic.common.expandedItem
-                                width: styleMusic.common.expandedItem
-                            }
-                            Label {
-                                anchors.left: playlistTrack.right
-                                anchors.leftMargin: units.gu(0.5)
-                                anchors.verticalCenter: parent.verticalCenter
-                                color: styleMusic.common.white
-                                fontSize: "small"
-                                width: parent.width - playlistTrack.width - units.gu(1)
-                                text: i18n.tr("Add to playlist")
-                                wrapMode: Text.WordWrap
-                                maximumLineCount: 3
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    expandable.visible = false
-                                    albumInfo.height = albumInfo.height - units.gu(7)
-                                    chosenArtist = artist
-                                    chosenTitle = title
-                                    chosenTrack = file
-                                    chosenAlbum = album
-                                    chosenCover = cover
-                                    chosenGenre = genre
-                                    chosenIndex = index
-                                    console.debug("Debug: Add track to playlist")
-                                    PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
-                                                    {
-                                                        title: i18n.tr("Select playlist")
-                                                    } )
-                                }
-                            }
-                        } */
                         // Queue
                         Rectangle {
                             id: queueRow
