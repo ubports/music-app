@@ -776,6 +776,10 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        Connections {
+            target: model
+            onCountChanged: queueChanged = true
+        }
 
         function append(listElement)
         {

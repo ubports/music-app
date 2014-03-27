@@ -63,7 +63,6 @@ Item {
                 player.currentIndex = 0;
                 player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
             }
-            queueChanged = true
         }
     }
 
