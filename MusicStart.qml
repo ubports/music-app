@@ -63,16 +63,11 @@ Page {
         width:  mainpage.width
         height: mainpage.height
 
-        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height + units.gu(7)
-                                           :  genres.height + genrelist.height + albums.height + albumlist.height + units.gu(5)
+        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height + units.gu(3)
+                                           :  genres.height + genrelist.height + albums.height + albumlist.height + units.gu(2)
         contentWidth: width
 
         focus: true
-
-        Column {
-            height: mainpage.height
-            width: mainpage.width
-            spacing: units.gu(1)
 
             ListItem.Standard {
                 id: recentlyPlayed
@@ -82,6 +77,8 @@ Page {
 
             ListView {
                 id: recentlist
+                anchors.top: recentlyPlayed.bottom
+                anchors.topMargin: units.gu(1)
                 width: parent.width
                 spacing: units.gu(2)
                 height: units.gu(22)
@@ -198,15 +195,19 @@ Page {
 
             ListItem.ThinDivider {
                 id: genreDivider
+                 anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
             }
             ListItem.Standard {
                 id: genres
+                anchors.top: genreDivider.bottom
                 text: i18n.tr("Genres")
             }
             // TODO: add music genres. frequency of play? most tracks?
             ListView {
                 id: genrelist
                 width: parent.width
+                anchors.top: genres.bottom
+                anchors.topMargin: units.gu(1)
                 spacing: units.gu(2)
                 height: units.gu(22)
                 model: genreModel.model
@@ -303,15 +304,19 @@ Page {
 
             ListItem.ThinDivider {
                 id: albumsDivider
+                anchors.top: genrelist.bottom
             }
             ListItem.Standard {
                 id: albums
                 text: i18n.tr("Albums")
+                anchors.top: albumsDivider.bottom
             }
 
             ListView {
                 id: albumlist
                 width: parent.width
+                anchors.top: albums.bottom
+                anchors.topMargin: units.gu(1)
                 spacing: units.gu(2)
                 height: units.gu(22)
                 model: albumModel.model
@@ -406,4 +411,3 @@ Page {
             }
         }
     }
-}
