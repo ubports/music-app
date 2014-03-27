@@ -42,6 +42,15 @@ Item {
             doneButton: false
             contentsHeight: units.gu(80)
 
+            onVisibleChanged: {
+                if (visible) {
+                    musicToolbar.setSheet(sheet)
+                }
+                else {
+                    musicToolbar.removeSheet(sheet)
+                }
+            }
+
             ListView {
                 clip: true
                 id: albumtrackslist
@@ -50,10 +59,6 @@ Item {
                 anchors.bottom: parent.bottom
                 model: artistAlbumsModel.model
                 delegate: albumTracksDelegate
-
-                onCountChanged: {
-                    albumtrackslist.currentIndex = albumTracksModel.indexOf(currentFile)
-                }
 
                 Component {
                     id: albumTracksDelegate
@@ -80,7 +85,7 @@ Item {
 
                         Label {
                             id: albumArtist
-                            objectName: "albumsheet-albumartist"
+                            objectName: "artistsheet-albumartist"
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "small"

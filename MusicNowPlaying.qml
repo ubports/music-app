@@ -41,7 +41,6 @@ Page {
             header.opacity = 0;
             header.enabled = false;
             musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
-            queuelist.anchors.topMargin = -header.height + nowPlayingBackButton.height
         }
         else
         {
@@ -66,8 +65,23 @@ Page {
     }
 
     Component.onCompleted: {
-        onPlayingTrackChange.connect(updateCurrentIndex)
         onToolbarShownChanged.connect(jumpToCurrent)
+    }
+
+    Connections {
+        target: player
+        onCurrentIndexChanged: {
+            if (player.source === "") {
+                return;
+            }
+
+            // Collapse currently expanded track and the new current
+            collapseExpand(queuelist.currentIndex);
+            queuelist.currentIndex = player.currentIndex;
+            collapseExpand(queuelist.currentIndex);
+
+            customdebug("MusicQueue update currentIndex: " + player.source);
+        }
     }
 
     function jumpToCurrent(shown, currentPage, currentTab)
@@ -77,24 +91,12 @@ Page {
         {
             // Then position the view at the current index
             queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
-            if (queuelist.contentY > 0)
-            {
-                queuelist.contentY -= header.height;
-            }
         }
     }
 
-    function updateCurrentIndex(file)
-    {
-        var index = trackQueue.indexOf(file);
-
-        // Collapse currently expanded track and the new current
-        collapseExpand(queuelist.currentIndex);
-        collapseExpand(index);
-
-        queuelist.currentIndex = index;
-
-        customdebug("MusicQueue update currentIndex: " + file);
+    function positionAt(index) {
+        queuelist.positionViewAtIndex(index, ListView.Beginning);
+        queuelist.contentY -= header.height;
     }
 
     ListView {
@@ -477,18 +479,21 @@ Page {
                                     if (queuelist.count > 1)
                                     {
                                         // Next song and only play if currently playing
-                                        nextSong(isPlaying);
+                                        player.nextSong(player.isPlaying);
                                     }
                                     else
                                     {
-                                        stopSong();
+                                        player.stop();
                                     }
+                                }
+
+                                if (index < player.currentIndex) {
+                                    player.currentIndex -= 1;
                                 }
 
                                 // Remove item from queue and clear caches
                                 trackQueue.model.remove(index);
                                 queueChanged = true;
-                                currentIndex = trackQueue.indexOf(currentFile);  // recalculate index
                             }
                         }
                     }
@@ -801,7 +806,6 @@ Page {
                         if (running === false && ensureVisibleIndex != -1)
                         {
                             queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
-                            queuelist.contentY -= header.height;
                             ensureVisibleIndex = -1;
                         }
                     }
@@ -812,8 +816,10 @@ Page {
 
     Rectangle {
         id: nowPlayingBackButton
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
 
@@ -821,28 +827,19 @@ Page {
         states: [
             State {
                 name: "shown"
-                PropertyChanges {
+                AnchorChanges {
                     target: nowPlayingBackButton
-                    y: 0
+                    anchors.top: parent.top
                 }
             },
             State {
                 name: "hidden"
-                PropertyChanges {
+                AnchorChanges {
                     target: nowPlayingBackButton
-                    y: -height
+                    anchors.bottom: parent.top
                 }
             }
         ]
-
-        transitions: Transition {
-             from: "hidden,shown"
-             to: "shown,hidden"
-             NumberAnimation {
-                 duration: 100
-                 properties: "y"
-             }
-         }
 
         Image {
             id: expandItem

@@ -133,6 +133,7 @@ Page {
                     }
                     onClicked: {
                         albumTracksModel.filterAlbumTracks(album)
+
                         songsSheet.line1 = artist
                         songsSheet.line2 = album
                         songsSheet.isAlbum = true

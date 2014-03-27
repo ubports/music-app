@@ -22,7 +22,6 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -46,6 +45,68 @@ MainView {
         if (event.key === Qt.Key_Alt) {
             // On alt key press show toolbar and start autohide timer
             musicToolbar.showToolbar();
+        }
+        else if(event.key === Qt.Key_Escape) {
+            musicToolbar.goBack();  // Esc      Go back
+        }
+        else if(event.modifiers === Qt.AltModifier) {
+            var position;
+
+            switch (event.key) {
+            case Qt.Key_Right:  //  Alt+Right   Seek forward +10secs
+                position = player.position + 10000 < player.duration
+                        ? player.position + 10000 : player.duration;
+                player.seek(position);
+                break;
+            case Qt.Key_Left:  //   Alt+Left    Seek backwards -10secs
+                position = player.position - 10000 > 0
+                        ? player.position - 10000 : 0;
+                player.seek(position);
+                break;
+            }
+        }
+        else if(event.modifiers === Qt.ControlModifier) {
+            switch (event.key) {
+            case Qt.Key_Left:   //  Ctrl+Left   Previous Song
+                player.previousSong(true);
+                break;
+            case Qt.Key_Right:  //  Ctrl+Right  Next Song
+                player.nextSong(true, true);
+                break;
+            case Qt.Key_Up:  //     Ctrl+Up     Volume up
+                player.volume = player.volume + .1 > 1 ? 1 : player.volume + .1
+                break;
+            case Qt.Key_Down:  //   Ctrl+Down   Volume down
+                player.volume = player.volume - .1 < 0 ? 0 : player.volume - .1
+                break;
+            case Qt.Key_R:  //      Ctrl+R      Repeat toggle
+                player.repeat = !player.repeat
+                break;
+            case Qt.Key_F:  //      Ctrl+F      Show Search popup
+                if (!searchSheet.sheetVisible) {
+                    PopupUtils.open(searchSheet.sheet, mainView,
+                                    { title: i18n.tr("Search") })
+                }
+                break;
+            case Qt.Key_J:  //      Ctrl+J      Jump to playing song
+                nowPlaying.visible = true;
+                nowPlaying.positionAt(player.currentIndex);
+                musicToolbar.showToolbar();
+                break;
+            case Qt.Key_N:  //      Ctrl+N      Show now playing
+                nowPlaying.visible = true;
+                musicToolbar.showToolbar();
+                break;
+            case Qt.Key_P:  //      Ctrl+P      Toggle playing state
+                player.toggle();
+                break;
+            case Qt.Key_Q:  //      Ctrl+Q      Quit the app
+                Qt.quit();
+                break;
+            case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
+                player.shuffle = !player.shuffle
+                break;
+            }
         }
     }
 
@@ -71,10 +132,23 @@ MainView {
 
     // HUD Actions
     Action {
+        id: searchAction
+        text: i18n.tr("Search")
+        keywords: i18n.tr("Search Track")
+        onTriggered: {
+            if (!searchSheet.sheetVisible) {
+                PopupUtils.open(searchSheet.sheet, mainView,
+                     {
+                                         title: i18n.tr("Search")
+                     } )
+            }
+        }
+    }
+    Action {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: nextSong()
+        onTriggered: player.nextSong()
     }
     Action {
         id: playsAction
@@ -82,25 +156,7 @@ MainView {
                   i18n.tr("Pause") : i18n.tr("Play")
         keywords: player.playbackState === MediaPlayer.PlayingState ?
                       i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
-        onTriggered: {
-            if (player.playbackState === MediaPlayer.PlayingState)  {
-                player.pause()
-            } else {
-                player.play()
-            }
-        }
-    }
-    Action {
-        id: prevAction
-        text: i18n.tr("Previous")
-        keywords: i18n.tr("Previous Track")
-        onTriggered: previousSong()
-    }
-    Action {
-        id: stopAction
-        text: i18n.tr("Stop")
-        keywords: i18n.tr("Stop Playback")
-        onTriggered: player.stop()
+        onTriggered: player.toggle()
     }
     Action {
         id: backAction
@@ -108,6 +164,23 @@ MainView {
         keywords: i18n.tr("Go back to last page")
         onTriggered: musicToolbar.goBack();
     }
+
+    // With a default Quit action only the first 4 actions are displayed
+    // until the user searches for them within the HUD
+    Action {
+        id: prevAction
+        text: i18n.tr("Previous")
+        keywords: i18n.tr("Previous Track")
+        onTriggered: player.previousSong()
+    }
+    Action {
+        id: stopAction
+        text: i18n.tr("Stop")
+        keywords: i18n.tr("Stop Playback")
+        onTriggered: player.stop()
+    }
+
+    // TODO: Currently there are no settings, so do not display the Action
     Action {
         id: settingsAction
         text: i18n.tr("Settings")
@@ -117,14 +190,8 @@ MainView {
             musicSettings.visible = true
         }
     }
-    Action {
-        id: quitAction
-        text: i18n.tr("Quit")
-        keywords: i18n.tr("Close application")
-        onTriggered: Qt.quit()
-    }
 
-    actions: [nextAction, playsAction, prevAction, stopAction, backAction, settingsAction, quitAction]
+    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
     // TODO currently this only allows playing file:// URIs of known files
@@ -149,7 +216,7 @@ MainView {
 
                 for (var j=0; j < griloModel.count; j++)
                 {
-                    if (griloModel.get(j).url.toString() == file)
+                    if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
                     {
                         index = j;
                     }
@@ -180,6 +247,27 @@ MainView {
         format: "<b>%1</b> " + i18n.tr("songs played today")
         emptyFormat: i18n.tr("No songs played today")
         domain: "com.ubuntu.music"
+    }
+
+    // Connections for usermetrics
+    Connections {
+        id: userMetricPlayerConnection
+        target: player
+        property bool songCounted: false
+
+        onSourceChanged: {
+            songCounted = false
+        }
+
+        onPositionChanged: {
+            // Increment song count on Welcome screen if song has been
+            // playing for over 10 seconds.
+            if (player.position > 10000 && !songCounted) {
+                songCounted = true
+                songsMetric.increment()
+                console.debug("Increment UserMetrics")
+            }
+        }
     }
 
     // Design stuff
@@ -218,15 +306,14 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        //Library.reset()
-        Library.initialize();
+        Library.reset()
+        //Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
         Playlists.initializePlaylist()
         // everything else
         loading.visible = true
-        random = Settings.getSetting("shuffle") == "1" // shuffle state
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
         lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
@@ -241,11 +328,8 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '1.1'
-    property bool isPlaying: false
-    property bool songCounted: false
+    property string appVersion: '1.2'
     property bool hasRecent: !Library.isRecentEmpty()
-    property bool random: false
     property bool scrobble: false
     property string lastfmusername
     property string lastfmpassword
@@ -258,26 +342,13 @@ MainView {
     property string chosenCover: ""
     property string chosenGenre: ""
     property int chosenIndex: 0
-    property string currentArtist: ""
-    property string currentAlbum: ""
-    property string currentTracktitle: ""
-    property string currentFile: ""
-    property int currentIndex: -1
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
     property var currentParam: null
-    property string currentCover: ""
-    property string currentCoverSmall: currentCover === "" ?
-                                           "images/cover_default_icon.png" :
-                                           currentCover
-    property string currentCoverFull: currentCover !== "" ?
-                                          currentCover :
-                                          "images/cover_default.png"
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
     signal collapseExpand(int index);
     signal collapseSwipeDelete(int index);
-    signal onPlayingTrackChange(string source)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70)
@@ -290,105 +361,6 @@ MainView {
         //if (args.values.debug) { // *USE LATER*
         if (debug) {
             console.debug(i18n.tr("Debug: ")+text);
-        }
-    }
-
-    function previousSong(startPlaying) {
-        getSong(-1, startPlaying)
-    }
-
-
-    function nextSong(startPlaying, fromControls) {
-        getSong(1, startPlaying, fromControls)
-    }
-
-    function stopSong() {
-        currentIndex = -1;
-        player.source = "";  // changing to "" triggers the player to stop and removes the highlight
-    }
-
-    function getSong(direction, startPlaying, fromControls) {
-
-        // Reset the songCounted property to false since this is a new track
-        songCounted = false
-
-        // Seek to start if threshold reached when selecting previous
-        if (direction === -1 && (player.position / 1000) > 5)
-        {
-            player.seek(0);  // seek to start
-            return;
-        }
-
-        if (trackQueue.model.count == 0)
-        {
-            customdebug("No tracks in queue.");
-            return;
-        }
-
-        if (startPlaying === undefined)  // default startPlaying to true
-        {
-            startPlaying = true;
-        }
-
-        if (fromControls === undefined)  // default fromControls to true
-        {
-            fromControls = true;
-        }
-
-        if (random) {
-            var now = new Date();
-            var seed = now.getSeconds();
-
-            // trackQueue must be above 1 otherwise an infinite loop will occur
-            do {
-                var num = (Math.floor((trackQueue.model.count) * Math.random(seed)));
-                console.log(num)
-            } while (num == currentIndex && trackQueue.model.count > 1)
-            currentIndex = num
-            player.source = Qt.resolvedUrl(trackQueue.model.get(num).file)
-            console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
-        } else {
-            if ((currentIndex < trackQueue.model.count - 1 && direction === 1 )
-                    || (currentIndex > 0 && direction === -1)) {
-                console.log("currentIndex: " + currentIndex)
-                console.log("trackQueue.count: " + trackQueue.model.count)
-
-                currentIndex += direction
-                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === 1 && (Settings.getSetting("repeat") === "1" || fromControls)) {
-                console.log("currentIndex: " + currentIndex)
-                console.log("trackQueue.count: " + trackQueue.model.count)
-                currentIndex = 0
-                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            } else if(direction === -1 && (Settings.getSetting("repeat") === "1" || fromControls)) {
-                console.log("currentIndex: " + currentIndex)
-                console.log("trackQueue.count: " + trackQueue.model.count)
-                currentIndex = trackQueue.model.count - 1
-                player.source = Qt.resolvedUrl(trackQueue.model.get(currentIndex).file)
-            }
-            else
-            {
-                player.stop()
-                return;
-            }
-
-            console.log("MediaPlayer statusChanged, currentIndex: " + currentIndex)
-        }
-        player.stop()  // Add stop so that if same song is selected it restarts
-        console.log("Playing: "+player.source)
-
-        if (startPlaying === true)  // only start the track if told
-        {
-            player.play()
-        }
-
-        timestamp = new Date().getTime(); // contains current date and time in Unix time, used to scrobble
-        // scrobble it
-        if (Settings.getSetting("scrobble") === "1") {
-            Scrobble.now_playing(player.source,timestamp) // send "now playing" to last.fm
-        }
-        else {
-            console.debug("Debug: no scrobbling")
         }
     }
 
@@ -417,22 +389,23 @@ MainView {
         }
     }
 
+    // Converts an duration in ms to a formated string ("minutes:seconds")
+    function durationToString(duration) {
+        var minutes = Math.floor((duration/1000) / 60);
+        var seconds = Math.floor((duration/1000)) % 60;
+        return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
+    }
+
     function trackClicked(libraryModel, index, play)
     {
-        if (play === undefined)
-        {
-            play = true
-        }
+        play = play === undefined ? true : play  // default play to true
 
-        if (index > libraryModel.model.count - 1 || index < 0)
-        {
+        if (index > libraryModel.model.count - 1 || index < 0) {
             customdebug("Incorrect index given to trackClicked.")
             return;
         }
 
-        var file = libraryModel.model.get(index).file
-
-        console.debug(player.source, Qt.resolvedUrl(file))
+        var file = Qt.resolvedUrl(libraryModel.model.get(index).file)
 
         // Clear the play queue and load the new tracks - if not trackQueue
         // Don't reload queue if model, query and parameters are the same
@@ -446,30 +419,16 @@ MainView {
             trackQueue.model.clear()
             addQueueFromModel(libraryModel)
         }
-        else if (player.source == Qt.resolvedUrl(file))
+        else if (player.source == file &&
+                    player.currentIndex === index)
         {
-            if (play === false)
-            {
-                return
-            }
+            // Same track so just toggle playing state
+            if (play === true) {
+                console.log("Is current track: "+player.playbackState)
 
-            console.log("Is current track: "+player.playbackState)
-
-            if (player.playbackState == MediaPlayer.PlayingState)
-            {
                 if (musicToolbar.currentPage == nowPlaying) {
-                    player.pause()
-                } else { // We are not on the now playing page
-                    // Show the Now Playing page and make sure the track is visible
-                    nowPlaying.visible = true;
-                    nowPlaying.ensureVisibleIndex = index;
-
-                    musicToolbar.showToolbar();
+                    player.toggle()
                 }
-            }
-            else
-            {
-                player.play()
 
                 // Show the Now Playing page and make sure the track is visible
                 nowPlaying.visible = true;
@@ -481,137 +440,37 @@ MainView {
             return
         }
 
-        // Reset the songCounted property to false since this is a new track
-        songCounted = false
-
         // Current index must be updated before player.source
         currentModel = libraryModel
         currentQuery = libraryModel.query
         currentParam = libraryModel.param
-        currentIndex = trackQueue.indexOf(file)
+
+        if (Qt.resolvedUrl(trackQueue.model.get(index).file) != file) {
+            index = trackQueue.indexOf(file)  // pick given index first
+        }
         queueChanged = false
 
         console.log("Click of fileName: " + file)
 
-        if (play === true)
-        {
-            player.stop()
-        }
+        if (play === true) {
+            player.playSong(file, index)
 
-        player.source = Qt.resolvedUrl(file)
-
-        if (play === true)
-        {
-            player.play()
-        }
-
-        console.log("Source: " + player.source.toString())
-        console.log("Index: " + currentIndex)
-
-        if (play === true)
-        {
             // Show the Now Playing page and make sure the track is visible
             nowPlaying.visible = true;
             nowPlaying.ensureVisibleIndex = index;
 
             musicToolbar.showToolbar();
         }
+        else {
+            player.source = file
+        }
 
         return file
     }
 
-    function updateMeta()
-    {
-        // Load metadata for the track
-        currentArtist = trackQueue.model.get(currentIndex).artist
-        currentAlbum = trackQueue.model.get(currentIndex).album
-        currentTracktitle = trackQueue.model.get(currentIndex).title
-
-        // hasCover and currentCover require no file://
-        var file = currentFile
-
-        if (file.indexOf("file://") == 0)
-        {
-            file = file.slice(7, file.length)
-        }
-
-        currentCover = trackQueue.model.get(currentIndex).cover !== "" ? trackQueue.model.get(currentIndex).cover : "images/cover_default_icon.png"
-    }
-
     // WHERE THE MAGIC HAPPENS
-    MediaPlayer {
+    Player {
         id: player
-        objectName: "player"
-        muted: false
-
-        signal positionChange(int position, int duration)
-
-        property bool seeking: false;  // Is the user seeking?
-
-        // String versions of pos/dur that labels listen to
-        property string durationStr: "00:00"
-        property string positionStr: "00:00"
-
-        onSourceChanged: {
-            currentFile = source
-
-            if (source != "" && source != undefined && source !== false)
-            {
-                onPlayingTrackChange(source)
-                updateMeta()
-            }
-            else
-            {
-                onPlayingTrackChange(source)  // removes highlight as will get -1 index
-                player.stop()
-            }
-        }
-
-        onStatusChanged: {
-            if (status == MediaPlayer.EndOfMedia) {
-                // scrobble it
-                if (Settings.getSetting("scrobble") === "1") {
-                    Scrobble.scrobble(player.source,currentArtist,timestamp)
-                }
-                else {
-                    console.debug("Debug: no scrobbling")
-                }
-
-                nextSong (true, false) // next track
-            }
-        }
-
-        // Update the duration text unless seeking (seeking overrides the text)
-        onDurationChanged: {
-            if (seeking == false)
-            {
-                durationStr = __durationToString(player.duration)
-            }
-
-            positionChange(position, duration)
-        }
-
-        // Update the position text unless seeking (seeking overrides the text)
-        onPositionChanged: {
-            if (seeking == false)
-            {
-                positionStr = __durationToString(player.position)
-            }
-
-            // Increment song count on Welcome screen if song has been playing for over 10 seconds.
-            if (player.position > 10000 && !songCounted) {
-                songCounted = true
-                songsMetric.increment()
-            }
-
-            positionChange(position, duration)
-        }
-
-        onPlaybackStateChanged: {
-            mainView.isPlaying = player.playbackState === MediaPlayer.PlayingState
-            QtPowerd.keepAlive = mainView.isPlaying
-            console.log("mainView.isPlaying=" + mainView.isPlaying + ", QtPowerd.keepAlive=" + QtPowerd.keepAlive)
-        }
     }
 
     SongsSheet {
@@ -620,6 +479,10 @@ MainView {
 
     AlbumsSheet {
         id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Model to send the data
@@ -760,7 +623,6 @@ MainView {
             }
 
             onFinished: {
-                var currentLibrary = Library.getAllFileOrder();
                 var read_arg = false;
 
                 // FIXME: remove when grilo is fixed
@@ -789,14 +651,14 @@ MainView {
                         album: media.album || i18n.tr("Unknown Album"),
                         title: media.title || file,
                         file: file,
-                        cover: media.thumbnail.toString(),
+                        cover: media.thumbnail.toString() || "",
                         length: media.duration.toString(),
                         number: media.trackNumber,
                         year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
 
-                    if (read_arg === false && argFile === file)
+                    if (read_arg === false && decodeURIComponent(argFile) === decodeURIComponent(file))
                     {
                         trackQueue.model.clear();
                         trackQueue.model.append(record)
@@ -808,34 +670,11 @@ MainView {
                         read_arg = true;
                     }
 
-                    // Only write to database if the record has actually changed
-                    var index = exists(currentLibrary, record);
-
-                    if (index === false || index < 0)  // in grilo !in lib or lib out of date
-                    {
-                        //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                        Library.setMetadata(record)
-
-                        if (index < 0)
-                        {
-                            index = -(index + 1);
-                        }
-                    }
-
-                    if (index !== false)
-                    {
-                        currentLibrary.splice(index, 1);
-                    }
+                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
+                    Library.setMetadata(record)
                 }
 
                 Library.writeDb()
-
-                // Any items left in currentLibrary aren't in the grilo model so have been deleted
-                if (currentLibrary.length > 0)
-                {
-                    console.debug("Removing deleted songs:", currentLibrary.length);
-                    Library.removeFiles(currentLibrary);
-                }
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
@@ -943,21 +782,6 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
-        property bool isEmpty: count == 0
-
-        onIsEmptyChanged: {
-            /*
-             * If changed to false then must have been empty before
-             * Therefore set the first song as the current item
-             * and update any metadata
-             */
-            if (isEmpty === false && currentIndex == -1 && player.source == "")
-            {
-                currentIndex = 0;
-                player.source = trackQueue.model.get(currentIndex).file;
-                updateMeta();
-            }
-        }
     }
 
     // list of songs, which has been removed.
@@ -982,6 +806,11 @@ MainView {
                 playlistTab.populated = true
             }
         }
+    }
+
+    // search model
+    LibraryListModel {
+        id: searchModel
     }
 
     // Blurred background
@@ -1095,13 +924,60 @@ MainView {
         id: musicToolbar
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
-
-        property bool animating: false
-        property bool opened: false
     }
 
     PageStack {
         id: pageStack
+
+        Page {
+            id: emptyPage
+            title: i18n.tr("Music")
+            visible: false
+
+            property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+
+            onNoMusicChanged: {
+                if (noMusic)
+                    pageStack.push(emptyPage)
+                else if (pageStack.currentPage == emptyPage)
+                    pageStack.pop()
+            }
+
+            tools: ToolbarItems {
+                back: null
+                locked: true
+                opened: false
+            }
+
+            // Overlay to show when no tracks detected on the device
+            Rectangle {
+                id: libraryEmpty
+                anchors.fill: parent
+                anchors.topMargin: -emptyPage.header.height
+                color: styleMusic.libraryEmpty.backgroundColor
+
+                Column {
+                    anchors.centerIn: parent
+
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "large"
+                        font.bold: true
+                        text: "No music found"
+                    }
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "medium"
+                        text: "Please import music and restart the app"
+                    }
+                }
+            }
+        }
+
         Tabs {
             id: tabs
             anchors {
@@ -1118,7 +994,7 @@ MainView {
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
-                title: i18n.tr("Music")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicStart {
@@ -1135,7 +1011,7 @@ MainView {
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
-                title: i18n.tr("Artists")
+                title: page.title
 
                 // tab content
                 page: MusicArtists {
@@ -1152,7 +1028,7 @@ MainView {
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
-                title: i18n.tr("Albums")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicAlbums {
@@ -1169,7 +1045,7 @@ MainView {
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
-                title: i18n.tr("Songs")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicTracks {
@@ -1187,7 +1063,7 @@ MainView {
                 id: playlistTab
                 objectName: "playlisttab"
                 anchors.fill: parent
-                title: i18n.tr("Playlists")
+                title: page.title
 
                 // Tab content begins here
                 page: MusicPlaylists {
@@ -1247,30 +1123,6 @@ MainView {
 
     MusicaddtoPlaylist {
         id: addtoPlaylist
-    }
-
-    // Converts an duration in ms to a formated string ("minutes:seconds")
-    function __durationToString(duration) {
-        var minutes = Math.floor((duration/1000) / 60);
-        var seconds = Math.floor((duration/1000)) % 60;
-        return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
-    }
-
-    // Overlay to show when no tracks detected on the device
-    Rectangle {
-        id: libraryEmpty
-        anchors.fill: parent
-        color: styleMusic.libraryEmpty.backgroundColor
-        visible: griloModel.count === 0 && griloModel.loaded === true
-
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            color: styleMusic.libraryEmpty.labelColor
-            fontSize: "medium"
-            text: "Please import music and restart the app"
-        }
-
     }
 
 } // end of main view

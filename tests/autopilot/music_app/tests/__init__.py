@@ -9,7 +9,10 @@
 
 import tempfile
 
-import mock
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 import os
 import os.path
 import shutil
@@ -91,7 +94,6 @@ class MusicTestCase(AutopilotTestCase):
         self.app = self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.installed_location,
-            "--desktop_file_hint=/usr/share/applications/music-app.desktop",
             app_type='qt',
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
@@ -241,6 +243,10 @@ class MusicTestCase(AutopilotTestCase):
                 shutil.move(self.backup_dir, self.sqlite_dir)
             except:
                 logger.error("Failed to restore database")
+
+    @property
+    def player(self):
+        return self.main_view.get_player()
 
     @property
     def main_view(self):

@@ -29,7 +29,7 @@ import "playlists.js" as Playlists
 
 Page {
     id: mainpage
-    title: i18n.tr("Music")
+    title: i18n.tr("Songs")
 
     MusicSettings {
         id: musicSettings
@@ -49,11 +49,6 @@ Page {
         highlightFollowsCurrentItem: false
         model: libraryModel.model
         delegate: trackDelegate
-        onCountChanged: {
-            //customdebug("onCountChanged: " + tracklist.count) // activate later
-            tracklist.currentIndex = libraryModel.indexOf(currentFile)
-        }
-
         Component {
             id: trackDelegate
             ListItem.Standard {

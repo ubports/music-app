@@ -7,169 +7,161 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-01-07 07:34-0600\n"
-"PO-Revision-Date: 2014-01-24 13:55+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-03-10 18:38-0500\n"
+"PO-Revision-Date: 2014-02-02 17:39+0000\n"
+"Last-Translator: Gim H <Unknown>\n"
 "Language-Team: Albanian <sq@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-01-25 06:42+0000\n"
-"X-Generator: Launchpad (build 16914)\n"
+"X-Launchpad-Export-Date: 2014-03-12 05:29+0000\n"
+"X-Generator: Launchpad (build 16963)\n"
 
-#: ../LoginLastFM.qml:41 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+#: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
-#: ../LoginLastFM.qml:47
+#: ../LoginLastFM.qml:56
 msgid "Login to be able to scrobble."
 msgstr ""
 
-#: ../LoginLastFM.qml:55
+#: ../LoginLastFM.qml:64
 msgid "Username"
-msgstr ""
+msgstr "Përdoruesi"
 
-#: ../LoginLastFM.qml:65
+#: ../LoginLastFM.qml:74
 msgid "Password"
-msgstr ""
+msgstr "Fjalëkalimi"
 
-#: ../LoginLastFM.qml:87
+#: ../LoginLastFM.qml:96
 msgid "Login"
-msgstr ""
+msgstr "Hyrje"
 
-#: ../LoginLastFM.qml:94
+#: ../LoginLastFM.qml:103
 msgid "Trying to login..."
 msgstr ""
 
-#: ../LoginLastFM.qml:108
+#: ../LoginLastFM.qml:117
 msgid "Login Successful"
 msgstr ""
 
-#: ../LoginLastFM.qml:114
+#: ../LoginLastFM.qml:123
 msgid "Login Failed"
-msgstr ""
+msgstr "Hyrja Deshtoj"
 
-#: ../LoginLastFM.qml:120
+#: ../LoginLastFM.qml:129
 msgid "You forgot to set your username and/or password"
 msgstr ""
+"Keni harruar për të vendosur emrin e përdoruesit dhe / ose fjalëkalimin tuaj"
 
-#: ../MusicAlbums.qml:33 ../music-app.qml:1124
+#: ../MusicAlbums.qml:33
 msgid "Albums"
-msgstr ""
+msgstr "Albume"
 
-#: ../MusicAlbums.qml:231
-#, qt-format
-msgid " | %1 song"
-msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../MusicAlbums.qml:379 ../MusicArtists.qml:429 ../MusicNowPlaying.qml:696
-#: ../MusicTracks.qml:267 ../music-app.qml:995
-msgid "Add to playlist"
-msgstr ""
-
-#: ../MusicAlbums.qml:398 ../MusicArtists.qml:448 ../MusicNowPlaying.qml:714
-#: ../MusicTracks.qml:286 ../MusicaddtoPlaylist.qml:38 ../music-app.qml:1006
-msgid "Select playlist"
-msgstr ""
-
-#: ../MusicAlbums.qml:427 ../MusicArtists.qml:476 ../MusicTracks.qml:315
-#: ../music-app.qml:981
-msgid "Add to queue"
-msgstr ""
-
-#: ../MusicArtists.qml:39 ../music-app.qml:1107
+#: ../MusicArtists.qml:33
 msgid "Artists"
-msgstr ""
+msgstr "Artistët"
 
-#: ../MusicArtists.qml:148
+#: ../MusicArtists.qml:106
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 albums"
 
-#: ../MusicArtists.qml:163 ../MusicArtists.qml:239 ../MusicPlaylists.qml:235
-#: ../MusicPlaylists.qml:569 ../MusicStart.qml:302
+#: ../MusicArtists.qml:122 ../MusicPlaylists.qml:175 ../MusicStart.qml:304
+#: ../common/SongsSheet.qml:127
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../MusicArtists.qml:190
-msgid "Tracks"
-msgstr ""
+msgstr[0] "%1 këngë"
+msgstr[1] "%1 këngët"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
+msgstr "Rradhitja"
+
+#: ../MusicNowPlaying.qml:701 ../MusicSearch.qml:346 ../MusicTracks.qml:270
+#: ../music-app.qml:858 ../common/SongsSheet.qml:330
+msgid "Add to playlist"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:719 ../MusicSearch.qml:365 ../MusicTracks.qml:289
+#: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:869
+#: ../common/SongsSheet.qml:349
+msgid "Select playlist"
 msgstr ""
 
 #. TRANSLATORS: this refers to sharing a playlist
-#: ../MusicNowPlaying.qml:742 ../MusicPlaylists.qml:429
-#: ../MusicPlaylists.qml:714 ../MusicTracks.qml:353
+#: ../MusicNowPlaying.qml:747 ../MusicPlaylists.qml:370 ../MusicSearch.qml:432
+#: ../MusicTracks.qml:356
 msgid "Share"
-msgstr ""
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../MusicPlaylists.qml:48
-msgid "Are you sure?"
-msgstr ""
-
-#: ../MusicPlaylists.qml:49
-msgid "This will delete your playlist."
-msgstr ""
-
-#: ../MusicPlaylists.qml:52
-msgid "Remove"
-msgstr ""
-
-#: ../MusicPlaylists.qml:65 ../MusicPlaylists.qml:108 ../music-app.qml:1059
-msgid "Cancel"
-msgstr ""
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:78
-msgid "Change name"
-msgstr ""
-
-#: ../MusicPlaylists.qml:79
-msgid "Enter the new name of the playlist."
-msgstr ""
-
-#: ../MusicPlaylists.qml:90
-msgid "Change"
-msgstr ""
-
-#: ../MusicPlaylists.qml:103
-msgid "You didn't type in a name."
-msgstr ""
+msgstr "Shpërndaje"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:136 ../music-app.qml:1159
+#: ../MusicPlaylists.qml:37
 msgid "Playlists"
+msgstr "Luajlista"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../MusicPlaylists.qml:58
+msgid "Change name"
+msgstr "Ndrysho emrin"
+
+#: ../MusicPlaylists.qml:59
+msgid "Enter the new name of the playlist."
+msgstr "Vendosi nje emer te ri playlistes"
+
+#: ../MusicPlaylists.qml:70
+msgid "Change"
+msgstr "Ndrysho"
+
+#: ../MusicPlaylists.qml:83
+msgid "You didn't type in a name."
+msgstr "Ju nuk shkruat një emër"
+
+#: ../MusicPlaylists.qml:88 ../MusicPlaylists.qml:114 ../music-app.qml:922
+msgid "Cancel"
+msgstr "Anullo"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../MusicPlaylists.qml:101
+msgid "Are you sure?"
+msgstr "A jeni i sigurt?"
+
+#: ../MusicPlaylists.qml:102
+msgid "This will delete your playlist."
 msgstr ""
+
+#: ../MusicPlaylists.qml:105
+msgid "Remove"
+msgstr "Hiqe"
 
 #. TRANSLATORS: this refers to editing a playlist
-#: ../MusicPlaylists.qml:343 ../MusicPlaylists.qml:638
+#: ../MusicPlaylists.qml:284
 msgid "Edit"
-msgstr ""
+msgstr "Modifiko"
 
 #. TRANSLATORS: this refers to deleting a playlist
-#: ../MusicPlaylists.qml:385 ../MusicPlaylists.qml:675
+#: ../MusicPlaylists.qml:326
 msgid "Delete"
+msgstr "Fshije"
+
+#: ../MusicSearch.qml:41 ../MusicToolbar.qml:897 ../music-app.qml:89
+#: ../music-app.qml:137 ../music-app.qml:141
+msgid "Search"
 msgstr ""
 
-#: ../MusicPlaylists.qml:471
-msgid "Playlist"
+#: ../MusicSearch.qml:394 ../MusicTracks.qml:318 ../music-app.qml:844
+#: ../common/SongsSheet.qml:378
+msgid "Add to queue"
 msgstr ""
 
-#: ../MusicSettings.qml:30 ../music-app.qml:104
+#: ../MusicSettings.qml:30 ../music-app.qml:183
 msgid "Settings"
-msgstr ""
+msgstr "Rregullimet"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
@@ -177,7 +169,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "E paracaktuar"
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
@@ -197,11 +189,11 @@ msgstr ""
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip Hop"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "Jazz"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
@@ -209,11 +201,11 @@ msgstr ""
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Rock"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
@@ -227,7 +219,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Llogaritë"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
@@ -239,7 +231,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
@@ -253,151 +245,158 @@ msgstr ""
 msgid "Clean everything!"
 msgstr ""
 
-#: ../MusicStart.qml:32 ../MusicTracks.qml:32 ../music-app.qml:231
-#: ../music-app.qml:1090 ../.build/music-app.desktop.js:1
+#: ../MusicStart.qml:33 ../music-app.qml:336 ../music-app.qml:943
+#: ../.build/com.ubuntu.music_music.desktop.in:1
 msgid "Music"
-msgstr ""
+msgstr "Muzikë"
 
-#: ../MusicStart.qml:43
+#: ../MusicStart.qml:63
 msgid "Recent"
-msgstr ""
+msgstr "Të Tanishmet"
 
-#: ../MusicStart.qml:60
+#: ../MusicStart.qml:80
 msgid "No recent albums or playlists"
 msgstr ""
 
-#: ../MusicStart.qml:202
+#: ../MusicStart.qml:209
 msgid "Genres"
-msgstr ""
+msgstr "Zhanre"
 
-#: ../MusicToolbar.qml:292
+#: ../MusicToolbar.qml:322
 msgid "No songs queued"
 msgstr ""
 
-#: ../MusicToolbar.qml:302
+#: ../MusicToolbar.qml:332
 msgid "Tap on a song to start playing"
 msgstr ""
 
-#: ../MusicaddtoPlaylist.qml:164
+#: ../MusicTracks.qml:32
+msgid "Songs"
+msgstr "Këngët"
+
+#: ../MusicaddtoPlaylist.qml:125
 msgid "New playlist"
 msgstr ""
 
-#: ../music-app.qml:66
-msgid "Next"
+#: ../music-app.qml:138
+msgid "Search Track"
 msgstr ""
 
-#: ../music-app.qml:67
+#: ../music-app.qml:146
+msgid "Next"
+msgstr "Vazhdo"
+
+#: ../music-app.qml:147
 msgid "Next Track"
 msgstr ""
 
-#: ../music-app.qml:73
+#: ../music-app.qml:153
 msgid "Pause"
-msgstr ""
+msgstr "Pushim"
 
-#: ../music-app.qml:73
+#: ../music-app.qml:153
 msgid "Play"
-msgstr ""
+msgstr "Luaj"
 
-#: ../music-app.qml:75
+#: ../music-app.qml:155
 msgid "Pause Playback"
 msgstr ""
 
-#: ../music-app.qml:75
+#: ../music-app.qml:155
 msgid "Continue or start playback"
 msgstr ""
 
-#: ../music-app.qml:86
-msgid "Previous"
-msgstr ""
-
-#: ../music-app.qml:87
-msgid "Previous Track"
-msgstr ""
-
-#: ../music-app.qml:92
-msgid "Stop"
-msgstr ""
-
-#: ../music-app.qml:93
-msgid "Stop Playback"
-msgstr ""
-
-#: ../music-app.qml:98
+#: ../music-app.qml:160
 msgid "Back"
 msgstr ""
 
-#: ../music-app.qml:99
+#: ../music-app.qml:161
 msgid "Go back to last page"
 msgstr ""
 
-#: ../music-app.qml:105
+#: ../music-app.qml:169
+msgid "Previous"
+msgstr ""
+
+#: ../music-app.qml:170
+msgid "Previous Track"
+msgstr ""
+
+#: ../music-app.qml:175
+msgid "Stop"
+msgstr "Ndalo"
+
+#: ../music-app.qml:176
+msgid "Stop Playback"
+msgstr ""
+
+#: ../music-app.qml:184
 msgid "Music Settings"
 msgstr ""
 
-#: ../music-app.qml:113
-msgid "Quit"
-msgstr ""
-
-#: ../music-app.qml:114
-msgid "Close application"
-msgstr ""
-
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:171
+#: ../music-app.qml:244
 msgid "songs played today"
 msgstr ""
 
-#: ../music-app.qml:172
+#: ../music-app.qml:245
 msgid "No songs played today"
 msgstr ""
 
-#: ../music-app.qml:278
+#: ../music-app.qml:369
 msgid "Debug: "
 msgstr ""
 
-#: ../music-app.qml:758 ../meta-database.js:371
+#: ../music-app.qml:656 ../meta-database.js:431
 msgid "Unknown Artist"
 msgstr ""
 
-#: ../music-app.qml:759 ../meta-database.js:370 ../meta-database.js:373
+#: ../music-app.qml:657 ../meta-database.js:430 ../meta-database.js:433
 msgid "Unknown Album"
 msgstr ""
 
-#: ../music-app.qml:766
-msgid "Unknown Genre"
+#: ../music-app.qml:663
+msgid "Unknown Year"
 msgstr ""
 
-#: ../music-app.qml:1019
+#: ../music-app.qml:664
+msgid "Unknown Genre"
+msgstr "Zhanër i Panjohur"
+
+#: ../music-app.qml:882
 msgid "New Playlist"
 msgstr ""
 
-#: ../music-app.qml:1020
+#: ../music-app.qml:883
 msgid "Name your playlist."
 msgstr ""
 
-#: ../music-app.qml:1024
+#: ../music-app.qml:887
 msgid "Name"
-msgstr ""
+msgstr "Emri"
 
-#: ../music-app.qml:1032
+#: ../music-app.qml:895
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1048
+#: ../music-app.qml:911
 msgid "Error: "
 msgstr ""
 
-#: ../music-app.qml:1053
+#: ../music-app.qml:916
 msgid "Error: You didn't type a name."
 msgstr ""
 
-#: ../music-app.qml:1141
-msgid "Songs"
-msgstr ""
+#: ../common/AlbumsSheet.qml:128 ../common/SongsSheet.qml:126
+#, qt-format
+msgid " | %1 song"
+msgid_plural " | %1 songs"
+msgstr[0] " | %1 Këng"
+msgstr[1] " | %1 Këngët"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Duke ngarkuar..."
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"

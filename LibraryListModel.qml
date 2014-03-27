@@ -87,6 +87,8 @@ Item {
 
     function indexOf(file)
     {
+        file = file.toString();
+
         if (file.indexOf("file://") == 0)
         {
             file = file.slice(7, file.length)
@@ -218,5 +220,11 @@ Item {
         {
             worker.sendMessage({'clear': true, 'model': libraryModel})
         }
+    }
+
+    function filterSearch(searchQuery) {
+        query = Library.search
+        param = searchQuery
+        worker.list = Library.search(searchQuery)
     }
 }
