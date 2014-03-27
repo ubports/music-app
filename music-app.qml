@@ -777,7 +777,7 @@ MainView {
     LibraryListModel {
         id: trackQueue
         Connections {
-            target: model
+            target: trackQueue.model
             onCountChanged: queueChanged = true
         }
 
