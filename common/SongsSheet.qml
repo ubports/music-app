@@ -174,6 +174,16 @@ Item {
                             collapseExpand.connect(onCollapseExpand);
                         }
 
+                        function onCollapseExpand(indexCol)
+                        {
+                            if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                            {
+                                customdebug("auto collapse")
+                                expandable.visible = false
+                                track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
+                            }
+                        }
+
                         // background for expander
                         Rectangle {
                             id: expandedBackground
@@ -220,11 +230,17 @@ Item {
                                     albumInfo.height = albumInfo.height - units.gu(7)
                                     for (var i = 0; i < albumTracksModel.model.count; i++) {
                                         trackQueue.model.append({"title": albumTracksModel.model.get(i).title,
-                                                                 "artist": albumTracksModel.model.get(i).artist,
-                                                                 "file": albumTracksModel.model.get(i).file,
-                                                                 "album": albumTracksModel.model.get(i).album,
-                                                                 "cover": albumTracksModel.model.get(i).cover,
-                                                                 "genre": albumTracksModel.model.get(i).genre})
+                                                                    "artist": albumTracksModel.model.get(i).artist,
+                                                                    "file": albumTracksModel.model.get(i).file,
+                                                                    "album": albumTracksModel.model.get(i).album,
+                                                                    "cover": albumTracksModel.model.get(i).cover,
+                                                                    "genre": albumTracksModel.model.get(i).genre})
+                                    }
+                                    queueChanged = true;
+
+                                    if (trackQueue.model.count === albumTracksModel.model.count) {
+                                        player.currentIndex = 0;
+                                        player.source = Qt.resolvedUrl(albumTracksModel.model.get(0).file);
                                     }
                                 }
                             }
@@ -489,6 +505,10 @@ Item {
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         console.debug("Debug: Add track to queue: " + title)
                                         trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                        if (trackQueue.model.count === 1) {
+                                            player.currentIndex = 0;
+                                            player.source = Qt.resolvedUrl(albumTracksModel.model.get(0).file);
+                                        }
                                     }
                                 }
                             }
