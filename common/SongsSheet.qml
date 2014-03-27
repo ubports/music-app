@@ -65,7 +65,7 @@ Item {
                 header: ListItem.Standard {
                     id: albumInfo
                     width: parent.width
-                    height: units.gu(20)
+                    height: units.gu(22)
 
                     CoverRow {
                         id: albumImage
@@ -73,10 +73,9 @@ Item {
                             top: parent.top
                             left: parent.left
                             margins: units.gu(1)
-                            verticalCenter: parent.verticalCenter
                         }
                         count: sheetItem.covers.length
-                        size: parent.height
+                        size: units.gu(20)
                         covers: sheetItem.covers
                         spacing: units.gu(2)
                     }
@@ -126,6 +125,120 @@ Item {
                         text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
                                       : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
 
+                    }
+
+                    Image {
+                        id: expandItem
+                        objectName: "albumsheet-header-expanditem"
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(2)
+                        source: expandable.visible ? "../images/dropdown-menu-up.svg" : "../images/dropdown-menu.svg"
+                        height: styleMusic.common.expandedItem
+                        width: styleMusic.common.expandedItem
+                        y: parent.y + (expandable.visible ? (albumInfo.height - units.gu(7))/2 : albumInfo.height/2)
+                    }
+
+                    MouseArea {
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        width: styleMusic.common.expandedItem * 3
+                        onClicked: {
+                            if(expandable.visible) {
+                                customdebug("clicked collapse")
+                                expandable.visible = false
+                                albumInfo.height = albumInfo.height - units.gu(7)
+                            }
+                            else {
+                                customdebug("clicked expand")
+                                collapseExpand(-1);  // collapse all others
+                                expandable.visible = true
+                                albumInfo.height = albumInfo.height + units.gu(7)
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: expandable
+                        color: "transparent"
+                        height: styleMusic.albums.expandHeight
+                        visible: false
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                customdebug("User pressed outside the playlist item and expanded items.")
+                            }
+                        }
+
+                        Component.onCompleted: {
+                            collapseExpand.connect(onCollapseExpand);
+                        }
+
+                        function onCollapseExpand(indexCol)
+                        {
+                            if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                            {
+                                customdebug("auto collapse")
+                                expandable.visible = false
+                                track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
+                            }
+                        }
+
+                        // background for expander
+                        Rectangle {
+                            id: expandedBackground
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(22)
+                            color: styleMusic.common.black
+                            height: units.gu(7)
+                            width: albumInfo.width
+                            opacity: 0.4
+                        }
+
+                        // Queue
+                        Rectangle {
+                            id: queueRow
+                            anchors.top: expandedBackground.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: styleMusic.albums.expandedLeftMargin
+                            color: "transparent"
+                            height: expandedBackground.height
+                            width: units.gu(15)
+                            Image {
+                                id: queueTrack
+                                objectName: "albumsheet-queuetrack"
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../images/queue.png"
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                anchors.left: queueTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                                anchors.verticalCenter: parent.verticalCenter
+                                color: styleMusic.common.white
+                                fontSize: "small"
+                                width: parent.width - queueTrack.width - units.gu(1)
+                                text: i18n.tr("Add to queue")
+                                wrapMode: Text.WordWrap
+                                maximumLineCount: 3
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    expandable.visible = false
+                                    albumInfo.height = albumInfo.height - units.gu(7)
+                                    for (var i = 0; i < albumTracksModel.model.count; i++) {
+                                        trackQueue.model.append({"title": albumTracksModel.model.get(i).title,
+                                                                    "artist": albumTracksModel.model.get(i).artist,
+                                                                    "file": albumTracksModel.model.get(i).file,
+                                                                    "album": albumTracksModel.model.get(i).album,
+                                                                    "cover": albumTracksModel.model.get(i).cover,
+                                                                    "genre": albumTracksModel.model.get(i).genre})
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 

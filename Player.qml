@@ -58,6 +58,17 @@ Item {
         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
     }
 
+    Connections {
+        target: trackQueue.model
+        onCountChanged: {
+            if (trackQueue.model.count === 1) {
+                player.currentIndex = 0;
+                player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
+            }
+            queueChanged = true
+        }
+    }
+
     function getSong(direction, startPlaying, fromControls) {
         // Seek to start if threshold reached when selecting previous
         if (direction === -1 && (player.position / 1000) > 5)
