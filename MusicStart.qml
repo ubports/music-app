@@ -382,23 +382,23 @@ Page {
                             anchors.leftMargin: units.gu(1)
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1)
-                            color: styleMusic.common.white
+                            color: styleMusic.nowPlaying.labelSecondaryColor
                             elide: Text.ElideRight
-                            text: album
-                            fontSize: "small"
+                            text: artist
+                            fontSize: "x-small"
                         }
                         Label {
-                            id: albumTotal
+                            id: albumLabel2
                             anchors.bottom: parent.bottom
                             anchors.bottomMargin: units.gu(3)
                             anchors.left: parent.left
                             anchors.leftMargin: units.gu(1)
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1)
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             elide: Text.ElideRight
-                            text: artist
-                            fontSize: "x-small"
+                            text: album
+                            fontSize: "small"
                         }
                     }
                 }
