@@ -706,13 +706,7 @@ Page {
                            onClicked: {
                                expandable.visible = false;
                                queueListItem.height = queueListItem.cachedHeight;
-                               chosenArtist = artist;
-                               chosenTitle = title;
-                               chosenTrack = file;
-                               chosenAlbum = album;
-                               chosenCover = cover;
-                               chosenGenre = genre;
-                               chosenIndex = index;
+                               chosenElement = model;
                                console.debug("Debug: Add track to playlist");
                                PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
                                {
