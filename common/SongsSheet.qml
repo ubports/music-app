@@ -445,7 +445,6 @@ Item {
                                         expandable.visible = false
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         chosenElement = model
-                                        chosenIndex = index
                                         console.debug("Debug: Add track to playlist")
                                         PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
                                                         {

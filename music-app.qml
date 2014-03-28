@@ -335,7 +335,6 @@ MainView {
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
     property var chosenElement: null
-    property int chosenIndex: 0
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
     property var currentParam: null
