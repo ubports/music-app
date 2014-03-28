@@ -131,11 +131,11 @@ Item {
                     Rectangle {
                         id: playRow
                         anchors.top: albumYear.bottom
-                        anchors.topMargin: units.gu(2)
+                        anchors.topMargin: units.gu(1)
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         color: "transparent"
-                        height: units.gu(3)
+                        height: units.gu(4)
                         width: units.gu(15)
                         Image {
                             id: playTrack
@@ -181,11 +181,11 @@ Item {
                     Rectangle {
                         id: queueRow
                         anchors.top: playRow.bottom
-                        anchors.topMargin: units.gu(2)
+                        anchors.topMargin: units.gu(1)
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         color: "transparent"
-                        height: units.gu(3)
+                        height: units.gu(4)
                         width: units.gu(15)
                         Image {
                             id: queueTrack

@@ -157,7 +157,7 @@ Item {
                         Rectangle {
                             id: playRow
                             anchors.top: albumYear.bottom
-                            anchors.topMargin: units.gu(2)
+                            anchors.topMargin: units.gu(1)
                             anchors.left: albumImage.right
                             anchors.leftMargin: units.gu(1)
                             color: "transparent"
@@ -212,7 +212,7 @@ Item {
                         Rectangle {
                             id: queueRow
                             anchors.top: playRow.bottom
-                            anchors.topMargin: units.gu(2)
+                            anchors.topMargin: units.gu(1)
                             anchors.left: albumImage.right
                             anchors.leftMargin: units.gu(1)
                             color: "transparent"
