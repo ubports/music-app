@@ -21,6 +21,7 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
+import "meta-database.js" as Library
 import "settings.js" as Settings
 
 Item {
@@ -372,7 +373,12 @@ Item {
                                         width: height
 
                                         function trigger() {
-                                            player.toggle();
+                                            if (trackQueue.model.count === 0) {
+                                                playRandomSong();
+                                            }
+                                            else {
+                                                player.toggle();
+                                            }
                                         }
 
                                         Image {
@@ -381,7 +387,6 @@ Item {
                                             width: height
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.verticalCenter: parent.verticalCenter
-                                            opacity: trackQueue.model.count === 0 ? .4 : 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
                                                         Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
@@ -694,7 +699,96 @@ Item {
                         anchors.left: parent.left
                         anchors.margins: units.gu(1)
                         anchors.top: noSongsInQueueLabel.bottom
-                        text: i18n.tr("Tap on a song to start playing")
+                        text: i18n.tr("Tap play or any item to start")
+                    }
+
+                    Rectangle {
+                        id: disabledPlayerControlsPlayButton
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1)
+                        anchors.verticalCenter: parent.verticalCenter
+                        antialiasing: true
+                        color: "#444"
+                        height: units.gu(7)
+                        radius: height / 2
+                        width: height
+
+                        function trigger() {
+                            if (trackQueue.model.count === 0) {
+                                playRandomSong();
+                            }
+                            else {
+                                player.toggle();
+                            }
+                        }
+
+                        // draws the outer shadow/highlight
+                        Rectangle {
+                            id: disabledSourceOutter
+                            anchors { fill: parent; margins: -units.gu(0.1) }
+                            radius: (width / 2)
+                            antialiasing: true
+                            gradient: Gradient {
+                                GradientStop { position: 0.0; color: "black" }
+                                GradientStop { position: 0.5; color: "transparent" }
+                                GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
+                            }
+
+                            Rectangle {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                antialiasing: true
+                                color: "#444"
+                                height: playerControlsPlayButton.height - units.gu(.1)
+                                radius: height / 2
+                                width: height
+
+                                Rectangle {
+                                    id: disabledPlayerControlsPlayInnerCircle
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    antialiasing: true
+                                    height: units.gu(4.5)
+                                    radius: height / 2
+                                    width: height
+                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                    // draws the inner shadow/highlight
+                                    Rectangle {
+                                        id: disabledSourceInner
+                                        anchors { fill: parent; margins: -units.gu(0.1) }
+                                        radius: (width / 2)
+                                        antialiasing: true
+                                        gradient: Gradient {
+                                            GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
+                                            GradientStop { position: 0.5; color: "transparent" }
+                                            GradientStop { position: 1.0; color: "black" }
+                                        }
+
+                                        Rectangle {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            antialiasing: true
+                                            height: playerControlsPlayInnerCircle.height - units.gu(.1)
+                                            radius: height / 2
+                                            width: height
+                                            color: styleMusic.toolbar.fullInnerPlayCircleColor
+
+                                            Image {
+                                                id: disabledPlayIndicator
+                                                height: units.gu(4)
+                                                width: height
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                opacity: 1
+                                                source: player.playbackState === MediaPlayer.PlayingState ?
+                                                            Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -747,7 +841,12 @@ Item {
                         width: height
 
                         function trigger() {
-                            player.toggle();
+                            if (trackQueue.model.count === 0) {
+                                playRandomSong();
+                            }
+                            else {
+                                player.toggle();
+                            }
                         }
 
                         // draws the outer shadow/highlight

@@ -461,6 +461,28 @@ MainView {
         return file
     }
 
+    function playRandomSong(shuffle)
+    {
+        trackQueue.model.clear();
+
+        var items = Library.getAll();
+
+        for (var key in items) {
+            trackQueue.append(items[key]);
+        }
+
+        var now = new Date();
+        var seed = now.getSeconds();
+        var index = Math.floor(trackQueue.model.count * Math.random(seed));
+
+        console.debug("THIS", index);
+
+        player.shuffle = shuffle === undefined ? true : shuffle;
+        trackClicked(trackQueue,
+                     index,
+                     true);
+    }
+
     // WHERE THE MAGIC HAPPENS
     Player {
         id: player
