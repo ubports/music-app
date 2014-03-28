@@ -190,15 +190,7 @@ Item {
                                     recentModel.filterRecent()
                                     trackQueue.model.clear()
                                     addQueueFromModel(albumTracksModel)
-                                    player.play()
-
-                                    // Show the Now Playing page and make sure the track is visible
-                                    nowPlaying.visible = true;
-                                    nowPlaying.ensureVisibleIndex = index;
-
-                                    musicToolbar.showToolbar();
-
-                                    //trackClicked(albumTracksModel, 0)  // play track
+                                    trackClicked(trackQueue, 0)  // play track
 
                                     // TODO: This closes the SDK defined sheet
                                     //       component. It should be able to close
