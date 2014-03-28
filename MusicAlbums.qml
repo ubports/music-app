@@ -61,7 +61,7 @@ Page {
                 property string artist: model.artist
                 property string album: model.album
                 property string title: model.title
-                property string cover: model.cover  !== "" ? model.cover : "images/cover_default.png"
+                property string cover: model.cover  !== "" ? model.cover : "images/music-app@30.png"
                 property string length: model.length
                 property string file: model.file
                 property string year: model.year
