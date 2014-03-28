@@ -988,7 +988,7 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
                 property bool loading: false
                 property var model: [recentModel, genreModel, albumTracksModel]
                 id: startTab
