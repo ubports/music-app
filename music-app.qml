@@ -1104,7 +1104,7 @@ MainView {
             // Set the models in the tab to allow/disallow loading
             function allowLoading(tabToLoad, state)
             {
-                if (tabToLoad.model !== undefined)
+                if (tabToLoad !== undefined && tabToLoad.model !== undefined)
                 {
                     for (var i=0; i < tabToLoad.model.length; i++)
                     {

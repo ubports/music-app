@@ -650,7 +650,7 @@ Page {
 
                     function onCollapseExpand(indexCol)
                     {
-                        if ((indexCol === index || indexCol === -1) && expandable !== undefined && expandable.visible === true)
+                        if (indexCol === -1 && expandable !== undefined && expandable.visible === true)
                         {
                             customdebug("auto collapse")
                             expandable.visible = false

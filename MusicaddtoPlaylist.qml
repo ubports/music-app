@@ -86,8 +86,8 @@ import "common"
                                                 chosenElement.album,
                                                 chosenElement.cover,
                                                 "","","","")
-                        var count = Playlists.getPlaylistCount(name) // get the new count
-                        playlistModel.model.set(index, {"count": count.toString()}) // update number ot tracks in playlist
+                        count = Playlists.getPlaylistCount(name) // get the new count
+                        playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
 
