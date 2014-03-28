@@ -699,7 +699,7 @@ Item {
                         anchors.left: parent.left
                         anchors.margins: units.gu(1)
                         anchors.top: noSongsInQueueLabel.bottom
-                        text: i18n.tr("Press play or Tap on a song to start playing")
+                        text: i18n.tr("Tap play or any item to start")
                     }
 
                     Rectangle {
