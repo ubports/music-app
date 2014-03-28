@@ -468,6 +468,30 @@ MainView {
         return file
     }
 
+    function playRandomSong(shuffle)
+    {
+        trackQueue.model.clear();
+
+        var items = Library.getAll();
+
+        for (var key in items) {
+            // TODO: uncomment once lp:~andrew-hayzen/music-app/refactor-track-queue is merged
+            //trackQueue.append(items[key]);
+            trackQueue.model.append(items[key]);
+        }
+
+        var now = new Date();
+        var seed = now.getSeconds();
+        var index = Math.floor(trackQueue.model.count * Math.random(seed));
+
+        console.debug("THIS", index);
+
+        player.shuffle = shuffle === undefined ? true : shuffle;
+        trackClicked(trackQueue,
+                     index,
+                     true);
+    }
+
     // WHERE THE MAGIC HAPPENS
     Player {
         id: player
