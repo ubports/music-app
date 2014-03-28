@@ -22,7 +22,6 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -229,8 +228,7 @@ MainView {
                 }
 
                 // enqueue
-                var media = griloModel.get(index);
-                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                trackQueue.append(griloModel.get(index));
 
                 // play first URI
                 if (i == 0) {
@@ -268,15 +266,6 @@ MainView {
                 songsMetric.increment()
                 console.debug("Increment UserMetrics")
             }
-        }
-    }
-
-    // Connections for powerd
-    Connections {
-        target: player
-        onPlaybackStateChanged: {
-            QtPowerd.keepAlive = player.playbackState === MediaPlayer.PlayingState
-            console.log("QtPowerd.keepAlive=" + QtPowerd.keepAlive)
         }
     }
 
@@ -345,13 +334,7 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-    property string chosenTrack: ""
-    property string chosenTitle: ""
-    property string chosenArtist: ""
-    property string chosenAlbum: ""
-    property string chosenCover: ""
-    property string chosenGenre: ""
-    property int chosenIndex: 0
+    property var chosenElement: null
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
     property var currentParam: null
@@ -395,7 +378,7 @@ MainView {
 
         for (var key in items)
         {
-            trackQueue.model.append(items[key])
+            trackQueue.append(items[key])
         }
     }
 
@@ -476,6 +459,28 @@ MainView {
         }
 
         return file
+    }
+
+    function playRandomSong(shuffle)
+    {
+        trackQueue.model.clear();
+
+        var items = Library.getAll();
+
+        for (var key in items) {
+            trackQueue.append(items[key]);
+        }
+
+        var now = new Date();
+        var seed = now.getSeconds();
+        var index = Math.floor(trackQueue.model.count * Math.random(seed));
+
+        console.debug("THIS", index);
+
+        player.shuffle = shuffle === undefined ? true : shuffle;
+        trackClicked(trackQueue,
+                     index,
+                     true);
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -792,6 +797,21 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        Connections {
+            target: trackQueue.model
+            onCountChanged: queueChanged = true
+        }
+
+        function append(listElement)
+        {
+            model.append({
+                             "album": listElement.album,
+                             "artist": listElement.artist,
+                             "cover": listElement.cover,
+                             "file": listElement.file,
+                             "title": listElement.title
+                         })
+        }
     }
 
     // list of songs, which has been removed.
@@ -852,9 +872,9 @@ MainView {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     onClicked: {
-                        console.debug("Debug: Add track to queue: " + chosenTitle)
+                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
+                        trackQueue.append(chosenElement)
                     }
                 }
                 ListItem.Standard {
@@ -998,7 +1018,7 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
                 property bool loading: false
                 property var model: [recentModel, genreModel, albumTracksModel]
                 id: startTab

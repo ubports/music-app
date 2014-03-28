@@ -35,9 +35,7 @@ Item {
     property string currentMetaArtist: ""
     property string currentMetaCover: ""
     property string currentMetaFile: ""
-    property string currentMetaGenre: ""
     property string currentMetaTitle: ""
-    property string currentMetaYear: ""
     property int currentIndex: -1
     property alias duration: mediaPlayer.duration
     property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
@@ -56,6 +54,16 @@ Item {
     onShuffleChanged: {
         Settings.setSetting("shuffle", shuffle ? "1" : "0")
         console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+    }
+
+    Connections {
+        target: trackQueue.model
+        onCountChanged: {
+            if (trackQueue.model.count === 1) {
+                player.currentIndex = 0;
+                player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
+            }
+        }
     }
 
     function getSong(direction, startPlaying, fromControls) {
@@ -176,9 +184,7 @@ Item {
                 currentMetaArtist = obj.artist;
                 currentMetaCover = obj.cover;
                 currentMetaFile = obj.file;
-                currentMetaGenre = obj.genre;
                 currentMetaTitle = obj.title;
-                currentMetaYear = obj.year;
             }
 
             console.log("Source: " + source.toString())

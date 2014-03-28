@@ -50,12 +50,10 @@ import "common"
      onVisibleChanged: {
          if (visible)
          {
-             musicToolbar.disableToolbar()
              musicToolbar.setSheet(addtoPlaylist)
          }
          else
          {
-             musicToolbar.enableToolbar()
              musicToolbar.removeSheet(addtoPlaylist)
          }
      }
@@ -80,10 +78,16 @@ import "common"
                     property string name: model.name
                     property string count: model.count
                     onClicked: {
-                        console.debug("Debug: "+chosenTrack+" added to "+name)
-                        Playlists.addtoPlaylist(name,chosenTrack,chosenArtist,chosenTitle,chosenAlbum,chosenCover,"","","","")
-                        count = parseInt(Playlists.getPlaylistCount(name)) // get the new count
-                        playlistModel.model.setProperty(index, "count", count) // update number ot tracks in playlist
+                        console.debug("Debug: "+chosenElement.track+" added to "+name)
+                        Playlists.addtoPlaylist(name,
+                                                chosenElement.track,
+                                                chosenElement.artist,
+                                                chosenElement.title,
+                                                chosenElement.album,
+                                                chosenElement.cover,
+                                                "","","","")
+                        count = Playlists.getPlaylistCount(name) // get the new count
+                        playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
 
