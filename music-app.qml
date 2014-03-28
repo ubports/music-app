@@ -228,8 +228,7 @@ MainView {
                 }
 
                 // enqueue
-                var media = griloModel.get(index);
-                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
+                trackQueue.append(griloModel.get(index));
 
                 // play first URI
                 if (i == 0) {
@@ -335,13 +334,7 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property string argFile // used for argumented track
-    property string chosenTrack: ""
-    property string chosenTitle: ""
-    property string chosenArtist: ""
-    property string chosenAlbum: ""
-    property string chosenCover: ""
-    property string chosenGenre: ""
-    property int chosenIndex: 0
+    property var chosenElement: null
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
     property var currentParam: null
@@ -385,7 +378,7 @@ MainView {
 
         for (var key in items)
         {
-            trackQueue.model.append(items[key])
+            trackQueue.append(items[key])
         }
     }
 
@@ -475,9 +468,7 @@ MainView {
         var items = Library.getAll();
 
         for (var key in items) {
-            // TODO: uncomment once lp:~andrew-hayzen/music-app/refactor-track-queue is merged
-            //trackQueue.append(items[key]);
-            trackQueue.model.append(items[key]);
+            trackQueue.append(items[key]);
         }
 
         var now = new Date();
@@ -806,6 +797,21 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        Connections {
+            target: trackQueue.model
+            onCountChanged: queueChanged = true
+        }
+
+        function append(listElement)
+        {
+            model.append({
+                             "album": listElement.album,
+                             "artist": listElement.artist,
+                             "cover": listElement.cover,
+                             "file": listElement.file,
+                             "title": listElement.title
+                         })
+        }
     }
 
     // list of songs, which has been removed.
@@ -866,9 +872,9 @@ MainView {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     onClicked: {
-                        console.debug("Debug: Add track to queue: " + chosenTitle)
+                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
+                        trackQueue.append(chosenElement)
                     }
                 }
                 ListItem.Standard {
@@ -1012,7 +1018,7 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
                 property bool loading: false
                 property var model: [recentModel, genreModel, albumTracksModel]
                 id: startTab
