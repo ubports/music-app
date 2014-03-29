@@ -49,11 +49,6 @@ Page {
         highlightFollowsCurrentItem: false
         model: libraryModel.model
         delegate: trackDelegate
-        onCountChanged: {
-            //customdebug("onCountChanged: " + tracklist.count) // activate later
-            tracklist.currentIndex = libraryModel.indexOf(currentFile)
-        }
-
         Component {
             id: trackDelegate
             ListItem.Standard {
@@ -281,13 +276,7 @@ Page {
                             onClicked: {
                                 expandable.visible = false
                                 track.height = styleMusic.common.itemHeight
-                                chosenArtist = artist
-                                chosenTitle = title
-                                chosenTrack = file
-                                chosenAlbum = album
-                                chosenCover = cover
-                                chosenGenre = genre
-                                chosenIndex = index
+                                chosenElement = model
                                 console.debug("Debug: Add track to playlist")
                                 PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
                                                 {
@@ -330,7 +319,7 @@ Page {
                                 expandable.visible = false
                                 track.height = styleMusic.common.itemHeight
                                 console.debug("Debug: Add track to queue: " + title)
-                                trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                trackQueue.append(model);
                             }
                         }
                     }
