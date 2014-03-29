@@ -419,15 +419,15 @@ MainView {
             if (play === true) {
                 console.log("Is current track: "+player.playbackState)
 
-                if (musicToolbar.currentPage == nowPlaying) {
-                    player.toggle()
-                }
-
                 // Show the Now Playing page and make sure the track is visible
                 nowPlaying.visible = true;
                 nowPlaying.ensureVisibleIndex = index;
 
                 musicToolbar.showToolbar();
+
+                if (musicToolbar.currentPage == nowPlaying) {
+                    player.toggle()
+                }
             }
 
             return
