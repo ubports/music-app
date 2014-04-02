@@ -81,6 +81,31 @@ Item {
                             size: parent.height
                             covers: [Library.getAlbumCover(model.album)]
                             spacing: units.gu(2)
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onDoubleClicked: {
+                                }
+                                onClicked: {
+                                    if (focus == false) {
+                                        focus = true
+                                    }
+
+                                    albumTracksModel.filterAlbumTracks(album)
+                                    albumSheet.line1 = artist
+                                    albumSheet.line2 = model.album
+                                    albumSheet.isAlbum = true
+                                    albumSheet.file = file
+                                    albumSheet.year = year
+                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app@30.png")]
+                                    PopupUtils.open(albumSheet.sheet)
+
+                                    // TODO: This closes the SDK defined sheet
+                                    //       component. It should be able to close
+                                    //       albumSheet.
+                                    PopupUtils.close(sheet)
+                                }
+                            }
                         }
 
                         Label {
@@ -127,28 +152,88 @@ Item {
                             elide: Text.ElideRight
                             text: i18n.tr(model.year + " | %1 song", model.year + " | %1 songs", Library.getAlbumTracks(album).length).arg(Library.getAlbumTracks(album).length)
                         }
-                        MouseArea {
-                            anchors.fill: parent
-                            onDoubleClicked: {
+
+                        // Play
+                        Rectangle {
+                            id: playRow
+                            anchors.top: albumYear.bottom
+                            anchors.topMargin: units.gu(1)
+                            anchors.left: albumImage.right
+                            anchors.leftMargin: units.gu(1)
+                            color: "transparent"
+                            height: units.gu(3)
+                            width: units.gu(15)
+                            Image {
+                                id: playTrack
+                                objectName: "albumsheet-playtrack"
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../images/add-to-playback.png"
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
                             }
-                            onClicked: {
-                                if (focus == false) {
-                                    focus = true
+                            Label {
+                                anchors.left: playTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                                anchors.verticalCenter: parent.verticalCenter
+                                fontSize: "small"
+                                width: parent.width - playTrack.width - units.gu(1)
+                                text: i18n.tr("Play all")
+                                wrapMode: Text.WordWrap
+                                maximumLineCount: 3
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    albumTracksModel.filterAlbumTracks(album)
+                                    Library.addRecent(album, artist, Library.getAlbumCover(album), album, "album")
+                                    mainView.hasRecent = true
+                                    recentModel.filterRecent()
+                                    trackQueue.model.clear()
+                                    addQueueFromModel(albumTracksModel)
+                                    trackClicked(trackQueue, 0)  // play track
+
+                                    // TODO: This closes the SDK defined sheet
+                                    //       component. It should be able to close
+                                    //       albumSheet.
+                                    PopupUtils.close(sheet)
                                 }
+                            }
+                        }
 
-                                albumTracksModel.filterAlbumTracks(album)
-                                albumSheet.line1 = artist
-                                albumSheet.line2 = model.album
-                                albumSheet.isAlbum = true
-                                albumSheet.file = file
-                                albumSheet.year = year
-                                albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app@30.png")]
-                                PopupUtils.open(albumSheet.sheet)
-
-                                // TODO: This closes the SDK defined sheet
-                                //       component. It should be able to close
-                                //       albumSheet.
-                                PopupUtils.close(sheet)
+                        // Queue
+                        Rectangle {
+                            id: queueRow
+                            anchors.top: playRow.bottom
+                            anchors.topMargin: units.gu(1)
+                            anchors.left: albumImage.right
+                            anchors.leftMargin: units.gu(1)
+                            color: "transparent"
+                            height: units.gu(3)
+                            width: units.gu(15)
+                            Image {
+                                id: queueTrack
+                                objectName: "albumsheet-queuetrack"
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../images/add.svg"
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                anchors.left: queueTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                                anchors.verticalCenter: parent.verticalCenter
+                                fontSize: "small"
+                                width: parent.width - queueTrack.width - units.gu(1)
+                                text: i18n.tr("Add to queue")
+                                wrapMode: Text.WordWrap
+                                maximumLineCount: 3
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    albumTracksModel.filterAlbumTracks(album)
+                                    addQueueFromModel(albumTracksModel)
+                                }
                             }
                         }
                     }
