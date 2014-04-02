@@ -53,13 +53,13 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        button = self.main_view.get_add_to_queue_button()
+        self.pointing_device.click_object(button)
 
-        # click back button
-        back_button = self.main_view.get_back_button()
-        self.pointing_device.click_object(back_button)
+        # click on close button to close genre sheet
+        closebutton = self.main_view.get_album_sheet_close_button()
+        self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
         if self.main_view.wideAspect:
             playbutton = self.main_view.get_now_playing_play_button()
@@ -69,15 +69,12 @@ class TestMainWindow(MusicTestCase):
         self.main_view.show_toolbar()
 
         """ Track is playing"""
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
         self.pointing_device.click_object(playbutton)
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
-        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
-
-        """ Track is playing"""
         self.pointing_device.click_object(playbutton)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
