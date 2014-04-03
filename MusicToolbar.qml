@@ -837,6 +837,7 @@ Item {
                         antialiasing: true
                         color: "#444"
                         height: units.gu(7)
+                        objectName: "playshape"
                         radius: height / 2
                         width: height
 

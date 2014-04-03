@@ -179,7 +179,7 @@ Item {
 
                     // Queue
                     Rectangle {
-                        id: queueRow
+                        id: queueAllRow
                         anchors.top: playRow.bottom
                         anchors.topMargin: units.gu(1)
                         anchors.left: albumImage.right
@@ -188,19 +188,19 @@ Item {
                         height: units.gu(4)
                         width: units.gu(15)
                         Image {
-                            id: queueTrack
-                            objectName: "albumsheet-queuetrack"
+                            id: queueAll
+                            objectName: "albumsheet-queue-all"
                             anchors.verticalCenter: parent.verticalCenter
                             source: "../images/add.svg"
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
                         Label {
-                            anchors.left: queueTrack.right
+                            anchors.left: queueAll.right
                             anchors.leftMargin: units.gu(0.5)
                             anchors.verticalCenter: parent.verticalCenter
                             fontSize: "small"
-                            width: parent.width - queueTrack.width - units.gu(1)
+                            width: parent.width - queueAll.width - units.gu(1)
                             text: i18n.tr("Add to queue")
                             wrapMode: Text.WordWrap
                             maximumLineCount: 3
