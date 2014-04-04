@@ -21,8 +21,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
@@ -194,9 +194,6 @@ MainView {
     actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
-    // TODO currently this only allows playing file:// URIs of known files
-    // (already in the database), not e.g. http:// URIs or files in directories
-    // not picked up by Grilo
     Connections {
         target: UriHandler
         onOpened: {
@@ -214,21 +211,23 @@ MainView {
                 var file = decodeURIComponent(uris[i])
                 var index = -1;
 
-                for (var j=0; j < griloModel.count; j++)
-                {
-                    if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
-                    {
-                        index = j;
-                    }
-                }
+                // TODO: temporarily disabled as we move to mediascanner2.0
+//                for (var j=0; j < griloModel.count; j++)
+//                {
+//                    if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
+//                    {
+//                        index = j;
+//                    }
+//                }
 
                 if (index <= -1) {
                     console.debug("Unknown file " + file + ", skipping")
                     continue
                 }
 
+                // TODO: temporarily disabled as we move to mediascanner2.0
                 // enqueue
-                trackQueue.append(griloModel.get(index));
+                //trackQueue.append(griloModel.get(index));
 
                 // play first URI
                 if (i == 0) {
@@ -345,6 +344,10 @@ MainView {
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70)
+
+    // TODO: temporary property as we move to Mediascanner2.0
+    property bool loaded: true
+
 
     // FUNCTIONS
 
@@ -552,161 +555,6 @@ MainView {
         }
     }
 
-    GriloModel {
-        id: griloModel
-        property bool loaded: false
-
-        source: GriloBrowse {
-            id: browser
-            source: "grl-mediascanner"
-            registry: registry
-            metadataKeys: [GriloBrowse.Title]
-            typeFilter: [GriloBrowse.Audio]
-            Component.onCompleted: {
-                console.log(browser.supportedKeys);
-                console.log(browser.slowKeys);
-                refresh();
-                console.log("Refreshing");
-            }
-
-            onAvailableChanged: {
-                console.log("Available ? " + available);
-                if (available === true) {
-                    console.log("griloModel.count " + griloModel.count)
-                }
-            }
-            onBaseMediaChanged: refresh();
-
-            /* Check if the file (needle) exists in the library (haystack)
-             * Searches the the haystack using a binary search
-             *
-             * false if the file in in grilo but not in the haystack
-             * positive if the file is the same (number is the actual index)
-             * negative if the file has changed, actual index is -(i + 1)
-             */
-            function exists(haystack, needle)
-            {
-                var keyToFind = needle["file"];
-
-                var upper = haystack.length - 1;
-                var lower = 0;
-                var i = Math.floor(haystack.length / 2);
-
-                while (upper >= lower)
-                {
-                    var key = haystack[i]["file"];
-
-                    if (keyToFind < key)
-                    {
-                        upper = i - 1;
-                    }
-                    else if (keyToFind > key)
-                    {
-                        lower = i + 1;
-                    }
-                    else
-                    {
-                        var found = false;
-
-                        for (var k in haystack[i])
-                        {
-                            if (haystack[i][k] === needle[k])
-                            {
-                                found = true;
-                            }
-                            else
-                            {
-                                found = false;
-                                break;
-                            }
-                        }
-
-                        if (found === true)
-                        {
-                            return i;  // in grilo and lib - same
-                        }
-                        else
-                        {
-                            return -i - 1;  // in grilo and lib - different
-                        }
-                    }
-
-                    i = Math.floor((upper + lower) / 2);
-                }
-
-                return false;  // in grilo not in lib
-            }
-
-            onFinished: {
-                var read_arg = false;
-
-                // FIXME: remove when grilo is fixed
-                var files = [];
-                var duplicates = 0;
-
-                for (var i = 0; i < griloModel.count; i++)
-                {
-                    var media = griloModel.get(i)
-                    var file = media.url.toString()
-                    if (file.indexOf("file://") === 0)
-                    {
-                        file = file.slice(7, file.length)
-                    }
-
-                    // FIXME: grilo can supply duplicates
-                    if (files.indexOf(file) > -1)
-                    {
-                        duplicates++;
-                        continue;
-                    }
-                    files.push(file);
-
-                    var record = {
-                        artist: media.artist || i18n.tr("Unknown Artist"),
-                        album: media.album || i18n.tr("Unknown Album"),
-                        title: media.title || file,
-                        file: file,
-                        cover: media.thumbnail.toString() || "",
-                        length: media.duration.toString(),
-                        number: media.trackNumber,
-                        year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
-                        genre: media.genre || i18n.tr("Unknown Genre")
-                    };
-
-                    if (read_arg === false && decodeURIComponent(argFile) === decodeURIComponent(file))
-                    {
-                        trackQueue.model.clear();
-                        trackQueue.model.append(record)
-                        trackClicked(trackQueue, 0, true);
-
-                        // grilo model sometimes has duplicates
-                        // causing the track to be paused the second time
-                        // this ignores the second time
-                        read_arg = true;
-                    }
-
-                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                    Library.setMetadata(record)
-                }
-
-                Library.writeDb()
-
-                console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
-                griloModel.loaded = true
-                tabs.ensurePopulated(tabs.selectedTab);
-            }
-        }
-    }
-
-    GriloRegistry {
-        id: registry
-
-        Component.onCompleted: {
-            console.log("Registry is ready");
-            loadAll();
-        }
-    }
-
     LibraryListModel {
         id: libraryModel
         onPreLoadCompleteChanged: {
@@ -817,11 +665,6 @@ MainView {
     // list of songs, which has been removed.
     ListModel {
         id: removedTrackQueue
-    }
-
-    // list of single tracks
-    ListModel {
-        id: singleTracksgriloMo
     }
 
     // create the listmodel to use for playlists
@@ -964,7 +807,8 @@ MainView {
             title: i18n.tr("Music")
             visible: false
 
-            property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+            //TODO: Temporarily set to true as we move to mediascanner2.0
+            property bool noMusic: true
 
             onNoMusicChanged: {
                 if (noMusic)
@@ -1117,7 +961,7 @@ MainView {
             {
                 allowLoading(selectedTab, true);  // allow loading of the models
 
-                if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
+                if (!selectedTab.populated && !selectedTab.loading && loaded) {
                     loading.visible = true
                     selectedTab.loading = true
 
