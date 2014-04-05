@@ -219,12 +219,12 @@ MainView {
 
         function processFile(uri, play) {
             // search pathname in library
-            var file = decodeURIComponent(uris)
+            var file = decodeURIComponent(uri)
             var index = -1;
 
             for (var j=0; j < griloModel.count; j++)
             {
-                if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
+                if (decodeURIComponent(griloModel.get(j).url.toString()) === file)
                 {
                     index = j;
                 }
