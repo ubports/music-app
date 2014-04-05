@@ -205,8 +205,18 @@ MainView {
             uri = uri.substring(9);
             var split = uri.split("/");
 
+            if (split.length < 2) {
+                console.debug("Unknown artist-album " + uri + ", skipping")
+                return;
+            }
+
             // Get tracks
             var tracks = Library.getArtistAlbumTracks(split[0], split[1]);
+
+            if (tracks.length === 0) {
+                console.debug("Unknown artist-album " + uri + ", skipping")
+                return;
+            }
 
             // Enqueue
             for (var track in tracks) {
