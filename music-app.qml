@@ -220,6 +220,11 @@ MainView {
         function processFile(uri, play) {
             // search pathname in library
             var file = decodeURIComponent(uri)
+
+            if (file.indexOf("file://") === 0) {
+                file = file.substring(7);
+            }
+
             var item = Library.getMetadata(file, "*");
 
             if (item === "Unknown") {
