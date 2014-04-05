@@ -245,21 +245,25 @@ MainView {
             }
         }
 
+        function process(uri, play) {
+            if (uri.indexOf("album:///") === 0) {
+                uriHandler.processAlbum(uri);
+            }
+            else if (uri.indexOf("file:///") === 0) {
+                uriHandler.processFile(uri, play);
+            }
+            else {
+                console.debug("Unsupported URI " + uri + ", skipping")
+            }
+        }
+
         onOpened: {
             // clear play queue
             trackQueue.model.clear()
             for (var i=0; i < uris.length; i++) {
                 console.debug("URI=" + uris[i])
 
-                if (uris[i].indexOf("album:///") === 0) {
-                    uriHandler.processAlbum(uris[i]);
-                }
-                else if (uris[i].indexOf("file:///") === 0) {
-                    uriHandler.processFile(uris[i], i === 0);
-                }
-                else {
-                    console.debug("Unsupported URI " + uris[i] + ", skipping")
-                }
+                uriHandler.process(uris[i], i === 0);
             }
         }
     }
@@ -306,18 +310,9 @@ MainView {
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
+
         if (args.values.file) {
-            argFile = args.values.file
-            if (argFile.indexOf("file://") != -1) {
-                //customdebug("arg contained file://")
-                // strip that!
-                argFile = argFile.substring(7)
-            }
-            else {
-                // do nothing
-                customdebug("arg did not contain file://")
-            }
-            customdebug(argFile)
+            uriHandler.process(args.values.file, true);
         }
 
         Settings.initialize()
@@ -359,7 +354,6 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
-    property string argFile // used for argumented track
     property var chosenElement: null
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
@@ -664,8 +658,6 @@ MainView {
             }
 
             onFinished: {
-                var read_arg = false;
-
                 // FIXME: remove when grilo is fixed
                 var files = [];
                 var duplicates = 0;
@@ -698,18 +690,6 @@ MainView {
                         year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
-
-                    if (read_arg === false && decodeURIComponent(argFile) === decodeURIComponent(file))
-                    {
-                        trackQueue.model.clear();
-                        trackQueue.model.append(record)
-                        trackClicked(trackQueue, 0, true);
-
-                        // grilo model sometimes has duplicates
-                        // causing the track to be paused the second time
-                        // this ignores the second time
-                        read_arg = true;
-                    }
 
                     //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
                     Library.setMetadata(record)
