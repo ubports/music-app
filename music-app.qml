@@ -198,41 +198,67 @@ MainView {
     // (already in the database), not e.g. http:// URIs or files in directories
     // not picked up by Grilo
     Connections {
+        id: uriHandler
         target: UriHandler
+
+        function processAlbum(uri) {
+            uri = uri.substring(9);
+            var split = uri.split("/");
+
+            // Get tracks
+            var tracks = Library.getArtistAlbumTracks(split[0], split[1]);
+            var index = trackQueue.model.count;
+
+            // Enqueue
+            for (var track in tracks) {
+                trackQueue.append(track);
+            }
+
+            // Play first track
+            trackClicked(trackQueue, index, true);
+        }
+
+        function processFile(uri, play) {
+            // search pathname in library
+            var file = decodeURIComponent(uris)
+            var index = -1;
+
+            for (var j=0; j < griloModel.count; j++)
+            {
+                if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
+                {
+                    index = j;
+                }
+            }
+
+            if (index <= -1) {
+                console.debug("Unknown file " + file + ", skipping")
+                continue
+            }
+
+            // enqueue
+            trackQueue.append(griloModel.get(index));
+
+            // play first URI
+            if (play) {
+                trackClicked(trackQueue, 0, true)
+            }
+        }
+
         onOpened: {
             // clear play queue
             trackQueue.model.clear()
             for (var i=0; i < uris.length; i++) {
                 console.debug("URI=" + uris[i])
-                // skip non-file:// URIs
-                if (uris[i].substring(0, 7) !== "file://") {
+
+                if (uris[i].indexOf("album:///") === 0) {
+                    uriHandler.processAlbum(uri[i]);
+                }
+                else if (uris[i].indexOf("file:///") === 0) {
+                    uriHandler.processFile(uri[i], i === 0);
+                }
+                else {
                     console.debug("Unsupported URI " + uris[i] + ", skipping")
-                    continue
-                }
-
-                // search pathname in library
-                var file = decodeURIComponent(uris[i])
-                var index = -1;
-
-                for (var j=0; j < griloModel.count; j++)
-                {
-                    if (decodeURIComponent(griloModel.get(j).url.toString()) == file)
-                    {
-                        index = j;
-                    }
-                }
-
-                if (index <= -1) {
-                    console.debug("Unknown file " + file + ", skipping")
-                    continue
-                }
-
-                // enqueue
-                trackQueue.append(griloModel.get(index));
-
-                // play first URI
-                if (i == 0) {
-                    trackClicked(trackQueue, 0, true)
                 }
             }
         }
