@@ -232,6 +232,8 @@ MainView {
                 return;
             }
 
+            console.debug("Item:", item);
+
             // enqueue
             trackQueue.append(item);
 
