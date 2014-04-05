@@ -129,7 +129,7 @@ function getMetadata(file) {
 
    try {
        db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT * FROM metadata WHERE file=?;', [type,file]); // tries to get the title of track
+         var rs = tx.executeSql('SELECT * FROM metadata WHERE file=?;', [file]); // tries to get the title of track
 
          if (rs.rows.length > 0) {
               res = rs.rows.item(0);
