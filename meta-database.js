@@ -123,17 +123,16 @@ function removeFiles(files)
 }
 
 // This function is used to retrieve meta data from the database
-function getMetadata(file,type) {
+function getMetadata(file) {
    var db = getDatabase();
    var res="";
 
    try {
        db.transaction(function(tx) {
-         //var rs = tx.executeSql('SELECT type=?;',[type],' FROM metadata WHERE file=?;', [file]); // tries to get the title of track
-         var rs = tx.executeSql('SELECT ? FROM metadata WHERE file=?;', [type,file]); // tries to get the title of track
+         var rs = tx.executeSql('SELECT * FROM metadata WHERE file=?;', [type,file]); // tries to get the title of track
 
          if (rs.rows.length > 0) {
-              res = rs.rows.item(0).value;
+              res = rs.rows.item(0);
          } else {
              res = "Unknown";
          }

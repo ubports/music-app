@@ -225,14 +225,12 @@ MainView {
                 file = file.substring(7);
             }
 
-            var item = Library.getMetadata(file, "*");
+            var item = Library.getMetadata(file);
 
-            if (item === "Unknown") {
+            if (item === "Unknown" || item === "") {
                 console.debug("Unknown file " + file + ", skipping")
                 return;
             }
-
-            console.debug("Item:", item);
 
             // enqueue
             trackQueue.append(item);
