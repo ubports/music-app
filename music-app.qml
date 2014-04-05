@@ -211,7 +211,7 @@ MainView {
 
             // Enqueue
             for (var track in tracks) {
-                trackQueue.append(track);
+                trackQueue.append(tracks[track]);
             }
 
             // Play first track
