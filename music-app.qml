@@ -338,10 +338,6 @@ MainView {
 
         // show toolbar hint at startup
         musicToolbar.showToolbar();
-
-        if (args.values.file) {
-            uriHandler.process(args.values.file, true);
-        }
     }
 
 
@@ -699,6 +695,10 @@ MainView {
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
                 tabs.ensurePopulated(tabs.selectedTab);
+
+                if (args.values.file) {
+                    uriHandler.process(args.values.file, true);
+                }
             }
         }
     }
