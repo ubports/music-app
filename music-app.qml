@@ -252,10 +252,10 @@ MainView {
                 console.debug("URI=" + uris[i])
 
                 if (uris[i].indexOf("album:///") === 0) {
-                    uriHandler.processAlbum(uri[i]);
+                    uriHandler.processAlbum(uris[i]);
                 }
                 else if (uris[i].indexOf("file:///") === 0) {
-                    uriHandler.processFile(uri[i], i === 0);
+                    uriHandler.processFile(uris[i], i === 0);
                 }
                 else {
                     console.debug("Unsupported URI " + uris[i] + ", skipping")
