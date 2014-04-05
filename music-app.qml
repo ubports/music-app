@@ -207,7 +207,6 @@ MainView {
 
             // Get tracks
             var tracks = Library.getArtistAlbumTracks(split[0], split[1]);
-            var index = trackQueue.model.count;
 
             // Enqueue
             for (var track in tracks) {
@@ -215,7 +214,7 @@ MainView {
             }
 
             // Play first track
-            trackClicked(trackQueue, index, true);
+            trackClicked(trackQueue, 0, true);
         }
 
         function processFile(uri, play) {
@@ -311,10 +310,6 @@ MainView {
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
 
-        if (args.values.file) {
-            uriHandler.process(args.values.file, true);
-        }
-
         Settings.initialize()
         console.debug("INITIALIZED in tracks")
         if (Settings.getSetting("initialized") !== "true") {
@@ -343,6 +338,10 @@ MainView {
 
         // show toolbar hint at startup
         musicToolbar.showToolbar();
+
+        if (args.values.file) {
+            uriHandler.process(args.values.file, true);
+        }
     }
 
 
