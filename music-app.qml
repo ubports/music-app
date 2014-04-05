@@ -233,7 +233,7 @@ MainView {
 
             if (index <= -1) {
                 console.debug("Unknown file " + file + ", skipping")
-                continue
+                return;
             }
 
             // enqueue
