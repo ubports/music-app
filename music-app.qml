@@ -220,23 +220,15 @@ MainView {
         function processFile(uri, play) {
             // search pathname in library
             var file = decodeURIComponent(uri)
-            var index = -1;
+            var item = Library.getMetadata(file, "*");
 
-            for (var j=0; j < griloModel.count; j++)
-            {
-                if (decodeURIComponent(griloModel.get(j).url.toString()) === file)
-                {
-                    index = j;
-                }
-            }
-
-            if (index <= -1) {
+            if (item === "Unknown") {
                 console.debug("Unknown file " + file + ", skipping")
                 return;
             }
 
             // enqueue
-            trackQueue.append(griloModel.get(index));
+            trackQueue.append(item);
 
             // play first URI
             if (play) {
