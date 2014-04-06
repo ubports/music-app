@@ -117,7 +117,7 @@ MainView {
         //defaultArgument.valueNames: ["URI"] // should be used when bug is resolved
         // grab a file
         Argument {
-            name: "uri"
+            name: "url"
             help: "URI for track to run at start."
             required: false
             valueNames: ["track"]
@@ -703,8 +703,8 @@ MainView {
                 griloModel.loaded = true
                 tabs.ensurePopulated(tabs.selectedTab);
 
-                if (args.values.uri) {
-                    uriHandler.process(args.values.uri, true);
+                if (args.values.url) {
+                    uriHandler.process(args.values.url, true);
                 }
             }
         }
