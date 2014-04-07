@@ -211,7 +211,7 @@ MainView {
             }
 
             // Get tracks
-            var tracks = Library.getArtistAlbumTracks(split[0], split[1]);
+            var tracks = Library.getArtistAlbumTracks(decodeURIComponent(split[0]), decodeURIComponent(split[1]));
 
             if (tracks.length === 0) {
                 console.debug("Unknown artist-album " + uri + ", skipping")
