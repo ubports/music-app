@@ -235,16 +235,7 @@ MainView {
         }
 
         function processFile(uri, play) {
-            /*
-             * uri from dispatcher the following characters are not escaped
-             * [];
-             * Also spaces are escaped when they aren't in the db
-             */
-
-            uri = uriHandler.replaceAll("[", "%5B", uri);
-            uri = uriHandler.replaceAll("]", "%5D", uri);
-            uri = uriHandler.replaceAll(";", "%3B", uri);
-            uri = uriHandler.replaceAll("%20", " ", uri);
+            uri = decodeURIComponent(uri);
 
             // search pathname in library
             var item = Library.getMetadata(uri);
@@ -701,7 +692,7 @@ MainView {
                         artist: media.artist || i18n.tr("Unknown Artist"),
                         album: media.album || i18n.tr("Unknown Album"),
                         title: media.title || file,
-                        file: file,
+                        file: decodeURIComponent(file),
                         cover: media.thumbnail.toString() || "",
                         length: media.duration.toString(),
                         number: media.trackNumber,
