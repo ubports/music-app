@@ -201,6 +201,14 @@ MainView {
         id: uriHandler
         target: UriHandler
 
+        function escapeRegExp(string) {
+            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        }
+
+        function replaceAll(find, replace, str) {
+            return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+        }
+
         function processAlbum(uri) {
             var split = uri.split("/");
 
@@ -227,6 +235,17 @@ MainView {
         }
 
         function processFile(uri, play) {
+            /*
+             * uri from dispatcher the following characters are not escaped
+             * [];
+             * Also spaces are escaped when they aren't in the db
+             */
+
+            uri = uriHandler.replaceAll("[", "%5B", uri);
+            uri = uriHandler.replaceAll("]", "%5D", uri);
+            uri = uriHandler.replaceAll(";", "%3B", uri);
+            uri = uriHandler.replaceAll("%20", " ", uri);
+
             // search pathname in library
             var item = Library.getMetadata(uri);
 
