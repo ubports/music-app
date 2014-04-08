@@ -1,5 +1,8 @@
 [
     {
         "protocol": "album"
+    },
+    {
+        "protocol": "music"
     }
 ]

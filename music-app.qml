@@ -202,7 +202,6 @@ MainView {
         target: UriHandler
 
         function processAlbum(uri) {
-            uri = uri.substring(9);
             var split = uri.split("/");
 
             if (split.length < 2) {
@@ -229,16 +228,10 @@ MainView {
 
         function processFile(uri, play) {
             // search pathname in library
-            var file = decodeURIComponent(uri)
-
-            if (file.indexOf("file://") === 0) {
-                file = file.substring(7);
-            }
-
-            var item = Library.getMetadata(file);
+            var item = Library.getMetadata(uri);
 
             if (item === "Unknown" || item === "") {
-                console.debug("Unknown file " + file + ", skipping")
+                console.debug("Unknown file " + uri + ", skipping")
                 return;
             }
 
@@ -253,11 +246,15 @@ MainView {
 
         function process(uri, play) {
             if (uri.indexOf("album:///") === 0) {
-                uriHandler.processAlbum(uri);
+                uriHandler.processAlbum(uri.substring(9));
             }
-            else if (uri.indexOf("file:///") === 0) {
-                uriHandler.processFile(uri, play);
+            else if (uri.indexOf("file://") === 0) {
+                uriHandler.processFile(uri.substring(7), play);
             }
+            else if (uri.indexOf("music://") === 0) {
+                uriHandler.processFile(uri.substring(8), play);
+            }
+
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
             }
