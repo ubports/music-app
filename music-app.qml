@@ -234,7 +234,6 @@ MainView {
             var track = false;
 
             for (var item in library) {
-                console.debug(decodeURIComponent(library[item].file), uri);
                 if (decodeURIComponent(library[item].file) === uri) {
                     track = library[item];
                     break;
