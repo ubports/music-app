@@ -201,14 +201,6 @@ MainView {
         id: uriHandler
         target: UriHandler
 
-        function escapeRegExp(string) {
-            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-        }
-
-        function replaceAll(find, replace, str) {
-            return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-        }
-
         function processAlbum(uri) {
             var split = uri.split("/");
 
@@ -237,16 +229,25 @@ MainView {
         function processFile(uri, play) {
             uri = decodeURIComponent(uri);
 
-            // search pathname in library
-            var item = Library.getMetadata(uri);
+            // search for path in library
+            var library = Library.getAll();
+            var track = false;
 
-            if (item === "Unknown" || item === "") {
+            for (var item in library) {
+                console.debug(decodeURIComponent(library[item].file), uri);
+                if (decodeURIComponent(library[item].file) === uri) {
+                    track = library[item];
+                    break;
+                }
+            }
+
+            if (!track) {
                 console.debug("Unknown file " + uri + ", skipping")
                 return;
             }
 
             // enqueue
-            trackQueue.append(item);
+            trackQueue.append(track);
 
             // play first URI
             if (play) {
@@ -692,7 +693,7 @@ MainView {
                         artist: media.artist || i18n.tr("Unknown Artist"),
                         album: media.album || i18n.tr("Unknown Album"),
                         title: media.title || file,
-                        file: decodeURIComponent(file),
+                        file: file,
                         cover: media.thumbnail.toString() || "",
                         length: media.duration.toString(),
                         number: media.trackNumber,
