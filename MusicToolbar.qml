@@ -574,7 +574,7 @@ Item {
                     Connections {
                         target: player
                         onDurationChanged: {
-                            console.debug("Duration changed")
+                            console.debug("Duration changed: " + player.duration)
                             musicToolbarFullDurationLabel.text = durationToString(player.duration)
                         }
                     }

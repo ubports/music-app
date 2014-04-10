@@ -416,10 +416,10 @@ MainView {
         var minutes = Math.floor((duration/1000) / 60);
         var seconds = Math.floor((duration/1000)) % 60;
         // Make sure that we never see "NaN:NaN"
-        if (minutes == 'NaN')
-            minutes = '0';
-        if (seconds == 'NaN')
-            seconds = '00';
+        if (minutes.toString() == 'NaN')
+            minutes = 0;
+        if (seconds.toString() == 'NaN')
+            seconds = 0;
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
     }
 
