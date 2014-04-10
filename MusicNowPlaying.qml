@@ -809,33 +809,7 @@ Page {
 
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
-
-        state: musicToolbar.opened ? "shown" : "hidden"
-        states: [
-            State {
-                name: "shown"
-                PropertyChanges {
-                    target: nowPlayingBackButton
-                    y: header.y + header.height
-                }
-            },
-            State {
-                name: "hidden"
-                PropertyChanges {
-                    target: nowPlayingBackButton
-                    y: -height
-                }
-            }
-        ]
-
-        transitions: Transition {
-             from: "hidden,shown"
-             to: "shown,hidden"
-             NumberAnimation {
-                 duration: 100
-                 properties: "y"
-             }
-         }
+        y: header.y + header.height
 
         Image {
             id: expandItem
