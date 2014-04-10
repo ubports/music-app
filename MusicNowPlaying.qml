@@ -536,7 +536,7 @@ Page {
                         height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
-                            source: cover !== "" ? cover : "images/music-app@30.png"
+                            source: cover !== "" ? cover : "images/music-app-cover@30.png"
                         }
                         onHeightChanged: {
                             if (height > queuelist.normalHeight) {

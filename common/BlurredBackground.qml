@@ -25,7 +25,7 @@ Rectangle {
     anchors.fill: parent
     property string cover: player.currentMetaCover !== "" ?
                                player.currentMetaCover :
-                               "../images/music-app@30.png"
+                               "../images/music-app-cover@30.png"
     // the album art
     Image {
         id: backgroundImage

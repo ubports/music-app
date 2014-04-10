@@ -97,7 +97,7 @@ Item {
                                     albumSheet.isAlbum = true
                                     albumSheet.file = file
                                     albumSheet.year = year
-                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app@30.png")]
+                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app-cover@30.png")]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet

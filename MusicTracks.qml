@@ -71,7 +71,7 @@ Page {
                     width: styleMusic.common.albumSize
                     height: styleMusic.common.albumSize
                     image: Image {
-                        source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app@30.png")
+                        source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
                     }
                 }
                 Label {

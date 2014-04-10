@@ -262,7 +262,7 @@ Item {
                             height: styleMusic.common.albumSize
                             visible: !isAlbum
                             image: Image {
-                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app@30.png")
+                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app-cover@30.png")
                             }
                         }
 
