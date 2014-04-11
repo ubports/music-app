@@ -571,6 +571,14 @@ Item {
                         }
                     }
 
+                    Connections {
+                        target: player
+                        onDurationChanged: {
+                            console.debug("Duration changed: " + player.duration)
+                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+                        }
+                    }
+
                     // Black background behind the progress bar
                     Rectangle {
                         id: musicToolbarFullProgressBackground
