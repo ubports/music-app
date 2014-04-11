@@ -528,6 +528,11 @@ Page {
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/cover_default.png"
+                            onStatusChanged: {
+                                if (status === Image.Error) {
+                                    source = Qt.resolvedUrl("images/cover_default.png")
+                                }
+                            }
                         }
                         onHeightChanged: {
                             if (height > queuelist.normalHeight) {

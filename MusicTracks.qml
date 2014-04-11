@@ -72,6 +72,11 @@ Page {
                     height: styleMusic.common.albumSize
                     image: Image {
                         source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                        onStatusChanged: {
+                            if (status === Image.Error) {
+                                source = Qt.resolvedUrl("images/cover_default_icon.png")
+                            }
+                        }
                     }
                 }
                 Label {
