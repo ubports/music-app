@@ -528,6 +528,11 @@ Page {
                         width: height
                         image: Image {
                             source: cover !== "" ? cover : "images/music-app-cover@30.png"
+                            onStatusChanged: {
+                                if (status === Image.Error) {
+                                    source = Qt.resolvedUrl("images/music-app-cover@30.png")
+                                }
+                            }
                         }
                         onHeightChanged: {
                             if (height > queuelist.normalHeight) {

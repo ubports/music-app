@@ -78,6 +78,11 @@ Page {
                         id: icon
                         fillMode: Image.Stretch
                         source: cover
+                        onStatusChanged: {
+                            if (status === Image.Error) {
+                                source = Qt.resolvedUrl("images/cover_default.png")
+                            }
+                        }
                     }
                     UbuntuShape {  // Background so can see text in current state
                         id: albumBg2
