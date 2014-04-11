@@ -263,6 +263,11 @@ Item {
                             visible: !isAlbum
                             image: Image {
                                 source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/cover_default_icon.png")
+                                onStatusChanged: {
+                                    if (status === Image.Error) {
+                                        source = Qt.resolvedUrl("../images/cover_default_icon.png")
+                                    }
+                                }
                             }
                         }
 
