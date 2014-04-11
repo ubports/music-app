@@ -454,7 +454,7 @@ MainView {
                 console.log("Is current track: "+player.playbackState)
 
                 // Show the Now Playing page and make sure the track is visible
-                nowPlaying.visible = true;
+                tabs.setNowPlaying(true);
                 nowPlaying.ensureVisibleIndex = index;
 
                 musicToolbar.showToolbar();
@@ -483,7 +483,7 @@ MainView {
             player.playSong(file, index)
 
             // Show the Now Playing page and make sure the track is visible
-            nowPlaying.visible = true;
+            tabs.setNowPlaying(true);
             nowPlaying.ensureVisibleIndex = index;
 
             musicToolbar.showToolbar();
@@ -980,57 +980,57 @@ MainView {
         z: 200  // put on top of everything else
     }
 
-    PageStack {
-        id: pageStack
+    Page {
+        id: emptyPage
+        title: i18n.tr("Music")
+        visible: false
 
-        Page {
-            id: emptyPage
-            title: i18n.tr("Music")
-            visible: false
+        property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
 
-            property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+        onNoMusicChanged: {
+            if (noMusic)
+                pageStack.push(emptyPage)
+            else if (pageStack.currentPage == emptyPage)
+                pageStack.pop()
+        }
 
-            onNoMusicChanged: {
-                if (noMusic)
-                    pageStack.push(emptyPage)
-                else if (pageStack.currentPage == emptyPage)
-                    pageStack.pop()
-            }
+        tools: ToolbarItems {
+            back: null
+            locked: true
+            opened: false
+        }
 
-            tools: ToolbarItems {
-                back: null
-                locked: true
-                opened: false
-            }
+        // Overlay to show when no tracks detected on the device
+        Rectangle {
+            id: libraryEmpty
+            anchors.fill: parent
+            anchors.topMargin: -emptyPage.header.height
+            color: styleMusic.libraryEmpty.backgroundColor
 
-            // Overlay to show when no tracks detected on the device
-            Rectangle {
-                id: libraryEmpty
-                anchors.fill: parent
-                anchors.topMargin: -emptyPage.header.height
-                color: styleMusic.libraryEmpty.backgroundColor
-
-                Column {
-                    anchors.centerIn: parent
+            Column {
+                anchors.centerIn: parent
 
 
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "large"
-                        font.bold: true
-                        text: "No music found"
-                    }
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: "No music found"
+                }
 
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "medium"
-                        text: "Please import music and restart the app"
-                    }
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: "Please import music and restart the app"
                 }
             }
         }
+    }
+
+    PageStack {
+        id: pageStack
 
         Tabs {
             id: tabs
@@ -1155,6 +1155,20 @@ MainView {
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
             }
+
+            function setNowPlaying(visible)
+            {
+                if (visible) {
+                    pageStack.push(nowPlaying);
+                }
+                else {
+                    if (pageStack.currentPage === nowPlaying) {
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            Component.onCompleted: musicToolbar.currentTab = selectedTab
 
             onSelectedTabChanged: {
                 // pause loading of the models in the old tab

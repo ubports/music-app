@@ -203,7 +203,7 @@ Item {
                     /* Clicking in the area shows the queue */
                     function trigger() {
                         if (trackQueue.model.count !== 0 && currentPage !== nowPlaying) {
-                            nowPlaying.visible = true;
+                            tabs.setNowPlaying(true);
                         }
                     }
 
@@ -659,7 +659,6 @@ Item {
                 anchors.fill: parent
                 color: styleMusic.playerControls.backgroundColor
                 state: trackQueue.model.count === 0 ? "disabled" : "enabled"
-
                 states: [
                     State {
                         name: "disabled"
@@ -986,7 +985,7 @@ Item {
                         anchors.fill: playerControlLabelContainer
                         color: "transparent"
                         function trigger() {
-                            nowPlaying.visible = true;
+                            tabs.setNowPlaying(true);
                         }
                     }
                 }
