@@ -53,10 +53,10 @@ UbuntuShape {
                 width: coverRow.size
                 height: width
                 source: coverRow.count === 0 || coverRow.covers[index] === ""
-                        ? Qt.resolvedUrl("../images/cover_default_icon.png") : coverRow.covers[index]
+                        ? Qt.resolvedUrl("../images/music-app-cover@30.png") : coverRow.covers[index]
                 onStatusChanged: {
                     if (status === Image.Error) {
-                        source = Qt.resolvedUrl("../images/cover_default_icon.png")
+                        source = Qt.resolvedUrl("../images/music-app-cover@30.png")
                     }
                 }
             }

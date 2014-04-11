@@ -25,7 +25,7 @@ Rectangle {
     anchors.fill: parent
     property string cover: player.currentMetaCover !== "" ?
                                player.currentMetaCover :
-                               "images/cover_default.png"
+                               "../images/music-app-cover@30.png"
     // the album art
     Image {
         id: backgroundImage
@@ -35,6 +35,11 @@ Rectangle {
         height: Math.max(parent.height, parent.width)
         width: Math.max(parent.height, parent.width)
         visible: false
+        onStatusChanged: {
+            if (status === Image.Error) {
+                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+        }
     }
     // the blur
     FastBlur {

@@ -527,10 +527,10 @@ Page {
                         height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
-                            source: cover !== "" ? cover : "images/cover_default.png"
+                            source: cover !== "" ? cover : "images/music-app-cover@30.png"
                             onStatusChanged: {
                                 if (status === Image.Error) {
-                                    source = Qt.resolvedUrl("images/cover_default.png")
+                                    source = Qt.resolvedUrl("images/music-app-cover@30.png")
                                 }
                             }
                         }
