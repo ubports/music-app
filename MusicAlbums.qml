@@ -80,7 +80,7 @@ Page {
                         source: cover
                         onStatusChanged: {
                             if (status === Image.Error) {
-                                source = Qt.resolvedUrl("images/cover_default.png")
+                                source = Qt.resolvedUrl("images/music-app-cover@30.png")
                             }
                         }
                     }
