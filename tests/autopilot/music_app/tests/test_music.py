@@ -49,6 +49,15 @@ class TestMainWindow(MusicTestCase):
             logger.debug("Shuffle already off")
         self.assertThat(self.player.shuffle, Eventually(Equals(False)))
 
+    def turn_shuffle_on(self):
+        if not self.player.shuffle:
+            shufflebutton = self.main_view.get_shuffle_button()
+            logger.debug("Turning on shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already on")
+        self.assertThat(self.player.shuffle, Eventually(Equals(True)))
+
     def turn_repeat_off(self):
         if self.player.repeat:
             repeatbutton = self.main_view.get_repeat_button()
@@ -252,7 +261,6 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(song)
 
         """ Track is playing, shuffle is turned on"""
-        shufflebutton = self.main_view.get_shuffle_button()
         forwardbutton = self.main_view.get_forward_button()
         playbutton = self.main_view.get_now_playing_play_button()
         previousbutton = self.main_view.get_previous_button()
@@ -285,13 +293,7 @@ class TestMainWindow(MusicTestCase):
             if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
-            #ensure shuffle is on
-            if not self.player.shuffle:
-                logger.debug("Turning on shuffle")
-                self.pointing_device.click_object(shufflebutton)
-            else:
-                logger.debug("Shuffle already on")
-            self.assertThat(self.player.shuffle, Eventually(Equals(True)))
+            self.turn_shuffle_on()
 
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.player.isPlaying,
