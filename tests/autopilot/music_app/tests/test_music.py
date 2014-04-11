@@ -37,7 +37,8 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        song = self.main_view.get_album_sheet_listview_tracktitle(self.FIRST_TITLE)
+        title = self.FIRST_TITLE
+        song = self.main_view.get_album_sheet_listview_tracktitle(title)
         self.pointing_device.click_object(song)
 
     def turn_shuffle_off(self):
@@ -618,7 +619,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_playback_repeats_when_last_song_ends_and_repeat_on(self):
-        """With repeat on, the first song should play after the last one ends"""
+        """With repeat on, the 1st song should play after the last one ends"""
         self.populate_and_play_queue()
         self.turn_shuffle_off()
         self.turn_repeat_on()
@@ -651,7 +652,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_pressing_prev_from_first_song_plays_last_when_repeat_on(self):
-        """With repeat on, 'previous' from the first song plays the last one."""
+        """With repeat on, 'previous' from the 1st song plays the last one."""
         self.populate_and_play_queue()
         self.turn_shuffle_off()
         self.turn_repeat_on()
