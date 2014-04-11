@@ -35,6 +35,11 @@ Rectangle {
         height: Math.max(parent.height, parent.width)
         width: Math.max(parent.height, parent.width)
         visible: false
+        onStatusChanged: {
+            if (status === Image.Error) {
+                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+        }
     }
     // the blur
     FastBlur {
