@@ -30,23 +30,14 @@ import "settings.js" as Settings
 Page {
     id: nowPlaying
     objectName: "nowplayingpage"
-    anchors.fill: parent
-    title: i18n.tr("Queue")
+    title: i18n.tr("Now Playing")
+    tools: null
     visible: false
 
     onVisibleChanged: {
         if (visible === true)
         {
-            header.hide();
-            header.opacity = 0;
-            header.enabled = false;
-            musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
-        }
-        else
-        {
-            header.enabled = true;
-            header.opacity = 1;
-            header.show();
+            musicToolbar.setPage(nowPlaying, null, tabs.pageStack);
         }
     }
 
@@ -808,32 +799,17 @@ Page {
         }
     }
 
+    // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
     Rectangle {
         id: nowPlayingBackButton
         anchors {
             left: parent.left
             right: parent.right
         }
+
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
-
-        state: musicToolbar.opened ? "shown" : "hidden"
-        states: [
-            State {
-                name: "shown"
-                AnchorChanges {
-                    target: nowPlayingBackButton
-                    anchors.top: parent.top
-                }
-            },
-            State {
-                name: "hidden"
-                AnchorChanges {
-                    target: nowPlayingBackButton
-                    anchors.bottom: parent.top
-                }
-            }
-        ]
+        y: header.y + header.height
 
         Image {
             id: expandItem

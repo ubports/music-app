@@ -49,7 +49,7 @@ class MainView(toolkit_emulators.MainView):
 
         y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
 
-        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.height)
+        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
 
     def get_player(self):
         return self.select_single("*", objectName="player")
@@ -96,6 +96,10 @@ class MainView(toolkit_emulators.MainView):
         for item in albumartistList:
             if item.text == artistName:
                 return item
+
+    def get_add_to_queue_button(self):
+        return self.wait_select_single("QQuickImage",
+                                       objectName="albumsheet-queue-all")
 
     def get_album_sheet_artist(self):
         return self.wait_select_single("Label",
