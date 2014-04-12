@@ -9,7 +9,6 @@
 
 from __future__ import absolute_import
 
-import sys
 import time
 import logging
 from autopilot.matchers import Eventually
@@ -214,7 +213,6 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
-        shufflebutton = self.main_view.get_shuffle_button()
 
         title = self.player.currentMetaTitle
         artist = self.player.currentMetaArtist
