@@ -38,6 +38,10 @@ Rectangle {
         onStatusChanged: {
             if (status === Image.Error) {
                 source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                // TODO: This is a work around for LP:1261078. Ideally, there
+                //       should be a better way of getting the blur to repaint
+                backgroundBlur.source = null
+                backgroundBlur.source = backgroundImage
             }
         }
     }
