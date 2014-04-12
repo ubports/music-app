@@ -84,6 +84,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "x-small"
+                    color: UbuntuColors.warmGrey
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: parent.top
@@ -114,6 +115,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "xx-small"
+                    color: UbuntuColors.warmGrey
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: trackTitle.bottom
