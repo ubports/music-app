@@ -39,6 +39,10 @@ MainView {
     applicationName: "com.ubuntu.music"
     id: mainView
 
+    // Use toolbar color for header
+    headerColor: Style.toolbar.fullBackgroundColor
+    backgroundColor: Style.toolbar.fullBackgroundColor
+
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
