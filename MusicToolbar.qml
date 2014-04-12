@@ -534,6 +534,10 @@ Item {
                                 target: musicToolbarFullProgressHandle
                                 visible: false
                             }
+                            PropertyChanges {
+                                target: player
+                                currentMetaCover: ""
+                            }
                         },
                         State {
                             name: "enabled"
