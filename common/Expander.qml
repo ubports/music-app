@@ -186,7 +186,6 @@ Item {
             width: units.gu(15)
             Image {
                 id: queueTrack
-                objectName: "queuetrack"
                 anchors.verticalCenter: parent.verticalCenter
                 source: "../images/queue.png"
                 height: styleMusic.common.expandedItem
@@ -200,10 +199,11 @@ Item {
                 }
                 color: styleMusic.common.white
                 fontSize: "small"
-                width: parent.width - queueTrack.width - units.gu(1)
+                maximumLineCount: 3
+                objectName: "queuetrack"
                 text: i18n.tr("Add to queue")
                 wrapMode: Text.WordWrap
-                maximumLineCount: 3
+                width: parent.width - queueTrack.width - units.gu(1)
             }
             MouseArea {
                 anchors.fill: parent
