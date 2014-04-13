@@ -334,7 +334,7 @@ Item {
                             }
                         }
 
-                        Expandable {
+                        Expander {
                             id: expandable
                             anchors {
                                 fill: parent

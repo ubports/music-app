@@ -202,7 +202,7 @@ Page {
                     }
                 }
 
-                Expandable {
+                Expander {
                     id: expandable
                     anchors {
                         fill: parent
