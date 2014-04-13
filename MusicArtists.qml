@@ -94,7 +94,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "x-small"
-                    color: UbuntuColors.warmGrey
+                    color: styleMusic.common.subtitle
                     anchors {
                         left: trackArtistAlbum.left
                         top: trackArtistAlbum.bottom
@@ -112,7 +112,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "x-small"
-                    color: UbuntuColors.warmGrey
+                    color: styleMusic.common.subtitle
                     anchors {
                         left: trackArtistAlbum.left
                         top: trackArtistAlbums.bottom
