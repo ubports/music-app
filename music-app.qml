@@ -524,18 +524,6 @@ MainView {
         id: player
     }
 
-    SongsSheet {
-        id: songsSheet
-    }
-
-    AlbumsSheet {
-        id: artistSheet
-    }
-
-    MusicSearch {
-        id: searchSheet
-    }
-
     // Model to send the data
     XmlListModel {
         id: scrobblemodel
@@ -867,6 +855,19 @@ MainView {
     // search model
     LibraryListModel {
         id: searchModel
+    }
+
+    // load sheets (after model)
+    SongsSheet {
+        id: songsSheet
+    }
+
+    AlbumsSheet {
+        id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Blurred background
