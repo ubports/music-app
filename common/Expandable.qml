@@ -24,7 +24,10 @@ Item {
     id: expander
     property bool addToPlaylist: false
     property bool addToQueue: false
+    property alias backgroundOpacity: expandedBackground.opacity
     property int cachedListItemHeight: 0
+    property bool deletePlaylist: false
+    property bool editPlaylist: false
     property alias expanderButtonWidth: expandableButton.width
     property var listItem: null
     property var model: null
@@ -73,9 +76,9 @@ Item {
                 horizontalCenter: parent.horizontalCenter
                 verticalCenter: parent.verticalCenter
             }
-            source: expander.visible ? "../images/dropdown-menu-up.svg" : "../images/dropdown-menu.svg"
+            source: "../images/dropdown-menu.svg"
             height: styleMusic.common.expandedItem
-            rotation: expander.visible ? 180 : 0
+            rotation: expander.expanderVisible? 180 : 0
             width: styleMusic.common.expandedItem
         }
 
@@ -196,6 +199,91 @@ Item {
                     track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                     console.debug("Debug: Add track to queue: " + title)
                     trackQueue.append(model)
+                }
+            }
+        }
+
+        // edit column
+        Rectangle {
+            id: editColumn
+            anchors {
+                left: parent.left
+                leftMargin: styleMusic.common.expandedLeftMargin
+                top: parent.top
+            }
+            color: "transparent"
+            height: parent.height
+            visible: editPlaylist
+            width: units.gu(15)
+            Icon {
+                id: editPlaylistIcon
+                color: styleMusic.common.white
+                name: "edit"
+                height: styleMusic.common.expandedItem
+                width: styleMusic.common.expandedItem
+            }
+            Label {
+                anchors {
+                    left: editPlaylistIcon.right
+                    leftMargin: units.gu(0.5)
+                    verticalCenter: parent.verticalCenter
+                }
+                color: styleMusic.common.white
+                fontSize: "small"
+                // TRANSLATORS: this refers to editing a playlist
+                text: i18n.tr("Edit")
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    expander.expanderVisible = false;
+                    customdebug("Edit playlist")
+                    oldPlaylistName = name
+                    oldPlaylistID = id
+                    oldPlaylistIndex = index
+                    PopupUtils.open(editPlaylistDialog, mainView)
+                }
+            }
+        }
+
+        // delete column
+        Rectangle {
+            id: deleteColumn
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+            }
+            color: "transparent"
+            height: parent.height
+            visible: deletePlaylist
+            width: units.gu(15)
+            Icon {
+                id: deletePlaylistIcon
+                color: styleMusic.common.white
+                name: "delete"
+                height: styleMusic.common.expandedItem
+                width: styleMusic.common.expandedItem
+            }
+            Label {
+                anchors {
+                    left: deletePlaylistIcon.right
+                    leftMargin: units.gu(0.5)
+                    verticalCenter: parent.verticalCenter
+                }
+                color: styleMusic.common.white
+                fontSize: "small"
+                // TRANSLATORS: this refers to deleting a playlist
+                text: i18n.tr("Delete")
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    expander.expanderVisible = false;
+                    customdebug("Delete")
+                    oldPlaylistName = name
+                    oldPlaylistID = id
+                    oldPlaylistIndex = index
+                    PopupUtils.open(removePlaylistDialog, mainView)
                 }
             }
         }
