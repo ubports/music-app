@@ -65,10 +65,8 @@ Page {
                 return;
             }
 
-            // Collapse currently expanded track and the new current
-            collapseExpand(queuelist.currentIndex);
+            collapseExpand();  // Collapse expanded tracks
             queuelist.currentIndex = player.currentIndex;
-            collapseExpand(queuelist.currentIndex);
 
             customdebug("MusicQueue update currentIndex: " + player.source);
         }
@@ -121,7 +119,7 @@ Page {
         }
 
         property int normalHeight: units.gu(12)
-        property int currentHeight: units.gu(48)
+        property int currentHeight: units.gu(46)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -301,7 +299,7 @@ Page {
                         if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
                             collapseSwipeDelete(-1);  // collapse all expands
-                            collapseExpand(-1);  // collapse all
+                            collapseExpand();  // collapse all
                             customdebug("Pressed and held queued track "+file)
                             queuelist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
@@ -538,7 +536,7 @@ Page {
                             }
                         }
                         onHeightChanged: {
-                            if (height > queuelist.normalHeight) {
+                            if (height > queuelist.normalHeight && wideAspect) {
                                 anchors.left = undefined
                                 anchors.horizontalCenter = parent.horizontalCenter
                             } else {

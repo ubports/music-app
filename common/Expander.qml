@@ -40,7 +40,7 @@ Item {
 
     function onCollapseExpand(indexCol)
     {
-        if (indexCol === -1 && expanderVisible === true) {
+        if (expanderVisible) {
             customdebug("auto collapse")
             expanderVisible = false;
         }
@@ -63,12 +63,11 @@ Item {
         id: expandableButton
         anchors {
             right: parent.right
-            rightMargin: expandableButtonImage.width
             top: parent.top
         }
         color: "transparent"
         height: listItem.height
-        width: expandableButtonImage.width * 3
+        width: expandableButtonImage.width * 2
 
         Image {
             id: expandableButtonImage
@@ -84,9 +83,17 @@ Item {
 
         MouseArea {
             anchors {
-                fill: parent
+                right: parent.right
+                top: parent.top
             }
-            onClicked: expander.expanderVisible = !expander.expanderVisible;
+            height: parent.height
+            width: parent.width + units.gu(1)
+            onClicked: {
+                var expanderState = expander.expanderVisible;
+
+                collapseExpand();
+                expander.expanderVisible = !expanderState;
+            }
         }
     }
 

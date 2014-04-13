@@ -369,7 +369,7 @@ MainView {
     property var currentParam: null
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
-    signal collapseExpand(int index);
+    signal collapseExpand();
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
@@ -492,7 +492,7 @@ MainView {
             player.source = file
         }
 
-        collapseExpand(-1); // collapse all expands if track clicked
+        collapseExpand();  // collapse all expands if track clicked
 
         return file
     }
