@@ -200,9 +200,8 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     expander.expanderVisible = false
-                    track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
-                    console.debug("Debug: Add track to queue: " + title)
-                    trackQueue.append(model)
+                    console.debug("Debug: Add track to queue: " + expander.model)
+                    trackQueue.append(expander.model)
                 }
             }
         }
@@ -242,9 +241,9 @@ Item {
                 onClicked: {
                     expander.expanderVisible = false;
                     customdebug("Edit playlist")
-                    oldPlaylistName = name
-                    oldPlaylistID = id
-                    oldPlaylistIndex = index
+                    oldPlaylistName = expander.model.name
+                    oldPlaylistID = expander.model.id
+                    oldPlaylistIndex = expander.model.index
                     PopupUtils.open(editPlaylistDialog, mainView)
                 }
             }
@@ -284,9 +283,9 @@ Item {
                 onClicked: {
                     expander.expanderVisible = false;
                     customdebug("Delete")
-                    oldPlaylistName = name
-                    oldPlaylistID = id
-                    oldPlaylistIndex = index
+                    oldPlaylistName = expander.model.name
+                    oldPlaylistID = expander.model.id
+                    oldPlaylistIndex = expander.model.index
                     PopupUtils.open(removePlaylistDialog, mainView)
                 }
             }

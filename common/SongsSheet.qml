@@ -288,6 +288,7 @@ Item {
                                 anchors {
                                     left: trackCover.right
                                     leftMargin: units.gu(2)
+                                    top: parent.top
                                     topMargin: units.gu(1.5)
                                     right: parent.right
                                     rightMargin: units.gu(1.5)
@@ -341,7 +342,7 @@ Item {
                             addToPlaylist: true
                             addToQueue: true
                             listItem: track
-                            model: track.model
+                            model: albumTracksModel.model.get(index)
                         }
 
                         Component.onCompleted: {

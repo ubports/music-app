@@ -210,7 +210,7 @@ Page {
                     editPlaylist: true
                     deletePlaylist: true
                     listItem: playlist
-                    model: playlist.model
+                    model: {"name": name, "id": id, "index": index}
                 }
 
                 onClicked: {

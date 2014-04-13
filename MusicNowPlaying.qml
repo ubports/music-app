@@ -21,7 +21,6 @@ import QtMultimedia 5.0
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import "common"
 import "meta-database.js" as Library
@@ -601,7 +600,7 @@ Page {
 
                     addToPlaylist: true
                     listItem: queueListItem
-                    model: queueListItem.model
+                    model: trackQueue.model.get(index)
                 }
 
                 states: State {
@@ -662,7 +661,7 @@ Page {
         y: header.y + header.height
 
         Image {
-            id: expandItem
+            id: nowPlayingBackButtonImage
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             source: "images/dropdown-menu.svg"
