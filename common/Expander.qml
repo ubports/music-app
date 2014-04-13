@@ -40,9 +40,9 @@ Item {
 
     function onCollapseExpand(indexCol)
     {
-        if (expanderVisible) {
+        if (expander !== undefined && expander.expanderVisible) {
             customdebug("auto collapse")
-            expanderVisible = false;
+            expander.expanderVisible = false;
         }
     }
 

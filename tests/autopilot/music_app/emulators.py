@@ -191,7 +191,7 @@ class MainView(toolkit_emulators.MainView):
 
     def get_songs_tab_add_to_queue_label(self):
         addtoqueue = self.select_many(
-            "Label", objectName="addtoqueue")
+            "Label", objectName="queuetrack")
         for item in addtoqueue:
             if item.visible:
                 return item
