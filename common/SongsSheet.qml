@@ -254,7 +254,6 @@ Item {
                             id: trackContainer;
                             anchors {
                                 fill: parent
-                                margins: units.gu(0.5)
                                 rightMargin: expandable.expanderButtonWidth
                             }
                             color: "transparent"
@@ -289,7 +288,6 @@ Item {
                                 anchors {
                                     left: trackCover.right
                                     leftMargin: units.gu(2)
-                                    top: parent.top
                                     topMargin: units.gu(1.5)
                                     right: parent.right
                                     rightMargin: units.gu(1.5)

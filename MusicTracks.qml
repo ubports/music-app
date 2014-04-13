@@ -78,7 +78,6 @@ Page {
                     id: trackContainer;
                     anchors {
                         fill: parent
-                        margins: units.gu(0.5)
                         rightMargin: expandable.expanderButtonWidth
                     }
                     color: "transparent"

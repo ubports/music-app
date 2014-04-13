@@ -138,9 +138,11 @@ Item {
                 width: styleMusic.common.expandedItem
             }
             Label {
-                anchors.left: playlistTrack.right
-                anchors.leftMargin: units.gu(0.5)
-                anchors.verticalCenter: parent.verticalCenter
+                anchors {
+                    left: playlistTrack.right
+                    leftMargin: units.gu(0.5)
+                    verticalCenter: parent.verticalCenter
+                }
                 color: styleMusic.common.white
                 fontSize: "small"
                 wrapMode: Text.WordWrap
@@ -182,9 +184,11 @@ Item {
                 width: styleMusic.common.expandedItem
             }
             Label {
-                anchors.left: queueTrack.right
-                anchors.leftMargin: units.gu(0.5)
-                anchors.verticalCenter: parent.verticalCenter
+                anchors {
+                    left: queueTrack.right
+                    leftMargin: units.gu(0.5)
+                    verticalCenter: parent.verticalCenter
+                }
                 color: styleMusic.common.white
                 fontSize: "small"
                 width: parent.width - queueTrack.width - units.gu(1)
