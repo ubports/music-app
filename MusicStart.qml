@@ -78,7 +78,7 @@ Page {
                         leftMargin: units.gu(2)
                     }
                     text: i18n.tr("Recent")
-                    color: styleMusic.common.black
+                    color: styleMusic.common.music
                 }
                 visible: mainView.hasRecent
             }
@@ -215,7 +215,7 @@ Page {
                         leftMargin: units.gu(2)
                     }
                     text: i18n.tr("Genres")
-                    color: styleMusic.common.black
+                    color: styleMusic.common.music
                 }
             }
             // TODO: add music genres. frequency of play? most tracks?
@@ -331,7 +331,7 @@ Page {
                         leftMargin: units.gu(2)
                     }
                     text: i18n.tr("Albums")
-                    color: styleMusic.common.black
+                    color: styleMusic.common.music
                 }
                 anchors.top: albumsDivider.bottom
             }
