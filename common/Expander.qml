@@ -77,6 +77,7 @@ Item {
             }
             source: "../images/dropdown-menu.svg"
             height: styleMusic.common.expandedItem
+            objectName: "expanditem"
             rotation: expander.expanderVisible? 180 : 0
             width: styleMusic.common.expandedItem
         }
@@ -152,10 +153,11 @@ Item {
                 }
                 color: styleMusic.common.white
                 fontSize: "small"
-                wrapMode: Text.WordWrap
-                width: parent.width - playlistTrack.width - units.gu(1)
-                text: i18n.tr("Add to playlist")
                 maximumLineCount: 3
+                objectName: "addtoplaylist"
+                text: i18n.tr("Add to playlist")
+                width: parent.width - playlistTrack.width - units.gu(1)
+                wrapMode: Text.WordWrap
             }
             MouseArea {
                anchors.fill: parent
@@ -184,7 +186,7 @@ Item {
             width: units.gu(15)
             Image {
                 id: queueTrack
-                objectName: "albumsheet-queuetrack"
+                objectName: "queuetrack"
                 anchors.verticalCenter: parent.verticalCenter
                 source: "../images/queue.png"
                 height: styleMusic.common.expandedItem
@@ -227,6 +229,10 @@ Item {
             width: units.gu(15)
             Icon {
                 id: editPlaylistIcon
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
                 color: styleMusic.common.white
                 name: "edit"
                 height: styleMusic.common.expandedItem
@@ -269,6 +275,10 @@ Item {
             width: units.gu(15)
             Icon {
                 id: deletePlaylistIcon
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                }
                 color: styleMusic.common.white
                 name: "delete"
                 height: styleMusic.common.expandedItem
