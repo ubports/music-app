@@ -492,6 +492,8 @@ MainView {
             player.source = file
         }
 
+        collapseExpand(-1); // collapse all expands if track clicked
+
         return file
     }
 

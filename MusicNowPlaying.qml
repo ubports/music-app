@@ -497,10 +497,14 @@ Page {
                         selected = false
                     }
                 }
+
                 Rectangle {
                     id: trackContainer;
-                    anchors.fill: parent
-                    anchors.margins: units.gu(0.5)
+                    anchors {
+                        fill: parent
+                        margins: units.gu(0.5)
+                        rightMargin: expandable.expanderButtonWidth
+                    }
                     color: "transparent"
 
                     NumberAnimation {
@@ -559,7 +563,7 @@ Page {
                         height: units.gu(1)
                         text: artist
                         fontSize: 'small'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: trackImage.y + units.gu(1)
                     }
@@ -571,7 +575,7 @@ Page {
                         height: units.gu(1)
                         text: title
                         fontSize: 'medium'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
@@ -583,172 +587,21 @@ Page {
                         height: units.gu(1)
                         text: album
                         fontSize: 'x-small'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
-                    Image {
-                        id: expandItem
-                        source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
-                        height: styleMusic.common.expandedItem
-                        width: styleMusic.common.expandedItem
-                        x: parent.x + parent.width - width - units.gu(2)
-                        y: trackImage.y + (queuelist.normalHeight / 2) - (styleMusic.common.expandedItem / 2) - units.gu(1)  // -margin
-                    }
-
-                    MouseArea {
-                        id: expandItemMouseArea
-                        height: queuelist.normalHeight
-                        width: styleMusic.common.expandedItem * 3
-                        x: parent.x + parent.width - width
-                        y: trackImage.y - units.gu(1)  // -margin
-
-                        onClicked: {
-                           if(expandable.visible) {
-                               customdebug("clicked collapse");
-                               expandable.visible = false;
-                               queueListItem.height = queueListItem.cachedHeight;
-                               Rotation: {
-                                   source: expandItem;
-                                   angle: 0;
-                               }
-                           }
-                           else {
-                               customdebug("clicked expand");
-                               collapseExpand(-1);  // collapse all others first
-                               expandable.visible = true;
-                               queueListItem.cachedHeight = queueListItem.height;
-                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal;
-                               Rotation: {
-                                   source: expandItem;
-                                   angle: 180;
-                               }
-                           }
-                       }
-                   }
                 }
 
-                Rectangle {
+                Expandable {
                     id: expandable
-                    color: "transparent"
-                    height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal
-                    visible: false
-                    MouseArea {
-                       anchors.fill: parent
-                       onClicked: {
-                           customdebug("User pressed outside the playlist item and expanded items.")
-                       }
+                    anchors {
+                        fill: parent
                     }
 
-                    Component.onCompleted: {
-                        collapseExpand.connect(onCollapseExpand);
-                    }
-
-                    function onCollapseExpand(indexCol)
-                    {
-                        if (indexCol === -1 && expandable !== undefined && expandable.visible === true)
-                        {
-                            customdebug("auto collapse")
-                            expandable.visible = false
-                            queueListItem.height = queueListItem.cachedHeight
-                            Rotation: {
-                                source: expandItem;
-                                angle: 0;
-                            }
-                        }
-                    }
-
-                    // background for expander
-                    Rectangle {
-                        id: expandedBackground
-                        anchors.top: parent.top
-                        anchors.topMargin: queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight
-                        color: styleMusic.common.black
-                        height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight : styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight
-                        width: queueListItem.width
-                        opacity: 0.4
-                    }
-
-                    // add to playlist
-                    Rectangle {
-                        id: playlistRow
-                        anchors.top: expandedBackground.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: styleMusic.common.expandedLeftMargin
-                        color: "transparent"
-                        height: expandedBackground.height
-                        width: units.gu(15)
-                        Icon {
-                            id: playlistTrack
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: styleMusic.common.white
-                            name: "add"
-                            height: styleMusic.common.expandedItem
-                            width: styleMusic.common.expandedItem
-                        }
-                        Label {
-                            anchors.left: playlistTrack.right
-                            anchors.leftMargin: units.gu(0.5)
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: styleMusic.common.white
-                            fontSize: "small"
-                            wrapMode: Text.WordWrap
-                            width: parent.width - playlistTrack.width - units.gu(1)
-                            text: i18n.tr("Add to playlist")
-                            maximumLineCount: 3
-                        }
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               expandable.visible = false;
-                               queueListItem.height = queueListItem.cachedHeight;
-                               chosenElement = model;
-                               console.debug("Debug: Add track to playlist");
-                               PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
-                               {
-                                   title: i18n.tr("Select playlist")
-                               } )
-                           }
-                        }
-                    }
-                    // Share
-                    Rectangle {
-                        id: shareRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((queueListItem.state === "current" ?
-                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
-                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
-                                            / 2)
-                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
-                                           - (height / 2)
-                        anchors.left: playlistRow.left
-                        anchors.leftMargin: units.gu(15)
-                        color: "transparent"
-                        height: styleMusic.common.expandedItem
-                        width: units.gu(15)
-                        visible: false
-                        Icon {
-                            id: shareTrack
-                            name: "share"
-                            height: styleMusic.common.expandedItem
-                            width: styleMusic.common.expandedItem
-                        }
-                        Label {
-                            text: i18n.tr("Share")
-                            wrapMode: Text.WordWrap
-                            fontSize: "small"
-                            anchors.left: shareTrack.right
-                            anchors.leftMargin: units.gu(0.5)
-                        }
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               expandable.visible = false
-                               track.height = styleMusic.common.itemHeight
-                               customdebug("Share")
-                           }
-                        }
-                    }
+                    addToPlaylist: true
+                    listItem: queueListItem
+                    model: queueListItem.model
                 }
 
                 states: State {
@@ -759,29 +612,21 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingArtist
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbum
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
-                    }
-                    PropertyChanges {
-                        target: expandItem
-                        y: trackImage.y + trackImage.height + units.gu(4) - (expandItem.height / 2)
-                    }
-                    PropertyChanges {
-                        target: expandItemMouseArea
-                        y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                 }
                 transitions: Transition {
