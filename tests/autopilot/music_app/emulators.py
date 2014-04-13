@@ -146,9 +146,9 @@ class MainView(toolkit_emulators.MainView):
             if item.globalRect[1] == tracktitle_position:
                 return item
 
-    def get_album_sheet_queuetrack_image(self):
+    def get_album_sheet_queuetrack_label(self):
         queuetracks = self.select_many_retry(
-            "QQuickImage", objectName="queuetrack")
+            "Label", objectName="queuetrack")
         for item in queuetracks:
             if item.visible:
                 return item
