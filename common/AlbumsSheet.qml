@@ -59,6 +59,152 @@ Item {
                 anchors.bottom: parent.bottom
                 model: artistAlbumsModel.model
                 delegate: albumTracksDelegate
+                header: if (albumtrackslist.count > 1) { artistHeaderDelegate } else { null }
+
+                Component {
+                    id: artistHeaderDelegate
+                    ListItem.Standard {
+                        id: artistInfo
+                        height: units.gu(22)
+                        width: parent.width
+
+                        CoverRow {
+                            id: artistImage
+                            anchors {
+                                left: parent.left
+                                margins: units.gu(1)
+                                top: parent.top
+                            }
+                            function getAlbums() {
+                                var covers = [];
+
+                                for (var i=0; i < albumtrackslist.count; i++) {
+                                    covers.push(Library.getAlbumCover(albumtrackslist.model.get(i).album))
+                                }
+
+                                return covers;
+                            }
+
+                            count: albumtrackslist.count
+                            size: units.gu(20)
+                            covers: getAlbums()
+                            spacing: units.gu(2)
+                        }
+
+                        Label {
+                            id: artistLabel
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 1
+                            fontSize: "small"
+                            anchors.left: artistImage.right
+                            anchors.leftMargin: units.gu(1)
+                            anchors.top: parent.top
+                            anchors.topMargin: units.gu(1.5)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
+                            text: artist
+                        }
+
+                        Label {
+                            id: artistCount
+                            wrapMode: Text.NoWrap
+                            maximumLineCount: 2
+                            fontSize: "medium"
+                            color: styleMusic.common.music
+                            anchors.left: artistImage.right
+                            anchors.leftMargin: units.gu(1)
+                            anchors.top: artistLabel.bottom
+                            anchors.topMargin: units.gu(0.8)
+                            anchors.right: parent.right
+                            anchors.rightMargin: units.gu(1.5)
+                            elide: Text.ElideRight
+                            text: albumtrackslist.count + " albums"
+                        }
+
+                        // Play
+                        Rectangle {
+                            id: playRow
+                            anchors.top: artistCount.bottom
+                            anchors.topMargin: units.gu(1)
+                            anchors.left: artistImage.right
+                            anchors.leftMargin: units.gu(1)
+                            color: "transparent"
+                            height: units.gu(4)
+                            width: units.gu(15)
+                            Image {
+                                id: playTrack
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../images/add-to-playback.png"
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                anchors.left: playTrack.right
+                                anchors.leftMargin: units.gu(0.5)
+                                anchors.verticalCenter: parent.verticalCenter
+                                fontSize: "small"
+                                width: parent.width - playTrack.width - units.gu(1)
+                                text: i18n.tr("Play all")
+                                wrapMode: Text.WordWrap
+                                maximumLineCount: 3
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    albumTracksModel.filterArtistTracks(artist)
+                                    trackQueue.model.clear()
+                                    addQueueFromModel(albumTracksModel)
+                                    trackClicked(trackQueue, 0)  // play track
+
+                                    // TODO: add links to recent
+
+                                    // TODO: This closes the SDK defined sheet
+                                    //       component. It should be able to close
+                                    //       albumSheet.
+                                    PopupUtils.close(sheet)
+                                }
+                            }
+                        }
+
+                        // Queue
+                        Rectangle {
+                            id: queueAllRow
+                            anchors.top: playRow.bottom
+                            anchors.topMargin: units.gu(1)
+                            anchors.left: artistImage.right
+                            anchors.leftMargin: units.gu(1)
+                            color: "transparent"
+                            height: units.gu(4)
+                            width: units.gu(15)
+                            Image {
+                                id: queueAll
+                                objectName: "albumsheet-queue-all"
+                                anchors.verticalCenter: parent.verticalCenter
+                                source: "../images/add.svg"
+                                height: styleMusic.common.expandedItem
+                                width: styleMusic.common.expandedItem
+                            }
+                            Label {
+                                anchors.left: queueAll.right
+                                anchors.leftMargin: units.gu(0.5)
+                                anchors.verticalCenter: parent.verticalCenter
+                                fontSize: "small"
+                                width: parent.width - queueAll.width - units.gu(1)
+                                text: i18n.tr("Add to queue")
+                                wrapMode: Text.WordWrap
+                                maximumLineCount: 3
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    albumTracksModel.filterArtistTracks(artist)
+                                    addQueueFromModel(albumTracksModel)
+                                }
+                            }
+                        }
+                    }
+                }
 
                 Component {
                     id: albumTracksDelegate
