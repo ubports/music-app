@@ -40,8 +40,8 @@ MainView {
     id: mainView
 
     // Use toolbar color for header
-    headerColor: Style.toolbar.fullBackgroundColor
-    backgroundColor: Style.toolbar.fullBackgroundColor
+    headerColor: styleMusic.toolbar.fullBackgroundColor
+    backgroundColor: styleMusic.toolbar.fullBackgroundColor
 
     // Global keyboard shortcuts
     focus: true
