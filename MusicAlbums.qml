@@ -43,14 +43,22 @@ Page {
         id: musicSettings
     }
 
+    // TODO: This ListView is empty and causes the header to get painted with the desired background color because the
+    //       page is now vertically flickable.
+    ListView {
+        anchors.fill: parent
+        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+    }
+
     GridView {
         id: albumlist
         anchors.fill: parent
         anchors.leftMargin: units.gu(1)
-        anchors.topMargin: units.gu(1)
+        anchors.top: parent.top
+        anchors.topMargin: mainView.header.height + units.gu(1)
         anchors.bottomMargin: units.gu(1)
-        cellHeight: (parent.height - units.gu(2))/3
-        cellWidth: (parent.height - units.gu(2))/3
+        cellHeight: height/3
+        cellWidth: height/3
         model: albumModel.model
         delegate: albumDelegate
         flow: GridView.TopToBottom
