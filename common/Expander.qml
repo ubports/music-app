@@ -33,6 +33,7 @@ Item {
     property var model: null
     property bool share: false
     property bool expanderVisible: false
+    property bool _heightChangeLock: false
 
     Component.onCompleted: {
         collapseExpand.connect(onCollapseExpand);
@@ -46,15 +47,39 @@ Item {
         }
     }
 
+    Connections {
+        target: listItem
+        onHeightChanged: {
+            if (!expander._heightChangeLock) {
+                if (expander.expanderVisible) {
+                    expander.cachedListItemHeight = listItem.height;
+
+                    expander._heightChangeLock = true;
+                    listItem.height += styleMusic.albums.expandHeight;
+                    expander._heightChangeLock = false;
+                }
+                else {
+                    expandableButton.height = listItem.height;
+                }
+            }
+        }
+    }
+
     onExpanderVisibleChanged: {
         if (expanderVisible) {
             cachedListItemHeight = listItem.height;
 
             expandableButton.height = cachedListItemHeight;
+
+            expander._heightChangeLock = true;
             listItem.height += styleMusic.albums.expandHeight;
+            expander._heightChangeLock = false;
         }
         else {
+            expander._heightChangeLock = true;
             listItem.height -= styleMusic.albums.expandHeight;
+            expander._heightChangeLock = false;
+
             expandableButton.height = listItem.height;
         }
     }
@@ -84,7 +109,7 @@ Item {
 
         MouseArea {
             anchors {
-                right: parent.right
+                horizontalCenter: parent.horizontalCenter
                 top: parent.top
             }
             height: parent.height
