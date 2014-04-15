@@ -535,14 +535,26 @@ Page {
                                 }
                             }
                         }
-                        onHeightChanged: {
-                            if (height > queuelist.normalHeight && wideAspect) {
-                                anchors.left = undefined
-                                anchors.horizontalCenter = parent.horizontalCenter
+
+                        function calcAnchors() {
+                            if (trackImage.height > queuelist.normalHeight && mainView.wideAspect) {
+                                trackImage.anchors.left = undefined
+                                trackImage.anchors.horizontalCenter = trackImage.parent.horizontalCenter
                             } else {
-                                anchors.left = parent.left
-                                anchors.horizontalCenter = undefined
+                                trackImage.anchors.left = trackImage.parent.left
+                                trackImage.anchors.horizontalCenter = undefined
                             }
+
+                            trackImage.width = trackImage.height;  // force width to match height
+                        }
+
+                        Connections {
+                            target: mainView
+                            onWideAspectChanged: trackImage.calcAnchors()
+                        }
+
+                        onHeightChanged: {
+                            calcAnchors()
                         }
                         Behavior on height {
                             NumberAnimation {
