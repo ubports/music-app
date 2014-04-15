@@ -21,6 +21,8 @@ logger = logging.getLogger(__name__)
 
 
 class TestMainWindow(MusicTestCase):
+    FIRST_TITLE = "Foss Yeaaaah! (Radio Edit)"
+    LAST_TITLE = "TestMP3Title"
 
     def setUp(self):
         super(TestMainWindow, self).setUp()
@@ -29,6 +31,50 @@ class TestMainWindow(MusicTestCase):
         #wait for activity indicator to stop spinning
         spinner = lambda: self.main_view.get_spinner().running
         self.assertThat(spinner, Eventually(Equals(False)))
+
+    def populate_and_play_queue(self):
+        first_genre_item = self.main_view.get_first_genre_item()
+        self.pointing_device.click_object(first_genre_item)
+
+        title = self.FIRST_TITLE
+        song = self.main_view.get_album_sheet_listview_tracktitle(title)
+        self.pointing_device.click_object(song)
+
+    def turn_shuffle_off(self):
+        if self.player.shuffle:
+            shufflebutton = self.main_view.get_shuffle_button()
+            logger.debug("Turning off shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already off")
+        self.assertThat(self.player.shuffle, Eventually(Equals(False)))
+
+    def turn_shuffle_on(self):
+        if not self.player.shuffle:
+            shufflebutton = self.main_view.get_shuffle_button()
+            logger.debug("Turning on shuffle")
+            self.pointing_device.click_object(shufflebutton)
+        else:
+            logger.debug("Shuffle already on")
+        self.assertThat(self.player.shuffle, Eventually(Equals(True)))
+
+    def turn_repeat_off(self):
+        if self.player.repeat:
+            repeatbutton = self.main_view.get_repeat_button()
+            logger.debug("Turning off repeat")
+            self.pointing_device.click_object(repeatbutton)
+        else:
+            logger.debug("Repeat already off")
+        self.assertThat(self.player.repeat, Eventually(Equals(False)))
+
+    def turn_repeat_on(self):
+        if not self.player.repeat:
+            repeatbutton = self.main_view.get_repeat_button()
+            logger.debug("Turning on repeat")
+            self.pointing_device.click_object(repeatbutton)
+        else:
+            logger.debug("Repeat already on")
+        self.assertThat(self.player.repeat, Eventually(Equals(True)))
 
     def test_reads_music_library(self):
         """ tests if the music library is populated from our
@@ -124,14 +170,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
-        #ensure shuffle is off
-        if self.player.shuffle:
-            shufflebutton = self.main_view.get_shuffle_button()
-            logger.debug("Turning off shuffle")
-            self.pointing_device.click_object(shufflebutton)
-        else:
-            logger.debug("Shuffle already off")
-        self.assertThat(self.player.shuffle, Eventually(Equals(False)))
+        self.turn_shuffle_off()
 
         """ Select next """
         #goal is to go back and forth and ensure 2 different songs
@@ -174,18 +213,11 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
-        shufflebutton = self.main_view.get_shuffle_button()
 
         title = self.player.currentMetaTitle
         artist = self.player.currentMetaArtist
 
-        #ensure shuffle is off
-        if self.player.shuffle:
-            logger.debug("Turning off shuffle")
-            self.pointing_device.click_object(shufflebutton)
-            self.assertThat(self.player.shuffle, Eventually(Equals(False)))
-        else:
-            logger.debug("Shuffle already off")
+        self.turn_shuffle_off()
 
         """ Track is playing """
         count = 1
@@ -228,7 +260,6 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(song)
 
         """ Track is playing, shuffle is turned on"""
-        shufflebutton = self.main_view.get_shuffle_button()
         forwardbutton = self.main_view.get_forward_button()
         playbutton = self.main_view.get_now_playing_play_button()
         previousbutton = self.main_view.get_previous_button()
@@ -261,13 +292,7 @@ class TestMainWindow(MusicTestCase):
             if (not self.main_view.toolbarShown):
                 self.main_view.show_toolbar()
 
-            #ensure shuffle is on
-            if not self.player.shuffle:
-                logger.debug("Turning on shuffle")
-                self.pointing_device.click_object(shufflebutton)
-            else:
-                logger.debug("Shuffle already on")
-            self.assertThat(self.player.shuffle, Eventually(Equals(True)))
+            self.turn_shuffle_on()
 
             self.pointing_device.click_object(forwardbutton)
             self.assertThat(self.player.isPlaying,
@@ -283,13 +308,7 @@ class TestMainWindow(MusicTestCase):
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(False)))
 
-            #ensure shuffle is off
-            if self.player.shuffle:
-                logger.debug("Turning off shuffle")
-                self.pointing_device.click_object(shufflebutton)
-            else:
-                logger.debug("Shuffle already off")
-            self.assertThat(self.player.shuffle, Eventually(Equals(False)))
+            self.turn_shuffle_off()
 
             self.pointing_device.click_object(previousbutton)
 
@@ -580,3 +599,71 @@ class TestMainWindow(MusicTestCase):
         # verify song has been deleted
         finalqueueCount = self.main_view.get_queue_track_count()
         self.assertThat(finalqueueCount, Equals(initialqueueCount - 1))
+
+    def test_playback_stops_when_last_song_ends_and_repeat_off(self):
+        """Check that playback stops when the last song in the queue ends"""
+        self.populate_and_play_queue()
+        self.turn_shuffle_off()
+        self.turn_repeat_off()
+
+        num_tracks = self.main_view.get_queue_track_count()
+
+        #Skip through all songs in queue, stopping on last one.
+        forward_button = self.main_view.get_forward_button()
+        for count in range(0, num_tracks - 1):
+            self.pointing_device.click_object(forward_button)
+
+        #When the last song ends, playback should stop
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+    def test_playback_repeats_when_last_song_ends_and_repeat_on(self):
+        """With repeat on, the 1st song should play after the last one ends"""
+        self.populate_and_play_queue()
+        self.turn_shuffle_off()
+        self.turn_repeat_on()
+
+        num_titles = self.main_view.get_queue_track_count()
+        #Skip through all songs in queue, stopping on last one.
+        forward_button = self.main_view.get_forward_button()
+        for count in range(0, num_titles - 1):
+            self.pointing_device.click_object(forward_button)
+
+        #Make sure we loop back to first song after last song ends
+        actual_title = lambda: self.player.currentMetaTitle
+        self.assertThat(actual_title, Eventually(Equals(self.FIRST_TITLE)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+
+    def test_pressing_next_from_last_song_plays_first_when_repeat_on(self):
+        """With repeat on, skipping the last song jumps to the first track"""
+        self.populate_and_play_queue()
+        self.turn_shuffle_off()
+        self.turn_repeat_on()
+
+        num_titles = self.main_view.get_queue_track_count()
+        #Skip through all songs in queue, INCLUDING last one.
+        forward_button = self.main_view.get_forward_button()
+        for count in range(0, num_titles - 1):
+            self.pointing_device.click_object(forward_button)
+
+        actual_title = lambda: self.player.currentMetaTitle
+        self.assertThat(actual_title, Eventually(Equals(self.FIRST_TITLE)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+
+    def test_pressing_prev_from_first_song_plays_last_when_repeat_on(self):
+        """With repeat on, 'previous' from the 1st song plays the last one."""
+        self.populate_and_play_queue()
+        self.turn_shuffle_off()
+        self.turn_repeat_on()
+
+        prev_button = self.main_view.get_previous_button()
+        initial_song = self.player.currentMetaTitle
+        self.pointing_device.click_object(prev_button)
+        #If we're far enough into a song, pressing prev just takes us to the
+        #beginning of that track.  In that case, hit prev again to actually
+        #skip over the track.
+        if self.player.currentMetaTitle == initial_song:
+            self.pointing_device.click_object(prev_button)
+
+        actual_title = lambda: self.player.currentMetaTitle
+        self.assertThat(actual_title, Eventually(Equals(self.LAST_TITLE)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))

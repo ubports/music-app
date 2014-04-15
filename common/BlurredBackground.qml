@@ -55,8 +55,9 @@ Rectangle {
         opacity: 0.7
     }
     onCoverChanged: {
-        // TODO: This is a work around for LP:1261078. Ideally, there should be
-        //       a better way of getting the blur to repaint
+        // TODO: This is a work around for LP:1261078 and LP:1306845. Ideally,
+        //       there should be a better way of getting the blur to repaint
+        backgroundImage.source = cover
         backgroundBlur.source = null
         backgroundBlur.source = backgroundImage
     }

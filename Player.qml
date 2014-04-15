@@ -62,6 +62,8 @@ Item {
             if (trackQueue.model.count === 1) {
                 player.currentIndex = 0;
                 player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
+            } else if (trackQueue.model.count === 0) {
+                player.currentMetaCover = ""
             }
         }
     }
