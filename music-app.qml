@@ -356,6 +356,11 @@ MainView {
 
         // show toolbar hint at startup
         musicToolbar.showToolbar();
+
+        // TODO: Switch tabs back and forth to get the background color in the
+        //       header to work properly.
+        tabs.selectedTabIndex = 1
+        tabs.selectedTabIndex = 0
     }
 
 
