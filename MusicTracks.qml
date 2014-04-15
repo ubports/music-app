@@ -99,55 +99,62 @@ Page {
                     }
                     Label {
                         id: trackArtist
-                        anchors {
-                            left: trackCover.right
-                            leftMargin: units.gu(1.5)
-                            right: parent.right
-                            rightMargin: units.gu(1.5)
-                            top: parent.top
-                            topMargin: units.gu(2)
-                        }
-                        elide: Text.ElideRight
-                        fontSize: "x-small"
-                        height: units.gu(1)
-                        maximumLineCount: 2
-                        text: artist
                         wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "x-small"
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: parent.top
+                        anchors.topMargin: units.gu(1.5)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        text: artist
                     }
                     Label {
                         id: trackTitle
-                        anchors {
-                            left: trackCover.right
-                            leftMargin: units.gu(1.5)
-                            right: parent.right
-                            rightMargin: units.gu(1.5)
-                            top: trackArtist.bottom
-                            topMargin: units.gu(1.5)
-                        }
-                        color: styleMusic.common.music
-                        elide: Text.ElideRight
-                        fontSize: "small"
-                        height: units.gu(2)
-                        maximumLineCount: 1
                         objectName: "tracktitle"
-                        text: track.title
                         wrapMode: Text.NoWrap
+                        maximumLineCount: 1
+                        fontSize: "small"
+                        color: styleMusic.common.music
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: trackArtist.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        text: track.title
                     }
                     Label {
                         id: trackAlbum
-                        anchors {
-                            left: trackCover.right
-                            leftMargin: units.gu(1.5)
-                            right: parent.right
-                            rightMargin: units.gu(1.5)
-                            top: trackTitle.bottom
-                            topMargin: units.gu(1.5)
-                        }
-                        fontSize: "xx-small"
-                        elide: Text.ElideRight
-                        maximumLineCount: 2
-                        text: album
                         wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "xx-small"
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(11)
+                        anchors.top: trackTitle.bottom
+                        anchors.topMargin: units.gu(2)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        text: album
+                    }
+                    Label {
+                        id: trackDuration
+                        wrapMode: Text.NoWrap
+                        maximumLineCount: 2
+                        fontSize: "small"
+                        color: styleMusic.common.music
+                        anchors.left: trackCover.left
+                        anchors.leftMargin: units.gu(12)
+                        anchors.top: trackAlbum.bottom
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(1.5)
+                        elide: Text.ElideRight
+                        visible: false
+                        text: ""
                     }
                 }
 

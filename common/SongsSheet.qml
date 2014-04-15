@@ -287,11 +287,11 @@ Item {
                                 visible: !isAlbum
                                 anchors {
                                     left: trackCover.right
-                                    leftMargin: units.gu(1.5)
+                                    leftMargin: units.gu(2)
+                                    top: parent.top
+                                    topMargin: units.gu(1.5)
                                     right: parent.right
                                     rightMargin: units.gu(1.5)
-                                    top: parent.top
-                                    topMargin: units.gu(2)
                                 }
                                 elide: Text.ElideRight
                                 text: model.artist
@@ -305,11 +305,11 @@ Item {
                                 fontSize: "medium"
                                 anchors {
                                     left: isAlbum ? parent.left : trackCover.right
-                                    leftMargin: units.gu(1.5)
+                                    leftMargin: units.gu(2)
+                                    top: isAlbum ? parent.top : trackArtist.bottom
+                                    topMargin: units.gu(1)
                                     right: parent.right
                                     rightMargin: units.gu(1.5)
-                                    top: isAlbum ? parent.top : trackArtist.bottom
-                                    topMargin: isAlbum ? units.gu(1) : units.gu(1.5)
                                 }
                                 elide: Text.ElideRight
                                 text: model.title
@@ -323,9 +323,9 @@ Item {
                                 visible: !isAlbum
                                 anchors {
                                     left: trackCover.right
-                                    leftMargin: units.gu(1.5)
+                                    leftMargin: units.gu(2)
                                     top: trackTitle.bottom
-                                    topMargin: units.gu(1.5)
+                                    topMargin: units.gu(2)
                                     right: parent.right
                                     rightMargin: units.gu(1.5)
                                 }

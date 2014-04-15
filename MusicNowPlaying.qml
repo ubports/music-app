@@ -574,7 +574,7 @@ Page {
                         fontSize: 'small'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
-                        y: trackImage.y + units.gu(1.5)
+                        y: trackImage.y + units.gu(1)
                     }
                     Label {
                         id: nowPlayingTitle
@@ -586,7 +586,7 @@ Page {
                         fontSize: 'medium'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
-                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.5)
+                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     Label {
                         id: nowPlayingAlbum
@@ -598,7 +598,7 @@ Page {
                         fontSize: 'x-small'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
-                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.5)
+                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                 }
 
