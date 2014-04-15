@@ -72,7 +72,7 @@ Item {
         Image {
             id: expandableButtonImage
             anchors {
-                horizontalCenter: parent.horizontalCenter
+                left: parent.left
                 verticalCenter: parent.verticalCenter
             }
             source: "../images/dropdown-menu.svg"
