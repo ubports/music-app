@@ -125,8 +125,8 @@ Item {
         }
 
         // Always jump to current track
-        nowPlaying.jumpToCurrent(true, musicToolbar.currentPage, musicToolbar.cu
-rrentTab)
+        nowPlaying.jumpToCurrent(true, musicToolbar.currentPage,
+                                 musicToolbar.currentTab)
     }
 
     function nextSong(startPlaying, fromControls) {
