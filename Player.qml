@@ -123,6 +123,10 @@ Item {
             currentIndex = newIndex
             source = Qt.resolvedUrl(trackQueue.model.get(newIndex).file)
         }
+
+        // Always jump to current track
+        nowPlaying.jumpToCurrent(true, musicToolbar.currentPage, musicToolbar.cu
+rrentTab)
     }
 
     function nextSong(startPlaying, fromControls) {
