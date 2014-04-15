@@ -171,12 +171,12 @@ Page {
                     Label {
                         id: playlistCount
                         anchors {
-                            top: parent.top
-                            left: parent.left
+                            left: coverRow.right
+                            leftMargin: units.gu(1.5)
                             right: parent.right
-                            topMargin: units.gu(2)
-                            leftMargin: units.gu(12)
                             rightMargin: units.gu(1.5)
+                            top: parent.top
+                            topMargin: units.gu(1.5)
                         }
                         elide: Text.ElideRight
                         fontSize: "x-small"
@@ -188,9 +188,10 @@ Page {
                         id: playlistName
                         anchors {
                             top: playlistCount.bottom
-                            left: playlistCount.left
-                            right: parent.right
                             topMargin: units.gu(1)
+                            left: coverRow.right
+                            leftMargin: units.gu(1.5)
+                            right: parent.right
                             rightMargin: units.gu(1.5)
                         }
                         wrapMode: Text.NoWrap
