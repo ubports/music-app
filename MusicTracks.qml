@@ -109,6 +109,7 @@ Page {
                         }
                         elide: Text.ElideRight
                         fontSize: "x-small"
+                        height: units.gu(1)
                         maximumLineCount: 2
                         text: artist
                         wrapMode: Text.NoWrap
@@ -126,6 +127,7 @@ Page {
                         color: styleMusic.common.music
                         elide: Text.ElideRight
                         fontSize: "small"
+                        height: units.gu(2)
                         maximumLineCount: 1
                         objectName: "tracktitle"
                         text: track.title
