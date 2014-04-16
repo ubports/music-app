@@ -29,7 +29,7 @@ Item {
     property bool deletePlaylist: false
     property bool editPlaylist: false
     property alias expanderButtonWidth: expandableButton.width
-    property int expanderButtonTopMargin: null
+    property int expanderButtonTopMargin: 0
     property var listItem: null
     property var model: null
     property bool share: false

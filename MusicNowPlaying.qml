@@ -611,7 +611,7 @@ Page {
                     addToPlaylist: true
                     expanderButtonTopMargin: queueListItem.state === "current" ?
                                                  trackImage.height + nowPlayingArtist.height + units.gu(3.5) - (queuelist.normalHeight / 2)
-                                               : undefined
+                                               : 0
                     listItem: queueListItem
                     model: trackQueue.model.get(index)
                 }
