@@ -29,6 +29,7 @@ Item {
     property bool deletePlaylist: false
     property bool editPlaylist: false
     property alias expanderButtonWidth: expandableButton.width
+    property int expanderButtonTopMargin: null
     property var listItem: null
     property var model: null
     property bool share: false
@@ -37,6 +38,8 @@ Item {
 
     Component.onCompleted: {
         collapseExpand.connect(onCollapseExpand);
+
+        expandableButton.height = listItem.height;
     }
 
     function onCollapseExpand(indexCol)
@@ -58,9 +61,6 @@ Item {
                     listItem.height += styleMusic.albums.expandHeight;
                     expander._heightChangeLock = false;
                 }
-                else {
-                    expandableButton.height = listItem.height;
-                }
             }
         }
     }
@@ -68,8 +68,6 @@ Item {
     onExpanderVisibleChanged: {
         if (expanderVisible) {
             cachedListItemHeight = listItem.height;
-
-            expandableButton.height = cachedListItemHeight;
 
             expander._heightChangeLock = true;
             listItem.height += styleMusic.albums.expandHeight;
@@ -79,8 +77,6 @@ Item {
             expander._heightChangeLock = true;
             listItem.height -= styleMusic.albums.expandHeight;
             expander._heightChangeLock = false;
-
-            expandableButton.height = listItem.height;
         }
     }
 
@@ -89,9 +85,9 @@ Item {
         anchors {
             right: parent.right
             top: parent.top
+            topMargin: expanderButtonTopMargin
         }
         color: "transparent"
-        height: listItem.height
         width: expandableButtonImage.width * 2
 
         Image {
