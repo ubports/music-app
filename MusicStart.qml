@@ -80,8 +80,8 @@ Page {
                 anchors.top: recentlyPlayed.bottom
                 anchors.topMargin: units.gu(1)
                 width: parent.width
-                spacing: units.gu(2)
-                height: units.gu(22)
+                spacing: units.gu(1)
+                height: units.gu(20)
                 // TODO: Update when view counts are collected
                 model: recentModel.model
                 delegate: recentDelegate
@@ -91,8 +91,8 @@ Page {
                 }
                 footer: Item {
                     id: clearRecent
-                    width: units.gu(20)
-                    height: units.gu(20)
+                    width: recentlist.height - units.gu(2)
+                    height: width
                     visible: mainView.hasRecent && !loading.visible
                     Button {
                         id: clearRecentButton
@@ -118,8 +118,8 @@ Page {
                         property string time: model.time
                         property string key: model.key
                         id: recentItem
-                        height: units.gu(20)
-                        width: units.gu(20)
+                        height: recentlist.height - units.gu(1)
+                        width: height
                         CoverRow {
                             id: recentShape
                             anchors {
@@ -195,7 +195,7 @@ Page {
 
             ListItem.ThinDivider {
                 id: genreDivider
-                 anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
+                anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
             }
             ListItem.Standard {
                 id: genres
@@ -208,8 +208,8 @@ Page {
                 width: parent.width
                 anchors.top: genres.bottom
                 anchors.topMargin: units.gu(1)
-                spacing: units.gu(2)
-                height: units.gu(22)
+                spacing: units.gu(1)
+                height: units.gu(20)
                 model: genreModel.model
                 delegate: genreDelegate
                 header: Item {
@@ -232,8 +232,8 @@ Page {
 
                         id: genreItem
                         objectName: "genreItemObject"
-                        height: units.gu(20)
-                        width: units.gu(20)
+                        height: genrelist.height - units.gu(1)
+                        width: height
                         CoverRow {
                             id: genreShape
                             anchors {
@@ -317,8 +317,8 @@ Page {
                 width: parent.width
                 anchors.top: albums.bottom
                 anchors.topMargin: units.gu(1)
-                spacing: units.gu(2)
-                height: units.gu(22)
+                spacing: units.gu(1)
+                height: units.gu(20)
                 model: albumModel.model
                 delegate: albumDelegate
                 header: Item {
@@ -340,8 +340,8 @@ Page {
 
                         id: albumItem
                         objectName: "albumItemObject"
-                        height: units.gu(20)
-                        width: units.gu(20)
+                        height: albumlist.height - units.gu(2)
+                        width: height
                         CoverRow {
                             id: albumShape
                             anchors {
