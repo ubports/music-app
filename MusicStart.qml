@@ -81,7 +81,7 @@ Page {
                 anchors.topMargin: units.gu(1)
                 width: parent.width
                 spacing: units.gu(1)
-                height: units.gu(20)
+                height: units.gu(18)
                 // TODO: Update when view counts are collected
                 model: recentModel.model
                 delegate: recentDelegate
@@ -209,7 +209,7 @@ Page {
                 anchors.top: genres.bottom
                 anchors.topMargin: units.gu(1)
                 spacing: units.gu(1)
-                height: units.gu(20)
+                height: units.gu(18)
                 model: genreModel.model
                 delegate: genreDelegate
                 header: Item {
@@ -318,7 +318,7 @@ Page {
                 anchors.top: albums.bottom
                 anchors.topMargin: units.gu(1)
                 spacing: units.gu(1)
-                height: units.gu(20)
+                height: units.gu(18)
                 model: albumModel.model
                 delegate: albumDelegate
                 header: Item {
