@@ -74,7 +74,7 @@ Page {
             customdebug("MusicQueue update currentIndex: " + player.source);
 
             // Always jump to current track
-            nowPlaying.jumpToCurrent(true, nowPlaying, musicToolbar.currentTab)
+            nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
 
         }
     }
