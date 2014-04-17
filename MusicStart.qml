@@ -71,7 +71,15 @@ Page {
 
         ListItem.Standard {
             id: recentlyPlayed
-            text: i18n.tr("Recent")
+            Label {
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: units.gu(2)
+                }
+                text: i18n.tr("Recent")
+                color: styleMusic.common.music
+            }
             visible: mainView.hasRecent
         }
 
@@ -200,7 +208,15 @@ Page {
         ListItem.Standard {
             id: genres
             anchors.top: genreDivider.bottom
-            text: i18n.tr("Genres")
+            Label {
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: units.gu(2)
+                }
+                text: i18n.tr("Genres")
+                color: styleMusic.common.music
+            }
         }
         // TODO: add music genres. frequency of play? most tracks?
         ListView {
@@ -308,7 +324,15 @@ Page {
         }
         ListItem.Standard {
             id: albums
-            text: i18n.tr("Albums")
+            Label {
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: units.gu(2)
+                }
+                text: i18n.tr("Albums")
+                color: styleMusic.common.music
+            }
             anchors.top: albumsDivider.bottom
         }
 

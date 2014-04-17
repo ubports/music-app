@@ -34,6 +34,7 @@ QtObject {
         property color black: "#000000";
         property color white: "#FFFFFF";
         property color music: "#333333";
+        property color subtitle: "#666666";
         property color expandedColor: "#000000";
         property int albumSize: units.gu(10);
         property int itemHeight: units.gu(12);

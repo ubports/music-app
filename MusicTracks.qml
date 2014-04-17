@@ -84,6 +84,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "x-small"
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: parent.top
@@ -114,6 +115,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "xx-small"
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: trackTitle.bottom
@@ -128,7 +130,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "small"
-                    color: styleMusic.common.music
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(12)
                     anchors.top: trackAlbum.bottom
