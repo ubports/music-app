@@ -72,6 +72,10 @@ Page {
             collapseExpand(queuelist.currentIndex);
 
             customdebug("MusicQueue update currentIndex: " + player.source);
+
+            // Always jump to current track
+            nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
+
         }
     }
 

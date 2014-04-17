@@ -113,10 +113,9 @@ Page {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(1)
                         anchors.left: parent.left
-                        anchors.leftMargin: units.gu(.25)
+                        anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
-                        anchors.rightMargin: units.gu(.25)
-                        horizontalAlignment: Text.AlignHCenter
+                        anchors.rightMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         text: artist
@@ -127,10 +126,9 @@ Page {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: units.gu(3)
                         anchors.left: parent.left
-                        anchors.leftMargin: units.gu(.25)
+                        anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
-                        anchors.rightMargin: units.gu(.25)
-                        horizontalAlignment: Text.AlignHCenter
+                        anchors.rightMargin: units.gu(1)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: album
