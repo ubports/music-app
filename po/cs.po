@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-03-10 18:38-0500\n"
-"PO-Revision-Date: 2014-02-06 11:49+0000\n"
-"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
+"PO-Revision-Date: 2014-04-02 08:22+0000\n"
+"Last-Translator: kubahronik <kubahronik@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-03-12 05:29+0000\n"
-"X-Generator: Launchpad (build 16963)\n"
+"X-Launchpad-Export-Date: 2014-04-03 06:04+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -153,7 +153,7 @@ msgstr "Smazat"
 #: ../MusicSearch.qml:41 ../MusicToolbar.qml:897 ../music-app.qml:89
 #: ../music-app.qml:137 ../music-app.qml:141
 msgid "Search"
-msgstr ""
+msgstr "Vyhledat"
 
 #: ../MusicSearch.qml:394 ../MusicTracks.qml:318 ../music-app.qml:844
 #: ../common/SongsSheet.qml:378
@@ -283,7 +283,7 @@ msgstr "Nový seznam skladeb"
 
 #: ../music-app.qml:138
 msgid "Search Track"
-msgstr ""
+msgstr "Vyhledat stopu"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -360,7 +360,7 @@ msgstr "Neznámé album"
 
 #: ../music-app.qml:663
 msgid "Unknown Year"
-msgstr ""
+msgstr "Neznámý rok"
 
 #: ../music-app.qml:664
 msgid "Unknown Genre"

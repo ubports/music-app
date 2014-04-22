@@ -71,7 +71,12 @@ Page {
                     width: styleMusic.common.albumSize
                     height: styleMusic.common.albumSize
                     image: Image {
-                        source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                        source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
+                        onStatusChanged: {
+                            if (status === Image.Error) {
+                                source = Qt.resolvedUrl("images/music-app-cover@30.png")
+                            }
+                        }
                     }
                 }
                 Label {
@@ -79,6 +84,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "x-small"
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: parent.top
@@ -109,6 +115,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "xx-small"
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(11)
                     anchors.top: trackTitle.bottom
@@ -123,7 +130,7 @@ Page {
                     wrapMode: Text.NoWrap
                     maximumLineCount: 2
                     fontSize: "small"
-                    color: styleMusic.common.music
+                    color: styleMusic.common.subtitle
                     anchors.left: trackCover.left
                     anchors.leftMargin: units.gu(12)
                     anchors.top: trackAlbum.bottom
@@ -276,13 +283,7 @@ Page {
                             onClicked: {
                                 expandable.visible = false
                                 track.height = styleMusic.common.itemHeight
-                                chosenArtist = artist
-                                chosenTitle = title
-                                chosenTrack = file
-                                chosenAlbum = album
-                                chosenCover = cover
-                                chosenGenre = genre
-                                chosenIndex = index
+                                chosenElement = model
                                 console.debug("Debug: Add track to playlist")
                                 PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
                                                 {
@@ -325,7 +326,7 @@ Page {
                                 expandable.visible = false
                                 track.height = styleMusic.common.itemHeight
                                 console.debug("Debug: Add track to queue: " + title)
-                                trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                trackQueue.append(model);
                             }
                         }
                     }

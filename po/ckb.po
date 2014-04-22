@@ -1,404 +1,402 @@
-# Italian translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Kurdish (Sorani) translation for music-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-03-10 18:38-0500\n"
-"PO-Revision-Date: 2014-03-14 14:49+0000\n"
-"Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2014-03-20 15:46+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Kurdish (Sorani) <ckb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-03-15 07:33+0000\n"
-"X-Generator: Launchpad (build 16963)\n"
+"X-Launchpad-Export-Date: 2014-03-21 06:56+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
 #: ../LoginLastFM.qml:56
 msgid "Login to be able to scrobble."
-msgstr "Accedere per eseguire lo scrobbling."
+msgstr ""
 
 #: ../LoginLastFM.qml:64
 msgid "Username"
-msgstr "Nome utente"
+msgstr ""
 
 #: ../LoginLastFM.qml:74
 msgid "Password"
-msgstr "Password"
+msgstr ""
 
 #: ../LoginLastFM.qml:96
 msgid "Login"
-msgstr "Accedi"
+msgstr ""
 
 #: ../LoginLastFM.qml:103
 msgid "Trying to login..."
-msgstr "Tentativo di accesso...."
+msgstr ""
 
 #: ../LoginLastFM.qml:117
 msgid "Login Successful"
-msgstr "Accesso eseguito"
+msgstr ""
 
 #: ../LoginLastFM.qml:123
 msgid "Login Failed"
-msgstr "Accesso non riuscito"
+msgstr ""
 
 #: ../LoginLastFM.qml:129
 msgid "You forgot to set your username and/or password"
-msgstr "Hai dimenticato di impostare nome utente e/o password"
+msgstr ""
 
 #: ../MusicAlbums.qml:33
 msgid "Albums"
-msgstr "Album"
+msgstr ""
 
 #: ../MusicArtists.qml:33
 msgid "Artists"
-msgstr "Artisti"
+msgstr ""
 
 #: ../MusicArtists.qml:106
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 album"
-msgstr[1] "%1 album"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicArtists.qml:122 ../MusicPlaylists.qml:175 ../MusicStart.qml:304
 #: ../common/SongsSheet.qml:127
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 brano"
-msgstr[1] "%1 brani"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicNowPlaying.qml:34
 msgid "Queue"
-msgstr "Coda"
+msgstr ""
 
 #: ../MusicNowPlaying.qml:701 ../MusicSearch.qml:346 ../MusicTracks.qml:270
 #: ../music-app.qml:858 ../common/SongsSheet.qml:330
 msgid "Add to playlist"
-msgstr "Aggiungi alla playlist"
+msgstr ""
 
 #: ../MusicNowPlaying.qml:719 ../MusicSearch.qml:365 ../MusicTracks.qml:289
 #: ../MusicaddtoPlaylist.qml:38 ../music-app.qml:869
 #: ../common/SongsSheet.qml:349
 msgid "Select playlist"
-msgstr "Seleziona playlist"
+msgstr ""
 
 #. TRANSLATORS: this refers to sharing a playlist
 #: ../MusicNowPlaying.qml:747 ../MusicPlaylists.qml:370 ../MusicSearch.qml:432
 #: ../MusicTracks.qml:356
 msgid "Share"
-msgstr "Condividi"
+msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:37
 msgid "Playlists"
-msgstr "Playlist"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:58
 msgid "Change name"
-msgstr "Modifica nome"
+msgstr ""
 
 #: ../MusicPlaylists.qml:59
 msgid "Enter the new name of the playlist."
-msgstr "Inserire il nuovo nome della playlist."
+msgstr ""
 
 #: ../MusicPlaylists.qml:70
 msgid "Change"
-msgstr "Modifica"
+msgstr ""
 
 #: ../MusicPlaylists.qml:83
 msgid "You didn't type in a name."
-msgstr "Non è stato digitato il nome."
+msgstr ""
 
 #: ../MusicPlaylists.qml:88 ../MusicPlaylists.qml:114 ../music-app.qml:922
 msgid "Cancel"
-msgstr "Annulla"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:101
 msgid "Are you sure?"
-msgstr "Procedere?"
+msgstr ""
 
 #: ../MusicPlaylists.qml:102
 msgid "This will delete your playlist."
-msgstr "Questo eliminerà la playlist."
+msgstr ""
 
 #: ../MusicPlaylists.qml:105
 msgid "Remove"
-msgstr "Rimuovi"
+msgstr ""
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../MusicPlaylists.qml:284
 msgid "Edit"
-msgstr "Modifica"
+msgstr ""
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../MusicPlaylists.qml:326
 msgid "Delete"
-msgstr "Elimina"
+msgstr ""
 
 #: ../MusicSearch.qml:41 ../MusicToolbar.qml:897 ../music-app.qml:89
 #: ../music-app.qml:137 ../music-app.qml:141
 msgid "Search"
-msgstr "Cerca"
+msgstr ""
 
 #: ../MusicSearch.qml:394 ../MusicTracks.qml:318 ../music-app.qml:844
 #: ../common/SongsSheet.qml:378
 msgid "Add to queue"
-msgstr "Aggiungi alla coda"
+msgstr ""
 
 #: ../MusicSettings.qml:30 ../music-app.qml:183
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr ""
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "Equalizzatore"
+msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "Predefinito"
+msgstr ""
 
 #: ../MusicSettings.qml:83
 msgid "Accoustic"
-msgstr "Acustica"
+msgstr ""
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "Classica"
+msgstr ""
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "Elettronica"
+msgstr ""
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "Piatto"
+msgstr ""
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "Hip Hop"
+msgstr ""
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "Jazz"
+msgstr ""
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "Metal"
+msgstr ""
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "Pop"
+msgstr ""
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "Rock"
+msgstr ""
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr "Personalizzato"
+msgstr ""
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"Interrompi il brano attuale \n"
-"aprendo la barra degli strumenti"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr "Account"
+msgstr ""
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "Accedi per lo scrobbling e l'importazione di playlist"
+msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr "Streaming musicale"
+msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr "Ubuntu One"
+msgstr ""
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr "Accedere per eseguire lo stream della propria musica dal cloud"
+msgstr ""
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "Stream solo su Wi-Fi"
+msgstr ""
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "Pulisci tutto"
+msgstr ""
 
 #: ../MusicStart.qml:33 ../music-app.qml:336 ../music-app.qml:943
 #: ../.build/com.ubuntu.music_music.desktop.in:1
 msgid "Music"
-msgstr "Musica"
+msgstr ""
 
 #: ../MusicStart.qml:63
 msgid "Recent"
-msgstr "Recenti"
+msgstr ""
 
 #: ../MusicStart.qml:80
 msgid "No recent albums or playlists"
-msgstr "Nessuna playlist o album recenti"
+msgstr ""
 
 #: ../MusicStart.qml:209
 msgid "Genres"
-msgstr "Generi"
+msgstr ""
 
 #: ../MusicToolbar.qml:322
 msgid "No songs queued"
-msgstr "Nessun brano in coda"
+msgstr ""
 
 #: ../MusicToolbar.qml:332
 msgid "Tap on a song to start playing"
-msgstr "Seleziona un brano per avviare la riproduzione"
+msgstr ""
 
 #: ../MusicTracks.qml:32
 msgid "Songs"
-msgstr "Brani"
+msgstr ""
 
 #: ../MusicaddtoPlaylist.qml:125
 msgid "New playlist"
-msgstr "Nuova playlist"
+msgstr ""
 
 #: ../music-app.qml:138
 msgid "Search Track"
-msgstr "Cerca brano"
+msgstr ""
 
 #: ../music-app.qml:146
 msgid "Next"
-msgstr "Successivo"
+msgstr ""
 
 #: ../music-app.qml:147
 msgid "Next Track"
-msgstr "Brano successivo"
+msgstr ""
 
 #: ../music-app.qml:153
 msgid "Pause"
-msgstr "Pausa"
+msgstr ""
 
 #: ../music-app.qml:153
 msgid "Play"
-msgstr "Riproduci"
+msgstr ""
 
 #: ../music-app.qml:155
 msgid "Pause Playback"
-msgstr "Sospendi riproduzione"
+msgstr ""
 
 #: ../music-app.qml:155
 msgid "Continue or start playback"
-msgstr "Continua o avvia riproduzione"
+msgstr ""
 
 #: ../music-app.qml:160
 msgid "Back"
-msgstr "Indietro"
+msgstr ""
 
 #: ../music-app.qml:161
 msgid "Go back to last page"
-msgstr "Torna all'ultima pagina"
+msgstr ""
 
 #: ../music-app.qml:169
 msgid "Previous"
-msgstr "Precedente"
+msgstr ""
 
 #: ../music-app.qml:170
 msgid "Previous Track"
-msgstr "Brano precedente"
+msgstr ""
 
 #: ../music-app.qml:175
 msgid "Stop"
-msgstr "Ferma"
+msgstr ""
 
 #: ../music-app.qml:176
 msgid "Stop Playback"
-msgstr "Interrompi riproduzione"
+msgstr ""
 
 #: ../music-app.qml:184
 msgid "Music Settings"
-msgstr "Impostazioni musica"
+msgstr ""
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:244
 msgid "songs played today"
-msgstr "brani ascoltati oggi"
+msgstr ""
 
 #: ../music-app.qml:245
 msgid "No songs played today"
-msgstr "Nessun brano ascoltato oggi"
+msgstr ""
 
 #: ../music-app.qml:369
 msgid "Debug: "
-msgstr "Debug: "
+msgstr ""
 
 #: ../music-app.qml:656 ../meta-database.js:431
 msgid "Unknown Artist"
-msgstr "Artista sconosciuto"
+msgstr ""
 
 #: ../music-app.qml:657 ../meta-database.js:430 ../meta-database.js:433
 msgid "Unknown Album"
-msgstr "Album sconosciuto"
+msgstr ""
 
 #: ../music-app.qml:663
 msgid "Unknown Year"
-msgstr "Anno sconosciuto"
+msgstr ""
 
 #: ../music-app.qml:664
 msgid "Unknown Genre"
-msgstr "Genere sconosciuto"
+msgstr ""
 
 #: ../music-app.qml:882
 msgid "New Playlist"
-msgstr "Nuova playlist"
+msgstr ""
 
 #: ../music-app.qml:883
 msgid "Name your playlist."
-msgstr "Nome della playlist."
+msgstr ""
 
 #: ../music-app.qml:887
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #: ../music-app.qml:895
 msgid "Create"
-msgstr "Crea"
+msgstr ""
 
 #: ../music-app.qml:911
 msgid "Error: "
-msgstr "Errore: "
+msgstr ""
 
 #: ../music-app.qml:916
 msgid "Error: You didn't type a name."
-msgstr "Errore: non è stato inserito alcun nome."
+msgstr ""
 
 #: ../common/AlbumsSheet.qml:128 ../common/SongsSheet.qml:126
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] " | %1 brano"
-msgstr[1] " | %1 brani"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr "Caricamento..."
+msgstr ""
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr "Pulisci"
+msgstr ""

@@ -22,7 +22,6 @@ import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import QtPowerd 0.1
 import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
@@ -39,6 +38,10 @@ MainView {
     objectName: "music"
     applicationName: "com.ubuntu.music"
     id: mainView
+
+    // Use toolbar color for header
+    headerColor: styleMusic.toolbar.fullBackgroundColor
+    backgroundColor: styleMusic.toolbar.fullBackgroundColor
 
     // Global keyboard shortcuts
     focus: true
@@ -118,7 +121,7 @@ MainView {
         //defaultArgument.valueNames: ["URI"] // should be used when bug is resolved
         // grab a file
         Argument {
-            name: "file"
+            name: "url"
             help: "URI for track to run at start."
             required: false
             valueNames: ["track"]
@@ -136,10 +139,14 @@ MainView {
         id: searchAction
         text: i18n.tr("Search")
         keywords: i18n.tr("Search Track")
-        onTriggered: PopupUtils.open(Qt.resolvedUrl("MusicSearch.qml"), mainView,
+        onTriggered: {
+            if (!searchSheet.sheetVisible) {
+                PopupUtils.open(searchSheet.sheet, mainView,
                      {
                                          title: i18n.tr("Search")
                      } )
+            }
+        }
     }
     Action {
         id: nextAction
@@ -195,43 +202,85 @@ MainView {
     // (already in the database), not e.g. http:// URIs or files in directories
     // not picked up by Grilo
     Connections {
+        id: uriHandler
         target: UriHandler
+
+        function processAlbum(uri) {
+            var split = uri.split("/");
+
+            if (split.length < 2) {
+                console.debug("Unknown artist-album " + uri + ", skipping")
+                return;
+            }
+
+            // Get tracks
+            var tracks = Library.getArtistAlbumTracks(decodeURIComponent(split[0]), decodeURIComponent(split[1]));
+
+            if (tracks.length === 0) {
+                console.debug("Unknown artist-album " + uri + ", skipping")
+                return;
+            }
+
+            // Enqueue
+            for (var track in tracks) {
+                trackQueue.append(tracks[track]);
+            }
+
+            // Play first track
+            trackClicked(trackQueue, 0, true);
+        }
+
+        function processFile(uri, play) {
+            uri = decodeURIComponent(uri);
+
+            // search for path in library
+            var library = Library.getAll();
+            var track = false;
+
+            for (var item in library) {
+                if (decodeURIComponent(library[item].file) === uri) {
+                    track = library[item];
+                    break;
+                }
+            }
+
+            if (!track) {
+                console.debug("Unknown file " + uri + ", skipping")
+                return;
+            }
+
+            // enqueue
+            trackQueue.append(track);
+
+            // play first URI
+            if (play) {
+                trackClicked(trackQueue, 0, true)
+            }
+        }
+
+        function process(uri, play) {
+            if (uri.indexOf("album:///") === 0) {
+                uriHandler.processAlbum(uri.substring(9));
+            }
+            else if (uri.indexOf("file://") === 0) {
+                uriHandler.processFile(uri.substring(7), play);
+            }
+            else if (uri.indexOf("music://") === 0) {
+                uriHandler.processFile(uri.substring(8), play);
+            }
+
+            else {
+                console.debug("Unsupported URI " + uri + ", skipping")
+            }
+        }
+
         onOpened: {
             // clear play queue
             trackQueue.model.clear()
             for (var i=0; i < uris.length; i++) {
                 console.debug("URI=" + uris[i])
-                // skip non-file:// URIs
-                if (uris[i].substring(0, 7) !== "file://") {
-                    console.debug("Unsupported URI " + uris[i] + ", skipping")
-                    continue
-                }
 
-                // search pathname in library
-                var file = decodeURIComponent(uris[i])
-                var index = -1;
-
-                for (var j=0; j < griloModel.count; j++)
-                {
-                    if (griloModel.get(j).url.toString() == file)
-                    {
-                        index = j;
-                    }
-                }
-
-                if (index <= -1) {
-                    console.debug("Unknown file " + file + ", skipping")
-                    continue
-                }
-
-                // enqueue
-                var media = griloModel.get(index);
-                trackQueue.model.append({"title": media.title, "artist": media.artist, "file": file, "album": media.album, "cover": media.thumbnail.toString(), "genre": media.genre})
-
-                // play first URI
-                if (i == 0) {
-                    trackClicked(trackQueue, 0, true)
-                }
+                uriHandler.process(uris[i], i === 0);
             }
         }
     }
@@ -267,15 +316,6 @@ MainView {
         }
     }
 
-    // Connections for powerd
-    Connections {
-        target: player
-        onPlaybackStateChanged: {
-            QtPowerd.keepAlive = player.playbackState === MediaPlayer.PlayingState
-            console.log("QtPowerd.keepAlive=" + QtPowerd.keepAlive)
-        }
-    }
-
     // Design stuff
     Style { id: styleMusic }
     width: units.gu(100)
@@ -287,19 +327,6 @@ MainView {
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
-        if (args.values.file) {
-            argFile = args.values.file
-            if (argFile.indexOf("file://") != -1) {
-                //customdebug("arg contained file://")
-                // strip that!
-                argFile = argFile.substring(7)
-            }
-            else {
-                // do nothing
-                customdebug("arg did not contain file://")
-            }
-            customdebug(argFile)
-        }
 
         Settings.initialize()
         console.debug("INITIALIZED in tracks")
@@ -329,6 +356,11 @@ MainView {
 
         // show toolbar hint at startup
         musicToolbar.showToolbar();
+
+        // TODO: Switch tabs back and forth to get the background color in the
+        //       header to work properly.
+        tabs.selectedTabIndex = 1
+        tabs.selectedTabIndex = 0
     }
 
 
@@ -340,14 +372,7 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
-    property string argFile // used for argumented track
-    property string chosenTrack: ""
-    property string chosenTitle: ""
-    property string chosenArtist: ""
-    property string chosenAlbum: ""
-    property string chosenCover: ""
-    property string chosenGenre: ""
-    property int chosenIndex: 0
+    property var chosenElement: null
     property LibraryListModel currentModel: null  // Current model being used
     property var currentQuery: null
     property var currentParam: null
@@ -391,7 +416,7 @@ MainView {
 
         for (var key in items)
         {
-            trackQueue.model.append(items[key])
+            trackQueue.append(items[key])
         }
     }
 
@@ -399,6 +424,11 @@ MainView {
     function durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);
         var seconds = Math.floor((duration/1000)) % 60;
+        // Make sure that we never see "NaN:NaN"
+        if (minutes.toString() == 'NaN')
+            minutes = 0;
+        if (seconds.toString() == 'NaN')
+            seconds = 0;
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
     }
 
@@ -432,15 +462,15 @@ MainView {
             if (play === true) {
                 console.log("Is current track: "+player.playbackState)
 
-                if (musicToolbar.currentPage == nowPlaying) {
-                    player.toggle()
-                }
-
                 // Show the Now Playing page and make sure the track is visible
-                nowPlaying.visible = true;
+                tabs.setNowPlaying(true);
                 nowPlaying.ensureVisibleIndex = index;
 
                 musicToolbar.showToolbar();
+
+                if (musicToolbar.currentPage == nowPlaying) {
+                    player.toggle()
+                }
             }
 
             return
@@ -462,7 +492,7 @@ MainView {
             player.playSong(file, index)
 
             // Show the Now Playing page and make sure the track is visible
-            nowPlaying.visible = true;
+            tabs.setNowPlaying(true);
             nowPlaying.ensureVisibleIndex = index;
 
             musicToolbar.showToolbar();
@@ -472,6 +502,28 @@ MainView {
         }
 
         return file
+    }
+
+    function playRandomSong(shuffle)
+    {
+        trackQueue.model.clear();
+
+        var items = Library.getAll();
+
+        for (var key in items) {
+            trackQueue.append(items[key]);
+        }
+
+        var now = new Date();
+        var seed = now.getSeconds();
+        var index = Math.floor(trackQueue.model.count * Math.random(seed));
+
+        console.debug("THIS", index);
+
+        player.shuffle = shuffle === undefined ? true : shuffle;
+        trackClicked(trackQueue,
+                     index,
+                     true);
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -629,8 +681,6 @@ MainView {
             }
 
             onFinished: {
-                var read_arg = false;
-
                 // FIXME: remove when grilo is fixed
                 var files = [];
                 var duplicates = 0;
@@ -657,24 +707,12 @@ MainView {
                         album: media.album || i18n.tr("Unknown Album"),
                         title: media.title || file,
                         file: file,
-                        cover: media.thumbnail.toString(),
+                        cover: media.thumbnail.toString() || "",
                         length: media.duration.toString(),
                         number: media.trackNumber,
                         year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
                         genre: media.genre || i18n.tr("Unknown Genre")
                     };
-
-                    if (read_arg === false && argFile === file)
-                    {
-                        trackQueue.model.clear();
-                        trackQueue.model.append(record)
-                        trackClicked(trackQueue, 0, true);
-
-                        // grilo model sometimes has duplicates
-                        // causing the track to be paused the second time
-                        // this ignores the second time
-                        read_arg = true;
-                    }
 
                     //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
                     Library.setMetadata(record)
@@ -685,6 +723,10 @@ MainView {
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
                 tabs.ensurePopulated(tabs.selectedTab);
+
+                if (args.values.url) {
+                    uriHandler.process(args.values.url, true);
+                }
             }
         }
     }
@@ -788,6 +830,21 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        Connections {
+            target: trackQueue.model
+            onCountChanged: queueChanged = true
+        }
+
+        function append(listElement)
+        {
+            model.append({
+                             "album": listElement.album,
+                             "artist": listElement.artist,
+                             "cover": listElement.cover,
+                             "file": listElement.file,
+                             "title": listElement.title
+                         })
+        }
     }
 
     // list of songs, which has been removed.
@@ -848,9 +905,9 @@ MainView {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     onClicked: {
-                        console.debug("Debug: Add track to queue: " + chosenTitle)
+                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.model.append({"title": chosenTitle, "artist": chosenArtist, "file": chosenTrack, "album": chosenAlbum, "cover": chosenCover, "genre": chosenGenre})
+                        trackQueue.append(chosenElement)
                     }
                 }
                 ListItem.Standard {
@@ -930,62 +987,59 @@ MainView {
         id: musicToolbar
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
+    }
 
-        property bool animating: false
-        property bool opened: false
+    Page {
+        id: emptyPage
+        title: i18n.tr("Music")
+        visible: false
+
+        property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+
+        onNoMusicChanged: {
+            if (noMusic)
+                pageStack.push(emptyPage)
+            else if (pageStack.currentPage == emptyPage)
+                pageStack.pop()
+        }
+
+        tools: ToolbarItems {
+            back: null
+            locked: true
+            opened: false
+        }
+
+        // Overlay to show when no tracks detected on the device
+        Rectangle {
+            id: libraryEmpty
+            anchors.fill: parent
+            anchors.topMargin: -emptyPage.header.height
+            color: styleMusic.libraryEmpty.backgroundColor
+
+            Column {
+                anchors.centerIn: parent
+
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: "No music found"
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: "Please import music and restart the app"
+                }
+            }
+        }
     }
 
     PageStack {
         id: pageStack
-
-        Page {
-            id: emptyPage
-            title: i18n.tr("Music")
-            visible: false
-
-            property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
-
-            onNoMusicChanged: {
-                if (noMusic)
-                    pageStack.push(emptyPage)
-                else if (pageStack.currentPage == emptyPage)
-                    pageStack.pop()
-            }
-
-            tools: ToolbarItems {
-                back: null
-                locked: true
-                opened: false
-            }
-
-            // Overlay to show when no tracks detected on the device
-            Rectangle {
-                id: libraryEmpty
-                anchors.fill: parent
-                anchors.topMargin: -emptyPage.header.height
-                color: styleMusic.libraryEmpty.backgroundColor
-
-                Column {
-                    anchors.centerIn: parent
-
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "large"
-                        font.bold: true
-                        text: "No music found"
-                    }
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "medium"
-                        text: "Please import music and restart the app"
-                    }
-                }
-            }
-        }
 
         Tabs {
             id: tabs
@@ -997,7 +1051,7 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres]
+                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
                 property bool loading: false
                 property var model: [recentModel, genreModel, albumTracksModel]
                 id: startTab
@@ -1083,7 +1137,7 @@ MainView {
             // Set the models in the tab to allow/disallow loading
             function allowLoading(tabToLoad, state)
             {
-                if (tabToLoad.model !== undefined)
+                if (tabToLoad !== undefined && tabToLoad.model !== undefined)
                 {
                     for (var i=0; i < tabToLoad.model.length; i++)
                     {
@@ -1110,6 +1164,20 @@ MainView {
                 }
                 loading.visible = selectedTab.loading || !selectedTab.populated
             }
+
+            function setNowPlaying(visible)
+            {
+                if (visible) {
+                    pageStack.push(nowPlaying);
+                }
+                else {
+                    if (pageStack.currentPage === nowPlaying) {
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            Component.onCompleted: musicToolbar.currentTab = selectedTab
 
             onSelectedTabChanged: {
                 // pause loading of the models in the old tab

@@ -147,6 +147,11 @@ Item {
                      width: parent.width
                      height: parent.width
                      model: searchModel.model
+
+                     onMovementStarted: {
+                         searchTrackView.forceActiveFocus()
+                     }
+
                      delegate: ListItem.Standard {
                             id: search
                             objectName: "playlist"
@@ -162,7 +167,7 @@ Item {
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
-                                trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                trackQueue.append(model)
                                 trackClicked(trackQueue, trackQueue.model.count - 1, true)
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }
@@ -176,7 +181,7 @@ Item {
                                 width: styleMusic.common.albumSize
                                 height: styleMusic.common.albumSize
                                 image: Image {
-                                    source: cover !== "" ? cover : Qt.resolvedUrl("images/cover_default_icon.png")
+                                    source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
                                 }
                             }
 
@@ -185,6 +190,7 @@ Item {
                                 wrapMode: Text.NoWrap
                                 maximumLineCount: 2
                                 fontSize: "x-small"
+                                color: styleMusic.common.subtitle
                                 anchors.left: trackCover.left
                                 anchors.leftMargin: units.gu(11)
                                 anchors.top: parent.top
@@ -215,6 +221,7 @@ Item {
                                 wrapMode: Text.NoWrap
                                 maximumLineCount: 2
                                 fontSize: "xx-small"
+                                color: styleMusic.common.subtitle
                                 anchors.left: trackCover.left
                                 anchors.leftMargin: units.gu(11)
                                 anchors.top: trackTitle.bottom
@@ -259,6 +266,7 @@ Item {
                                 anchors.top: parent.top
                                 width: styleMusic.common.expandedItem * 3
                                 onClicked: {
+                                    expandItem.forceActiveFocus()
                                     if(expandable.visible) {
                                         customdebug("clicked collapse")
                                         expandable.visible = false
@@ -352,13 +360,7 @@ Item {
                                         onClicked: {
                                             expandable.visible = false
                                             search.height = styleMusic.common.itemHeight
-                                            chosenArtist = artist
-                                            chosenTitle = title
-                                            chosenTrack = file
-                                            chosenAlbum = album
-                                            chosenCover = cover
-                                            chosenGenre = genre
-                                            chosenIndex = index
+                                            chosenElement = model
                                             console.debug("Debug: Add track to playlist")
                                             PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
                                                             {
@@ -401,7 +403,7 @@ Item {
                                             expandable.visible = false
                                             search.height = styleMusic.common.itemHeight
                                             console.debug("Debug: Add track to queue: " + title)
-                                            trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                            trackQueue.append(model)
                                         }
                                     }
                                 }

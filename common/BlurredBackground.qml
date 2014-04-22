@@ -25,7 +25,7 @@ Rectangle {
     anchors.fill: parent
     property string cover: player.currentMetaCover !== "" ?
                                player.currentMetaCover :
-                               "images/cover_default.png"
+                               "../images/music-app-cover@30.png"
     // the album art
     Image {
         id: backgroundImage
@@ -35,6 +35,11 @@ Rectangle {
         height: Math.max(parent.height, parent.width)
         width: Math.max(parent.height, parent.width)
         visible: false
+        onStatusChanged: {
+            if (status === Image.Error) {
+                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+        }
     }
     // the blur
     FastBlur {
@@ -50,8 +55,9 @@ Rectangle {
         opacity: 0.7
     }
     onCoverChanged: {
-        // TODO: This is a work around for LP:1261078. Ideally, there should be
-        //       a better way of getting the blur to repaint
+        // TODO: This is a work around for LP:1261078 and LP:1306845. Ideally,
+        //       there should be a better way of getting the blur to repaint
+        backgroundImage.source = cover
         backgroundBlur.source = null
         backgroundBlur.source = backgroundImage
     }

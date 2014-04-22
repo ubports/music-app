@@ -65,7 +65,7 @@ Item {
                 header: ListItem.Standard {
                     id: albumInfo
                     width: parent.width
-                    height: units.gu(20)
+                    height: units.gu(22)
 
                     CoverRow {
                         id: albumImage
@@ -73,10 +73,9 @@ Item {
                             top: parent.top
                             left: parent.left
                             margins: units.gu(1)
-                            verticalCenter: parent.verticalCenter
                         }
                         count: sheetItem.covers.length
-                        size: parent.height
+                        size: units.gu(20)
                         covers: sheetItem.covers
                         spacing: units.gu(2)
                     }
@@ -87,6 +86,7 @@ Item {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "small"
+                        color: styleMusic.common.subtitle
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: parent.top
@@ -116,6 +116,7 @@ Item {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "x-small"
+                        color: styleMusic.common.subtitle
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: albumLabel.bottom
@@ -126,6 +127,94 @@ Item {
                         text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
                                       : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
 
+                    }
+
+                    // Play
+                    Rectangle {
+                        id: playRow
+                        anchors.top: albumYear.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
+                        color: "transparent"
+                        height: units.gu(4)
+                        width: units.gu(15)
+                        Image {
+                            id: playTrack
+                            objectName: "albumsheet-playtrack"
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "../images/add-to-playback.png"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+                        }
+                        Label {
+                            anchors.left: playTrack.right
+                            anchors.leftMargin: units.gu(0.5)
+                            anchors.verticalCenter: parent.verticalCenter
+                            fontSize: "small"
+                            color: styleMusic.common.subtitle
+                            width: parent.width - playTrack.width - units.gu(1)
+                            text: i18n.tr("Play all")
+                            wrapMode: Text.WordWrap
+                            maximumLineCount: 3
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                trackClicked(albumTracksModel, 0)  // play track
+                                if (isAlbum) {
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                    mainView.hasRecent = true
+                                    recentModel.filterRecent()
+                                } else if (sheetItem.line1 == "Playlist") {
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    mainView.hasRecent = true
+                                    recentModel.filterRecent()
+                                }
+
+                                // TODO: This closes the SDK defined sheet
+                                //       component. It should be able to close
+                                //       albumSheet.
+                                PopupUtils.close(sheet)
+                            }
+                        }
+                    }
+
+                    // Queue
+                    Rectangle {
+                        id: queueAllRow
+                        anchors.top: playRow.bottom
+                        anchors.topMargin: units.gu(1)
+                        anchors.left: albumImage.right
+                        anchors.leftMargin: units.gu(1)
+                        color: "transparent"
+                        height: units.gu(4)
+                        width: units.gu(15)
+                        Image {
+                            id: queueAll
+                            objectName: "albumsheet-queue-all"
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "../images/add.svg"
+                            height: styleMusic.common.expandedItem
+                            width: styleMusic.common.expandedItem
+                        }
+                        Label {
+                            anchors.left: queueAll.right
+                            anchors.leftMargin: units.gu(0.5)
+                            anchors.verticalCenter: parent.verticalCenter
+                            fontSize: "small"
+                            color: styleMusic.common.subtitle
+                            width: parent.width - queueAll.width - units.gu(1)
+                            text: i18n.tr("Add to queue")
+                            wrapMode: Text.WordWrap
+                            maximumLineCount: 3
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                addQueueFromModel(albumTracksModel)
+                            }
+                        }
                     }
                 }
 
@@ -177,7 +266,12 @@ Item {
                             height: styleMusic.common.albumSize
                             visible: !isAlbum
                             image: Image {
-                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/cover_default_icon.png")
+                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                                onStatusChanged: {
+                                    if (status === Image.Error) {
+                                        source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                                    }
+                                }
                             }
                         }
 
@@ -186,6 +280,7 @@ Item {
                             wrapMode: Text.NoWrap
                             maximumLineCount: 2
                             fontSize: "x-small"
+                            color: styleMusic.common.subtitle
                             visible: !isAlbum
                             anchors {
                                 left: trackCover.right
@@ -205,6 +300,7 @@ Item {
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "medium"
+                            color: styleMusic.common.subtitle
                             anchors {
                                 left: isAlbum ? parent.left : trackCover.right
                                 leftMargin: units.gu(2)
@@ -222,6 +318,7 @@ Item {
                             wrapMode: Text.NoWrap
                             maximumLineCount: 2
                             fontSize: "xx-small"
+                            color: styleMusic.common.subtitle
                             visible: !isAlbum
                             anchors {
                                 left: trackCover.right
@@ -336,13 +433,7 @@ Item {
                                     onClicked: {
                                         expandable.visible = false
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
-                                        chosenArtist = artist
-                                        chosenTitle = title
-                                        chosenTrack = file
-                                        chosenAlbum = album
-                                        chosenCover = cover
-                                        chosenGenre = genre
-                                        chosenIndex = index
+                                        chosenElement = model
                                         console.debug("Debug: Add track to playlist")
                                         PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
                                                         {
@@ -385,7 +476,7 @@ Item {
                                         expandable.visible = false
                                         track.height = isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
                                         console.debug("Debug: Add track to queue: " + title)
-                                        trackQueue.model.append({"title": title, "artist": artist, "file": file, "album": album, "cover": cover, "genre": genre})
+                                        trackQueue.append(model)
                                     }
                                 }
                             }
