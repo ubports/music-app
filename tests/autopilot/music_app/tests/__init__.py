@@ -176,9 +176,10 @@ class MusicTestCase(AutopilotTestCase):
         #replace all occurences of string find with string replace
         #in the given file
         out_filename = in_filename + ".tmp"
-        infile = open(in_filename, 'r')
-        outfile = open(out_filename, 'w')
-        outfile.write(infile.read().replace(find, replace))
+        infile = open(in_filename, 'rb')
+        outfile = open(out_filename, 'wb')
+        for line in infile:
+            outfile.write(line.replace(str.encode(find), str.encode(replace)))
         infile.close()
         outfile.close()
 
