@@ -178,9 +178,7 @@ class MusicTestCase(AutopilotTestCase):
         out_filename = in_filename + ".tmp"
         infile = open(in_filename, 'r')
         outfile = open(out_filename, 'w')
-        for line in infile:
-            line = line.replace(find, replace)
-            outfile.write(line)
+        outfile.write(infile.read().replace(find, replace))
         infile.close()
         outfile.close()
 
