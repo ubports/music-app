@@ -66,10 +66,9 @@ Page {
                 return;
             }
 
-            // Collapse currently expanded track and the new current
-            collapseExpand(queuelist.currentIndex);
+            // Collapse any expanded track
+            collapseExpand(-1);
             queuelist.currentIndex = player.currentIndex;
-            collapseExpand(queuelist.currentIndex);
 
             customdebug("MusicQueue update currentIndex: " + player.source);
 
