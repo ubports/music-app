@@ -86,6 +86,7 @@ Item {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "small"
+                        color: styleMusic.common.subtitle
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: parent.top
@@ -115,6 +116,7 @@ Item {
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "x-small"
+                        color: styleMusic.common.subtitle
                         anchors.left: albumImage.right
                         anchors.leftMargin: units.gu(1)
                         anchors.top: albumLabel.bottom
@@ -150,6 +152,7 @@ Item {
                             anchors.leftMargin: units.gu(0.5)
                             anchors.verticalCenter: parent.verticalCenter
                             fontSize: "small"
+                            color: styleMusic.common.subtitle
                             width: parent.width - playTrack.width - units.gu(1)
                             text: i18n.tr("Play all")
                             wrapMode: Text.WordWrap
@@ -200,6 +203,7 @@ Item {
                             anchors.leftMargin: units.gu(0.5)
                             anchors.verticalCenter: parent.verticalCenter
                             fontSize: "small"
+                            color: styleMusic.common.subtitle
                             width: parent.width - queueAll.width - units.gu(1)
                             text: i18n.tr("Add to queue")
                             wrapMode: Text.WordWrap
@@ -284,6 +288,7 @@ Item {
                                 wrapMode: Text.NoWrap
                                 maximumLineCount: 2
                                 fontSize: "x-small"
+                                color: styleMusic.common.subtitle
                                 visible: !isAlbum
                                 anchors {
                                     left: trackCover.right
@@ -303,6 +308,7 @@ Item {
                                 wrapMode: Text.NoWrap
                                 maximumLineCount: 1
                                 fontSize: "medium"
+                                color: styleMusic.common.subtitle
                                 anchors {
                                     left: isAlbum ? parent.left : trackCover.right
                                     leftMargin: units.gu(2)
@@ -320,6 +326,7 @@ Item {
                                 wrapMode: Text.NoWrap
                                 maximumLineCount: 2
                                 fontSize: "xx-small"
+                                color: styleMusic.common.subtitle
                                 visible: !isAlbum
                                 anchors {
                                     left: trackCover.right
