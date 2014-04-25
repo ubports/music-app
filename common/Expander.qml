@@ -58,7 +58,7 @@ Item {
                     expander.cachedListItemHeight = listItem.height;
 
                     expander._heightChangeLock = true;
-                    listItem.height += styleMusic.albums.expandHeight;
+                    listItem.height += styleMusic.common.expandHeight;
                     expander._heightChangeLock = false;
                 }
             }
@@ -70,12 +70,12 @@ Item {
             cachedListItemHeight = listItem.height;
 
             expander._heightChangeLock = true;
-            listItem.height += styleMusic.albums.expandHeight;
+            listItem.height += styleMusic.common.expandHeight;
             expander._heightChangeLock = false;
         }
         else {
             expander._heightChangeLock = true;
-            listItem.height -= styleMusic.albums.expandHeight;
+            listItem.height -= styleMusic.common.expandHeight;
             expander._heightChangeLock = false;
         }
     }
@@ -126,7 +126,7 @@ Item {
             topMargin: cachedListItemHeight
         }
         color: "transparent"
-        height: styleMusic.albums.expandHeight
+        height: styleMusic.common.expandHeight
         visible: expander.expanderVisible
         width: parent.width
 
