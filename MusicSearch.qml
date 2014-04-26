@@ -25,6 +25,7 @@ import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 import "meta-database.js" as Library
 import "common"
+import "common/ExpanderItems"
 
 Item {
     id: sheetItem
@@ -260,10 +261,16 @@ Item {
                                 anchors {
                                     fill: parent
                                 }
-                                addToPlaylist: true
-                                addToQueue: true
                                 listItem: search
                                 model: searchModel.model.get(index)
+                                row: Row {
+                                    AddToPlaylist {
+
+                                    }
+                                    AddToQueue {
+
+                                    }
+                                }
                             }
                      }
                  }

@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
+import "ExpanderItems"
 
 Item {
     id: sheetItem
@@ -346,10 +347,16 @@ Item {
                             anchors {
                                 fill: parent
                             }
-                            addToPlaylist: true
-                            addToQueue: true
                             listItem: track
                             model: albumTracksModel.model.get(index)
+                            row: Row {
+                                AddToPlaylist {
+
+                                }
+                                AddToQueue {
+
+                                }
+                            }
                         }
 
                         Component.onCompleted: {

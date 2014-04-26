@@ -28,6 +28,7 @@ import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "common"
+import "common/ExpanderItems"
 
 // page for the playlists
 Page {
@@ -208,10 +209,16 @@ Page {
                     anchors {
                         fill: parent
                     }
-                    editPlaylist: true
-                    deletePlaylist: true
                     listItem: playlist
                     model: {"name": name, "id": id, "index": index}
+                    row: Row {
+                        EditPlaylist {
+
+                        }
+                        DeletePlaylist {
+
+                        }
+                    }
                 }
 
                 onClicked: {

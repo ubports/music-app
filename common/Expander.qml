@@ -22,17 +22,13 @@ import Ubuntu.Components.Popups 0.1
 
 Item {
     id: expander
-    property bool addToPlaylist: false
-    property bool addToQueue: false
     property alias backgroundOpacity: expandedBackground.opacity
     property int cachedListItemHeight: 0
-    property bool deletePlaylist: false
-    property bool editPlaylist: false
     property alias expanderButtonWidth: expandableButton.width
     property int expanderButtonTopMargin: 0
     property var listItem: null
     property var model: null
-    property bool share: false
+    property alias row: expanderRowLoader.sourceComponent
     property bool expanderVisible: false
     property bool _heightChangeLock: false
 
@@ -146,187 +142,20 @@ Item {
             onClicked: mouse.accepted = true
         }
 
-        // add to playlist
         Rectangle {
-            id: playlistRow
             anchors {
-                left: parent.left
+                fill: parent
                 leftMargin: styleMusic.common.expandedLeftMargin
-                top: parent.top
             }
             color: "transparent"
-            height: parent.height
-            visible: addToPlaylist
-            width: units.gu(15)
-            Icon {
-                id: playlistTrack
-                anchors.verticalCenter: parent.verticalCenter
-                color: styleMusic.common.white
-                name: "add"
-                height: styleMusic.common.expandedItem
-                width: styleMusic.common.expandedItem
-            }
-            Label {
+            Loader {
+                id: expanderRowLoader
                 anchors {
-                    left: playlistTrack.right
-                    leftMargin: units.gu(0.5)
                     verticalCenter: parent.verticalCenter
                 }
-                color: styleMusic.common.white
-                fontSize: "small"
-                maximumLineCount: 3
-                objectName: "addtoplaylist"
-                text: i18n.tr("Add to playlist")
-                width: parent.width - playlistTrack.width - units.gu(1)
-                wrapMode: Text.WordWrap
-            }
-            MouseArea {
-               anchors.fill: parent
-               onClicked: {
-                   expander.expanderVisible = false;
-                   chosenElement = expander.model;
-                   console.debug("Debug: Add track to playlist");
-                   PopupUtils.open(Qt.resolvedUrl("../MusicaddtoPlaylist.qml"), mainView,
-                   {
-                       title: i18n.tr("Select playlist")
-                   } )
-               }
-            }
-        }
-        // Queue
-        Rectangle {
-            id: queueRow
-            anchors {
-                left: playlistRow.left
-                leftMargin: units.gu(15)
-                top: parent.top
-            }
-            color: "transparent"
-            height: parent.height
-            visible: addToQueue
-            width: units.gu(15)
-            Image {
-                id: queueTrack
-                anchors.verticalCenter: parent.verticalCenter
-                source: "../images/queue.png"
-                height: styleMusic.common.expandedItem
-                width: styleMusic.common.expandedItem
-            }
-            Label {
-                anchors {
-                    left: queueTrack.right
-                    leftMargin: units.gu(0.5)
-                    verticalCenter: parent.verticalCenter
-                }
-                color: styleMusic.common.white
-                fontSize: "small"
-                maximumLineCount: 3
-                objectName: "queuetrack"
-                text: i18n.tr("Add to queue")
-                wrapMode: Text.WordWrap
-                width: parent.width - queueTrack.width - units.gu(1)
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    expander.expanderVisible = false
-                    console.debug("Debug: Add track to queue: " + expander.model)
-                    trackQueue.append(expander.model)
-                }
+                property alias expanderLink: expander
             }
         }
 
-        // edit column
-        Rectangle {
-            id: editColumn
-            anchors {
-                left: parent.left
-                leftMargin: styleMusic.common.expandedLeftMargin
-                top: parent.top
-            }
-            color: "transparent"
-            height: parent.height
-            visible: editPlaylist
-            width: units.gu(15)
-            Icon {
-                id: editPlaylistIcon
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                }
-                color: styleMusic.common.white
-                name: "edit"
-                height: styleMusic.common.expandedItem
-                width: styleMusic.common.expandedItem
-            }
-            Label {
-                anchors {
-                    left: editPlaylistIcon.right
-                    leftMargin: units.gu(0.5)
-                    verticalCenter: parent.verticalCenter
-                }
-                color: styleMusic.common.white
-                fontSize: "small"
-                // TRANSLATORS: this refers to editing a playlist
-                text: i18n.tr("Edit")
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    expander.expanderVisible = false;
-                    customdebug("Edit playlist")
-                    oldPlaylistName = expander.model.name
-                    oldPlaylistID = expander.model.id
-                    oldPlaylistIndex = expander.model.index
-                    PopupUtils.open(editPlaylistDialog, mainView)
-                }
-            }
-        }
-
-        // delete column
-        Rectangle {
-            id: deleteColumn
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: parent.top
-            }
-            color: "transparent"
-            height: parent.height
-            visible: deletePlaylist
-            width: units.gu(15)
-            Icon {
-                id: deletePlaylistIcon
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                }
-                color: styleMusic.common.white
-                name: "delete"
-                height: styleMusic.common.expandedItem
-                width: styleMusic.common.expandedItem
-            }
-            Label {
-                anchors {
-                    left: deletePlaylistIcon.right
-                    leftMargin: units.gu(0.5)
-                    verticalCenter: parent.verticalCenter
-                }
-                color: styleMusic.common.white
-                fontSize: "small"
-                // TRANSLATORS: this refers to deleting a playlist
-                text: i18n.tr("Delete")
-            }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    expander.expanderVisible = false;
-                    customdebug("Delete")
-                    oldPlaylistName = expander.model.name
-                    oldPlaylistID = expander.model.id
-                    oldPlaylistIndex = expander.model.index
-                    PopupUtils.open(removePlaylistDialog, mainView)
-                }
-            }
-        }
     }
 }

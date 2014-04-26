@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import "common"
+import "common/ExpanderItems"
 import "meta-database.js" as Library
 import "settings.js" as Settings
 
@@ -253,7 +254,7 @@ Page {
 
                     onClicked: {
                         collapseSwipeDelete(-1);  // collapse all expands
-                        customdebug("File: " + file) // debugger
+                        customdebug("File: " + model.file) // debugger
                         trackClicked(trackQueue, index) // play track
                     }
 
@@ -611,13 +612,15 @@ Page {
                     anchors {
                         fill: parent
                     }
-
-                    addToPlaylist: true
                     expanderButtonTopMargin: queueListItem.state === "current" ?
                                                  trackImage.height + nowPlayingArtist.height + units.gu(3.5) - (queuelist.normalHeight / 2)
                                                : 0
                     listItem: queueListItem
                     model: trackQueue.model.get(index)
+                    row: Row {
+                        AddToPlaylist {
+                        }
+                    }
                 }
 
                 states: State {

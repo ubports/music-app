@@ -25,6 +25,7 @@ import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
+import "common/ExpanderItems"
 
 
 Page {
@@ -165,10 +166,16 @@ Page {
                     anchors {
                         fill: parent
                     }
-                    addToPlaylist: true
-                    addToQueue: true
                     listItem: track
                     model: libraryModel.model.get(index)
+                    row: Row {
+                        AddToPlaylist {
+
+                        }
+                        AddToQueue {
+
+                        }
+                    }
                 }
 
                 states: State {
