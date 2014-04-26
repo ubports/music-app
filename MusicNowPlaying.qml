@@ -305,7 +305,7 @@ Page {
                         {
                             collapseSwipeDelete(-1);  // collapse all expands
                             collapseExpand();  // collapse all
-                            customdebug("Pressed and held queued track "+file)
+                            customdebug("Pressed and held queued track "+model.file)
                             queuelist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
                         }
