@@ -119,7 +119,7 @@ Page {
             }
         ]
         footer: Item {
-            height: mainView.height - styleMusic.nowPlaying.expandedHeightCurrent + units.gu(8)
+            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
         }
 
         property int normalHeight: units.gu(12)
