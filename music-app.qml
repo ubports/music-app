@@ -369,6 +369,8 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
+
+        emptyPage.noMusic = true;
     }
 
 
@@ -856,8 +858,7 @@ MainView {
         title: i18n.tr("Music")
         visible: false
 
-        //TODO: Temporarily set to true as we move to mediascanner2.0
-        property bool noMusic: true
+        property bool noMusic: false
 
         onNoMusicChanged: {
             if (noMusic)
@@ -881,7 +882,6 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
-
 
                 Label {
                     anchors.horizontalCenter: parent.horizontalCenter

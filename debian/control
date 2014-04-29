@@ -12,8 +12,8 @@ Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 
 Package: music-app
 Architecture: all
-Depends: grilo-plugins-0.2-mediascanner,
-         mediascanner,
+Depends: qtdeclarative5-ubuntu-mediascanner0.1,
+         mediascanner2.0,
          qmlscene,
          qtdeclarative5-localstorage-plugin,
          qtdeclarative5-particles-plugin,
