@@ -22,10 +22,9 @@ import Ubuntu.Components.Popups 0.1
 
 Item {
     id: expander
+    property int actualListItemHeight: -1
     property alias backgroundOpacity: expandedBackground.opacity
-    property int cachedListItemHeight: 0
     property alias expanderButtonWidth: expandableButton.width
-    property int expanderButtonTopMargin: 0
     property var listItem: null
     property var model: null
     property alias row: expanderRowLoader.sourceComponent
@@ -33,9 +32,11 @@ Item {
     property bool _heightChangeLock: false
 
     Component.onCompleted: {
-        collapseExpand.connect(onCollapseExpand);
+        if (listItem !== null && actualListItemHeight === -1) {
+            actualListItemHeight = listItem.height;
+        }
 
-        expandableButton.height = listItem.height;
+        collapseExpand.connect(onCollapseExpand);
     }
 
     function onCollapseExpand(indexCol)
@@ -49,31 +50,24 @@ Item {
     Connections {
         target: listItem
         onHeightChanged: {
-            if (!expander._heightChangeLock) {
-                if (expander.expanderVisible) {
-                    expander.cachedListItemHeight = listItem.height;
-
-                    expander._heightChangeLock = true;
-                    listItem.height += styleMusic.common.expandHeight;
-                    expander._heightChangeLock = false;
-                }
+            if (!expander._heightChangeLock && expander.expanderVisible) {
+                expander._heightChangeLock = true;
+                listItem.height += styleMusic.common.expandHeight;
+                expander._heightChangeLock = false;
             }
         }
     }
 
-    onExpanderVisibleChanged: {
-        if (expanderVisible) {
-            cachedListItemHeight = listItem.height;
 
-            expander._heightChangeLock = true;
+    onExpanderVisibleChanged: {
+        expander._heightChangeLock = true;
+        if (expanderVisible) {
             listItem.height += styleMusic.common.expandHeight;
-            expander._heightChangeLock = false;
         }
         else {
-            expander._heightChangeLock = true;
             listItem.height -= styleMusic.common.expandHeight;
-            expander._heightChangeLock = false;
         }
+        expander._heightChangeLock = false;
     }
 
     Rectangle {
@@ -81,9 +75,9 @@ Item {
         anchors {
             right: parent.right
             top: parent.top
-            topMargin: expanderButtonTopMargin
         }
         color: "transparent"
+        height: actualListItemHeight
         width: expandableButtonImage.width * 2
 
         Image {
@@ -119,7 +113,7 @@ Item {
         id: expandedContainer
         anchors {
             top: parent.top
-            topMargin: cachedListItemHeight
+            topMargin: actualListItemHeight
         }
         color: "transparent"
         height: styleMusic.common.expandHeight

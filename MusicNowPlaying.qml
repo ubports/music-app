@@ -612,13 +612,20 @@ Page {
                     anchors {
                         fill: parent
                     }
-                    expanderButtonTopMargin: queueListItem.state === "current" ?
-                                                 trackImage.height + nowPlayingArtist.height + units.gu(3.5) - (queuelist.normalHeight / 2)
-                                               : 0
+                    actualListItemHeight: queueListItem.state === "current" ?
+                                              queuelist.currentHeight :
+                                              queuelist.normalHeight
                     listItem: queueListItem
                     model: trackQueue.model.get(index)
                     row: Row {
                         AddToPlaylist {
+                        }
+                    }
+                    Behavior on actualListItemHeight {
+                        NumberAnimation {
+                            target: expandable;
+                            property: "actualListItemHeight";
+                            duration: queuelist.transitionDuration;
                         }
                     }
                 }
