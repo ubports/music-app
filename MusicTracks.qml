@@ -20,10 +20,11 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 
@@ -47,18 +48,21 @@ Page {
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         highlightFollowsCurrentItem: false
-        model: libraryModel.model
+        model: SongsModel {
+            id: songsModel
+            store: musicStore
+        }
         delegate: trackDelegate
         Component {
             id: trackDelegate
             ListItem.Standard {
                 id: track
-                property string artist: model.artist
+                property string artist: model.author
                 property string album: model.album
                 property string title: model.title
-                property string cover: model.cover
-                property string length: model.length
-                property string file: model.file
+                property string cover: model.art
+                property string length: model.duration
+                property string file: model.filename
                 width: parent.width
                 height: styleMusic.common.itemHeight
 
@@ -92,7 +96,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: artist
+                    text: track.artist
                 }
                 Label {
                     id: trackTitle
@@ -123,7 +127,7 @@ Page {
                     anchors.right: expandItem.left
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: album
+                    text: track.album
                 }
                 Label {
                     id: trackDuration
@@ -151,7 +155,8 @@ Page {
                             focus = true
                         }
 
-                        trackClicked(libraryModel, index)  // play track
+                        trackClickedMediaScanner2(tracklist.model, index)  // play track
+
                         // collapse expanded item on click on track
                         if(expandable.visible) {
                             expandable.visible = false

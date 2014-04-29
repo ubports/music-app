@@ -21,6 +21,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -63,8 +65,13 @@ Page {
         width:  mainpage.width
         height: mainpage.height
 
+        // TODO: uncomment when genre is reenabled
+        /*
         contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height + units.gu(4)
                                            :  genres.height + genrelist.height + albums.height + albumlist.height + units.gu(3)
+        */
+        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + albums.height + albumlist.height + units.gu(4)
+                                           :  albums.height + albumlist.height + units.gu(3)
         contentWidth: width
 
         focus: true
@@ -201,6 +208,8 @@ Page {
             }
         }
 
+        // TODO: remove genre for now as not in mediascanner2
+        /*
         ListItem.ThinDivider {
             id: genreDivider
             anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
@@ -317,10 +326,12 @@ Page {
                 }
             }
         }
+        */
 
         ListItem.ThinDivider {
             id: albumsDivider
-            anchors.top: genrelist.bottom
+            //anchors.top: genrelist.bottom
+            anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
         }
         ListItem.Standard {
             id: albums
@@ -343,7 +354,10 @@ Page {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: albumModel.model
+            model: AlbumsModel {
+                id: albumsModel
+                store: musicStore
+            }
             delegate: albumDelegate
             header: Item {
                 id: albumSpacer
@@ -355,12 +369,8 @@ Page {
                 id: albumDelegate
                 Item {
                     property string artist: model.artist
-                    property string album: model.album
-                    property var covers: [Library.getAlbumCover(album)]
-                    property string length: model.length
-                    property string file: model.file
-                    property string year: model.year
-                    property string genre: model.genre
+                    property string album: model.title
+                    property var covers: [model.art]
 
                     id: albumItem
                     objectName: "albumItemObject"

@@ -21,6 +21,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 
@@ -36,6 +38,13 @@ Item {
     property string year: ""
     property bool isAlbum: false
     property alias sheet: sheetComponent
+
+    property alias album: songsModel.album
+
+    SongsModel {
+        id: songsModel
+        store: musicStore
+    }
 
     Component {
         id: sheetComponent
@@ -60,7 +69,8 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                model: albumTracksModel.model
+                model: songsModel
+
                 delegate: albumTracksDelegate
                 header: ListItem.Standard {
                     id: albumInfo
@@ -124,8 +134,8 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
-                                      : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                        text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                                      : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
                     }
 
@@ -161,7 +171,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                trackClicked(albumTracksModel, 0)  // play track
+                                trackClickedMediaScanner2(albumtrackslist.model, 0)  // play track
                                 if (isAlbum) {
                                     Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
                                     mainView.hasRecent = true
@@ -212,7 +222,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                addQueueFromModel(albumTracksModel)
+                                addQueueFromModelMediaScanner2(albumtrackslist.model)
                             }
                         }
                     }
@@ -236,7 +246,7 @@ Item {
                                 if (focus == false) {
                                     focus = true
                                 }
-                                trackClicked(albumTracksModel, index)  // play track
+                                trackClickedMediaScanner2(albumtrackslist.model, index)  // play track
                                 if (isAlbum) {
                                     Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
                                     mainView.hasRecent = true
@@ -266,7 +276,7 @@ Item {
                             height: styleMusic.common.albumSize
                             visible: !isAlbum
                             image: Image {
-                                source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                                source: model.art
                                 onStatusChanged: {
                                     if (status === Image.Error) {
                                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")
@@ -291,7 +301,7 @@ Item {
                                 rightMargin: units.gu(1.5)
                             }
                             elide: Text.ElideRight
-                            text: model.artist
+                            text: model.author
                         }
 
                         Label {
@@ -487,8 +497,8 @@ Item {
                         Component.onCompleted: {
                             if (index === 0)
                             {
-                                sheetItem.file = model.file;
-                                sheetItem.year = model.year;
+                                sheetItem.file = model.filename;
+                                sheetItem.year = model.date;
                             }
                         }
                     }

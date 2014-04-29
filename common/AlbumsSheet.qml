@@ -21,6 +21,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 
@@ -57,7 +59,12 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                model: artistAlbumsModel.model
+                model: AlbumsModel {
+                    id: artistsModel
+                    albumArtist: sheetItem.artist
+                    store: musicStore
+                }
+
                 delegate: albumTracksDelegate
 
                 Component {
@@ -69,6 +76,10 @@ Item {
                         width: parent.width
                         height: units.gu(20)
 
+                        property string album: model.title
+                        property string cover: model.art
+                        property string year: model.date  // FIXME: mediascanner2
+
                         CoverRow {
                             id: albumImage
                             anchors {
@@ -79,7 +90,7 @@ Item {
                             }
                             count: 1
                             size: parent.height
-                            covers: [Library.getAlbumCover(model.album)]
+                            covers: [cover]
                             spacing: units.gu(2)
 
                             MouseArea {
@@ -91,13 +102,13 @@ Item {
                                         focus = true
                                     }
 
-                                    albumTracksModel.filterAlbumTracks(album)
+                                    albumSheet.album = album;
+
                                     albumSheet.line1 = artist
-                                    albumSheet.line2 = model.album
+                                    albumSheet.line2 = album
                                     albumSheet.isAlbum = true
-                                    albumSheet.file = file
                                     albumSheet.year = year
-                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app-cover@30.png")]
+                                    albumSheet.covers = [cover]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet

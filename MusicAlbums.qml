@@ -20,6 +20,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
@@ -59,7 +61,11 @@ Page {
         anchors.bottomMargin: units.gu(1)
         cellHeight: height/3
         cellWidth: height/3
-        model: albumModel.model
+        model: AlbumsModel {
+            id: albumsModel
+            store: musicStore
+        }
+
         delegate: albumDelegate
         flow: GridView.TopToBottom
 
@@ -67,12 +73,10 @@ Page {
             id: albumDelegate
             Item {
                 property string artist: model.artist
-                property string album: model.album
-                property string title: model.title
-                property string cover: model.cover  !== "" ? model.cover :  Qt.resolvedUrl("images/music-app-cover@30.png")
-                property string length: model.length
-                property string file: model.file
-                property string year: model.year
+                property string album: model.title
+                property string cover: model.art
+                property string length: model.duration  // FIXME: mediascanner2
+                property string year: model.date  // FIXME: mediascanner2
 
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
@@ -143,12 +147,11 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        albumTracksModel.filterAlbumTracks(album)
+                        songsSheet.album = album;
 
                         songsSheet.line1 = artist
                         songsSheet.line2 = album
                         songsSheet.isAlbum = true
-                        songsSheet.file = file
                         songsSheet.year = year
                         songsSheet.covers = [cover]
                         PopupUtils.open(songsSheet.sheet)

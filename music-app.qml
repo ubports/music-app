@@ -370,9 +370,8 @@ MainView {
             uriHandler.process(args.values.url, true);
         }
 
-        emptyPage.noMusic = true;
+        emptyPage.noMusic = false  // TODO: force false to allow UI to function
     }
-
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
@@ -432,6 +431,12 @@ MainView {
         {
             trackQueue.append(items[key])
         }
+    }
+
+    // TODO: add mediascanner2 model to queue
+    function addQueueFromModelMediaScanner2(model)
+    {
+
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -518,6 +523,31 @@ MainView {
         return file
     }
 
+    // TODO: correctly copy mediascanner2 model to trackQueue (with caching?)
+    function trackClickedMediaScanner2(model, index) {
+        trackQueue.model.clear();
+
+        for (var item in model) {
+            console.debug(item);
+        }
+
+        console.debug("THIS", model.data, model.rows)
+
+        var query = model.store.query(null, 1);
+
+        for (var i=0; i < query.length; i++) {
+            trackQueue.model.append({
+                                        album: query[i].album,
+                                        artist: query[i].author,
+                                        cover: query[i].art,
+                                        file: query[i].filename,
+                                        title: query[i].title
+                                    });
+        }
+
+        player.playSong(query[index].filename, index);
+    }
+
     function playRandomSong(shuffle)
     {
         trackQueue.model.clear();
@@ -538,6 +568,11 @@ MainView {
         trackClicked(trackQueue,
                      index,
                      true);
+    }
+
+    // Load mediascanner store
+    MediaStore {
+        id: musicStore
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -621,39 +656,12 @@ MainView {
         }
     }
 
-    LibraryListModel {
-        id: artistModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                artistsTab.loading = false
-                artistsTab.populated = true
-            }
-        }
-    }
-    LibraryListModel {
-        id: artistTracksModel
-    }
-    LibraryListModel {
-        id: artistAlbumsModel
-    }
-
-    LibraryListModel {
-        id: albumModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                albumsTab.loading = false
-                albumsTab.populated = true
-            }
-        }
-    }
+    // TODO: Used by playlisttracks move to U1DB
     LibraryListModel {
         id: albumTracksModel
     }
 
+    // TODO: used by recent items move to U1DB
     LibraryListModel {
         id: recentModel
         property bool complete: false
@@ -669,31 +677,15 @@ MainView {
             }
         }
     }
+
+    // TODO: used by recent albums move to U1DB
     LibraryListModel {
         id: recentAlbumTracksModel
     }
+
+    // TODO: used by recent playlists move to U1DB
     LibraryListModel {
         id: recentPlaylistTracksModel
-    }
-
-    LibraryListModel {
-        id: genreModel
-        property bool complete: false
-        onPreLoadCompleteChanged: {
-            complete = true;
-
-            if (preLoadComplete && (recentModel.complete ||
-                                    recentModel.query().length === 0))
-            {
-                loading.visible = false
-                startTab.loading = false
-                startTab.populated = true
-            }
-        }
-    }
-
-    LibraryListModel {
-        id: genreTracksModel
     }
 
     // list of tracks on startup. This is just during development
@@ -716,11 +708,7 @@ MainView {
         }
     }
 
-    // list of songs, which has been removed.
-    ListModel {
-        id: removedTrackQueue
-    }
-
+    // TODO: list of playlists move to U1DB
     // create the listmodel to use for playlists
     LibraryListModel {
         id: playlistModel
@@ -735,6 +723,7 @@ MainView {
         }
     }
 
+    // TODO: used for searching move to mediascanner2
     // search model
     LibraryListModel {
         id: searchModel
@@ -858,7 +847,7 @@ MainView {
         title: i18n.tr("Music")
         visible: false
 
-        property bool noMusic: false
+        property bool noMusic: true
 
         onNoMusicChanged: {
             if (noMusic)
@@ -914,9 +903,9 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
+                property var loader: [recentModel.filterRecent]
                 property bool loading: false
-                property var model: [recentModel, genreModel, albumTracksModel]
+                property var model: [recentModel, albumTracksModel]
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -930,10 +919,10 @@ MainView {
 
             // Second tab is arists
             Tab {
-                property bool populated: false
-                property var loader: [artistModel.filterArtists]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [artistModel, artistAlbumsModel, albumTracksModel]
+                property var model: []
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
@@ -947,10 +936,10 @@ MainView {
 
             // third tab is albums
             Tab {
-                property bool populated: false
-                property var loader: [albumModel.filterAlbums]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [albumModel, albumTracksModel]
+                property var model: []
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
@@ -964,10 +953,10 @@ MainView {
 
             // fourth tab is all songs
             Tab {
-                property bool populated: false
-                property var loader: [libraryModel.populate]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [libraryModel]
+                property var model: []
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
