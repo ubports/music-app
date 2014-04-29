@@ -24,6 +24,7 @@ Item {
     id: expander
     property int actualListItemHeight: -1
     property alias backgroundOpacity: expandedBackground.opacity
+    property bool buttonEnabled: true
     property int expanderButtonCentreFromBottom: -1
     property alias expanderButtonWidth: expandableButton.width
     property var listItem: null
@@ -105,6 +106,10 @@ Item {
             height: parent.height
             width: parent.width + units.gu(1)
             onClicked: {
+                if (!expander.buttonEnabled) {
+                    return;
+                }
+
                 var expanderState = expander.expanderVisible;
 
                 collapseExpand();

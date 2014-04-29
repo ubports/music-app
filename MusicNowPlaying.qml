@@ -617,6 +617,7 @@ Page {
                     actualListItemHeight: queueListItem.state === "current" ?
                                               queuelist.currentHeight :
                                               queuelist.normalHeight
+                    buttonEnabled: !swipeBackground.primed
                     expanderButtonCentreFromBottom: queuelist.normalHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
                     listItem: queueListItem
                     model: trackQueue.model.get(index)
