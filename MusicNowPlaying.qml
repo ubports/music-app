@@ -269,11 +269,13 @@ Page {
                         if (queueListItem.x < startX)
                         {
                             swipeBackground.state = "swipingLeft";
+                            collapseExpand();
                         }
                         // New X is greater sow swiping right
                         else if (queueListItem.x > startX)
                         {
                             swipeBackground.state = "swipingRight";
+                            collapseExpand();
                         }
                         // Same so reset state back to normal
                         else
@@ -303,7 +305,7 @@ Page {
                         // Must be in a normal state to change to reorder state
                         if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
-                            collapseSwipeDelete(-1);  // collapse all expands
+                            collapseSwipeDelete(-1);  // collapse all swipedeletes
                             collapseExpand();  // collapse all
                             customdebug("Pressed and held queued track "+model.file)
                             queuelist.state = "reorder";  // enable reordering state
