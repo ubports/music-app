@@ -58,7 +58,6 @@ Item {
         }
     }
 
-
     onExpanderVisibleChanged: {
         expander._heightChangeLock = true;
         if (expanderVisible) {
