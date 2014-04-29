@@ -24,6 +24,7 @@ Item {
     id: expander
     property int actualListItemHeight: -1
     property alias backgroundOpacity: expandedBackground.opacity
+    property int expanderButtonCentreFromBottom: -1
     property alias expanderButtonWidth: expandableButton.width
     property var listItem: null
     property var model: null
@@ -34,6 +35,9 @@ Item {
     Component.onCompleted: {
         if (listItem !== null && actualListItemHeight === -1) {
             actualListItemHeight = listItem.height;
+        }
+        if (listItem !== null && expanderButtonCentreFromBottom === -1) {
+            expanderButtonCentreFromBottom = listItem.height / 2;
         }
 
         collapseExpand.connect(onCollapseExpand);
@@ -72,11 +76,12 @@ Item {
     Rectangle {
         id: expandableButton
         anchors {
+            bottom: parent.bottom
+            bottomMargin: expanderVisible ? expandedContainer.height : undefined
             right: parent.right
-            top: parent.top
         }
         color: "transparent"
-        height: actualListItemHeight
+        height: expanderButtonCentreFromBottom * 2
         width: expandableButtonImage.width * 2
 
         Image {

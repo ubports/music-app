@@ -615,6 +615,7 @@ Page {
                     actualListItemHeight: queueListItem.state === "current" ?
                                               queuelist.currentHeight :
                                               queuelist.normalHeight
+                    expanderButtonCentreFromBottom: queuelist.normalHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
                     listItem: queueListItem
                     model: trackQueue.model.get(index)
                     row: Row {
@@ -653,6 +654,10 @@ Page {
                         width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
+                    }
+                    PropertyChanges {
+                        target: expandable
+                        expanderButtonCentreFromBottom: queuelist.currentHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
                     }
                 }
                 transitions: Transition {
