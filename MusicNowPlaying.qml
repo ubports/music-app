@@ -30,23 +30,14 @@ import "settings.js" as Settings
 Page {
     id: nowPlaying
     objectName: "nowplayingpage"
-    anchors.fill: parent
-    title: i18n.tr("Queue")
+    title: i18n.tr("Now Playing")
+    tools: null
     visible: false
 
     onVisibleChanged: {
         if (visible === true)
         {
-            header.hide();
-            header.opacity = 0;
-            header.enabled = false;
-            musicToolbar.setPage(nowPlaying, musicToolbar.currentPage);
-        }
-        else
-        {
-            header.enabled = true;
-            header.opacity = 1;
-            header.show();
+            musicToolbar.setPage(nowPlaying, null, tabs.pageStack);
         }
     }
 
@@ -81,6 +72,10 @@ Page {
             collapseExpand(queuelist.currentIndex);
 
             customdebug("MusicQueue update currentIndex: " + player.source);
+
+            // Always jump to current track
+            nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
+
         }
     }
 
@@ -536,7 +531,12 @@ Page {
                         height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
-                            source: cover !== "" ? cover : "images/cover_default.png"
+                            source: cover !== "" ? cover : "images/music-app-cover@30.png"
+                            onStatusChanged: {
+                                if (status === Image.Error) {
+                                    source = Qt.resolvedUrl("images/music-app-cover@30.png")
+                                }
+                            }
                         }
                         onHeightChanged: {
                             if (height > queuelist.normalHeight) {
@@ -808,32 +808,17 @@ Page {
         }
     }
 
+    // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
     Rectangle {
         id: nowPlayingBackButton
         anchors {
             left: parent.left
             right: parent.right
         }
+
         color: styleMusic.toolbar.fullBackgroundColor
         height: units.gu(3.1)
-
-        state: musicToolbar.opened ? "shown" : "hidden"
-        states: [
-            State {
-                name: "shown"
-                AnchorChanges {
-                    target: nowPlayingBackButton
-                    anchors.top: parent.top
-                }
-            },
-            State {
-                name: "hidden"
-                AnchorChanges {
-                    target: nowPlayingBackButton
-                    anchors.bottom: parent.top
-                }
-            }
-        ]
+        y: header.y + header.height
 
         Image {
             id: expandItem

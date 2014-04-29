@@ -28,7 +28,7 @@ Project {
         filter: "*.po*"
     }
     Files {
-        filter: "*.pro"
+        filter: "CMakeLists.txt"
     }
     /* Shows the autopilot python files in the project view */
     Files {

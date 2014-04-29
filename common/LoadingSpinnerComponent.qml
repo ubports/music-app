@@ -46,5 +46,6 @@ Item {
         anchors.horizontalCenterOffset: (loading.width / 2) + (loading.anchors.rightMargin / 2)
         anchors.verticalCenter: parent.verticalCenter
         fontSize: "large"
+        color: styleMusic.common.subtitle
     }
 }

@@ -97,7 +97,7 @@ Item {
                                     albumSheet.isAlbum = true
                                     albumSheet.file = file
                                     albumSheet.year = year
-                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/cover_default.png")]
+                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app-cover@30.png")]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet
@@ -114,6 +114,7 @@ Item {
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "small"
+                            color: styleMusic.common.subtitle
                             anchors.left: albumImage.right
                             anchors.leftMargin: units.gu(1)
                             anchors.top: parent.top
@@ -143,6 +144,7 @@ Item {
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
                             fontSize: "x-small"
+                            color: styleMusic.common.subtitle
                             anchors.left: albumImage.right
                             anchors.leftMargin: units.gu(1)
                             anchors.top: albumLabel.bottom
@@ -176,6 +178,7 @@ Item {
                                 anchors.leftMargin: units.gu(0.5)
                                 anchors.verticalCenter: parent.verticalCenter
                                 fontSize: "small"
+                                color: styleMusic.common.subtitle
                                 width: parent.width - playTrack.width - units.gu(1)
                                 text: i18n.tr("Play all")
                                 wrapMode: Text.WordWrap
@@ -223,6 +226,7 @@ Item {
                                 anchors.leftMargin: units.gu(0.5)
                                 anchors.verticalCenter: parent.verticalCenter
                                 fontSize: "small"
+                                color: styleMusic.common.subtitle
                                 width: parent.width - queueTrack.width - units.gu(1)
                                 text: i18n.tr("Add to queue")
                                 wrapMode: Text.WordWrap
