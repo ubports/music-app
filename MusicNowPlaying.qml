@@ -268,14 +268,16 @@ Page {
                         // New X is less than start so swiping left
                         if (queueListItem.x < startX)
                         {
-                            swipeBackground.state = "swipingLeft";
                             collapseExpand();
+                            swipeBackground.state = "swipingLeft";
+                            startY = queueListItem.y;
                         }
                         // New X is greater sow swiping right
                         else if (queueListItem.x > startX)
                         {
-                            swipeBackground.state = "swipingRight";
                             collapseExpand();
+                            swipeBackground.state = "swipingRight";
+                            startY = queueListItem.y;
                         }
                         // Same so reset state back to normal
                         else
