@@ -8,7 +8,6 @@
 """Music app autopilot tests."""
 
 import tempfile
-
 try:
     from unittest import mock
 except ImportError:
@@ -28,7 +27,8 @@ from music_app import emulators
 
 from ubuntuuitoolkit import (
     base,
-    emulators as toolkit_emulators
+    emulators as toolkit_emulators,
+    environment
 )
 
 
@@ -50,9 +50,6 @@ class MusicTestCase(AutopilotTestCase):
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
-    sqlite_dir = os.path.expanduser(
-        "~/.local/share/com.ubuntu.music/Databases")
-    backup_dir = sqlite_dir + ".backup"
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -67,15 +64,8 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        #backup and wipe db's before testing
-        self.temp_move_sqlite_db()
-        self.addCleanup(self.restore_sqlite_db)
-
         launch, self.test_type = self.setup_environment()
-        if self.test_type != 'click':
-            self.home_dir = self._patch_home()
-        else:
-            self.home_dir = self._save_home()
+        self.home_dir = self._patch_home()
         self._create_music_library()
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
@@ -103,25 +93,10 @@ class MusicTestCase(AutopilotTestCase):
             "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
-    def _save_home(self):
-        logger.debug('Saving HOME')
-        home_dir = os.environ['HOME']
-        backup_list = ('Music', )  # '.cache/mediascanner')
-        backup_path = [os.path.join(home_dir, i) for i in backup_list]
-        backups = [(i, '%s.bak' % i) for i in backup_path if os.path.exists(i)]
-        for b in backups:
-            logger.debug('backing up %s to %s' % b)
-            try:
-                shutil.rmtree(b[1])
-            except:
-                pass
-            shutil.move(b[0], b[1])
-            #self.addCleanup(shutil.move(b[1], b[0]))
-        return home_dir
-
     def _patch_home(self):
         #make a temp dir
         temp_dir = tempfile.mkdtemp()
+
         #delete it, and recreate it to the length
         #required so our patching the db works
         #require a length of 25
@@ -130,6 +105,7 @@ class MusicTestCase(AutopilotTestCase):
         os.mkdir(temp_dir)
         logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+
         #if the Xauthority file is in home directory
         #make sure we copy it to temp home, otherwise do nothing
         xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
@@ -138,10 +114,17 @@ class MusicTestCase(AutopilotTestCase):
             shutil.copyfile(
                 os.path.expanduser(os.path.join('~', '.Xauthority')),
                 os.path.join(temp_dir, '.Xauthority'))
-        patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
-        patcher.start()
+
+        #click can use initctl env (upstart), but desktop still requires mock
+        if self.test_type == 'click':
+            environment.set_initctl_env_var('HOME', temp_dir)
+            self.addCleanup(environment.unset_initctl_env_var, 'HOME')
+        else:
+            patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
         logger.debug("Patched home to fake home directory " + temp_dir)
-        self.addCleanup(patcher.stop)
         return temp_dir
 
     def _create_music_library(self):
@@ -159,29 +142,19 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Content dir set to %s" % content_dir)
 
-        #stop media scanner
-        #if self.test_type == 'click':
-        #    subprocess.check_call(['stop', 'mediascanner'])
-
         #copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-        if self.test_type != 'click':
-            shutil.copytree(os.path.join(content_dir, 'mediascanner'),
-                            mediascannerpath)
+        shutil.copytree(
+            os.path.join(content_dir, 'mediascanner'), mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        if self.test_type != 'click':
-            self._patch_mediascanner_home(mediascannerpath)
-            logger.debug(
-                "Mediascanner database copied, files " +
-                str(os.listdir(mediascannerpath)))
-
-        #start media scanner
-        #if self.test_type == 'click':
-        #    subprocess.check_call(['start', 'mediascanner'])
+        self._patch_mediascanner_home(mediascannerpath)
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
@@ -204,45 +177,16 @@ class MusicTestCase(AutopilotTestCase):
         #replace all occurences of string find with string replace
         #in the given file
         out_filename = in_filename + ".tmp"
-        infile = open(in_filename, 'r')
-        outfile = open(out_filename, 'w')
-        for s in infile.xreadlines():
-            outfile.write(s.replace(find, replace))
+        infile = open(in_filename, 'rb')
+        outfile = open(out_filename, 'wb')
+        for line in infile:
+            outfile.write(line.replace(str.encode(find), str.encode(replace)))
         infile.close()
         outfile.close()
 
         #remove original file and copy new file back
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
-
-    def temp_move_sqlite_db(self):
-        try:
-            shutil.rmtree(self.backup_dir)
-        except:
-            pass
-        else:
-            logger.warning("Prexisting backup database found and removed")
-
-        try:
-            shutil.move(self.sqlite_dir, self.backup_dir)
-        except:
-            logger.warning("No current database found")
-        else:
-            logger.debug("Backed up database")
-
-    def restore_sqlite_db(self):
-        if os.path.exists(self.backup_dir):
-            if os.path.exists(self.sqlite_dir):
-                try:
-                    shutil.rmtree(self.sqlite_dir)
-                except:
-                    logger.error("Failed to remove test database and restore" /
-                                 "database")
-                    return
-            try:
-                shutil.move(self.backup_dir, self.sqlite_dir)
-            except:
-                logger.error("Failed to restore database")
 
     @property
     def player(self):
