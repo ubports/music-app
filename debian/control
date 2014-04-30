@@ -24,6 +24,7 @@ Depends: mediascanner2.0,
          qtdeclarative5-usermetrics0.1,
          qtdeclarative5-window-plugin,
          qtdeclarative5-xmllistmodel-plugin,
+         suru-icon-theme | ubuntu-mobile-icons,
          ${misc:Depends},
 Description: Music player for Ubuntu Touch
  Touch enabled music player for Ubuntu
