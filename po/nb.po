@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-04-27 13:20-0500\n"
-"PO-Revision-Date: 2014-01-25 12:21+0000\n"
+"PO-Revision-Date: 2014-04-29 13:21+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-04-29 06:45+0000\n"
+"X-Launchpad-Export-Date: 2014-04-30 07:04+0000\n"
 "X-Generator: Launchpad (build 16985)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -79,7 +79,7 @@ msgstr[1] "%1 låter"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "Spilles nå"
 
 #: MusicNowPlaying.qml:701 MusicSearch.qml:354 MusicTracks.qml:277
 #: common/SongsSheet.qml:427 music-app.qml:915
@@ -150,7 +150,7 @@ msgstr "Slett"
 #: MusicSearch.qml:41 MusicToolbar.qml:469 music-app.qml:92 music-app.qml:140
 #: music-app.qml:146
 msgid "Search"
-msgstr ""
+msgstr "Søk"
 
 #: MusicSearch.qml:396 MusicTracks.qml:319 common/AlbumsSheet.qml:231
 #: common/SongsSheet.qml:208 common/SongsSheet.qml:469 music-app.qml:901
@@ -264,7 +264,7 @@ msgstr "Ingen låter i kø"
 
 #: MusicToolbar.qml:709
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "Trykk på avspillingsknappen eller et element for å starte"
 
 #: MusicTracks.qml:32
 msgid "Songs"
@@ -283,7 +283,7 @@ msgstr[1] " | %1 låter"
 
 #: common/AlbumsSheet.qml:183 common/SongsSheet.qml:157
 msgid "Play all"
-msgstr ""
+msgstr "Spill alle"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
@@ -303,7 +303,7 @@ msgstr "Ukjent artist"
 
 #: music-app.qml:141
 msgid "Search Track"
-msgstr ""
+msgstr "Søk gjennom spor"
 
 #: music-app.qml:153
 msgid "Next"
@@ -372,7 +372,7 @@ msgstr "Feilsøkingsinformasjon: "
 
 #: music-app.qml:713
 msgid "Unknown Year"
-msgstr ""
+msgstr "Ukjent år"
 
 #: music-app.qml:714
 msgid "Unknown Genre"
