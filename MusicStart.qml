@@ -194,7 +194,7 @@ Page {
                             if (type === "playlist") {
                                 albumTracksModel.filterPlaylistTracks(key)
                             } else {
-                                albumTracksModel.filterAlbumTracks(title)
+                                songsSheet.album = title;
                             }
 
                             songsSheet.line1 = title2
@@ -391,7 +391,7 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            albumTracksModel.filterAlbumTracks(album)
+                            songsSheet.album = album;
                             songsSheet.line1 = artist
                             songsSheet.line2 = album
                             songsSheet.isAlbum = true

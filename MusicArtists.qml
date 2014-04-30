@@ -110,6 +110,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
+                    // TODO: mediascanner2 count of albums per artist
                     // model for number of albums?
                     text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
                 }
@@ -128,6 +129,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
+                    // TODO: mediascanner2 count of songs per artist
                     text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
                 }
                 onFocusChanged: {

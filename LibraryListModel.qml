@@ -105,66 +105,6 @@ Item {
         return -1;
     }
 
-    function populate() {
-        console.log("called LibraryListModel::populate()")
-
-        // Save query for queue
-        query = Library.getAll
-        param = null
-
-        worker.list = Library.getAll();
-    }
-
-    function filterArtists() {
-        console.log("called LibraryListModel::filterArtists()")
-
-        // Save query for queue
-        query = Library.getArtists
-        param = null
-
-        worker.list = Library.getArtists();
-    }
-
-    function filterArtistTracks(artist) {
-        console.log("called LibraryListModel::filterArtistTracks()")
-
-        // Save query for queue
-        query = Library.getArtistTracks
-        param = artist
-
-        worker.list = Library.getArtistTracks(artist);
-    }
-
-    function filterArtistAlbums(artist) {
-        console.log("called LibraryListModel::filterArtistAlbums()")
-
-        // Save query for queue
-        query = Library.getArtistAlbums
-        param = artist
-
-        worker.list = Library.getArtistAlbums(artist);
-    }
-
-    function filterAlbums() {
-        console.log("called LibraryListModel::filterAlbums()")
-
-        // Save query for queue
-        query = Library.getAlbums
-        param = null
-
-        worker.list = Library.getAlbums();
-    }
-
-    function filterAlbumTracks(album) {
-        console.log("called LibraryListModel::filterAlbumTracks()")
-
-        // Save query for queue
-        query = Library.getAlbumTracks
-        param = album
-
-        worker.list = Library.getAlbumTracks(album);
-    }
-
     function filterPlaylists() {
         console.log("called LibraryListModel::filterPlaylistTracks()")
 
@@ -193,26 +133,6 @@ Item {
         param = null
 
         worker.list = Library.getRecent();
-    }
-
-    function filterGenres() {
-        console.log("called LibraryListModel::filterGenres()")
-
-        // Save query for queue
-        query = Library.getGenres
-        param = null
-
-        worker.list = Library.getGenres();
-    }
-
-    function filterGenreTracks(genre) {
-        console.log("called LibraryListModel::filterGenreTracks()")
-
-        // Save query for queue
-        query = Library.getGenreTracks
-        param = genre
-
-        worker.list = Library.getGenreTracks(genre);
     }
 
     function clear() {
