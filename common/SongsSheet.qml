@@ -172,12 +172,13 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 trackClickedMediaScanner2(albumtrackslist.model, 0)  // play track
+
                                 if (isAlbum) {
-                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 } else if (sheetItem.line1 == "Playlist") {
-                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.covers[0], sheetItem.line2, "playlist")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 }
@@ -248,11 +249,11 @@ Item {
                                 }
                                 trackClickedMediaScanner2(albumtrackslist.model, index)  // play track
                                 if (isAlbum) {
-                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 } else if (sheetItem.line1 == "Playlist") {
-                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.covers[0], sheetItem.line2, "playlist")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 }

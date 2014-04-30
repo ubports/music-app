@@ -128,7 +128,7 @@ Page {
                 Item {
                     property string title: model.title
                     property string title2: model.title2
-                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [Library.getAlbumCover(title)]
+                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [model.art]
                     property string type: model.type
                     property string time: model.time
                     property string key: model.key

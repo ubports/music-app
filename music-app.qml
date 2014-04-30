@@ -668,8 +668,7 @@ MainView {
         onPreLoadCompleteChanged: {
             complete = true;
 
-            if (preLoadComplete && (genreModel.complete ||
-                                    genreModel.query().length === 0))
+            if (preLoadComplete)
             {
                 loading.visible = false
                 startTab.loading = false
