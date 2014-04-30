@@ -72,6 +72,8 @@ Item {
             listItem.height -= styleMusic.common.expandHeight;
         }
         expander._heightChangeLock = false;
+
+        collapseSwipeDelete(-1);
     }
 
     Rectangle {
