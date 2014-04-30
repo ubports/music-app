@@ -118,6 +118,7 @@ class MusicTestCase(AutopilotTestCase):
         #click can use initctl env (upstart), but desktop still requires mock
         if self.test_type == 'click':
             environment.set_initctl_env_var('HOME', temp_dir)
+            self.addCleanup(environment.unset_initctl_env_var, 'HOME')
         else:
             patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
             patcher.start()
