@@ -21,6 +21,8 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 import "meta-database.js" as Library
@@ -92,17 +94,12 @@ Item {
                  // Provide a small pause before search
                  Timer {
                      id: searchTimer
-                     interval: 1500
+                     interval: 500
                      repeat: false
                      onTriggered: {
-                         if(searchField.text) {
-                             searchModel.filterSearch(searchField.text) // query the databse
-                             searchActivity.running = true // start the activity indicator
-                         }
-                         else {
-                             customdebug("No search terms.")
-                             searchModel.filterSearch("empty somehow?")
-                         }
+                        songsSearchModel.query = searchField.text;
+                        searchActivity.running = true // start the activity indicator
+
                         indicatorTimer.start()
                      }
                  }
@@ -146,7 +143,10 @@ Item {
                      objectName: "searchtrackview"
                      width: parent.width
                      height: parent.width
-                     model: searchModel.model
+                     model: SongsSearchModel {
+                        id: songsSearchModel
+                        store: musicStore
+                     }
 
                      onMovementStarted: {
                          searchTrackView.forceActiveFocus()
@@ -158,11 +158,10 @@ Item {
                             width: parent.width
                             height: styleMusic.common.itemHeight
                             property string title: model.title
-                            property string artist: model.artist
-                            property string file: model.file
+                            property string artist: model.author
+                            property string file: model.filename
                             property string album: model.album
-                            property string cover: model.cover
-                            property string genre: model.genre
+                            property string cover: model.art
 
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")

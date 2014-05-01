@@ -75,7 +75,6 @@ Page {
                 property string artist: model.artist
                 property string album: model.title
                 property string cover: model.art
-                property string length: model.duration  // FIXME: mediascanner2
                 property string year: model.date  // FIXME: mediascanner2
 
                 id: albumItem
