@@ -318,7 +318,7 @@ MainView {
 
     // Design stuff
     Style { id: styleMusic }
-    width: units.gu(100)
+    width: units.gu(40)
     height: units.gu(80)
 
     // Run on startup
@@ -353,9 +353,6 @@ MainView {
 
         // push the page to view
         pageStack.push(tabs)
-
-        // show toolbar hint at startup
-        musicToolbar.showToolbar();
 
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
@@ -722,6 +719,13 @@ MainView {
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
+
+                // Show toolbar and start timer if there is music
+                if (!emptyPage.noMusic) {
+                    musicToolbar.showToolbar(); 
+                    musicToolbar.startAutohideTimer(); 
+                }
+
                 tabs.ensurePopulated(tabs.selectedTab);
 
                 if (args.values.url) {
