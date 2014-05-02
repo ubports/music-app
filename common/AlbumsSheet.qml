@@ -59,7 +59,7 @@ Item {
                 anchors.bottom: parent.bottom
                 model: artistAlbumsModel.model
                 delegate: albumTracksDelegate
-                header: if (albumtrackslist.count > 1) { artistHeaderDelegate } else { null }
+                header: artistHeaderDelegate
 
                 Component {
                     id: artistHeaderDelegate
