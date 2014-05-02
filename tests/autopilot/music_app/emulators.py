@@ -106,7 +106,8 @@ class MainView(toolkit_emulators.MainView):
                                        objectName="albumsheet-albumartist")
 
     def get_artist_sheet_artist(self):
-        return self.wait_select_single("*", objectName="artistsheet-albumcover")
+        return self.wait_select_single("*",
+                                       objectName="artistsheet-albumcover")
 
     def get_artiststab(self):
         return self.select_single("Tab", objectName="artiststab")
