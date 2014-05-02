@@ -66,7 +66,6 @@ Item {
                     ListItem.Standard {
                         id: artistInfo
                         height: units.gu(32)
-                        height: units.gu(22)
                         width: parent.width
                         Item {
                             id: artistItem
