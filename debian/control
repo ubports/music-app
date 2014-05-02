@@ -13,6 +13,7 @@ Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 Package: music-app
 Architecture: all
 Depends: grilo-plugins-0.2-mediascanner,
+         mediascanner,
          qmlscene,
          qtdeclarative5-localstorage-plugin,
          qtdeclarative5-particles-plugin,
@@ -23,6 +24,7 @@ Depends: grilo-plugins-0.2-mediascanner,
          qtdeclarative5-usermetrics0.1,
          qtdeclarative5-window-plugin,
          qtdeclarative5-xmllistmodel-plugin,
+         suru-icon-theme | ubuntu-mobile-icons,
          ${misc:Depends},
 Description: Music player for Ubuntu Touch
  Touch enabled music player for Ubuntu

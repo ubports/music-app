@@ -117,6 +117,7 @@ import "common"
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "medium"
+                        color: styleMusic.common.subtitle
                         elide: Text.ElideRight
                         text: playlist.name + " ("+playlist.count+")"
                     }
