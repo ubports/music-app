@@ -137,7 +137,7 @@ Item {
                                 color: styleMusic.common.white
                                 elide: Text.ElideRight
                                 text: artist
-                                fontSize: "medium"
+                                fontSize: "large"
                             }
 
                             // Play
@@ -147,7 +147,7 @@ Item {
                                     left: parent.left
                                     leftMargin: units.gu(1)
                                     bottom: parent.bottom
-                                    bottomMargin: units.gu(1)
+                                    //bottomMargin: units.gu(0)
                                 }
                                 color: "transparent"
                                 height: units.gu(4)
@@ -197,7 +197,7 @@ Item {
                                     left: playRow.right
                                     leftMargin: units.gu(1)
                                     bottom: parent.bottom
-                                    bottomMargin: units.gu(1)
+                                    //bottomMargin: units.gu(1)
                                 }
                                 color: "transparent"
                                 height: units.gu(4)
