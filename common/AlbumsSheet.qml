@@ -199,7 +199,7 @@ Item {
                                 anchors.fill: parent
                                 onClicked: {
                                     albumTracksModel.filterAlbumTracks(album)
-                                    Library.addRecent(album, artist, Library.getAlbumCover(album), album, "album")
+                                    Library.addRecent(album, artist, model.art, album, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                     trackQueue.model.clear()

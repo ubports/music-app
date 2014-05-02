@@ -146,40 +146,6 @@ function getMetadata(file) {
   return res
 }
 
-// This function is used to retrieve meta data from the database
-function hasCover(file) {
-   var db = getDatabase();
-   var res = false;
-
-   try {
-       db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT cover FROM metadata WHERE file = ?;', [file]); // tries to get the cover art of track
-
-         if (rs.rows.length > 0) {
-              res = rs.rows.item(0).cover !== ""
-         }
-      })
-   } catch(e) {
-       return false;
-   }
-
-  // The function returns false if cover art was not found in the database
-  return res
-}
-
-
-function printValues() {
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata");
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover);
-        }
-    });
-}
-
-
 function getAll() {
     var res = [];
     var db = getDatabase();
@@ -194,53 +160,11 @@ function getAll() {
     return res;
 }
 
-function getAllFileOrder() {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY file COLLATE NOCASE ASC");
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, number:dbItem.number, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
-function getArtists() {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata GROUP BY artist ORDER BY artist COLLATE NOCASE ASC");
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
 function getArtistTracks(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [artist]);
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
-function getArtistAlbums(artist) {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? GROUP BY album ORDER BY year ASC, CAST(number AS int) ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -269,23 +193,6 @@ function getArtistCovers(artist) {
     return res;
 }
 
-function getAlbumCover(album) {
-    var res = "";
-    var db = getDatabase();
-    try {
-        db.transaction( function(tx) {
-            var rs = tx.executeSql("SELECT cover FROM metadata WHERE album=? ORDER BY cover DESC", [album]);
-            var dbItem = rs.rows.item(0);
-            //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
-            if (rs.rows.length > 0) res = rs.rows.item(0).cover;
-        });
-    } catch(e) {
-        return "";
-    }
-
-    return res;
-}
-
 function getArtistAlbumCount(artist) {
     var res = 0;
     var db = getDatabase();
@@ -300,46 +207,12 @@ function getArtistAlbumCount(artist) {
     return res;
 }
 
-function getAlbums() {
-    var res = [];
-    var db = getDatabase();
-    try {
-        db.transaction( function(tx) {
-            var rs = tx.executeSql("SELECT * FROM metadata GROUP BY album ORDER BY album COLLATE NOCASE ASC");
-            for(var i = 0; i < rs.rows.length; i++) {
-                var dbItem = rs.rows.item(i);
-                //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-                res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-            }
-        });
-    } catch(e) {
-        return [];
-    }
-
-    return res;
-}
-
 function getAlbumTracks(album) {
     var res = [];
     var db = getDatabase();
     //console.log("Album: " + album);
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [album]);
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
-function getArtistAlbumTracks(artist, album) {
-    var res = [];
-    var db = getDatabase();
-    //console.log("Album: " + album);
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? AND album=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [artist, album]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
@@ -473,21 +346,4 @@ function isRecentEmpty() {
     }
     );
     return res === 0;
-}
-
-// Search track LIKE
-function search(input) {
-    console.debug("Got a new search: "+input)
-    input = "%" + input + "%" // workaround
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE title LIKE ? OR artist LIKE ? OR album LIKE ? OR genre LIKE ?;", [input,input,input,input]); // WRONG! WHy?
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
 }
