@@ -255,6 +255,7 @@ Item {
                             count: 1
                             size: parent.height
                             covers: [Library.getAlbumCover(model.album)]
+                            objectName: "artistsheet-albumcover"
                             spacing: units.gu(2)
 
                             MouseArea {
