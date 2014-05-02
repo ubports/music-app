@@ -75,19 +75,9 @@ Item {
                                 margins: units.gu(1)
                                 top: parent.top
                             }
-                            function getAlbums() {
-                                var covers = [];
-
-                                for (var i=0; i < albumtrackslist.count; i++) {
-                                    covers.push(Library.getAlbumCover(albumtrackslist.model.get(i).album))
-                                }
-
-                                return covers;
-                            }
-
-                            count: albumtrackslist.count
+                            count: parseInt(Library.getArtistCovers(artist).length)
                             size: units.gu(20)
-                            covers: getAlbums()
+                            covers: Library.getArtistCovers(artist)
                             spacing: units.gu(2)
                         }
 
@@ -95,7 +85,8 @@ Item {
                             id: artistLabel
                             wrapMode: Text.NoWrap
                             maximumLineCount: 1
-                            fontSize: "small"
+                            fontSize: "medium"
+                            color: styleMusic.common.music
                             anchors.left: artistImage.right
                             anchors.leftMargin: units.gu(1)
                             anchors.top: parent.top
@@ -110,8 +101,7 @@ Item {
                             id: artistCount
                             wrapMode: Text.NoWrap
                             maximumLineCount: 2
-                            fontSize: "medium"
-                            color: styleMusic.common.music
+                            fontSize: "small"
                             anchors.left: artistImage.right
                             anchors.leftMargin: units.gu(1)
                             anchors.top: artistLabel.bottom
