@@ -166,6 +166,7 @@ Item {
                                         verticalCenter: parent.verticalCenter
                                     }
                                     fontSize: "small"
+                                    color: styleMusic.nowPlaying.labelSecondaryColor
                                     width: parent.width - playTrack.width - units.gu(1)
                                     text: i18n.tr("Play all")
                                     wrapMode: Text.WordWrap
@@ -216,6 +217,7 @@ Item {
                                         verticalCenter: parent.verticalCenter
                                     }
                                     fontSize: "small"
+                                    color: styleMusic.nowPlaying.labelSecondaryColor
                                     width: parent.width - queueAll.width - units.gu(1)
                                     text: i18n.tr("Add to queue")
                                     wrapMode: Text.WordWrap
