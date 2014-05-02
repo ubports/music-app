@@ -39,6 +39,10 @@ MainView {
     applicationName: "com.ubuntu.music"
     id: mainView
 
+    // Use toolbar color for header
+    headerColor: styleMusic.toolbar.fullBackgroundColor
+    backgroundColor: styleMusic.toolbar.fullBackgroundColor
+
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
@@ -352,6 +356,11 @@ MainView {
 
         // show toolbar hint at startup
         musicToolbar.showToolbar();
+
+        // TODO: Switch tabs back and forth to get the background color in the
+        //       header to work properly.
+        tabs.selectedTabIndex = 1
+        tabs.selectedTabIndex = 0
     }
 
 

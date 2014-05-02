@@ -171,6 +171,7 @@ Page {
                     }
                     elide: Text.ElideRight
                     fontSize: "x-small"
+                    color: styleMusic.common.subtitle
                     height: units.gu(1)
                     text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                 }
