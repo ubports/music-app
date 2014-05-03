@@ -65,6 +65,20 @@ Page {
                 property string artist: model.artist
                 height: styleMusic.common.itemHeight
 
+                // TODO: mediascanner2 count number of albums in this model
+                AlbumsModel {
+                    id: albumArtistModelCount
+                    albumArtist: model.artist
+                    store: musicStore
+                }
+
+                // TODO: mediascanner2 count number of tracks in this model
+                SongsModel {
+                    id: songArtistModelCount
+                    albumArtist: model.artist
+                    store: musicStore
+                }
+
                 CoverRow {
                     id: coverRow
                     anchors {
@@ -110,8 +124,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    // TODO: mediascanner2 count of albums per artist
-                    // model for number of albums?
+                    // TODO: link to count of albumArtistModelCount
                     text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
                 }
 
@@ -129,7 +142,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    // TODO: mediascanner2 count of songs per artist
+                    // TODO: link to count of songArtistModelCount
                     text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
                 }
                 onFocusChanged: {

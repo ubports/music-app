@@ -90,6 +90,8 @@ Item {
 
                                     for (var i=0; i < albumtrackslist.count; i++) {
                                         covers.push(Library.getAlbumCover(albumtrackslist.model.get(i).album))
+                                        // FIXME: mediascanner2 no .get(i)
+                                        // covers.push(albumtrackslist.model.get(i).art)
                                     }
 
                                     return covers;
