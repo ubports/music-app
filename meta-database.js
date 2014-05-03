@@ -226,7 +226,7 @@ function getArtistTracks(artist) {
     var res = [];
     var db = getDatabase();
     db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [artist]);
+        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, year ASC, CAST(number AS int) ASC", [artist]);
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);

@@ -530,9 +530,9 @@ class TestMainWindow(MusicTestCase):
         sheet_albumartist = self.main_view.get_artist_sheet_artist()
         self.assertThat(sheet_albumartist.text, Equals(artistName))
 
-        #select artist
-        artist = self.main_view.get_artists_artist(artistName)
-        self.pointing_device.click_object(artist)
+        # click on album to shows the artists
+        sheet_albumartist = self.main_view.get_artist_sheet_artist_cover()
+        self.pointing_device.click_object(sheet_albumartist)
 
         #get song sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
