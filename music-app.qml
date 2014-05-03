@@ -355,9 +355,6 @@ MainView {
         // push the page to view
         pageStack.push(tabs)
 
-        // show toolbar hint at startup
-        musicToolbar.showToolbar();
-
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
         tabs.selectedTabIndex = 1
@@ -371,6 +368,13 @@ MainView {
         }
 
         emptyPage.noMusic = false  // TODO: force false to allow UI to function
+
+        // FIXME: here for now, needs to be done after mediascanner2 has loaded
+        // Show toolbar and start timer if there is music
+        if (!emptyPage.noMusic) {
+            musicToolbar.showToolbar();
+            musicToolbar.startAutohideTimer();
+        }
     }
 
     // VARIABLES

@@ -130,7 +130,7 @@ Item {
                                 }
                                 color: styleMusic.nowPlaying.labelSecondaryColor
                                 elide: Text.ElideRight
-                                text: albumtrackslist.count + " albums"
+                                text: i18n.tr("%1 album", "%1 albums", albumtrackslist.count).arg(albumtrackslist.count)
                                 fontSize: "small"
                             }
                             Label {
