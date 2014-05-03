@@ -205,6 +205,9 @@ Item {
                         if (trackQueue.model.count !== 0 && currentPage !== nowPlaying) {
                             tabs.setNowPlaying(true);
                         }
+                        else if (currentPage === nowPlaying) {
+                            musicToolbar.goBack();
+                        }
                     }
 
                     /* Title of track */
