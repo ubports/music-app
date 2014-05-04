@@ -137,6 +137,16 @@ Item {
         toolbarAutoHideTimer.restart();
     }
 
+    Connections {
+        target: mainView
+        onWideAspectChanged: {
+            // Force toolbar to show if in wideAspect
+            if (wideAspect && !opened) {
+                showToolbar();
+            }
+        }
+    }
+
     Panel {
         id: musicToolbarPanel
         anchors {
@@ -150,7 +160,7 @@ Item {
         __closeOnContentsClicks: false  // TODO: fix bug 1295720
 
         // The current mode of the controls
-        property string currentMode: wideAspect || currentPage === nowPlaying
+        property string currentMode: wideAspect || (currentPage === nowPlaying)
                                      ? "full" : "expanded"
 
         // Properties for the different heights
