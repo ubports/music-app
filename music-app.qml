@@ -1171,7 +1171,10 @@ MainView {
 
             function setNowPlaying(visible)
             {
-                if (visible) {
+                if (visible === nowPlaying.visible) {
+                    return;  // do nothing as already in correct state
+                }
+                else if (visible) {
                     pageStack.push(nowPlaying);
                 }
                 else {
