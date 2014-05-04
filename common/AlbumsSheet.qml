@@ -259,7 +259,20 @@ Item {
 
                         property string album: model.title
                         property string cover: model.art
-                        property string year: model.date  // FIXME: mediascanner2
+
+                        SongsModel {
+                            id: songArtistModel
+                            albumArtist: model.artist
+                            album: model.title
+                            store: musicStore
+                        }
+                        Repeater {
+                            id: songArtistModelRepeater
+                            model: songArtistModel
+                            delegate: Text { text: model.date; visible: false }
+                            property string year: ""
+                            onItemAdded: year = item.text
+                        }
 
                         CoverRow {
                             id: albumImage
@@ -289,7 +302,6 @@ Item {
                                     albumSheet.line1 = artist
                                     albumSheet.line2 = album
                                     albumSheet.isAlbum = true
-                                    albumSheet.year = year
                                     albumSheet.covers = [cover]
                                     PopupUtils.open(albumSheet.sheet)
 
@@ -345,7 +357,7 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: i18n.tr(model.year + " | %1 song", model.year + " | %1 songs", Library.getAlbumTracks(album).length).arg(Library.getAlbumTracks(album).length)
+                            text: i18n.tr(songArtistModelRepeater.year + " | %1 song", songArtistModelRepeater.year + " | %1 songs", songArtistModelRepeater.count).arg(songArtistModelRepeater.count)
                         }
 
                         // Play
