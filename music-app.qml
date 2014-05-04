@@ -1171,7 +1171,7 @@ MainView {
 
             function pushNowPlaying()
             {
-                // do nothing as already on correct page
+                // only push if on a different page
                 if (pageStack.currentPage !== nowPlaying) {
                     pageStack.push(nowPlaying);
                 }
