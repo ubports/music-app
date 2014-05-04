@@ -879,6 +879,10 @@ Item {
                         width: height
 
                         function trigger() {
+                            if (emptyPage.noMusic) {
+                                return;
+                            }
+
                             if (trackQueue.model.count === 0) {
                                 playRandomSong();
                             }
@@ -945,7 +949,7 @@ Item {
                                                 width: height
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.verticalCenter: parent.verticalCenter
-                                                opacity: 1
+                                                opacity: emptyPage.noMusic ? .4 : 1
                                                 source: player.playbackState === MediaPlayer.PlayingState ?
                                                             Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                             }
