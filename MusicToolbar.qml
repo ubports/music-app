@@ -137,6 +137,16 @@ Item {
         toolbarAutoHideTimer.restart();
     }
 
+    Connections {
+        target: mainView
+        onWideAspectChanged: {
+            // Force toolbar to show if in wideAspect
+            if (wideAspect && !opened) {
+                showToolbar();
+            }
+        }
+    }
+
     Panel {
         id: musicToolbarPanel
         anchors {
@@ -150,7 +160,7 @@ Item {
         __closeOnContentsClicks: false  // TODO: fix bug 1295720
 
         // The current mode of the controls
-        property string currentMode: wideAspect || currentPage === nowPlaying
+        property string currentMode: wideAspect || (currentPage === nowPlaying)
                                      ? "full" : "expanded"
 
         // Properties for the different heights
@@ -265,10 +275,14 @@ Item {
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    opacity: player.repeat ? 1 : .4
+                    opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
                     width: height
 
                     function trigger() {
+                        if (emptyPage.noMusic) {
+                            return;
+                        }
+
                         // Invert repeat settings
                         player.repeat = !player.repeat
                     }
@@ -281,7 +295,7 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
                         verticalAlignment: Text.AlignVCenter
-                        opacity: player.repeat ? 1 : .4
+                        opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
                     }
                 }
 
@@ -293,10 +307,14 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
                     objectName: "previousshape"
-                    opacity: trackQueue.model.count === 0 ? .4 : 1
+                    opacity: trackQueue.model.count === 0  ? .4 : 1
                     width: height
 
                     function trigger() {
+                        if (trackQueue.model.count === 0) {
+                            return;
+                        }
+
                         player.previousSong()
                     }
 
@@ -376,6 +394,10 @@ Item {
                                         width: height
 
                                         function trigger() {
+                                            if (emptyPage.noMusic) {
+                                                return;
+                                            }
+
                                             if (trackQueue.model.count === 0) {
                                                 playRandomSong();
                                             }
@@ -390,6 +412,7 @@ Item {
                                             width: height
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.verticalCenter: parent.verticalCenter
+                                            opacity: emptyPage.noMusic ? .4 : 1
                                             source: player.playbackState === MediaPlayer.PlayingState ?
                                                         Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                         }
@@ -412,6 +435,10 @@ Item {
                     width: height
 
                     function trigger() {
+                        if (trackQueue.model.count === 0 || emptyPage.noMusic) {
+                            return;
+                        }
+
                         player.nextSong()
                     }
 
@@ -434,10 +461,14 @@ Item {
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    opacity: player.shuffle ? 1 : .4
+                    opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
                     width: height
 
                     function trigger() {
+                        if (emptyPage.noMusic) {
+                            return;
+                        }
+
                         // Invert shuffle settings
                         player.shuffle = !player.shuffle
                     }
@@ -449,7 +480,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
-                        opacity: player.shuffle ? 1 : .4
+                        opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
                     }
                 }
 
@@ -463,10 +494,15 @@ Item {
                         verticalCenter: parent.verticalCenter
                     }
                     height: units.gu(6)
+                    opacity: !emptyPage.noMusic ? 1 : .4
                     width: height
                     visible: wideAspect
 
                     function trigger() {
+                        if (emptyPage.noMusic) {
+                            return;
+                        }
+
                         if (!searchSheet.sheetVisible) {
                             PopupUtils.open(searchSheet.sheet,
                                             mainView, { title: i18n.tr("Search")} )
@@ -480,6 +516,7 @@ Item {
                             verticalCenter: parent.verticalCenter
                         }
                         height: units.gu(3)
+                        opacity: !emptyPage.noMusic ? 1 : .4
                         source: Qt.resolvedUrl("images/search.svg")
                         width: height
                     }
@@ -724,6 +761,10 @@ Item {
                         width: height
 
                         function trigger() {
+                            if (emptyPage.noMusic) {
+                                return;
+                            }
+
                             if (trackQueue.model.count === 0) {
                                 playRandomSong();
                             }
@@ -790,7 +831,7 @@ Item {
                                                 width: height
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.verticalCenter: parent.verticalCenter
-                                                opacity: 1
+                                                opacity: emptyPage.noMusic ? .4 : 1
                                                 source: player.playbackState === MediaPlayer.PlayingState ?
                                                             Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                             }
@@ -852,6 +893,10 @@ Item {
                         width: height
 
                         function trigger() {
+                            if (emptyPage.noMusic) {
+                                return;
+                            }
+
                             if (trackQueue.model.count === 0) {
                                 playRandomSong();
                             }
@@ -918,7 +963,7 @@ Item {
                                                 width: height
                                                 anchors.horizontalCenter: parent.horizontalCenter
                                                 anchors.verticalCenter: parent.verticalCenter
-                                                opacity: 1
+                                                opacity: emptyPage.noMusic ? .4 : 1
                                                 source: player.playbackState === MediaPlayer.PlayingState ?
                                                             Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
                                             }
