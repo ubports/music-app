@@ -79,6 +79,12 @@ Item {
                             height: parent.height - units.gu(1)
                             width: height
 
+                            Repeater {
+                                id: artistsModelRepeater
+                                model: artistsModel
+                                delegate: Text { text: model.art; visible: false }
+                            }
+
                             CoverRow {
                                 id: artistImage
                                 anchors {
@@ -88,10 +94,8 @@ Item {
                                 function getAlbums() {
                                     var covers = [];
 
-                                    for (var i=0; i < albumtrackslist.count; i++) {
-                                        covers.push(Library.getAlbumCover(albumtrackslist.model.get(i).album))
-                                        // FIXME: mediascanner2 no .get(i)
-                                        // covers.push(albumtrackslist.model.get(i).art)
+                                    for (var i=0; i < artistsModelRepeater.count; i++) {
+                                        covers.push(artistsModelRepeater.itemAt(i).text)
                                     }
 
                                     return covers;

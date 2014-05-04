@@ -74,7 +74,6 @@ Page {
                 property string artist: model.artist
                 property string album: model.title
                 property string cover: model.art
-                property string year: model.date  // FIXME: mediascanner2
 
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
@@ -150,7 +149,6 @@ Page {
                         songsSheet.line1 = artist
                         songsSheet.line2 = album
                         songsSheet.isAlbum = true
-                        songsSheet.year = year
                         songsSheet.covers = [cover]
                         PopupUtils.open(songsSheet.sheet)
                     }

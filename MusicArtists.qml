@@ -67,16 +67,32 @@ Page {
 
                 // TODO: mediascanner2 count number of albums in this model
                 AlbumsModel {
-                    id: albumArtistModelCount
+                    id: albumArtistModel
                     albumArtist: model.artist
                     store: musicStore
+                }
+                Repeater {
+                    id: albumArtistModelRepeater
+                    model: albumArtistModel
+                    delegate: Text { text: model.art; visible: false}
+                    property var covers: []
+                    onItemAdded: {
+                        covers.push(item.text)
+                        coverRow.count = covers.length
+                        coverRow.covers = covers
+                    }
                 }
 
                 // TODO: mediascanner2 count number of tracks in this model
                 SongsModel {
-                    id: songArtistModelCount
+                    id: songArtistModel
                     albumArtist: model.artist
                     store: musicStore
+                }
+                Repeater {
+                    id: songArtistModelRepeater
+                    model: songArtistModel
+                    delegate: Item { }
                 }
 
                 CoverRow {
@@ -86,9 +102,10 @@ Page {
                         left: parent.left
                         margins: units.gu(1)
                     }
-                    count: parseInt(Library.getArtistCovers(artist).length)
+
+                    count: 0
                     size: styleMusic.common.albumSize
-                    covers: Library.getArtistCovers(artist)
+                    covers: []
                 }
 
                 Label {
@@ -124,8 +141,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    // TODO: link to count of albumArtistModelCount
-                    text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
+                    text: i18n.tr("%1 album", "%1 albums", albumArtistModelRepeater.count).arg(albumArtistModelRepeater.count)
                 }
 
                 Label {
@@ -142,8 +158,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    // TODO: link to count of songArtistModelCount
-                    text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
+                    text: i18n.tr("%1 song", "%1 songs", songArtistModelRepeater.count).arg(songArtistModelRepeater.count)
                 }
                 onFocusChanged: {
                 }
@@ -157,8 +172,6 @@ Page {
                         artistSheet.artist = artist
                         PopupUtils.open(artistSheet.sheet)
                     }
-                }
-                Component.onCompleted: {
                 }
             }
         }
