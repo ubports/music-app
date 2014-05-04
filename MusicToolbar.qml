@@ -21,7 +21,6 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
-import "meta-database.js" as Library
 import "settings.js" as Settings
 
 Item {

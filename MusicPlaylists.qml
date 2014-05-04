@@ -24,7 +24,6 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "common"

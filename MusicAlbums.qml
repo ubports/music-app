@@ -26,7 +26,6 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 

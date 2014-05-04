@@ -25,7 +25,6 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
-import "meta-database.js" as Library
 import "common"
 
 Item {
