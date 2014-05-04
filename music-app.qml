@@ -355,6 +355,8 @@ MainView {
         // push the page to view
         pageStack.push(tabs)
 
+        loadedUI = true;
+
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
         tabs.selectedTabIndex = 1
@@ -396,10 +398,7 @@ MainView {
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70)
-
-    // TODO: temporary property as we move to Mediascanner2.0
-    property bool loaded: true
-
+    property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS
 
@@ -437,10 +436,21 @@ MainView {
         }
     }
 
-    // TODO: add mediascanner2 model to queue
+    // FIXME: needs fixes in mediascanner2 first
+    // TODO: rename to addQueueFromModel when complete
     function addQueueFromModelMediaScanner2(model)
     {
+        for (var i=0; i < model.count; i++) {
+            var item = model.get(i);
 
+            trackQueue.model.append({
+                                        album: item.album,
+                                        artist: item.author,
+                                        cover: item.art,
+                                        file: item.filename,
+                                        title: item.title
+                                    });
+        }
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -528,16 +538,14 @@ MainView {
     }
 
     // TODO: correctly copy mediascanner2 model to trackQueue (with caching?)
-    function trackClickedMediaScanner2(model, index) {
+    // TODO: rename to trackClicked when complete
+    function trackClickedMediaScanner2(model, index, play) {
+        play = play === undefined ? true : play  // default play to true
+
         trackQueue.model.clear();
 
-        for (var item in model) {
-            console.debug(item);
-        }
-
-        console.debug("THIS", model.data, model.rows)
-
         var query = model.store.query(null, 1);
+        var file = Qt.resolvedUrl(query[index].filename);
 
         for (var i=0; i < query.length; i++) {
             trackQueue.model.append({
@@ -549,7 +557,31 @@ MainView {
                                     });
         }
 
-        player.playSong(query[index].filename, index);
+
+        /*
+          TODO: code expected to work once fixes in mediascanner2 have landed
+
+          play = play === undefined ? true : play  // default play to true
+
+          trackQueue.model.clear();  // clear the old model TODO: caching?
+
+          var file Qt.resolvedUrl(model.get(index).filename);
+
+          addQueueFromModelMediaScanner2(model);
+          */
+
+        if (play) {
+            player.playSong(file, index);
+
+            // Show the Now Playing page and make sure the track is visible
+            tabs.pushNowPlaying();
+            nowPlaying.ensureVisibleIndex = index;
+
+            musicToolbar.showToolbar();
+        }
+        else {
+            player.source = file;
+        }
     }
 
     function playRandomSong(shuffle)
@@ -566,17 +598,32 @@ MainView {
         var seed = now.getSeconds();
         var index = Math.floor(trackQueue.model.count * Math.random(seed));
 
-        console.debug("THIS", index);
-
         player.shuffle = shuffle === undefined ? true : shuffle;
-        trackClicked(trackQueue,
-                     index,
-                     true);
+        trackClicked(trackQueue, index, true);
+
+        /*
+          TODO: code expected to work once fixes in mediascanner2 have landed
+
+          trackQueue.model.clear();
+
+          var now = new Date();
+          var seed = now.getSeconds();
+          var index = Math.floor(allSongsModel.count * Math.random(seed));
+
+          player.shuffle = shuffle === undefined ? true : shuffle;
+
+          trackClickedMediaScanner2(allSongsModel, index, true)
+          */
     }
 
     // Load mediascanner store
     MediaStore {
         id: musicStore
+    }
+
+    SongsModel {
+        id: allSongsModel
+        store: musicStore
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -851,6 +898,8 @@ MainView {
         visible: false
 
         property bool noMusic: true
+        // FIXME: uncomment once mediascanner2 is fixed
+        // property bool noMusic: allSongsModel.count === 0 && loadedUI
 
         onNoMusicChanged: {
             if (noMusic)
@@ -1005,7 +1054,7 @@ MainView {
             {
                 allowLoading(selectedTab, true);  // allow loading of the models
 
-                if (!selectedTab.populated && !selectedTab.loading && loaded) {
+                if (!selectedTab.populated && !selectedTab.loading && loadedUI) {
                     loading.visible = true
                     selectedTab.loading = true
 
