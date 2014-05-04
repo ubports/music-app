@@ -721,7 +721,7 @@ MainView {
                 griloModel.loaded = true
 
                 // Show toolbar and start timer if there is music
-                if (!emptyPage.noMusic) {
+                if (!emptyPage.noMusic || wideAspect) {
                     musicToolbar.showToolbar(); 
                     musicToolbar.startAutohideTimer(); 
                 }
