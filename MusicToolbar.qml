@@ -203,7 +203,10 @@ Item {
                     /* Clicking in the area shows the queue */
                     function trigger() {
                         if (trackQueue.model.count !== 0 && currentPage !== nowPlaying) {
-                            tabs.setNowPlaying(true);
+                            tabs.pushNowPlaying();
+                        }
+                        else if (currentPage === nowPlaying) {
+                            musicToolbar.goBack();
                         }
                     }
 
@@ -985,7 +988,7 @@ Item {
                         anchors.fill: playerControlLabelContainer
                         color: "transparent"
                         function trigger() {
-                            tabs.setNowPlaying(true);
+                            tabs.pushNowPlaying();
                         }
                     }
                 }

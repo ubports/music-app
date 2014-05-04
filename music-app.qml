@@ -486,7 +486,7 @@ MainView {
                 console.log("Is current track: "+player.playbackState)
 
                 // Show the Now Playing page and make sure the track is visible
-                tabs.setNowPlaying(true);
+                tabs.pushNowPlaying();
                 nowPlaying.ensureVisibleIndex = index;
 
                 musicToolbar.showToolbar();
@@ -515,7 +515,7 @@ MainView {
             player.playSong(file, index)
 
             // Show the Now Playing page and make sure the track is visible
-            tabs.setNowPlaying(true);
+            tabs.pushNowPlaying();
             nowPlaying.ensureVisibleIndex = index;
 
             musicToolbar.showToolbar();
@@ -1020,15 +1020,11 @@ MainView {
                 loading.visible = selectedTab.loading || !selectedTab.populated
             }
 
-            function setNowPlaying(visible)
+            function pushNowPlaying()
             {
-                if (visible) {
+                // only push if on a different page
+                if (pageStack.currentPage !== nowPlaying) {
                     pageStack.push(nowPlaying);
-                }
-                else {
-                    if (pageStack.currentPage === nowPlaying) {
-                        pageStack.pop()
-                    }
                 }
             }
 
