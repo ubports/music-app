@@ -160,68 +160,6 @@ function getAll() {
     return res;
 }
 
-function getArtistTracks(artist) {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE artist=? ORDER BY artist COLLATE NOCASE ASC, year ASC, CAST(number AS int) ASC", [artist]);
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
-function getArtistCovers(artist) {
-    var res = [];
-    var db = getDatabase();
-    try {
-        db.transaction( function(tx) {
-            var rs = tx.executeSql("SELECT cover FROM metadata WHERE artist=? AND cover <> '' ORDER BY album COLLATE NOCASE ASC", [artist]);
-            for(var i = 0; i < rs.rows.length; i++) {
-                var dbItem = rs.rows.item(i);
-                //console.log("Cover:"+ dbItem.cover+" Size:"+res.length);
-                if (res.indexOf(dbItem.cover) == -1) res.push(dbItem.cover);
-            }
-        });
-    } catch(e) {
-        return [];
-    }
-
-    return res;
-}
-
-function getArtistAlbumCount(artist) {
-    var res = 0;
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT count(DISTINCT album) AS value FROM metadata WHERE artist=?", [artist]);
-        if (rs.rows.item(0).value > 0) {
-            res = rs.rows.item(0).value;
-        } else {
-            res = 0;
-        }
-    });
-    return res;
-}
-
-function getAlbumTracks(album) {
-    var res = [];
-    var db = getDatabase();
-    //console.log("Album: " + album);
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE album=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [album]);
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
 function getGenres() {
     var res = [];
     var db = getDatabase();
