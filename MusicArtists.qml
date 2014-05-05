@@ -78,8 +78,6 @@ Page {
                     property var covers: []
                     onItemAdded: {
                         covers.push(item.text)
-                        coverRow.count = covers.length
-                        coverRow.covers = covers
                     }
                 }
 
@@ -103,9 +101,9 @@ Page {
                         margins: units.gu(1)
                     }
 
-                    count: 0
+                    count: albumArtistModelRepeater.covers.length
                     size: styleMusic.common.albumSize
-                    covers: []
+                    covers: albumArtistModelRepeater.covers
                 }
 
                 Label {
