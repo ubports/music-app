@@ -496,7 +496,7 @@ Item {
                         onFocusChanged: {
                         }
                         Component.onCompleted: {
-                            if (index === 0)
+                            if (model.date !== undefined && sheetItem.year === "")
                             {
                                 sheetItem.file = model.filename;
                                 sheetItem.year = model.date;

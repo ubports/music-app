@@ -76,8 +76,23 @@ Page {
                     model: albumArtistModel
                     delegate: Text { text: model.art; visible: false}
                     property var covers: []
+                    signal finished()
+
+                    onFinished: {
+                        // FIXME: ignore first item as is all albums
+                        if (index === 0 && model.artist === "") {
+                            return;
+                        }
+
+                        coverRow.count = count
+                        coverRow.covers = covers
+                    }
                     onItemAdded: {
-                        covers.push(item.text)
+                        covers.push(item.text);
+
+                        if (index === count - 1) {
+                            finished();
+                        }
                     }
                 }
 
@@ -101,9 +116,9 @@ Page {
                         margins: units.gu(1)
                     }
 
-                    count: albumArtistModelRepeater.covers.length
+                    count: 0
                     size: styleMusic.common.albumSize
-                    covers: albumArtistModelRepeater.covers
+                    covers: []
                 }
 
                 Label {
