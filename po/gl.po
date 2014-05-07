@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-27 13:20-0500\n"
-"PO-Revision-Date: 2014-04-08 07:11+0000\n"
+"POT-Creation-Date: 2014-05-02 17:29-0500\n"
+"PO-Revision-Date: 2014-05-03 07:17+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-04-29 06:45+0000\n"
+"X-Launchpad-Export-Date: 2014-05-04 06:30+0000\n"
 "X-Generator: Launchpad (build 16985)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -62,7 +62,7 @@ msgstr "Albums"
 msgid "Artists"
 msgstr "Intérpretes"
 
-#: MusicArtists.qml:107
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -79,20 +79,20 @@ msgstr[1] "%1 cancións"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "Soando"
 
-#: MusicNowPlaying.qml:701 MusicSearch.qml:354 MusicTracks.qml:277
+#: MusicNowPlaying.qml:700 MusicSearch.qml:354 MusicTracks.qml:277
 #: common/SongsSheet.qml:427 music-app.qml:915
 msgid "Add to playlist"
 msgstr "Engadir á lista"
 
-#: MusicNowPlaying.qml:713 MusicSearch.qml:367 MusicTracks.qml:290
+#: MusicNowPlaying.qml:712 MusicSearch.qml:367 MusicTracks.qml:290
 #: MusicaddtoPlaylist.qml:38 common/SongsSheet.qml:440 music-app.qml:926
 msgid "Select playlist"
 msgstr "Seleccionar lista"
 
 #. TRANSLATORS: this refers to sharing a playlist
-#: MusicNowPlaying.qml:741 MusicPlaylists.qml:371 MusicSearch.qml:434
+#: MusicNowPlaying.qml:740 MusicPlaylists.qml:371 MusicSearch.qml:434
 #: MusicTracks.qml:357
 msgid "Share"
 msgstr "Compartir"
@@ -152,8 +152,9 @@ msgstr "Eliminar"
 msgid "Search"
 msgstr "Buscar"
 
-#: MusicSearch.qml:396 MusicTracks.qml:319 common/AlbumsSheet.qml:231
-#: common/SongsSheet.qml:208 common/SongsSheet.qml:469 music-app.qml:901
+#: MusicSearch.qml:396 MusicTracks.qml:319 common/AlbumsSheet.qml:222
+#: common/AlbumsSheet.qml:407 common/SongsSheet.qml:208
+#: common/SongsSheet.qml:469 music-app.qml:901
 msgid "Add to queue"
 msgstr "Engadir á cola"
 
@@ -264,7 +265,7 @@ msgstr "Non hai cancións na cola"
 
 #: MusicToolbar.qml:709
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "Toca reproducir ou outro elemento para iniciar"
 
 #: MusicTracks.qml:32
 msgid "Songs"
@@ -274,16 +275,17 @@ msgstr "Cancións"
 msgid "New playlist"
 msgstr "Nova lista"
 
-#: common/AlbumsSheet.qml:155 common/SongsSheet.qml:127
+#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/SongsSheet.qml:157
+msgid "Play all"
+msgstr "Reproducir todo"
+
+#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:127
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
 msgstr[0] " | %1 canción"
 msgstr[1] " | %1 cancións"
-
-#: common/AlbumsSheet.qml:183 common/SongsSheet.qml:157
-msgid "Play all"
-msgstr ""
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
