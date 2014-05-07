@@ -810,6 +810,7 @@ Page {
     // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
     Rectangle {
         id: nowPlayingBackButton
+        visible: header.useDeprecatedToolbar === undefined
         anchors {
             left: parent.left
             right: parent.right

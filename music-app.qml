@@ -38,6 +38,7 @@ MainView {
     objectName: "music"
     applicationName: "com.ubuntu.music"
     id: mainView
+    useDeprecatedToolbar: false
 
     // Use toolbar color for header
     headerColor: styleMusic.toolbar.fullBackgroundColor
@@ -327,6 +328,7 @@ MainView {
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
+        console.log("VIC: useDe: " + mainView.useDeprecatedToolbar)
 
         Settings.initialize()
         console.debug("INITIALIZED in tracks")
