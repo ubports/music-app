@@ -38,6 +38,7 @@ MainView {
     objectName: "music"
     applicationName: "com.ubuntu.music"
     id: mainView
+    useDeprecatedToolbar: false
 
     // Use toolbar color for header
     headerColor: styleMusic.toolbar.fullBackgroundColor

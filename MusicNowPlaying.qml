@@ -98,7 +98,7 @@ Page {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        anchors.topMargin: nowPlayingBackButton.height
+        anchors.topMargin: header.useDeprecatedToolbar === undefined ? nowPlayingBackButton.height : 0
         spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
@@ -810,6 +810,7 @@ Page {
     // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
     Rectangle {
         id: nowPlayingBackButton
+        visible: header.useDeprecatedToolbar === undefined
         anchors {
             left: parent.left
             right: parent.right
