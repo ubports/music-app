@@ -98,7 +98,7 @@ Page {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        anchors.topMargin: nowPlayingBackButton.height
+        anchors.topMargin: header.useDeprecatedToolbar === undefined ? nowPlayingBackButton.height : 0
         spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
