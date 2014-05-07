@@ -328,7 +328,6 @@ MainView {
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
-        console.log("VIC: useDe: " + mainView.useDeprecatedToolbar)
 
         Settings.initialize()
         console.debug("INITIALIZED in tracks")
