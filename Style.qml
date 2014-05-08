@@ -38,8 +38,7 @@ QtObject {
         property color expandedColor: "#000000";
         property int albumSize: units.gu(10);
         property int itemHeight: units.gu(12);
-        property int expandedHeight: units.gu(19);
-        property int expandHeight: units.gu(10);
+        property int expandHeight: units.gu(7);
         property int expandedItem: units.gu(2);
         property int expandedTopMargin: units.gu(13.5);
         property int expandedLeftMargin: units.gu(2);
@@ -77,10 +76,6 @@ QtObject {
         property color progressBackgroundColor: common.black;
         property color progressForegroundColor: UbuntuColors.orange;
         property color progressHandleColor: common.white;
-        property int expandedHeightCurrent: units.gu(55);
-        property int expandedHeightNormal: units.gu(19);
-        property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject playerControls: QtObject {
@@ -94,14 +89,8 @@ QtObject {
         property color labelColor: UbuntuColors.coolGrey;
     }
 
-    property QtObject playlists: QtObject {
-        property int expandedHeight: units.gu(15);
-    }
-
     property QtObject playlist: QtObject {
         property int infoHeight: units.gu(14);
-        property int expandedHeight: units.gu(18.5);
-        property int expandedTopMargin: units.gu(11);
         property int playlistItemHeight: units.gu(10);
         property int playlistAlbumSize: units.gu(8);
     }
@@ -116,18 +105,10 @@ QtObject {
 
     property QtObject albums: QtObject {
         property int itemHeight: units.gu(4);
-        property int expandHeight: units.gu(5);
-        property int expandedHeight: units.gu(11);
-        property int expandedTopMargin: units.gu(5);
-        property int expandedLeftMargin: units.gu(2);
     }
 
     property QtObject artists: QtObject {
         property int itemHeight: units.gu(12.5);
-        property int expandHeight: units.gu(5);
-        property int expandedHeight: units.gu(19);
-        property int expandedTopMargin: units.gu(13.5);
-        property int expandedLeftMargin: units.gu(2);
     }
     
     Component.onCompleted: Theme.palette.normal.field=styleMusic.dialog.normalTextFieldColor

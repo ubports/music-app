@@ -370,8 +370,8 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(trackicon)
 
         #click on Add to queue
-        queueTrackImage = self.main_view.get_album_sheet_queuetrack_image()
-        self.pointing_device.click_object(queueTrackImage)
+        queueTrackLabel = self.main_view.get_album_sheet_queuetrack_label()
+        self.pointing_device.click_object(queueTrackLabel)
 
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
