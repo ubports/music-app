@@ -394,7 +394,7 @@ MainView {
     property var currentParam: null
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
-    signal collapseExpand(int index);
+    signal collapseExpand();
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
@@ -535,6 +535,8 @@ MainView {
             player.source = file
         }
 
+        collapseExpand();  // collapse all expands if track clicked
+
         return file
     }
 
@@ -630,18 +632,6 @@ MainView {
     // WHERE THE MAGIC HAPPENS
     Player {
         id: player
-    }
-
-    SongsSheet {
-        id: songsSheet
-    }
-
-    AlbumsSheet {
-        id: artistSheet
-    }
-
-    MusicSearch {
-        id: searchSheet
     }
 
     // Model to send the data
@@ -778,6 +768,19 @@ MainView {
     // search model
     LibraryListModel {
         id: searchModel
+    }
+
+    // load sheets (after model)
+    SongsSheet {
+        id: songsSheet
+    }
+
+    AlbumsSheet {
+        id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Blurred background

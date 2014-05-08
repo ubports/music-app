@@ -78,9 +78,9 @@ import "common"
                     property string name: model.name
                     property string count: model.count
                     onClicked: {
-                        console.debug("Debug: "+chosenElement.track+" added to "+name)
+                        console.debug("Debug: "+chosenElement.file+" added to "+name)
                         Playlists.addtoPlaylist(name,
-                                                chosenElement.track,
+                                                chosenElement.file,
                                                 chosenElement.artist,
                                                 chosenElement.title,
                                                 chosenElement.album,
