@@ -145,14 +145,14 @@ class MainView(toolkit_emulators.MainView):
         tracktitle = self.get_album_sheet_listview_tracktitle(trackTitle)
         tracktitle_position = tracktitle.globalRect[1]
         trackicons = self.select_many(
-            "QQuickImage", objectName="albumsheet-expanditem")
+            "QQuickImage", objectName="expanditem")
         for item in trackicons:
             if item.globalRect[1] == tracktitle_position:
                 return item
 
-    def get_album_sheet_queuetrack_image(self):
+    def get_album_sheet_queuetrack_label(self):
         queuetracks = self.select_many_retry(
-            "QQuickImage", objectName="albumsheet-queuetrack")
+            "Label", objectName="queuetrack")
         for item in queuetracks:
             if item.visible:
                 return item
@@ -185,7 +185,7 @@ class MainView(toolkit_emulators.MainView):
 
     def get_songs_tab_trackimage(self, trackTitle):
         trackimages = self.select_many_retry(
-            "QQuickImage", objectName="trackimage")
+            "QQuickImage", objectName="expanditem")
         tracktitles = self.get_songs_tab_tracktitle(trackTitle)
         imageheight = trackimages[0].height
         trackimage_position = tracktitles.globalRect[1] + (imageheight / 2)
@@ -195,14 +195,14 @@ class MainView(toolkit_emulators.MainView):
 
     def get_songs_tab_add_to_queue_label(self):
         addtoqueue = self.select_many(
-            "Label", objectName="songstab_addtoqueue")
+            "Label", objectName="queuetrack")
         for item in addtoqueue:
             if item.visible:
                 return item
 
     def get_songs_tab_add_to_playlist_label(self):
         addtoplaylist = self.select_many(
-            "Label", objectName="songstab_addtoplaylist")
+            "Label", objectName="addtoplaylist")
         for item in addtoplaylist:
             if item.visible:
                 return item

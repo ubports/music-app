@@ -21,9 +21,9 @@ import QtMultimedia 5.0
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import "common"
+import "common/ExpanderItems"
 import "meta-database.js" as Library
 import "settings.js" as Settings
 
@@ -66,8 +66,7 @@ Page {
                 return;
             }
 
-            // Collapse any expanded track
-            collapseExpand(-1);
+            collapseExpand();  // Collapse expanded tracks
             queuelist.currentIndex = player.currentIndex;
 
             customdebug("MusicQueue update currentIndex: " + player.source);
@@ -98,7 +97,7 @@ Page {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        anchors.topMargin: nowPlayingBackButton.height
+        anchors.topMargin: header !== null && header.useDeprecatedToolbar === undefined ? nowPlayingBackButton.height : 0
         spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
@@ -121,7 +120,7 @@ Page {
             }
         ]
         footer: Item {
-            height: mainView.height - styleMusic.nowPlaying.expandedHeightCurrent + units.gu(8)
+            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
         }
 
         property int normalHeight: units.gu(12)
@@ -255,7 +254,7 @@ Page {
 
                     onClicked: {
                         collapseSwipeDelete(-1);  // collapse all expands
-                        customdebug("File: " + file) // debugger
+                        customdebug("File: " + model.file) // debugger
                         trackClicked(trackQueue, index) // play track
                     }
 
@@ -269,12 +268,16 @@ Page {
                         // New X is less than start so swiping left
                         if (queueListItem.x < startX)
                         {
+                            collapseExpand();
                             swipeBackground.state = "swipingLeft";
+                            startY = queueListItem.y;
                         }
                         // New X is greater sow swiping right
                         else if (queueListItem.x > startX)
                         {
+                            collapseExpand();
                             swipeBackground.state = "swipingRight";
+                            startY = queueListItem.y;
                         }
                         // Same so reset state back to normal
                         else
@@ -304,9 +307,9 @@ Page {
                         // Must be in a normal state to change to reorder state
                         if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
                         {
-                            collapseSwipeDelete(-1);  // collapse all expands
-                            collapseExpand(-1);  // collapse all
-                            customdebug("Pressed and held queued track "+file)
+                            collapseSwipeDelete(-1);  // collapse all swipedeletes
+                            collapseExpand();  // collapse all
+                            customdebug("Pressed and held queued track "+model.file)
                             queuelist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
                         }
@@ -500,10 +503,14 @@ Page {
                         selected = false
                     }
                 }
+
                 Rectangle {
                     id: trackContainer;
-                    anchors.fill: parent
-                    anchors.margins: units.gu(0.5)
+                    anchors {
+                        fill: parent
+                        margins: units.gu(0.5)
+                        rightMargin: expandable.expanderButtonWidth
+                    }
                     color: "transparent"
 
                     NumberAnimation {
@@ -537,14 +544,26 @@ Page {
                                 }
                             }
                         }
-                        onHeightChanged: {
-                            if (height > queuelist.normalHeight) {
-                                anchors.left = undefined
-                                anchors.horizontalCenter = parent.horizontalCenter
+
+                        function calcAnchors() {
+                            if (trackImage.height > queuelist.normalHeight && mainView.wideAspect) {
+                                trackImage.anchors.left = undefined
+                                trackImage.anchors.horizontalCenter = trackImage.parent.horizontalCenter
                             } else {
-                                anchors.left = parent.left
-                                anchors.horizontalCenter = undefined
+                                trackImage.anchors.left = trackImage.parent.left
+                                trackImage.anchors.horizontalCenter = undefined
                             }
+
+                            trackImage.width = trackImage.height;  // force width to match height
+                        }
+
+                        Connections {
+                            target: mainView
+                            onWideAspectChanged: trackImage.calcAnchors()
+                        }
+
+                        onHeightChanged: {
+                            calcAnchors()
                         }
                         Behavior on height {
                             NumberAnimation {
@@ -562,7 +581,7 @@ Page {
                         height: units.gu(1)
                         text: artist
                         fontSize: 'small'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: trackImage.y + units.gu(1)
                     }
@@ -574,7 +593,7 @@ Page {
                         height: units.gu(1)
                         text: title
                         fontSize: 'medium'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
@@ -586,170 +605,33 @@ Page {
                         height: units.gu(1)
                         text: album
                         fontSize: 'x-small'
-                        width: expandItem.x - x - units.gu(1.5)
+                        width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
-                    Image {
-                        id: expandItem
-                        source: expandable.visible ? "images/dropdown-menu-up.svg" : "images/dropdown-menu.svg"
-                        height: styleMusic.common.expandedItem
-                        width: styleMusic.common.expandedItem
-                        x: parent.x + parent.width - width - units.gu(2)
-                        y: trackImage.y + (queuelist.normalHeight / 2) - (styleMusic.common.expandedItem / 2) - units.gu(1)  // -margin
-                    }
-
-                    MouseArea {
-                        id: expandItemMouseArea
-                        height: queuelist.normalHeight
-                        width: styleMusic.common.expandedItem * 3
-                        x: parent.x + parent.width - width
-                        y: trackImage.y - units.gu(1)  // -margin
-
-                        onClicked: {
-                           if(expandable.visible) {
-                               customdebug("clicked collapse");
-                               expandable.visible = false;
-                               queueListItem.height = queueListItem.cachedHeight;
-                               Rotation: {
-                                   source: expandItem;
-                                   angle: 0;
-                               }
-                           }
-                           else {
-                               customdebug("clicked expand");
-                               collapseExpand(-1);  // collapse all others first
-                               expandable.visible = true;
-                               queueListItem.cachedHeight = queueListItem.height;
-                               queueListItem.height = queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal;
-                               Rotation: {
-                                   source: expandItem;
-                                   angle: 180;
-                               }
-                           }
-                       }
-                   }
                 }
 
-                Rectangle {
+                Expander {
                     id: expandable
-                    color: "transparent"
-                    height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent : styleMusic.nowPlaying.expandedHeightNormal
-                    visible: false
-                    MouseArea {
-                       anchors.fill: parent
-                       onClicked: {
-                           customdebug("User pressed outside the playlist item and expanded items.")
-                       }
+                    anchors {
+                        fill: parent
                     }
-
-                    Component.onCompleted: {
-                        collapseExpand.connect(onCollapseExpand);
-                    }
-
-                    function onCollapseExpand(indexCol)
-                    {
-                        if (indexCol === -1 && expandable !== undefined && expandable.visible === true)
-                        {
-                            customdebug("auto collapse")
-                            expandable.visible = false
-                            queueListItem.height = queueListItem.cachedHeight
-                            Rotation: {
-                                source: expandItem;
-                                angle: 0;
-                            }
+                    actualListItemHeight: queueListItem.state === "current" ?
+                                              queuelist.currentHeight :
+                                              queuelist.normalHeight
+                    buttonEnabled: !swipeBackground.primed
+                    expanderButtonCentreFromBottom: queuelist.normalHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
+                    listItem: queueListItem
+                    model: trackQueue.model.get(index)
+                    row: Row {
+                        AddToPlaylist {
                         }
                     }
-
-                    // background for expander
-                    Rectangle {
-                        id: expandedBackground
-                        anchors.top: parent.top
-                        anchors.topMargin: queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight
-                        color: styleMusic.common.black
-                        height: queueListItem.state === "current" ? styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight : styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight
-                        width: queueListItem.width
-                        opacity: 0.4
-                    }
-
-                    // add to playlist
-                    Rectangle {
-                        id: playlistRow
-                        anchors.top: expandedBackground.top
-                        anchors.left: parent.left
-                        anchors.leftMargin: styleMusic.common.expandedLeftMargin
-                        color: "transparent"
-                        height: expandedBackground.height
-                        width: units.gu(15)
-                        Icon {
-                            id: playlistTrack
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: styleMusic.common.white
-                            name: "add"
-                            height: styleMusic.common.expandedItem
-                            width: styleMusic.common.expandedItem
-                        }
-                        Label {
-                            anchors.left: playlistTrack.right
-                            anchors.leftMargin: units.gu(0.5)
-                            anchors.verticalCenter: parent.verticalCenter
-                            color: styleMusic.common.white
-                            fontSize: "small"
-                            wrapMode: Text.WordWrap
-                            width: parent.width - playlistTrack.width - units.gu(1)
-                            text: i18n.tr("Add to playlist")
-                            maximumLineCount: 3
-                        }
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               expandable.visible = false;
-                               queueListItem.height = queueListItem.cachedHeight;
-                               chosenElement = model;
-                               console.debug("Debug: Add track to playlist");
-                               PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
-                               {
-                                   title: i18n.tr("Select playlist")
-                               } )
-                           }
-                        }
-                    }
-                    // Share
-                    Rectangle {
-                        id: shareRow
-                        anchors.top: parent.top
-                        anchors.topMargin: ((queueListItem.state === "current" ?
-                                                 styleMusic.nowPlaying.expandedHeightCurrent - queuelist.currentHeight :
-                                                 styleMusic.nowPlaying.expandedHeightNormal - queuelist.normalHeight)
-                                            / 2)
-                                           + (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight)
-                                           - (height / 2)
-                        anchors.left: playlistRow.left
-                        anchors.leftMargin: units.gu(15)
-                        color: "transparent"
-                        height: styleMusic.common.expandedItem
-                        width: units.gu(15)
-                        visible: false
-                        Icon {
-                            id: shareTrack
-                            name: "share"
-                            height: styleMusic.common.expandedItem
-                            width: styleMusic.common.expandedItem
-                        }
-                        Label {
-                            text: i18n.tr("Share")
-                            wrapMode: Text.WordWrap
-                            fontSize: "small"
-                            anchors.left: shareTrack.right
-                            anchors.leftMargin: units.gu(0.5)
-                        }
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               expandable.visible = false
-                               track.height = styleMusic.common.itemHeight
-                               customdebug("Share")
-                           }
+                    Behavior on actualListItemHeight {
+                        NumberAnimation {
+                            target: expandable;
+                            property: "actualListItemHeight";
+                            duration: queuelist.transitionDuration;
                         }
                     }
                 }
@@ -762,29 +644,25 @@ Page {
                     }
                     PropertyChanges {
                         target: nowPlayingArtist
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: trackImage.y + trackImage.height + units.gu(0.5)
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
                     }
                     PropertyChanges {
                         target: nowPlayingAlbum
-                        width: expandItem.x - x - units.gu(2.5)
+                        width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
                     }
                     PropertyChanges {
-                        target: expandItem
-                        y: trackImage.y + trackImage.height + units.gu(4) - (expandItem.height / 2)
-                    }
-                    PropertyChanges {
-                        target: expandItemMouseArea
-                        y: trackImage.y + trackImage.height + units.gu(0.5)
+                        target: expandable
+                        expanderButtonCentreFromBottom: queuelist.currentHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
                     }
                 }
                 transitions: Transition {
@@ -810,6 +688,7 @@ Page {
     // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
     Rectangle {
         id: nowPlayingBackButton
+        visible: header.useDeprecatedToolbar === undefined
         anchors {
             left: parent.left
             right: parent.right
@@ -820,7 +699,7 @@ Page {
         y: header.y + header.height
 
         Image {
-            id: expandItem
+            id: nowPlayingBackButtonImage
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             source: "images/dropdown-menu.svg"

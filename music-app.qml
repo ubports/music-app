@@ -38,6 +38,7 @@ MainView {
     objectName: "music"
     applicationName: "com.ubuntu.music"
     id: mainView
+    useDeprecatedToolbar: false
 
     // Use toolbar color for header
     headerColor: styleMusic.toolbar.fullBackgroundColor
@@ -354,9 +355,6 @@ MainView {
         // push the page to view
         pageStack.push(tabs)
 
-        // show toolbar hint at startup
-        musicToolbar.showToolbar();
-
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
         tabs.selectedTabIndex = 1
@@ -378,7 +376,7 @@ MainView {
     property var currentParam: null
     property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
-    signal collapseExpand(int index);
+    signal collapseExpand();
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
@@ -463,7 +461,7 @@ MainView {
                 console.log("Is current track: "+player.playbackState)
 
                 // Show the Now Playing page and make sure the track is visible
-                tabs.setNowPlaying(true);
+                tabs.pushNowPlaying();
                 nowPlaying.ensureVisibleIndex = index;
 
                 musicToolbar.showToolbar();
@@ -492,7 +490,7 @@ MainView {
             player.playSong(file, index)
 
             // Show the Now Playing page and make sure the track is visible
-            tabs.setNowPlaying(true);
+            tabs.pushNowPlaying();
             nowPlaying.ensureVisibleIndex = index;
 
             musicToolbar.showToolbar();
@@ -500,6 +498,8 @@ MainView {
         else {
             player.source = file
         }
+
+        collapseExpand();  // collapse all expands if track clicked
 
         return file
     }
@@ -529,18 +529,6 @@ MainView {
     // WHERE THE MAGIC HAPPENS
     Player {
         id: player
-    }
-
-    SongsSheet {
-        id: songsSheet
-    }
-
-    AlbumsSheet {
-        id: artistSheet
-    }
-
-    MusicSearch {
-        id: searchSheet
     }
 
     // Model to send the data
@@ -722,6 +710,13 @@ MainView {
 
                 console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
                 griloModel.loaded = true
+
+                // Show toolbar and start timer if there is music
+                if (!emptyPage.noMusic || wideAspect) {
+                    musicToolbar.showToolbar(); 
+                    musicToolbar.startAutohideTimer(); 
+                }
+
                 tabs.ensurePopulated(tabs.selectedTab);
 
                 if (args.values.url) {
@@ -874,6 +869,19 @@ MainView {
     // search model
     LibraryListModel {
         id: searchModel
+    }
+
+    // load sheets (after model)
+    SongsSheet {
+        id: songsSheet
+    }
+
+    AlbumsSheet {
+        id: artistSheet
+    }
+
+    MusicSearch {
+        id: searchSheet
     }
 
     // Blurred background
@@ -1165,15 +1173,11 @@ MainView {
                 loading.visible = selectedTab.loading || !selectedTab.populated
             }
 
-            function setNowPlaying(visible)
+            function pushNowPlaying()
             {
-                if (visible) {
+                // only push if on a different page
+                if (pageStack.currentPage !== nowPlaying) {
                     pageStack.push(nowPlaying);
-                }
-                else {
-                    if (pageStack.currentPage === nowPlaying) {
-                        pageStack.pop()
-                    }
                 }
             }
 
