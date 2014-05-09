@@ -9,11 +9,7 @@
     "read_path": [
       "/etc/fstab",
       "/proc/[0-9]*/mounts",
-      "/usr/share/grilo-plugins/",
       "@{HOME}/.cache/media-art/",
-      "@{HOME}/.cache/mediascanner/"
-    ],
-    "write_path": [
-      "@{HOME}/.local/share/grilo-plugins/"
+      "@{HOME}/.cache/mediascanner-2.0/"
     ]
 }
