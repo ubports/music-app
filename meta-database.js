@@ -15,9 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var buffer = [];  // Buffer of metadata to write to the db
-var maxBufferLength = 8000;  // Maximum size of buffer before auto write to db
-
 // First, let's create a short helper function to get the database connection
 function getDatabase() {
      return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
@@ -30,8 +27,7 @@ function initialize() {
         function(tx) {
             // Create the table if it doesn't already exist
             // If the table exists, this is skipped
-            //tx.executeSql('DROP TABLE metadata');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
+            tx.executeSql('DROP TABLE IF EXISTS metadata');
             createRecent();
       });
 }
@@ -65,145 +61,6 @@ function clearRecentHistory() {
             tx.executeSql('DROP TABLE IF EXISTS recent');
             tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME, title TEXT, title2 TEXT, cover TEXT, key TEXT UNIQUE, type TEXT)");
       });
-}
-
-// This function is used to flush the buffer of metadata to the db
-function writeDb()
-{
-    var db = getDatabase();
-    var res = "";
-    var i;
-
-    console.debug("Writing DB");
-    console.debug(buffer.length);
-
-    // Keep within one transaction for performance win
-    db.transaction(function(tx) {
-        // Loop through all the metadata in the buffer
-        for (i=0; i < buffer.length; i++)
-        {
-            var res = tx.executeSql('INSERT OR REPLACE INTO metadata VALUES (?,?,?,?,?,?,?,?,?);', buffer[i]);
-
-            if (res.rowsAffected <= 0)
-            {
-                // Nothing was added error occured?
-                console.debug("Error occured writing to db for ", buffer[i]);
-            }
-        }
-    });
-
-    buffer = [];  // Clear buffer
-}
-
-// This function is used to write meta data into the database
-function setMetadata(record) {
-    buffer.push([record.file,record.title,record.artist,record.album,record.cover,record.year,record.number,record.length,record.genre]);  // Add metadata to buffer
-
-    if (buffer.length >= maxBufferLength)
-    {
-        console.debug("Buffer full, flushing buffer to disk");
-        writeDb();
-    }
-}
-
-
-function removeFiles(files)
-{
-    var db = getDatabase();
-
-    db.transaction(function(tx) {
-        for (var i=0; i < files.length; i++)
-        {
-            for (var k in files[i])
-            {
-                tx.executeSql('DELETE FROM metadata WHERE file=?;', files[i]["file"]);
-            }
-        }
-    });
-}
-
-// This function is used to retrieve meta data from the database
-function getMetadata(file) {
-   var db = getDatabase();
-   var res="";
-
-   try {
-       db.transaction(function(tx) {
-         var rs = tx.executeSql('SELECT * FROM metadata WHERE file=?;', [file]); // tries to get the title of track
-
-         if (rs.rows.length > 0) {
-              res = rs.rows.item(0);
-         } else {
-             res = "Unknown";
-         }
-      })
-   } catch(e) {
-       return "";
-   }
-
-  // The function returns “Unknown” if the setting was not found in the database
-  // For more advanced projects, this should probably be handled through error codes
-  return res
-}
-
-function getGenres() {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT *, count(genre) AS total FROM metadata GROUP BY genre ORDER BY genre COLLATE NOCASE ASC");
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, art:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre, total: dbItem.total});
-        }
-    });
-    return res;
-}
-
-function getGenreTracks(genre) {
-    var res = [];
-    var db = getDatabase();
-    //console.log("Genre: " + genre);
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata WHERE genre=? ORDER BY artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC", [genre]);
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, art:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
-function getGenreCovers(genre) {
-    var res = [];
-    var db = getDatabase();
-    try {
-        db.transaction( function(tx) {
-            var rs = tx.executeSql("SELECT cover FROM metadata WHERE genre=? AND cover <> '' ORDER BY artist COLLATE NOCASE ASC", [genre]);
-            for(var i = 0; i < rs.rows.length; i++) {
-                if (res.indexOf(rs.rows.item(i).cover) === -1) {
-                    res.push(rs.rows.item(i).cover);
-                }
-            }
-        });
-    } catch(e) {
-        return [];
-    }
-
-    return res;
-}
-
-
-function size() {
-    var db = getDatabase();
-    var res="";
-
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT count(*) FROM metadata");
-        res = rs.rows.item(0).value;
-    });
-    return res;
 }
 
 // This function is used to insert a recent item into the database
