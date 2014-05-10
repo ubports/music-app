@@ -217,7 +217,7 @@ MainView {
 
             // Play album it tracks exist
             if (songsAlbumArtistModel.rowCount > 0) {
-                trackClickedMediaScanner2(songsAlbumArtistModel, 0, true);
+                trackClicked(songsAlbumArtistModel, 0, true);
             }
             else {
                 console.debug("Unknown artist-album " + uri + ", skipping")
@@ -244,7 +244,7 @@ MainView {
             }
 
             // enqueue
-            trackQueue.appendMediaScanner2(track);
+            trackQueue.append(track);
 
             // play first URI
             if (play) {
@@ -397,8 +397,7 @@ MainView {
         }
     }
 
-    // TODO: rename to addQueueFromModel when complete
-    function addQueueFromModelMediaScanner2(model)
+    function addQueueFromModel(model)
     {
         for (var i=0; i < model.rowCount; i++) {
             var item = model.get(i, model.RoleModelData);
@@ -430,9 +429,7 @@ MainView {
         };
     }
 
-    // TODO: add caching?
-    // TODO: rename to trackClicked when complete
-    function trackClickedMediaScanner2(model, index, play) {
+    function trackClicked(model, index, play) {
         var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
 
         play = play === undefined ? true : play  // default play to true
@@ -444,9 +441,9 @@ MainView {
             return;
         }
 
-        trackQueue.model.clear();  // clear the old model TODO: caching?
+        trackQueue.model.clear();  // clear the old model
 
-        addQueueFromModelMediaScanner2(model);
+        addQueueFromModel(model);
 
         if (play) {
             player.playSong(file, index);
@@ -489,7 +486,7 @@ MainView {
 
         player.shuffle = shuffle === undefined ? true : shuffle;
 
-        trackClickedMediaScanner2(allSongsModel, index, true)
+        trackClicked(allSongsModel, index, true)
     }
 
     // Load mediascanner store
@@ -599,7 +596,7 @@ MainView {
     LibraryListModel {
         id: trackQueue
 
-        function appendMediaScanner2(listElement)
+        function append(listElement)
         {
             model.append(makeDict(listElement))
             console.debug(JSON.stringify(makeDict(listElement)));
@@ -665,7 +662,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.appendMediaScanner2(chosenElement)
+                        trackQueue.append(chosenElement)
                     }
                 }
                 ListItem.Standard {

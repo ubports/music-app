@@ -172,7 +172,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                trackClickedMediaScanner2(albumtrackslist.model, 0)  // play track
+                                trackClicked(albumtrackslist.model, 0)  // play track
 
                                 if (isAlbum) {
                                     Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
@@ -224,7 +224,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                addQueueFromModelMediaScanner2(albumtrackslist.model)
+                                addQueueFromModel(albumtrackslist.model)
                             }
                         }
                     }
@@ -248,7 +248,7 @@ Item {
                                 if (focus == false) {
                                     focus = true
                                 }
-                                trackClickedMediaScanner2(albumtrackslist.model, index)  // play track
+                                trackClicked(albumtrackslist.model, index)  // play track
                                 if (isAlbum) {
                                     Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true

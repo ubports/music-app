@@ -161,7 +161,7 @@ Item {
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
-                                trackQueue.appendMediaScanner2(model)
+                                trackQueue.append(model)
                                 trackQueueClick(trackQueue.model.count - 1);
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }

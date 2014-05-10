@@ -68,7 +68,7 @@ Page {
                             focus = true
                         }
 
-                        trackClickedMediaScanner2(tracklist.model, index)  // play track
+                        trackClicked(tracklist.model, index)  // play track
                     }
                 }
 

@@ -117,11 +117,11 @@ Item {
         }
 
         if (startPlaying) {  // only start the track if told
-            playSong(trackQueue.model.get(newIndex).file, newIndex)
+            playSong(trackQueue.model.get(newIndex).filename, newIndex)
         }
         else {
             currentIndex = newIndex
-            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).file)
+            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).filename)
         }
     }
 

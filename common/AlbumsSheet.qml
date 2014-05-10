@@ -194,7 +194,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        trackClickedMediaScanner2(songArtistModel, 0, true)
+                                        trackClicked(songArtistModel, 0, true)
 
                                         // TODO: add links to recent
 
@@ -242,7 +242,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        addQueueFromModelMediaScanner2(songArtistModel)
+                                        addQueueFromModel(songArtistModel)
                                     }
                                 }
                             }
@@ -396,7 +396,7 @@ Item {
                                     Library.addRecent(album, artist, model.art, model.title, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
-                                    trackClickedMediaScanner2(songAlbumArtistModel, 0, true)
+                                    trackClicked(songAlbumArtistModel, 0, true)
 
                                     // TODO: This closes the SDK defined sheet
                                     //       component. It should be able to close
@@ -438,7 +438,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    addQueueFromModelMediaScanner2(songAlbumArtistModel)
+                                    addQueueFromModel(songAlbumArtistModel)
                                 }
                             }
                         }
