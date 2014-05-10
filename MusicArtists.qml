@@ -62,15 +62,14 @@ Page {
 
             ListItem.Standard {
                 id: track
-                property string artist: model.artist
                 height: styleMusic.common.itemHeight
 
-                // TODO: mediascanner2 count number of albums in this model
                 AlbumsModel {
                     id: albumArtistModel
                     albumArtist: model.artist
                     store: musicStore
                 }
+
                 Repeater {
                     id: albumArtistModelRepeater
                     model: albumArtistModel
@@ -137,7 +136,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    text: artist
+                    text: model.artist
                 }
 
                 Label {
@@ -182,7 +181,7 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        artistSheet.artist = artist
+                        artistSheet.artist = model.artist
                         PopupUtils.open(artistSheet.sheet)
                     }
                 }

@@ -165,7 +165,7 @@ Page {
                         fill: parent
                     }
                     listItem: track
-                    model: libraryModel.model.get(index)
+                    model: songsModel.get(index, songsModel.RoleModelData)
                     row: Row {
                         AddToPlaylist {
 

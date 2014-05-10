@@ -182,12 +182,12 @@ function getPlaylistTracks(playlist) {
          for(var i = 0; i < rs.rows.length; i++) {
              var dbItem = rs.rows.item(i);
              //console.log("Cover: "+ dbItem.cover);
-             res[i] = {'file': dbItem.track,
+             res[i] = {'filename': dbItem.track,
                        'title': dbItem.title,
-                       'artist': dbItem.artist,
+                       'author': dbItem.artist,
                        'album': dbItem.album,
-                       'cover': dbItem.cover,
-                       'year': dbItem.year,
+                       'art': dbItem.cover,
+                       'date': dbItem.year,
                        'number': dbItem.number,
                        'length': dbItem.length,
                        'genre': dbItem.genre,

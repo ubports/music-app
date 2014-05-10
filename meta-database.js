@@ -146,20 +146,6 @@ function getMetadata(file) {
   return res
 }
 
-function getAll() {
-    var res = [];
-    var db = getDatabase();
-    db.transaction( function(tx) {
-        var rs = tx.executeSql("SELECT * FROM metadata ORDER BY title COLLATE NOCASE ASC, artist COLLATE NOCASE ASC, album COLLATE NOCASE ASC, CAST(number AS int) ASC");
-        for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
-        }
-    });
-    return res;
-}
-
 function getGenres() {
     var res = [];
     var db = getDatabase();
@@ -168,7 +154,7 @@ function getGenres() {
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre, total: dbItem.total});
+            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, art:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre, total: dbItem.total});
         }
     });
     return res;
@@ -183,7 +169,7 @@ function getGenreTracks(genre) {
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
             //console.log("Artist:"+ dbItem.artist + ", Album:"+dbItem.album + ", Title:"+dbItem.title + ", File:"+dbItem.file + ", Art:"+dbItem.cover + ", Genre:"+dbItem.genre);
-            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, cover:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
+            res.push({artist:dbItem.artist, album:dbItem.album, title:dbItem.title, file:dbItem.file, art:dbItem.cover, length:dbItem.length, year:dbItem.year, genre:dbItem.genre});
         }
     });
     return res;
@@ -261,7 +247,7 @@ function getRecent() {
             }
             else
             {
-                res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, cover:dbItem.cover, key:dbItem.key, type:dbItem.type});
+                res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, art:dbItem.cover, key:dbItem.key, type:dbItem.type});
             }
         }
     });

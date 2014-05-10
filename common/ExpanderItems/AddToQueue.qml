@@ -51,7 +51,7 @@ Rectangle {
         onClicked: {
             parent.parent.parent.expanderLink.expanderVisible = false
             console.debug("Debug: Add track to queue: " + parent.parent.parent.expanderLink.model)
-            trackQueue.append(parent.parent.parent.expanderLink.model)
+            trackQueue.appendMediaScanner2(parent.parent.parent.expanderLink.model)
         }
     }
 }

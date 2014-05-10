@@ -254,8 +254,8 @@ Page {
 
                     onClicked: {
                         collapseSwipeDelete(-1);  // collapse all expands
-                        customdebug("File: " + model.file) // debugger
-                        trackClicked(trackQueue, index) // play track
+                        customdebug("File: " + model.filename) // debugger
+                        trackQueueClick(index);  // toggle track state
                     }
 
                     onMouseXChanged: {
@@ -309,7 +309,7 @@ Page {
                         {
                             collapseSwipeDelete(-1);  // collapse all swipedeletes
                             collapseExpand();  // collapse all
-                            customdebug("Pressed and held queued track "+model.file)
+                            customdebug("Pressed and held queued track "+model.filename)
                             queuelist.state = "reorder";  // enable reordering state
                             trackContainerReorderAnimation.start();
                         }
@@ -490,7 +490,6 @@ Page {
 
                                 // Remove item from queue and clear caches
                                 trackQueue.model.remove(index);
-                                queueChanged = true;
                             }
                         }
                     }
@@ -537,7 +536,7 @@ Page {
                         height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
-                            source: cover !== "" ? cover : "images/music-app-cover@30.png"
+                            source: model.art
                             onStatusChanged: {
                                 if (status === Image.Error) {
                                     source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -579,7 +578,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: artist
+                        text: model.author
                         fontSize: 'small'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
@@ -591,7 +590,7 @@ Page {
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: title
+                        text: model.title
                         fontSize: 'medium'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)
@@ -603,7 +602,7 @@ Page {
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
-                        text: album
+                        text: model.album
                         fontSize: 'x-small'
                         width: parent.width - trackImage.width - units.gu(3.5)
                         x: trackImage.x + trackImage.width + units.gu(1)

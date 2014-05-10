@@ -157,17 +157,12 @@ Item {
                             objectName: "playlist"
                             width: parent.width
                             height: styleMusic.common.itemHeight
-                            property string title: model.title
-                            property string artist: model.author
-                            property string file: model.filename
-                            property string album: model.album
-                            property string cover: model.art
 
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
-                                trackQueue.append(model)
-                                trackClicked(trackQueue, trackQueue.model.count - 1, true)
+                                trackQueue.appendMediaScanner2(model)
+                                trackQueueClick(trackQueue.model.count - 1);
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }
 
@@ -187,7 +182,12 @@ Item {
                                     width: styleMusic.common.albumSize
                                     height: styleMusic.common.albumSize
                                     image: Image {
-                                        source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
+                                        source: model.art
+                                        onStatusChanged: {
+                                            if (status === Image.Error) {
+                                                source = Qt.resolvedUrl("images/music-app-cover@30.png")
+                                            }
+                                        }
                                     }
                                 }
 
@@ -204,7 +204,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: artist
+                                    text: model.author
                                 }
                                 Label {
                                     id: trackTitle
@@ -220,7 +220,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: title
+                                    text: model.title
                                 }
                                 Label {
                                     id: trackAlbum
@@ -235,7 +235,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: album
+                                    text: model.album
                                 }
                                 Label {
                                     id: trackDuration
@@ -260,7 +260,7 @@ Item {
                                     fill: parent
                                 }
                                 listItem: search
-                                model: searchModel.model.get(index)
+                                model: songsSearchModel.get(index, songsSearchModel.RoleModelData)
                                 row: Row {
                                     AddToPlaylist {
 

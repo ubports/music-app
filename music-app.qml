@@ -211,37 +211,29 @@ MainView {
                 return;
             }
 
-            // Get tracks
-            // TODO: temporarily disabled as we move to mediascanner2.0
-            //var tracks = Library.getArtistAlbumTracks(decodeURIComponent(split[0]), decodeURIComponent(split[1]));
-            var tracks = [];
+            // Filter by artist and album
+            songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
+            songsAlbumArtistModel.album = decodeURIComponent(split[1]);
 
-            if (tracks.length === 0) {
+            // Play album it tracks exist
+            if (songsAlbumArtistModel.rowCount > 0) {
+                trackClickedMediaScanner2(songsAlbumArtistModel, 0, true);
+            }
+            else {
                 console.debug("Unknown artist-album " + uri + ", skipping")
                 return;
             }
-
-            // Enqueue
-            for (var track in tracks) {
-                trackQueue.append(tracks[track]);
-            }
-
-            // Play first track
-            trackClicked(trackQueue, 0, true);
         }
 
         function processFile(uri, play) {
             uri = decodeURIComponent(uri);
 
-            // TODO: temporarily disabled as we move to mediascanner2.0
-            // search for path in library
-            //var library = Library.getAll();
-            var library = [];
             var track = false;
 
-            for (var item in library) {
-                if (decodeURIComponent(library[item].file) === uri) {
-                    track = library[item];
+            // Search for track in songs model
+            for (var i=0; i < allSongsModel.rowCount; i++) {
+                if (decodeURIComponent(allSongsModel.get(i, allSongsModel.RoleModelData).filename) === uri) {
+                    track = allSongsModel.get(i, allSongsModel.RoleModelData);
                     break;
                 }
             }
@@ -252,11 +244,11 @@ MainView {
             }
 
             // enqueue
-            trackQueue.append(track);
+            trackQueue.appendMediaScanner2(track);
 
             // play first URI
             if (play) {
-                trackClicked(trackQueue, 0, true)
+                trackQueueClick(0);
             }
         }
 
@@ -363,16 +355,13 @@ MainView {
         tabs.selectedTabIndex = 1
         tabs.selectedTabIndex = 0
 
-        // TODO: put here until mediascanner2 loaded can be detected
+        // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
 
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
 
-        emptyPage.noMusic = false  // TODO: force false to allow UI to function
-
-        // FIXME: here for now, needs to be done after mediascanner2 has loaded
         // Show toolbar and start timer if there is music
         if (!emptyPage.noMusic) {
             musicToolbar.showToolbar();
@@ -389,10 +378,6 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property var chosenElement: null
-    property LibraryListModel currentModel: null  // Current model being used
-    property var currentQuery: null
-    property var currentParam: null
-    property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
     signal collapseExpand();
     signal collapseSwipeDelete(int index);
@@ -412,45 +397,13 @@ MainView {
         }
     }
 
-    // Add items from a stored query in libraryModel into the queue
-    function addQueueFromModel(libraryModel)
-    {
-        var items;
-
-        if (libraryModel.query === null)
-        {
-            return
-        }
-
-        if (libraryModel.param === null)
-        {
-            items = libraryModel.query()
-        }
-        else
-        {
-            items = libraryModel.query(libraryModel.param)
-        }
-
-        for (var key in items)
-        {
-            trackQueue.append(items[key])
-        }
-    }
-
-    // FIXME: needs fixes in mediascanner2 first
     // TODO: rename to addQueueFromModel when complete
     function addQueueFromModelMediaScanner2(model)
     {
-        for (var i=0; i < model.count; i++) {
-            var item = model.get(i);
+        for (var i=0; i < model.rowCount; i++) {
+            var item = model.get(i, model.RoleModelData);
 
-            trackQueue.model.append({
-                                        album: item.album,
-                                        artist: item.author,
-                                        cover: item.art,
-                                        file: item.filename,
-                                        title: item.title
-                                    });
+            trackQueue.model.append(makeDict(item));
         }
     }
 
@@ -466,112 +419,34 @@ MainView {
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
     }
 
-    function trackClicked(libraryModel, index, play)
-    {
+    // Make dictionary from model item
+    function makeDict(model) {
+        return {
+            album: model.album,
+            author: model.author,
+            art: model.art,
+            filename: model.filename,
+            title: model.title
+        };
+    }
+
+    // TODO: add caching?
+    // TODO: rename to trackClicked when complete
+    function trackClickedMediaScanner2(model, index, play) {
+        var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
+
         play = play === undefined ? true : play  // default play to true
 
-        if (index > libraryModel.model.count - 1 || index < 0) {
-            customdebug("Incorrect index given to trackClicked.")
+        // If same track and on now playing page then toggle
+        if (musicToolbar.currentPage === nowPlaying &&
+                Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
+            player.toggle()
             return;
         }
 
-        var file = Qt.resolvedUrl(libraryModel.model.get(index).file)
+        trackQueue.model.clear();  // clear the old model TODO: caching?
 
-        // Clear the play queue and load the new tracks - if not trackQueue
-        // Don't reload queue if model, query and parameters are the same
-        // Same file different pages is treated as a new session
-        if (libraryModel !== trackQueue &&
-                (currentModel !== libraryModel ||
-                 currentQuery !== libraryModel.query ||
-                 currentParam !== libraryModel.param ||
-                 queueChanged === true))
-        {
-            trackQueue.model.clear()
-            addQueueFromModel(libraryModel)
-        }
-        else if (player.source == file &&
-                    player.currentIndex === index)
-        {
-            // Same track so just toggle playing state
-            if (play === true) {
-                console.log("Is current track: "+player.playbackState)
-
-                // Show the Now Playing page and make sure the track is visible
-                tabs.pushNowPlaying();
-                nowPlaying.ensureVisibleIndex = index;
-
-                musicToolbar.showToolbar();
-
-                if (musicToolbar.currentPage == nowPlaying) {
-                    player.toggle()
-                }
-            }
-
-            return
-        }
-
-        // Current index must be updated before player.source
-        currentModel = libraryModel
-        currentQuery = libraryModel.query
-        currentParam = libraryModel.param
-
-        if (Qt.resolvedUrl(trackQueue.model.get(index).file) != file) {
-            index = trackQueue.indexOf(file)  // pick given index first
-        }
-        queueChanged = false
-
-        console.log("Click of fileName: " + file)
-
-        if (play === true) {
-            player.playSong(file, index)
-
-            // Show the Now Playing page and make sure the track is visible
-            tabs.pushNowPlaying();
-            nowPlaying.ensureVisibleIndex = index;
-
-            musicToolbar.showToolbar();
-        }
-        else {
-            player.source = file
-        }
-
-        collapseExpand();  // collapse all expands if track clicked
-
-        return file
-    }
-
-    // TODO: correctly copy mediascanner2 model to trackQueue (with caching?)
-    // TODO: rename to trackClicked when complete
-    function trackClickedMediaScanner2(model, index, play) {
-        play = play === undefined ? true : play  // default play to true
-
-        trackQueue.model.clear();
-
-        var query = model.store.query(null, 1);
-        var file = Qt.resolvedUrl(query[index].filename);
-
-        for (var i=0; i < query.length; i++) {
-            trackQueue.model.append({
-                                        album: query[i].album,
-                                        artist: query[i].author,
-                                        cover: query[i].art,
-                                        file: query[i].filename,
-                                        title: query[i].title
-                                    });
-        }
-
-
-        /*
-          TODO: code expected to work once fixes in mediascanner2 have landed
-
-          play = play === undefined ? true : play  // default play to true
-
-          trackQueue.model.clear();  // clear the old model TODO: caching?
-
-          var file Qt.resolvedUrl(model.get(index).filename);
-
-          addQueueFromModelMediaScanner2(model);
-          */
+        addQueueFromModelMediaScanner2(model);
 
         if (play) {
             player.playSong(file, index);
@@ -585,38 +460,36 @@ MainView {
         else {
             player.source = file;
         }
+
+        collapseExpand();  // collapse all expands if track clicked
+    }
+
+    function trackQueueClick(index) {
+        if (player.currentIndex === index) {
+            player.toggle();
+        }
+        else {
+            player.playSong(trackQueue.model.get(index).filename, index);
+        }
+
+        // Show the Now Playing page and make sure the track is visible
+        tabs.pushNowPlaying();
+        nowPlaying.ensureVisibleIndex = index;
+
+        musicToolbar.showToolbar();
     }
 
     function playRandomSong(shuffle)
     {
         trackQueue.model.clear();
 
-        var items = Library.getAll();
-
-        for (var key in items) {
-            trackQueue.append(items[key]);
-        }
-
         var now = new Date();
         var seed = now.getSeconds();
-        var index = Math.floor(trackQueue.model.count * Math.random(seed));
+        var index = Math.floor(allSongsModel.rowCount * Math.random(seed));
 
         player.shuffle = shuffle === undefined ? true : shuffle;
-        trackClicked(trackQueue, index, true);
 
-        /*
-          TODO: code expected to work once fixes in mediascanner2 have landed
-
-          trackQueue.model.clear();
-
-          var now = new Date();
-          var seed = now.getSeconds();
-          var index = Math.floor(allSongsModel.count * Math.random(seed));
-
-          player.shuffle = shuffle === undefined ? true : shuffle;
-
-          trackClickedMediaScanner2(allSongsModel, index, true)
-          */
+        trackClickedMediaScanner2(allSongsModel, index, true)
     }
 
     // Load mediascanner store
@@ -626,6 +499,11 @@ MainView {
 
     SongsModel {
         id: allSongsModel
+        store: musicStore
+    }
+
+    SongsModel {
+        id: songsAlbumArtistModel
         store: musicStore
     }
 
@@ -686,18 +564,6 @@ MainView {
         }
     }
 
-    LibraryListModel {
-        id: libraryModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                tracksTab.loading = false
-                tracksTab.populated = true
-            }
-        }
-    }
-
     // TODO: Used by playlisttracks move to U1DB
     LibraryListModel {
         id: albumTracksModel
@@ -732,20 +598,11 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
-        Connections {
-            target: trackQueue.model
-            onCountChanged: queueChanged = true
-        }
 
-        function append(listElement)
+        function appendMediaScanner2(listElement)
         {
-            model.append({
-                             "album": listElement.album,
-                             "artist": listElement.artist,
-                             "cover": listElement.cover,
-                             "file": listElement.file,
-                             "title": listElement.title
-                         })
+            model.append(makeDict(listElement))
+            console.debug(JSON.stringify(makeDict(listElement)));
         }
     }
 
@@ -762,12 +619,6 @@ MainView {
                 playlistTab.populated = true
             }
         }
-    }
-
-    // TODO: used for searching move to mediascanner2
-    // search model
-    LibraryListModel {
-        id: searchModel
     }
 
     // load sheets (after model)
@@ -814,7 +665,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.append(chosenElement)
+                        trackQueue.appendMediaScanner2(chosenElement)
                     }
                 }
                 ListItem.Standard {
@@ -901,9 +752,7 @@ MainView {
         title: i18n.tr("Music")
         visible: false
 
-        property bool noMusic: true
-        // FIXME: uncomment once mediascanner2 is fixed
-        // property bool noMusic: allSongsModel.count === 0 && loadedUI
+        property bool noMusic: allSongsModel.rowCount === 0 && loadedUI
 
         onNoMusicChanged: {
             if (noMusic)

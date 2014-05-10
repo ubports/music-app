@@ -153,6 +153,12 @@ Item {
                                 fontSize: "large"
                             }
 
+                            SongsModel {
+                                id: songArtistModel
+                                albumArtist: sheetItem.artist
+                                store: musicStore
+                            }
+
                             // Play
                             Rectangle {
                                 id: playRow
@@ -188,10 +194,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        albumTracksModel.filterArtistTracks(artist)
-                                        trackQueue.model.clear()
-                                        addQueueFromModel(albumTracksModel)
-                                        trackClicked(trackQueue, 0)  // play track
+                                        trackClickedMediaScanner2(songArtistModel, 0, true)
 
                                         // TODO: add links to recent
 
@@ -239,8 +242,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        albumTracksModel.filterArtistTracks(artist)
-                                        addQueueFromModel(albumTracksModel)
+                                        addQueueFromModelMediaScanner2(songArtistModel)
                                     }
                                 }
                             }
@@ -257,18 +259,15 @@ Item {
                         width: parent.width
                         height: units.gu(20)
 
-                        property string album: model.title
-                        property string cover: model.art
-
                         SongsModel {
-                            id: songArtistModel
+                            id: songAlbumArtistModel
                             albumArtist: model.artist
                             album: model.title
                             store: musicStore
                         }
                         Repeater {
-                            id: songArtistModelRepeater
-                            model: songArtistModel
+                            id: songAlbumArtistModelRepeater
+                            model: songAlbumArtistModel
                             delegate: Text { text: model.date; visible: false }
                             property string year: ""
                             onItemAdded: year = item.text
@@ -284,7 +283,7 @@ Item {
                             }
                             count: 1
                             size: parent.height
-                            covers: [cover]
+                            covers: [model.art]
                             objectName: "artistsheet-albumcover"
                             spacing: units.gu(2)
 
@@ -297,12 +296,12 @@ Item {
                                         focus = true
                                     }
 
-                                    albumSheet.album = album;
+                                    albumSheet.album = model.title;
 
                                     albumSheet.line1 = artist
-                                    albumSheet.line2 = album
+                                    albumSheet.line2 = model.title
                                     albumSheet.isAlbum = true
-                                    albumSheet.covers = [cover]
+                                    albumSheet.covers = [model.art]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet
@@ -342,7 +341,7 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: album
+                            text: model.title
                         }
                         Label {
                             id: albumYear
@@ -357,7 +356,9 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: i18n.tr(songArtistModelRepeater.year + " | %1 song", songArtistModelRepeater.year + " | %1 songs", songArtistModelRepeater.count).arg(songArtistModelRepeater.count)
+                            text: i18n.tr(songAlbumArtistModelRepeater.year + " | %1 song",
+                                          songAlbumArtistModelRepeater.year + " | %1 songs",
+                                          songAlbumArtistModelRepeater.count).arg(songAlbumArtistModelRepeater.count)
                         }
 
                         // Play
@@ -392,13 +393,10 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    albumTracksModel.filterAlbumTracks(album)
-                                    Library.addRecent(album, artist, model.art, album, "album")
+                                    Library.addRecent(album, artist, model.art, model.title, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
-                                    trackQueue.model.clear()
-                                    addQueueFromModel(albumTracksModel)
-                                    trackClicked(trackQueue, 0)  // play track
+                                    trackClickedMediaScanner2(songAlbumArtistModel, 0, true)
 
                                     // TODO: This closes the SDK defined sheet
                                     //       component. It should be able to close
@@ -440,8 +438,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    albumTracksModel.filterAlbumTracks(album)
-                                    addQueueFromModel(albumTracksModel)
+                                    addQueueFromModelMediaScanner2(songAlbumArtistModel)
                                 }
                             }
                         }

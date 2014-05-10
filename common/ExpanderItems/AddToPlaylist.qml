@@ -52,7 +52,7 @@ Rectangle {
        anchors.fill: parent
        onClicked: {
            parent.parent.parent.expanderLink.expanderVisible = false;
-           chosenElement = parent.parent.parent.expanderLink.model;
+           chosenElement = parent.parent.parent.expanderLink.model;  // FIXME: mediascanner2
            console.debug("Debug: Add track to playlist");
            PopupUtils.open(Qt.resolvedUrl("../../MusicaddtoPlaylist.qml"), mainView,
            {

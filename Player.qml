@@ -33,7 +33,7 @@ Item {
 
     property string currentMetaAlbum: ""
     property string currentMetaArtist: ""
-    property string currentMetaCover: ""
+    property string currentMetaArt: ""
     property string currentMetaFile: ""
     property string currentMetaTitle: ""
     property int currentIndex: -1
@@ -61,9 +61,9 @@ Item {
         onCountChanged: {
             if (trackQueue.model.count === 1) {
                 player.currentIndex = 0;
-                player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
+                player.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
             } else if (trackQueue.model.count === 0) {
-                player.currentMetaCover = ""
+                player.currentMetaArt = ""
             }
         }
     }
@@ -183,9 +183,9 @@ Item {
             else {
                 var obj = trackQueue.model.get(player.currentIndex);
                 currentMetaAlbum = obj.album;
-                currentMetaArtist = obj.artist;
-                currentMetaCover = obj.cover;
-                currentMetaFile = obj.file;
+                currentMetaArtist = obj.author;
+                currentMetaArt = obj.art;
+                currentMetaFile = obj.filename;
                 currentMetaTitle = obj.title;
             }
 

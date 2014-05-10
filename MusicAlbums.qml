@@ -71,10 +71,6 @@ Page {
         Component {
             id: albumDelegate
             Item {
-                property string artist: model.artist
-                property string album: model.title
-                property string cover: model.art
-
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
                 width: albumlist.cellHeight - units.gu(1)
@@ -86,7 +82,7 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        source: cover
+                        source: model.art
                         onStatusChanged: {
                             if (status === Image.Error) {
                                 source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -119,7 +115,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: artist
+                        text: model.artist
                         fontSize: "x-small"
                     }
                     Label {
@@ -132,7 +128,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: album
+                        text: model.title
                         fontSize: "small"
                     }
                 }
@@ -144,12 +140,12 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        songsSheet.album = album;
+                        songsSheet.album = model.title;
 
-                        songsSheet.line1 = artist
-                        songsSheet.line2 = album
+                        songsSheet.line1 = model.artist
+                        songsSheet.line2 = model.title
                         songsSheet.isAlbum = true
-                        songsSheet.covers = [cover]
+                        songsSheet.covers = [model.art]
                         PopupUtils.open(songsSheet.sheet)
                     }
                 }
