@@ -97,10 +97,10 @@ Item {
                      interval: 500
                      repeat: false
                      onTriggered: {
-                        songsSearchModel.query = searchField.text;
-                        searchActivity.running = true // start the activity indicator
+                         songsSearchModel.query = searchField.text;
+                         searchActivity.running = true // start the activity indicator
 
-                        indicatorTimer.start()
+                         indicatorTimer.start()
                      }
                  }
                  // and onother one for the indicator
@@ -129,6 +129,7 @@ Item {
                  width: parent.width
                  height: parent.height
                  color: "transparent"
+                 visible: searchField.text
                  clip: true
                  anchors {
                      top: searchField.bottom
