@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-02 17:29-0500\n"
+"POT-Creation-Date: 2014-05-08 22:21-0500\n"
 "PO-Revision-Date: 2014-01-17 09:36+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-05-04 06:30+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
+"X-Generator: Launchpad (build 16996)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -69,8 +69,8 @@ msgid_plural "%1 albums"
 msgstr[0] "%1 album"
 msgstr[1] "%1 album"
 
-#: MusicArtists.qml:124 MusicPlaylists.qml:176 MusicStart.qml:314
-#: common/SongsSheet.qml:128
+#: MusicArtists.qml:124 MusicPlaylists.qml:186 MusicStart.qml:314
+#: common/SongsSheet.qml:129
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -81,84 +81,52 @@ msgstr[1] "%1 lagu"
 msgid "Now Playing"
 msgstr ""
 
-#: MusicNowPlaying.qml:700 MusicSearch.qml:354 MusicTracks.qml:277
-#: common/SongsSheet.qml:427 music-app.qml:915
-msgid "Add to playlist"
-msgstr "Tambah ke senarai main"
-
-#: MusicNowPlaying.qml:712 MusicSearch.qml:367 MusicTracks.qml:290
-#: MusicaddtoPlaylist.qml:38 common/SongsSheet.qml:440 music-app.qml:926
-msgid "Select playlist"
-msgstr "Pilih senarai main"
-
-#. TRANSLATORS: this refers to sharing a playlist
-#: MusicNowPlaying.qml:740 MusicPlaylists.qml:371 MusicSearch.qml:434
-#: MusicTracks.qml:357
-msgid "Share"
-msgstr "Kongsi"
-
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: MusicPlaylists.qml:37
+#: MusicPlaylists.qml:38
 msgid "Playlists"
 msgstr "Senarai main"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: MusicPlaylists.qml:58
+#: MusicPlaylists.qml:59
 msgid "Change name"
 msgstr "Ubah nama"
 
-#: MusicPlaylists.qml:59
+#: MusicPlaylists.qml:60
 msgid "Enter the new name of the playlist."
 msgstr "Masukkan nama baru senarai main."
 
-#: MusicPlaylists.qml:70
+#: MusicPlaylists.qml:71
 msgid "Change"
 msgstr "Ubah"
 
-#: MusicPlaylists.qml:83
+#: MusicPlaylists.qml:84
 msgid "You didn't type in a name."
 msgstr "Anda tidak menaip nama."
 
-#: MusicPlaylists.qml:88 MusicPlaylists.qml:114 music-app.qml:979
+#: MusicPlaylists.qml:89 MusicPlaylists.qml:115 music-app.qml:987
 msgid "Cancel"
 msgstr "Batal"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: MusicPlaylists.qml:101
+#: MusicPlaylists.qml:102
 msgid "Are you sure?"
 msgstr "Anda pasti?"
 
-#: MusicPlaylists.qml:102
+#: MusicPlaylists.qml:103
 msgid "This will delete your playlist."
 msgstr "Ia akan padam senarai main anda."
 
-#: MusicPlaylists.qml:105
+#: MusicPlaylists.qml:106
 msgid "Remove"
 msgstr "Buang"
 
-#. TRANSLATORS: this refers to editing a playlist
-#: MusicPlaylists.qml:285
-msgid "Edit"
-msgstr "Sunting"
-
-#. TRANSLATORS: this refers to deleting a playlist
-#: MusicPlaylists.qml:327
-msgid "Delete"
-msgstr "Padam"
-
-#: MusicSearch.qml:41 MusicToolbar.qml:469 music-app.qml:92 music-app.qml:140
-#: music-app.qml:146
+#: MusicSearch.qml:42 MusicToolbar.qml:508 music-app.qml:93 music-app.qml:141
+#: music-app.qml:147
 msgid "Search"
 msgstr ""
 
-#: MusicSearch.qml:396 MusicTracks.qml:319 common/AlbumsSheet.qml:222
-#: common/AlbumsSheet.qml:407 common/SongsSheet.qml:208
-#: common/SongsSheet.qml:469 music-app.qml:901
-msgid "Add to queue"
-msgstr "Tambah ke baris gilir"
-
-#: MusicSettings.qml:30 music-app.qml:190
+#: MusicSettings.qml:30 music-app.qml:191
 msgid "Settings"
 msgstr "Tetapan"
 
@@ -246,8 +214,8 @@ msgstr "Hanya strim dalam Wi-Fi"
 msgid "Clean everything!"
 msgstr "Bersih kesemuanya!"
 
-#: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:368
-#: music-app.qml:994
+#: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:366
+#: music-app.qml:1002
 msgid "Music"
 msgstr "Muzik"
 
@@ -259,33 +227,58 @@ msgstr "Baru-baru ini"
 msgid "Genres"
 msgstr "Genre"
 
-#: MusicToolbar.qml:699
+#: MusicToolbar.qml:739
 msgid "No songs queued"
 msgstr "Tiada lagu dibaris gilir"
 
-#: MusicToolbar.qml:709
+#: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
 msgstr ""
 
-#: MusicTracks.qml:32
+#: MusicTracks.qml:33
 msgid "Songs"
 msgstr "Lagu"
+
+#: MusicaddtoPlaylist.qml:38 common/ExpanderItems/AddToPlaylist.qml:59
+#: music-app.qml:934
+msgid "Select playlist"
+msgstr "Pilih senarai main"
 
 #: MusicaddtoPlaylist.qml:130
 msgid "New playlist"
 msgstr "Senarai main baharu"
 
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
-#: common/SongsSheet.qml:157
+#: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr ""
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:127
+#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
+#: music-app.qml:909
+msgid "Add to queue"
+msgstr "Tambah ke baris gilir"
+
+#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
 msgstr[0] " | %1 lagu"
 msgstr[1] " | %1 lagu"
+
+#: common/ExpanderItems/AddToPlaylist.qml:47 music-app.qml:923
+msgid "Add to playlist"
+msgstr "Tambah ke senarai main"
+
+#. TRANSLATORS: this refers to deleting a playlist
+#: common/ExpanderItems/DeletePlaylist.qml:48
+msgid "Delete"
+msgstr "Padam"
+
+#. TRANSLATORS: this refers to editing a playlist
+#: common/ExpanderItems/EditPlaylist.qml:48
+msgid "Edit"
+msgstr "Sunting"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
@@ -295,111 +288,111 @@ msgstr "Memuatkan..."
 msgid "Clear"
 msgstr "Kosongkan"
 
-#: meta-database.js:444 meta-database.js:447 music-app.qml:707
+#: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
 msgstr "Album Tidak Diketahui"
 
-#: meta-database.js:445 music-app.qml:706
+#: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
 msgstr "Artis Tidak Diketahui"
 
-#: music-app.qml:141
+#: music-app.qml:142
 msgid "Search Track"
 msgstr ""
 
-#: music-app.qml:153
+#: music-app.qml:154
 msgid "Next"
 msgstr "Berikutnya"
 
-#: music-app.qml:154
+#: music-app.qml:155
 msgid "Next Track"
 msgstr "Trek Berikutnya"
 
-#: music-app.qml:160
+#: music-app.qml:161
 msgid "Pause"
 msgstr "Jeda"
 
-#: music-app.qml:160
+#: music-app.qml:161
 msgid "Play"
 msgstr "Main"
 
-#: music-app.qml:162
+#: music-app.qml:163
 msgid "Pause Playback"
 msgstr "Jeda Main Balik"
 
-#: music-app.qml:162
+#: music-app.qml:163
 msgid "Continue or start playback"
 msgstr "Terus atau mulakan main balik"
 
-#: music-app.qml:167
+#: music-app.qml:168
 msgid "Back"
 msgstr "Undur"
 
-#: music-app.qml:168
+#: music-app.qml:169
 msgid "Go back to last page"
 msgstr "Kembali ke halaman terakhir"
 
-#: music-app.qml:176
+#: music-app.qml:177
 msgid "Previous"
 msgstr "Terdahulu"
 
-#: music-app.qml:177
+#: music-app.qml:178
 msgid "Previous Track"
 msgstr "Trek Terdahulu"
 
-#: music-app.qml:182
+#: music-app.qml:183
 msgid "Stop"
 msgstr "Henti"
 
-#: music-app.qml:183
+#: music-app.qml:184
 msgid "Stop Playback"
 msgstr "Henti Main Balik"
 
-#: music-app.qml:191
+#: music-app.qml:192
 msgid "Music Settings"
 msgstr "Tetapan Muzik"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: music-app.qml:293
+#: music-app.qml:294
 msgid "songs played today"
 msgstr "lagu yang dimainkan hari ini"
 
-#: music-app.qml:294
+#: music-app.qml:295
 msgid "No songs played today"
 msgstr "Tiada lagu dimainkan hari ini"
 
-#: music-app.qml:394
+#: music-app.qml:392
 msgid "Debug: "
 msgstr "Nyahpepijat: "
 
-#: music-app.qml:713
+#: music-app.qml:701
 msgid "Unknown Year"
 msgstr ""
 
-#: music-app.qml:714
+#: music-app.qml:702
 msgid "Unknown Genre"
 msgstr "Genre Tidak Diketahui"
 
-#: music-app.qml:939
+#: music-app.qml:947
 msgid "New Playlist"
 msgstr "Senarai Main Baharu"
 
-#: music-app.qml:940
+#: music-app.qml:948
 msgid "Name your playlist."
 msgstr "Namakan senarai main anda."
 
-#: music-app.qml:944
+#: music-app.qml:952
 msgid "Name"
 msgstr "Nama"
 
-#: music-app.qml:952
+#: music-app.qml:960
 msgid "Create"
 msgstr "Cipta"
 
-#: music-app.qml:968
+#: music-app.qml:976
 msgid "Error: "
 msgstr "Ralat: "
 
-#: music-app.qml:973
+#: music-app.qml:981
 msgid "Error: You didn't type a name."
 msgstr "Ralat: Anda tidak taip nama."
