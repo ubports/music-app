@@ -95,7 +95,6 @@ Page {
                     }
                 }
 
-                // TODO: mediascanner2 count number of tracks in this model
                 SongsModel {
                     id: songArtistModel
                     albumArtist: model.artist
