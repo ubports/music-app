@@ -286,7 +286,7 @@ Item {
                                 height: styleMusic.common.albumSize
                                 visible: !isAlbum
                                 image: Image {
-                                    source: model.art
+                                    source: model.art === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : model.art
                                     onStatusChanged: {
                                         if (status === Image.Error) {
                                             source = Qt.resolvedUrl("../images/music-app-cover@30.png")
