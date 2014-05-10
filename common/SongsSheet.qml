@@ -374,7 +374,7 @@ Item {
                             if (model.date !== undefined && sheetItem.year === "")
                             {
                                 sheetItem.file = model.filename;
-                                sheetItem.year = model.date;
+                                sheetItem.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                             }
                         }
                     }

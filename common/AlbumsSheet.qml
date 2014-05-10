@@ -268,7 +268,7 @@ Item {
                         Repeater {
                             id: songAlbumArtistModelRepeater
                             model: songAlbumArtistModel
-                            delegate: Text { text: model.date; visible: false }
+                            delegate: Text { text: new Date(model.date).toLocaleString(Qt.locale(),'yyyy'); visible: false }
                             property string year: ""
                             onItemAdded: year = item.text
                         }
