@@ -21,7 +21,11 @@ import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 Item {
-    property ListModel model : ListModel { id: libraryModel }
+    id: libraryListModelItem
+    property ListModel model : ListModel {
+        id: libraryModel
+        property var linkLibraryListModel: libraryListModelItem
+    }
     property alias count: libraryModel.count
     property var query: null
     property var param: null
@@ -35,6 +39,13 @@ Item {
         {
             worker.process();
         }
+    }
+
+    /* Pretent to be like a mediascanner2 listmodel */
+    property alias rowCount: libraryModel.count
+
+    function get(index, role) {
+        return model.get(index);
     }
 
     WorkerScript {

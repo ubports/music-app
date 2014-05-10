@@ -70,7 +70,7 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                model: sheetItem.line1 === "Playlist" ? albumTracksModel.model : songsModel
+                model: isAlbum ? songsModel : albumTracksModel.model
 
                 delegate: albumTracksDelegate
                 header: ListItem.Standard {
@@ -359,7 +359,7 @@ Item {
                                 fill: parent
                             }
                             listItem: track
-                            model: albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData)
+                            model: isAlbum ? albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData) : albumtrackslist.model.get(index)
                             row: Row {
                                 AddToPlaylist {
 

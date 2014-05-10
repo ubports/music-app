@@ -399,6 +399,11 @@ MainView {
 
     function addQueueFromModel(model)
     {
+        // TODO: remove once playlists uses U1DB
+        if (model.hasOwnProperty("linkLibraryListModel")) {
+            model = model.linkLibraryListModel;
+        }
+
         for (var i=0; i < model.rowCount; i++) {
             var item = model.get(i, model.RoleModelData);
 
@@ -430,6 +435,11 @@ MainView {
     }
 
     function trackClicked(model, index, play) {
+        // TODO: remove once playlists uses U1DB
+        if (model.hasOwnProperty("linkLibraryListModel")) {
+            model = model.linkLibraryListModel;
+        }
+
         var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
 
         play = play === undefined ? true : play  // default play to true
