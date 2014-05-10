@@ -406,6 +406,9 @@ MainView {
 
         for (var i=0; i < model.rowCount; i++) {
             var item = model.get(i, model.RoleModelData);
+            if (item.art !== undefined && item.art === "") {
+                item.art = "image://albumart/artist=" + item.author + "&album=" + item.album
+            }
 
             trackQueue.model.append(makeDict(item));
         }
