@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2014-05-10 05:38+0000\n"
+"PO-Revision-Date: 2014-05-11 04:34+0000\n"
 "Last-Translator: Gursharnjit_singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
+"X-Launchpad-Export-Date: 2014-05-11 07:12+0000\n"
 "X-Generator: Launchpad (build 16996)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -60,7 +60,7 @@ msgstr "ਐਲਬਮ'ਸ"
 
 #: MusicArtists.qml:33
 msgid "Artists"
-msgstr ""
+msgstr "ਕਲਾਕਾਰ"
 
 #: MusicArtists.qml:107 common/AlbumsSheet.qml:124
 #, qt-format
@@ -183,6 +183,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"ਮੌਜੂਦਾ ਗਾਣੇ ਤੇ snap to\n"
+"ਜਦੋ ਟੂਲ-ਬਾਰ ਖੁੱਲ ਰਹੀ ਹੋਵੇ"
 
 #: MusicSettings.qml:132
 msgid "Accounts"
@@ -190,207 +192,207 @@ msgstr "ਖਾਤੇ"
 
 #: MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "ਗੀਤ ਦਾ ਨਾਂ ਦੇਣ ਵਾਲੀ ਸੁਵਿਧਾ ਲਈ ਲਾੱਗ-ਇਨ ਕਰੋ ਅਤੇ ਗੀਤ-ਸੂਚੀਆਂ ਦੀ ਆਮਦ ਕਰੋੋ"
 
 #: MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "ਸੰਗੀਤ ਚੱਲ ਰਿਹਾ ਹੈ"
 
 #: MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "ਉਬਤੂੰ ਵਨ"
 
 #: MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "ਆਪਣਾ ਕਲਾਓਡ ਸੰਗੀਤ ਚਲਾਉਣ ਲਈ ਸਾਇਨ-ਇਨ ਕਰੋ"
 
 #: MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "ਕੇਵਲ ਵਾਈ-ਫਾਈ ਤੇ ਚਲਾਓ"
 
 #: MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "ਸੱਭ ਕੁੱਝ ਸਾਫ ਕਰੋ"
 
 #: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:366
 #: music-app.qml:1002
 msgid "Music"
-msgstr ""
+msgstr "ਸੰਗੀਤ"
 
 #: MusicStart.qml:80
 msgid "Recent"
-msgstr ""
+msgstr "ਤਾਜ਼ਾ"
 
 #: MusicStart.qml:217
 msgid "Genres"
-msgstr ""
+msgstr "ਸ਼ੈਲੀ"
 
 #: MusicToolbar.qml:739
 msgid "No songs queued"
-msgstr ""
+msgstr "ਕੋਈ ਗੀਤ ਕਤਾਰ ਵਿੱਚ ਨਹੀ"
 
 #: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਪ੍ਲੇ ਨੂੰ  ਯਾ ਕਿਸੇ ਚੀਜ ਨੂੰ ਛੂਹੋ"
 
 #: MusicTracks.qml:33
 msgid "Songs"
-msgstr ""
+msgstr "ਗਾਣੇ"
 
 #: MusicaddtoPlaylist.qml:38 common/ExpanderItems/AddToPlaylist.qml:59
 #: music-app.qml:934
 msgid "Select playlist"
-msgstr ""
+msgstr "ਗੀਤ-ਸੂਚੀ ਚੁਣੋ"
 
 #: MusicaddtoPlaylist.qml:130
 msgid "New playlist"
-msgstr ""
+msgstr "ਨਵੀਂ ਗੀਤ-ਸੂਚੀ"
 
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "ਸਾਰੇ ਚਲਾਓ"
 
 #: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
-msgstr ""
+msgstr "ਕਤਾਰ ਵਿੱਚ ਜੋੜੋ"
 
 #: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 ਗਾਣਾ"
+msgstr[1] " | %1 ਗਾਣੇ"
 
 #: common/ExpanderItems/AddToPlaylist.qml:47 music-app.qml:923
 msgid "Add to playlist"
-msgstr ""
+msgstr "ਗੀਤ-ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "ਹਟਾਓ"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "ਫੇਰਬਦਲ"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…"
 
 #: common/SwipeDelete.qml:51 common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr ""
+msgstr "ਸਾਫ਼ ਕਰੋ"
 
 #: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਐਲਬਮ"
 
 #: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਕਲਾਕਾਰ"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "ਗੀਤ ਖੋਜੋ"
 
 #: music-app.qml:154
 msgid "Next"
-msgstr ""
+msgstr "ਅਗਲਾ"
 
 #: music-app.qml:155
 msgid "Next Track"
-msgstr ""
+msgstr "ਅਗਲਾ ਗੀਤ"
 
 #: music-app.qml:161
 msgid "Pause"
-msgstr ""
+msgstr "ਵਿਰਾਮ"
 
 #: music-app.qml:161
 msgid "Play"
-msgstr ""
+msgstr "ਚਲਾਓ"
 
 #: music-app.qml:163
 msgid "Pause Playback"
-msgstr ""
+msgstr "ਲਗਾਤਾਰ ਚੱਲਣ ਤੇ ਵਿਰਾਮ ਲਗਾਓ"
 
 #: music-app.qml:163
 msgid "Continue or start playback"
-msgstr ""
+msgstr "ਲਗਾਤਾਰ ਚੱਲਣਾ ਜਾਰੀ ਰੱਖੋ ਯਾ ਸ਼ੁਰੂ ਕਰੋ"
 
 #: music-app.qml:168
 msgid "Back"
-msgstr ""
+msgstr "ਪਿੱਛੇ"
 
 #: music-app.qml:169
 msgid "Go back to last page"
-msgstr ""
+msgstr "ਆਖਰੀ ਸ਼ਫੇ ਤੇੇ ਵਾਪਸ ਜਾਓ"
 
 #: music-app.qml:177
 msgid "Previous"
-msgstr ""
+msgstr "ਪਿੱਛਲਾ"
 
 #: music-app.qml:178
 msgid "Previous Track"
-msgstr ""
+msgstr "ਪਿੱਛਲਾ ਗੀਤ"
 
 #: music-app.qml:183
 msgid "Stop"
-msgstr ""
+msgstr "ਰੋਕੋ"
 
 #: music-app.qml:184
 msgid "Stop Playback"
-msgstr ""
+msgstr "ਲਗਾਤਾਰ ਚੱਲਣਾ ਰੋਕੋ"
 
 #: music-app.qml:192
 msgid "Music Settings"
-msgstr ""
+msgstr "ਸੰਗੀਤ ਸੈਟਿੰਂਗ'ਸ"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: music-app.qml:294
 msgid "songs played today"
-msgstr ""
+msgstr "ਅੱਜ ਚਲਾਏ ਗਏੇ ਗੀਤ"
 
 #: music-app.qml:295
 msgid "No songs played today"
-msgstr ""
+msgstr "ਅੱਜ ਕੋਈ ਗੀਤ ਨਹੀ ਚਲਾਇਆ"
 
 #: music-app.qml:392
 msgid "Debug: "
-msgstr ""
+msgstr "ਖਾਮੀ ਪਛਾਣਨਾ ਤੇ ਠੀਕ ਕਰਨਾ: "
 
 #: music-app.qml:701
 msgid "Unknown Year"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਸਾਲ"
 
 #: music-app.qml:702
 msgid "Unknown Genre"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਸ਼ੈਲੀ"
 
 #: music-app.qml:947
 msgid "New Playlist"
-msgstr ""
+msgstr "ਨਵੀਂ ਗੀਤ-ਸੂਚੀ"
 
 #: music-app.qml:948
 msgid "Name your playlist."
-msgstr ""
+msgstr "ਆਪਣੀ ਗੀਤ-ਸੂਚੀ ਨੂੰ ਨਾਂ ਦਿਓ"
 
 #: music-app.qml:952
 msgid "Name"
-msgstr ""
+msgstr "ਨਾਂ"
 
 #: music-app.qml:960
 msgid "Create"
-msgstr ""
+msgstr "ਬਣਾਓ"
 
 #: music-app.qml:976
 msgid "Error: "
-msgstr ""
+msgstr "ਗਲਤੀ: "
 
 #: music-app.qml:981
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "ਗਲਤੀ: ਤੁਸੀ ਇੱਕ ਨਾਮ ਵਿੱਚ ਟਾਈਪ ਨਹੀ ਕਰ ਸਕਦੇ"
