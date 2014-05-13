@@ -132,7 +132,8 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
         logger.debug("Music path set to %s" % musicpath)
-        mediascannerpath = os.path.join(self.home_dir, '.cache/mediascanner')
+        mediascannerpath = os.path.join(self.home_dir,
+                                        '.cache/mediascanner-2.0')
         os.mkdir(musicpath)
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
@@ -147,46 +148,13 @@ class MusicTestCase(AutopilotTestCase):
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
         shutil.copytree(
-            os.path.join(content_dir, 'mediascanner'), mediascannerpath)
+            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        self._patch_mediascanner_home(mediascannerpath)
         logger.debug(
             "Mediascanner database copied, files " +
             str(os.listdir(mediascannerpath)))
-
-    def _patch_mediascanner_home(self, mediascannerpath):
-        #do some inline db patching
-        #patch mediaindex to proper home
-        #these values are dependent upon our sampled db
-        logger.debug("Patching fake mediascanner database")
-        relhome = self.home_dir[1:]
-        dblocation = "home/autopilot-music-app"
-        dbfoldername = "d15682c3-89f1-4e41-abfc-531e4740e5a7"
-        #patch mediaindex
-        self._file_find_replace(mediascannerpath +
-                                "/mediaindex", dblocation, relhome)
-
-        #patch file indexes
-        index_template = '%s/%s/_%%s.cfs' % (mediascannerpath, dbfoldername)
-        for i in range(5):
-            self._file_find_replace(index_template % i, dblocation, relhome)
-
-    def _file_find_replace(self, in_filename, find, replace):
-        #replace all occurences of string find with string replace
-        #in the given file
-        out_filename = in_filename + ".tmp"
-        infile = open(in_filename, 'rb')
-        outfile = open(out_filename, 'wb')
-        for line in infile:
-            outfile.write(line.replace(str.encode(find), str.encode(replace)))
-        infile.close()
-        outfile.close()
-
-        #remove original file and copy new file back
-        os.remove(in_filename)
-        os.rename(out_filename, in_filename)
 
     @property
     def player(self):
