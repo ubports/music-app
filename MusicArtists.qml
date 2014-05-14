@@ -78,11 +78,6 @@ Page {
                     signal finished()
 
                     onFinished: {
-                        // FIXME: ignore first item as is all albums
-                        if (index === 0 && model.artist === "") {
-                            return;
-                        }
-
                         coverRow.count = count
                         coverRow.covers = covers
                     }
