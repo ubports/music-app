@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2014-03-11 15:58+0000\n"
-"Last-Translator: Rouxel <vincent.rouxel@mailoo.org>\n"
+"PO-Revision-Date: 2014-05-16 11:13+0000\n"
+"Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-05-17 07:13+0000\n"
+"X-Generator: Launchpad (build 17007)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -79,7 +79,7 @@ msgstr[1] "%1 ton"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "O seniñ bremañ"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -233,7 +233,7 @@ msgstr "Ton ebet el lostennad"
 
 #: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "Pouezit war lenn pe war forzh peseurt ton evit kregiñ ganti"
 
 #: MusicTracks.qml:33
 msgid "Songs"
@@ -251,7 +251,7 @@ msgstr "Roll-tonioù nevez"
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "Lenn pep tra"
 
 #: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
@@ -306,7 +306,7 @@ msgstr "War-lerc'h"
 
 #: music-app.qml:155
 msgid "Next Track"
-msgstr "Ton da heul"
+msgstr "Ton da-heul"
 
 #: music-app.qml:161
 msgid "Pause"
