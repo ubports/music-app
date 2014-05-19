@@ -17,6 +17,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1 as Toolkit
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.MediaScanner 0.1
@@ -44,14 +45,20 @@ Page {
         }
     }
 
+
     ListView {
         id: tracklist
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         highlightFollowsCurrentItem: false
-        model: SongsModel {
-            id: songsModel
-            store: musicStore
+        model: Toolkit.SortFilterModel {
+            id: songsModelFilter
+            model: SongsModel {
+                id: songsModel
+                store: musicStore
+            }
+            sort.property: "title"
+            sort.order: Qt.AscendingOrder
         }
         delegate: trackDelegate
         Component {
@@ -165,7 +172,7 @@ Page {
                         fill: parent
                     }
                     listItem: track
-                    model: songsModel.get(index, songsModel.RoleModelData)
+                    model: songsModelFilter.get(index, songsModelFilter.RoleModelData)
                     row: Row {
                         AddToPlaylist {
 
