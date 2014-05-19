@@ -134,6 +134,7 @@ Page {
                     onClicked: {
                         artistAlbumsModel.filterArtistAlbums(artist)
                         artistSheet.artist = artist
+                        artistSheet.covers = coverRow.covers
                         PopupUtils.open(artistSheet.sheet)
                     }
                 }
