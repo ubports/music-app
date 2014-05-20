@@ -528,8 +528,6 @@ class TestMainWindow(MusicTestCase):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
 
-        artistName = "Benjamin Kerensa"
-
         # populate queue
         self.populate_and_play_queue_from_songs_tab()
 
