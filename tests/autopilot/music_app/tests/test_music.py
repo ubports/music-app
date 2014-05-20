@@ -37,8 +37,8 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        title = self.FIRST_TITLE
-        song = self.main_view.get_album_sheet_listview_tracktitle(title)
+        song = self.main_view.get_album_sheet_listview_tracktitle(
+            self.trackTitle)
         self.pointing_device.click_object(song)
 
     def populate_and_play_queue_from_songs_tab(self):
