@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2013-10-09 10:46+0000\n"
+"PO-Revision-Date: 2014-05-11 07:21+0000\n"
 "Last-Translator: Pyae Sone <Unknown>\n"
 "Language-Team: Burmese <my@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
+"X-Launchpad-Export-Date: 2014-05-12 06:42+0000\n"
 "X-Generator: Launchpad (build 16996)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -52,7 +52,7 @@ msgstr "ဝင်ရောက်မှုမအောင်မြင်"
 
 #: LoginLastFM.qml:129
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "သင့်သုံးစွဲသူအမည်နှင့်၊သို့ စကားဝှက်ကိုသတ်မှတ်ရန်သင်မေ့ခဲ့ပါတယ်"
 
 #: MusicAlbums.qml:33 MusicStart.qml:333
 msgid "Albums"
@@ -66,20 +66,18 @@ msgstr "အနုပညာရှင်"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 အယ်ဘမ်"
 
 #: MusicArtists.qml:124 MusicPlaylists.qml:186 MusicStart.qml:314
 #: common/SongsSheet.qml:129
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 သီချင်း"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "ယခုဖွင့်ထားသည်"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -124,7 +122,7 @@ msgstr "ဖယ်ရှား"
 #: MusicSearch.qml:42 MusicToolbar.qml:508 music-app.qml:93 music-app.qml:141
 #: music-app.qml:147
 msgid "Search"
-msgstr ""
+msgstr "ရှာဖွေရန်"
 
 #: MusicSettings.qml:30 music-app.qml:191
 msgid "Settings"
@@ -202,11 +200,11 @@ msgstr "Ubuntu One"
 
 #: MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "သင်၏ cloud ထဲတွင်သိမ်းထားသောသီချင်းများကိုဖွင့်ရန်ဝင်ရောက်ပါ"
 
 #: MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Wi-Fi ဖြင့်သုံးမှသာလွင့်မည်"
 
 #: MusicSettings.qml:230
 msgid "Clean everything!"
@@ -219,7 +217,7 @@ msgstr "ဂီတ"
 
 #: MusicStart.qml:80
 msgid "Recent"
-msgstr ""
+msgstr "မကြာသေးခင်က"
 
 #: MusicStart.qml:217
 msgid "Genres"
@@ -235,7 +233,7 @@ msgstr ""
 
 #: MusicTracks.qml:33
 msgid "Songs"
-msgstr ""
+msgstr "သီချင်းများ"
 
 #: MusicaddtoPlaylist.qml:38 common/ExpanderItems/AddToPlaylist.qml:59
 #: music-app.qml:934
@@ -249,7 +247,7 @@ msgstr "ဖွင့်မည့်စာရင်းအသစ်"
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "အားလုံးဖွင့်မည်"
 
 #: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
@@ -261,8 +259,7 @@ msgstr ""
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 သီချင်း"
 
 #: common/ExpanderItems/AddToPlaylist.qml:47 music-app.qml:923
 msgid "Add to playlist"
@@ -271,16 +268,16 @@ msgstr "ဖွင့်မည့်စာရင်းထဲသို့ထည့
 #. TRANSLATORS: this refers to deleting a playlist
 #: common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "ဖျက်မည်"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "ပြင်ဆင်"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "ဖွင့်နေသည်"
 
 #: common/SwipeDelete.qml:51 common/SwipeDelete.qml:86
 msgid "Clear"
@@ -288,15 +285,15 @@ msgstr "ရှင်းလင်းမည်"
 
 #: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
-msgstr ""
+msgstr "အမည်မဲ့ အယ်ဘ်ဘမ်"
 
 #: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
-msgstr ""
+msgstr "အမည်မသိ အနုပညာရှင်"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "အပုဒ်ကိုရှာမည်"
 
 #: music-app.qml:154
 msgid "Next"
@@ -328,7 +325,7 @@ msgstr "နောက်သို့"
 
 #: music-app.qml:169
 msgid "Go back to last page"
-msgstr ""
+msgstr "နောက်ဆုံးစာမျက်နှာသို့ပြန်သွားမည်"
 
 #: music-app.qml:177
 msgid "Previous"
@@ -353,11 +350,11 @@ msgstr ""
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: music-app.qml:294
 msgid "songs played today"
-msgstr ""
+msgstr "ယနေ့ဖွင့်ခဲ့သော သီချင်းများ"
 
 #: music-app.qml:295
 msgid "No songs played today"
-msgstr ""
+msgstr "ဒီကနေ့ ဘယ်သီချင်းမှမဖွင့်ခဲ့ပါ"
 
 #: music-app.qml:392
 msgid "Debug: "

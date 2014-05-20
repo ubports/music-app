@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2014-03-21 11:05+0000\n"
+"PO-Revision-Date: 2014-05-16 23:30+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-05-17 07:13+0000\n"
+"X-Generator: Launchpad (build 17007)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -88,7 +88,7 @@ msgstr[5] "%1 أغنية"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "المُشغّلة حاليًا"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -240,7 +240,7 @@ msgstr "لا أغاني مصطفّة"
 
 #: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "انقر على تشغيل أو أي عنصر للبدء"
 
 #: MusicTracks.qml:33
 msgid "Songs"
@@ -258,7 +258,7 @@ msgstr "قائمة تشغيل جديدة"
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "تشغيل الكل"
 
 #: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
@@ -309,7 +309,7 @@ msgstr "فنان مجهول"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "ابحث عن مقطوعة"
 
 #: music-app.qml:154
 msgid "Next"
