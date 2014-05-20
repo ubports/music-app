@@ -31,6 +31,7 @@ Item {
 
     property string artist: ""
     property alias sheet: sheetComponent
+    property var covers: []
 
     SongsSheet {
         id: albumSheet
@@ -91,19 +92,10 @@ Item {
                                     left: parent.left
                                     top: parent.top
                                 }
-                                function getAlbums() {
-                                    var covers = [];
-
-                                    for (var i=0; i < artistsModelRepeater.count; i++) {
-                                        covers.push(artistsModelRepeater.itemAt(i).text)
-                                    }
-
-                                    return covers;
-                                }
 
                                 count: albumtrackslist.count
                                 size: parent.height
-                                covers: getAlbums()
+                                covers: sheetItem.covers;
                                 spacing: units.gu(4)
                             }
                             UbuntuShape {  // Background so can see text in current state
