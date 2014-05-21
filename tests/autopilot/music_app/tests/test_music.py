@@ -540,8 +540,10 @@ class TestMainWindow(MusicTestCase):
         musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
 
         # get coordinates to delete song
-        startX = int(artistToDelete.x + musicnowplayingpage.width * 0.30)
-        stopX = int(artistToDelete.x + musicnowplayingpage.width)
+        startX = int(musicnowplayingpage.globalRect[0] +
+                     musicnowplayingpage.width * 0.30)
+        stopX = int(musicnowplayingpage.globalRect[0] +
+                    musicnowplayingpage.width)
         lineY = int(artistToDelete.globalRect[1])
 
         # swipe to remove song
