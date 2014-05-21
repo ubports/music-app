@@ -103,12 +103,25 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         self.populate_and_play_queue_from_songs_tab()
 
-        if self.main_view.wideAspect:
-            playbutton = self.main_view.get_now_playing_play_button()
-        else:
-            playbutton = self.main_view.get_play_button()
+        playbutton = self.main_view.get_now_playing_play_button()
 
-        self.main_view.show_toolbar()
+        musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
+        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(True)))
+
+        """ Scroll/flick Now Playing queue to the top """
+        song_in_queue = self.main_view.get_queue_now_playing_artist(
+            self.artistName)
+        startY = int(song_in_queue.globalRect[1])
+        stopY = int(song_in_queue.globalRect[1] + self.main_view.height/2)
+        X = int(song_in_queue.globalRect[0])
+
+        self.pointing_device.move(X, startY)
+        self.pointing_device.drag(X, startY, X, stopY)
+
+        """ Leave Now Playing page """
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
+        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(False)))
 
         """ Track is playing"""
         self.pointing_device.click_object(playbutton)
