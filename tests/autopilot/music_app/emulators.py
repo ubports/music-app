@@ -83,7 +83,7 @@ class MainView(toolkit_emulators.MainView):
         return self.wait_select_single("*", objectName="genreItemObject")
 
     def get_back_button(self):
-        return self.select_single("*", objectName="nowPlayingBackButtonObject")
+        return self.select_single("AbstractButton", objectName="backButton")
 
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")
@@ -104,6 +104,10 @@ class MainView(toolkit_emulators.MainView):
     def get_album_sheet_artist(self):
         return self.wait_select_single("Label",
                                        objectName="albumsheet-albumartist")
+
+    def get_songs_page_artist(self):
+        return self.wait_select_single("Label",
+                                       objectName="songspage-albumartist")
 
     def get_artist_sheet_artist(self):
         return self.wait_select_single("Label",
@@ -128,15 +132,16 @@ class MainView(toolkit_emulators.MainView):
     def close_buttons(self):
         return self.select_many("Button", text="close")
 
-    def get_album_sheet_close_button(self):
-        closebuttons = self.close_buttons()
-        for item in closebuttons:
-            if item.enabled:
-                return item
-
     def get_album_sheet_listview_tracktitle(self, trackTitle):
         tracktitles = self.select_many_retry(
             "Label", objectName="albumsheet-tracktitle")
+        for item in tracktitles:
+            if item.text == trackTitle:
+                return item
+
+    def get_songs_page_listview_tracktitle(self, trackTitle):
+        tracktitles = self.select_many_retry(
+            "Label", objectName="songspage-tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:
                 return item
@@ -150,7 +155,16 @@ class MainView(toolkit_emulators.MainView):
             if item.globalRect[1] == tracktitle_position:
                 return item
 
-    def get_album_sheet_queuetrack_label(self):
+    def get_songs_page_listview_trackicon(self, trackTitle):
+        tracktitle = self.get_songs_page_listview_tracktitle(trackTitle)
+        tracktitle_position = tracktitle.globalRect[1]
+        trackicons = self.select_many(
+            "QQuickImage", objectName="expanditem")
+        for item in trackicons:
+            if item.globalRect[1] == tracktitle_position:
+                return item
+
+    def get_songs_page_queuetrack_label(self):
         queuetracks = self.select_many_retry(
             "Label", objectName="queuetrack")
         for item in queuetracks:

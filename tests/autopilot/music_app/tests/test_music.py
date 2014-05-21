@@ -103,8 +103,8 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(button)
 
         # click on close button to close genre sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
 
         if self.main_view.wideAspect:
             playbutton = self.main_view.get_now_playing_play_button()
@@ -336,12 +336,12 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(albumartist)
 
         #get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(artistName))
 
         # click on close button to close album sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_song_to_queue_from_albums_sheet(self):
@@ -361,16 +361,16 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(albumartist)
 
         #get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(artistName))
 
         #get track item to add to queue
-        trackicon = self.main_view.get_album_sheet_listview_trackicon(
+        trackicon = self.main_view.get_songs_page_listview_trackicon(
             trackTitle)
         self.pointing_device.click_object(trackicon)
 
         #click on Add to queue
-        queueTrackLabel = self.main_view.get_album_sheet_queuetrack_label()
+        queueTrackLabel = self.main_view.get_songs_page_queuetrack_label()
         self.pointing_device.click_object(queueTrackLabel)
 
         # verify track queue has added one to initial value
@@ -391,8 +391,8 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
 
         # click on close button to close album sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_songs_to_queue_from_songs_tab_and_play(self):

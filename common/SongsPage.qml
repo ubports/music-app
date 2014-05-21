@@ -74,7 +74,7 @@ Page {
 
             Label {
                 id: albumArtist
-                objectName: "albumsheet-albumartist"
+                objectName: "songspage-albumartist"
                 wrapMode: Text.NoWrap
                 maximumLineCount: 1
                 fontSize: "small"
@@ -133,7 +133,7 @@ Page {
                 width: units.gu(15)
                 Image {
                     id: playTrack
-                    objectName: "albumsheet-playtrack"
+                    objectName: "songspage-playtrack"
                     anchors.verticalCenter: parent.verticalCenter
                     source: "../images/add-to-playback.png"
                     height: styleMusic.common.expandedItem
@@ -179,7 +179,7 @@ Page {
                 width: units.gu(15)
                 Image {
                     id: queueAll
-                    objectName: "albumsheet-queue-all"
+                    objectName: "songspage-queue-all"
                     anchors.verticalCenter: parent.verticalCenter
                     source: "../images/add.svg"
                     height: styleMusic.common.expandedItem
@@ -210,7 +210,7 @@ Page {
 
             ListItem.Standard {
                 id: track
-                objectName: "albumsheet-track"
+                objectName: "songspage-track"
                 iconFrame: false
                 progression: false
                 height: isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
@@ -286,7 +286,7 @@ Page {
 
                     Label {
                         id: trackTitle
-                        objectName: "albumsheet-tracktitle"
+                        objectName: "songspage-tracktitle"
                         wrapMode: Text.NoWrap
                         maximumLineCount: 1
                         fontSize: "medium"
