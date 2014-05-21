@@ -531,7 +531,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         # click on album to shows the artists
-        albumartist_cover = self.main_view.get_songs_page_artist_cover()
+        albumartist_cover = self.main_view.get_artist_sheet_artist_cover()
         self.pointing_device.click_object(albumartist_cover)
 
         #get song sheet album artist
