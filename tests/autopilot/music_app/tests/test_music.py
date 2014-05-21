@@ -37,7 +37,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(first_genre_item)
 
         title = self.FIRST_TITLE
-        song = self.main_view.get_album_sheet_listview_tracktitle(title)
+        song = self.main_view.get_songs_page_listview_tracktitle(title)
         self.pointing_device.click_object(song)
 
     def turn_shuffle_off(self):
@@ -84,7 +84,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         title = lambda: self.player.currentMetaTitle
@@ -128,7 +128,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
@@ -151,7 +151,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
@@ -209,7 +209,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         playbutton = self.main_view.get_now_playing_play_button()
@@ -256,7 +256,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         """ Track is playing, shuffle is turned on"""
@@ -572,7 +572,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
         trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        song = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(song)
 
         # get initial queue count
