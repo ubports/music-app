@@ -176,6 +176,7 @@ Page {
                     }
                     onClicked: {
                         artistSheet.artist = model.artist
+                        artistSheet.covers = coverRow.covers
                         PopupUtils.open(artistSheet.sheet)
                     }
                 }
