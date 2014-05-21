@@ -40,7 +40,6 @@ Page {
     }
 
     ListView {
-        clip: true
         id: albumtrackslist
         anchors {
             bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight

@@ -50,7 +50,6 @@ Page {
             bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             fill: parent
         }
-        clip: true
         delegate: albumTracksDelegate
         model: albumTracksModel.model
         width: parent.width
