@@ -145,13 +145,15 @@ Page {
                     onClicked: {
                         albumTracksModel.filterAlbumTracks(album)
 
-                        songsSheet.line1 = artist
-                        songsSheet.line2 = album
-                        songsSheet.isAlbum = true
-                        songsSheet.file = file
-                        songsSheet.year = year
-                        songsSheet.covers = [cover]
-                        PopupUtils.open(songsSheet.sheet)
+                        songsPage.line1 = artist
+                        songsPage.line2 = album
+                        songsPage.isAlbum = true
+                        songsPage.file = file
+                        songsPage.year = year
+                        songsPage.covers = [cover]
+                        songsPage.title = i18n.tr("Album")
+
+                        mainPageStack.push(songsPage)
                     }
                 }
             }

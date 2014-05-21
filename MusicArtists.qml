@@ -133,9 +133,12 @@ Page {
                     }
                     onClicked: {
                         artistAlbumsModel.filterArtistAlbums(artist)
-                        artistSheet.artist = artist
-                        artistSheet.covers = coverRow.covers
-                        PopupUtils.open(artistSheet.sheet)
+
+                        albumsPage.artist = artist
+                        albumsPage.covers = coverRow.covers
+                        albumsPage.title = i18n.tr("Artist")
+
+                        mainPageStack.push(albumsPage)
                     }
                 }
                 Component.onCompleted: {

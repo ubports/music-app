@@ -37,14 +37,17 @@ Page {
     onVisibleChanged: {
         if (visible === true)
         {
-            musicToolbar.setPage(nowPlaying, null, tabs.pageStack);
+            musicToolbar.setPage(nowPlaying, null, mainPageStack);
         }
     }
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
 
+    /*
+      TODO: needed anymore?
     BlurredBackground {
     }
+    */
 
     Rectangle {
         anchors.fill: parent

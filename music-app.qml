@@ -353,7 +353,7 @@ MainView {
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
         // push the page to view
-        pageStack.push(tabs)
+        mainPageStack.push(tabs)
 
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
@@ -872,14 +872,6 @@ MainView {
     }
 
     // load sheets (after model)
-    SongsSheet {
-        id: songsSheet
-    }
-
-    AlbumsSheet {
-        id: artistSheet
-    }
-
     MusicSearch {
         id: searchSheet
     }
@@ -929,10 +921,8 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
-                                        {
-                                            title: i18n.tr("Select playlist")
-                                        } )
+
+                        mainPageStack.push(addtoPlaylist)
                     }
                 }
             }
@@ -1006,9 +996,9 @@ MainView {
 
         onNoMusicChanged: {
             if (noMusic)
-                pageStack.push(emptyPage)
+                mainPageStack.push(emptyPage)
             else if (pageStack.currentPage == emptyPage)
-                pageStack.pop()
+                mainPageStack.pop()
         }
 
         tools: ToolbarItems {
@@ -1047,7 +1037,7 @@ MainView {
     }
 
     PageStack {
-        id: pageStack
+        id: mainPageStack
 
         Tabs {
             id: tabs
@@ -1176,8 +1166,8 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (pageStack.currentPage !== nowPlaying) {
-                    pageStack.push(nowPlaying);
+                if (mainPageStack.currentPage !== nowPlaying) {
+                    mainPageStack.push(nowPlaying);
                 }
             }
 
@@ -1196,6 +1186,14 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
+    }
+
+    SongsPage {
+        id: songsPage
+    }
+
+    AlbumsPage {
+        id: albumsPage
     }
 
     MusicNowPlaying {

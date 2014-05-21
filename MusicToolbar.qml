@@ -43,6 +43,7 @@ Item {
     property bool shown: false
     property int transitionDuration: 100
 
+    property alias currentHeight: musicToolbarPanel.height
     property alias minimizedHeight: musicToolbarPanel.minimizedHeight
     property alias expandedHeight: musicToolbarPanel.expandedHeight
     property alias fullHeight: musicToolbarPanel.fullHeight

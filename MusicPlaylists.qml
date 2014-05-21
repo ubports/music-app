@@ -223,11 +223,13 @@ Page {
 
                 onClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
-                    songsSheet.isAlbum = false
-                    songsSheet.line1 = "Playlist"
-                    songsSheet.line2 = model.name
-                    songsSheet.covers =  playlist.covers
-                    PopupUtils.open(songsSheet.sheet)
+                    songsPage.isAlbum = false
+                    songsPage.line1 = "Playlist"
+                    songsPage.line2 = model.name
+                    songsPage.covers =  playlist.covers
+                    songsPage.title = i18n.tr("Playlist")
+
+                    mainPageStack.push(songsPage)
                 }
             }
         }
