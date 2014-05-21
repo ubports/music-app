@@ -531,18 +531,18 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(sheet_albumartist.text, Equals(artistName))
 
         # click on album to shows the artists
-        sheet_albumartist = self.main_view.get_artist_sheet_artist_cover()
-        self.pointing_device.click_object(sheet_albumartist)
+        albumartist_cover = self.main_view.get_songs_page_artist_cover()
+        self.pointing_device.click_object(albumartist_cover)
 
         #get song sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(artistName))
 
         # click on song to populate queue and start playing
-        self.pointing_device.click_object(sheet_albumartist)
+        self.pointing_device.click_object(songs_page_albumartist)
 
         #select artist
-        track = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        track = self.main_view.get_songs_page_listview_tracktitle(trackTitle)
         self.pointing_device.click_object(track)
 
         # verify track queue has added all songs to initial value
