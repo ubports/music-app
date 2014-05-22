@@ -27,18 +27,8 @@ function initialize() {
         function(tx) {
             // Create the table if it doesn't already exist
             // If the table exists, this is skipped
-            tx.executeSql('DROP TABLE IF EXISTS metadata');
-            createRecent();
-      });
-}
-function reset() {
-    var db = getDatabase();
-    db.transaction(
-        function(tx) {
-            // Create the table if it doesn't already exist
-            // If the table exists, this is skipped
-            tx.executeSql('DROP TABLE IF EXISTS metadata');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS metadata(file TEXT UNIQUE, title TEXT, artist TEXT, album TEXT, cover TEXT, year TEXT, number TEXT, length TEXT, genre TEXT)');
+            tx.executeSql('DROP TABLE IF EXISTS metadata');  // TODO: drop recent as well to reset data
+
             createRecent();
       });
 }
@@ -97,7 +87,7 @@ function getRecent() {
                 res.push({time:dbItem.time,
                              title:dbItem.title || i18n.tr("Unknown Album"),
                              title2:dbItem.title2 || i18n.tr("Unknown Artist"),
-                             art:dbItem.cover,
+                             art:dbItem.cover === "" || dbItem.cover === null ? "image://albumart/artist=" + dbItem.title2 + "&album=" + dbItem.title : dbItem.cover,
                              key:dbItem.key || i18n.tr("Unknown Album"),
                              type:dbItem.type
                          });

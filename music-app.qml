@@ -333,8 +333,7 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        Library.reset()
-        //Library.initialize();
+        Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -406,7 +405,7 @@ MainView {
 
         for (var i=0; i < model.rowCount; i++) {
             var item = model.get(i, model.RoleModelData);
-            if (item.art !== undefined && item.art === "") {
+            if (item.art !== undefined && (item.art === "" || item.art === null)) {
                 item.art = "image://albumart/artist=" + item.author + "&album=" + item.album
             }
 

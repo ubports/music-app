@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1 as Toolkit
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
@@ -354,9 +355,15 @@ Page {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: AlbumsModel {
-                id: albumsModel
-                store: musicStore
+            model: Toolkit.SortFilterModel {
+                id: albumsModelFilter
+                property alias rowCount: albumsModel.rowCount
+                model: AlbumsModel {
+                    id: albumsModel
+                    store: musicStore
+                }
+                sort.property: "title"
+                sort.order: Qt.AscendingOrder
             }
             delegate: albumDelegate
             header: Item {
