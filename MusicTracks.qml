@@ -53,6 +53,7 @@ Page {
         highlightFollowsCurrentItem: false
         model: Toolkit.SortFilterModel {
             id: songsModelFilter
+            property alias rowCount: songsModel.rowCount
             model: SongsModel {
                 id: songsModel
                 store: musicStore

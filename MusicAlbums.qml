@@ -63,6 +63,7 @@ Page {
         cellWidth: height/3
         model: Toolkit.SortFilterModel {
             id: albumsModelFilter
+            property alias rowCount: albumsModel.rowCount
             model: AlbumsModel {
                 id: albumsModel
                 store: musicStore
