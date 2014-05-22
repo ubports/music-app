@@ -15,6 +15,7 @@ except ImportError:
 import os
 import os.path
 import shutil
+import sqlite3
 #import subprocess
 import logging
 import music_app
@@ -162,11 +163,19 @@ class MusicTestCase(AutopilotTestCase):
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
         logger.debug("Patching fake mediascanner database")
+
         relhome = self.home_dir[1:]
         dblocation = "home/phablet"
         #patch mediaindex
         self._file_find_replace(mediascannerpath +
-                                "/mediastore.db", dblocation, relhome)
+                                "/mediastore.sql", dblocation, relhome)
+
+        con = sqlite3.connect(mediascannerpath + "/mediastore.db")
+        f = open(mediascannerpath + "/mediastore.sql", 'r')
+        sql = f.read()
+        cur = con.cursor()
+        cur.executescript(sql)
+        con.close()
 
     def _file_find_replace(self, in_filename, find, replace):
         #replace all occurences of string find with string replace
