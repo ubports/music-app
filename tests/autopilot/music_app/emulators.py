@@ -83,7 +83,12 @@ class MainView(toolkit_emulators.MainView):
         return self.wait_select_single("*", objectName="genreItemObject")
 
     def get_back_button(self):
-        return self.select_single("*", objectName="nowPlayingBackButtonObject")
+        backButton = self.select_single("AbstractButton",
+                                        objectName="customBackButton")
+        if (backButton.visible is False):
+            backButton = self.select_single("AbstractButton",
+                                            objectName="backButton")
+        return backButton
 
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")

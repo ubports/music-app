@@ -152,9 +152,36 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
+        self._patch_mediascanner_home(mediascannerpath)
         logger.debug(
             "Mediascanner database copied, files " +
             str(os.listdir(mediascannerpath)))
+
+    def _patch_mediascanner_home(self, mediascannerpath):
+        #do some inline db patching
+        #patch mediaindex to proper home
+        #these values are dependent upon our sampled db
+        logger.debug("Patching fake mediascanner database")
+        relhome = self.home_dir[1:]
+        dblocation = "home/phablet"
+        #patch mediaindex
+        self._file_find_replace(mediascannerpath +
+                                "/mediastore.db", dblocation, relhome)
+
+    def _file_find_replace(self, in_filename, find, replace):
+        #replace all occurences of string find with string replace
+        #in the given file
+        out_filename = in_filename + ".tmp"
+        infile = open(in_filename, 'rb')
+        outfile = open(out_filename, 'wb')
+        for line in infile:
+            outfile.write(line.replace(str.encode(find), str.encode(replace)))
+        infile.close()
+        outfile.close()
+
+        #remove original file and copy new file back
+        os.remove(in_filename)
+        os.rename(out_filename, in_filename)
 
     @property
     def player(self):

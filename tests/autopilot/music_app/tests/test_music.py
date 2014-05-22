@@ -103,12 +103,27 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         self.populate_and_play_queue_from_songs_tab()
 
-        if self.main_view.wideAspect:
-            playbutton = self.main_view.get_now_playing_play_button()
-        else:
-            playbutton = self.main_view.get_play_button()
+        playbutton = self.main_view.get_now_playing_play_button()
 
-        self.main_view.show_toolbar()
+        musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
+        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(True)))
+
+        """ Scroll/flick Now Playing queue to the top """
+        song_in_queue = self.main_view.get_queue_now_playing_artist(
+            self.artistName)
+        startY = int(musicnowplayingpage.globalRect[1] +
+                     musicnowplayingpage.height * 0.2)
+        stopY = int(musicnowplayingpage.globalRect[1] +
+                    musicnowplayingpage.height * 0.7)
+        X = int(song_in_queue.globalRect[0])
+
+        self.pointing_device.move(X, startY)
+        self.pointing_device.drag(X, startY, X, stopY)
+
+        """ Leave Now Playing page """
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
+        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(False)))
 
         """ Track is playing"""
         self.pointing_device.click_object(playbutton)
@@ -540,8 +555,10 @@ class TestMainWindow(MusicTestCase):
         musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
 
         # get coordinates to delete song
-        startX = int(artistToDelete.x + musicnowplayingpage.width * 0.30)
-        stopX = int(artistToDelete.x + musicnowplayingpage.width)
+        startX = int(musicnowplayingpage.globalRect[0] +
+                     musicnowplayingpage.width * 0.30)
+        stopX = int(musicnowplayingpage.globalRect[0] +
+                    musicnowplayingpage.width)
         lineY = int(artistToDelete.globalRect[1])
 
         # swipe to remove song
