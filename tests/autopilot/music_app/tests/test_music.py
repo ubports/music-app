@@ -111,8 +111,10 @@ class TestMainWindow(MusicTestCase):
         """ Scroll/flick Now Playing queue to the top """
         song_in_queue = self.main_view.get_queue_now_playing_artist(
             self.artistName)
-        startY = int(song_in_queue.globalRect[1])
-        stopY = int(song_in_queue.globalRect[1] + self.main_view.height/2)
+        startY = int(musicnowplayingpage.globalRect[1] +
+                     musicnowplayingpage.height * 0.2)
+        stopY = int(musicnowplayingpage.globalRect[1] +
+                    musicnowplayingpage.height * 0.7)
         X = int(song_in_queue.globalRect[0])
 
         self.pointing_device.move(X, startY)
