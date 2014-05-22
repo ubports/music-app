@@ -103,18 +103,22 @@ class TestMainWindow(MusicTestCase):
         # populate queue
         self.populate_and_play_queue_from_songs_tab()
 
-        playbutton = self.main_view.get_now_playing_play_button()
+        if self.main_view.wideAspect:
+            play_button = self.main_view.get_now_playing_play_button()
+        else:
+            play_button = self.main_view.get_play_button()
 
-        musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
-        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(True)))
+        music_now_playing_page = self.main_view.get_MusicNowPlaying_page()
+        self.assertThat(music_now_playing_page.visible,
+                        Eventually(Equals(True)))
 
         """ Scroll/flick Now Playing queue to the top """
         song_in_queue = self.main_view.get_queue_now_playing_artist(
             self.artistName)
-        startY = int(musicnowplayingpage.globalRect[1] +
-                     musicnowplayingpage.height * 0.2)
-        stopY = int(musicnowplayingpage.globalRect[1] +
-                    musicnowplayingpage.height * 0.7)
+        startY = int(music_now_playing_page.globalRect[1] +
+                     music_now_playing_page.height * 0.2)
+        stopY = int(music_now_playing_page.globalRect[1] +
+                    music_now_playing_page.height * 0.7)
         X = int(song_in_queue.globalRect[0])
 
         self.pointing_device.move(X, startY)
@@ -123,15 +127,16 @@ class TestMainWindow(MusicTestCase):
         """ Leave Now Playing page """
         backButton = self.main_view.get_back_button()
         self.pointing_device.click_object(backButton)
-        self.assertThat(musicnowplayingpage.visible, Eventually(Equals(False)))
+        self.assertThat(music_now_playing_page.visible,
+                        Eventually(Equals(False)))
 
         """ Track is playing"""
-        self.pointing_device.click_object(playbutton)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+        self.pointing_device.click_object(play_button)
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         """ Track is not playing"""
-        self.pointing_device.click_object(playbutton)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+        self.pointing_device.click_object(play_button)
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
