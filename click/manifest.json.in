@@ -1,6 +1,6 @@
 {
     "description": "Music application for ubuntu",
-    "framework": "ubuntu-sdk-14.04-qml-dev1",
+    "framework": "ubuntu-sdk-14.10-qml-dev1",
     "hooks": {
         "@APP_NAME@": {
             "apparmor": "apparmor.json",
