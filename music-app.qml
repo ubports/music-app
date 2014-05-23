@@ -430,7 +430,6 @@ MainView {
         return {
             album: model.album,
             author: model.author,
-            art: model.art,
             filename: model.filename,
             title: model.title
         };

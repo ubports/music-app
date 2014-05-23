@@ -73,7 +73,10 @@ Page {
                 Repeater {
                     id: albumArtistModelRepeater
                     model: albumArtistModel
-                    delegate: Text { text: model.art; visible: false}
+                    delegate: Item {
+                        property string author: model.artist
+                        property string album: model.title
+                    }
                     property var covers: []
                     signal finished()
 
@@ -82,7 +85,7 @@ Page {
                         coverRow.covers = covers
                     }
                     onItemAdded: {
-                        covers.push(item.text);
+                        covers.push({author: item.author, album: item.album});
 
                         if (index === count - 1) {
                             finished();

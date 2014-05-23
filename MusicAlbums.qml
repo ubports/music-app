@@ -89,7 +89,7 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        source: model.art
+                        source: "image://albumart/artist=" + model.artist + "&album=" + model.title
                         onStatusChanged: {
                             if (status === Image.Error) {
                                 source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -152,7 +152,7 @@ Page {
                         songsSheet.line1 = model.artist
                         songsSheet.line2 = model.title
                         songsSheet.isAlbum = true
-                        songsSheet.covers = [model.art]
+                        songsSheet.covers = [{author: model.artist, album: model.title}]
                         PopupUtils.open(songsSheet.sheet)
                     }
                 }

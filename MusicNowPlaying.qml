@@ -536,7 +536,7 @@ Page {
                         height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
                         width: height
                         image: Image {
-                            source: model.art
+                            source: "image://albumart/artist=" + model.author + "&album=" + model.album
                             onStatusChanged: {
                                 if (status === Image.Error) {
                                     source = Qt.resolvedUrl("images/music-app-cover@30.png")

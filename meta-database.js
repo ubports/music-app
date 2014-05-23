@@ -80,21 +80,20 @@ function getRecent() {
         var rs = tx.executeSql("SELECT * FROM recent ORDER BY time DESC LIMIT 15");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Cover:"+dbItem.cover + ", Type:"+dbItem.type);
+            console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Type:"+dbItem.type);
 
             if (dbItem.type === "album")
             {
                 res.push({time:dbItem.time,
                              title:dbItem.title || i18n.tr("Unknown Album"),
                              title2:dbItem.title2 || i18n.tr("Unknown Artist"),
-                             art:dbItem.cover === "" || dbItem.cover === null ? "image://albumart/artist=" + dbItem.title2 + "&album=" + dbItem.title : dbItem.cover,
                              key:dbItem.key || i18n.tr("Unknown Album"),
                              type:dbItem.type
                          });
             }
             else
             {
-                res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, art:dbItem.cover, key:dbItem.key, type:dbItem.type});
+                res.push({time:dbItem.time, title:dbItem.title, title2:dbItem.title2, key:dbItem.key, type:dbItem.type});
             }
         }
     });

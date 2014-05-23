@@ -80,12 +80,6 @@ Item {
                             height: parent.height - units.gu(1)
                             width: height
 
-                            Repeater {
-                                id: artistsModelRepeater
-                                model: artistsModel
-                                delegate: Text { text: model.art; visible: false }
-                            }
-
                             CoverRow {
                                 id: artistImage
                                 anchors {
@@ -275,7 +269,7 @@ Item {
                             }
                             count: 1
                             size: parent.height
-                            covers: [model.art]
+                            covers: [{author: artist, album: model.title}]
                             objectName: "artistsheet-albumcover"
                             spacing: units.gu(2)
 
@@ -293,7 +287,7 @@ Item {
                                     albumSheet.line1 = artist
                                     albumSheet.line2 = model.title
                                     albumSheet.isAlbum = true
-                                    albumSheet.covers = [model.art]
+                                    albumSheet.covers = [{author: artist, album: model.title}]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet
@@ -385,7 +379,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    Library.addRecent(album, artist, model.art, model.title, "album")
+                                    Library.addRecent(album, artist, "", model.title, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                     trackClicked(songAlbumArtistModel, 0, true)

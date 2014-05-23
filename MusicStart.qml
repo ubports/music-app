@@ -129,7 +129,7 @@ Page {
                 Item {
                     property string title: model.title
                     property string title2: model.title2
-                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [model.art]
+                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{author: model.title2, album: model.title}]
                     property string type: model.type
                     property string time: model.time
                     property string key: model.key
@@ -377,7 +377,7 @@ Page {
                 Item {
                     property string artist: model.artist
                     property string album: model.title
-                    property var covers: [model.art]
+                    property var covers: [{author: model.artist, album: model.title}]
 
                     id: albumItem
                     objectName: "albumItemObject"

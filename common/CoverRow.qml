@@ -52,8 +52,9 @@ UbuntuShape {
             delegate: Image {
                 width: coverRow.size
                 height: width
-                source: coverRow.count === 0 || coverRow.covers[index] === "" || coverRow.covers[index] === undefined
-                        ? Qt.resolvedUrl("../images/music-app-cover@30.png") : coverRow.covers[index]
+                source: coverRow.count !== 0 && coverRow.covers[index] !== "" && coverRow.covers[index] !== undefined
+                          ? "image://albumart/artist=" + coverRow.covers[index].author + "&album=" + coverRow.covers[index].album
+                          : Qt.resolvedUrl("../images/music-app-cover@30.png")
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")
