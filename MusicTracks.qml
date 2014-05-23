@@ -96,7 +96,7 @@ Page {
                         width: styleMusic.common.albumSize
                         height: styleMusic.common.albumSize
                         image: Image {
-                            source: "image://albumart/artist=" + model.author + "&album=" + model.title
+                            source: "image://albumart/artist=" + model.author + "&album=" + model.album
                             onStatusChanged: {
                                 if (status === Image.Error) {
                                     source = Qt.resolvedUrl("images/music-app-cover@30.png")
