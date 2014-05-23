@@ -59,9 +59,6 @@ class MainView(toolkit_emulators.MainView):
         albumartist = self.get_albums_albumartist(artistName)
         self.pointing_device.click_object(albumartist)
 
-        #get album sheet album artist
-        sheet_albumartist = self.get_album_sheet_artist()
-
         #get track item to add to queue
         trackicon = self.get_album_sheet_listview_trackicon(
             trackTitle)
