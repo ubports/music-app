@@ -100,43 +100,47 @@ class TestMainWindow(MusicTestCase):
     def test_play_pause_library(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
+
+        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+            self.artistName, self.trackTitle)
+
+        # verify track queue has added one to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        #Assert that the song added to the list is not playing
+        self.assertThat(self.player.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+        #verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+
+        # click on close button to close album sheet
+        closebutton = self.main_view.get_album_sheet_close_button()
+        self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
         if self.main_view.wideAspect:
             play_button = self.main_view.get_now_playing_play_button()
         else:
             play_button = self.main_view.get_play_button()
-
-        music_now_playing_page = self.main_view.get_MusicNowPlaying_page()
-        self.assertThat(music_now_playing_page.visible,
-                        Eventually(Equals(True)))
-
-        """ Scroll/flick Now Playing queue to the top """
-        song_in_queue = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        startY = int(music_now_playing_page.globalRect[1] +
-                     music_now_playing_page.height * 0.2)
-        stopY = int(music_now_playing_page.globalRect[1] +
-                    music_now_playing_page.height * 0.7)
-        X = int(song_in_queue.globalRect[0])
-
-        self.pointing_device.move(X, startY)
-        self.pointing_device.drag(X, startY, X, stopY)
-
-        """ Leave Now Playing page """
-        backButton = self.main_view.get_back_button()
-        self.pointing_device.click_object(backButton)
-        self.assertThat(music_now_playing_page.visible,
-                        Eventually(Equals(False)))
+            self.main_view.show_toolbar()
 
         """ Track is playing"""
         self.pointing_device.click_object(play_button)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
         self.pointing_device.click_object(play_button)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
@@ -349,25 +353,8 @@ class TestMainWindow(MusicTestCase):
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
-
-        #select album
-        albumartist = self.main_view.get_albums_albumartist(self.artistName)
-        self.pointing_device.click_object(albumartist)
-
-        #get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
-
-        #get track item to add to queue
-        trackicon = self.main_view.get_album_sheet_listview_trackicon(
-            self.trackTitle)
-        self.pointing_device.click_object(trackicon)
-
-        #click on Add to queue
-        queueTrackLabel = self.main_view.get_album_sheet_queuetrack_label()
-        self.pointing_device.click_object(queueTrackLabel)
+        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+            self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()

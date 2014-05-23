@@ -51,6 +51,26 @@ class MainView(toolkit_emulators.MainView):
 
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
 
+    def add_to_queue_from_albums_tab_album_sheet(self, artistName, trackTitle):
+        # switch to albums tab
+        self.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        sheet_albumartist = self.get_album_sheet_artist()
+
+        #get track item to add to queue
+        trackicon = self.get_album_sheet_listview_trackicon(
+            trackTitle)
+        self.pointing_device.click_object(trackicon)
+
+        #click on Add to queue
+        queueTrackLabel = self.get_album_sheet_queuetrack_label()
+        self.pointing_device.click_object(queueTrackLabel)
+
     def get_player(self):
         return self.select_single("*", objectName="player")
 
