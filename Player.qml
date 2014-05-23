@@ -33,7 +33,6 @@ Item {
 
     property string currentMetaAlbum: ""
     property string currentMetaArtist: ""
-    property string currentMetaArt: ""
     property string currentMetaFile: ""
     property string currentMetaTitle: ""
     property int currentIndex: -1
@@ -184,7 +183,6 @@ Item {
                 var obj = trackQueue.model.get(player.currentIndex);
                 currentMetaAlbum = obj.album;
                 currentMetaArtist = obj.author;
-                currentMetaArt = obj.art;
                 currentMetaFile = obj.filename;
                 currentMetaTitle = obj.title;
             }
