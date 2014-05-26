@@ -74,4 +74,8 @@ add_subdirectory(po)
 add_subdirectory(tests)
 
 # make the qml files visible on qtcreator
-add_custom_target(com_ubuntu_music_QMLFiles ALL SOURCES ${SRC_FILES})
+file(GLOB QML_JS_FILES
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+     *.qml *.js)
+
+add_custom_target(com_ubuntu_music_QMLFiles DEPENDS music-app.qml SOURCES ${QML_JS_FILES})
