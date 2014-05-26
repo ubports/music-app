@@ -6,3 +6,10 @@ if(CLICK_MODE)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json apparmor.json
             DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif(CLICK_MODE)
+
+# make the click files visible on qtcreator
+file(GLOB CLICK_FILES
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+     *.json *.json.in)
+
+add_custom_target(com_ubuntu_music_CLICKFiles ALL SOURCES ${CLICK_FILES})

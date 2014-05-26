@@ -69,5 +69,9 @@ install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 enable_testing()
 
 add_subdirectory(click)
+add_subdirectory(images)
 add_subdirectory(po)
 add_subdirectory(tests)
+
+# make the qml files visible on qtcreator
+add_custom_target(com_ubuntu_music_QMLFiles ALL SOURCES ${SRC_FILES})
