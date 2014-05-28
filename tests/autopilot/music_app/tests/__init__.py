@@ -7,11 +7,6 @@
 
 """Music app autopilot tests."""
 
-import tempfile
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 import os
 import os.path
 import shutil
@@ -20,16 +15,17 @@ import sqlite3
 import logging
 import music_app
 
+import fixtures
+from music_app import emulators
+
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
-from music_app import emulators
-
 from ubuntuuitoolkit import (
     base,
     emulators as toolkit_emulators,
-    environment
+    fixture_setup as toolkit_fixtures
 )
 
 
@@ -94,36 +90,60 @@ class MusicTestCase(AutopilotTestCase):
             "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
+    def _copy_xauthority_file(self, directory):
+        """ Copy .Xauthority file to directory, if it exists in /home
+        """
+        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
+        if os.path.isfile(xauth):
+            logger.debug("Copying .Xauthority to " + directory)
+            shutil.copyfile(
+                os.path.expanduser(os.path.join('~', '.Xauthority')),
+                os.path.join(directory, '.Xauthority'))
+
     def _patch_home(self):
-        #make a temp dir
-        temp_dir = tempfile.mkdtemp()
+        #click requires apparmor profile, and writing to special dir
+        #but the desktop can write to a traditional /tmp directory
+        if self.test_type == 'click':
+            temp_dir = os.path.join(os.environ.get('HOME'), 'autopilot',
+                                    'fakeenv')
+
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+
+            logger.debug(temp_dir)
+            temp_dir_fixture = fixtures.TempDir(temp_dir)
+        else:
+            temp_dir_fixture = fixtures.TempDir()
+
+        self.useFixture(temp_dir_fixture)
+        temp_dir = temp_dir_fixture.path
+        logger.debug(temp_dir)
 
         #delete it, and recreate it to the length
         #required so our patching the db works
         #require a length of 25
+        '''
         shutil.rmtree(temp_dir)
         temp_dir = temp_dir.ljust(25, 'X')
         os.mkdir(temp_dir)
         logger.debug("Created fake home directory " + temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
+        '''
 
-        #if the Xauthority file is in home directory
-        #make sure we copy it to temp home, otherwise do nothing
-        xauth = os.path.expanduser(os.path.join('~', '.Xauthority'))
-        if os.path.isfile(xauth):
-            logger.debug("Copying .Xauthority to fake home " + temp_dir)
-            shutil.copyfile(
-                os.path.expanduser(os.path.join('~', '.Xauthority')),
-                os.path.join(temp_dir, '.Xauthority'))
+        #If running under xvfb, as jenkins does,
+        #xsession will fail to start without xauthority file
+        #Thus if the Xauthority file is in the home directory
+        #make sure we copy it to our temp home directory
+        self._copy_xauthority_file(temp_dir)
 
-        #click can use initctl env (upstart), but desktop still requires mock
+        #click requires using initctl env (upstart), but the desktop can set
+        #an environment variable instead
         if self.test_type == 'click':
-            environment.set_initctl_env_var('HOME', temp_dir)
-            self.addCleanup(environment.unset_initctl_env_var, 'HOME')
+            self.useFixture(toolkit_fixtures.InitctlEnvironmentVariable(
+                            HOME=temp_dir))
         else:
-            patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
-            patcher.start()
-            self.addCleanup(patcher.stop)
+            self.useFixture(fixtures.EnvironmentVariable('HOME',
+                                                         newvalue=temp_dir))
 
         logger.debug("Patched home to fake home directory " + temp_dir)
         return temp_dir
