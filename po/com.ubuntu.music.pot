@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 22:21-0500\n"
+"POT-Creation-Date: 2014-05-28 23:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Artists"
 msgstr ""
 
-#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:116
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -139,7 +139,7 @@ msgid "Default"
 msgstr ""
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
+msgid "Acoustic"
 msgstr ""
 
 #: MusicSettings.qml:84
@@ -246,18 +246,18 @@ msgstr ""
 msgid "New playlist"
 msgstr ""
 
-#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr ""
 
-#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
 msgstr ""
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
+#: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
