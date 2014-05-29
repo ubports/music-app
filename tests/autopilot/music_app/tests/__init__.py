@@ -106,11 +106,25 @@ class MusicTestCase(AutopilotTestCase):
         if self.test_type == 'click':
             temp_dir = os.path.join(os.environ.get('HOME'), 'autopilot',
                                     'fakeenv')
+            temp_dir_cache = os.path.join(temp_dir, '.cache')
+            temp_dir_config = os.path.join(temp_dir, '.config')
+            temp_dir_local = os.path.join(temp_dir, '.local', 'share')
+            temp_dir_confined = os.path.join(temp_dir, 'confined')
 
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
 
-            logger.debug(temp_dir)
+            #apparmor doesn't allow the app to create needed directories,
+            #so we create them now
+            if not os.path.exists(temp_dir_cache):
+                os.makedirs(temp_dir_cache)
+            if not os.path.exists(temp_dir_config):
+                os.makedirs(temp_dir_config)
+            if not os.path.exists(temp_dir_local):
+                os.makedirs(temp_dir_local)
+            if not os.path.exists(temp_dir_confined):
+                os.makedirs(temp_dir_confined)
+
             temp_dir_fixture = fixtures.TempDir(temp_dir)
         else:
             temp_dir_fixture = fixtures.TempDir()
@@ -118,17 +132,6 @@ class MusicTestCase(AutopilotTestCase):
         self.useFixture(temp_dir_fixture)
         temp_dir = temp_dir_fixture.path
         logger.debug(temp_dir)
-
-        #delete it, and recreate it to the length
-        #required so our patching the db works
-        #require a length of 25
-        '''
-        shutil.rmtree(temp_dir)
-        temp_dir = temp_dir.ljust(25, 'X')
-        os.mkdir(temp_dir)
-        logger.debug("Created fake home directory " + temp_dir)
-        self.addCleanup(shutil.rmtree, temp_dir)
-        '''
 
         #If running under xvfb, as jenkins does,
         #xsession will fail to start without xauthority file
