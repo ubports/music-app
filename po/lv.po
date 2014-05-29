@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2014-05-25 20:19+0000\n"
+"PO-Revision-Date: 2014-05-28 14:01+0000\n"
 "Last-Translator: Jānis-Marks Gailis <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-05-26 06:35+0000\n"
+"X-Launchpad-Export-Date: 2014-05-29 05:49+0000\n"
 "X-Generator: Launchpad (build 17017)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -68,6 +68,7 @@ msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 albūma"
 msgstr[1] "%1 albūmu"
+msgstr[2] "%1 albumi"
 
 #: MusicArtists.qml:124 MusicPlaylists.qml:186 MusicStart.qml:314
 #: common/SongsSheet.qml:129
@@ -211,7 +212,7 @@ msgstr ""
 
 #: MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Iztīrīt visu!"
 
 #: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:366
 #: music-app.qml:1002
@@ -282,7 +283,7 @@ msgstr "Rediģēt"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Ielādē..."
 
 #: common/SwipeDelete.qml:51 common/SwipeDelete.qml:86
 msgid "Clear"
@@ -290,35 +291,35 @@ msgstr "Notīrīt"
 
 #: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
-msgstr ""
+msgstr "Nezināms albums"
 
 #: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Nezināms Mākslinieks"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "Meklēt celiņu"
 
 #: music-app.qml:154
 msgid "Next"
-msgstr ""
+msgstr "Nākamais"
 
 #: music-app.qml:155
 msgid "Next Track"
-msgstr ""
+msgstr "Nākamais celiņš"
 
 #: music-app.qml:161
 msgid "Pause"
-msgstr ""
+msgstr "Pauzēt"
 
 #: music-app.qml:161
 msgid "Play"
-msgstr ""
+msgstr "Atskaņot"
 
 #: music-app.qml:163
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pauzēt Autoatskaņošana"
 
 #: music-app.qml:163
 msgid "Continue or start playback"
@@ -330,27 +331,27 @@ msgstr "Atpakaļ"
 
 #: music-app.qml:169
 msgid "Go back to last page"
-msgstr ""
+msgstr "Iet atpakaļ uz pēdējo lapu"
 
 #: music-app.qml:177
 msgid "Previous"
-msgstr ""
+msgstr "Iepriekšējais"
 
 #: music-app.qml:178
 msgid "Previous Track"
-msgstr ""
+msgstr "Iepriekšējais celiņš"
 
 #: music-app.qml:183
 msgid "Stop"
-msgstr ""
+msgstr "Apturēt"
 
 #: music-app.qml:184
 msgid "Stop Playback"
-msgstr ""
+msgstr "Apturēt atskaņošanu"
 
 #: music-app.qml:192
 msgid "Music Settings"
-msgstr ""
+msgstr "Mūzikas Iestatījumi"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: music-app.qml:294
@@ -359,40 +360,40 @@ msgstr ""
 
 #: music-app.qml:295
 msgid "No songs played today"
-msgstr ""
+msgstr "Nav spēlētu dziesmu šodien"
 
 #: music-app.qml:392
 msgid "Debug: "
-msgstr ""
+msgstr "Atkļūdošana: "
 
 #: music-app.qml:701
 msgid "Unknown Year"
-msgstr ""
+msgstr "Nezināms gads"
 
 #: music-app.qml:702
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Nezināms žanrs"
 
 #: music-app.qml:947
 msgid "New Playlist"
-msgstr ""
+msgstr "Jauns atskaņojumu saraksts"
 
 #: music-app.qml:948
 msgid "Name your playlist."
-msgstr ""
+msgstr "Nosaukt jūsu atskaņošanas sarakstu."
 
 #: music-app.qml:952
 msgid "Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #: music-app.qml:960
 msgid "Create"
-msgstr ""
+msgstr "Izveidot"
 
 #: music-app.qml:976
 msgid "Error: "
-msgstr ""
+msgstr "Kļūda: "
 
 #: music-app.qml:981
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Kļūda: Jūs neievadījāt nosaukumu."
