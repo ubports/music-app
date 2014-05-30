@@ -150,7 +150,7 @@ Page {
                     }
                     onClicked: {
                         songsSheet.album = model.title;
-
+                        songsSheet.genre = undefined
                         songsSheet.line1 = model.artist
                         songsSheet.line2 = model.title
                         songsSheet.isAlbum = true

@@ -193,6 +193,7 @@ Page {
                             } else {
                                 songsSheet.album = title;
                             }
+                            songsSheet.genre = undefined;
 
                             songsSheet.line1 = title2
                             songsSheet.line2 = title
@@ -420,6 +421,7 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             songsSheet.album = album;
+                            songsSheet.genre = undefined
                             songsSheet.line1 = artist
                             songsSheet.line2 = album
                             songsSheet.isAlbum = true
