@@ -42,6 +42,7 @@ Item {
     property alias sheet: sheetComponent
 
     property alias album: songsModel.album
+    property alias genre: songsModel.genre
 
     SongsModel {
         id: songsModel
@@ -250,7 +251,7 @@ Item {
                                     focus = true
                                 }
                                 trackClicked(albumtrackslist.model, index)  // play track
-                                if (isAlbum) {
+                                if (isAlbum && sheetItem.line1 != "Genre") {
                                     Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()

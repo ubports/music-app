@@ -100,11 +100,6 @@ Page {
                     albumArtist: model.artist
                     store: musicStore
                 }
-                Repeater {
-                    id: songArtistModelRepeater
-                    model: songArtistModel
-                    delegate: Item { }
-                }
 
                 CoverRow {
                     id: coverRow
@@ -152,7 +147,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    text: i18n.tr("%1 album", "%1 albums", albumArtistModelRepeater.count).arg(albumArtistModelRepeater.count)
+                    text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
                 }
 
                 Label {
@@ -169,7 +164,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    text: i18n.tr("%1 song", "%1 songs", songArtistModelRepeater.count).arg(songArtistModelRepeater.count)
+                    text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
                 }
                 onFocusChanged: {
                 }

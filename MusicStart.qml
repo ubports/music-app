@@ -67,13 +67,8 @@ Page {
         width:  mainpage.width
         height: mainpage.height
 
-        // TODO: uncomment when genre is reenabled
-        /*
         contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + genres.height + genrelist.height + albums.height + albumlist.height + units.gu(4)
                                            :  genres.height + genrelist.height + albums.height + albumlist.height + units.gu(3)
-        */
-        contentHeight:  mainView.hasRecent ? recentlyPlayed.height + recentlist.height + albums.height + albumlist.height + units.gu(4)
-                                           :  albums.height + albumlist.height + units.gu(3)
         contentWidth: width
 
         focus: true
@@ -103,7 +98,7 @@ Page {
             model: recentModel.model
             delegate: recentDelegate
             header: Item {
-                id: spacer
+                id: recentSpacer
                 width: units.gu(1)
             }
             footer: Item {
@@ -210,8 +205,6 @@ Page {
             }
         }
 
-        // TODO: remove genre for now as not in mediascanner2
-        /*
         ListItem.ThinDivider {
             id: genreDivider
             anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
@@ -237,10 +230,13 @@ Page {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: genreModel.model
+            model: GenresModel {
+                store: musicStore
+            }
+
             delegate: genreDelegate
             header: Item {
-                id: spacer
+                id: genreSpacer
                 width: units.gu(1)
             }
             orientation: ListView.Horizontal
@@ -248,19 +244,44 @@ Page {
             Component {
                 id: genreDelegate
                 Item {
-                    property string artist: model.artist
-                    property string album: model.album
-                    property string title: model.title
-                    property var covers: Library.getGenreCovers(model.genre)
-                    property string length: model.length
-                    property string file: model.file
-                    property string year: model.year
-                    property string genre: model.genre
-
                     id: genreItem
                     objectName: "genreItemObject"
                     height: genrelist.height - units.gu(1)
                     width: height
+
+                    Repeater {
+                        id: albumGenreModelRepeater
+                        model: AlbumsModel {
+                            genre: model.genre
+                            store: musicStore
+                        }
+
+                        delegate: Item {
+                            property string author: model.artist
+                            property string album: model.title
+                        }
+                        property var covers: []
+                        signal finished()
+
+                        onFinished: {
+                            genreShape.count = count
+                            genreShape.covers = covers
+                        }
+                        onItemAdded: {
+                            covers.push({author: item.author, album: item.album});
+
+                            if (index === count - 1) {
+                                finished();
+                            }
+                        }
+                    }
+
+                    SongsModel {
+                        id: songGenreModel
+                        genre: model.genre
+                        store: musicStore
+                    }
+
                     CoverRow {
                         id: genreShape
                         anchors {
@@ -268,19 +289,20 @@ Page {
                             left: parent.left
                             verticalCenter: parent.verticalCenter
                         }
-                        count: genreItem.covers.length
+                        count: 0
                         size: genreItem.width
-                        covers: genreItem.covers
+                        covers: []
                         spacing: units.gu(2)
                     }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            albumTracksModel.filterGenreTracks(genre)
+                            songsSheet.album = undefined
+                            songsSheet.genre = model.genre
                             songsSheet.line1 = "Genre"
-                            songsSheet.line2 = genre
-                            songsSheet.isAlbum = false
-                            songsSheet.covers =  covers
+                            songsSheet.line2 = model.genre
+                            songsSheet.isAlbum = true
+                            songsSheet.covers = genreShape.covers
                             PopupUtils.open(songsSheet.sheet)
                         }
                     }
@@ -309,7 +331,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: genre
+                        text: model.genre
                         fontSize: "small"
                     }
                     Label {
@@ -322,18 +344,16 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
+                        text: i18n.tr("%1 song", "%1 songs", songGenreModel.rowCount).arg(songGenreModel.rowCount)
                         fontSize: "x-small"
                     }
                 }
             }
         }
-        */
 
         ListItem.ThinDivider {
             id: albumsDivider
-            //anchors.top: genrelist.bottom
-            anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
+            anchors.top: genrelist.bottom
         }
         ListItem.Standard {
             id: albums
