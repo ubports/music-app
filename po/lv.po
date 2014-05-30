@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-08 22:21-0500\n"
-"PO-Revision-Date: 2014-05-07 20:14+0000\n"
+"PO-Revision-Date: 2014-05-29 10:57+0000\n"
 "Last-Translator: Jānis-Marks Gailis <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "Language: lv\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-05-10 07:59+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-05-30 05:59+0000\n"
+"X-Generator: Launchpad (build 17023)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -69,6 +69,7 @@ msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 albūma"
 msgstr[1] "%1 albūmu"
+msgstr[2] "%1 albumi"
 
 #: MusicArtists.qml:124 MusicPlaylists.qml:186 MusicStart.qml:314
 #: common/SongsSheet.qml:129
@@ -77,6 +78,7 @@ msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 dziesma"
 msgstr[1] "%1 dziesmu"
+msgstr[2] "%1 dziesma"
 
 #: MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -149,15 +151,15 @@ msgstr "Klasiskā mūzika"
 
 #: MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "Elektroniskā mūzika"
 
 #: MusicSettings.qml:86
 msgid "Flat"
-msgstr ""
+msgstr "Noklusējuma"
 
 #: MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip Hop"
 
 #: MusicSettings.qml:88
 msgid "Jazz"
@@ -165,7 +167,7 @@ msgstr "Džezs"
 
 #: MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "Metāls"
 
 #: MusicSettings.qml:90
 msgid "Pop"
@@ -173,11 +175,11 @@ msgstr "Popmūzika"
 
 #: MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Roks"
 
 #: MusicSettings.qml:92
 msgid "Custom"
-msgstr ""
+msgstr "Pielāgots"
 
 #: MusicSettings.qml:112
 msgid ""
@@ -187,7 +189,7 @@ msgstr ""
 
 #: MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Konti"
 
 #: MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
@@ -199,7 +201,7 @@ msgstr ""
 
 #: MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Ubuntu One"
 
 #: MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
@@ -211,24 +213,24 @@ msgstr ""
 
 #: MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Iztīrīt visu!"
 
 #: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:366
 #: music-app.qml:1002
 msgid "Music"
-msgstr ""
+msgstr "Mūzika"
 
 #: MusicStart.qml:80
 msgid "Recent"
-msgstr ""
+msgstr "Nesens"
 
 #: MusicStart.qml:217
 msgid "Genres"
-msgstr ""
+msgstr "Žanri"
 
 #: MusicToolbar.qml:739
 msgid "No songs queued"
-msgstr ""
+msgstr "Nav dziesmu atskaņošanas sarakstā"
 
 #: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
@@ -236,7 +238,7 @@ msgstr ""
 
 #: MusicTracks.qml:33
 msgid "Songs"
-msgstr ""
+msgstr "Dziesmas"
 
 #: MusicaddtoPlaylist.qml:38 common/ExpanderItems/AddToPlaylist.qml:59
 #: music-app.qml:934
@@ -245,12 +247,12 @@ msgstr "Izvēlēties dziesmu sarakstu"
 
 #: MusicaddtoPlaylist.qml:130
 msgid "New playlist"
-msgstr ""
+msgstr "Jauns atskaņošanas saraksts"
 
 #: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "Spēlēt visu"
 
 #: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
@@ -262,8 +264,9 @@ msgstr "Pievienot sarakstam"
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 dziesma"
+msgstr[1] " | %1 dziesmu"
+msgstr[2] " | %1 dziesmas"
 
 #: common/ExpanderItems/AddToPlaylist.qml:47 music-app.qml:923
 msgid "Add to playlist"
@@ -281,7 +284,7 @@ msgstr "Rediģēt"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Ielādē..."
 
 #: common/SwipeDelete.qml:51 common/SwipeDelete.qml:86
 msgid "Clear"
@@ -289,39 +292,39 @@ msgstr "Notīrīt"
 
 #: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
-msgstr ""
+msgstr "Nezināms albums"
 
 #: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Nezināms Mākslinieks"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "Meklēt celiņu"
 
 #: music-app.qml:154
 msgid "Next"
-msgstr ""
+msgstr "Nākamais"
 
 #: music-app.qml:155
 msgid "Next Track"
-msgstr ""
+msgstr "Nākamais celiņš"
 
 #: music-app.qml:161
 msgid "Pause"
-msgstr ""
+msgstr "Pauzēt"
 
 #: music-app.qml:161
 msgid "Play"
-msgstr ""
+msgstr "Atskaņot"
 
 #: music-app.qml:163
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pauzēt Autoatskaņošana"
 
 #: music-app.qml:163
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Turpināt vai sākt atskaņošanu"
 
 #: music-app.qml:168
 msgid "Back"
@@ -329,27 +332,27 @@ msgstr "Atpakaļ"
 
 #: music-app.qml:169
 msgid "Go back to last page"
-msgstr ""
+msgstr "Iet atpakaļ uz pēdējo lapu"
 
 #: music-app.qml:177
 msgid "Previous"
-msgstr ""
+msgstr "Iepriekšējais"
 
 #: music-app.qml:178
 msgid "Previous Track"
-msgstr ""
+msgstr "Iepriekšējais celiņš"
 
 #: music-app.qml:183
 msgid "Stop"
-msgstr ""
+msgstr "Apturēt"
 
 #: music-app.qml:184
 msgid "Stop Playback"
-msgstr ""
+msgstr "Apturēt atskaņošanu"
 
 #: music-app.qml:192
 msgid "Music Settings"
-msgstr ""
+msgstr "Mūzikas Iestatījumi"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: music-app.qml:294
@@ -358,40 +361,40 @@ msgstr ""
 
 #: music-app.qml:295
 msgid "No songs played today"
-msgstr ""
+msgstr "Nav spēlētu dziesmu šodien"
 
 #: music-app.qml:392
 msgid "Debug: "
-msgstr ""
+msgstr "Atkļūdošana: "
 
 #: music-app.qml:701
 msgid "Unknown Year"
-msgstr ""
+msgstr "Nezināms gads"
 
 #: music-app.qml:702
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Nezināms žanrs"
 
 #: music-app.qml:947
 msgid "New Playlist"
-msgstr ""
+msgstr "Jauns atskaņojumu saraksts"
 
 #: music-app.qml:948
 msgid "Name your playlist."
-msgstr ""
+msgstr "Nosaukt jūsu atskaņošanas sarakstu."
 
 #: music-app.qml:952
 msgid "Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #: music-app.qml:960
 msgid "Create"
-msgstr ""
+msgstr "Izveidot"
 
 #: music-app.qml:976
 msgid "Error: "
-msgstr ""
+msgstr "Kļūda: "
 
 #: music-app.qml:981
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Kļūda: Jūs neievadījāt nosaukumu."
