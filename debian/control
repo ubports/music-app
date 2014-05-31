@@ -13,6 +13,8 @@ Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 Package: music-app
 Architecture: all
 Depends: mediascanner2.0,
+         gstreamer0.10-fluendo-mp3,
+         gstreamer1.0-fluendo-mp3,
          qmlscene,
          qtdeclarative5-localstorage-plugin,
          qtdeclarative5-particles-plugin,
@@ -31,9 +33,7 @@ Description: Music player for Ubuntu Touch
 
 Package: music-app-autopilot
 Architecture: all
-Depends: gstreamer0.10-fluendo-mp3,
-         gstreamer1.0-fluendo-mp3,
-         libautopilot-qt (>= 1.4),
+Depends: libautopilot-qt (>= 1.4),
          libqt5test5,
          music-app (= ${source:Version}),
          python-mock,
