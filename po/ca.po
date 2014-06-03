@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-08 22:21-0500\n"
+"POT-Creation-Date: 2014-06-02 17:52+0200\n"
 "PO-Revision-Date: 2014-05-26 14:57+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-05-27 06:08+0000\n"
-"X-Generator: Launchpad (build 17017)\n"
+"X-Launchpad-Export-Date: 2014-06-03 06:14+0000\n"
+"X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,7 +62,7 @@ msgstr "Àlbums"
 msgid "Artists"
 msgstr "Artistes"
 
-#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:116
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -221,6 +221,10 @@ msgstr "Música"
 msgid "Recent"
 msgstr ""
 
+#: MusicStart.qml:108
+msgid "Clear History"
+msgstr ""
+
 #: MusicStart.qml:217
 msgid "Genres"
 msgstr ""
@@ -246,18 +250,18 @@ msgstr ""
 msgid "New playlist"
 msgstr "Llista de reproducció nova"
 
-#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr ""
 
-#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
 msgstr ""
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
+#: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"

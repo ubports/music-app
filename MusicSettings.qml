@@ -80,7 +80,7 @@ ComposerSheet {
         enabled: false
         text: i18n.tr("Equaliser")
         model: [i18n.tr("Default"),
-              i18n.tr("Accoustic"),
+              i18n.tr("Acoustic"),
               i18n.tr("Classical"),
               i18n.tr("Electronic"),
               i18n.tr("Flat"),

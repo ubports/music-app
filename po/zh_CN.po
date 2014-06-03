@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-08 22:21-0500\n"
+"POT-Creation-Date: 2014-06-02 17:52+0200\n"
 "PO-Revision-Date: 2014-05-27 07:55+0000\n"
 "Last-Translator: Shuduo Sang <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-05-28 05:53+0000\n"
-"X-Generator: Launchpad (build 17017)\n"
+"X-Launchpad-Export-Date: 2014-06-03 06:15+0000\n"
+"X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,7 +62,7 @@ msgstr "专辑"
 msgid "Artists"
 msgstr "表演者"
 
-#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:116
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -219,6 +219,10 @@ msgstr "音乐"
 msgid "Recent"
 msgstr "最近使用过的"
 
+#: MusicStart.qml:108
+msgid "Clear History"
+msgstr ""
+
 #: MusicStart.qml:217
 msgid "Genres"
 msgstr "类型"
@@ -244,18 +248,18 @@ msgstr "选择播放列表"
 msgid "New playlist"
 msgstr "新建播放列表"
 
-#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr "播放所有"
 
-#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
 msgstr "添加到队列"
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
+#: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
