@@ -139,7 +139,7 @@ msgid "Default"
 msgstr ""
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
+msgid "Acoustic"
 msgstr ""
 
 #: MusicSettings.qml:84
