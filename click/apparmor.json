@@ -1,19 +1,5 @@
 {
     "policy_version": 1.1,
-    "policy_groups": [
-        "audio",
-        "music_files_read",
-        "networking",
-        "usermetrics"
-    ],
-    "read_path": [
-      "/etc/fstab",
-      "/proc/[0-9]*/mounts",
-      "/usr/share/grilo-plugins/",
-      "@{HOME}/.cache/media-art/",
-      "@{HOME}/.cache/mediascanner/"
-    ],
-    "write_path": [
-      "@{HOME}/.local/share/grilo-plugins/"
-    ]
+    "template": "unconfined",
+    "policy_groups": []
 }

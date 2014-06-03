@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-08 22:21-0500\n"
+"POT-Creation-Date: 2014-06-02 17:52+0200\n"
 "PO-Revision-Date: 2014-05-17 21:04+0000\n"
 "Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Gaelic; Scottish <gd@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-05-18 05:56+0000\n"
-"X-Generator: Launchpad (build 17007)\n"
+"X-Launchpad-Export-Date: 2014-06-03 06:15+0000\n"
+"X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
 msgid "Last.fm"
@@ -65,7 +65,7 @@ msgstr "Albaman"
 msgid "Artists"
 msgstr "Luchd-ciùil"
 
-#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:116
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -232,6 +232,10 @@ msgstr "Ceòl"
 msgid "Recent"
 msgstr "O chionn goirid"
 
+#: MusicStart.qml:108
+msgid "Clear History"
+msgstr ""
+
 #: MusicStart.qml:217
 msgid "Genres"
 msgstr "Gnèithean"
@@ -257,18 +261,18 @@ msgstr "Tagh liosta-chluiche"
 msgid "New playlist"
 msgstr "Liosta-chluiche ùr"
 
-#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr "Cluich na h-uile"
 
-#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
 msgstr "Cuir ris a' chiutha"
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
+#: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"

@@ -105,7 +105,7 @@ Page {
                 Button {
                     id: clearRecentButton
                     anchors.centerIn: parent
-                    text: "Clear History"
+                    text: i18n.tr("Clear History")
                     onClicked: {
                         Library.clearRecentHistory()
                         mainView.hasRecent = false
