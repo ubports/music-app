@@ -380,7 +380,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    Library.addRecent(album, artist, "", model.title, "album")
+                                    Library.addRecent(model.title, artist, "", model.title, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                     trackClicked(songAlbumArtistModel, 0, true)
