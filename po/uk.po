@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-06-03 06:15+0000\n"
+"X-Launchpad-Export-Date: 2014-06-04 06:34+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -142,8 +142,8 @@ msgid "Default"
 msgstr "Типовий"
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
-msgstr "Акустична музика"
+msgid "Acoustic"
+msgstr ""
 
 #: MusicSettings.qml:84
 msgid "Classical"
