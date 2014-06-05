@@ -71,6 +71,7 @@ class MusicTestCase(AutopilotTestCase):
 
         #patching not needed since we are using real /home for now
         #self.home_dir = self._patch_home()
+        self.home_dir = os.path.expanduser('~')
 
         self._create_music_library()
         self.pointing_device = Pointer(self.input_device_class.create())
