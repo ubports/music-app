@@ -47,9 +47,6 @@ class MusicTestCase(AutopilotTestCase):
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
-    sqlite_dir = os.path.expanduser(
-        "~/.local/share/com.ubuntu.music/Databases")
-    music_dir = os.path.expanduser("~/Music")
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -65,6 +62,8 @@ class MusicTestCase(AutopilotTestCase):
 
     def setUp(self):
         #backup and wipe db's before testing
+        sqlite_dir = os.path.expanduser(
+            "~/.local/share/com.ubuntu.music/Databases")
         self.backup_folder(sqlite_dir)
         self.addCleanup(self.restore_folder(sqlite_dir))
 
@@ -184,11 +183,6 @@ class MusicTestCase(AutopilotTestCase):
         return temp_dir
 
     def _create_music_library(self):
-        #for now, we will use real /home
-        #backup Music folder and restore it after testing
-        self.backup_folder(music_dir)
-        self.addCleanup(self.restore_folder(music_dir))
-
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
@@ -197,6 +191,14 @@ class MusicTestCase(AutopilotTestCase):
                                         '.cache/mediascanner-2.0')
         os.mkdir(musicpath)
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
+
+        #for now, we will use real /home
+        #backup Music folder and restore it after testing
+        self.backup_folder(musicpath)
+        self.addCleanup(self.restore_folder(musicpath))
+        #backup mediascanner folder and restore it after testing
+        self.backup_folder(mediascannerpath)
+        self.addCleanup(self.restore_folder(mediascannerpath))
 
         #set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
