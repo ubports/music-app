@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-02 17:52+0200\n"
-"PO-Revision-Date: 2014-05-03 07:17+0000\n"
+"PO-Revision-Date: 2014-06-04 08:21+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-04 06:33+0000\n"
+"X-Launchpad-Export-Date: 2014-06-05 06:06+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -140,7 +140,7 @@ msgstr "Predeterminado"
 
 #: MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Acústica"
 
 #: MusicSettings.qml:84
 msgid "Classical"
@@ -225,7 +225,7 @@ msgstr "Recentes"
 
 #: MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "Borrar historial"
 
 #: MusicStart.qml:217
 msgid "Genres"
