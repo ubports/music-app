@@ -8,5 +8,4 @@ Exec=@EXEC@
 Icon=@ICON@
 StartupNotify=true
 X-Ubuntu-Touch=true
-X-Ubuntu-Gettext-Domain=@PROJECT_NAME@
 X-Ubuntu-Single-Instance=true
