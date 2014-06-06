@@ -8,5 +8,4 @@ Name=tr("Music")
 Comment=Ubuntu Touch Music Player
 StartupNotify=true
 X-Ubuntu-Touch=true
-X-Ubuntu-Gettext-Domain=@PROJECT_NAME@
 X-Ubuntu-Single-Instance=true
