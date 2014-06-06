@@ -1,5 +1,5 @@
 {
-    "description": "Music application for ubuntu",
+    "description": "A music application for Ubuntu",
     "framework": "ubuntu-sdk-14.04-dev1",
     "architecture": "armhf",
     "hooks": {
