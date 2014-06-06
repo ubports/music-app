@@ -13,5 +13,7 @@ CMakeFiles/
 *.gmo
 *.mo
 *.desktop
+*.desktop.in
+*.desktop.in.in.h
 .excludes
 music-app.json

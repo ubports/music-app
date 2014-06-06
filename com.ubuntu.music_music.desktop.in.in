@@ -1,11 +1,11 @@
 [Desktop Entry]
-Version=1.0
+_Name=Music
+_Comment=A music application for Ubuntu
+_Keywords=music;songs;play;tracks;player;tunes;
 Type=Application
 Terminal=false
 Exec=@EXEC@
 Icon=@ICON@
-Name=tr("Music")
-Comment=Ubuntu Touch Music Player
 StartupNotify=true
 X-Ubuntu-Touch=true
 X-Ubuntu-Gettext-Domain=@PROJECT_NAME@
