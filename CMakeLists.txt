@@ -60,7 +60,7 @@ configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in)
 
 add_custom_target(${DESKTOP_FILE} ALL
     COMMENT "Merging translations into ${DESKTOP_FILE}"
-    COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u $CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE}
+    COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE}
 )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
