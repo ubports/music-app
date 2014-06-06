@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-02 17:52+0200\n"
-"PO-Revision-Date: 2014-05-26 14:57+0000\n"
+"PO-Revision-Date: 2014-06-05 07:54+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-03 06:14+0000\n"
+"X-Launchpad-Export-Date: 2014-06-06 06:36+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -94,7 +94,7 @@ msgstr "Canvia el nom"
 
 #: MusicPlaylists.qml:60
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Escriviu un nom nou per a la llista de reproducció."
 
 #: MusicPlaylists.qml:71
 msgid "Change"
@@ -111,11 +111,11 @@ msgstr "Cancel·la"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: MusicPlaylists.qml:102
 msgid "Are you sure?"
-msgstr ""
+msgstr "N'esteu segur?"
 
 #: MusicPlaylists.qml:103
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "Això suprimirà la llista de reproducció."
 
 #: MusicPlaylists.qml:106
 msgid "Remove"
@@ -124,7 +124,7 @@ msgstr "Suprimeix-la"
 #: MusicSearch.qml:42 MusicToolbar.qml:508 music-app.qml:93 music-app.qml:141
 #: music-app.qml:147
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: MusicSettings.qml:30 music-app.qml:191
 msgid "Settings"
@@ -139,8 +139,8 @@ msgid "Default"
 msgstr "Per defecte"
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
-msgstr "Acústica"
+msgid "Acoustic"
+msgstr "Acústic"
 
 #: MusicSettings.qml:84
 msgid "Classical"
@@ -210,7 +210,7 @@ msgstr ""
 
 #: MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Neteja-ho tot"
 
 #: MusicStart.qml:33 com.ubuntu.music_music.desktop.in:7 music-app.qml:366
 #: music-app.qml:1002
@@ -219,32 +219,32 @@ msgstr "Música"
 
 #: MusicStart.qml:80
 msgid "Recent"
-msgstr ""
+msgstr "Recents"
 
 #: MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "Neteja l'historial"
 
 #: MusicStart.qml:217
 msgid "Genres"
-msgstr ""
+msgstr "Gèneres"
 
 #: MusicToolbar.qml:739
 msgid "No songs queued"
-msgstr ""
+msgstr "No hi ha cap tema a la cua"
 
 #: MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "Feu un toc a Reprodueix o en qualsevol element per començar"
 
 #: MusicTracks.qml:33
 msgid "Songs"
-msgstr ""
+msgstr "Temes"
 
 #: MusicaddtoPlaylist.qml:38 common/ExpanderItems/AddToPlaylist.qml:59
 #: music-app.qml:934
 msgid "Select playlist"
-msgstr ""
+msgstr "Seleccioneu una llista de reproducció"
 
 #: MusicaddtoPlaylist.qml:130
 msgid "New playlist"
@@ -253,20 +253,20 @@ msgstr "Llista de reproducció nova"
 #: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
-msgstr ""
+msgstr "Reprodueix-ho tot"
 
 #: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
-msgstr ""
+msgstr "Afegeix-lo a la cua"
 
 #: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 cancó"
+msgstr[1] " | %1 cançons"
 
 #: common/ExpanderItems/AddToPlaylist.qml:47 music-app.qml:923
 msgid "Add to playlist"
@@ -275,16 +275,16 @@ msgstr "Afegeix a la llista de reproducció"
 #. TRANSLATORS: this refers to deleting a playlist
 #: common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "Suprimeix-la"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "Edita-la"
 
 #: common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "S'està carregant..."
 
 #: common/SwipeDelete.qml:51 common/SwipeDelete.qml:86
 msgid "Clear"
@@ -292,15 +292,15 @@ msgstr "Esborra"
 
 #: meta-database.js:444 meta-database.js:447 music-app.qml:695
 msgid "Unknown Album"
-msgstr ""
+msgstr "Àlbum desconegut"
 
 #: meta-database.js:445 music-app.qml:694
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Artista desconegut"
 
 #: music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "Cerca de temes"
 
 #: music-app.qml:154
 msgid "Next"
@@ -308,7 +308,7 @@ msgstr "Següent"
 
 #: music-app.qml:155
 msgid "Next Track"
-msgstr ""
+msgstr "Tema següent"
 
 #: music-app.qml:161
 msgid "Pause"
@@ -320,11 +320,11 @@ msgstr "Reprodueix"
 
 #: music-app.qml:163
 msgid "Pause Playback"
-msgstr ""
+msgstr "Posa la reproducció en pausa"
 
 #: music-app.qml:163
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Continua o inicia la reproducció"
 
 #: music-app.qml:168
 msgid "Back"
@@ -332,7 +332,7 @@ msgstr "Enrere"
 
 #: music-app.qml:169
 msgid "Go back to last page"
-msgstr ""
+msgstr "Torna a la pàgina anterior"
 
 #: music-app.qml:177
 msgid "Previous"
@@ -340,7 +340,7 @@ msgstr "Anterior"
 
 #: music-app.qml:178
 msgid "Previous Track"
-msgstr ""
+msgstr "Tema anterior"
 
 #: music-app.qml:183
 msgid "Stop"
@@ -357,23 +357,23 @@ msgstr "Paràmetres de la música"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: music-app.qml:294
 msgid "songs played today"
-msgstr ""
+msgstr "temes reproduïts avui"
 
 #: music-app.qml:295
 msgid "No songs played today"
-msgstr ""
+msgstr "Avui no s'ha reproduït cap tema"
 
 #: music-app.qml:392
 msgid "Debug: "
-msgstr ""
+msgstr "Depuració: "
 
 #: music-app.qml:701
 msgid "Unknown Year"
-msgstr ""
+msgstr "Any desconegut"
 
 #: music-app.qml:702
 msgid "Unknown Genre"
-msgstr ""
+msgstr "Gènere desconegut"
 
 #: music-app.qml:947
 msgid "New Playlist"
@@ -381,7 +381,7 @@ msgstr "Llista de reproducció nova"
 
 #: music-app.qml:948
 msgid "Name your playlist."
-msgstr ""
+msgstr "Trieu un nom per a la llista de reproducció."
 
 #: music-app.qml:952
 msgid "Name"
@@ -389,12 +389,12 @@ msgstr "Nom"
 
 #: music-app.qml:960
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #: music-app.qml:976
 msgid "Error: "
-msgstr ""
+msgstr "Error: "
 
 #: music-app.qml:981
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "Error: no heu escrit cap nom."

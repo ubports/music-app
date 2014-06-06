@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-02 17:52+0200\n"
-"PO-Revision-Date: 2014-05-16 23:30+0000\n"
+"PO-Revision-Date: 2014-06-04 16:40+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-06-03 06:14+0000\n"
+"X-Launchpad-Export-Date: 2014-06-05 06:06+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -148,8 +148,8 @@ msgid "Default"
 msgstr "المبدئي"
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
-msgstr "سمعي"
+msgid "Acoustic"
+msgstr ""
 
 #: MusicSettings.qml:84
 msgid "Classical"
@@ -192,6 +192,8 @@ msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"انتقل إلى الأغنية الحالية \n"
+"عند فتح شريط الأدوات"
 
 #: MusicSettings.qml:132
 msgid "Accounts"
@@ -232,7 +234,7 @@ msgstr "الأخيرة"
 
 #: MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "مسح التأريخ"
 
 #: MusicStart.qml:217
 msgid "Genres"

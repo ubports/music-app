@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 22:21-0500\n"
+"POT-Creation-Date: 2014-06-02 17:52+0200\n"
 "PO-Revision-Date: 2014-05-29 10:57+0000\n"
 "Last-Translator: Jānis-Marks Gailis <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-06-03 06:15+0000\n"
+"X-Launchpad-Export-Date: 2014-06-04 06:34+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: LoginLastFM.qml:50 MusicSettings.qml:145 MusicSettings.qml:153
@@ -63,7 +63,7 @@ msgstr "Albumi"
 msgid "Artists"
 msgstr "Izpildītāji"
 
-#: MusicArtists.qml:107 common/AlbumsSheet.qml:124
+#: MusicArtists.qml:107 common/AlbumsSheet.qml:116
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -142,7 +142,7 @@ msgid "Default"
 msgstr "Noklusējuma"
 
 #: MusicSettings.qml:83
-msgid "Accoustic"
+msgid "Acoustic"
 msgstr ""
 
 #: MusicSettings.qml:84
@@ -224,6 +224,10 @@ msgstr "Mūzika"
 msgid "Recent"
 msgstr "Nesens"
 
+#: MusicStart.qml:108
+msgid "Clear History"
+msgstr ""
+
 #: MusicStart.qml:217
 msgid "Genres"
 msgstr "Žanri"
@@ -249,18 +253,18 @@ msgstr "Izvēlēties dziesmu sarakstu"
 msgid "New playlist"
 msgstr "Jauns atskaņošanas saraksts"
 
-#: common/AlbumsSheet.qml:171 common/AlbumsSheet.qml:359
+#: common/AlbumsSheet.qml:163 common/AlbumsSheet.qml:351
 #: common/SongsSheet.qml:158
 msgid "Play all"
 msgstr "Spēlēt visu"
 
-#: common/AlbumsSheet.qml:222 common/AlbumsSheet.qml:407
+#: common/AlbumsSheet.qml:214 common/AlbumsSheet.qml:399
 #: common/ExpanderItems/AddToQueue.qml:45 common/SongsSheet.qml:209
 #: music-app.qml:909
 msgid "Add to queue"
 msgstr "Pievienot sarakstam"
 
-#: common/AlbumsSheet.qml:331 common/SongsSheet.qml:128
+#: common/AlbumsSheet.qml:323 common/SongsSheet.qml:128
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"

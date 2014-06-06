@@ -1,5 +1,7 @@
 project(com.ubuntu.music)
 cmake_minimum_required(VERSION 2.8.9)
+find_program(INTLTOOL_MERGE intltool-merge)
+find_program(INTLTOOL_EXTRACT intltool-extract)
 
 # Standard install paths
 include(GNUInstallDirs)
@@ -41,10 +43,12 @@ else(CLICK_MODE)
 endif(CLICK_MODE)
 
 file(GLOB_RECURSE I18N_SRC_FILES
-     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     *.qml *.js ${DESKTOP_FILE}.in)
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po
+     *.qml *.js)
+list(APPEND I18N_SRC_FILES ${DESKTOP_FILE}.in.in.h)
 list(SORT I18N_SRC_FILES)
-list(REMOVE_ITEM I18N_SRC_FILES .build/${DESKTOP_FILE}.in)
+
+message("Found ${I18N_SRC_FILES}")
 
 file(GLOB SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -52,13 +56,12 @@ file(GLOB SRC_FILES
 install(DIRECTORY common images DESTINATION ${DATA_DIR})
 install(FILES ${SRC_FILES} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
-configure_file(${DESKTOP_FILE}.in ${DESKTOP_FILE}.in @ONLY)
-file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE})
-file(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}.in DESKTOP_FILE_CONTENTS)
-foreach(LINE ${DESKTOP_FILE_CONTENTS})
-    string(REGEX REPLACE "tr\\\(\"(.*)\"\\\)" "\\1" LINE "${LINE}")
-    file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE} "${LINE}\n")
-endforeach(LINE)
+configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in)
+
+add_custom_target(${DESKTOP_FILE} ALL
+    COMMENT "Merging translations into ${DESKTOP_FILE}"
+    COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE}
+)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
     DESTINATION ${DESKTOP_DIR})
