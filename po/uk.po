@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-06 12:31+0100\n"
-"PO-Revision-Date: 2014-05-15 12:29+0000\n"
+"PO-Revision-Date: 2014-06-08 19:11+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-06-07 06:34+0000\n"
+"X-Launchpad-Export-Date: 2014-06-09 06:32+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -143,7 +143,7 @@ msgstr "Типовий"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Акустична"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -228,7 +228,7 @@ msgstr "Нещодавні"
 
 #: ../MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "Спорожнити журнал"
 
 #: ../MusicStart.qml:217
 msgid "Genres"
@@ -407,8 +407,10 @@ msgstr "Помилка: ви не вказали назви."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Музична програма для Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
+"music;songs;play;tracks;player;tunes;музика;композиції;пісні;програвач;плеєр;"
+"звук;"
