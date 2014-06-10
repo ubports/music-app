@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-06 12:31+0100\n"
-"PO-Revision-Date: 2014-05-18 06:55+0000\n"
+"PO-Revision-Date: 2014-06-09 07:49+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-07 06:34+0000\n"
+"X-Launchpad-Export-Date: 2014-06-10 06:50+0000\n"
 "X-Generator: Launchpad (build 17031)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -140,7 +140,7 @@ msgstr "בררת מחדל"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "אקוסטי"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -225,7 +225,7 @@ msgstr "בשימוש לאחרונה"
 
 #: ../MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "מחיקת ההיסטוריה"
 
 #: ../MusicStart.qml:217
 msgid "Genres"
@@ -403,8 +403,8 @@ msgstr "שגיאה: לא הזנת שם."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "יישום מוזיקה לאובונטו"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "מוזיקה;שירים;נגינה;לנגן;השמעה;נגן;רצועות;מנגינות;"
