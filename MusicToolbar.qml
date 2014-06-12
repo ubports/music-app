@@ -1072,6 +1072,9 @@ Item {
                     onPositionChanged: {
                         musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
                     }
+                    onStopped: {
+                        musicToolbarSmallProgressHint.width = 0;
+                    }
                 }
             }
         }
