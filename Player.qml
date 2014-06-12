@@ -46,6 +46,8 @@ Item {
     property alias source: mediaPlayer.source
     property alias volume: mediaPlayer.volume
 
+    signal stopped()
+
     onRepeatChanged: {
         Settings.setSetting("repeat", repeat ? "1" : "0")
         console.debug("Repeat:", Settings.getSetting("repeat") === "1")
@@ -198,6 +200,8 @@ Item {
                 nextSong(true, false) // next track
             }
         }
+
+        onStopped: player.stopped()
     }
 }
 
