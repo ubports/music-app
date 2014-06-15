@@ -143,6 +143,9 @@ Item {
                             SongsModel {
                                 id: songArtistModel
                                 albumArtist: sheetItem.artist
+                                // HACK: Temporarily setting limit to 500 to ensure model
+                                //       is populated. See lp:1326753
+                                limit: 500
                                 store: musicStore
                             }
 
@@ -250,6 +253,9 @@ Item {
                             id: songAlbumArtistModel
                             albumArtist: model.artist
                             album: model.title
+                            // HACK: Temporarily setting limit to 500 to ensure model
+                            //       is populated. See lp:1326753
+                            limit: 500
                             store: musicStore
                         }
                         Repeater {
