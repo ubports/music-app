@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-06 12:31+0100\n"
-"PO-Revision-Date: 2014-06-03 06:12+0000\n"
+"PO-Revision-Date: 2014-06-16 06:26+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-06-07 06:34+0000\n"
-"X-Generator: Launchpad (build 17031)\n"
+"X-Launchpad-Export-Date: 2014-06-16 06:29+0000\n"
+"X-Generator: Launchpad (build 17045)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -140,7 +140,7 @@ msgstr "Dre ziouer"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Akoustek"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -403,8 +403,8 @@ msgstr "Fazi : N'ho peus bizskrivet anv ebet."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Ul lenner sonerezh evit Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"

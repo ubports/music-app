@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-06 12:31+0100\n"
-"PO-Revision-Date: 2014-05-27 08:02+0000\n"
+"PO-Revision-Date: 2014-06-14 10:25+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-07 06:34+0000\n"
-"X-Generator: Launchpad (build 17031)\n"
+"X-Launchpad-Export-Date: 2014-06-16 06:29+0000\n"
+"X-Generator: Launchpad (build 17045)\n"
 
 #: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -226,7 +226,7 @@ msgstr "Viimeisimmät"
 
 #: ../MusicStart.qml:108
 msgid "Clear History"
-msgstr ""
+msgstr "Tyhjennä historia"
 
 #: ../MusicStart.qml:217
 msgid "Genres"
@@ -404,8 +404,8 @@ msgstr "Virhe: et kirjoittanut nimeä."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Musiikkisovellus Ubuntulle"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "music;songs;play;tracks;player;tunes;musiikki;kappaleet;soitin;"
