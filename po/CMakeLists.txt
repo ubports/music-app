@@ -31,3 +31,10 @@ foreach(PO_FILE ${PO_FILES})
             RENAME ${DOMAIN}.mo)
 endforeach(PO_FILE)
 
+# make the translation files visible on qtcreator
+file(GLOB TRANSLATION_FILES
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+     *.po *.pot)
+
+add_custom_target(com_ubuntu_music_TRANSLATIONFiles ALL SOURCES ${TRANSLATION_FILES})
+
