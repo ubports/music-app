@@ -189,6 +189,7 @@ class MusicTestCase(AutopilotTestCase):
 
     def _create_music_library(self):
         os.system('stop mediascanner-2.0')
+        os.system('kill -9 `pidof /usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0`')
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
@@ -231,6 +232,11 @@ class MusicTestCase(AutopilotTestCase):
 
         os.system('start mediascanner-2.0')
         time.sleep(10)
+        os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
+        
+        self.addCleanup(os.system, "kill -9 `pidof /usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0`")
+        self.addCleanup(os.system, "stop mediascanner-2.0")
+        self.addCleanup(os.system, "start mediascanner-2.0")
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
