@@ -73,8 +73,13 @@ class MusicTestCase(AutopilotTestCase):
 
     def setUp(self):
         os.system('stop mediascanner-2.0')
-        os.system('killall mediascanner-service-2.0')
-        os.system('killall mediascanner-dbus-2.0')
+        os.system('kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-' \
+                  'service-2.0`')
+
+        # Stop any mediascanner-dbus and restart mediascanner on exit
+        self.addCleanup(os.system, 'kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-service-2.0`')
+        self.addCleanup(os.system, "stop mediascanner-2.0")
+        self.addCleanup(os.system, "start mediascanner-2.0")
 
         launch, self.test_type = self.setup_environment()
 
@@ -85,7 +90,8 @@ class MusicTestCase(AutopilotTestCase):
         #some sanity debug prints
         env = os.environ.copy()
         logger.debug("env sees Home as %s" % env['HOME'])
-        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'), os.environ.get('HOME')))
+        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'),
+                     os.environ.get('HOME')))
 
         #we need to also tell upstart about our fake home
         #and we need to do this all in one shell, also passing along our fake env (env=env)
