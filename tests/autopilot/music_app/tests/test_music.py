@@ -26,10 +26,7 @@ class TestMainWindow(MusicTestCase):
         super(TestMainWindow, self).setUp()
         self.assertThat(
             self.main_view.visible, Eventually(Equals(True)))
-        import os
-        logger.debug('Home during app run %s, %s' % (os.environ['HOME'], self.home_dir))
-        import sys
-        sys.exit()
+
         #wait for activity indicator to stop spinning
         spinner = lambda: self.main_view.get_spinner().running
         self.assertThat(spinner, Eventually(Equals(False)))
