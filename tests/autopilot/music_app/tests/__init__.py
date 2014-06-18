@@ -91,8 +91,11 @@ class MusicTestCase(AutopilotTestCase):
         #and we need to do this all in one shell, also passing along our fake env (env=env)
         logger.debug("Launching mediascanner")
         sethome = "initctl set-env HOME=" + self.home_dir
-        retcode = subprocess.check_output(sethome + " start mediascanner-2.0; sleep 10; /usr/lib/x86_64-linux-gnu/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
-        logger.debug("mediascanner and dbus launched %s" % retcode)
+        retcode = subprocess.check_output(sethome + "; start mediascanner-2.0",env=env,stderr=subprocess.STDOUT, shell=True)
+        logger.debug("mediascanner launched %s" % retcode)
+        time.sleep(10)
+        retcode = subprocess.check_output("/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
+        logger.debug("dbus launched %s" % retcode)
 
         #more sanity prints and checks
         retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
