@@ -7,11 +7,18 @@
 
 """Music app autopilot tests."""
 
+import tempfile
+
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+
 import os
+import subprocess
 import os.path
 import shutil
 import sqlite3
-#import subprocess
 import logging
 import music_app
 import time
@@ -19,6 +26,7 @@ import time
 import fixtures
 from music_app import emulators
 
+from autopilot import logging as autopilot_logging
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
@@ -64,42 +72,103 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        logger.debug("Backup root %s" % self.backup_root)
+        #logger.debug("Backup root %s" % self.backup_root)
         #backup and wipe db's before testing
-        sqlite_dir = os.path.join(
-            os.path.expanduser('~'),'.local/share/com.ubuntu.music/Databases')
-        self.backup_folder(sqlite_dir)
-        self.addCleanup(lambda: self.restore_folder(sqlite_dir))
+        #sqlite_dir = os.path.join(
+        #    os.path.expanduser('~'),'.local/share/com.ubuntu.music/Databases')
+        #self.backup_folder(sqlite_dir)
+        #self.addCleanup(lambda: self.restore_folder(sqlite_dir))
+
+        os.system('stop mediascanner-2.0')
+        os.system('killall mediascanner-service-2.0')
+        os.system('killall mediascanner-dbus-2.0')
+        retcode = subprocess.call("ps -ef | grep mediascanner",shell=True)
+        time.sleep(3)
+        os.system('rm /home/nskaggs/.cache/mediascanner-2.0/*')
 
         launch, self.test_type = self.setup_environment()
 
         #patching not needed since we are using real /home for now
-        #self.home_dir = self._patch_home()
-        self.home_dir = os.path.expanduser('~')
+        self.home_dir = self._patch_home()
+        #self.home_dir = os.path.expanduser('~')
 
         self._create_music_library()
+
+        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'), os.environ.get('HOME')))
+        #os.putenv('HOME', self.home_dir)
+        #logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'), os.environ.get('HOME')))
+
+        #time.sleep(10)
+
+        import sys
+
+        env = os.environ.copy()
+        logger.debug("env sees Home as %s" % env['HOME'])
+        logger.debug(
+            "Home mediascanner database files %s" %
+            str(os.listdir(os.path.join('/home/nskaggs',
+            ".cache/mediascanner-2.0"))))
+        #retcode = subprocess.call("/usr/lib/x86_64-linux-gnu/mediascanner-2.0/mediascanner-dbus-2.0",env=env,shell=True)
+        #time.sleep(10)
+        #retcode = subprocess.call("start mediascanner-2.0",env=env,shell=True)
+        #retcode = subprocess.call("strace mediascanner-service-2.0 &> trace2",env=env,shell=True)
+        #retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
+        #logger.debug("initctl home %s" % retcode)
+        retcode = subprocess.check_output("initctl set-env HOME=" + self.home_dir,env=env,shell=True)
+        retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
+        logger.debug("reset initctl home %s" % retcode)
+
+        logger.debug("Launching mediascanner")
+        #retcode = subprocess.call("mediascanner-service-2.0 &",env=env,shell=True)
+        sethome = "initctl set-env HOME=" + self.home_dir
+        launchmediascanner = "start mediascanner-2.0; sleep 10; /usr/lib/x86_64-linux-gnu/mediascanner-2.0/mediascanner-dbus-2.0 &"
+        retcode = subprocess.check_output(sethome + " start mediascanner-2.0; sleep 10; /usr/lib/x86_64-linux-gnu/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
+        logger.debug("mediascanner and dbus launched %s" % retcode)
+        #sys.exit()
+        #time.sleep(10)
+        #logger.debug("Launching mediascanner-dbus")
+        #retcode = subprocess.call("/usr/lib/x86_64-linux-gnu/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,shell=True)
+        #logger.debug("mediascanner-debus launched %s" % retcode)
+
+        logger.debug(
+            "Home mediascanner database files %s" %
+            str(os.listdir(os.path.join('/home/nskaggs',
+            ".cache/mediascanner-2.0"))))
+
+        retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
+        logger.debug("initctl home %s" % retcode)
+        retcode = subprocess.check_output("initctl reset-env",env=env,shell=True)
+        retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
+        logger.debug("reset initctl home %s" % retcode)
+        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'), os.environ.get('HOME')))
+
+        time.sleep(5)
+
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
         launch()
 
+    @autopilot_logging.log_action(logger.info)
+    #launch_dir=self.home_dir,
     def launch_test_local(self):
-        logger.debug("Running via local installation")
         self.app = self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.local_location,
+            "debug",
             app_type='qt',
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
+    @autopilot_logging.log_action(logger.info)
     def launch_test_installed(self):
-        logger.debug("Running via installed debian package")
         self.app = self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.installed_location,
+            "debug",
             app_type='qt',
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
+    @autopilot_logging.log_action(logger.info)
     def launch_test_click(self):
-        logger.debug("Running via click package")
         self.app = self.launch_click_package(
             "com.ubuntu.music",
             emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
@@ -187,8 +256,73 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
 
+    #def _patch_home(self):
+        #""" mock /home for testing purposes to preserve user data
+        #"""
+        #temp_dir_fixture = fixtures.TempDir()
+        #self.useFixture(temp_dir_fixture)
+        #temp_dir = temp_dir_fixture.path
+
+        ##If running under xvfb, as jenkins does,
+        ##xsession will fail to start without xauthority file
+        ##Thus if the Xauthority file is in the home directory
+        ##make sure we copy it to our temp home directory
+        #self._copy_xauthority_file(temp_dir)
+
+        ##click requires using initctl env (upstart), but the desktop can set
+        ##an environment variable instead
+        #if self.test_type == 'click':
+            #self.useFixture(toolkit_fixtures.InitctlEnvironmentVariable(
+                            #HOME=temp_dir))
+        #else:
+            #self.useFixture(fixtures.EnvironmentVariable('HOME',
+                                                         #newvalue=temp_dir))
+
+        #logger.debug('Patched home to fake home directory %s' % temp_dir)
+        #logger.debug('Home %s' % os.environ['HOME'])
+
+        #return temp_dir
+
+
+    #def _patch_home(self):
+        ##make a temp dir
+        #temp_dir = tempfile.mkdtemp()
+        #logger.debug("Created fake home directory " + temp_dir)
+        #self.addCleanup(shutil.rmtree, temp_dir)
+
+        #self._copy_xauthority_file(temp_dir)
+
+        #self.patch_environment('HOME', temp_dir)
+        #logger.debug("Patched home to fake home directory " + temp_dir)
+        #logger.debug('Home %s' % os.environ['HOME'])
+
+        #return temp_dir
+
+    #def _patch_home(self):
+        ##make a temp dir
+        #temp_dir = tempfile.mkdtemp()
+        ##delete it, and recreate it to the length
+        ##required so our patching the db works
+        ##require a length of 25
+        #shutil.rmtree(temp_dir)
+        #temp_dir = temp_dir.ljust(25, 'X')
+        #os.mkdir(temp_dir)
+        #logger.debug("Created fake home directory " + temp_dir)
+        #self.addCleanup(shutil.rmtree, temp_dir)
+
+        #self._copy_xauthority_file(temp_dir)
+
+        #patcher = mock.patch.dict('os.environ', {'HOME': temp_dir})
+        #patcher.start()
+        #logger.debug("Patched home to fake home directory " + temp_dir)
+        #logger.debug('Home %s' % os.environ['HOME'])
+        #self.addCleanup(patcher.stop)
+
+        #return temp_dir
+
+
+
     def _create_music_library(self):
-        os.system('stop mediascanner-2.0')
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
@@ -201,12 +335,12 @@ class MusicTestCase(AutopilotTestCase):
 
         #for now, we will use real /home
         #backup Music folder and restore it after testing
-        self.backup_folder(musicpath)
-        self.addCleanup(lambda: self.restore_folder(musicpath))
-        os.makedirs(musicpath)
-        #backup mediascanner folder and restore it after testing
-        self.backup_folder(mediascannerpath)
-        self.addCleanup(lambda: self.restore_folder(mediascannerpath))
+        #self.backup_folder(musicpath)
+        #self.addCleanup(lambda: self.restore_folder(musicpath))
+        #os.makedirs(musicpath)
+        ##backup mediascanner folder and restore it after testing
+        #self.backup_folder(mediascannerpath)
+        #self.addCleanup(lambda: self.restore_folder(mediascannerpath))
 
         #set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
@@ -223,14 +357,11 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        #self._patch_mediascanner_home(mediascannerpath)
+        self._patch_mediascanner_home(mediascannerpath)
 
-        #logger.debug(
-        #    "Mediascanner database copied, files " +
-        #    str(os.listdir(mediascannerpath)))
-
-        os.system('start mediascanner-2.0')
-        time.sleep(10)
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
