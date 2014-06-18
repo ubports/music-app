@@ -73,8 +73,15 @@ class MusicTestCase(AutopilotTestCase):
 
     def setUp(self):
         os.system('stop mediascanner-2.0')
-        os.system('kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-' \
-                  'service-2.0`')
+
+        try:
+            pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
+        except subprocess.CalledProcessError:
+            logger.debug("mediascanner-dbus-2.0 not running")
+        else:
+            pid = pid.decode("utf-8")
+            pid = pid.split(None, 1)[0]
+            os.system('kill -9 ' + pid)
 
         # Stop any mediascanner-dbus and restart mediascanner on exit
         self.addCleanup(os.system, 'kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-service-2.0`')
