@@ -71,6 +71,27 @@ class MusicTestCase(AutopilotTestCase):
             test_type = 'click'
         return launch, test_type
 
+
+    def execute(self, command):
+        import sys
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+        # Poll process for new output until finished
+        while True:
+            nextline = process.stdout.readline()
+            if nextline == '' and process.poll() != None:
+                break
+            logger.debug(nextline)
+            sys.stdout.flush()
+
+        output = process.communicate()[0]
+        exitCode = process.returncode
+
+        if (exitCode == 0):
+            return output
+        else:
+            raise ProcessException(command, exitCode, output)
+
     def setUp(self):
         os.system('stop mediascanner-2.0')
 
@@ -94,34 +115,22 @@ class MusicTestCase(AutopilotTestCase):
 
         self._create_music_library()
 
-        #some sanity debug prints
-        env = os.environ.copy()
-        logger.debug("env sees Home as %s" % env['HOME'])
-        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'),
-                     os.environ.get('HOME')))
-
         #we need to also tell upstart about our fake home
         #and we need to do this all in one shell, also passing along our fake env (env=env)
         logger.debug("Launching mediascanner")
+        env = os.environ.copy()
         sethome = "initctl set-env HOME=" + self.home_dir
         retcode = subprocess.check_output(sethome + "; start mediascanner-2.0",env=env,stderr=subprocess.STDOUT, shell=True)
         logger.debug("mediascanner launched %s" % retcode)
         time.sleep(10)
-        logger.debug("Launching mediascanner-dbus")
-        retcode = subprocess.check_output("/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
-        logger.debug("dbus launched %s" % retcode)
 
-        #more sanity prints and checks
-        retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
-        logger.debug("initctl home %s" % retcode)
-        #we attempt to reset -- should check more thoroughly
-        retcode = subprocess.check_output("initctl reset-env",env=env,shell=True)
+        logger.debug("Launching mediascanner-dbus")
+        retcode = subprocess.call("/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
+        logger.debug("mediascanner-dbus launched %s" % retcode)
+
+        #we attempt to reset home for future upstart jobs -- should check more thoroughly
         retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
         logger.debug("reset initctl home %s" % retcode)
-        logger.debug("os sees Home as %s, %s" % (os.getenv('HOME'), os.environ.get('HOME')))
-
-        #wait a few seconds for the magic
-        time.sleep(10)
 
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
