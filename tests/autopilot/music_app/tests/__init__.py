@@ -96,11 +96,17 @@ class MusicTestCase(AutopilotTestCase):
             os.path.expanduser('~'), '.local/share/com.ubuntu.music/Databases')
         self.backup_folder(sqlite_dir)
         self.addCleanup(lambda: self.restore_folder(sqlite_dir))
-        self.home_dir = os.environ['HOME']
         #Use backup and restore to setup test environment
         #################################################
 
         launch, self.test_type = self.setup_environment()
+
+        #################################################
+        #Use backup and restore to setup test environment
+        self.home_dir = os.environ['HOME']
+        self._create_music_library()
+        #Use backup and restore to setup test environment
+        #################################################
 
         #Use mocking fakehome
         #####################
@@ -261,6 +267,19 @@ class MusicTestCase(AutopilotTestCase):
         if not os.path.exists(musicpath):
             os.makedirs(musicpath)
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
+
+        #Use backup and restore to setup test environment
+        #################################################
+        #for now, we will use real /home
+        #backup Music folder and restore it after testing
+        self.backup_folder(musicpath)
+        self.addCleanup(lambda: self.restore_folder(musicpath))
+        os.makedirs(musicpath)
+        #backup mediascanner folder and restore it after testing
+        self.backup_folder(mediascannerpath)
+        self.addCleanup(lambda: self.restore_folder(mediascannerpath))
+        #################################################
+        #Use backup and restore to setup test environment
 
         #set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
