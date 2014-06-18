@@ -11,7 +11,7 @@ import os
 import os.path
 import shutil
 import sqlite3
-#import subprocess
+import subprocess
 import logging
 import music_app
 import time
