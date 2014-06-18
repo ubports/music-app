@@ -517,7 +517,7 @@ class TestMainWindow(MusicTestCase):
 
         # verify track queue has added all songs to initial value
         endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, Equals(initialtracksCount + 3))
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 2))
 
         # Assert that the song added to the list is playing
         self.assertThat(self.player.currentIndex,
