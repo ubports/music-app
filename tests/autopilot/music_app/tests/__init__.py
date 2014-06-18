@@ -96,6 +96,7 @@ class MusicTestCase(AutopilotTestCase):
             os.path.expanduser('~'), '.local/share/com.ubuntu.music/Databases')
         self.backup_folder(sqlite_dir)
         self.addCleanup(lambda: self.restore_folder(sqlite_dir))
+        self.home_dir = os.environ['HOME']
         #Use backup and restore to setup test environment
         #################################################
 
@@ -276,11 +277,16 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
+
+        #####################
+        #Use mocking fakehome
         #self._patch_mediascanner_home(mediascannerpath)
 
         #logger.debug(
         #    "Mediascanner database copied, files " +
         #    str(os.listdir(mediascannerpath)))
+        #####################
+        #Use mocking fakehome
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
