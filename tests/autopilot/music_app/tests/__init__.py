@@ -116,7 +116,6 @@ class MusicTestCase(AutopilotTestCase):
         launch()
 
     @autopilot_logging.log_action(logger.info)
-    #launch_dir=self.home_dir,
     def launch_test_local(self):
         self.app = self.launch_test_application(
             base.get_qmlscene_launch_command(),
