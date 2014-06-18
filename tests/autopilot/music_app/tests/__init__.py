@@ -189,7 +189,14 @@ class MusicTestCase(AutopilotTestCase):
 
     def _create_music_library(self):
         os.system('stop mediascanner-2.0')
-        os.system('kill -9 `pidof /usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0`')
+        try:
+            pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
+        except subprocess.CalledProcessError:
+            logger.debug("mediascanner-dbus-2.0 not running")
+        else:
+            pid = pid.decode("utf-8")
+            pid = pid.split(None, 1)[0]
+            os.system('kill -9 ' + pid)
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
