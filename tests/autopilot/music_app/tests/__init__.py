@@ -71,27 +71,6 @@ class MusicTestCase(AutopilotTestCase):
             test_type = 'click'
         return launch, test_type
 
-
-    def execute(self, command):
-        import sys
-        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-        # Poll process for new output until finished
-        while True:
-            nextline = process.stdout.readline()
-            if nextline == '' and process.poll() != None:
-                break
-            logger.debug(nextline)
-            sys.stdout.flush()
-
-        output = process.communicate()[0]
-        exitCode = process.returncode
-
-        if (exitCode == 0):
-            return output
-        else:
-            raise ProcessException(command, exitCode, output)
-
     def setUp(self):
         os.system('stop mediascanner-2.0')
 
