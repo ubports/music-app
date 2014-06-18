@@ -100,6 +100,7 @@ class MusicTestCase(AutopilotTestCase):
         retcode = subprocess.check_output(sethome + "; start mediascanner-2.0",env=env,stderr=subprocess.STDOUT, shell=True)
         logger.debug("mediascanner launched %s" % retcode)
         time.sleep(10)
+        logger.debug("Launching mediascanner-dbus")
         retcode = subprocess.check_output("/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
         logger.debug("dbus launched %s" % retcode)
 
@@ -263,7 +264,10 @@ class MusicTestCase(AutopilotTestCase):
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
-        logger.debug("Patching fake mediascanner database")
+        logger.debug("Patching fake mediascanner database in %s" % mediascannerpath)
+        logger.debug(
+            "Mediascanner database files " +
+            str(os.listdir(mediascannerpath)))
 
         relhome = self.home_dir[1:]
         dblocation = "home/phablet"

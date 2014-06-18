@@ -13,11 +13,15 @@ CREATE TABLE media (
     disc_number INTEGER,  -- Only relevant to audio
     track_number INTEGER, -- Only relevant to audio
     duration INTEGER,
+    width INTEGER,        -- Only relevant to video/images
+    height INTEGER,       -- Only relevant to video/images
+    latitude DOUBLE,
+    longitude DOUBLE,
     type INTEGER   -- 0=Audio, 1=Video
 );
-INSERT INTO media VALUES('/home/phablet/Music/1.ogg','audio/ogg','1400569935:0','Gran Vals',1902,'Francisco Tárrega','','Francisco Tárrega','',0,0,202,1);
-INSERT INTO media VALUES('/home/phablet/Music/2.ogg','audio/ogg','1399334632:0','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,1);
-INSERT INTO media VALUES('/home/phablet/Music/3.mp3','audio/mpeg','1399334632:0','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,1);
+INSERT INTO "media" VALUES('/home/phablet/Music/1.ogg','audio/ogg','1401368666:257952','Gran Vals','1902','Francisco Tárrega','','Francisco Tárrega','',0,0,202,0,0,0.0,0.0,1);
+INSERT INTO "media" VALUES('/home/phablet/Music/2.ogg','audio/ogg','1401457265:78191','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,0,0,0.0,0.0,1);
+INSERT INTO "media" VALUES('/home/phablet/Music/3.mp3','audio/mpeg','1401457265:78191','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,0,0,0.0,0.0,1);
 
 CREATE INDEX media_album_album_artist_idx ON media(album, album_artist);
 CREATE TRIGGER media_ai AFTER INSERT ON media BEGIN
