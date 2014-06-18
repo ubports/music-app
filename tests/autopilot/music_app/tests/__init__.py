@@ -76,7 +76,10 @@ class MusicTestCase(AutopilotTestCase):
             pid = pid.split(None, 1)[0]
             os.system('kill -9 ' + pid)
 
-        # Restart mediascanner on exit
+        # Stop any mediascanner-dbus and restart mediascanner on exit
+        self.addCleanup(os.system,
+                        'kill -9 `pidof \
+                        /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
@@ -137,7 +140,10 @@ class MusicTestCase(AutopilotTestCase):
         #################################################
         os.system('start mediascanner-2.0')
         time.sleep(10)
+        os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
 
+        self.addCleanup(os.system, "kill -9 `pidof /usr/lib/*/mediasscanner-"
+                        "2.0/mediascanner-dbus-2.0`")
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
         #Use backup and restore to setup test environment
