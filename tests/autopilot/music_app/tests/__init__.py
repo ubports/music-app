@@ -49,7 +49,7 @@ class MusicTestCase(AutopilotTestCase):
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
     backup_root = os.path.join(
-        os.path.expanduser('~'),'.local/share/com.ubuntu.music/backups')
+        os.path.expanduser('~'), '.local/share/com.ubuntu.music/backups')
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -67,7 +67,7 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Backup root %s" % self.backup_root)
         #backup and wipe db's before testing
         sqlite_dir = os.path.join(
-            os.path.expanduser('~'),'.local/share/com.ubuntu.music/Databases')
+            os.path.expanduser('~'), '.local/share/com.ubuntu.music/Databases')
         self.backup_folder(sqlite_dir)
         self.addCleanup(lambda: self.restore_folder(sqlite_dir))
 
@@ -240,8 +240,9 @@ class MusicTestCase(AutopilotTestCase):
         os.system('start mediascanner-2.0')
         time.sleep(10)
         os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
-        
-        self.addCleanup(os.system, "kill -9 `pidof /usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0`")
+
+        self.addCleanup(os.system, "kill -9 `pidof /usr/lib/*/mediasscanner-"
+                        "2.0/mediascanner-dbus-2.0`")
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
@@ -310,7 +311,8 @@ class MusicTestCase(AutopilotTestCase):
                 except shutil.Error as e:
                     logger.error('Restore error for %s: %s' % (folder, e))
                 except IOError as e:
-                    logger.error('Restore error for %s: %s' % (folder, e.strerror))
+                    logger.error('Restore error for %s: %s' %
+                                 (folder, e.strerror))
                 except:
                     logger.error("Failed to remove test data for %s" % folder)
                     return
