@@ -14,6 +14,7 @@ import sqlite3
 #import subprocess
 import logging
 import music_app
+import time
 
 import fixtures
 from music_app import emulators
@@ -187,6 +188,7 @@ class MusicTestCase(AutopilotTestCase):
         return temp_dir
 
     def _create_music_library(self):
+        os.system('stop mediascanner-2.0')
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
@@ -221,11 +223,14 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        self._patch_mediascanner_home(mediascannerpath)
+        #self._patch_mediascanner_home(mediascannerpath)
 
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
+        #logger.debug(
+        #    "Mediascanner database copied, files " +
+        #    str(os.listdir(mediascannerpath)))
+
+        os.system('start mediascanner-2.0')
+        time.sleep(10)
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
