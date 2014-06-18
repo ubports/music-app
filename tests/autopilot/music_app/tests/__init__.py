@@ -84,7 +84,7 @@ class MusicTestCase(AutopilotTestCase):
             os.system('kill -9 ' + pid)
 
         # Stop any mediascanner-dbus and restart mediascanner on exit
-        self.addCleanup(os.system, 'kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-service-2.0`')
+        self.addCleanup(os.system, 'kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
