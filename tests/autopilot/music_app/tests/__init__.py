@@ -7,13 +7,6 @@
 
 """Music app autopilot tests."""
 
-import tempfile
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
 import os
 import subprocess
 import os.path
@@ -84,7 +77,9 @@ class MusicTestCase(AutopilotTestCase):
             os.system('kill -9 ' + pid)
 
         # Stop any mediascanner-dbus and restart mediascanner on exit
-        self.addCleanup(os.system, 'kill -9 `pidof /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
+        self.addCleanup(os.system,
+                        'kill -9 `pidof \
+                        /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
@@ -115,20 +110,28 @@ class MusicTestCase(AutopilotTestCase):
         #self._create_music_library()
 
         ##we need to also tell upstart about our fake home
-        ##and we need to do this all in one shell, also passing along our fake env (env=env)
+        ##and we need to do this all in one shell,
+        ##also passing along our fake env (env=env)
         #logger.debug("Launching mediascanner")
         #env = os.environ.copy()
         #sethome = "initctl set-env HOME=" + self.home_dir
-        #retcode = subprocess.check_output(sethome + "; start mediascanner-2.0",env=env,stderr=subprocess.STDOUT, shell=True)
+        #retcode = subprocess.check_output(sethome + ";
+                                          #start mediascanner-2.0",
+                                          #env=env,
+                                          #stderr=subprocess.STDOUT,
+                                          #shell=True)
         #logger.debug("mediascanner launched %s" % retcode)
         #time.sleep(10)
 
         #logger.debug("Launching mediascanner-dbus")
-        #retcode = subprocess.call("/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",env=env,stderr=subprocess.STDOUT, shell=True)
+        #retcode = subprocess.call(
+            #"/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",
+            #env=env, stderr=subprocess.STDOUT, shell=True)
         #logger.debug("mediascanner-dbus launched %s" % retcode)
 
-        ##we attempt to reset home for future upstart jobs -- should check more thoroughly
-        #retcode = subprocess.check_output("initctl get-env HOME",env=env,shell=True)
+        ##we attempt to reset home for future upstart jobs
+        #retcode = subprocess.check_output("initctl get-env HOME",
+                                          #env=env, shell=True)
         #logger.debug("reset initctl home %s" % retcode)
         #####################
         #Use mocking fakehome
@@ -296,7 +299,6 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-
         #####################
         #Use mocking fakehome
         #self._patch_mediascanner_home(mediascannerpath)
@@ -311,7 +313,8 @@ class MusicTestCase(AutopilotTestCase):
         #do some inline db patching
         #patch mediaindex to proper home
         #these values are dependent upon our sampled db
-        logger.debug("Patching fake mediascanner database in %s" % mediascannerpath)
+        logger.debug("Patching fake mediascanner database in %s" %
+                     mediascannerpath)
         logger.debug(
             "Mediascanner database files " +
             str(os.listdir(mediascannerpath)))
