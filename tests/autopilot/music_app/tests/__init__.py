@@ -64,7 +64,7 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        os.system('stop mediascanner-2.0')
+        subprocess.call(["stop", "mediascanner-2.0"])
 
         try:
             pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
@@ -73,13 +73,15 @@ class MusicTestCase(AutopilotTestCase):
         else:
             pid = pid.decode("utf-8")
             pid = pid.split(None, 1)[0]
-            os.system('kill -9 ' + pid)
+            subprocess.call(["kill", "-9", pid])
 
         # Stop any mediascanner-dbus and restart mediascanner on exit
-        self.addCleanup(os.system,
-                        'kill -9 `pidof \
-                        /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
-        self.addCleanup(os.system, "start mediascanner-2.0")
+        self.addCleanup(subprocess.call,
+                        'kill -9 \
+                        `pidof \
+                        /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`',
+                        shell=True)
+        self.addCleanup(subprocess.call, ["start", "mediascanner-2.0"])
 
         launch, self.test_type = self.setup_environment()
 
@@ -108,6 +110,8 @@ class MusicTestCase(AutopilotTestCase):
 
         self.home_dir = os.environ['HOME']
         self._create_music_library()
+        #################################################
+        #Use backup and restore to setup test environment
 
         #Use mocking fakehome
         #####################
