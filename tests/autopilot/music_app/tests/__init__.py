@@ -80,7 +80,6 @@ class MusicTestCase(AutopilotTestCase):
         self.addCleanup(os.system,
                         'kill -9 `pidof \
                         /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`')
-        self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
         launch, self.test_type = self.setup_environment()
@@ -110,13 +109,6 @@ class MusicTestCase(AutopilotTestCase):
 
         self.home_dir = os.environ['HOME']
         self._create_music_library()
-
-        #start up mediascanner service after patching
-        os.system('start mediascanner-2.0')
-        time.sleep(10)
-        os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
-        #Use backup and restore to setup test environment
-        #################################################
 
         #Use mocking fakehome
         #####################
