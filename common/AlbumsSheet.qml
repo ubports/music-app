@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 
@@ -58,7 +61,12 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                model: artistAlbumsModel.model
+                model: AlbumsModel {
+                    id: artistsModel
+                    albumArtist: sheetItem.artist
+                    store: musicStore
+                }
+
                 delegate: albumTracksDelegate
                 header: artistHeaderDelegate
 
@@ -132,6 +140,15 @@ Item {
                                 fontSize: "large"
                             }
 
+                            SongsModel {
+                                id: songArtistModel
+                                albumArtist: sheetItem.artist
+                                // HACK: Temporarily setting limit to 500 to ensure model
+                                //       is populated. See lp:1326753
+                                limit: 500
+                                store: musicStore
+                            }
+
                             // Play
                             Rectangle {
                                 id: playRow
@@ -167,10 +184,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        albumTracksModel.filterArtistTracks(artist)
-                                        trackQueue.model.clear()
-                                        addQueueFromModel(albumTracksModel)
-                                        trackClicked(trackQueue, 0)  // play track
+                                        trackClicked(songArtistModel, 0, true)
 
                                         // TODO: add links to recent
 
@@ -218,8 +232,7 @@ Item {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        albumTracksModel.filterArtistTracks(artist)
-                                        addQueueFromModel(albumTracksModel)
+                                        addQueueFromModel(songArtistModel)
                                     }
                                 }
                             }
@@ -236,6 +249,23 @@ Item {
                         width: parent.width
                         height: units.gu(20)
 
+                        SongsModel {
+                            id: songAlbumArtistModel
+                            albumArtist: model.artist
+                            album: model.title
+                            // HACK: Temporarily setting limit to 500 to ensure model
+                            //       is populated. See lp:1326753
+                            limit: 500
+                            store: musicStore
+                        }
+                        Repeater {
+                            id: songAlbumArtistModelRepeater
+                            model: songAlbumArtistModel
+                            delegate: Text { text: new Date(model.date).toLocaleString(Qt.locale(),'yyyy'); visible: false }
+                            property string year: ""
+                            onItemAdded: year = item.text
+                        }
+
                         CoverRow {
                             id: albumImage
                             anchors {
@@ -246,7 +276,7 @@ Item {
                             }
                             count: 1
                             size: parent.height
-                            covers: [Library.getAlbumCover(model.album)]
+                            covers: [{author: artist, album: model.title}]
                             objectName: "artistsheet-albumcover"
                             spacing: units.gu(2)
 
@@ -259,13 +289,12 @@ Item {
                                         focus = true
                                     }
 
-                                    albumTracksModel.filterAlbumTracks(album)
+                                    albumSheet.album = model.title;
+
                                     albumSheet.line1 = artist
-                                    albumSheet.line2 = model.album
+                                    albumSheet.line2 = model.title
                                     albumSheet.isAlbum = true
-                                    albumSheet.file = file
-                                    albumSheet.year = year
-                                    albumSheet.covers = [Library.getAlbumCover(model.album) || Qt.resolvedUrl("../images/music-app-cover@30.png")]
+                                    albumSheet.covers = [{author: artist, album: model.title}]
                                     PopupUtils.open(albumSheet.sheet)
 
                                     // TODO: This closes the SDK defined sheet
@@ -305,7 +334,7 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: album
+                            text: model.title
                         }
                         Label {
                             id: albumYear
@@ -320,7 +349,9 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: units.gu(1.5)
                             elide: Text.ElideRight
-                            text: i18n.tr(model.year + " | %1 song", model.year + " | %1 songs", Library.getAlbumTracks(album).length).arg(Library.getAlbumTracks(album).length)
+                            text: i18n.tr(songAlbumArtistModelRepeater.year + " | %1 song",
+                                          songAlbumArtistModelRepeater.year + " | %1 songs",
+                                          songAlbumArtistModelRepeater.count).arg(songAlbumArtistModelRepeater.count)
                         }
 
                         // Play
@@ -355,13 +386,10 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    albumTracksModel.filterAlbumTracks(album)
-                                    Library.addRecent(album, artist, Library.getAlbumCover(album), album, "album")
+                                    Library.addRecent(model.title, artist, "", model.title, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
-                                    trackQueue.model.clear()
-                                    addQueueFromModel(albumTracksModel)
-                                    trackClicked(trackQueue, 0)  // play track
+                                    trackClicked(songAlbumArtistModel, 0, true)
 
                                     // TODO: This closes the SDK defined sheet
                                     //       component. It should be able to close
@@ -403,8 +431,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    albumTracksModel.filterAlbumTracks(album)
-                                    addQueueFromModel(albumTracksModel)
+                                    addQueueFromModel(songAlbumArtistModel)
                                 }
                             }
                         }

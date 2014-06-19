@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013 Canonical
+# Copyright 2013, 2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -51,6 +51,23 @@ class MainView(toolkit_emulators.MainView):
 
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
 
+    def add_to_queue_from_albums_tab_album_sheet(self, artistName, trackTitle):
+        # switch to albums tab
+        self.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get track item to add to queue
+        trackicon = self.get_album_sheet_listview_trackicon(
+            trackTitle)
+        self.pointing_device.click_object(trackicon)
+
+        #click on Add to queue
+        queueTrackLabel = self.get_album_sheet_queuetrack_label()
+        self.pointing_device.click_object(queueTrackLabel)
+
     def get_player(self):
         return self.select_single("*", objectName="player")
 
@@ -83,7 +100,9 @@ class MainView(toolkit_emulators.MainView):
         return self.wait_select_single("*", objectName="genreItemObject")
 
     def get_back_button(self):
-        return self.select_single("*", objectName="nowPlayingBackButtonObject")
+        backButton = self.select_single("AbstractButton",
+                                        objectName="backButton")
+        return backButton
 
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")

@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 import "ExpanderItems"
@@ -37,6 +40,17 @@ Item {
     property string year: ""
     property bool isAlbum: false
     property alias sheet: sheetComponent
+
+    property alias album: songsModel.album
+    property alias genre: songsModel.genre
+
+    SongsModel {
+        id: songsModel
+        // HACK: Temporarily setting limit to 500 to ensure model
+        //       is populated. See lp:1326753
+        limit: 500
+        store: musicStore
+    }
 
     Component {
         id: sheetComponent
@@ -61,7 +75,8 @@ Item {
                 width: parent.width
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                model: albumTracksModel.model
+                model: isAlbum ? songsModel : albumTracksModel.model
+
                 delegate: albumTracksDelegate
                 header: ListItem.Standard {
                     id: albumInfo
@@ -125,8 +140,8 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
-                                      : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                        text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                                      : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
                     }
 
@@ -162,13 +177,14 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                trackClicked(albumTracksModel, 0)  // play track
-                                if (isAlbum) {
-                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                trackClicked(albumtrackslist.model, 0)  // play track
+
+                                if (isAlbum && sheetItem.line1 != "Genre") {
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 } else if (sheetItem.line1 == "Playlist") {
-                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.covers[0], sheetItem.line2, "playlist")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 }
@@ -213,7 +229,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                addQueueFromModel(albumTracksModel)
+                                addQueueFromModel(albumtrackslist.model)
                             }
                         }
                     }
@@ -237,13 +253,13 @@ Item {
                                 if (focus == false) {
                                     focus = true
                                 }
-                                trackClicked(albumTracksModel, index)  // play track
-                                if (isAlbum) {
-                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.cover, sheetItem.line2, "album")
+                                trackClicked(albumtrackslist.model, index)  // play track
+                                if (isAlbum && sheetItem.line1 != "Genre") {
+                                    Library.addRecent(sheetItem.line2, sheetItem.line1, sheetItem.covers[0], sheetItem.line2, "album")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 } else if (sheetItem.line1 == "Playlist") {
-                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.cover, sheetItem.line2, "playlist")
+                                    Library.addRecent(sheetItem.line2, "Playlist", sheetItem.covers[0], sheetItem.line2, "playlist")
                                     mainView.hasRecent = true
                                     recentModel.filterRecent()
                                 }
@@ -275,7 +291,7 @@ Item {
                                 height: styleMusic.common.albumSize
                                 visible: !isAlbum
                                 image: Image {
-                                    source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                                    source: "image://albumart/artist=" + model.author + "&album=" + model.album
                                     onStatusChanged: {
                                         if (status === Image.Error) {
                                             source = Qt.resolvedUrl("../images/music-app-cover@30.png")
@@ -300,7 +316,7 @@ Item {
                                     rightMargin: units.gu(1.5)
                                 }
                                 elide: Text.ElideRight
-                                text: model.artist
+                                text: model.author
                             }
 
                             Label {
@@ -348,7 +364,7 @@ Item {
                                 fill: parent
                             }
                             listItem: track
-                            model: albumTracksModel.model.get(index)
+                            model: isAlbum ? albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData) : albumtrackslist.model.get(index)
                             row: Row {
                                 AddToPlaylist {
 
@@ -360,10 +376,10 @@ Item {
                         }
 
                         Component.onCompleted: {
-                            if (index === 0)
+                            if (model.date !== undefined && sheetItem.year === "")
                             {
-                                sheetItem.file = model.file;
-                                sheetItem.year = model.year;
+                                sheetItem.file = model.filename;
+                                sheetItem.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                             }
                         }
                     }

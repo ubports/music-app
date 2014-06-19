@@ -1,7 +1,6 @@
 {
-    "description": "A music application for Ubuntu",
-    "framework": "ubuntu-sdk-14.04-dev1",
-    "architecture": "armhf",
+    "description": "A music application for ubuntu",
+    "framework": "ubuntu-sdk-14.10-qml-dev1",
     "hooks": {
         "@APP_NAME@": {
             "apparmor": "apparmor.json",

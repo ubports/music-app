@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +19,16 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1 as Toolkit
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 
@@ -59,21 +63,23 @@ Page {
         anchors.bottomMargin: units.gu(1)
         cellHeight: height/3
         cellWidth: height/3
-        model: albumModel.model
+        model: Toolkit.SortFilterModel {
+            id: albumsModelFilter
+            property alias rowCount: albumsModel.rowCount
+            model: AlbumsModel {
+                id: albumsModel
+                store: musicStore
+            }
+            sort.property: "title"
+            sort.order: Qt.AscendingOrder
+        }
+
         delegate: albumDelegate
         flow: GridView.TopToBottom
 
         Component {
             id: albumDelegate
             Item {
-                property string artist: model.artist
-                property string album: model.album
-                property string title: model.title
-                property string cover: model.cover  !== "" ? model.cover :  Qt.resolvedUrl("images/music-app-cover@30.png")
-                property string length: model.length
-                property string file: model.file
-                property string year: model.year
-
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
                 width: albumlist.cellHeight - units.gu(1)
@@ -85,7 +91,7 @@ Page {
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
-                        source: cover
+                        source: "image://albumart/artist=" + model.artist + "&album=" + model.title
                         onStatusChanged: {
                             if (status === Image.Error) {
                                 source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -118,7 +124,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: artist
+                        text: model.artist
                         fontSize: "x-small"
                     }
                     Label {
@@ -131,7 +137,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: album
+                        text: model.title
                         fontSize: "small"
                     }
                 }
@@ -143,14 +149,12 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        albumTracksModel.filterAlbumTracks(album)
-
-                        songsSheet.line1 = artist
-                        songsSheet.line2 = album
+                        songsSheet.album = model.title;
+                        songsSheet.genre = undefined
+                        songsSheet.line1 = model.artist
+                        songsSheet.line2 = model.title
                         songsSheet.isAlbum = true
-                        songsSheet.file = file
-                        songsSheet.year = year
-                        songsSheet.covers = [cover]
+                        songsSheet.covers = [{author: model.artist, album: model.title}]
                         PopupUtils.open(songsSheet.sheet)
                     }
                 }
