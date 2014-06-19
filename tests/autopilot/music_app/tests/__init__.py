@@ -65,7 +65,7 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        #os.system('stop mediascanner-2.0')
+        os.system('stop mediascanner-2.0')
 
         try:
             pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
@@ -99,14 +99,14 @@ class MusicTestCase(AutopilotTestCase):
         #backup Music folder and restore it after testing
         self.backup_folder(os.path.join(os.environ.get('HOME'), 'Music'))
         self.addCleanup(lambda: self.restore_folder(
-                         os.path.join(os.environ.get('HOME'), 'Music')))
+                        os.path.join(os.environ.get('HOME'), 'Music')))
 
         #backup mediascanner folder and restore it after testing
         self.backup_folder(os.path.join(os.environ.get('HOME'),
-                                         '.cache/mediascanner-2.0'))
+                                        '.cache/mediascanner-2.0'))
         self.addCleanup(lambda: self.restore_folder(os.path.join(
-                                         os.environ.get('HOME'),
-                                         '.cache/mediascanner-2.0')))
+                        os.environ.get('HOME'),
+                        '.cache/mediascanner-2.0')))
 
         self.home_dir = os.environ['HOME']
         self._create_music_library()
