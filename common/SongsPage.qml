@@ -19,6 +19,8 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 import "ExpanderItems"
@@ -33,15 +35,25 @@ Page {
     property string line2: ""
     property string songtitle: ""
     property var covers: []
-    property string length: ""
+    property bool isAlbum: false
     property string file: ""
     property string year: ""
-    property bool isAlbum: false
+
+    property alias album: songsModel.album
+    property alias genre: songsModel.genre
 
     onVisibleChanged: {
         if (visible) {
             musicToolbar.setPage(songStackPage, null, mainPageStack)
         }
+    }
+
+    SongsModel {
+        id: songsModel
+        // HACK: Temporarily setting limit to 500 to ensure model
+        //       is populated. See lp:1326753
+        limit: 500
+        store: musicStore
     }
 
     ListView {
@@ -51,11 +63,10 @@ Page {
             fill: parent
         }
         delegate: albumTracksDelegate
-        model: albumTracksModel.model
+        model: isAlbum ? songsModel : albumTracksModel.model
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            width: parent.width
             height: units.gu(22)
 
             CoverRow {
@@ -115,8 +126,8 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
-                text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
-                              : i18n.tr("%1 song", "%1 songs", albumTracksModel.model.count).arg(albumTracksModel.model.count)
+                text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                              : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
             }
 
@@ -152,13 +163,14 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        trackClicked(albumTracksModel, 0)  // play track
-                        if (isAlbum) {
-                            Library.addRecent(pageItem.line2, pageItem.line1, pageItem.cover, pageItem.line2, "album")
+                        trackClicked(albumtrackslist.model, 0)  // play track
+
+                        if (isAlbum && songStackPage.line1 !== "Genre") {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
-                        } else if (pageItem.line1 == "Playlist") {
-                            Library.addRecent(pageItem.line2, "Playlist", pageItem.cover, pageItem.line2, "playlist")
+                        } else if (songStackPage.line1 === "Playlist") {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
                         }
@@ -198,7 +210,7 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        addQueueFromModel(albumTracksModel)
+                        addQueueFromModel(albumtrackslist.model)
                     }
                 }
             }
@@ -222,13 +234,15 @@ Page {
                         if (focus == false) {
                             focus = true
                         }
-                        trackClicked(albumTracksModel, index)  // play track
-                        if (isAlbum) {
-                            Library.addRecent(pageItem.line2, pageItem.line1, pageItem.cover, pageItem.line2, "album")
+
+                        trackClicked(albumtrackslist.model, index)  // play track
+
+                        if (isAlbum && songStackPage.line1 !== "Genre") {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
-                        } else if (pageItem.line1 == "Playlist") {
-                            Library.addRecent(pageItem.line2, "Playlist", pageItem.cover, pageItem.line2, "playlist")
+                        } else if (songStackPage.line1 === "Playlist") {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
                         }
@@ -255,7 +269,7 @@ Page {
                         height: styleMusic.common.albumSize
                         visible: !isAlbum
                         image: Image {
-                            source: model.cover !== "" ? model.cover : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                            source: "image://albumart/artist=" + model.author + "&album=" + model.album
                             onStatusChanged: {
                                 if (status === Image.Error) {
                                     source = Qt.resolvedUrl("../images/music-app-cover@30.png")
@@ -280,7 +294,7 @@ Page {
                             rightMargin: units.gu(1.5)
                         }
                         elide: Text.ElideRight
-                        text: model.artist
+                        text: model.author
                     }
 
                     Label {
@@ -328,7 +342,7 @@ Page {
                         fill: parent
                     }
                     listItem: track
-                    model: albumTracksModel.model.get(index)
+                    model: isAlbum ? albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData) : albumtrackslist.model.get(index)
                     row: Row {
                         AddToPlaylist {
 
@@ -342,8 +356,8 @@ Page {
                 Component.onCompleted: {
                     if (index === 0)
                     {
-                        songStackPage.file = model.file;
-                        songStackPage.year = model.year;
+                        songStackPage.file = model.filename;
+                        songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                     }
                 }
             }

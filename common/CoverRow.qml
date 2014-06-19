@@ -1,5 +1,8 @@
 /*
- * Copyright (C) 2013 Nekhelesh Ramananthan <krnekhelesh@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Nekhelesh Ramananthan <krnekhelesh@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,8 +55,9 @@ UbuntuShape {
             delegate: Image {
                 width: coverRow.size
                 height: width
-                source: coverRow.count === 0 || coverRow.covers[index] === ""
-                        ? Qt.resolvedUrl("../images/music-app-cover@30.png") : coverRow.covers[index]
+                source: coverRow.count !== 0 && coverRow.covers[index] !== "" && coverRow.covers[index] !== undefined
+                          ? "image://albumart/artist=" + coverRow.covers[index].author + "&album=" + coverRow.covers[index].album
+                          : Qt.resolvedUrl("../images/music-app-cover@30.png")
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")

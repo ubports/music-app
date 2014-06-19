@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +22,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -47,7 +51,12 @@ Page {
         id: artistlist
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        model: artistModel.model
+        model: ArtistsModel {
+            id: artistsModel
+            albumArtists: true
+            store: musicStore
+        }
+
         delegate: artistDelegate
 
         Component {
@@ -55,8 +64,45 @@ Page {
 
             ListItem.Standard {
                 id: track
-                property string artist: model.artist
                 height: styleMusic.common.itemHeight
+
+                AlbumsModel {
+                    id: albumArtistModel
+                    albumArtist: model.artist
+                    store: musicStore
+                }
+
+                Repeater {
+                    id: albumArtistModelRepeater
+                    model: albumArtistModel
+                    delegate: Item {
+                        property string author: model.artist
+                        property string album: model.title
+                    }
+                    property var covers: []
+                    signal finished()
+
+                    onFinished: {
+                        coverRow.count = count
+                        coverRow.covers = covers
+                    }
+                    onItemAdded: {
+                        covers.push({author: item.author, album: item.album});
+
+                        if (index === count - 1) {
+                            finished();
+                        }
+                    }
+                }
+
+                SongsModel {
+                    id: songArtistModel
+                    albumArtist: model.artist
+                    // HACK: Temporarily setting limit to 500 to ensure model
+                    //       is populated. See lp:1326753
+                    limit: 500
+                    store: musicStore
+                }
 
                 CoverRow {
                     id: coverRow
@@ -65,9 +111,10 @@ Page {
                         left: parent.left
                         margins: units.gu(1)
                     }
-                    count: parseInt(Library.getArtistCovers(artist).length)
+
+                    count: 0
                     size: styleMusic.common.albumSize
-                    covers: Library.getArtistCovers(artist)
+                    covers: []
                 }
 
                 Label {
@@ -86,7 +133,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    text: artist
+                    text: model.artist
                 }
 
                 Label {
@@ -103,8 +150,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    // model for number of albums?
-                    text: i18n.tr("%1 album", "%1 albums", Library.getArtistAlbumCount(artist)).arg(Library.getArtistAlbumCount(artist))
+                    text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
                 }
 
                 Label {
@@ -121,7 +167,7 @@ Page {
                         rightMargin: units.gu(1.5)
                     }
                     elide: Text.ElideRight
-                    text: i18n.tr("%1 song", "%1 songs", Library.getArtistTracks(artist).length).arg(Library.getArtistTracks(artist).length)
+                    text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
                 }
                 onFocusChanged: {
                 }
@@ -132,16 +178,12 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        artistAlbumsModel.filterArtistAlbums(artist)
-
-                        albumsPage.artist = artist
+                        albumsPage.artist = model.artist
                         albumsPage.covers = coverRow.covers
                         albumsPage.title = i18n.tr("Artist")
 
                         mainPageStack.push(albumsPage)
                     }
-                }
-                Component.onCompleted: {
                 }
             }
         }

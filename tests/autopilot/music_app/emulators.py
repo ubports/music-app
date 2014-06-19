@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013 Canonical
+# Copyright 2013, 2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -50,6 +50,27 @@ class MainView(toolkit_emulators.MainView):
         y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
 
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
+
+    def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        #select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        #get album sheet album artist
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(artistName))
+
+        #get track item to add to queue
+        trackicon = self.main_view.get_songs_page_listview_trackicon(
+            trackTitle)
+        self.pointing_device.click_object(trackicon)
+
+        #click on Add to queue
+        queueTrackLabel = self.main_view.get_songs_page_queuetrack_label()
+        self.pointing_device.click_object(queueTrackLabel)
 
     def get_player(self):
         return self.select_single("*", objectName="player")

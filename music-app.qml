@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +22,8 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
-import org.nemomobile.grilo 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
@@ -199,9 +200,6 @@ MainView {
     actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
-    // TODO currently this only allows playing file:// URIs of known files
-    // (already in the database), not e.g. http:// URIs or files in directories
-    // not picked up by Grilo
     Connections {
         id: uriHandler
         target: UriHandler
@@ -214,33 +212,29 @@ MainView {
                 return;
             }
 
-            // Get tracks
-            var tracks = Library.getArtistAlbumTracks(decodeURIComponent(split[0]), decodeURIComponent(split[1]));
+            // Filter by artist and album
+            songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
+            songsAlbumArtistModel.album = decodeURIComponent(split[1]);
 
-            if (tracks.length === 0) {
+            // Play album it tracks exist
+            if (songsAlbumArtistModel.rowCount > 0) {
+                trackClicked(songsAlbumArtistModel, 0, true);
+            }
+            else {
                 console.debug("Unknown artist-album " + uri + ", skipping")
                 return;
             }
-
-            // Enqueue
-            for (var track in tracks) {
-                trackQueue.append(tracks[track]);
-            }
-
-            // Play first track
-            trackClicked(trackQueue, 0, true);
         }
 
         function processFile(uri, play) {
             uri = decodeURIComponent(uri);
 
-            // search for path in library
-            var library = Library.getAll();
             var track = false;
 
-            for (var item in library) {
-                if (decodeURIComponent(library[item].file) === uri) {
-                    track = library[item];
+            // Search for track in songs model
+            for (var i=0; i < allSongsModel.rowCount; i++) {
+                if (decodeURIComponent(allSongsModel.get(i, allSongsModel.RoleModelData).filename) === uri) {
+                    track = allSongsModel.get(i, allSongsModel.RoleModelData);
                     break;
                 }
             }
@@ -255,7 +249,7 @@ MainView {
 
             // play first URI
             if (play) {
-                trackClicked(trackQueue, 0, true)
+                trackQueueClick(0);
             }
         }
 
@@ -340,8 +334,7 @@ MainView {
             Settings.setSetting("repeat", "0") // default state of repeat
             //Settings.setSetting("scrobble", "0") // default state of scrobble
         }
-        Library.reset()
-        //Library.initialize();
+        Library.initialize();
 
         // initialize playlists
         Playlists.initializePlaylists()
@@ -355,12 +348,26 @@ MainView {
         // push the page to view
         mainPageStack.push(tabs)
 
+        loadedUI = true;
+
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
         tabs.selectedTabIndex = 1
         tabs.selectedTabIndex = 0
-    }
 
+        // Run post load
+        tabs.ensurePopulated(tabs.selectedTab);
+
+        if (args.values.url) {
+            uriHandler.process(args.values.url, true);
+        }
+
+        // Show toolbar and start timer if there is music
+        if (!emptyPage.noMusic) {
+            musicToolbar.showToolbar();
+            musicToolbar.startAutohideTimer();
+        }
+    }
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
@@ -371,16 +378,13 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property var chosenElement: null
-    property LibraryListModel currentModel: null  // Current model being used
-    property var currentQuery: null
-    property var currentParam: null
-    property bool queueChanged: false
     property bool toolbarShown: musicToolbar.shown
     signal collapseExpand();
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70)
+    property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS
 
@@ -393,28 +397,20 @@ MainView {
         }
     }
 
-    // Add items from a stored query in libraryModel into the queue
-    function addQueueFromModel(libraryModel)
+    function addQueueFromModel(model)
     {
-        var items;
-
-        if (libraryModel.query === null)
-        {
-            return
+        // TODO: remove once playlists uses U1DB
+        if (model.hasOwnProperty("linkLibraryListModel")) {
+            model = model.linkLibraryListModel;
         }
 
-        if (libraryModel.param === null)
-        {
-            items = libraryModel.query()
-        }
-        else
-        {
-            items = libraryModel.query(libraryModel.param)
-        }
+        for (var i=0; i < model.rowCount; i++) {
+            var item = model.get(i, model.RoleModelData);
+            if (item.art !== undefined && (item.art === "" || item.art === null)) {
+                item.art = "image://albumart/artist=" + item.author + "&album=" + item.album
+            }
 
-        for (var key in items)
-        {
-            trackQueue.append(items[key])
+            trackQueue.model.append(makeDict(item));
         }
     }
 
@@ -430,64 +426,39 @@ MainView {
         return minutes + ":" + (seconds<10 ? "0"+seconds : seconds);
     }
 
-    function trackClicked(libraryModel, index, play)
-    {
+    // Make dictionary from model item
+    function makeDict(model) {
+        return {
+            album: model.album,
+            author: model.author,
+            filename: model.filename,
+            title: model.title
+        };
+    }
+
+    function trackClicked(model, index, play) {
+        // TODO: remove once playlists uses U1DB
+        if (model.hasOwnProperty("linkLibraryListModel")) {
+            model = model.linkLibraryListModel;
+        }
+
+        var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
+
         play = play === undefined ? true : play  // default play to true
 
-        if (index > libraryModel.model.count - 1 || index < 0) {
-            customdebug("Incorrect index given to trackClicked.")
+        // If same track and on now playing page then toggle
+        if (musicToolbar.currentPage === nowPlaying &&
+                Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
+            player.toggle()
             return;
         }
 
-        var file = Qt.resolvedUrl(libraryModel.model.get(index).file)
+        trackQueue.model.clear();  // clear the old model
 
-        // Clear the play queue and load the new tracks - if not trackQueue
-        // Don't reload queue if model, query and parameters are the same
-        // Same file different pages is treated as a new session
-        if (libraryModel !== trackQueue &&
-                (currentModel !== libraryModel ||
-                 currentQuery !== libraryModel.query ||
-                 currentParam !== libraryModel.param ||
-                 queueChanged === true))
-        {
-            trackQueue.model.clear()
-            addQueueFromModel(libraryModel)
-        }
-        else if (player.source == file &&
-                    player.currentIndex === index)
-        {
-            // Same track so just toggle playing state
-            if (play === true) {
-                console.log("Is current track: "+player.playbackState)
+        addQueueFromModel(model);
 
-                // Show the Now Playing page and make sure the track is visible
-                tabs.pushNowPlaying();
-                nowPlaying.ensureVisibleIndex = index;
-
-                musicToolbar.showToolbar();
-
-                if (musicToolbar.currentPage == nowPlaying) {
-                    player.toggle()
-                }
-            }
-
-            return
-        }
-
-        // Current index must be updated before player.source
-        currentModel = libraryModel
-        currentQuery = libraryModel.query
-        currentParam = libraryModel.param
-
-        if (Qt.resolvedUrl(trackQueue.model.get(index).file) != file) {
-            index = trackQueue.indexOf(file)  // pick given index first
-        }
-        queueChanged = false
-
-        console.log("Click of fileName: " + file)
-
-        if (play === true) {
-            player.playSong(file, index)
+        if (play) {
+            player.playSong(file, index);
 
             // Show the Now Playing page and make sure the track is visible
             tabs.pushNowPlaying();
@@ -496,34 +467,59 @@ MainView {
             musicToolbar.showToolbar();
         }
         else {
-            player.source = file
+            player.source = file;
         }
 
         collapseExpand();  // collapse all expands if track clicked
+    }
 
-        return file
+    function trackQueueClick(index) {
+        if (player.currentIndex === index) {
+            player.toggle();
+        }
+        else {
+            player.playSong(trackQueue.model.get(index).filename, index);
+        }
+
+        // Show the Now Playing page and make sure the track is visible
+        tabs.pushNowPlaying();
+        nowPlaying.ensureVisibleIndex = index;
+
+        musicToolbar.showToolbar();
     }
 
     function playRandomSong(shuffle)
     {
         trackQueue.model.clear();
 
-        var items = Library.getAll();
-
-        for (var key in items) {
-            trackQueue.append(items[key]);
-        }
-
         var now = new Date();
         var seed = now.getSeconds();
-        var index = Math.floor(trackQueue.model.count * Math.random(seed));
-
-        console.debug("THIS", index);
+        var index = Math.floor(allSongsModel.rowCount * Math.random(seed));
 
         player.shuffle = shuffle === undefined ? true : shuffle;
-        trackClicked(trackQueue,
-                     index,
-                     true);
+
+        trackClicked(allSongsModel, index, true)
+    }
+
+    // Load mediascanner store
+    MediaStore {
+        id: musicStore
+    }
+
+    SongsModel {
+        id: allSongsModel
+        // HACK: Temporarily setting limit to 500 to ensure model
+        //       is populated. See lp:1326753
+        limit: 500
+        store: musicStore
+    }
+
+    SongsModel {
+        id: songsAlbumArtistModel
+        // HACK: Temporarily setting limit to 500 to ensure model
+        //       is populated. See lp:1326753
+        limit: 500
+        store: musicStore
     }
 
     // WHERE THE MAGIC HAPPENS
@@ -583,211 +579,19 @@ MainView {
         }
     }
 
-    GriloModel {
-        id: griloModel
-        property bool loaded: false
-
-        source: GriloBrowse {
-            id: browser
-            source: "grl-mediascanner"
-            registry: registry
-            metadataKeys: [GriloBrowse.Title]
-            typeFilter: [GriloBrowse.Audio]
-            Component.onCompleted: {
-                console.log(browser.supportedKeys);
-                console.log(browser.slowKeys);
-                refresh();
-                console.log("Refreshing");
-            }
-
-            onAvailableChanged: {
-                console.log("Available ? " + available);
-                if (available === true) {
-                    console.log("griloModel.count " + griloModel.count)
-                }
-            }
-            onBaseMediaChanged: refresh();
-
-            /* Check if the file (needle) exists in the library (haystack)
-             * Searches the the haystack using a binary search
-             *
-             * false if the file in in grilo but not in the haystack
-             * positive if the file is the same (number is the actual index)
-             * negative if the file has changed, actual index is -(i + 1)
-             */
-            function exists(haystack, needle)
-            {
-                var keyToFind = needle["file"];
-
-                var upper = haystack.length - 1;
-                var lower = 0;
-                var i = Math.floor(haystack.length / 2);
-
-                while (upper >= lower)
-                {
-                    var key = haystack[i]["file"];
-
-                    if (keyToFind < key)
-                    {
-                        upper = i - 1;
-                    }
-                    else if (keyToFind > key)
-                    {
-                        lower = i + 1;
-                    }
-                    else
-                    {
-                        var found = false;
-
-                        for (var k in haystack[i])
-                        {
-                            if (haystack[i][k] === needle[k])
-                            {
-                                found = true;
-                            }
-                            else
-                            {
-                                found = false;
-                                break;
-                            }
-                        }
-
-                        if (found === true)
-                        {
-                            return i;  // in grilo and lib - same
-                        }
-                        else
-                        {
-                            return -i - 1;  // in grilo and lib - different
-                        }
-                    }
-
-                    i = Math.floor((upper + lower) / 2);
-                }
-
-                return false;  // in grilo not in lib
-            }
-
-            onFinished: {
-                // FIXME: remove when grilo is fixed
-                var files = [];
-                var duplicates = 0;
-
-                for (var i = 0; i < griloModel.count; i++)
-                {
-                    var media = griloModel.get(i)
-                    var file = media.url.toString()
-                    if (file.indexOf("file://") === 0)
-                    {
-                        file = file.slice(7, file.length)
-                    }
-
-                    // FIXME: grilo can supply duplicates
-                    if (files.indexOf(file) > -1)
-                    {
-                        duplicates++;
-                        continue;
-                    }
-                    files.push(file);
-
-                    var record = {
-                        artist: media.artist || i18n.tr("Unknown Artist"),
-                        album: media.album || i18n.tr("Unknown Album"),
-                        title: media.title || file,
-                        file: file,
-                        cover: media.thumbnail.toString() || "",
-                        length: media.duration.toString(),
-                        number: media.trackNumber,
-                        year: media.year.toString() !== "0" ? media.year.toString(): i18n.tr("Unknown Year"),
-                        genre: media.genre || i18n.tr("Unknown Genre")
-                    };
-
-                    //console.log("Artist:"+ media.artist + ", Album:"+media.album + ", Title:"+media.title + ", File:"+file + ", Cover:"+media.thumbnail + ", Number:"+media.trackNumber + ", Genre:"+media.genre);
-                    Library.setMetadata(record)
-                }
-
-                Library.writeDb()
-
-                console.debug("Grilo duplicates:", duplicates);  // FIXME: remove when grilo is fixed
-                griloModel.loaded = true
-
-                // Show toolbar and start timer if there is music
-                if (!emptyPage.noMusic || wideAspect) {
-                    musicToolbar.showToolbar(); 
-                    musicToolbar.startAutohideTimer(); 
-                }
-
-                tabs.ensurePopulated(tabs.selectedTab);
-
-                if (args.values.url) {
-                    uriHandler.process(args.values.url, true);
-                }
-            }
-        }
-    }
-
-    GriloRegistry {
-        id: registry
-
-        Component.onCompleted: {
-            console.log("Registry is ready");
-            loadAll();
-        }
-    }
-
-    LibraryListModel {
-        id: libraryModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                tracksTab.loading = false
-                tracksTab.populated = true
-            }
-        }
-    }
-
-    LibraryListModel {
-        id: artistModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                artistsTab.loading = false
-                artistsTab.populated = true
-            }
-        }
-    }
-    LibraryListModel {
-        id: artistTracksModel
-    }
-    LibraryListModel {
-        id: artistAlbumsModel
-    }
-
-    LibraryListModel {
-        id: albumModel
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete)
-            {
-                loading.visible = false
-                albumsTab.loading = false
-                albumsTab.populated = true
-            }
-        }
-    }
+    // TODO: Used by playlisttracks move to U1DB
     LibraryListModel {
         id: albumTracksModel
     }
 
+    // TODO: used by recent items move to U1DB
     LibraryListModel {
         id: recentModel
         property bool complete: false
         onPreLoadCompleteChanged: {
             complete = true;
 
-            if (preLoadComplete && (genreModel.complete ||
-                                    genreModel.query().length === 0))
+            if (preLoadComplete)
             {
                 loading.visible = false
                 startTab.loading = false
@@ -795,63 +599,29 @@ MainView {
             }
         }
     }
+
+    // TODO: used by recent albums move to U1DB
     LibraryListModel {
         id: recentAlbumTracksModel
     }
+
+    // TODO: used by recent playlists move to U1DB
     LibraryListModel {
         id: recentPlaylistTracksModel
-    }
-
-    LibraryListModel {
-        id: genreModel
-        property bool complete: false
-        onPreLoadCompleteChanged: {
-            complete = true;
-
-            if (preLoadComplete && (recentModel.complete ||
-                                    recentModel.query().length === 0))
-            {
-                loading.visible = false
-                startTab.loading = false
-                startTab.populated = true
-            }
-        }
-    }
-
-    LibraryListModel {
-        id: genreTracksModel
     }
 
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
-        Connections {
-            target: trackQueue.model
-            onCountChanged: queueChanged = true
-        }
 
         function append(listElement)
         {
-            model.append({
-                             "album": listElement.album,
-                             "artist": listElement.artist,
-                             "cover": listElement.cover,
-                             "file": listElement.file,
-                             "title": listElement.title
-                         })
+            model.append(makeDict(listElement))
+            console.debug(JSON.stringify(makeDict(listElement)));
         }
     }
 
-    // list of songs, which has been removed.
-    ListModel {
-        id: removedTrackQueue
-    }
-
-    // list of single tracks
-    ListModel {
-        id: singleTracksgriloMo
-    }
-
+    // TODO: list of playlists move to U1DB
     // create the listmodel to use for playlists
     LibraryListModel {
         id: playlistModel
@@ -864,11 +634,6 @@ MainView {
                 playlistTab.populated = true
             }
         }
-    }
-
-    // search model
-    LibraryListModel {
-        id: searchModel
     }
 
     // load sheets (after model)
@@ -992,7 +757,7 @@ MainView {
         title: i18n.tr("Music")
         visible: false
 
-        property bool noMusic: griloModel.count === 0 && griloModel.loaded === true
+        property bool noMusic: allSongsModel.rowCount === 0 && loadedUI
 
         onNoMusicChanged: {
             if (noMusic)
@@ -1016,7 +781,6 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
-
 
                 Label {
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1049,9 +813,9 @@ MainView {
             // First tab is all music
             Tab {
                 property bool populated: false
-                property var loader: [recentModel.filterRecent, genreModel.filterGenres, albumModel.filterAlbums]
+                property var loader: [recentModel.filterRecent]
                 property bool loading: false
-                property var model: [recentModel, genreModel, albumTracksModel]
+                property var model: [recentModel, albumTracksModel]
                 id: startTab
                 objectName: "starttab"
                 anchors.fill: parent
@@ -1065,10 +829,10 @@ MainView {
 
             // Second tab is arists
             Tab {
-                property bool populated: false
-                property var loader: [artistModel.filterArtists]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [artistModel, artistAlbumsModel, albumTracksModel]
+                property var model: []
                 id: artistsTab
                 objectName: "artiststab"
                 anchors.fill: parent
@@ -1082,10 +846,10 @@ MainView {
 
             // third tab is albums
             Tab {
-                property bool populated: false
-                property var loader: [albumModel.filterAlbums]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [albumModel, albumTracksModel]
+                property var model: []
                 id: albumsTab
                 objectName: "albumstab"
                 anchors.fill: parent
@@ -1099,10 +863,10 @@ MainView {
 
             // fourth tab is all songs
             Tab {
-                property bool populated: false
-                property var loader: [libraryModel.populate]
+                property bool populated: true
+                property var loader: []
                 property bool loading: false
-                property var model: [libraryModel]
+                property var model: []
                 id: tracksTab
                 objectName: "trackstab"
                 anchors.fill: parent
@@ -1148,7 +912,7 @@ MainView {
             {
                 allowLoading(selectedTab, true);  // allow loading of the models
 
-                if (!selectedTab.populated && !selectedTab.loading && griloModel.loaded) {
+                if (!selectedTab.populated && !selectedTab.loading && loadedUI) {
                     loading.visible = true
                     selectedTab.loading = true
 
