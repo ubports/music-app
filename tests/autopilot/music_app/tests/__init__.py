@@ -141,11 +141,6 @@ class MusicTestCase(AutopilotTestCase):
         os.system('start mediascanner-2.0')
         time.sleep(10)
         os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
-
-        self.addCleanup(os.system, "kill -9 `pidof /usr/lib/*/mediasscanner-"
-                        "2.0/mediascanner-dbus-2.0`")
-        self.addCleanup(os.system, "stop mediascanner-2.0")
-        self.addCleanup(os.system, "start mediascanner-2.0")
         #Use backup and restore to setup test environment
         #################################################
 
@@ -274,7 +269,7 @@ class MusicTestCase(AutopilotTestCase):
         #Use backup and restore to setup test environment
         #################################################
         #for now, we will use real /home
-        #backup Music folder and restore it after testing
+        backup Music folder and restore it after testing
         self.backup_folder(musicpath)
         self.addCleanup(lambda: self.restore_folder(musicpath))
         os.makedirs(musicpath)
@@ -304,8 +299,8 @@ class MusicTestCase(AutopilotTestCase):
         #self._patch_mediascanner_home(mediascannerpath)
 
         #logger.debug(
-        #    "Mediascanner database copied, files " +
-        #    str(os.listdir(mediascannerpath)))
+            #"Mediascanner database copied, files " +
+            #str(os.listdir(mediascannerpath)))
         #####################
         #Use mocking fakehome
 
