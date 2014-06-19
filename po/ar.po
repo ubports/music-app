@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-06 12:31+0100\n"
+"POT-Creation-Date: 2014-06-17 13:05-0400\n"
 "PO-Revision-Date: 2014-06-04 16:40+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -16,54 +16,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-06-07 06:34+0000\n"
-"X-Generator: Launchpad (build 17031)\n"
+"X-Launchpad-Export-Date: 2014-06-19 06:38+0000\n"
+"X-Generator: Launchpad (build 17048)\n"
 
-#: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+#: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: ../LoginLastFM.qml:56
+#: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
 msgstr ""
 
-#: ../LoginLastFM.qml:64
+#: ../LoginLastFM.qml:63
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: ../LoginLastFM.qml:74
+#: ../LoginLastFM.qml:73
 msgid "Password"
 msgstr "كلمة السر"
 
-#: ../LoginLastFM.qml:96
+#: ../LoginLastFM.qml:95
 msgid "Login"
 msgstr "ولوج"
 
-#: ../LoginLastFM.qml:103
+#: ../LoginLastFM.qml:102
 msgid "Trying to login..."
 msgstr "يحاول الولوج..."
 
-#: ../LoginLastFM.qml:117
+#: ../LoginLastFM.qml:116
 msgid "Login Successful"
 msgstr "تم الولوج بنجاح إلى حسابك"
 
-#: ../LoginLastFM.qml:123
+#: ../LoginLastFM.qml:122
 msgid "Login Failed"
 msgstr "فشل الولوج إلى حسابك"
 
-#: ../LoginLastFM.qml:129
+#: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
 msgstr "لقد نسيت وضع اسم المستخدم و/أو كلمة السر"
 
-#: ../MusicAlbums.qml:33 ../MusicStart.qml:333
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
 msgstr "الألبومات"
 
-#: ../MusicArtists.qml:33
+#: ../MusicArtists.qml:37
 msgid "Artists"
 msgstr "الفنانين"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsSheet.qml:116
+#: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -74,8 +74,8 @@ msgstr[3] "%1 فنانين"
 msgstr[4] "%1 فنانا"
 msgstr[5] "%1 فنان"
 
-#: ../MusicArtists.qml:124 ../MusicPlaylists.qml:186 ../MusicStart.qml:314
-#: ../common/SongsSheet.qml:129
+#: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
+#: ../common/SongsSheet.qml:144
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -86,56 +86,56 @@ msgstr[3] "%1 أغاني"
 msgstr[4] "%1 أغنية"
 msgstr[5] "%1 أغنية"
 
-#: ../MusicNowPlaying.qml:33
+#: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
 msgstr "المُشغّلة حاليًا"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
+#: ../MusicPlaylists.qml:39
 msgid "Playlists"
 msgstr "قوائم التشغيل"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:59
+#: ../MusicPlaylists.qml:60
 msgid "Change name"
 msgstr "تغيير الاسم"
 
-#: ../MusicPlaylists.qml:60
+#: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
 msgstr "أدخل الاسم الجديد لقائمة التشغيل"
 
-#: ../MusicPlaylists.qml:71
+#: ../MusicPlaylists.qml:72
 msgid "Change"
 msgstr "غيّر"
 
-#: ../MusicPlaylists.qml:84
+#: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
 msgstr ""
 
-#: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:115 ../music-app.qml:987
+#: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
 msgstr "إلغاء"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../MusicPlaylists.qml:102
+#: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
 msgstr "هل أنت  متأكد؟"
 
-#: ../MusicPlaylists.qml:103
+#: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
 msgstr "سؤدي ذلك لحذف قائمة تشغيلك."
 
-#: ../MusicPlaylists.qml:106
+#: ../MusicPlaylists.qml:107
 msgid "Remove"
 msgstr "أزِل"
 
-#: ../MusicSearch.qml:42 ../MusicToolbar.qml:508 ../music-app.qml:93
-#: ../music-app.qml:141 ../music-app.qml:147
+#: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
+#: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "بحث"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:191
+#: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
 msgstr "الإعدادات"
 
@@ -223,20 +223,20 @@ msgstr "البث فقط عندما يكون على الواي-فاي"
 msgid "Clean everything!"
 msgstr "مسح كل شيء"
 
-#: ../MusicStart.qml:33 ../music-app.qml:366 ../music-app.qml:1002
+#: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "موسيقى"
 
-#: ../MusicStart.qml:80
+#: ../MusicStart.qml:84
 msgid "Recent"
 msgstr "الأخيرة"
 
-#: ../MusicStart.qml:108
+#: ../MusicStart.qml:112
 msgid "Clear History"
 msgstr "مسح التأريخ"
 
-#: ../MusicStart.qml:217
+#: ../MusicStart.qml:222
 msgid "Genres"
 msgstr "الأنواع"
 
@@ -248,31 +248,31 @@ msgstr "لا أغاني مصطفّة"
 msgid "Tap play or any item to start"
 msgstr "انقر على تشغيل أو أي عنصر للبدء"
 
-#: ../MusicTracks.qml:33
+#: ../MusicTracks.qml:37
 msgid "Songs"
 msgstr "أغاني"
 
-#: ../MusicaddtoPlaylist.qml:38 ../common/ExpanderItems/AddToPlaylist.qml:59
-#: ../music-app.qml:934
+#: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
+#: ../music-app.qml:699
 msgid "Select playlist"
 msgstr "اختر قائمة تشغيل"
 
-#: ../MusicaddtoPlaylist.qml:130
+#: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
 msgstr "قائمة تشغيل جديدة"
 
-#: ../common/AlbumsSheet.qml:163 ../common/AlbumsSheet.qml:351
-#: ../common/SongsSheet.qml:158
+#: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
+#: ../common/SongsSheet.qml:173
 msgid "Play all"
 msgstr "تشغيل الكل"
 
-#: ../common/AlbumsSheet.qml:214 ../common/AlbumsSheet.qml:399
-#: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:209
-#: ../music-app.qml:909
+#: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
+#: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
+#: ../music-app.qml:674
 msgid "Add to queue"
 msgstr "أضف إلى الاصطفاف"
 
-#: ../common/AlbumsSheet.qml:323 ../common/SongsSheet.qml:128
+#: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
@@ -283,7 +283,7 @@ msgstr[3] " | %1 أغاني"
 msgstr[4] " | %1 أغنية"
 msgstr[5] " | %1 أغنية"
 
-#: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:923
+#: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
 msgstr "أضف إلى قائمة تشغيل"
 
@@ -305,112 +305,104 @@ msgstr "يُحمّل..."
 msgid "Clear"
 msgstr "مسح"
 
-#: ../meta-database.js:444 ../meta-database.js:447 ../music-app.qml:695
+#: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
 msgstr "ألبوم مجهول"
 
-#: ../meta-database.js:445 ../music-app.qml:694
+#: ../meta-database.js:91
 msgid "Unknown Artist"
 msgstr "فنان مجهول"
 
-#: ../music-app.qml:142
+#: ../music-app.qml:143
 msgid "Search Track"
 msgstr "ابحث عن مقطوعة"
 
-#: ../music-app.qml:154
+#: ../music-app.qml:155
 msgid "Next"
 msgstr "التالي"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:156
 msgid "Next Track"
 msgstr "المقطوعة التالية"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:162
 msgid "Pause"
 msgstr "ألبث"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:162
 msgid "Play"
 msgstr "شغّل"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:164
 msgid "Pause Playback"
 msgstr "إلباث"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:164
 msgid "Continue or start playback"
 msgstr "استأنف أو ابدأ تشغيل المقطوعة"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:169
 msgid "Back"
 msgstr "عودة"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:170
 msgid "Go back to last page"
 msgstr "العودة إلى آخر صفحة"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:178
 msgid "Previous"
 msgstr "السابق"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:179
 msgid "Previous Track"
 msgstr "المقطوعة السابقة"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:184
 msgid "Stop"
 msgstr "أوقف"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:185
 msgid "Stop Playback"
 msgstr "أوقف تشغيل المقطوعة"
 
-#: ../music-app.qml:192
+#: ../music-app.qml:193
 msgid "Music Settings"
 msgstr "إعدادات الموسيقى"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:294
+#: ../music-app.qml:288
 msgid "songs played today"
 msgstr "الأغاني التي تم تشغيلها اليوم"
 
-#: ../music-app.qml:295
+#: ../music-app.qml:289
 msgid "No songs played today"
 msgstr "لا أغاني تم تشغيلها اليوم"
 
-#: ../music-app.qml:392
+#: ../music-app.qml:396
 msgid "Debug: "
 msgstr "التصحيح: "
 
-#: ../music-app.qml:701
-msgid "Unknown Year"
-msgstr "سنة غير معروفة"
-
-#: ../music-app.qml:702
-msgid "Unknown Genre"
-msgstr "نوع مجهول"
-
-#: ../music-app.qml:947
+#: ../music-app.qml:712
 msgid "New Playlist"
 msgstr "قائمة تشغيل جديدة"
 
-#: ../music-app.qml:948
+#: ../music-app.qml:713
 msgid "Name your playlist."
 msgstr "سمِّ قائمة تشغيلك."
 
-#: ../music-app.qml:952
+#: ../music-app.qml:717
 msgid "Name"
 msgstr "الاسم"
 
-#: ../music-app.qml:960
+#: ../music-app.qml:725
 msgid "Create"
 msgstr "أنشئ"
 
-#: ../music-app.qml:976
+#: ../music-app.qml:741
 msgid "Error: "
 msgstr "خطأ: "
 
-#: ../music-app.qml:981
+#: ../music-app.qml:746
 msgid "Error: You didn't type a name."
 msgstr "خطأ: أنت لم تكتب اسما."
 
@@ -421,3 +413,9 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
+
+#~ msgid "Unknown Genre"
+#~ msgstr "نوع مجهول"
+
+#~ msgid "Unknown Year"
+#~ msgstr "سنة غير معروفة"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-06 12:31+0100\n"
+"POT-Creation-Date: 2014-06-17 13:05-0400\n"
 "PO-Revision-Date: 2014-06-16 06:26+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,118 +15,118 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:50+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-06-19 06:38+0000\n"
+"X-Generator: Launchpad (build 17048)\n"
 
-#: ../LoginLastFM.qml:50 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+#: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: ../LoginLastFM.qml:56
+#: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
 msgstr "Kevreañ evit gallout Skroblañ"
 
-#: ../LoginLastFM.qml:64
+#: ../LoginLastFM.qml:63
 msgid "Username"
 msgstr "Anv implijer"
 
-#: ../LoginLastFM.qml:74
+#: ../LoginLastFM.qml:73
 msgid "Password"
 msgstr "Ger-tremen"
 
-#: ../LoginLastFM.qml:96
+#: ../LoginLastFM.qml:95
 msgid "Login"
 msgstr "Kevreañ"
 
-#: ../LoginLastFM.qml:103
+#: ../LoginLastFM.qml:102
 msgid "Trying to login..."
 msgstr "O klask kevreañ..."
 
-#: ../LoginLastFM.qml:117
+#: ../LoginLastFM.qml:116
 msgid "Login Successful"
 msgstr "Kevreadur deuet da benn vat"
 
-#: ../LoginLastFM.qml:123
+#: ../LoginLastFM.qml:122
 msgid "Login Failed"
 msgstr "Kevreadur c'hwitet"
 
-#: ../LoginLastFM.qml:129
+#: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
 msgstr "Disoñjet ho peus lakaat hoc'h anv implijer ha/pe ho ker-tremen"
 
-#: ../MusicAlbums.qml:33 ../MusicStart.qml:333
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
 msgstr "Albomoù"
 
-#: ../MusicArtists.qml:33
+#: ../MusicArtists.qml:37
 msgid "Artists"
 msgstr "Arzourien"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsSheet.qml:116
+#: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 albom"
 msgstr[1] "%1 albom"
 
-#: ../MusicArtists.qml:124 ../MusicPlaylists.qml:186 ../MusicStart.qml:314
-#: ../common/SongsSheet.qml:129
+#: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
+#: ../common/SongsSheet.qml:144
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 ton"
 msgstr[1] "%1 a donioù"
 
-#: ../MusicNowPlaying.qml:33
+#: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
 msgstr "O seniñ bremañ"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
+#: ../MusicPlaylists.qml:39
 msgid "Playlists"
 msgstr "Rolloù-tonioù"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:59
+#: ../MusicPlaylists.qml:60
 msgid "Change name"
 msgstr "Cheñch an anv"
 
-#: ../MusicPlaylists.qml:60
+#: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
 msgstr "Ebarzhiñ anv nevez ar roll-tonioù."
 
-#: ../MusicPlaylists.qml:71
+#: ../MusicPlaylists.qml:72
 msgid "Change"
 msgstr "Cheñch"
 
-#: ../MusicPlaylists.qml:84
+#: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
 msgstr "N'ho peus bizskrivet anv ebet."
 
-#: ../MusicPlaylists.qml:89 ../MusicPlaylists.qml:115 ../music-app.qml:987
+#: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
 msgstr "Nullañ"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../MusicPlaylists.qml:102
+#: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
 msgstr "Ha sur oc'h ?"
 
-#: ../MusicPlaylists.qml:103
+#: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
 msgstr "Gant se e vo diverket ho roll-tonioù."
 
-#: ../MusicPlaylists.qml:106
+#: ../MusicPlaylists.qml:107
 msgid "Remove"
 msgstr "Dilemel"
 
-#: ../MusicSearch.qml:42 ../MusicToolbar.qml:508 ../music-app.qml:93
-#: ../music-app.qml:141 ../music-app.qml:147
+#: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
+#: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Klask"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:191
+#: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
 msgstr "Arventennoù"
 
@@ -214,20 +214,20 @@ msgstr "Selaou froudadoù gant ar Wi-Fi hepken"
 msgid "Clean everything!"
 msgstr "Naetaat pep tra !"
 
-#: ../MusicStart.qml:33 ../music-app.qml:366 ../music-app.qml:1002
+#: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Sonerezh"
 
-#: ../MusicStart.qml:80
+#: ../MusicStart.qml:84
 msgid "Recent"
 msgstr "Nevez zo"
 
-#: ../MusicStart.qml:108
+#: ../MusicStart.qml:112
 msgid "Clear History"
 msgstr "Diverkañ an istor"
 
-#: ../MusicStart.qml:217
+#: ../MusicStart.qml:222
 msgid "Genres"
 msgstr "Stiloù"
 
@@ -239,38 +239,38 @@ msgstr "Ton ebet el lostennad"
 msgid "Tap play or any item to start"
 msgstr "Pouezit war lenn pe war forzh peseurt ton evit kregiñ ganti"
 
-#: ../MusicTracks.qml:33
+#: ../MusicTracks.qml:37
 msgid "Songs"
 msgstr "Tonioù"
 
-#: ../MusicaddtoPlaylist.qml:38 ../common/ExpanderItems/AddToPlaylist.qml:59
-#: ../music-app.qml:934
+#: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
+#: ../music-app.qml:699
 msgid "Select playlist"
 msgstr "Diuzañ ur roll-tonioù"
 
-#: ../MusicaddtoPlaylist.qml:130
+#: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
 msgstr "Roll-tonioù nevez"
 
-#: ../common/AlbumsSheet.qml:163 ../common/AlbumsSheet.qml:351
-#: ../common/SongsSheet.qml:158
+#: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
+#: ../common/SongsSheet.qml:173
 msgid "Play all"
 msgstr "Lenn pep tra"
 
-#: ../common/AlbumsSheet.qml:214 ../common/AlbumsSheet.qml:399
-#: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:209
-#: ../music-app.qml:909
+#: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
+#: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
+#: ../music-app.qml:674
 msgid "Add to queue"
 msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../common/AlbumsSheet.qml:323 ../common/SongsSheet.qml:128
+#: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
 msgstr[0] " | %1 ton"
 msgstr[1] " |%1 a donioù"
 
-#: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:923
+#: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
 msgstr "Ouzhpennañ d'ar roll-tonioù"
 
@@ -292,112 +292,104 @@ msgstr "O kargañ..."
 msgid "Clear"
 msgstr "Naetaat"
 
-#: ../meta-database.js:444 ../meta-database.js:447 ../music-app.qml:695
+#: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
 msgstr "Albom dianav"
 
-#: ../meta-database.js:445 ../music-app.qml:694
+#: ../meta-database.js:91
 msgid "Unknown Artist"
 msgstr "Arzour dianav"
 
-#: ../music-app.qml:142
+#: ../music-app.qml:143
 msgid "Search Track"
 msgstr "Klask un ton"
 
-#: ../music-app.qml:154
+#: ../music-app.qml:155
 msgid "Next"
 msgstr "War-lerc'h"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:156
 msgid "Next Track"
 msgstr "Ton da-heul"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:162
 msgid "Pause"
 msgstr "Ehan"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:162
 msgid "Play"
 msgstr "Lenn"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:164
 msgid "Pause Playback"
 msgstr "Ehanañ"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:164
 msgid "Continue or start playback"
 msgstr "Derc'hel da lenn pe kregiñ da lenn"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:169
 msgid "Back"
 msgstr "Distreiñ"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:170
 msgid "Go back to last page"
 msgstr "Distro d'ar pajenn diwezhañ"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:178
 msgid "Previous"
 msgstr "Diaraok"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:179
 msgid "Previous Track"
 msgstr "Ton diaraok"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:184
 msgid "Stop"
 msgstr "Paouez"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:185
 msgid "Stop Playback"
 msgstr "Paouez da lenn"
 
-#: ../music-app.qml:192
+#: ../music-app.qml:193
 msgid "Music Settings"
 msgstr "Arventennoù sonerezh"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:294
+#: ../music-app.qml:288
 msgid "songs played today"
 msgstr "tonioù bet lennet hiziv"
 
-#: ../music-app.qml:295
+#: ../music-app.qml:289
 msgid "No songs played today"
 msgstr "N'eus bet lennet ton ebet hiziv"
 
-#: ../music-app.qml:392
+#: ../music-app.qml:396
 msgid "Debug: "
 msgstr "Dizreinañ : "
 
-#: ../music-app.qml:701
-msgid "Unknown Year"
-msgstr "Bloaz dianav"
-
-#: ../music-app.qml:702
-msgid "Unknown Genre"
-msgstr "Stil dianav"
-
-#: ../music-app.qml:947
+#: ../music-app.qml:712
 msgid "New Playlist"
 msgstr "Roll-tonioù nevez"
 
-#: ../music-app.qml:948
+#: ../music-app.qml:713
 msgid "Name your playlist."
 msgstr "Roit un anv d'ho roll-tonioù."
 
-#: ../music-app.qml:952
+#: ../music-app.qml:717
 msgid "Name"
 msgstr "Anv"
 
-#: ../music-app.qml:960
+#: ../music-app.qml:725
 msgid "Create"
 msgstr "Krouiñ"
 
-#: ../music-app.qml:976
+#: ../music-app.qml:741
 msgid "Error: "
 msgstr "Fazi : "
 
-#: ../music-app.qml:981
+#: ../music-app.qml:746
 msgid "Error: You didn't type a name."
 msgstr "Fazi : N'ho peus bizskrivet anv ebet."
 
@@ -408,3 +400,9 @@ msgstr "Ul lenner sonerezh evit Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
+
+#~ msgid "Unknown Genre"
+#~ msgstr "Stil dianav"
+
+#~ msgid "Unknown Year"
+#~ msgstr "Bloaz dianav"
