@@ -115,7 +115,7 @@ class MusicTestCase(AutopilotTestCase):
         #logger.debug("Launching mediascanner")
         #env = os.environ.copy()
         #sethome = "initctl set-env HOME=" + self.home_dir
-        #retcode = subprocess.check_output(sethome + ";
+        #retcode = subprocess.check_output(sethome + "; \
                                           #start mediascanner-2.0",
                                           #env=env,
                                           #stderr=subprocess.STDOUT,
@@ -130,6 +130,8 @@ class MusicTestCase(AutopilotTestCase):
         #logger.debug("mediascanner-dbus launched %s" % retcode)
 
         ##we attempt to reset home for future upstart jobs
+        #retcode = subprocess.check_output("initctl reset-env",
+                                          #env=env, shell=True)
         #retcode = subprocess.check_output("initctl get-env HOME",
                                           #env=env, shell=True)
         #logger.debug("reset initctl home %s" % retcode)
@@ -269,7 +271,7 @@ class MusicTestCase(AutopilotTestCase):
         #Use backup and restore to setup test environment
         #################################################
         #for now, we will use real /home
-        backup Music folder and restore it after testing
+        #backup Music folder and restore it after testing
         self.backup_folder(musicpath)
         self.addCleanup(lambda: self.restore_folder(musicpath))
         os.makedirs(musicpath)
