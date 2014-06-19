@@ -296,15 +296,11 @@ class MusicTestCase(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        #####################
-        #Use mocking fakehome
-        #self._patch_mediascanner_home(mediascannerpath)
+        self._patch_mediascanner_home(mediascannerpath)
 
-        #logger.debug(
-            #"Mediascanner database copied, files " +
-            #str(os.listdir(mediascannerpath)))
-        #####################
-        #Use mocking fakehome
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _patch_mediascanner_home(self, mediascannerpath):
         #do some inline db patching
