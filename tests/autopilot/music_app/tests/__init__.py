@@ -14,7 +14,6 @@ import shutil
 import sqlite3
 import logging
 import music_app
-import time
 
 import fixtures
 from music_app import emulators
