@@ -353,25 +353,8 @@ class TestMainWindow(MusicTestCase):
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
-
-        #select album
-        albumartist = self.main_view.get_albums_albumartist(self.artistName)
-        self.pointing_device.click_object(albumartist)
-
-        #get album sheet album artist
-        songs_page_albumartist = self.main_view.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
-
-        #get track item to add to queue
-        trackicon = self.main_view.get_songs_page_listview_trackicon(
-            self.trackTitle)
-        self.pointing_device.click_object(trackicon)
-
-        #click on Add to queue
-        queueTrackLabel = self.main_view.get_songs_page_queuetrack_label()
-        self.pointing_device.click_object(queueTrackLabel)
+        self.main_view.add_to_queue_from_albums_tab_album_page(
+            self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
