@@ -65,7 +65,7 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        os.system('stop mediascanner-2.0')
+        #os.system('stop mediascanner-2.0')
 
         try:
             pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
@@ -83,23 +83,38 @@ class MusicTestCase(AutopilotTestCase):
         self.addCleanup(os.system, "stop mediascanner-2.0")
         self.addCleanup(os.system, "start mediascanner-2.0")
 
-        #Use backup and restore to setup test environment
-        #################################################
-        logger.debug("Backup root %s" % self.backup_root)
-        #backup and wipe db's before testing
-        sqlite_dir = os.path.join(
-            os.path.expanduser('~'), '.local/share/com.ubuntu.music/Databases')
-        self.backup_folder(sqlite_dir)
-        self.addCleanup(lambda: self.restore_folder(sqlite_dir))
-        #Use backup and restore to setup test environment
-        #################################################
-
         launch, self.test_type = self.setup_environment()
 
-        #################################################
         #Use backup and restore to setup test environment
+        #################################################
+        #for now, we will use real /home
+        logger.debug("Backup root folder %s" % self.backup_root)
+
+        #backup and wipe before testing
+        sqlite_dir = os.path.join(
+            os.environ.get('HOME'), '.local/share/com.ubuntu.music/Databases')
+        self.backup_folder(sqlite_dir)
+        self.addCleanup(lambda: self.restore_folder(sqlite_dir))
+
+        #backup Music folder and restore it after testing
+        self.backup_folder(os.path.join(os.environ.get('HOME'), 'Music'))
+        self.addCleanup(lambda: self.restore_folder(
+                         os.path.join(os.environ.get('HOME'), 'Music')))
+
+        #backup mediascanner folder and restore it after testing
+        self.backup_folder(os.path.join(os.environ.get('HOME'),
+                                         '.cache/mediascanner-2.0'))
+        self.addCleanup(lambda: self.restore_folder(os.path.join(
+                                         os.environ.get('HOME'),
+                                         '.cache/mediascanner-2.0')))
+
         self.home_dir = os.environ['HOME']
         self._create_music_library()
+
+        #start up mediascanner service after patching
+        os.system('start mediascanner-2.0')
+        time.sleep(10)
+        os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
         #Use backup and restore to setup test environment
         #################################################
 
@@ -137,14 +152,6 @@ class MusicTestCase(AutopilotTestCase):
         #logger.debug("reset initctl home %s" % retcode)
         #####################
         #Use mocking fakehome
-
-        #Use backup and restore to setup test environment
-        #################################################
-        os.system('start mediascanner-2.0')
-        time.sleep(10)
-        os.system("/usr/lib/*/mediasscanner-2.0/mediascanner-dbus-2.0")
-        #Use backup and restore to setup test environment
-        #################################################
 
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
@@ -267,19 +274,6 @@ class MusicTestCase(AutopilotTestCase):
         if not os.path.exists(musicpath):
             os.makedirs(musicpath)
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
-
-        #Use backup and restore to setup test environment
-        #################################################
-        #for now, we will use real /home
-        #backup Music folder and restore it after testing
-        self.backup_folder(musicpath)
-        self.addCleanup(lambda: self.restore_folder(musicpath))
-        os.makedirs(musicpath)
-        #backup mediascanner folder and restore it after testing
-        self.backup_folder(mediascannerpath)
-        self.addCleanup(lambda: self.restore_folder(mediascannerpath))
-        #################################################
-        #Use backup and restore to setup test environment
 
         #set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
