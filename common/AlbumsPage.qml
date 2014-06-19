@@ -58,6 +58,7 @@ Page {
         Component {
             id: artistHeaderDelegate
             ListItem.Standard {
+                height: units.gu(30)
                 CoverRow {
                     id: artistImage
                     anchors {
@@ -75,7 +76,7 @@ Page {
                     anchors.bottom: parent.bottom
                     color: styleMusic.common.black
                     height: units.gu(10)
-                    width: parent.width
+                    width: parent.height
                     radius: "medium"
                 }
                 Rectangle {  // Background so can see text in current state
@@ -84,7 +85,7 @@ Page {
                     anchors.bottomMargin: units.gu(8)
                     color: styleMusic.common.black
                     height: units.gu(3)
-                    width: parent.width
+                    width: parent.height
                 }
                 Label {
                     id: albumCount
