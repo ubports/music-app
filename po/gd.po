@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-06-19 06:38+0000\n"
-"X-Generator: Launchpad (build 17048)\n"
+"X-Launchpad-Export-Date: 2014-06-20 06:08+0000\n"
+"X-Generator: Launchpad (build 17058)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -411,9 +411,3 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-
-#~ msgid "Unknown Genre"
-#~ msgstr "Gnè nach aithne dhuinn"
-
-#~ msgid "Unknown Year"
-#~ msgstr "Chan eil fhios dè a' bhliadhna"
