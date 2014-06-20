@@ -177,7 +177,6 @@ class TestMainWindow(MusicTestCase):
         orgArtist = self.player.currentMetaArtist
 
         #check original track
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
         logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
         """ Pause track """
@@ -190,7 +189,6 @@ class TestMainWindow(MusicTestCase):
         #goal is to go back and forth and ensure 2 different songs
         forwardbutton = self.main_view.get_forward_button()
         self.pointing_device.click_object(forwardbutton)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Pause track """
         self.pointing_device.click_object(playbutton)
@@ -206,7 +204,6 @@ class TestMainWindow(MusicTestCase):
         """ Select previous """
         previousbutton = self.main_view.get_previous_button()
         self.pointing_device.click_object(previousbutton)
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Pause track """
         self.pointing_device.click_object(playbutton)
