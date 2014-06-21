@@ -218,7 +218,8 @@ MainView {
 
             // Play album it tracks exist
             if (songsAlbumArtistModel.rowCount > 0) {
-                trackClicked(songsAlbumArtistModel, 0, true);
+                // trackClicked(model, index, play, clear=true) will clear the model
+                trackClicked(songsAlbumArtistModel, 0, true, true);
             }
             else {
                 console.debug("Unknown artist-album " + uri + ", skipping")
@@ -244,12 +245,17 @@ MainView {
                 return;
             }
 
+            if (play) {
+                // clear play queue
+                trackQueue.model.clear()
+            }
+
             // enqueue
-            trackQueue.append(track);
+            trackQueue.append(makeDict(track));
 
             // play first URI
             if (play) {
-                trackQueueClick(0);
+                trackQueueClick(trackQueue.model.count - 1);
             }
         }
 
@@ -270,8 +276,6 @@ MainView {
         }
 
         onOpened: {
-            // clear play queue
-            trackQueue.model.clear()
             for (var i=0; i < uris.length; i++) {
                 console.debug("URI=" + uris[i])
 
@@ -405,12 +409,7 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            var item = model.get(i, model.RoleModelData);
-            if (item.art !== undefined && (item.art === "" || item.art === null)) {
-                item.art = "image://albumart/artist=" + item.author + "&album=" + item.album
-            }
-
-            trackQueue.model.append(makeDict(item));
+            trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
         }
     }
 
@@ -430,13 +429,14 @@ MainView {
     function makeDict(model) {
         return {
             album: model.album,
+            art: "image://albumart/artist=" + model.author + "&album=" + model.album,
             author: model.author,
             filename: model.filename,
             title: model.title
         };
     }
 
-    function trackClicked(model, index, play) {
+    function trackClicked(model, index, play, clear) {
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;
@@ -445,12 +445,16 @@ MainView {
         var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
 
         play = play === undefined ? true : play  // default play to true
+        clear = clear === undefined ? false : clear  // force clear and will ignore player.toggle()
 
-        // If same track and on now playing page then toggle
-        if (musicToolbar.currentPage === nowPlaying &&
-                Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
-            player.toggle()
-            return;
+        if (!clear) {
+            // If same track and on now playing page then toggle
+            if (musicToolbar.currentPage === nowPlaying &&
+                    trackQueue.model.get(player.currentIndex) !== undefined &&
+                    Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
+                player.toggle()
+                return;
+            }
         }
 
         trackQueue.model.clear();  // clear the old model
