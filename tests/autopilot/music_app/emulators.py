@@ -39,6 +39,17 @@ class MainView(toolkit_emulators.MainView):
         sleep(2)
         self.pointing_device.release()
 
+    def seek_to_0(self):
+        # Get the progress bar object
+        progressBar = self.wait_select_single(
+            "*", objectName="progressBarShape")
+
+        # Move to the progress bar and get the position
+        self.pointing_device.move_to_object(progressBar)
+        x1, y1 = self.pointing_device.position()
+
+        self.pointing_device.drag(x1, y1, x1 - (progressBar.width / 2) + 1, y1)
+
     def show_toolbar(self):
         # Get the toolbar object and create a mouse
         toolbar = self.get_toolbar()

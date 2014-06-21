@@ -203,6 +203,9 @@ class TestMainWindow(MusicTestCase):
         nextArtist = self.player.currentMetaArtist
         logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
 
+        """ Seek to 0 """
+        self.main_view.seek_to_0()
+
         """ Select previous """
         previousbutton = self.main_view.get_previous_button()
         self.pointing_device.click_object(previousbutton)
