@@ -31,7 +31,7 @@ class TestMainWindow(MusicTestCase):
         spinner = lambda: self.main_view.get_spinner().running
         self.assertThat(spinner, Eventually(Equals(False)))
         self.trackTitle = u"Gran Vals"
-        self.artistName = u"Francisco TÃ¡rrega"
+        self.artistName = u"Francisco Tárrega"
         self.lastTrackTitle = u"TestMP3Title"
 
     def populate_and_play_queue(self):
