@@ -32,20 +32,9 @@ import "playlists.js" as Playlists
 import "common"
 
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Artists")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
-    MusicSettings {
-        id: musicSettings
-    }
 
     ListView {
         id: artistlist

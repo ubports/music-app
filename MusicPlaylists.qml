@@ -32,7 +32,7 @@ import "common"
 import "common/ExpanderItems"
 
 // page for the playlists
-Page {
+MusicPage {
     id: listspage
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
@@ -43,13 +43,6 @@ Page {
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
     property string inPlaylist: ""
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(listspage);
-        }
-    }
 
     // Edit name of playlist dialog
     Component {

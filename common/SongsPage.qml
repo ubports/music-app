@@ -26,10 +26,9 @@ import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 import "ExpanderItems"
 
-Page {
+MusicPage {
     id: songStackPage
     anchors.bottomMargin: units.gu(.5)
-    tools: null
     visible: false
 
     property string line1: ""
@@ -42,12 +41,6 @@ Page {
 
     property alias album: songsModel.album
     property alias genre: songsModel.genre
-
-    onVisibleChanged: {
-        if (visible) {
-            musicToolbar.setPage(songStackPage, null, mainPageStack)
-        }
-    }
 
     SongsModel {
         id: songsModel

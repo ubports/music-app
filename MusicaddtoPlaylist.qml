@@ -35,10 +35,9 @@ import "common"
 */
 
 // Page that will be used when adding tracks to playlists
-Page {
+MusicPage {
     id: addtoPlaylist
     title: i18n.tr("Select playlist")
-    tools: null
     visible: false
 
     Component.onCompleted: {
@@ -46,12 +45,6 @@ Page {
         // get the cover art of them
         // print them in the icon
         tabs.ensurePopulated(playlistTab)
-    }
-
-    onVisibleChanged: {
-        if (visible) {
-            musicToolbar.setPage(addtoPlaylist, null, mainPageStack)
-        }
     }
 
     // show each playlist and make them chosable

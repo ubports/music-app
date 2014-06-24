@@ -32,21 +32,9 @@ import "common"
 import "common/ExpanderItems"
 
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Songs")
-
-    MusicSettings {
-        id: musicSettings
-    }
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
 
     ListView {
         id: tracklist

@@ -26,20 +26,13 @@ import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 
-Page {
+MusicPage {
     id: albumStackPage
     anchors.bottomMargin: units.gu(.5)
-    tools: null
     visible: false
 
     property string artist: ""
     property var covers: []
-
-    onVisibleChanged: {
-        if (visible) {
-            musicToolbar.setPage(albumStackPage, null, mainPageStack)
-        }
-    }
 
     ListView {
         id: albumtrackslist

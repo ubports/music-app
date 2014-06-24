@@ -32,16 +32,9 @@ import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Music")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
 
     /* Dev button for search.
     Button {
