@@ -66,21 +66,7 @@ class MusicTestCase(AutopilotTestCase):
     def setUp(self):
         subprocess.call(["stop", "mediascanner-2.0"])
 
-        try:
-            pid = subprocess.check_output(["pidof", "mediascanner-dbus-2.0"])
-        except subprocess.CalledProcessError:
-            logger.debug("mediascanner-dbus-2.0 not running")
-        else:
-            pid = pid.decode("utf-8")
-            pid = pid.split(None, 1)[0]
-            subprocess.call(["kill", "-9", pid])
-
-        # Stop any mediascanner-dbus and restart mediascanner on exit
-        self.addCleanup(subprocess.call,
-                        'kill -9 \
-                        `pidof \
-                        /usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0`',
-                        shell=True)
+        # Restart mediascanner on exit
         self.addCleanup(subprocess.call, ["start", "mediascanner-2.0"])
 
         launch, self.test_type = self.setup_environment()
@@ -132,12 +118,6 @@ class MusicTestCase(AutopilotTestCase):
                                           #shell=True)
         #logger.debug("mediascanner launched %s" % retcode)
         #time.sleep(10)
-
-        #logger.debug("Launching mediascanner-dbus")
-        #retcode = subprocess.call(
-            #"/usr/lib/*/mediascanner-2.0/mediascanner-dbus-2.0 &",
-            #env=env, stderr=subprocess.STDOUT, shell=True)
-        #logger.debug("mediascanner-dbus launched %s" % retcode)
 
         ##we attempt to reset home for future upstart jobs
         #retcode = subprocess.check_output("initctl reset-env",
