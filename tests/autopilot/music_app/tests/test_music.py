@@ -340,7 +340,7 @@ class TestMainWindow(MusicTestCase):
 
         #get album sheet album artist
         songs_page_albumartist = self.main_view.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(artistName))
+        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
 
         # click on close button to close album sheet
         backButton = self.main_view.get_back_button()
@@ -504,7 +504,7 @@ class TestMainWindow(MusicTestCase):
 
         #get song sheet album artist
         songs_page_albumartist = self.main_view.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(artistName))
+        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
 
         # click on song to populate queue and start playing
         self.pointing_device.click_object(songs_page_albumartist)
