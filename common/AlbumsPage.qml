@@ -56,7 +56,12 @@ MusicPage {
                 height: units.gu(32)
                 Item {
                     id: artistItem
-                    height: parent.height - units.gu(1)
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(1)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    height: parent.height - units.gu(2)
                     width: height
                     CoverRow {
                         id: artistImage
