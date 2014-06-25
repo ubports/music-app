@@ -71,10 +71,6 @@ class MainView(toolkit_emulators.MainView):
         albumartist = self.get_albums_albumartist(artistName)
         self.pointing_device.click_object(albumartist)
 
-        # get album sheet album artist
-        songs_page_albumartist = self.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(artistName))
-
         # get track item to add to queue
         trackicon = self.get_songs_page_listview_trackicon(trackTitle)
         self.pointing_device.click_object(trackicon)
