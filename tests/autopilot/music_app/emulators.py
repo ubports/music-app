@@ -7,7 +7,6 @@
 
 """Music app autopilot emulators."""
 from ubuntuuitoolkit import emulators as toolkit_emulators
-from testtools.matchers import Equals
 from time import sleep
 
 
