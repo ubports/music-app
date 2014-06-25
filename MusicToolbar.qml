@@ -544,6 +544,7 @@ Item {
                 /* Progress bar */
                 Rectangle {
                     id: musicToolbarFullProgressBarContainer
+                    objectName: "progressBarShape"
                     anchors.left: musicToolbarFullPositionLabel.right
                     anchors.leftMargin: units.gu(2)
                     anchors.right: musicToolbarFullDurationLabel.left
