@@ -126,23 +126,23 @@ class MainView(toolkit_emulators.MainView):
 
     def get_add_to_queue_button(self):
         return self.wait_select_single("QQuickImage",
-                                       objectName="albumsheet-queue-all")
+                                       objectName="albumpage-queue-all")
 
-    def get_album_sheet_artist(self):
+    def get_album_page_artist(self):
         return self.wait_select_single("Label",
-                                       objectName="albumsheet-albumartist")
+                                       objectName="albumpage-albumartist")
 
     def get_songs_page_artist(self):
         return self.wait_select_single("Label",
                                        objectName="songspage-albumartist")
 
-    def get_artist_sheet_artist(self):
+    def get_artist_page_artist(self):
         return self.wait_select_single("Label",
-                                       objectName="artistsheet-albumartist")
+                                       objectName="artistpage-albumartist")
 
-    def get_artist_sheet_artist_cover(self):
+    def get_artist_page_artist_cover(self):
         return self.wait_select_single("*",
-                                       objectName="artistsheet-albumcover")
+                                       objectName="artistpage-albumcover")
 
     def get_artiststab(self):
         return self.select_single("Tab", objectName="artiststab")
@@ -159,9 +159,9 @@ class MainView(toolkit_emulators.MainView):
     def close_buttons(self):
         return self.select_many("Button", text="close")
 
-    def get_album_sheet_listview_tracktitle(self, trackTitle):
+    def get_album_page_listview_tracktitle(self, trackTitle):
         tracktitles = self.select_many_retry(
-            "Label", objectName="albumsheet-tracktitle")
+            "Label", objectName="albumpage-tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:
                 return item
@@ -173,8 +173,8 @@ class MainView(toolkit_emulators.MainView):
             if item.text == trackTitle:
                 return item
 
-    def get_album_sheet_listview_trackicon(self, trackTitle):
-        tracktitle = self.get_album_sheet_listview_tracktitle(trackTitle)
+    def get_album_page_listview_trackicon(self, trackTitle):
+        tracktitle = self.get_album_page_listview_tracktitle(trackTitle)
         tracktitle_position = tracktitle.globalRect[1]
         trackicons = self.select_many(
             "QQuickImage", objectName="expanditem")

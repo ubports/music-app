@@ -35,6 +35,7 @@ Item {
     property var currentPage: null
     property var currentSheet: []
     property var currentTab: null
+    property var previousPage: null
 
     // Properties and signals for the toolbar
     property var cachedStates: []
@@ -49,6 +50,22 @@ Item {
 
     property alias animating: musicToolbarPanel.animating
     property alias opened: musicToolbarPanel.opened
+
+    Connections {
+        id: pageStackConn
+        target: mainPageStack
+
+        onCurrentPageChanged: {
+            previousPage = currentPage;
+
+            // If going back from nowPlaying jump back to tabs
+            if (previousPage === nowPlaying && mainPageStack.currentPage !== nowPlaying) {
+                while (mainPageStack.depth > 1) {
+                    mainPageStack.pop(mainPageStack.currentPage)
+                }
+            }
+        }
+    }
 
     /* Helper functions */
 
@@ -75,7 +92,7 @@ Item {
             PopupUtils.close(currentSheet[currentSheet.length - 1])
             return;  // don't change toolbar state when going back from sheet
         }
-        else if (mainPageStack !== null && mainPageStack.depth > 0) {
+        else if (mainPageStack !== null && mainPageStack.depth > 1) {
             mainPageStack.pop(currentPage)
         }
 

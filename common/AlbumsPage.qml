@@ -187,7 +187,7 @@ MusicPage {
                         width: units.gu(15)
                         Image {
                             id: queueAll
-                            objectName: "albumsheet-queue-all"
+                            objectName: "albumpage-queue-all"
                             anchors.verticalCenter: parent.verticalCenter
                             source: "../images/add.svg"
                             height: styleMusic.common.expandedItem
@@ -254,7 +254,7 @@ MusicPage {
                     count: 1
                     size: parent.height
                     covers: [{author: model.artist, album: model.title}]
-                    objectName: "artistsheet-albumcover"
+                    objectName: "artistpage-albumcover"
                     spacing: units.gu(2)
 
                     MouseArea {
@@ -281,7 +281,7 @@ MusicPage {
 
                 Label {
                     id: albumArtist
-                    objectName: "artistsheet-albumartist"
+                    objectName: "artistpage-albumartist"
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "small"
@@ -340,7 +340,7 @@ MusicPage {
                     width: units.gu(15)
                     Image {
                         id: playTrack
-                        objectName: "albumsheet-playtrack"
+                        objectName: "albumpage-playtrack"
                         anchors.verticalCenter: parent.verticalCenter
                         source: "../images/add-to-playback.png"
                         height: styleMusic.common.expandedItem
@@ -380,7 +380,7 @@ MusicPage {
                     width: units.gu(15)
                     Image {
                         id: queueTrack
-                        objectName: "albumsheet-queuetrack"
+                        objectName: "albumpage-queuetrack"
                         anchors.verticalCenter: parent.verticalCenter
                         source: "../images/add.svg"
                         height: styleMusic.common.expandedItem
