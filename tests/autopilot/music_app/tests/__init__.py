@@ -71,23 +71,23 @@ class MusicTestCase(AutopilotTestCase):
 
         launch, self.test_type = self.setup_environment()
 
-        #Use backup and restore to setup test environment
+        # Use backup and restore to setup test environment
         #################################################
-        #for now, we will use real /home
+        # for now, we will use real /home
         logger.debug("Backup root folder %s" % self.backup_root)
 
-        #backup and wipe before testing
+        # backup and wipe before testing
         sqlite_dir = os.path.join(
             os.environ.get('HOME'), '.local/share/com.ubuntu.music/Databases')
         self.backup_folder(sqlite_dir)
         self.addCleanup(lambda: self.restore_folder(sqlite_dir))
 
-        #backup Music folder and restore it after testing
+        # backup Music folder and restore it after testing
         self.backup_folder(os.path.join(os.environ.get('HOME'), 'Music'))
         self.addCleanup(lambda: self.restore_folder(
                         os.path.join(os.environ.get('HOME'), 'Music')))
 
-        #backup mediascanner folder and restore it after testing
+        # backup mediascanner folder and restore it after testing
         self.backup_folder(os.path.join(os.environ.get('HOME'),
                                         '.cache/mediascanner-2.0'))
         self.addCleanup(lambda: self.restore_folder(os.path.join(
@@ -96,37 +96,40 @@ class MusicTestCase(AutopilotTestCase):
 
         self.home_dir = os.environ['HOME']
         self._create_music_library()
+
+        '''
         #################################################
-        #Use backup and restore to setup test environment
+        # Use backup and restore to setup test environment
 
-        #Use mocking fakehome
+        # Use mocking fakehome
         #####################
-        #self.home_dir = self._patch_home()
+        self.home_dir = self._patch_home()
 
-        #self._create_music_library()
+        self._create_music_library()
 
-        ##we need to also tell upstart about our fake home
-        ##and we need to do this all in one shell,
-        ##also passing along our fake env (env=env)
-        #logger.debug("Launching mediascanner")
-        #env = os.environ.copy()
-        #sethome = "initctl set-env HOME=" + self.home_dir
-        #retcode = subprocess.check_output(sethome + "; \
-                                          #start mediascanner-2.0",
-                                          #env=env,
-                                          #stderr=subprocess.STDOUT,
-                                          #shell=True)
-        #logger.debug("mediascanner launched %s" % retcode)
-        #time.sleep(10)
+        # we need to also tell upstart about our fake home
+        # and we need to do this all in one shell,
+        # also passing along our fake env (env=env)
+        logger.debug("Launching mediascanner")
+        env = os.environ.copy()
+        sethome = "initctl set-env HOME=" + self.home_dir
+        retcode = subprocess.check_output(sethome + "; \
+                                          start mediascanner-2.0",
+                                          env=env,
+                                          stderr=subprocess.STDOUT,
+                                          shell=True)
+        logger.debug("mediascanner launched %s" % retcode)
+        time.sleep(10)
 
-        ##we attempt to reset home for future upstart jobs
-        #retcode = subprocess.check_output("initctl reset-env",
-                                          #env=env, shell=True)
-        #retcode = subprocess.check_output("initctl get-env HOME",
-                                          #env=env, shell=True)
-        #logger.debug("reset initctl home %s" % retcode)
+        # we attempt to reset home for future upstart jobs
+        retcode = subprocess.check_output("initctl reset-env",
+                                          env=env, shell=True)
+        retcode = subprocess.check_output("initctl get-env HOME",
+                                          env=env, shell=True)
+        logger.debug("reset initctl home %s" % retcode)
         #####################
-        #Use mocking fakehome
+        # Use mocking fakehome
+        '''
 
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
@@ -159,10 +162,10 @@ class MusicTestCase(AutopilotTestCase):
     def _copy_xauthority_file(self, directory):
         """ Copy .Xauthority file to directory, if it exists in /home
         """
-        #If running under xvfb, as jenkins does,
-        #xsession will fail to start without xauthority file
-        #Thus if the Xauthority file is in the home directory
-        #make sure we copy it to our temp home directory
+        # If running under xvfb, as jenkins does,
+        # xsession will fail to start without xauthority file
+        # Thus if the Xauthority file is in the home directory
+        # make sure we copy it to our temp home directory
 
         xauth = os.path.expanduser(os.path.join(os.environ.get('HOME'),
                                    '.Xauthority'))
@@ -176,8 +179,8 @@ class MusicTestCase(AutopilotTestCase):
     def _patch_home(self):
         """ mock /home for testing purposes to preserve user data
         """
-        #click requires apparmor profile, and writing to special dir
-        #but the desktop can write to a traditional /tmp directory
+        # click requires apparmor profile, and writing to special dir
+        # but the desktop can write to a traditional /tmp directory
         if self.test_type == 'click':
             env_dir = os.path.join(os.environ.get('HOME'), 'autopilot',
                                    'fakeenv')
@@ -188,8 +191,8 @@ class MusicTestCase(AutopilotTestCase):
             temp_dir_fixture = fixtures.TempDir(env_dir)
             self.useFixture(temp_dir_fixture)
 
-            #apparmor doesn't allow the app to create needed directories,
-            #so we create them now
+            # apparmor doesn't allow the app to create needed directories,
+            # so we create them now
             temp_dir = temp_dir_fixture.path
             temp_dir_cache = os.path.join(temp_dir, '.cache')
             temp_dir_cache_font = os.path.join(temp_dir_cache, 'fontconfig')
@@ -222,7 +225,7 @@ class MusicTestCase(AutopilotTestCase):
             if not os.path.exists(temp_dir_confined):
                 os.makedirs(temp_dir_confined)
 
-            #before we set fixture, copy xauthority if needed
+            # before we set fixture, copy xauthority if needed
             self._copy_xauthority_file(temp_dir)
             self.useFixture(toolkit_fixtures.InitctlEnvironmentVariable(
                             HOME=temp_dir))
@@ -231,7 +234,7 @@ class MusicTestCase(AutopilotTestCase):
             self.useFixture(temp_dir_fixture)
             temp_dir = temp_dir_fixture.path
 
-            #before we set fixture, copy xauthority if needed
+            # before we set fixture, copy xauthority if needed
             self._copy_xauthority_file(temp_dir)
             self.useFixture(fixtures.EnvironmentVariable('HOME',
                                                          newvalue=temp_dir))
@@ -250,13 +253,13 @@ class MusicTestCase(AutopilotTestCase):
             os.makedirs(musicpath)
         logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
-        #set content path
+        # set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
                                    'content')
 
         logger.debug("Content dir set to %s" % content_dir)
 
-        #copy content
+        # copy content
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
@@ -272,9 +275,9 @@ class MusicTestCase(AutopilotTestCase):
             str(os.listdir(mediascannerpath)))
 
     def _patch_mediascanner_home(self, mediascannerpath):
-        #do some inline db patching
-        #patch mediaindex to proper home
-        #these values are dependent upon our sampled db
+        # do some inline db patching
+        # patch mediaindex to proper home
+        # these values are dependent upon our sampled db
         logger.debug("Patching fake mediascanner database in %s" %
                      mediascannerpath)
         logger.debug(
@@ -283,7 +286,7 @@ class MusicTestCase(AutopilotTestCase):
 
         relhome = self.home_dir[1:]
         dblocation = "home/phablet"
-        #patch mediaindex
+        # patch mediaindex
         self._file_find_replace(mediascannerpath +
                                 "/mediastore.sql", dblocation, relhome)
 
@@ -295,8 +298,8 @@ class MusicTestCase(AutopilotTestCase):
         con.close()
 
     def _file_find_replace(self, in_filename, find, replace):
-        #replace all occurences of string find with string replace
-        #in the given file
+        # replace all occurences of string find with string replace
+        # in the given file
         out_filename = in_filename + ".tmp"
         infile = open(in_filename, 'rb')
         outfile = open(out_filename, 'wb')
@@ -305,7 +308,7 @@ class MusicTestCase(AutopilotTestCase):
         infile.close()
         outfile.close()
 
-        #remove original file and copy new file back
+        # remove original file and copy new file back
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
 

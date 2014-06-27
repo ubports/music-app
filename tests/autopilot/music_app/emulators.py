@@ -66,16 +66,16 @@ class MainView(toolkit_emulators.MainView):
         # switch to albums tab
         self.switch_to_tab("albumstab")
 
-        #select album
+        # select album
         albumartist = self.get_albums_albumartist(artistName)
         self.pointing_device.click_object(albumartist)
 
-        #get track item to add to queue
+        # get track item to add to queue
         trackicon = self.get_album_sheet_listview_trackicon(
             trackTitle)
         self.pointing_device.click_object(trackicon)
 
-        #click on Add to queue
+        # click on Add to queue
         queueTrackLabel = self.get_album_sheet_queuetrack_label()
         self.pointing_device.click_object(queueTrackLabel)
 
