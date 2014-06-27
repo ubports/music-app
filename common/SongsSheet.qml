@@ -46,9 +46,6 @@ Item {
 
     SongsModel {
         id: songsModel
-        // HACK: Temporarily setting limit to 500 to ensure model
-        //       is populated. See lp:1326753
-        limit: 500
         store: musicStore
     }
 
