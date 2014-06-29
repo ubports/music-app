@@ -125,9 +125,6 @@ MusicPage {
                     SongsModel {
                         id: songArtistModel
                         albumArtist: albumStackPage.artist
-                        // HACK: Temporarily setting limit to 500 to ensure model
-                        //       is populated. See lp:1326753
-                        limit: 500
                         store: musicStore
                     }
 
@@ -230,9 +227,6 @@ MusicPage {
                     id: songAlbumArtistModel
                     albumArtist: model.artist
                     album: model.title
-                    // HACK: Temporarily setting limit to 500 to ensure model
-                    //       is populated. See lp:1326753
-                    limit: 500
                     store: musicStore
                 }
                 Repeater {
