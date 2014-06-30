@@ -240,7 +240,7 @@ Item {
                         objectName: "albumsheet-track"
                         iconFrame: false
                         progression: false
-                        height: isAlbum ? styleMusic.albums.itemHeight : styleMusic.common.albumSize + units.gu(2)
+                        height: styleMusic.common.itemHeight
 
                         MouseArea {
                             anchors.fill: parent
@@ -268,90 +268,40 @@ Item {
                             }
                         }
 
-                        Rectangle {
-                            id: trackContainer;
-                            anchors {
-                                fill: parent
-                                rightMargin: expandable.expanderButtonWidth
-                            }
-                            color: "transparent"
+                        MusicRow {
+                            covers: [{author: model.author, album: model.album}]
+                            column: Column {
+                                spacing: units.gu(1)
+                                Label {
+                                    id: trackArtist
+                                    color: styleMusic.common.subtitle
+                                    elide: Text.ElideRight
+                                    fontSize: "x-small"
+                                    maximumLineCount: 2
+                                    text: model.author
+                                    wrapMode: Text.NoWrap
+                                }
 
-                            UbuntuShape {
-                                id: trackCover
-                                anchors {
-                                    left: parent.left
-                                    leftMargin: units.gu(2)
-                                    top: parent.top
-                                    topMargin: units.gu(1)
+                                Label {
+                                    id: trackTitle
+                                    color: styleMusic.common.subtitle
+                                    elide: Text.ElideRight
+                                    fontSize: "medium"
+                                    maximumLineCount: 1
+                                    objectName: "albumsheet-tracktitle"
+                                    text: model.title
+                                    wrapMode: Text.NoWrap
                                 }
-                                width: styleMusic.common.albumSize
-                                height: styleMusic.common.albumSize
-                                visible: !isAlbum
-                                image: Image {
-                                    source: "image://albumart/artist=" + model.author + "&album=" + model.album
-                                    onStatusChanged: {
-                                        if (status === Image.Error) {
-                                            source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-                                        }
-                                    }
-                                }
-                            }
 
-                            Label {
-                                id: trackArtist
-                                wrapMode: Text.NoWrap
-                                maximumLineCount: 2
-                                fontSize: "x-small"
-                                color: styleMusic.common.subtitle
-                                visible: !isAlbum
-                                anchors {
-                                    left: trackCover.right
-                                    leftMargin: units.gu(2)
-                                    top: parent.top
-                                    topMargin: units.gu(1.5)
-                                    right: parent.right
-                                    rightMargin: units.gu(1.5)
+                                Label {
+                                    id: trackAlbum
+                                    color: styleMusic.common.subtitle
+                                    elide: Text.ElideRight
+                                    fontSize: "xx-small"
+                                    maximumLineCount: 2
+                                    text: model.album
+                                    wrapMode: Text.NoWrap
                                 }
-                                elide: Text.ElideRight
-                                text: model.author
-                            }
-
-                            Label {
-                                id: trackTitle
-                                objectName: "albumsheet-tracktitle"
-                                wrapMode: Text.NoWrap
-                                maximumLineCount: 1
-                                fontSize: "medium"
-                                color: styleMusic.common.subtitle
-                                anchors {
-                                    left: isAlbum ? parent.left : trackCover.right
-                                    leftMargin: units.gu(2)
-                                    top: isAlbum ? parent.top : trackArtist.bottom
-                                    topMargin: units.gu(1)
-                                    right: parent.right
-                                    rightMargin: units.gu(1.5)
-                                }
-                                elide: Text.ElideRight
-                                text: model.title
-                            }
-
-                            Label {
-                                id: trackAlbum
-                                wrapMode: Text.NoWrap
-                                maximumLineCount: 2
-                                fontSize: "xx-small"
-                                color: styleMusic.common.subtitle
-                                visible: !isAlbum
-                                anchors {
-                                    left: trackCover.right
-                                    leftMargin: units.gu(2)
-                                    top: trackTitle.bottom
-                                    topMargin: units.gu(2)
-                                    right: parent.right
-                                    rightMargin: units.gu(1.5)
-                                }
-                                elide: Text.ElideRight
-                                text: model.album
                             }
                         }
 

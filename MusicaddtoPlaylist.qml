@@ -75,9 +75,11 @@ import "common"
              delegate: ListItem.Standard {
                     id: playlist
                     objectName: "playlist"
-                    height: units.gu(8)
+                    height: styleMusic.common.itemHeight
+
                     property string name: model.name
                     property string count: model.count
+
                     onClicked: {
                         console.debug("Debug: "+chosenElement.filename+" added to "+name)
                         Playlists.addtoPlaylist(name,
@@ -92,35 +94,29 @@ import "common"
                         onDoneClicked: PopupUtils.close(addtoPlaylist)
                     }
 
-                    CoverRow {
-                        id: coverRow
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            margins: units.gu(1)
-                        }
-                        count: parseInt(Playlists.getPlaylistCovers(playlist.name).length)
-                        size: units.gu(6)
+                    MusicRow {
                         covers: Playlists.getPlaylistCovers(playlist.name)
-                    }
-
-                    Label {
-                        id: playlistName
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            leftMargin: units.gu(11)
-                            topMargin: units.gu(2)
-                            bottomMargin: units.gu(4)
+                        column: Column {
+                            spacing: units.gu(1)
+                            Label {
+                                id: playlistCount
+                                color: styleMusic.common.subtitle
+                                elide: Text.ElideRight
+                                fontSize: "x-small"
+                                maximumLineCount: 1
+                                text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
+                                wrapMode: Text.NoWrap
+                            }
+                            Label {
+                                id: playlistName
+                                color: styleMusic.common.music
+                                elide: Text.ElideRight
+                                fontSize: "medium"
+                                maximumLineCount: 1
+                                text: playlist.name
+                                wrapMode: Text.NoWrap
+                            }
                         }
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "medium"
-                        color: styleMusic.common.subtitle
-                        elide: Text.ElideRight
-                        text: playlist.name + " ("+playlist.count+")"
                     }
              }
          }

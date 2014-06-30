@@ -83,8 +83,7 @@ Page {
                     signal finished()
 
                     onFinished: {
-                        coverRow.count = count
-                        coverRow.covers = covers
+                        musicRow.covers = covers
                     }
                     onItemAdded: {
                         covers.push({author: item.author, album: item.album});
@@ -101,82 +100,46 @@ Page {
                     store: musicStore
                 }
 
-                CoverRow {
-                    id: coverRow
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        margins: units.gu(1)
+                MusicRow {
+                    id: musicRow
+                    column: Column {
+                        spacing: units.gu(1)
+                        Label {
+                            id: trackArtistAlbum
+                            color: styleMusic.common.music
+                            elide: Text.ElideRight
+                            fontSize: "medium"
+                            maximumLineCount: 2
+                            objectName: "artists-artist"
+                            text: model.artist
+                            wrapMode: Text.NoWrap
+                        }
+                        Label {
+                            id: trackArtistAlbums
+                            color: styleMusic.common.subtitle
+                            elide: Text.ElideRight
+                            fontSize: "x-small"
+                            maximumLineCount: 2
+                            text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
+                            wrapMode: Text.NoWrap
+                        }
+                        Label {
+                            id: trackArtistAlbumTracks
+                            color: styleMusic.common.subtitle
+                            elide: Text.ElideRight
+                            fontSize: "x-small"
+                            maximumLineCount: 2
+                            text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
+                            wrapMode: Text.NoWrap
+                        }
                     }
-
-                    count: 0
-                    size: styleMusic.common.albumSize
-                    covers: []
-                }
-
-                Label {
-                    id: trackArtistAlbum
-                    objectName: "artists-artist"
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "medium"
-                    color: styleMusic.common.music
-                    anchors {
-                        left: coverRow.right
-                        leftMargin: units.gu(2)
-                        top: parent.top
-                        topMargin: units.gu(2)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: model.artist
-                }
-
-                Label {
-                    id: trackArtistAlbums
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "x-small"
-                    color: styleMusic.common.subtitle
-                    anchors {
-                        left: trackArtistAlbum.left
-                        top: trackArtistAlbum.bottom
-                        topMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
                 }
 
-                Label {
-                    id: trackArtistAlbumTracks
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "x-small"
-                    color: styleMusic.common.subtitle
-                    anchors {
-                        left: trackArtistAlbum.left
-                        top: trackArtistAlbums.bottom
-                        topMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
-                }
-                onFocusChanged: {
-                }
                 MouseArea {
                     anchors.fill: parent
-                    onDoubleClicked: {
-                    }
-                    onPressAndHold: {
-                    }
                     onClicked: {
                         artistSheet.artist = model.artist
-                        artistSheet.covers = coverRow.covers
+                        artistSheet.covers = musicRow.covers
                         PopupUtils.open(artistSheet.sheet)
                     }
                 }
