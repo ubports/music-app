@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +19,12 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1 as Toolkit
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -94,7 +98,7 @@ Page {
             model: recentModel.model
             delegate: recentDelegate
             header: Item {
-                id: spacer
+                id: recentSpacer
                 width: units.gu(1)
             }
             footer: Item {
@@ -121,7 +125,7 @@ Page {
                 Item {
                     property string title: model.title
                     property string title2: model.title2
-                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [Library.getAlbumCover(title)]
+                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{author: model.title2, album: model.title}]
                     property string type: model.type
                     property string time: model.time
                     property string key: model.key
@@ -187,8 +191,9 @@ Page {
                             if (type === "playlist") {
                                 albumTracksModel.filterPlaylistTracks(key)
                             } else {
-                                albumTracksModel.filterAlbumTracks(title)
+                                songsSheet.album = title;
                             }
+                            songsSheet.genre = undefined;
 
                             songsSheet.line1 = title2
                             songsSheet.line2 = title
@@ -226,10 +231,13 @@ Page {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: genreModel.model
+            model: GenresModel {
+                store: musicStore
+            }
+
             delegate: genreDelegate
             header: Item {
-                id: spacer
+                id: genreSpacer
                 width: units.gu(1)
             }
             orientation: ListView.Horizontal
@@ -237,19 +245,44 @@ Page {
             Component {
                 id: genreDelegate
                 Item {
-                    property string artist: model.artist
-                    property string album: model.album
-                    property string title: model.title
-                    property var covers: Library.getGenreCovers(model.genre)
-                    property string length: model.length
-                    property string file: model.file
-                    property string year: model.year
-                    property string genre: model.genre
-
                     id: genreItem
                     objectName: "genreItemObject"
                     height: genrelist.height - units.gu(1)
                     width: height
+
+                    Repeater {
+                        id: albumGenreModelRepeater
+                        model: AlbumsModel {
+                            genre: model.genre
+                            store: musicStore
+                        }
+
+                        delegate: Item {
+                            property string author: model.artist
+                            property string album: model.title
+                        }
+                        property var covers: []
+                        signal finished()
+
+                        onFinished: {
+                            genreShape.count = count
+                            genreShape.covers = covers
+                        }
+                        onItemAdded: {
+                            covers.push({author: item.author, album: item.album});
+
+                            if (index === count - 1) {
+                                finished();
+                            }
+                        }
+                    }
+
+                    SongsModel {
+                        id: songGenreModel
+                        genre: model.genre
+                        store: musicStore
+                    }
+
                     CoverRow {
                         id: genreShape
                         anchors {
@@ -257,19 +290,20 @@ Page {
                             left: parent.left
                             verticalCenter: parent.verticalCenter
                         }
-                        count: genreItem.covers.length
+                        count: 0
                         size: genreItem.width
-                        covers: genreItem.covers
+                        covers: []
                         spacing: units.gu(2)
                     }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            albumTracksModel.filterGenreTracks(genre)
+                            songsSheet.album = undefined
+                            songsSheet.genre = model.genre
                             songsSheet.line1 = "Genre"
-                            songsSheet.line2 = genre
-                            songsSheet.isAlbum = false
-                            songsSheet.covers =  covers
+                            songsSheet.line2 = model.genre
+                            songsSheet.isAlbum = true
+                            songsSheet.covers = genreShape.covers
                             PopupUtils.open(songsSheet.sheet)
                         }
                     }
@@ -298,7 +332,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        text: genre
+                        text: model.genre
                         fontSize: "small"
                     }
                     Label {
@@ -311,7 +345,7 @@ Page {
                         anchors.rightMargin: units.gu(1)
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
-                        text: i18n.tr("%1 song", "%1 songs", model.total).arg(model.total)
+                        text: i18n.tr("%1 song", "%1 songs", songGenreModel.rowCount).arg(songGenreModel.rowCount)
                         fontSize: "x-small"
                     }
                 }
@@ -343,7 +377,16 @@ Page {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: albumModel.model
+            model: Toolkit.SortFilterModel {
+                id: albumsModelFilter
+                property alias rowCount: albumsModel.rowCount
+                model: AlbumsModel {
+                    id: albumsModel
+                    store: musicStore
+                }
+                sort.property: "title"
+                sort.order: Qt.AscendingOrder
+            }
             delegate: albumDelegate
             header: Item {
                 id: albumSpacer
@@ -355,12 +398,8 @@ Page {
                 id: albumDelegate
                 Item {
                     property string artist: model.artist
-                    property string album: model.album
-                    property var covers: [Library.getAlbumCover(album)]
-                    property string length: model.length
-                    property string file: model.file
-                    property string year: model.year
-                    property string genre: model.genre
+                    property string album: model.title
+                    property var covers: [{author: model.artist, album: model.title}]
 
                     id: albumItem
                     objectName: "albumItemObject"
@@ -381,7 +420,8 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            albumTracksModel.filterAlbumTracks(album)
+                            songsSheet.album = album;
+                            songsSheet.genre = undefined
                             songsSheet.line1 = artist
                             songsSheet.line2 = album
                             songsSheet.isAlbum = true

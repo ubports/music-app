@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,13 +79,13 @@ import "common"
                     property string name: model.name
                     property string count: model.count
                     onClicked: {
-                        console.debug("Debug: "+chosenElement.file+" added to "+name)
+                        console.debug("Debug: "+chosenElement.filename+" added to "+name)
                         Playlists.addtoPlaylist(name,
-                                                chosenElement.file,
-                                                chosenElement.artist,
+                                                chosenElement.filename,
+                                                chosenElement.author,
                                                 chosenElement.title,
                                                 chosenElement.album,
-                                                chosenElement.cover,
+                                                chosenElement.art,
                                                 "","","","")
                         count = Playlists.getPlaylistCount(name) // get the new count
                         playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist

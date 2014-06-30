@@ -182,12 +182,11 @@ function getPlaylistTracks(playlist) {
          for(var i = 0; i < rs.rows.length; i++) {
              var dbItem = rs.rows.item(i);
              //console.log("Cover: "+ dbItem.cover);
-             res[i] = {'file': dbItem.track,
+             res[i] = {'filename': dbItem.track,
                        'title': dbItem.title,
-                       'artist': dbItem.artist,
+                       'author': dbItem.artist,
                        'album': dbItem.album,
-                       'cover': dbItem.cover,
-                       'year': dbItem.year,
+                       'date': dbItem.year,
                        'number': dbItem.number,
                        'length': dbItem.length,
                        'genre': dbItem.genre,
@@ -227,10 +226,10 @@ function getPlaylistCovers(playlist, max) {
     // Get a list of unique covers for the playlist
     try {
         db.transaction(function(tx) {
-            var rs = tx.executeSql("SELECT * FROM playlist WHERE playlist=? AND cover <> '' ;", [playlist]);
+            var rs = tx.executeSql("SELECT * FROM playlist WHERE playlist=?;", [playlist]);
             for(var i = 0; i < rs.rows.length; i++) {
-                if (res.indexOf(rs.rows.item(i).cover) === -1) {
-                    res.push(rs.rows.item(i).cover);
+                if (res.indexOf({author: rs.rows.item(i).artist, album: rs.rows.item(i).album}) === -1) {
+                    res.push({author: rs.rows.item(i).artist, album: rs.rows.item(i).album});
                 }
             }
         })

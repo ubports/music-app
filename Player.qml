@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +34,6 @@ Item {
 
     property string currentMetaAlbum: ""
     property string currentMetaArtist: ""
-    property string currentMetaCover: ""
     property string currentMetaFile: ""
     property string currentMetaTitle: ""
     property int currentIndex: -1
@@ -63,9 +63,9 @@ Item {
         onCountChanged: {
             if (trackQueue.model.count === 1) {
                 player.currentIndex = 0;
-                player.source = Qt.resolvedUrl(trackQueue.model.get(0).file)
+                player.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
             } else if (trackQueue.model.count === 0) {
-                player.currentMetaCover = ""
+                currentMetaFile = ""
             }
         }
     }
@@ -119,11 +119,11 @@ Item {
         }
 
         if (startPlaying) {  // only start the track if told
-            playSong(trackQueue.model.get(newIndex).file, newIndex)
+            playSong(trackQueue.model.get(newIndex).filename, newIndex)
         }
         else {
             currentIndex = newIndex
-            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).file)
+            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).filename)
         }
     }
 
@@ -185,9 +185,8 @@ Item {
             else {
                 var obj = trackQueue.model.get(player.currentIndex);
                 currentMetaAlbum = obj.album;
-                currentMetaArtist = obj.artist;
-                currentMetaCover = obj.cover;
-                currentMetaFile = obj.file;
+                currentMetaArtist = obj.author;
+                currentMetaFile = obj.filename;
                 currentMetaTitle = obj.title;
             }
 

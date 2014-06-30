@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +23,11 @@ import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 Item {
-    property ListModel model : ListModel { id: libraryModel }
+    id: libraryListModelItem
+    property ListModel model : ListModel {
+        id: libraryModel
+        property var linkLibraryListModel: libraryListModelItem
+    }
     property alias count: libraryModel.count
     property var query: null
     property var param: null
@@ -35,6 +41,13 @@ Item {
         {
             worker.process();
         }
+    }
+
+    /* Pretent to be like a mediascanner2 listmodel */
+    property alias rowCount: libraryModel.count
+
+    function get(index, role) {
+        return model.get(index);
     }
 
     WorkerScript {
@@ -105,66 +118,6 @@ Item {
         return -1;
     }
 
-    function populate() {
-        console.log("called LibraryListModel::populate()")
-
-        // Save query for queue
-        query = Library.getAll
-        param = null
-
-        worker.list = Library.getAll();
-    }
-
-    function filterArtists() {
-        console.log("called LibraryListModel::filterArtists()")
-
-        // Save query for queue
-        query = Library.getArtists
-        param = null
-
-        worker.list = Library.getArtists();
-    }
-
-    function filterArtistTracks(artist) {
-        console.log("called LibraryListModel::filterArtistTracks()")
-
-        // Save query for queue
-        query = Library.getArtistTracks
-        param = artist
-
-        worker.list = Library.getArtistTracks(artist);
-    }
-
-    function filterArtistAlbums(artist) {
-        console.log("called LibraryListModel::filterArtistAlbums()")
-
-        // Save query for queue
-        query = Library.getArtistAlbums
-        param = artist
-
-        worker.list = Library.getArtistAlbums(artist);
-    }
-
-    function filterAlbums() {
-        console.log("called LibraryListModel::filterAlbums()")
-
-        // Save query for queue
-        query = Library.getAlbums
-        param = null
-
-        worker.list = Library.getAlbums();
-    }
-
-    function filterAlbumTracks(album) {
-        console.log("called LibraryListModel::filterAlbumTracks()")
-
-        // Save query for queue
-        query = Library.getAlbumTracks
-        param = album
-
-        worker.list = Library.getAlbumTracks(album);
-    }
-
     function filterPlaylists() {
         console.log("called LibraryListModel::filterPlaylistTracks()")
 
@@ -195,36 +148,10 @@ Item {
         worker.list = Library.getRecent();
     }
 
-    function filterGenres() {
-        console.log("called LibraryListModel::filterGenres()")
-
-        // Save query for queue
-        query = Library.getGenres
-        param = null
-
-        worker.list = Library.getGenres();
-    }
-
-    function filterGenreTracks(genre) {
-        console.log("called LibraryListModel::filterGenreTracks()")
-
-        // Save query for queue
-        query = Library.getGenreTracks
-        param = genre
-
-        worker.list = Library.getGenreTracks(genre);
-    }
-
     function clear() {
         if (worker.list !== null)
         {
             worker.sendMessage({'clear': true, 'model': libraryModel})
         }
-    }
-
-    function filterSearch(searchQuery) {
-        query = Library.search
-        param = searchQuery
-        worker.list = Library.search(searchQuery)
     }
 }

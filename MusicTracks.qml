@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013 Victor Thompson <victor.thompson@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +19,14 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1 as Toolkit
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 import "common/ExpanderItems"
@@ -43,23 +47,27 @@ Page {
         }
     }
 
+
     ListView {
         id: tracklist
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         highlightFollowsCurrentItem: false
-        model: libraryModel.model
+        model: Toolkit.SortFilterModel {
+            id: songsModelFilter
+            property alias rowCount: songsModel.rowCount
+            model: SongsModel {
+                id: songsModel
+                store: musicStore
+            }
+            sort.property: "title"
+            sort.order: Qt.AscendingOrder
+        }
         delegate: trackDelegate
         Component {
             id: trackDelegate
             ListItem.Standard {
                 id: track
-                property string artist: model.artist
-                property string album: model.album
-                property string title: model.title
-                property string cover: model.cover
-                property string length: model.length
-                property string file: model.file
                 width: parent.width
                 height: styleMusic.common.itemHeight
 
@@ -70,7 +78,7 @@ Page {
                             focus = true
                         }
 
-                        trackClicked(libraryModel, index)  // play track
+                        trackClicked(tracklist.model, index)  // play track
                     }
                 }
 
@@ -90,7 +98,7 @@ Page {
                         width: styleMusic.common.albumSize
                         height: styleMusic.common.albumSize
                         image: Image {
-                            source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
+                            source: "image://albumart/artist=" + model.author + "&album=" + model.album
                             onStatusChanged: {
                                 if (status === Image.Error) {
                                     source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -111,7 +119,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: artist
+                        text: model.author
                     }
                     Label {
                         id: trackTitle
@@ -127,7 +135,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: track.title
+                        text: model.title
                     }
                     Label {
                         id: trackAlbum
@@ -142,7 +150,7 @@ Page {
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
-                        text: album
+                        text: model.album
                     }
                     Label {
                         id: trackDuration
@@ -157,7 +165,7 @@ Page {
                         anchors.rightMargin: units.gu(1.5)
                         elide: Text.ElideRight
                         visible: false
-                        text: ""
+                        text: ""  // model.duration
                     }
                 }
 
@@ -167,7 +175,7 @@ Page {
                         fill: parent
                     }
                     listItem: track
-                    model: libraryModel.model.get(index)
+                    model: songsModelFilter.get(index, songsModelFilter.RoleModelData)
                     row: Row {
                         AddToPlaylist {
 

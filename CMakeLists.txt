@@ -72,5 +72,14 @@ install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 enable_testing()
 
 add_subdirectory(click)
+add_subdirectory(common)
+add_subdirectory(images)
 add_subdirectory(po)
 add_subdirectory(tests)
+
+# make the qml files visible on qtcreator
+file(GLOB QML_JS_FILES
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+     *.qml *.js *.translations *.url-dispatcher *.txt)
+
+add_custom_target(com_ubuntu_music_QMLFiles DEPENDS music-app.qml SOURCES ${QML_JS_FILES})

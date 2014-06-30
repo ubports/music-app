@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2014 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,9 +22,10 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.MediaScanner 0.1
+import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
-import "meta-database.js" as Library
 import "common"
 import "common/ExpanderItems"
 
@@ -93,18 +95,13 @@ Item {
                  // Provide a small pause before search
                  Timer {
                      id: searchTimer
-                     interval: 1500
+                     interval: 500
                      repeat: false
                      onTriggered: {
-                         if(searchField.text) {
-                             searchModel.filterSearch(searchField.text) // query the databse
-                             searchActivity.running = true // start the activity indicator
-                         }
-                         else {
-                             customdebug("No search terms.")
-                             searchModel.filterSearch("empty somehow?")
-                         }
-                        indicatorTimer.start()
+                         songsSearchModel.query = searchField.text;
+                         searchActivity.running = true // start the activity indicator
+
+                         indicatorTimer.start()
                      }
                  }
                  // and onother one for the indicator
@@ -133,6 +130,7 @@ Item {
                  width: parent.width
                  height: parent.height
                  color: "transparent"
+                 visible: searchField.text
                  clip: true
                  anchors {
                      top: searchField.bottom
@@ -147,7 +145,10 @@ Item {
                      objectName: "searchtrackview"
                      width: parent.width
                      height: parent.width
-                     model: searchModel.model
+                     model: SongsSearchModel {
+                        id: songsSearchModel
+                        store: musicStore
+                     }
 
                      onMovementStarted: {
                          searchTrackView.forceActiveFocus()
@@ -158,18 +159,12 @@ Item {
                             objectName: "playlist"
                             width: parent.width
                             height: styleMusic.common.itemHeight
-                            property string title: model.title
-                            property string artist: model.artist
-                            property string file: model.file
-                            property string album: model.album
-                            property string cover: model.cover
-                            property string genre: model.genre
 
                             onClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
                                 trackQueue.append(model)
-                                trackClicked(trackQueue, trackQueue.model.count - 1, true)
+                                trackQueueClick(trackQueue.model.count - 1);
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }
 
@@ -189,7 +184,7 @@ Item {
                                     width: styleMusic.common.albumSize
                                     height: styleMusic.common.albumSize
                                     image: Image {
-                                        source: cover !== "" ? cover : Qt.resolvedUrl("images/music-app-cover@30.png")
+                                        source: "image://albumart/artist=" + model.author + "&album=" + model.title
                                         onStatusChanged: {
                                             if (status === Image.Error) {
                                                 source = Qt.resolvedUrl("images/music-app-cover@30.png")
@@ -211,7 +206,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: artist
+                                    text: model.author
                                 }
                                 Label {
                                     id: trackTitle
@@ -227,7 +222,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: title
+                                    text: model.title
                                 }
                                 Label {
                                     id: trackAlbum
@@ -242,7 +237,7 @@ Item {
                                     anchors.right: parent.right
                                     anchors.rightMargin: units.gu(1.5)
                                     elide: Text.ElideRight
-                                    text: album
+                                    text: model.album
                                 }
                                 Label {
                                     id: trackDuration
@@ -267,7 +262,7 @@ Item {
                                     fill: parent
                                 }
                                 listItem: search
-                                model: searchModel.model.get(index)
+                                model: songsSearchModel.get(index, songsSearchModel.RoleModelData)
                                 row: Row {
                                     AddToPlaylist {
 

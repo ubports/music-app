@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2013 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +22,6 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
-import "meta-database.js" as Library
 import "settings.js" as Settings
 
 Item {
@@ -550,6 +550,7 @@ Item {
                 /* Progress bar */
                 Rectangle {
                     id: musicToolbarFullProgressBarContainer
+                    objectName: "progressBarShape"
                     anchors.left: musicToolbarFullPositionLabel.right
                     anchors.leftMargin: units.gu(2)
                     anchors.right: musicToolbarFullDurationLabel.left

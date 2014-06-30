@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013 Daniel Holm <d.holmen@gmail.com>
-                      Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2014
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,7 +26,6 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
-import "meta-database.js" as Library
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "common"

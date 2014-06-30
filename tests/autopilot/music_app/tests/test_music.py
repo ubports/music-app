@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013 Canonical
+# Copyright 2013, 2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -21,24 +21,34 @@ logger = logging.getLogger(__name__)
 
 
 class TestMainWindow(MusicTestCase):
-    FIRST_TITLE = "Foss Yeaaaah! (Radio Edit)"
-    LAST_TITLE = "TestMP3Title"
 
     def setUp(self):
         super(TestMainWindow, self).setUp()
         self.assertThat(
             self.main_view.visible, Eventually(Equals(True)))
-        #wait for activity indicator to stop spinning
+
+        # wait for activity indicator to stop spinning
         spinner = lambda: self.main_view.get_spinner().running
         self.assertThat(spinner, Eventually(Equals(False)))
+        self.trackTitle = u"Gran Vals"
+        self.artistName = u"Francisco Tárrega"
+        self.lastTrackTitle = u"TestMP3Title"
 
     def populate_and_play_queue(self):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        title = self.FIRST_TITLE
-        song = self.main_view.get_album_sheet_listview_tracktitle(title)
+        song = self.main_view.get_album_sheet_listview_tracktitle(
+            self.trackTitle)
         self.pointing_device.click_object(song)
+
+    def populate_and_play_queue_from_songs_tab(self):
+        # switch to songs tab
+        self.main_view.switch_to_tab("trackstab")
+
+        # get track item to add to queue
+        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
+        self.pointing_device.click_object(trackitem)
 
     def turn_shuffle_off(self):
         if self.player.shuffle:
@@ -81,55 +91,63 @@ class TestMainWindow(MusicTestCase):
         fake mediascanner database"""
 
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         title = lambda: self.player.currentMetaTitle
         artist = lambda: self.player.currentMetaArtist
-        self.assertThat(title,
-                        Eventually(Equals("Foss Yeaaaah! (Radio Edit)")))
-        self.assertThat(artist, Eventually(Equals("Benjamin Kerensa")))
+        self.assertThat(title, Eventually(Equals(self.trackTitle)))
+        self.assertThat(artist, Eventually(Equals(self.artistName)))
 
     def test_play_pause_library(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
-        # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        button = self.main_view.get_add_to_queue_button()
-        self.pointing_device.click_object(button)
+        # get number of tracks in queue before queuing a track
+        initialtracksCount = self.main_view.get_queue_track_count()
 
-        # click on close button to close genre sheet
+        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+            self.artistName, self.trackTitle)
+
+        # verify track queue has added one to initial value
+        endtracksCount = self.main_view.get_queue_track_count()
+        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+
+        # Assert that the song added to the list is not playing
+        self.assertThat(self.player.currentIndex,
+                        Eventually(NotEquals(endtracksCount)))
+        self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+        # verify song's metadata matches the item added to the Now Playing view
+        queueArtistName = self.main_view.get_queue_now_playing_artist(
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
+        queueTrackTitle = self.main_view.get_queue_now_playing_title(
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+
+        # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
         self.pointing_device.click_object(closebutton)
+        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
         if self.main_view.wideAspect:
-            playbutton = self.main_view.get_now_playing_play_button()
+            play_button = self.main_view.get_now_playing_play_button()
         else:
-            playbutton = self.main_view.get_play_button()
-
-        self.main_view.show_toolbar()
+            play_button = self.main_view.get_play_button()
+            self.main_view.show_toolbar()
 
         """ Track is playing"""
-        self.pointing_device.click_object(playbutton)
+        self.pointing_device.click_object(play_button)
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
-        self.pointing_device.click_object(playbutton)
+        self.pointing_device.click_object(play_button)
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -148,11 +166,7 @@ class TestMainWindow(MusicTestCase):
         """ Test going to next track (Music Library must exist) """
 
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -162,7 +176,7 @@ class TestMainWindow(MusicTestCase):
         orgTitle = self.player.currentMetaTitle
         orgArtist = self.player.currentMetaArtist
 
-        #check original track
+        # check original track
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
         logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
@@ -173,7 +187,7 @@ class TestMainWindow(MusicTestCase):
         self.turn_shuffle_off()
 
         """ Select next """
-        #goal is to go back and forth and ensure 2 different songs
+        # goal is to go back and forth and ensure 2 different songs
         forwardbutton = self.main_view.get_forward_button()
         self.pointing_device.click_object(forwardbutton)
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
@@ -182,12 +196,15 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
-        #ensure different song
+        # ensure different song
         self.assertThat(title, Eventually(NotEquals(orgTitle)))
         self.assertThat(artist, Eventually(NotEquals(orgArtist)))
         nextTitle = self.player.currentMetaTitle
         nextArtist = self.player.currentMetaArtist
         logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
+
+        """ Seek to 0 """
+        self.main_view.seek_to_0()
 
         """ Select previous """
         previousbutton = self.main_view.get_previous_button()
@@ -198,7 +215,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playbutton)
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
-        #ensure we're back to original song
+        # ensure we're back to original song
         self.assertThat(title, Eventually(Equals(orgTitle)))
         self.assertThat(artist, Eventually(Equals(orgArtist)))
 
@@ -206,11 +223,7 @@ class TestMainWindow(MusicTestCase):
         """ Test that mp3 "plays" or at least doesn't crash on load """
 
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -221,8 +234,8 @@ class TestMainWindow(MusicTestCase):
 
         """ Track is playing """
         count = 1
-        #ensure track appears before looping through queue more than once
-        #needs to contain test mp3 metadata and end in *.mp3
+        # ensure track appears before looping through queue more than once
+        # needs to contain test mp3 metadata and end in *.mp3
         queue = self.main_view.get_queue_track_count()
         while title != "TestMP3Title" and artist != "TestMP3Artist":
             self.assertThat(count, LessThan(queue))
@@ -243,7 +256,7 @@ class TestMainWindow(MusicTestCase):
 
             count = count + 1
 
-        #make sure mp3 plays
+        # make sure mp3 plays
         self.assertThat(self.player.source.endswith("mp3"),
                         Equals(True))
         self.pointing_device.click_object(playbutton)
@@ -253,18 +266,14 @@ class TestMainWindow(MusicTestCase):
         """ Test shuffle (Music Library must exist) """
 
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         """ Track is playing, shuffle is turned on"""
         forwardbutton = self.main_view.get_forward_button()
         playbutton = self.main_view.get_now_playing_play_button()
         previousbutton = self.main_view.get_previous_button()
 
-        #play for a second, then pause
+        # play for a second, then pause
         if not self.player.isPlaying:
             logger.debug("Play not selected")
             self.pointing_device.click_object(playbutton)
@@ -280,10 +289,10 @@ class TestMainWindow(MusicTestCase):
         while True:
             self.assertThat(count, LessThan(100))
 
-            #goal is to hit next under shuffle mode
-            #then verify original track is not the previous track
-            #this means a true shuffle happened
-            #if it doesn't try again, up to count times
+            # goal is to hit next under shuffle mode
+            # then verify original track is not the previous track
+            # this means a true shuffle happened
+            # if it doesn't try again, up to count times
 
             orgTitle = self.player.currentMetaTitle
             orgArtist = self.player.currentMetaArtist
@@ -301,8 +310,8 @@ class TestMainWindow(MusicTestCase):
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
 
-            #go back to previous and check against original
-            #play song, then pause before switching
+            # go back to previous and check against original
+            # play song, then pause before switching
             time.sleep(1)
             self.pointing_device.click_object(playbutton)
             self.assertThat(self.player.isPlaying,
@@ -316,7 +325,7 @@ class TestMainWindow(MusicTestCase):
             artist = self.player.currentMetaArtist
 
             if title != orgTitle and artist != orgArtist:
-                #we shuffled properly
+                # we shuffled properly
                 logger.debug("Yay, shuffled %s, %s" % (title, artist))
                 break
             else:
@@ -326,18 +335,16 @@ class TestMainWindow(MusicTestCase):
     def test_show_albums_sheet(self):
         """tests navigating to the Albums tab and displaying the album sheet"""
 
-        artistName = "Benjamin Kerensa"
-
         # switch to albums tab
         self.main_view.switch_to_tab("albumstab")
 
-        #select album
-        albumartist = self.main_view.get_albums_albumartist(artistName)
+        # select album
+        albumartist = self.main_view.get_albums_albumartist(self.artistName)
         self.pointing_device.click_object(albumartist)
 
-        #get album sheet album artist
+        # get album sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
@@ -347,48 +354,28 @@ class TestMainWindow(MusicTestCase):
     def test_add_song_to_queue_from_albums_sheet(self):
         """tests navigating to the Albums tab and adding a song to queue"""
 
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        artistName = "Benjamin Kerensa"
-
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
-
-        #select album
-        albumartist = self.main_view.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
-
-        #get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
-
-        #get track item to add to queue
-        trackicon = self.main_view.get_album_sheet_listview_trackicon(
-            trackTitle)
-        self.pointing_device.click_object(trackicon)
-
-        #click on Add to queue
-        queueTrackLabel = self.main_view.get_album_sheet_queuetrack_label()
-        self.pointing_device.click_object(queueTrackLabel)
+        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+            self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
         self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
 
-        #Assert that the song added to the list is not playing
+        # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
                         Eventually(NotEquals(endtracksCount)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
-        #verify song's metadata matches the item added to the Now Playing view
+        # verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
-            artistName)
-        self.assertThat(str(queueArtistName.text), Equals(artistName))
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            trackTitle)
-        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
         # click on close button to close album sheet
         closebutton = self.main_view.get_album_sheet_close_button()
@@ -399,18 +386,11 @@ class TestMainWindow(MusicTestCase):
         """tests navigating to the Songs tab and adding the library to the
            queue with the selected item being played. """
 
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        artistName = "Benjamin Kerensa"
-
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # switch to songs tab
-        self.main_view.switch_to_tab("trackstab")
-
-        # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_tracktitle(trackTitle)
-        self.pointing_device.click_object(trackitem)
+        # populate queue
+        self.populate_and_play_queue_from_songs_tab()
 
         # verify track queue has added all songs to initial value
         endtracksCount = self.main_view.get_queue_track_count()
@@ -423,18 +403,15 @@ class TestMainWindow(MusicTestCase):
 
         # verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
-            artistName)
-        self.assertThat(str(queueArtistName.text), Equals(artistName))
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            trackTitle)
-        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
     def test_add_song_to_queue_from_songs_tab(self):
         """tests navigating to the Songs tab and adding a song from the library
            to the queue via the expandable list view item. """
-
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        artistName = "Benjamin Kerensa"
 
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
@@ -443,7 +420,7 @@ class TestMainWindow(MusicTestCase):
         self.main_view.switch_to_tab("trackstab")
 
         # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_trackimage(trackTitle)
+        trackitem = self.main_view.get_songs_tab_trackimage(self.trackTitle)
         self.pointing_device.click_object(trackitem)
         addtoqueueLabel = self.main_view.get_songs_tab_add_to_queue_label()
         self.pointing_device.click_object(addtoqueueLabel)
@@ -459,23 +436,21 @@ class TestMainWindow(MusicTestCase):
 
         # verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
-            artistName)
-        self.assertThat(str(queueArtistName.text), Equals(artistName))
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            trackTitle)
-        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
     def test_create_playlist_from_songs_tab(self):
         """tests navigating to the Songs tab and creating a playlist by
            selecting a song to add it to a new playlist. """
 
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-
         # switch to songs tab
         self.main_view.switch_to_tab("trackstab")
 
         # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_trackimage(trackTitle)
+        trackitem = self.main_view.get_songs_tab_trackimage(self.trackTitle)
         self.pointing_device.click_object(trackitem)
         addtoplaylistLbl = self.main_view.get_songs_tab_add_to_playlist_label()
         self.pointing_device.click_object(addtoplaylistLbl)
@@ -513,36 +488,34 @@ class TestMainWindow(MusicTestCase):
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
 
-        artistName = "Benjamin Kerensa"
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
         # switch to artists tab
         self.main_view.switch_to_tab("artiststab")
 
-        #select artist
-        artist = self.main_view.get_artists_artist(artistName)
+        # select artist
+        artist = self.main_view.get_artists_artist(self.artistName)
         self.pointing_device.click_object(artist)
 
-        #get album sheet album artist
+        # get album sheet album artist
         sheet_albumartist = self.main_view.get_artist_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
 
         # click on album to shows the artists
         sheet_albumartist = self.main_view.get_artist_sheet_artist_cover()
         self.pointing_device.click_object(sheet_albumartist)
 
-        #get song sheet album artist
+        # get song sheet album artist
         sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(artistName))
+        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
 
         # click on song to populate queue and start playing
         self.pointing_device.click_object(sheet_albumartist)
 
-        #select artist
-        track = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
+        # select artist
+        track = self.main_view.get_album_sheet_listview_tracktitle(
+            self.trackTitle)
         self.pointing_device.click_object(track)
 
         # verify track queue has added all songs to initial value
@@ -556,31 +529,25 @@ class TestMainWindow(MusicTestCase):
 
         # verify song's metadata matches the item added to the Now Playing view
         queueArtistName = self.main_view.get_queue_now_playing_artist(
-            artistName)
-        self.assertThat(str(queueArtistName.text), Equals(artistName))
+            self.artistName)
+        self.assertThat(queueArtistName.text, Equals(self.artistName))
         queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            trackTitle)
-        self.assertThat(str(queueTrackTitle.text), Equals(trackTitle))
+            self.trackTitle)
+        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
     def test_swipe_to_delete_song(self):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
 
-        artistName = "Benjamin Kerensa"
-
         # populate queue
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
-        trackTitle = "Foss Yeaaaah! (Radio Edit)"
-        song = self.main_view.get_album_sheet_listview_tracktitle(trackTitle)
-        self.pointing_device.click_object(song)
+        self.populate_and_play_queue_from_songs_tab()
 
         # get initial queue count
         initialqueueCount = self.main_view.get_queue_track_count()
 
         # get song to delete
         artistToDelete = self.main_view.get_queue_now_playing_artist(
-            artistName)
+            self.artistName)
         musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
 
         # get coordinates to delete song
@@ -604,68 +571,80 @@ class TestMainWindow(MusicTestCase):
 
     def test_playback_stops_when_last_song_ends_and_repeat_off(self):
         """Check that playback stops when the last song in the queue ends"""
-        self.populate_and_play_queue()
+
+        # populate queue
+        self.populate_and_play_queue_from_songs_tab()
+
         self.turn_shuffle_off()
         self.turn_repeat_off()
 
         num_tracks = self.main_view.get_queue_track_count()
 
-        #Skip through all songs in queue, stopping on last one.
+        # Skip through all songs in queue, stopping on last one.
         forward_button = self.main_view.get_forward_button()
         for count in range(0, num_tracks - 1):
             self.pointing_device.click_object(forward_button)
 
-        #When the last song ends, playback should stop
+        # When the last song ends, playback should stop
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_playback_repeats_when_last_song_ends_and_repeat_on(self):
         """With repeat on, the 1st song should play after the last one ends"""
-        self.populate_and_play_queue()
+
+        # populate queue
+        self.populate_and_play_queue_from_songs_tab()
+
         self.turn_shuffle_off()
         self.turn_repeat_on()
 
         num_titles = self.main_view.get_queue_track_count()
-        #Skip through all songs in queue, stopping on last one.
+        # Skip through all songs in queue, stopping on last one.
         forward_button = self.main_view.get_forward_button()
         for count in range(0, num_titles - 1):
             self.pointing_device.click_object(forward_button)
 
-        #Make sure we loop back to first song after last song ends
+        # Make sure we loop back to first song after last song ends
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.FIRST_TITLE)))
+        self.assertThat(actual_title, Eventually(Equals(self.trackTitle)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_pressing_next_from_last_song_plays_first_when_repeat_on(self):
         """With repeat on, skipping the last song jumps to the first track"""
-        self.populate_and_play_queue()
+
+        # populate queue
+        self.populate_and_play_queue_from_songs_tab()
+
         self.turn_shuffle_off()
         self.turn_repeat_on()
 
         num_titles = self.main_view.get_queue_track_count()
-        #Skip through all songs in queue, INCLUDING last one.
+        # Skip through all songs in queue, INCLUDING last one.
         forward_button = self.main_view.get_forward_button()
         for count in range(0, num_titles - 1):
             self.pointing_device.click_object(forward_button)
 
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.FIRST_TITLE)))
+        self.assertThat(actual_title, Eventually(Equals(self.trackTitle)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_pressing_prev_from_first_song_plays_last_when_repeat_on(self):
         """With repeat on, 'previous' from the 1st song plays the last one."""
-        self.populate_and_play_queue()
+
+        # populate queue
+        self.populate_and_play_queue_from_songs_tab()
+
         self.turn_shuffle_off()
         self.turn_repeat_on()
 
         prev_button = self.main_view.get_previous_button()
         initial_song = self.player.currentMetaTitle
         self.pointing_device.click_object(prev_button)
-        #If we're far enough into a song, pressing prev just takes us to the
-        #beginning of that track.  In that case, hit prev again to actually
-        #skip over the track.
+        # If we're far enough into a song, pressing prev just takes us to the
+        # beginning of that track.  In that case, hit prev again to actually
+        # skip over the track.
         if self.player.currentMetaTitle == initial_song:
             self.pointing_device.click_object(prev_button)
 
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.LAST_TITLE)))
+        self.assertThat(actual_title, Eventually(Equals(self.lastTrackTitle)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
