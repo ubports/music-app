@@ -291,7 +291,7 @@ MainView {
         onImportRequested: {
             if (transfer.state === ContentHub.ContentTransfer.Charged) {
                 for(var i=0; i < transfer.items.length; i++) {
-                    uriHandler.process(transfer.items[i].url.toString(), true)
+                    uriHandler.process(transfer.items[i].url.toString(), i === 0)
                 }
             }
         }
