@@ -4,6 +4,7 @@
     "hooks": {
         "@APP_NAME@": {
             "apparmor": "apparmor.json",
+            "content-hub": "music-app-content.json",
             "desktop": "@DESKTOP_FILE@",
             "urls": "@URLS_FILE@"
         }

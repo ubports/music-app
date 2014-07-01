@@ -22,6 +22,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Content 0.1 as ContentHub
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import QtMultimedia 5.0
@@ -280,6 +281,18 @@ MainView {
                 console.debug("URI=" + uris[i])
 
                 uriHandler.process(uris[i], i === 0);
+            }
+        }
+    }
+
+    // Content hub support
+    Connections {
+        target: ContentHub.ContentHub
+        onImportRequested: {
+            if (transfer.state === ContentHub.ContentTransfer.Charged) {
+                for(var i=0; i < transfer.items.length; i++) {
+                    uriHandler.process(transfer.items[i].url.toString(), true)
+                }
             }
         }
     }
