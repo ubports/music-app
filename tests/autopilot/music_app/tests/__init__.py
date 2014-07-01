@@ -8,7 +8,6 @@
 """Music app autopilot tests."""
 
 import os
-import subprocess
 import os.path
 import shutil
 import sqlite3
@@ -48,8 +47,6 @@ class MusicTestCase(AutopilotTestCase):
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
-    backup_root = os.path.join(
-        os.path.expanduser('~'), '.local/share/com.ubuntu.music/backups')
 
     def setup_environment(self):
         if os.path.exists(self.local_location):
@@ -64,73 +61,9 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        subprocess.call(["stop", "mediascanner-2.0"])
-
-        # Restart mediascanner on exit
-        self.addCleanup(subprocess.call, ["start", "mediascanner-2.0"])
-
         launch, self.test_type = self.setup_environment()
-
-        # Use backup and restore to setup test environment
-        #################################################
-        # for now, we will use real /home
-        logger.debug("Backup root folder %s" % self.backup_root)
-
-        # backup and wipe before testing
-        sqlite_dir = os.path.join(
-            os.environ.get('HOME'), '.local/share/com.ubuntu.music/Databases')
-        self.backup_folder(sqlite_dir)
-        self.addCleanup(lambda: self.restore_folder(sqlite_dir))
-
-        # backup Music folder and restore it after testing
-        self.backup_folder(os.path.join(os.environ.get('HOME'), 'Music'))
-        self.addCleanup(lambda: self.restore_folder(
-                        os.path.join(os.environ.get('HOME'), 'Music')))
-
-        # backup mediascanner folder and restore it after testing
-        self.backup_folder(os.path.join(os.environ.get('HOME'),
-                                        '.cache/mediascanner-2.0'))
-        self.addCleanup(lambda: self.restore_folder(os.path.join(
-                        os.environ.get('HOME'),
-                        '.cache/mediascanner-2.0')))
-
-        self.home_dir = os.environ['HOME']
-        self._create_music_library()
-
-        '''
-        #################################################
-        # Use backup and restore to setup test environment
-
-        # Use mocking fakehome
-        #####################
         self.home_dir = self._patch_home()
-
         self._create_music_library()
-
-        # we need to also tell upstart about our fake home
-        # and we need to do this all in one shell,
-        # also passing along our fake env (env=env)
-        logger.debug("Launching mediascanner")
-        env = os.environ.copy()
-        sethome = "initctl set-env HOME=" + self.home_dir
-        retcode = subprocess.check_output(sethome + "; \
-                                          start mediascanner-2.0",
-                                          env=env,
-                                          stderr=subprocess.STDOUT,
-                                          shell=True)
-        logger.debug("mediascanner launched %s" % retcode)
-        time.sleep(10)
-
-        # we attempt to reset home for future upstart jobs
-        retcode = subprocess.check_output("initctl reset-env",
-                                          env=env, shell=True)
-        retcode = subprocess.check_output("initctl get-env HOME",
-                                          env=env, shell=True)
-        logger.debug("reset initctl home %s" % retcode)
-        #####################
-        # Use mocking fakehome
-        '''
-
         self.pointing_device = Pointer(self.input_device_class.create())
         super(MusicTestCase, self).setUp()
         launch()
@@ -311,55 +244,6 @@ class MusicTestCase(AutopilotTestCase):
         # remove original file and copy new file back
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
-
-    def backup_folder(self, folder):
-        backup_dir = os.path.join(self.backup_root, os.path.basename(folder))
-        logger.debug('Backup dir set to %s' % backup_dir)
-        try:
-            shutil.rmtree(backup_dir)
-        except:
-            pass
-        else:
-            logger.warning("Prexisting backup found and removed")
-
-        try:
-            shutil.move(folder, backup_dir)
-        except shutil.Error as e:
-            logger.error('Backup error for %s: %s' % (folder, e))
-        except IOError as e:
-            logger.error('Backup error for %s: %s' % (folder, e.strerror))
-        except:
-            logger.error("Unknown error backing up %s" % folder)
-        else:
-            logger.debug('Backed up %s to %s' % (folder, backup_dir))
-
-    def restore_folder(self, folder):
-        backup_dir = os.path.join(self.backup_root, os.path.basename(folder))
-        logger.debug('Backup dir set to %s' % backup_dir)
-        if os.path.exists(backup_dir):
-            if os.path.exists(folder):
-                try:
-                    shutil.rmtree(folder)
-                except shutil.Error as e:
-                    logger.error('Restore error for %s: %s' % (folder, e))
-                except IOError as e:
-                    logger.error('Restore error for %s: %s' %
-                                 (folder, e.strerror))
-                except:
-                    logger.error("Failed to remove test data for %s" % folder)
-                    return
-            try:
-                shutil.move(backup_dir, folder)
-            except shutil.Error as e:
-                logger.error('Restore error for %s: %s' % (folder, e))
-            except IOError as e:
-                logger.error('Restore error for %s: %s' % (folder, e.strerror))
-            except:
-                logger.error('Unknown error restoring %s' % folder)
-            else:
-                logger.debug('Restored %s from %s' % (folder, backup_dir))
-        else:
-            logger.warn('No backup found to restore for %s' % folder)
 
     @property
     def player(self):
