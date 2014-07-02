@@ -28,24 +28,13 @@ import "common"
 import "common/ExpanderItems"
 import "settings.js" as Settings
 
-Page {
+MusicPage {
     id: nowPlaying
     objectName: "nowplayingpage"
     title: i18n.tr("Now Playing")
-    tools: null
     visible: false
 
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(nowPlaying, null, tabs.pageStack);
-        }
-    }
-
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
-
-    BlurredBackground {
-    }
 
     Rectangle {
         anchors.fill: parent
@@ -98,7 +87,6 @@ Page {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        anchors.topMargin: header !== null && header.useDeprecatedToolbar === undefined ? nowPlayingBackButton.height : 0
         spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
@@ -682,49 +670,6 @@ Page {
                     }
                 }
             }
-        }
-    }
-
-    // TODO: Remove back button once lp:1256424 is fixed (button will be in header)
-    Rectangle {
-        id: nowPlayingBackButton
-        visible: header.useDeprecatedToolbar === undefined
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
-
-        color: styleMusic.toolbar.fullBackgroundColor
-        height: units.gu(3.1)
-        y: header.y + header.height
-
-        Image {
-            id: nowPlayingBackButtonImage
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            source: "images/dropdown-menu.svg"
-            height: units.gu(2)
-            width: height
-        }
-
-        MouseArea {
-            objectName: "nowPlayingBackButtonObject"
-            anchors.fill: parent
-
-            onClicked: {
-                collapseSwipeDelete(-1);  // collapse all expands
-                musicToolbar.goBack();
-            }
-        }
-
-        /* Border at the bottom */
-        Rectangle {
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            color: styleMusic.common.white
-            height: units.gu(0.1)
-            opacity: 0.2
         }
     }
 }

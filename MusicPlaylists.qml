@@ -32,7 +32,7 @@ import "common"
 import "common/ExpanderItems"
 
 // page for the playlists
-Page {
+MusicPage {
     id: listspage
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
@@ -43,13 +43,6 @@ Page {
     property string oldPlaylistIndex: ""
     property string oldPlaylistID: ""
     property string inPlaylist: ""
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(listspage);
-        }
-    }
 
     // Edit name of playlist dialog
     Component {
@@ -224,11 +217,13 @@ Page {
 
                 onClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
-                    songsSheet.isAlbum = false
-                    songsSheet.line1 = "Playlist"
-                    songsSheet.line2 = model.name
-                    songsSheet.covers =  playlist.covers
-                    PopupUtils.open(songsSheet.sheet)
+                    songsPage.isAlbum = false
+                    songsPage.line1 = "Playlist"
+                    songsPage.line2 = model.name
+                    songsPage.covers =  playlist.covers
+                    songsPage.title = i18n.tr("Playlist")
+
+                    mainPageStack.push(songsPage)
                 }
             }
         }
