@@ -32,16 +32,9 @@ import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Music")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
 
     /* Dev button for search.
     Button {
@@ -191,15 +184,17 @@ Page {
                             if (type === "playlist") {
                                 albumTracksModel.filterPlaylistTracks(key)
                             } else {
-                                songsSheet.album = title;
+                                songsPage.album = title;
                             }
-                            songsSheet.genre = undefined;
+                            songsPage.genre = undefined;
 
-                            songsSheet.line1 = title2
-                            songsSheet.line2 = title
-                            songsSheet.covers =  recentItem.covers
-                            PopupUtils.open(songsSheet.sheet)
-                            songsSheet.isAlbum = (type === "album")
+                            songsPage.line1 = title2
+                            songsPage.line2 = title
+                            songsPage.covers = recentItem.covers
+                            songsPage.isAlbum = (type === "album")
+                            songsPage.title = songsPage.isAlbum ? i18n.tr("Album") : i18n.tr("Playlist")
+
+                            mainPageStack.push(songsPage)
                         }
                     }
                 }
@@ -298,13 +293,15 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            songsSheet.album = undefined
-                            songsSheet.genre = model.genre
-                            songsSheet.line1 = "Genre"
-                            songsSheet.line2 = model.genre
-                            songsSheet.isAlbum = true
-                            songsSheet.covers = genreShape.covers
-                            PopupUtils.open(songsSheet.sheet)
+                            songsPage.album = undefined
+                            songsPage.covers = genreShape.covers
+                            songsPage.genre = model.genre
+                            songsPage.isAlbum = true
+                            songsPage.line1 = "Genre"
+                            songsPage.line2 = model.genre
+                            songsPage.title = i18n.tr("Genre")
+
+                            mainPageStack.push(songsPage)
                         }
                     }
                     Rectangle {  // Background so can see text in current state
@@ -420,13 +417,15 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            songsSheet.album = album;
-                            songsSheet.genre = undefined
-                            songsSheet.line1 = artist
-                            songsSheet.line2 = album
-                            songsSheet.isAlbum = true
-                            songsSheet.covers =  covers
-                            PopupUtils.open(songsSheet.sheet)
+                            songsPage.album = album
+                            songsPage.covers = covers
+                            songsPage.genre = undefined
+                            songsPage.isAlbum = true
+                            songsPage.line1 = artist
+                            songsPage.line2 = album
+                            songsPage.title = i18n.tr("Album")
+
+                            mainPageStack.push(songsPage)
                         }
                     }
                     Rectangle {  // Background so can see text in current state
