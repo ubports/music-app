@@ -32,17 +32,17 @@ Item {
     }
 
     // Properties storing the current page info
-    property var currentParentPage: null
-    property var currentPageStack: null
     property var currentPage: null
     property var currentSheet: []
     property var currentTab: null
+    property var previousPage: null
 
     // Properties and signals for the toolbar
     property var cachedStates: []
     property bool shown: false
     property int transitionDuration: 100
 
+    property alias currentHeight: musicToolbarPanel.height
     property alias minimizedHeight: musicToolbarPanel.minimizedHeight
     property alias expandedHeight: musicToolbarPanel.expandedHeight
     property alias fullHeight: musicToolbarPanel.fullHeight
@@ -50,6 +50,22 @@ Item {
 
     property alias animating: musicToolbarPanel.animating
     property alias opened: musicToolbarPanel.opened
+
+    Connections {
+        id: pageStackConn
+        target: mainPageStack
+
+        onCurrentPageChanged: {
+            previousPage = currentPage;
+
+            // If going back from nowPlaying jump back to tabs
+            if (previousPage === nowPlaying && mainPageStack.currentPage !== nowPlaying) {
+                while (mainPageStack.depth > 1) {
+                    mainPageStack.pop(mainPageStack.currentPage)
+                }
+            }
+        }
+    }
 
     /* Helper functions */
 
@@ -76,13 +92,8 @@ Item {
             PopupUtils.close(currentSheet[currentSheet.length - 1])
             return;  // don't change toolbar state when going back from sheet
         }
-        else if (currentPageStack !== null) {
-            currentPageStack.pop(currentPage)
-        }
-        else if (currentParentPage !== null) {
-            currentParentPage.visible = false  // force switch
-            currentPage.visible = false
-            currentParentPage.visible = true
+        else if (mainPageStack !== null && mainPageStack.depth > 1) {
+            mainPageStack.pop(currentPage)
         }
 
         hideToolbar();
@@ -109,11 +120,11 @@ Item {
     }
 
     // Set the current page, and any parent/stacks
-    function setPage(childPage, parentPage, pageStack)
+    function setPage(childPage)
     {
         currentPage = childPage;
-        currentParentPage = parentPage === undefined ? null : parentPage;
-        currentPageStack = pageStack === undefined ? null : pageStack;
+        // note: If pageStack tracking is needed readd here
+        //currentPageStack = pageStack === undefined ? null : pageStack;
     }
 
     // Set the current sheet (overrides page)

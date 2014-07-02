@@ -32,20 +32,9 @@ import "settings.js" as Settings
 import "playlists.js" as Playlists
 import "common"
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Albums")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
-    MusicSettings {
-        id: musicSettings
-    }
 
     // TODO: This ListView is empty and causes the header to get painted with the desired background color because the
     //       page is now vertically flickable.
@@ -149,13 +138,15 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        songsSheet.album = model.title;
-                        songsSheet.genre = undefined
-                        songsSheet.line1 = model.artist
-                        songsSheet.line2 = model.title
-                        songsSheet.isAlbum = true
-                        songsSheet.covers = [{author: model.artist, album: model.title}]
-                        PopupUtils.open(songsSheet.sheet)
+                        songsPage.album = model.title;
+                        songsPage.covers = [{author: model.artist, album: model.title}]
+                        songsPage.genre = undefined
+                        songsPage.isAlbum = true
+                        songsPage.line1 = model.artist
+                        songsPage.line2 = model.title
+                        songsPage.title = i18n.tr("Album")
+
+                        mainPageStack.push(songsPage)
                     }
                 }
             }

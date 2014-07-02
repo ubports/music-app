@@ -26,115 +26,108 @@ import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 import "common"
 
+
 /* NOTE:
- * Text is barly visible as of right now and a bug report has been filed:
- * https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1225778
- *
- * Wait until the bug is resolved, or move on to use other stuff then ListItems.
- */
+* Text is barly visible as of right now and a bug report has been filed:
+* https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1225778
+*
+* Wait until the bug is resolved, or move on to use other stuff then ListItems.
+*/
 
 // Page that will be used when adding tracks to playlists
- DefaultSheet {
-     id: addtoPlaylist
-     title: i18n.tr("Select playlist")
-     contentsHeight: units.gu(80)
+MusicPage {
+    id: addtoPlaylist
+    title: i18n.tr("Select playlist")
+    visible: false
 
-     onDoneClicked: PopupUtils.close(addtoPlaylist)
+    Component.onCompleted: {
+        // check the four latest track in each playlist
+        // get the cover art of them
+        // print them in the icon
+        tabs.ensurePopulated(playlistTab)
+    }
 
-     Component.onCompleted:  {
-         // check the four latest track in each playlist
-         // get the cover art of them
-         // print them in the icon
-         tabs.ensurePopulated(playlistTab);
-     }
+    // show each playlist and make them chosable
+    ListView {
+        id: addtoPlaylistView
+        anchors {
+            bottom: newPlaylistItem.top
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        clip: true
+        height: parent.width
+        model: playlistModel.model
+        objectName: "addtoplaylistview"
+        width: parent.width
+        delegate: ListItem.Standard {
+            id: playlist
+            objectName: "playlist"
+            height: styleMusic.common.itemHeight
 
-     onVisibleChanged: {
-         if (visible)
-         {
-             musicToolbar.setSheet(addtoPlaylist)
-         }
-         else
-         {
-             musicToolbar.removeSheet(addtoPlaylist)
-         }
-     }
+            property string name: model.name
+            property string count: model.count
 
-     Rectangle {
-         width: parent.width
-         height: parent.height
-         color: "transparent"
-         clip: true
+            onClicked: {
+                console.debug("Debug: "+chosenElement.filename+" added to "+name)
+                Playlists.addtoPlaylist(name,
+                                        chosenElement.filename,
+                                        chosenElement.author,
+                                        chosenElement.title,
+                                        chosenElement.album,
+                                        chosenElement.art,
+                                        "","","","")
+                count = Playlists.getPlaylistCount(
+                            name) // get the new count
+                playlistModel.model.set(index, {
+                                            count: count
+                                        }) // update number ot tracks in playlist
 
-         // show each playlist and make them chosable
-         ListView {
-             id: addtoPlaylistView
-             objectName: "addtoplaylistview"
-             width: parent.width
-             height: parent.width
-             model: playlistModel.model
-             delegate: ListItem.Standard {
-                    id: playlist
-                    objectName: "playlist"
-                    height: styleMusic.common.itemHeight
+                musicToolbar.goBack();  // go back to the previous page
+            }
 
-                    property string name: model.name
-                    property string count: model.count
-
-                    onClicked: {
-                        console.debug("Debug: "+chosenElement.filename+" added to "+name)
-                        Playlists.addtoPlaylist(name,
-                                                chosenElement.filename,
-                                                chosenElement.author,
-                                                chosenElement.title,
-                                                chosenElement.album,
-                                                chosenElement.art,
-                                                "","","","")
-                        count = Playlists.getPlaylistCount(name) // get the new count
-                        playlistModel.model.set(index, {"count": count}) // update number ot tracks in playlist
-                        onDoneClicked: PopupUtils.close(addtoPlaylist)
+            MusicRow {
+                covers: Playlists.getPlaylistCovers(playlist.name)
+                column: Column {
+                    spacing: units.gu(1)
+                    Label {
+                        id: playlistCount
+                        color: styleMusic.common.subtitle
+                        elide: Text.ElideRight
+                        fontSize: "x-small"
+                        maximumLineCount: 1
+                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
+                        wrapMode: Text.NoWrap
                     }
-
-                    MusicRow {
-                        covers: Playlists.getPlaylistCovers(playlist.name)
-                        column: Column {
-                            spacing: units.gu(1)
-                            Label {
-                                id: playlistCount
-                                color: styleMusic.common.subtitle
-                                elide: Text.ElideRight
-                                fontSize: "x-small"
-                                maximumLineCount: 1
-                                text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                                wrapMode: Text.NoWrap
-                            }
-                            Label {
-                                id: playlistName
-                                color: styleMusic.common.music
-                                elide: Text.ElideRight
-                                fontSize: "medium"
-                                maximumLineCount: 1
-                                text: playlist.name
-                                wrapMode: Text.NoWrap
-                            }
-                        }
+                    Label {
+                        id: playlistName
+                        color: styleMusic.common.music
+                        elide: Text.ElideRight
+                        fontSize: "medium"
+                        maximumLineCount: 1
+                        text: playlist.name
+                        wrapMode: Text.NoWrap
                     }
-             }
-         }
+                }
+            }
+        }
+    }
 
-         Button {
-             id: newPlaylistItem
-             objectName: "newplaylistButton"
-             text: i18n.tr("New playlist")
-             iconSource: "images/add.svg"
-             iconPosition: "left"
-             width: parent.width
-             anchors.bottom: parent.bottom
-             anchors.bottomMargin: units.gu(0.5)
-             onClicked: {
-                 customdebug("New playlist.")
-                 PopupUtils.open(newPlaylistDialog, mainView)
-             }
-         }
-
-     }
- }
+    Button {
+        id: newPlaylistItem
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        }
+        objectName: "newplaylistButton"
+        text: i18n.tr("New playlist")
+        iconSource: "images/add.svg"
+        iconPosition: "left"
+        width: parent.width
+        onClicked: {
+            customdebug("New playlist.")
+            PopupUtils.open(newPlaylistDialog, mainView)
+        }
+    }
+}

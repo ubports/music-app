@@ -32,20 +32,9 @@ import "playlists.js" as Playlists
 import "common"
 
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Artists")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
-    MusicSettings {
-        id: musicSettings
-    }
 
     ListView {
         id: artistlist
@@ -138,9 +127,11 @@ Page {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        artistSheet.artist = model.artist
-                        artistSheet.covers = musicRow.covers
-                        PopupUtils.open(artistSheet.sheet)
+                        albumsPage.artist = model.artist
+                        albumsPage.covers = musicRow.covers
+                        albumsPage.title = i18n.tr("Artist")
+
+                        mainPageStack.push(albumsPage)
                     }
                 }
             }

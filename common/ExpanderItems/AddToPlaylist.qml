@@ -54,10 +54,7 @@ Rectangle {
            parent.parent.parent.expanderLink.expanderVisible = false;
            chosenElement = parent.parent.parent.expanderLink.model;
            console.debug("Debug: Add track to playlist");
-           PopupUtils.open(Qt.resolvedUrl("../../MusicaddtoPlaylist.qml"), mainView,
-           {
-               title: i18n.tr("Select playlist")
-           } )
+           mainPageStack.push(addtoPlaylist)
        }
     }
 }

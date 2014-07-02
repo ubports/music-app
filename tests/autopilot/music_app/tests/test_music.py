@@ -38,7 +38,7 @@ class TestMainWindow(MusicTestCase):
         first_genre_item = self.main_view.get_first_genre_item()
         self.pointing_device.click_object(first_genre_item)
 
-        song = self.main_view.get_album_sheet_listview_tracktitle(
+        song = self.main_view.get_album_page_listview_tracktitle(
             self.trackTitle)
         self.pointing_device.click_object(song)
 
@@ -104,7 +104,7 @@ class TestMainWindow(MusicTestCase):
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+        self.main_view.add_to_queue_from_albums_tab_album_page(
             self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
@@ -124,10 +124,9 @@ class TestMainWindow(MusicTestCase):
             self.trackTitle)
         self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
-        # click on close button to close album sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
-        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
+        # click on close button to close the page
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
 
         if self.main_view.wideAspect:
             play_button = self.main_view.get_now_playing_play_button()
@@ -332,8 +331,8 @@ class TestMainWindow(MusicTestCase):
                 logger.debug("Same track, no shuffle %s, %s" % (title, artist))
             count += 1
 
-    def test_show_albums_sheet(self):
-        """tests navigating to the Albums tab and displaying the album sheet"""
+    def test_show_albums_page(self):
+        """tests navigating to the Albums tab and displaying the album page"""
 
         # switch to albums tab
         self.main_view.switch_to_tab("albumstab")
@@ -342,22 +341,22 @@ class TestMainWindow(MusicTestCase):
         albumartist = self.main_view.get_albums_albumartist(self.artistName)
         self.pointing_device.click_object(albumartist)
 
-        # get album sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
+        # get album page album artist
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
 
-        # click on close button to close album sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
+        # click on close button to close album page
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
-    def test_add_song_to_queue_from_albums_sheet(self):
+    def test_add_song_to_queue_from_albums_page(self):
         """tests navigating to the Albums tab and adding a song to queue"""
 
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        self.main_view.add_to_queue_from_albums_tab_album_sheet(
+        self.main_view.add_to_queue_from_albums_tab_album_page(
             self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
@@ -377,9 +376,9 @@ class TestMainWindow(MusicTestCase):
             self.trackTitle)
         self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
-        # click on close button to close album sheet
-        closebutton = self.main_view.get_album_sheet_close_button()
-        self.pointing_device.click_object(closebutton)
+        # click on close button to close album page
+        backButton = self.main_view.get_back_button()
+        self.pointing_device.click_object(backButton)
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_songs_to_queue_from_songs_tab_and_play(self):
@@ -498,23 +497,23 @@ class TestMainWindow(MusicTestCase):
         artist = self.main_view.get_artists_artist(self.artistName)
         self.pointing_device.click_object(artist)
 
-        # get album sheet album artist
-        sheet_albumartist = self.main_view.get_artist_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
+        # get album page album artist
+        page_albumartist = self.main_view.get_artist_page_artist()
+        self.assertThat(page_albumartist.text, Equals(self.artistName))
 
         # click on album to shows the artists
-        sheet_albumartist = self.main_view.get_artist_sheet_artist_cover()
-        self.pointing_device.click_object(sheet_albumartist)
+        albumartist_cover = self.main_view.get_artist_page_artist_cover()
+        self.pointing_device.click_object(albumartist_cover)
 
-        # get song sheet album artist
-        sheet_albumartist = self.main_view.get_album_sheet_artist()
-        self.assertThat(sheet_albumartist.text, Equals(self.artistName))
+        # get song page album artist
+        songs_page_albumartist = self.main_view.get_songs_page_artist()
+        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
 
         # click on song to populate queue and start playing
-        self.pointing_device.click_object(sheet_albumartist)
+        self.pointing_device.click_object(songs_page_albumartist)
 
         # select artist
-        track = self.main_view.get_album_sheet_listview_tracktitle(
+        track = self.main_view.get_songs_page_listview_tracktitle(
             self.trackTitle)
         self.pointing_device.click_object(track)
 
