@@ -40,6 +40,20 @@ MusicPage {
     title: i18n.tr("Select playlist")
     visible: false
 
+    tools: ToolbarItems {
+        ToolbarButton {
+            action: Action {
+                objectName: "newplaylistButton"
+                text: i18n.tr("New playlist")
+                iconSource: "images/add.svg"
+                onTriggered: {
+                    customdebug("New playlist.")
+                    PopupUtils.open(newPlaylistDialog, mainView)
+                }
+            }
+        }
+    }
+
     Component.onCompleted: {
         // check the four latest track in each playlist
         // get the cover art of them
@@ -116,23 +130,6 @@ MusicPage {
                 elide: Text.ElideRight
                 text: playlist.name + " (" + playlist.count + ")"
             }
-        }
-    }
-
-    Button {
-        id: newPlaylistItem
-        anchors {
-            bottom: parent.bottom
-            bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        }
-        objectName: "newplaylistButton"
-        text: i18n.tr("New playlist")
-        iconSource: "images/add.svg"
-        iconPosition: "left"
-        width: parent.width
-        onClicked: {
-            customdebug("New playlist.")
-            PopupUtils.open(newPlaylistDialog, mainView)
         }
     }
 }

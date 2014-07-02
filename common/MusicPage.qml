@@ -23,7 +23,6 @@ import Ubuntu.Components 0.1
 // generic page for music, could be useful for bottomedge implementation
 Page {
     id: thisPage
-    tools: null
 
     onVisibleChanged: {
         if (visible) {
