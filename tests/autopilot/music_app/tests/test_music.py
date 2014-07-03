@@ -457,9 +457,8 @@ class TestMainWindow(MusicTestCase):
         # get initial list view playlist count
         playlist_count = self.main_view.get_addtoplaylistview()[0].count
 
-        # click on New playlist button
-        newplaylistButton = self.main_view.get_newplaylistButton()[0]
-        self.pointing_device.click_object(newplaylistButton)
+        # click on New playlist button in header
+        self.main_view.tap_new_playlist_action()
 
         # input playlist name
         playlistNameFld = self.main_view.get_newPlaylistDialog_name_textfield()

@@ -44,6 +44,20 @@ MusicPage {
     property string oldPlaylistID: ""
     property string inPlaylist: ""
 
+    tools: ToolbarItems {
+        ToolbarButton {
+            action: Action {
+                objectName: "newplaylistButton"
+                text: i18n.tr("New playlist")
+                iconSource: "images/add.svg"
+                onTriggered: {
+                    customdebug("New playlist.")
+                    PopupUtils.open(newPlaylistDialog, mainView)
+                }
+            }
+        }
+    }
+
     // Edit name of playlist dialog
     Component {
         id: editPlaylistDialog
