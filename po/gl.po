@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-06-07 13:27+0000\n"
+"PO-Revision-Date: 2014-07-05 18:06+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-20 06:08+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-06 06:03+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr "Iniciar sesión para publicar no meu perfil."
+msgstr "Iniciar sesión para facer «scrobble»."
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -56,7 +56,7 @@ msgstr "Esqueceches indicar o nome de usuario e/ou contrasinal"
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
-msgstr "Albums"
+msgstr "Álbums"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -67,7 +67,7 @@ msgstr "Intérpretes"
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 álbum"
-msgstr[1] "%1 albums"
+msgstr[1] "%1 álbums"
 
 #: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
 #: ../common/SongsSheet.qml:144
@@ -184,7 +184,7 @@ msgid ""
 "when opening toolbar"
 msgstr ""
 "Axustar á canción actual \n"
-"cando se abra a barra de ferram."
+"cando se abra a barra de ferramentas"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
@@ -192,7 +192,7 @@ msgstr "Contas"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "Iniciar sesión para publicar no meu perfil e importar listas"
+msgstr "Iniciar sesión para facer «scrobble» e importar listas"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -204,11 +204,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr "Inicie sesión para transmitir a súa música na nube"
+msgstr "Inicie sesión para recibir o fluxo da súa música na nube"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "Transmitir só con wifi"
+msgstr "Recibir fluxo musical só con wifi"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
@@ -237,7 +237,7 @@ msgstr "Non hai cancións na cola"
 
 #: ../MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr "Toca reproducir ou outro elemento para iniciar"
+msgstr "Toque para reproducir ou outro elemento para iniciar"
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
@@ -314,7 +314,7 @@ msgstr "Pista seguinte"
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr "Pausa"
+msgstr "Deter"
 
 #: ../music-app.qml:162
 msgid "Play"
@@ -322,7 +322,7 @@ msgstr "Reproducir"
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
-msgstr "Pausar reprodución"
+msgstr "Deter reprodución"
 
 #: ../music-app.qml:164
 msgid "Continue or start playback"
@@ -391,11 +391,11 @@ msgstr "Erro: "
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr "Erro: non escribiches un nome."
+msgstr "Erro: non escribiu un nome."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Aplicativo de música par Ubuntu"
+msgstr "Aplicativo de música para Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
