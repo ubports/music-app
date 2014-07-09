@@ -106,7 +106,7 @@ MusicPage {
                             right: parent.right
                             rightMargin: units.gu(1)
                         }
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: i18n.tr("%1 album", "%1 albums", albumtrackslist.count).arg(albumtrackslist.count)
                         fontSize: "small"
@@ -159,7 +159,7 @@ MusicPage {
                                 verticalCenter: parent.verticalCenter
                             }
                             fontSize: "small"
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             width: parent.width - playTrack.width - units.gu(1)
                             text: i18n.tr("Play all")
                             wrapMode: Text.WordWrap
@@ -202,7 +202,7 @@ MusicPage {
                                 verticalCenter: parent.verticalCenter
                             }
                             fontSize: "small"
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             width: parent.width - queueAll.width - units.gu(1)
                             text: i18n.tr("Add to queue")
                             wrapMode: Text.WordWrap

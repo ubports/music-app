@@ -77,6 +77,7 @@ MusicPage {
                     id: albumShape
                     height: albumItem.width
                     width: albumItem.width
+                    radius: "medium"
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
@@ -117,7 +118,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: model.artist
                         fontSize: "x-small"
@@ -134,6 +135,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: model.title
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                 }
 
