@@ -170,6 +170,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: title
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                     Label {
                         id: albumLabel
@@ -179,7 +180,7 @@ MusicPage {
                         anchors.bottomMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: title2
                         fontSize: "x-small"
@@ -343,6 +344,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: model.genre
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                     Label {
                         id: genreTotal
@@ -352,7 +354,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: i18n.tr("%1 song", "%1 songs", songGenreModel.rowCount).arg(songGenreModel.rowCount)
                         fontSize: "x-small"
@@ -469,7 +471,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: artist
                         fontSize: "x-small"
@@ -486,6 +488,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: album
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                 }
             }
