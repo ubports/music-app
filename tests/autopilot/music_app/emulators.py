@@ -78,6 +78,10 @@ class MainView(toolkit_emulators.MainView):
         queueTrackLabel = self.get_songs_page_queuetrack_label()
         self.pointing_device.click_object(queueTrackLabel)
 
+    def tap_new_playlist_action(self):
+        header = self.get_header()
+        header.click_action_button('newplaylistButton')
+
     def get_player(self):
         return self.select_single("*", objectName="player")
 
@@ -247,9 +251,6 @@ class MainView(toolkit_emulators.MainView):
         for item in addtoplaylist:
             if item.visible:
                 return item
-
-    def get_newplaylistButton(self):
-        return self.select_many_retry("Button", objectName="newplaylistButton")
 
     def get_newPlaylistDialog_createButton(self):
         return self.wait_select_single(
