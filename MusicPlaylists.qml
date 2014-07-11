@@ -164,18 +164,22 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             elide: Text.ElideRight
                             fontSize: "x-small"
+                            height: units.gu(2)
                             maximumLineCount: 1
                             text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                             wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
                         Label {
                             id: playlistName
                             color: styleMusic.common.music
                             elide: Text.ElideRight
                             fontSize: "medium"
+                            height: units.gu(2)
                             maximumLineCount: 1
                             text: playlist.name
                             wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }

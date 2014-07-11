@@ -79,9 +79,11 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             elide: Text.ElideRight
                             fontSize: "x-small"
+                            height: units.gu(2)
                             maximumLineCount: 2
                             text: model.author
                             wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
 
                         Label {
@@ -89,10 +91,12 @@ MusicPage {
                             color: styleMusic.common.music
                             elide: Text.ElideRight
                             fontSize: "medium"
+                            height: units.gu(2)
                             maximumLineCount: 1
                             objectName: "tracktitle"
                             text: model.title
                             wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
 
                         Label {
@@ -100,9 +104,11 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             elide: Text.ElideRight
                             fontSize: "xx-small"
+                            height: units.gu(2)
                             maximumLineCount: 2
                             text: model.album
                             wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }
