@@ -152,63 +152,35 @@ MusicPage {
                 property string name: model.name
                 property string count: model.count
                 property var covers: Playlists.getPlaylistCovers(name)
+                height: styleMusic.common.itemHeight
                 iconFrame: false
-                height: styleMusic.playlist.playlistItemHeight
 
-                Rectangle {
-                    id: trackContainer;
-                    anchors {
-                        fill: parent
-                        margins: units.gu(0.5)
-                        rightMargin: expandable.expanderButtonWidth
-                    }
-                    color: "transparent"
-
-                    CoverRow {
-                        id: coverRow
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            margins: units.gu(1)
+                MusicRow {
+                    covers: playlist.covers
+                    column: Column {
+                        spacing: units.gu(1)
+                        Label {
+                            id: playlistCount
+                            color: styleMusic.common.subtitle
+                            elide: Text.ElideRight
+                            fontSize: "x-small"
+                            height: units.gu(2)
+                            maximumLineCount: 1
+                            text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
+                            wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
-                        count: playlist.covers.length
-                        size: styleMusic.playlist.playlistAlbumSize
-                        covers: playlist.covers
-                    }
-
-                    // songs count
-                    Label {
-                        id: playlistCount
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: parent.right
-                            topMargin: units.gu(2)
-                            leftMargin: units.gu(12)
-                            rightMargin: units.gu(1.5)
+                        Label {
+                            id: playlistName
+                            color: styleMusic.common.music
+                            elide: Text.ElideRight
+                            fontSize: "medium"
+                            height: units.gu(2)
+                            maximumLineCount: 1
+                            text: playlist.name
+                            wrapMode: Text.NoWrap
+                            verticalAlignment: Text.AlignVCenter
                         }
-                        elide: Text.ElideRight
-                        fontSize: "x-small"
-                        color: styleMusic.common.subtitle
-                        height: units.gu(1)
-                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                    }
-                    // playlist name
-                    Label {
-                        id: playlistName
-                        anchors {
-                            top: playlistCount.bottom
-                            left: playlistCount.left
-                            right: parent.right
-                            topMargin: units.gu(1)
-                            rightMargin: units.gu(1.5)
-                        }
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "medium"
-                        color: styleMusic.common.music
-                        elide: Text.ElideRight
-                        text: playlist.name
                     }
                 }
 

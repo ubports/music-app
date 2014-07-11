@@ -188,12 +188,8 @@ class MainView(toolkit_emulators.MainView):
 
     def get_songs_page_listview_trackicon(self, trackTitle):
         tracktitle = self.get_songs_page_listview_tracktitle(trackTitle)
-        tracktitle_position = tracktitle.globalRect[1]
-        trackicons = self.select_many(
-            "QQuickImage", objectName="expanditem")
-        for item in trackicons:
-            if item.globalRect[1] == tracktitle_position:
-                return item
+
+        return self.get_trackimage_from_label(tracktitle)
 
     def get_songs_page_queuetrack_label(self):
         queuetracks = self.select_many_retry(
@@ -229,13 +225,17 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_songs_tab_trackimage(self, trackTitle):
-        trackimages = self.select_many_retry(
+        tracktitle = self.get_songs_tab_tracktitle(trackTitle)
+
+        return self.get_trackimage_from_label(tracktitle)
+
+    def get_trackimage_from_label(self, label):
+        label_position = label.globalRect[1]
+        trackicons = self.select_many(
             "QQuickImage", objectName="expanditem")
-        tracktitles = self.get_songs_tab_tracktitle(trackTitle)
-        imageheight = trackimages[0].height
-        trackimage_position = tracktitles.globalRect[1] + (imageheight / 2)
-        for item in trackimages:
-            if item.globalRect[1] == trackimage_position:
+
+        for item in trackicons:
+            if item.globalRect[1] == label_position:
                 return item
 
     def get_songs_tab_add_to_queue_label(self):
