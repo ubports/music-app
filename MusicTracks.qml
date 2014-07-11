@@ -90,7 +90,7 @@ MusicPage {
                             elide: Text.ElideRight
                             fontSize: "medium"
                             maximumLineCount: 1
-                            objectName: "albumsheet-tracktitle"
+                            objectName: "tracktitle"
                             text: model.title
                             wrapMode: Text.NoWrap
                         }
