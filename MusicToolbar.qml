@@ -614,20 +614,23 @@ Item {
 
                     Connections {
                         target: player
+                        onDurationChanged: {
+                            console.debug("Duration changed: " + player.duration)
+                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+                        }
                         onPositionChanged: {
                             if (musicToolbarFullProgressBarContainer.seeking === false)
                             {
+                                musicToolbarFullPositionLabel.text = durationToString(player.position);
                                 musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
                                         - musicToolbarFullProgressHandle.width / 2;
                             }
                         }
-                    }
+                        onStopped: {
+                            musicToolbarFullProgressHandle.x = -musicToolbarFullProgressHandle.width / 2;
 
-                    Connections {
-                        target: player
-                        onDurationChanged: {
-                            console.debug("Duration changed: " + player.duration)
-                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+                            musicToolbarFullPositionLabel.text = durationToString(0);
+                            musicToolbarFullDurationLabel.text = durationToString(0);
                         }
                     }
 
@@ -664,8 +667,10 @@ Item {
 
                         // On X change update the position string
                         onXChanged: {
-                            var fraction = (x + (width / 2)) / parent.width;
-                            musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
+                            if (musicToolbarFullProgressBarContainer.seeking) {
+                                var fraction = (x + (width / 2)) / parent.width;
+                                musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
+                            }
                         }
                     }
                 }
@@ -1078,6 +1083,9 @@ Item {
                     target: player
                     onPositionChanged: {
                         musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
+                    }
+                    onStopped: {
+                        musicToolbarSmallProgressHint.width = 0;
                     }
                 }
             }
