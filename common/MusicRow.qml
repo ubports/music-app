@@ -61,6 +61,8 @@ Row {
                 item.children[i].maximumLineCount = 1
                 item.children[i].wrapMode = Text.NoWrap
                 item.children[i].verticalAlignment = Text.AlignVCenter
+
+                // binds to width so it is updated when screen size changes
                 item.children[i].width = Qt.binding(function () { return width; })
             }
         }
