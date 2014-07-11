@@ -75,21 +75,26 @@ MusicPage {
                         covers: albumStackPage.covers;
                         spacing: units.gu(4)
                     }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: albumBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(10)
-                        width: parent.width
-                        radius: "medium"
-                    }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(8)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(10)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: artistImage.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: albumCount
@@ -101,7 +106,7 @@ MusicPage {
                             right: parent.right
                             rightMargin: units.gu(1)
                         }
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: i18n.tr("%1 album", "%1 albums", albumtrackslist.count).arg(albumtrackslist.count)
                         fontSize: "small"
@@ -154,7 +159,7 @@ MusicPage {
                                 verticalCenter: parent.verticalCenter
                             }
                             fontSize: "small"
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             width: parent.width - playTrack.width - units.gu(1)
                             text: i18n.tr("Play all")
                             wrapMode: Text.WordWrap
@@ -197,7 +202,7 @@ MusicPage {
                                 verticalCenter: parent.verticalCenter
                             }
                             fontSize: "small"
-                            color: styleMusic.nowPlaying.labelSecondaryColor
+                            color: styleMusic.common.white
                             width: parent.width - queueAll.width - units.gu(1)
                             text: i18n.tr("Add to queue")
                             wrapMode: Text.WordWrap

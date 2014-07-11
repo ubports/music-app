@@ -77,6 +77,7 @@ MusicPage {
                     id: albumShape
                     height: albumItem.width
                     width: albumItem.width
+                    radius: "medium"
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
@@ -87,20 +88,26 @@ MusicPage {
                             }
                         }
                     }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: albumBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(4)
-                        width: parent.width
-                    }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(5)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: albumShape.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: albumArtist
@@ -111,7 +118,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: model.artist
                         fontSize: "x-small"
@@ -128,6 +135,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: model.title
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                 }
 

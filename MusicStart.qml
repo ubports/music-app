@@ -137,20 +137,26 @@ MusicPage {
                         covers: recentItem.covers
                         spacing: units.gu(2)
                     }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: albumBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(4)
-                        width: parent.width
-                    }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(5)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: recentShape.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: albumArtist
@@ -164,6 +170,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: title
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                     Label {
                         id: albumLabel
@@ -173,7 +180,7 @@ MusicPage {
                         anchors.bottomMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: title2
                         fontSize: "x-small"
@@ -304,20 +311,26 @@ MusicPage {
                             mainPageStack.push(songsPage)
                         }
                     }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: genreBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
-                    }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: genreBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(4)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(5)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: genreShape.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: genreLabel
@@ -331,6 +344,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: model.genre
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                     Label {
                         id: genreTotal
@@ -340,7 +354,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: i18n.tr("%1 song", "%1 songs", songGenreModel.rowCount).arg(songGenreModel.rowCount)
                         fontSize: "x-small"
@@ -428,20 +442,26 @@ MusicPage {
                             mainPageStack.push(songsPage)
                         }
                     }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
-                    }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: albumBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(4)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(5)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: albumShape.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: albumLabel
@@ -451,7 +471,7 @@ MusicPage {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: artist
                         fontSize: "x-small"
@@ -468,6 +488,7 @@ MusicPage {
                         elide: Text.ElideRight
                         text: album
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                 }
             }
