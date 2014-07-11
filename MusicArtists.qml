@@ -96,36 +96,21 @@ MusicPage {
                         Label {
                             id: trackArtistAlbum
                             color: styleMusic.common.music
-                            elide: Text.ElideRight
                             fontSize: "medium"
-                            height: units.gu(2)
-                            maximumLineCount: 2
                             objectName: "artists-artist"
                             text: model.artist
-                            wrapMode: Text.NoWrap
-                            verticalAlignment: Text.AlignVCenter
                         }
                         Label {
                             id: trackArtistAlbums
                             color: styleMusic.common.subtitle
-                            elide: Text.ElideRight
                             fontSize: "x-small"
-                            height: units.gu(2)
-                            maximumLineCount: 2
                             text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
-                            wrapMode: Text.NoWrap
-                            verticalAlignment: Text.AlignVCenter
                         }
                         Label {
                             id: trackArtistAlbumTracks
                             color: styleMusic.common.subtitle
-                            elide: Text.ElideRight
                             fontSize: "x-small"
-                            height: units.gu(2)
-                            maximumLineCount: 2
                             text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
-                            wrapMode: Text.NoWrap
-                            verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }
