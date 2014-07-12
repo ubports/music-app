@@ -25,6 +25,9 @@ Row {
     anchors {
         left: parent.left
         leftMargin: units.gu(1)
+        right: parent.right
+        // Set to expander item width for now set to 1GU when using listitem actions
+        rightMargin: (styleMusic.common.expandedItem * 2) + units.gu(1)
     }
 
     property alias covers: coverRow.covers
@@ -48,6 +51,20 @@ Row {
         anchors {
             top: parent.top
             topMargin: units.gu(2)
+        }
+        width: parent.width - coverRow.width - parent.spacing
+
+        onSourceComponentChanged: {
+            for (var i=0; i < item.children.length; i++) {
+                item.children[i].elide = Text.ElideRight
+                item.children[i].height = units.gu(2)
+                item.children[i].maximumLineCount = 1
+                item.children[i].wrapMode = Text.NoWrap
+                item.children[i].verticalAlignment = Text.AlignVCenter
+
+                // binds to width so it is updated when screen size changes
+                item.children[i].width = Qt.binding(function () { return width; })
+            }
         }
     }
 }
