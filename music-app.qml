@@ -22,7 +22,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
-import Ubuntu.Content 0.1 as ContentHub
+import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import QtMultimedia 5.0
@@ -286,13 +286,108 @@ MainView {
     }
 
     // Content hub support
+    property list<ContentItem> importItems
+    property var activeTransfer
+
+    ContentTransferHint {
+        anchors {
+            fill: parent
+        }
+        activeTransfer: parent.activeTransfer
+    }
+
     Connections {
-        target: ContentHub.ContentHub
+        target: ContentHub
         onImportRequested: {
-            if (transfer.state === ContentHub.ContentTransfer.Charged) {
-                for(var i=0; i < transfer.items.length; i++) {
-                    uriHandler.process(transfer.items[i].url.toString(), i === 0)
+            activeTransfer = transfer;
+            if (activeTransfer.state === ContentTransfer.Charged) {
+                importItems = activeTransfer.items;
+
+                var dialogue = PopupUtils.open(contentHubImport, mainView)
+                dialogue.contentItem = importItems[0];
+            }
+        }
+    }
+
+    Component {
+        id: contentHubImport
+        Dialog {
+            id: dialogueContentHubImport
+            title: i18n.tr("Import")
+            text: i18n.tr("Import file.")
+
+            property var contentItem
+            property alias source: metaDataLoader.source
+            property alias path: pathField.text
+
+            onContentItemChanged: {
+                console.debug("ContentItem:", contentItem)
+                source = Qt.resolvedUrl(contentItem.url.toString())
+                metaDataLoader.play()
+            }
+
+            MediaPlayer {
+                id: metaDataLoader
+                autoLoad: true
+                onSourceChanged: {
+                    console.debug("Source changed", source)
                 }
+
+                onStatusChanged: {
+                    console.debug("Status changed", status, MediaPlayer.Loaded)
+
+                    if (status === MediaPlayer.Loaded) {
+                        console.debug("Metadata", JSON.stringify(metaDataLoader.metaData))
+
+                        var dirPath = metaData.albumArtist + "/" + metaData.albumTitle + "/";
+                        console.debug("Target Directory: " + dirPath);
+                        var fileName = metaData.trackNumber + " - " + metaData.title + "." + metaData.audioCodec.toLowerCase();
+
+                        console.debug("Target File: " + fileName);
+
+                        path = dirPath + fileName;
+
+                        stop()
+                    }
+                }
+            }
+
+            TextField {
+                id: pathField
+            }
+
+            Label {
+                id: contentHubOutput
+                color: "white"
+                visible: false // should only be visible when an error is made.
+            }
+
+            Button {
+                text: i18n.tr("Import")
+                onClicked: {
+                    console.debug("Move:", source, "to", path)
+
+                    var dir = path.split("/")
+                    var filename = dir.pop()
+                    dir.join("/")
+
+                    contentHubOutput.visible = false
+
+                    if (!contentItem.move("~/Music/" + dir, filename)) {
+                        console.debug("Move failed!")
+                        contentHubOutput.visible = true
+                        contentHubOutput.text = i18n.tr("Failed to move file")
+                    }
+                    else {
+                        PopupUtils.close(dialogueContentHubImport)
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                color: styleMusic.dialog.buttonColor
+                onClicked: PopupUtils.close(dialogueContentHubImport)
             }
         }
     }
