@@ -32,20 +32,9 @@ import "settings.js" as Settings
 import "playlists.js" as Playlists
 import "common"
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Albums")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
-    MusicSettings {
-        id: musicSettings
-    }
 
     // TODO: This ListView is empty and causes the header to get painted with the desired background color because the
     //       page is now vertically flickable.
@@ -88,6 +77,7 @@ Page {
                     id: albumShape
                     height: albumItem.width
                     width: albumItem.width
+                    radius: "medium"
                     image: Image {
                         id: icon
                         fillMode: Image.Stretch
@@ -98,20 +88,26 @@ Page {
                             }
                         }
                     }
-                    UbuntuShape {  // Background so can see text in current state
-                        id: albumBg2
-                        anchors.bottom: parent.bottom
-                        color: styleMusic.common.black
-                        height: units.gu(4)
-                        width: parent.width
-                    }
-                    Rectangle {  // Background so can see text in current state
+                    Item {  // Background so can see text in current state
                         id: albumBg
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(2)
-                        color: styleMusic.common.black
-                        height: units.gu(3)
-                        width: parent.width
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(5)
+                        clip: true
+                        UbuntuShape{
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: albumShape.height
+                            radius: "medium"
+                            color: styleMusic.common.black
+                            opacity: 0.6
+                        }
                     }
                     Label {
                         id: albumArtist
@@ -122,7 +118,7 @@ Page {
                         anchors.leftMargin: units.gu(1)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(1)
-                        color: styleMusic.nowPlaying.labelSecondaryColor
+                        color: styleMusic.common.white
                         elide: Text.ElideRight
                         text: model.artist
                         fontSize: "x-small"
@@ -139,6 +135,7 @@ Page {
                         elide: Text.ElideRight
                         text: model.title
                         fontSize: "small"
+                        font.weight: Font.DemiBold
                     }
                 }
 
@@ -149,13 +146,15 @@ Page {
                     onPressAndHold: {
                     }
                     onClicked: {
-                        songsSheet.album = model.title;
-                        songsSheet.genre = undefined
-                        songsSheet.line1 = model.artist
-                        songsSheet.line2 = model.title
-                        songsSheet.isAlbum = true
-                        songsSheet.covers = [{author: model.artist, album: model.title}]
-                        PopupUtils.open(songsSheet.sheet)
+                        songsPage.album = model.title;
+                        songsPage.covers = [{author: model.artist, album: model.title}]
+                        songsPage.genre = undefined
+                        songsPage.isAlbum = true
+                        songsPage.line1 = model.artist
+                        songsPage.line2 = model.title
+                        songsPage.title = i18n.tr("Album")
+
+                        mainPageStack.push(songsPage)
                     }
                 }
             }

@@ -168,91 +168,29 @@ Item {
                                 onDoneClicked: PopupUtils.close(searchTrack)
                             }
 
-                            Rectangle {
-                                id: trackContainer;
-                                anchors {
-                                    fill: parent
-                                    rightMargin: expandable.expanderButtonWidth
-                                }
-                                color: "transparent"
-                                UbuntuShape {
-                                    id: trackCover
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: units.gu(2)
-                                    anchors.top: parent.top
-                                    anchors.topMargin: units.gu(1)
-                                    width: styleMusic.common.albumSize
-                                    height: styleMusic.common.albumSize
-                                    image: Image {
-                                        source: "image://albumart/artist=" + model.author + "&album=" + model.title
-                                        onStatusChanged: {
-                                            if (status === Image.Error) {
-                                                source = Qt.resolvedUrl("images/music-app-cover@30.png")
-                                            }
-                                        }
+                            MusicRow {
+                                covers: [{author: model.author, album: model.title}]
+                                column: Column {
+                                    spacing: units.gu(1)
+                                    Label {
+                                        id: trackArtist
+                                        color: styleMusic.common.subtitle
+                                        fontSize: "x-small"
+                                        text: model.author
                                     }
-                                }
-
-                                Label {
-                                    id: trackArtist
-                                    wrapMode: Text.NoWrap
-                                    maximumLineCount: 2
-                                    fontSize: "x-small"
-                                    color: styleMusic.common.subtitle
-                                    anchors.left: trackCover.left
-                                    anchors.leftMargin: units.gu(11)
-                                    anchors.top: parent.top
-                                    anchors.topMargin: units.gu(1.5)
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: units.gu(1.5)
-                                    elide: Text.ElideRight
-                                    text: model.author
-                                }
-                                Label {
-                                    id: trackTitle
-                                    objectName: "tracktitle"
-                                    wrapMode: Text.NoWrap
-                                    maximumLineCount: 1
-                                    fontSize: "small"
-                                    color: styleMusic.common.music
-                                    anchors.left: trackCover.left
-                                    anchors.leftMargin: units.gu(11)
-                                    anchors.top: trackArtist.bottom
-                                    anchors.topMargin: units.gu(1)
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: units.gu(1.5)
-                                    elide: Text.ElideRight
-                                    text: model.title
-                                }
-                                Label {
-                                    id: trackAlbum
-                                    wrapMode: Text.NoWrap
-                                    maximumLineCount: 2
-                                    fontSize: "xx-small"
-                                    color: styleMusic.common.subtitle
-                                    anchors.left: trackCover.left
-                                    anchors.leftMargin: units.gu(11)
-                                    anchors.top: trackTitle.bottom
-                                    anchors.topMargin: units.gu(2)
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: units.gu(1.5)
-                                    elide: Text.ElideRight
-                                    text: model.album
-                                }
-                                Label {
-                                    id: trackDuration
-                                    wrapMode: Text.NoWrap
-                                    maximumLineCount: 2
-                                    fontSize: "small"
-                                    color: styleMusic.common.music
-                                    anchors.left: trackCover.left
-                                    anchors.leftMargin: units.gu(12)
-                                    anchors.top: trackAlbum.bottom
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: units.gu(1.5)
-                                    elide: Text.ElideRight
-                                    visible: false
-                                    text: ""
+                                    Label {
+                                        id: trackTitle
+                                        color: styleMusic.common.music
+                                        fontSize: "small"
+                                        objectName: "tracktitle"
+                                        text: model.title
+                                    }
+                                    Label {
+                                        id: trackAlbum
+                                        color: styleMusic.common.subtitle
+                                        fontSize: "xx-small"
+                                        text: model.album
+                                    }
                                 }
                             }
 

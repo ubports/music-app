@@ -363,7 +363,7 @@ MainView {
         lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
         // push the page to view
-        pageStack.push(tabs)
+        mainPageStack.push(tabs)
 
         loadedUI = true;
 
@@ -648,14 +648,6 @@ MainView {
     }
 
     // load sheets (after model)
-    SongsSheet {
-        id: songsSheet
-    }
-
-    AlbumsSheet {
-        id: artistSheet
-    }
-
     MusicSearch {
         id: searchSheet
     }
@@ -705,10 +697,8 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to playlist")
                         PopupUtils.close(trackPopover)
-                        PopupUtils.open(Qt.resolvedUrl("MusicaddtoPlaylist.qml"), mainView,
-                                        {
-                                            title: i18n.tr("Select playlist")
-                                        } )
+
+                        mainPageStack.push(addtoPlaylist)
                     }
                 }
             }
@@ -727,8 +717,9 @@ MainView {
                 objectName: "playlistnameTextfield"
                 placeholderText: i18n.tr("Name")
             }
-            ListItem.Standard {
+            Label {
                 id: newplaylistoutput
+                color: "white"
                 visible: false // should only be visible when an error is made.
             }
 
@@ -782,9 +773,9 @@ MainView {
 
         onNoMusicChanged: {
             if (noMusic)
-                pageStack.push(emptyPage)
+                mainPageStack.push(emptyPage)
             else if (pageStack.currentPage == emptyPage)
-                pageStack.pop()
+                mainPageStack.pop()
         }
 
         tools: ToolbarItems {
@@ -822,7 +813,7 @@ MainView {
     }
 
     PageStack {
-        id: pageStack
+        id: mainPageStack
 
         Tabs {
             id: tabs
@@ -951,8 +942,8 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (pageStack.currentPage !== nowPlaying) {
-                    pageStack.push(nowPlaying);
+                if (mainPageStack.currentPage !== nowPlaying) {
+                    mainPageStack.push(nowPlaying);
                 }
             }
 
@@ -971,6 +962,14 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
+    }
+
+    SongsPage {
+        id: songsPage
+    }
+
+    AlbumsPage {
+        id: albumsPage
     }
 
     MusicNowPlaying {

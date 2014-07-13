@@ -62,7 +62,7 @@ class MainView(toolkit_emulators.MainView):
 
         self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
 
-    def add_to_queue_from_albums_tab_album_sheet(self, artistName, trackTitle):
+    def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
         # switch to albums tab
         self.switch_to_tab("albumstab")
 
@@ -71,13 +71,16 @@ class MainView(toolkit_emulators.MainView):
         self.pointing_device.click_object(albumartist)
 
         # get track item to add to queue
-        trackicon = self.get_album_sheet_listview_trackicon(
-            trackTitle)
+        trackicon = self.get_songs_page_listview_trackicon(trackTitle)
         self.pointing_device.click_object(trackicon)
 
         # click on Add to queue
-        queueTrackLabel = self.get_album_sheet_queuetrack_label()
+        queueTrackLabel = self.get_songs_page_queuetrack_label()
         self.pointing_device.click_object(queueTrackLabel)
+
+    def tap_new_playlist_action(self):
+        header = self.get_header()
+        header.click_action_button('newplaylistButton')
 
     def get_player(self):
         return self.select_single("*", objectName="player")
@@ -111,9 +114,7 @@ class MainView(toolkit_emulators.MainView):
         return self.wait_select_single("*", objectName="genreItemObject")
 
     def get_back_button(self):
-        backButton = self.select_single("AbstractButton",
-                                        objectName="backButton")
-        return backButton
+        return self.select_single("AbstractButton", objectName="backButton")
 
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")
@@ -129,19 +130,23 @@ class MainView(toolkit_emulators.MainView):
 
     def get_add_to_queue_button(self):
         return self.wait_select_single("QQuickImage",
-                                       objectName="albumsheet-queue-all")
+                                       objectName="albumpage-queue-all")
 
-    def get_album_sheet_artist(self):
+    def get_album_page_artist(self):
         return self.wait_select_single("Label",
-                                       objectName="albumsheet-albumartist")
+                                       objectName="albumpage-albumartist")
 
-    def get_artist_sheet_artist(self):
+    def get_songs_page_artist(self):
         return self.wait_select_single("Label",
-                                       objectName="artistsheet-albumartist")
+                                       objectName="songspage-albumartist")
 
-    def get_artist_sheet_artist_cover(self):
+    def get_artist_page_artist(self):
+        return self.wait_select_single("Label",
+                                       objectName="artistpage-albumartist")
+
+    def get_artist_page_artist_cover(self):
         return self.wait_select_single("*",
-                                       objectName="artistsheet-albumcover")
+                                       objectName="artistpage-albumcover")
 
     def get_artiststab(self):
         return self.select_single("Tab", objectName="artiststab")
@@ -158,21 +163,22 @@ class MainView(toolkit_emulators.MainView):
     def close_buttons(self):
         return self.select_many("Button", text="close")
 
-    def get_album_sheet_close_button(self):
-        closebuttons = self.close_buttons()
-        for item in closebuttons:
-            if item.enabled:
-                return item
-
-    def get_album_sheet_listview_tracktitle(self, trackTitle):
+    def get_album_page_listview_tracktitle(self, trackTitle):
         tracktitles = self.select_many_retry(
-            "Label", objectName="albumsheet-tracktitle")
+            "Label", objectName="albumpage-tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:
                 return item
 
-    def get_album_sheet_listview_trackicon(self, trackTitle):
-        tracktitle = self.get_album_sheet_listview_tracktitle(trackTitle)
+    def get_songs_page_listview_tracktitle(self, trackTitle):
+        tracktitles = self.select_many_retry(
+            "Label", objectName="songspage-tracktitle")
+        for item in tracktitles:
+            if item.text == trackTitle:
+                return item
+
+    def get_album_page_listview_trackicon(self, trackTitle):
+        tracktitle = self.get_album_page_listview_tracktitle(trackTitle)
         tracktitle_position = tracktitle.globalRect[1]
         trackicons = self.select_many(
             "QQuickImage", objectName="expanditem")
@@ -180,7 +186,12 @@ class MainView(toolkit_emulators.MainView):
             if item.globalRect[1] == tracktitle_position:
                 return item
 
-    def get_album_sheet_queuetrack_label(self):
+    def get_songs_page_listview_trackicon(self, trackTitle):
+        tracktitle = self.get_songs_page_listview_tracktitle(trackTitle)
+
+        return self.get_trackimage_from_label(tracktitle)
+
+    def get_songs_page_queuetrack_label(self):
         queuetracks = self.select_many_retry(
             "Label", objectName="queuetrack")
         for item in queuetracks:
@@ -214,13 +225,17 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_songs_tab_trackimage(self, trackTitle):
-        trackimages = self.select_many_retry(
+        tracktitle = self.get_songs_tab_tracktitle(trackTitle)
+
+        return self.get_trackimage_from_label(tracktitle)
+
+    def get_trackimage_from_label(self, label):
+        label_position = label.globalRect[1]
+        trackicons = self.select_many(
             "QQuickImage", objectName="expanditem")
-        tracktitles = self.get_songs_tab_tracktitle(trackTitle)
-        imageheight = trackimages[0].height
-        trackimage_position = tracktitles.globalRect[1] + (imageheight / 2)
-        for item in trackimages:
-            if item.globalRect[1] == trackimage_position:
+
+        for item in trackicons:
+            if item.globalRect[1] == label_position:
                 return item
 
     def get_songs_tab_add_to_queue_label(self):
@@ -236,9 +251,6 @@ class MainView(toolkit_emulators.MainView):
         for item in addtoplaylist:
             if item.visible:
                 return item
-
-    def get_newplaylistButton(self):
-        return self.select_many_retry("Button", objectName="newplaylistButton")
 
     def get_newPlaylistDialog_createButton(self):
         return self.wait_select_single(

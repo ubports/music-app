@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2013-12-10 19:24+0000\n"
-"Last-Translator: Emin Mastizada <emin25@ovi.com>\n"
+"PO-Revision-Date: 2014-07-10 13:19+0000\n"
+"Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-20 06:08+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-11 06:15+0000\n"
+"X-Generator: Launchpad (build 17111)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -60,45 +60,45 @@ msgstr "Albomlar"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr ""
+msgstr "İfaçılar"
 
 #: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 albom"
+msgstr[1] "%1 albomlar"
 
 #: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
 #: ../common/SongsSheet.qml:144
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 mahnı"
+msgstr[1] "%1 mahnılar"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr ""
+msgstr "İndi Oxunan"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:39
 msgid "Playlists"
-msgstr ""
+msgstr "Oxunma siyahısı"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:60
 msgid "Change name"
-msgstr ""
+msgstr "Adı dəyişdir"
 
 #: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Oxunma siyahısının yeni adını daxil edin."
 
 #: ../MusicPlaylists.qml:72
 msgid "Change"
-msgstr ""
+msgstr "Dəyişdir"
 
 #: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
@@ -106,12 +106,12 @@ msgstr ""
 
 #: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
-msgstr ""
+msgstr "İmtina"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
-msgstr ""
+msgstr "Əminsiniz?"
 
 #: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
@@ -124,11 +124,11 @@ msgstr ""
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr ""
+msgstr "Axtar"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
-msgstr ""
+msgstr "Parametrlər"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
@@ -144,7 +144,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "Klassik"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
@@ -156,23 +156,23 @@ msgstr ""
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "Hip Hop"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "Caz"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Rok"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
@@ -186,7 +186,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Hesablar"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
@@ -210,24 +210,24 @@ msgstr ""
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Hər şeyi təmizlə!"
 
 #: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Musiqi"
 
 #: ../MusicStart.qml:84
 msgid "Recent"
-msgstr ""
+msgstr "Ən son"
 
 #: ../MusicStart.qml:112
 msgid "Clear History"
-msgstr ""
+msgstr "Keşmişi Təmizlə"
 
 #: ../MusicStart.qml:222
 msgid "Genres"
-msgstr ""
+msgstr "Janrlar"
 
 #: ../MusicToolbar.qml:739
 msgid "No songs queued"
@@ -239,21 +239,21 @@ msgstr ""
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
-msgstr ""
+msgstr "Mahnılar"
 
 #: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
 #: ../music-app.qml:699
 msgid "Select playlist"
-msgstr ""
+msgstr "Oxunma siyahısını seç"
 
 #: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
-msgstr ""
+msgstr "Yeni oxunma siyahısı"
 
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
 msgid "Play all"
-msgstr ""
+msgstr "Hamısını oxut"
 
 #: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
 #: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
@@ -270,53 +270,53 @@ msgstr[1] ""
 
 #: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
-msgstr ""
+msgstr "Oxunma siyahısına əlavə et"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "Redaktə"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Yüklənir..."
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr ""
+msgstr "Təmizlə"
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr ""
+msgstr "Naməlum Albom"
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Naməlum İfaçı"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr ""
+msgstr "Mahnı Axtar"
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr ""
+msgstr "Növbəti"
 
 #: ../music-app.qml:156
 msgid "Next Track"
-msgstr ""
+msgstr "Növbəti Mahnı"
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr ""
+msgstr "Fasilə"
 
 #: ../music-app.qml:162
 msgid "Play"
-msgstr ""
+msgstr "Oxut"
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
@@ -328,23 +328,23 @@ msgstr ""
 
 #: ../music-app.qml:169
 msgid "Back"
-msgstr ""
+msgstr "Geri"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr ""
+msgstr "Əvvəlki səhifəyə qayıt"
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr ""
+msgstr "Əvvəlki"
 
 #: ../music-app.qml:179
 msgid "Previous Track"
-msgstr ""
+msgstr "Əvvəlki Mahnı"
 
 #: ../music-app.qml:184
 msgid "Stop"
-msgstr ""
+msgstr "Dayan"
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
@@ -361,7 +361,7 @@ msgstr ""
 
 #: ../music-app.qml:289
 msgid "No songs played today"
-msgstr ""
+msgstr "Bu gün heç bir mahnı oxunmadı"
 
 #: ../music-app.qml:396
 msgid "Debug: "
@@ -369,19 +369,19 @@ msgstr ""
 
 #: ../music-app.qml:712
 msgid "New Playlist"
-msgstr ""
+msgstr "Yeni oxunma siyahısı"
 
 #: ../music-app.qml:713
 msgid "Name your playlist."
-msgstr ""
+msgstr "Oxunma siyahınızın adı."
 
 #: ../music-app.qml:717
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: ../music-app.qml:725
 msgid "Create"
-msgstr ""
+msgstr "Yarat"
 
 #: ../music-app.qml:741
 msgid "Error: "
@@ -393,7 +393,7 @@ msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Ubuntu üçün musiqi tətbiqetməsi."
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"

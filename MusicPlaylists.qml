@@ -32,7 +32,7 @@ import "common"
 import "common/ExpanderItems"
 
 // page for the playlists
-Page {
+MusicPage {
     id: listspage
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
@@ -44,10 +44,17 @@ Page {
     property string oldPlaylistID: ""
     property string inPlaylist: ""
 
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(listspage);
+    tools: ToolbarItems {
+        ToolbarButton {
+            action: Action {
+                objectName: "newplaylistButton"
+                text: i18n.tr("New playlist")
+                iconSource: "images/add.svg"
+                onTriggered: {
+                    customdebug("New playlist.")
+                    PopupUtils.open(newPlaylistDialog, mainView)
+                }
+            }
         }
     }
 
@@ -145,63 +152,25 @@ Page {
                 property string name: model.name
                 property string count: model.count
                 property var covers: Playlists.getPlaylistCovers(name)
+                height: styleMusic.common.itemHeight
                 iconFrame: false
-                height: styleMusic.playlist.playlistItemHeight
 
-                Rectangle {
-                    id: trackContainer;
-                    anchors {
-                        fill: parent
-                        margins: units.gu(0.5)
-                        rightMargin: expandable.expanderButtonWidth
-                    }
-                    color: "transparent"
-
-                    CoverRow {
-                        id: coverRow
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            margins: units.gu(1)
+                MusicRow {
+                    covers: playlist.covers
+                    column: Column {
+                        spacing: units.gu(1)
+                        Label {
+                            id: playlistCount
+                            color: styleMusic.common.subtitle
+                            fontSize: "x-small"
+                            text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
                         }
-                        count: playlist.covers.length
-                        size: styleMusic.playlist.playlistAlbumSize
-                        covers: playlist.covers
-                    }
-
-                    // songs count
-                    Label {
-                        id: playlistCount
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: parent.right
-                            topMargin: units.gu(2)
-                            leftMargin: units.gu(12)
-                            rightMargin: units.gu(1.5)
+                        Label {
+                            id: playlistName
+                            color: styleMusic.common.music
+                            fontSize: "medium"
+                            text: playlist.name
                         }
-                        elide: Text.ElideRight
-                        fontSize: "x-small"
-                        color: styleMusic.common.subtitle
-                        height: units.gu(1)
-                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                    }
-                    // playlist name
-                    Label {
-                        id: playlistName
-                        anchors {
-                            top: playlistCount.bottom
-                            left: playlistCount.left
-                            right: parent.right
-                            topMargin: units.gu(1)
-                            rightMargin: units.gu(1.5)
-                        }
-                        wrapMode: Text.NoWrap
-                        maximumLineCount: 1
-                        fontSize: "medium"
-                        color: styleMusic.common.music
-                        elide: Text.ElideRight
-                        text: playlist.name
                     }
                 }
 
@@ -224,11 +193,13 @@ Page {
 
                 onClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
-                    songsSheet.isAlbum = false
-                    songsSheet.line1 = "Playlist"
-                    songsSheet.line2 = model.name
-                    songsSheet.covers =  playlist.covers
-                    PopupUtils.open(songsSheet.sheet)
+                    songsPage.isAlbum = false
+                    songsPage.line1 = "Playlist"
+                    songsPage.line2 = model.name
+                    songsPage.covers =  playlist.covers
+                    songsPage.title = i18n.tr("Playlist")
+
+                    mainPageStack.push(songsPage)
                 }
             }
         }

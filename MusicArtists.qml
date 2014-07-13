@@ -32,20 +32,9 @@ import "playlists.js" as Playlists
 import "common"
 
 
-Page {
+MusicPage {
     id: mainpage
     title: i18n.tr("Artists")
-
-    onVisibleChanged: {
-        if (visible === true)
-        {
-            musicToolbar.setPage(mainpage);
-        }
-    }
-
-    MusicSettings {
-        id: musicSettings
-    }
 
     ListView {
         id: artistlist
@@ -83,8 +72,7 @@ Page {
                     signal finished()
 
                     onFinished: {
-                        coverRow.count = count
-                        coverRow.covers = covers
+                        musicRow.covers = covers
                     }
                     onItemAdded: {
                         covers.push({author: item.author, album: item.album});
@@ -101,83 +89,40 @@ Page {
                     store: musicStore
                 }
 
-                CoverRow {
-                    id: coverRow
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        margins: units.gu(1)
+                MusicRow {
+                    id: musicRow
+                    column: Column {
+                        spacing: units.gu(1)
+                        Label {
+                            id: trackArtistAlbum
+                            color: styleMusic.common.music
+                            fontSize: "medium"
+                            objectName: "artists-artist"
+                            text: model.artist
+                        }
+                        Label {
+                            id: trackArtistAlbums
+                            color: styleMusic.common.subtitle
+                            fontSize: "x-small"
+                            text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
+                        }
+                        Label {
+                            id: trackArtistAlbumTracks
+                            color: styleMusic.common.subtitle
+                            fontSize: "x-small"
+                            text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
+                        }
                     }
-
-                    count: 0
-                    size: styleMusic.common.albumSize
-                    covers: []
-                }
-
-                Label {
-                    id: trackArtistAlbum
-                    objectName: "artists-artist"
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "medium"
-                    color: styleMusic.common.music
-                    anchors {
-                        left: coverRow.right
-                        leftMargin: units.gu(2)
-                        top: parent.top
-                        topMargin: units.gu(2)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: model.artist
                 }
 
-                Label {
-                    id: trackArtistAlbums
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "x-small"
-                    color: styleMusic.common.subtitle
-                    anchors {
-                        left: trackArtistAlbum.left
-                        top: trackArtistAlbum.bottom
-                        topMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
-                }
-
-                Label {
-                    id: trackArtistAlbumTracks
-                    wrapMode: Text.NoWrap
-                    maximumLineCount: 2
-                    fontSize: "x-small"
-                    color: styleMusic.common.subtitle
-                    anchors {
-                        left: trackArtistAlbum.left
-                        top: trackArtistAlbums.bottom
-                        topMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1.5)
-                    }
-                    elide: Text.ElideRight
-                    text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
-                }
-                onFocusChanged: {
-                }
                 MouseArea {
                     anchors.fill: parent
-                    onDoubleClicked: {
-                    }
-                    onPressAndHold: {
-                    }
                     onClicked: {
-                        artistSheet.artist = model.artist
-                        artistSheet.covers = coverRow.covers
-                        PopupUtils.open(artistSheet.sheet)
+                        albumsPage.artist = model.artist
+                        albumsPage.covers = musicRow.covers
+                        albumsPage.title = i18n.tr("Artist")
+
+                        mainPageStack.push(albumsPage)
                     }
                 }
             }
