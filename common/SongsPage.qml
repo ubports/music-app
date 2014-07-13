@@ -132,11 +132,11 @@ MusicPage {
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
-                Image {
+                Icon {
                     id: playTrack
                     objectName: "songspage-playtrack"
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "../images/add-to-playback.png"
+                    name: "media-playback-start"
                     height: styleMusic.common.expandedItem
                     width: styleMusic.common.expandedItem
                 }
@@ -179,11 +179,11 @@ MusicPage {
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
-                Image {
+                Icon {
                     id: queueAll
                     objectName: "songspage-queue-all"
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "../images/add.svg"
+                    name: "add"
                     height: styleMusic.common.expandedItem
                     width: styleMusic.common.expandedItem
                 }

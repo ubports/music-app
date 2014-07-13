@@ -145,10 +145,11 @@ MusicPage {
                         color: "transparent"
                         height: units.gu(4)
                         width: units.gu(10)
-                        Image {
+                        Icon {
                             id: playTrack
                             anchors.verticalCenter: parent.verticalCenter
-                            source: "../images/add-to-playback.png"
+                            name: "media-playback-start"
+                            color: styleMusic.common.white
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
@@ -187,11 +188,12 @@ MusicPage {
                         color: "transparent"
                         height: units.gu(4)
                         width: units.gu(15)
-                        Image {
+                        Icon {
                             id: queueAll
                             objectName: "albumpage-queue-all"
                             anchors.verticalCenter: parent.verticalCenter
-                            source: "../images/add.svg"
+                            name: "add"
+                            color: styleMusic.common.white
                             height: styleMusic.common.expandedItem
                             width: styleMusic.common.expandedItem
                         }
@@ -337,11 +339,11 @@ MusicPage {
                     color: "transparent"
                     height: units.gu(3)
                     width: units.gu(15)
-                    Image {
+                    Icon {
                         id: playTrack
                         objectName: "albumpage-playtrack"
                         anchors.verticalCenter: parent.verticalCenter
-                        source: "../images/add-to-playback.png"
+                        name: "media-playback-start"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                     }
@@ -377,11 +379,11 @@ MusicPage {
                     color: "transparent"
                     height: units.gu(3)
                     width: units.gu(15)
-                    Image {
+                    Icon {
                         id: queueTrack
                         objectName: "albumpage-queuetrack"
                         anchors.verticalCenter: parent.verticalCenter
-                        source: "../images/add.svg"
+                        name: "add"
                         height: styleMusic.common.expandedItem
                         width: styleMusic.common.expandedItem
                     }

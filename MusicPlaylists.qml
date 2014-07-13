@@ -49,7 +49,7 @@ MusicPage {
             action: Action {
                 objectName: "newplaylistButton"
                 text: i18n.tr("New playlist")
-                iconSource: "images/add.svg"
+                iconName: "add"
                 onTriggered: {
                     customdebug("New playlist.")
                     PopupUtils.open(newPlaylistDialog, mainView)

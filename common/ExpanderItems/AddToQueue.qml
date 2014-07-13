@@ -25,10 +25,11 @@ Rectangle {
     color: "transparent"
     height: styleMusic.common.expandHeight
     width: units.gu(15)
-    Image {
+    Icon {
         id: queueTrack
         anchors.verticalCenter: parent.verticalCenter
-        source: "../../images/queue.png"
+        color: styleMusic.common.white
+        name: "add"
         height: styleMusic.common.expandedItem
         width: styleMusic.common.expandedItem
     }
