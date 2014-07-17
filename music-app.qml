@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
@@ -309,51 +309,86 @@ MainView {
         }
     }
 
+    SortFilterModel {
+        id: getMetaModel
+        model: SongsModel {
+            id: getMetaSongsModel
+            store: musicStore
+        }
+        sort.property: "file"
+        sort.order: Qt.AscendingOrder
+
+        function getFile(path) {
+            var max = getMetaModel.rowCount - 1;
+            var min = 0;
+            var mid;
+
+            while (max >= min) {
+                mid = Math.ceil((min + max) / 2);
+
+                if (Qt.resolvedUrl(getMetaModel.get(mid).filename) === path) {
+                    return getMetaModel.get(mid);
+                }
+                else if (Qt.resolvedUrl(getMetaModel.get(mid).filename) < path) {
+                    min = mid + 1;
+                }
+                else {
+                    max = mid - 1;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    Timer {
+        id: contentHubWaitForFile
+        interval: 500
+        repeat: true
+
+        property string searchPath
+        property int count: 0
+
+        onTriggered: {
+            var model = getMetaModel.getFile(searchPath)
+
+            if (model === false) {
+                count++;
+
+                if (count >= 10) {
+                    count = 0;
+                    stop();
+
+                    loading.visible = false;
+                }
+            }
+            else {
+                count = 0;
+                stop();  // stop timer
+
+                loading.visible = false;
+
+                trackQueue.model.clear();
+
+                trackQueue.append(makeDict(model));
+                trackQueueClick(0);
+            }
+        }
+    }
+
     Component {
         id: contentHubImport
         Dialog {
             id: dialogueContentHubImport
             title: i18n.tr("Import")
-            text: i18n.tr("Import file.")
+            text: i18n.tr("Target destination")
 
             property var contentItem
-            property alias source: metaDataLoader.source
-            property alias path: pathField.text
-
-            onContentItemChanged: {
-                console.debug("ContentItem:", contentItem)
-                source = Qt.resolvedUrl(contentItem.url.toString())
-                metaDataLoader.play()
-            }
-
-            MediaPlayer {
-                id: metaDataLoader
-                autoLoad: true
-                onSourceChanged: {
-                    console.debug("Source changed", source)
-                }
-
-                onStatusChanged: {
-                    console.debug("Status changed", status, MediaPlayer.Loaded)
-
-                    if (status === MediaPlayer.Loaded) {
-                        console.debug("Metadata", JSON.stringify(metaDataLoader.metaData))
-
-                        var dirPath = metaData.albumArtist + "/" + metaData.albumTitle + "/";
-                        console.debug("Target Directory: " + dirPath);
-                        var fileName = metaData.trackNumber + " - " + metaData.title + "." + metaData.audioCodec.toLowerCase();
-
-                        console.debug("Target File: " + fileName);
-
-                        path = dirPath + fileName;
-
-                        stop()
-                    }
-                }
-            }
 
             TextField {
                 id: pathField
+                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" +
+                      (contentItem === undefined ? "" : contentItem.url.toString().split("/").pop())
             }
 
             Label {
@@ -365,21 +400,52 @@ MainView {
             Button {
                 text: i18n.tr("Import")
                 onClicked: {
-                    console.debug("Move:", source, "to", path)
-
-                    var dir = path.split("/")
-                    var filename = dir.pop()
-                    dir.join("/")
 
                     contentHubOutput.visible = false
 
-                    if (!contentItem.move("~/Music/" + dir, filename)) {
-                        console.debug("Move failed!")
+                    if (pathField.text.toString().indexOf("~/Music/") !== 0) {
+                        console.debug("Invalid dest (not in ~/Music/)")
                         contentHubOutput.visible = true
-                        contentHubOutput.text = i18n.tr("Failed to move file")
+                        contentHubOutput.text = i18n.tr("Filepath must start with ~/Music/")
                     }
                     else {
-                        PopupUtils.close(dialogueContentHubImport)
+                        // extract /home/$USER (or $HOME) from contentitem url
+                        var homepath = contentItem.url.toString().substring(7).split("/");
+
+                        if (homepath[1] === "home") {
+                            homepath.splice(3, homepath.length - 3)
+                            homepath = homepath.join("/")
+                        }
+                        else {
+                            console.debug("/home/$USER not detecting in contentItem assuming /home/phablet/")
+                            homepath = "/home/phablet"
+                        }
+
+                        var path = pathField.text.toString()  // target destination
+                        console.debug("Move:", contentItem.url.toString(), "to", path)
+
+                        // Extract filename from path and replace ~ with $HOME
+                        var dir = path.split("/")
+                        var filename = dir.pop()
+                        dir = dir.join("/").replace("~/", homepath + "/")
+
+                        if (filename === "") {
+                            console.debug("Invalid dest (filename blank)")
+                            contentHubOutput.visible = true
+                            contentHubOutput.text = i18n.tr("Filepath must be a file")
+                        }
+                        else if (!contentItem.move(dir, filename)) {
+                            console.debug("Move failed! DIR:", dir, "FILE:", filename)
+                            contentHubOutput.visible = true
+                            contentHubOutput.text = i18n.tr("Failed to move file")
+                        }
+                        else {
+                            PopupUtils.close(dialogueContentHubImport)
+
+                            contentHubWaitForFile.searchPath = path;
+                            loading.visible = true;
+                            contentHubWaitForFile.start();
+                        }
                     }
                 }
             }
@@ -751,10 +817,6 @@ MainView {
     BlurredBackground {
     }
 
-    LoadingSpinnerComponent {
-        id:loading
-    }
-
     // Popover for tracks, queue and add to playlist, for example
     Component {
         id: trackPopoverComponent
@@ -1075,4 +1137,7 @@ MainView {
         id: addtoPlaylist
     }
 
+    LoadingSpinnerComponent {
+        id: loading
+    }
 } // end of main view
