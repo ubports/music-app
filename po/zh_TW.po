@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-02-08 06:35+0000\n"
+"PO-Revision-Date: 2014-07-16 14:46+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-06-20 06:09+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-17 06:36+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr "登入才能 scrobble。"
+msgstr "登入才能取得歌曲紀錄。"
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -48,11 +48,11 @@ msgstr "成功登入"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr "未能登入"
+msgstr "登入失敗"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr "您忘了設定使用者名稱 及/或 密碼"
+msgstr "您忘記設定使用者名稱及/或密碼"
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
@@ -66,7 +66,7 @@ msgstr "歌手"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 個專輯"
+msgstr[0] "%1 張專輯"
 
 #: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
 #: ../common/SongsSheet.qml:144
@@ -77,7 +77,7 @@ msgstr[0] "%1 首歌"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr ""
+msgstr "現正播放"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -100,7 +100,7 @@ msgstr "變更"
 
 #: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
-msgstr "未有輸入名稱。"
+msgstr "您尚未輸入名稱。"
 
 #: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
@@ -109,11 +109,11 @@ msgstr "取消"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
-msgstr "確定嗎？"
+msgstr "您是否確定？"
 
 #: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
-msgstr "會刪除播放清單。"
+msgstr "這會刪除播放清單。"
 
 #: ../MusicPlaylists.qml:107
 msgid "Remove"
@@ -122,7 +122,7 @@ msgstr "移除"
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
@@ -130,7 +130,7 @@ msgstr "設定"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "均衡器"
+msgstr "等化器"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
@@ -138,39 +138,39 @@ msgstr "預設"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "音聲風"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "古典音樂 (Classical)"
+msgstr "古典風"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "電子音樂 (Electronic)"
+msgstr "電子風"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "平穩 (Flat)"
+msgstr "扁平風"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "嘻哈 (Hip Hop)"
+msgstr "嘻哈風"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "爵士樂 (Jazz)"
+msgstr "爵士風"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "金屬樂 (Metal)"
+msgstr "金屬風"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "流行曲 (Pop)"
+msgstr "流行風"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "搖滾樂 (Rock)"
+msgstr "搖滾風"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
@@ -190,7 +190,7 @@ msgstr "帳號"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "登入以 scrobble 和匯入播放清單"
+msgstr "登入以取得歌曲紀錄和匯入播放清單"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -206,11 +206,11 @@ msgstr "登入以串流雲端音樂"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "只在有 Wi-Fi 時串流"
+msgstr "只有使用 Wi-Fi 時串流"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "清除所有東西！"
+msgstr "全部清除！"
 
 #: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
@@ -219,11 +219,11 @@ msgstr "音樂"
 
 #: ../MusicStart.qml:84
 msgid "Recent"
-msgstr "最近播放"
+msgstr "最近"
 
 #: ../MusicStart.qml:112
 msgid "Clear History"
-msgstr ""
+msgstr "清除記錄"
 
 #: ../MusicStart.qml:222
 msgid "Genres"
@@ -235,7 +235,7 @@ msgstr "未有佇列歌曲"
 
 #: ../MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "輕觸播放或任意項目開始"
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
@@ -253,13 +253,13 @@ msgstr "新增播放清單"
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
 msgid "Play all"
-msgstr ""
+msgstr "播放全部"
 
 #: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
 #: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
 #: ../music-app.qml:674
 msgid "Add to queue"
-msgstr "加入佇列"
+msgstr "加入佇列中"
 
 #: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
 #, qt-format
@@ -269,7 +269,7 @@ msgstr[0] " | %1 首歌"
 
 #: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
-msgstr "加入播放清單"
+msgstr "加入播放清單中"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
@@ -299,11 +299,11 @@ msgstr "未知的歌手"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr ""
+msgstr "搜尋曲目"
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr "下一首"
+msgstr "下"
 
 #: ../music-app.qml:156
 msgid "Next Track"
@@ -331,11 +331,11 @@ msgstr "返回"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr "返回上一版"
+msgstr "返回上一頁"
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr "上一首"
+msgstr "上"
 
 #: ../music-app.qml:179
 msgid "Previous Track"
@@ -388,12 +388,12 @@ msgstr "出錯： "
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr "出錯：未有輸入名稱。"
+msgstr "出錯：尚未輸入名稱。"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Ubuntu 音樂程式"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "music;songs;play;tracks;player;tunes;音樂;歌曲;播放;曲目;軌道;播放器;播放機;樂曲;曲調;"
