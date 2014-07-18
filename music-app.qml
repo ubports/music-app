@@ -703,6 +703,7 @@ MainView {
                 id: playlistName
                 objectName: "playlistnameTextfield"
                 placeholderText: i18n.tr("Name")
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
             Label {
                 id: newplaylistoutput
