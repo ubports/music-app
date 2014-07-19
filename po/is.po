@@ -1,4 +1,4 @@
-# Korean translation for music-app
+# Icelandic translation for music-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-18 14:47+0000\n"
-"Last-Translator: MinSik CHO <Unknown>\n"
-"Language-Team: Korean <ko@li.org>\n"
+"PO-Revision-Date: 2014-07-18 11:21+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2014-07-19 06:18+0000\n"
 "X-Generator: Launchpad (build 17114)\n"
 
@@ -24,376 +24,377 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr "추천을 받으려면 로그인하세요."
+msgstr ""
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
-msgstr "사용자 이름"
+msgstr "Notandanafn"
 
 #: ../LoginLastFM.qml:73
 msgid "Password"
-msgstr "비밀번호"
+msgstr "Lykilorð"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr "로그인"
+msgstr "Innskráning"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr "로그인 시도 중..."
+msgstr ""
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr "로그인 성공"
+msgstr "Innskráning tókst"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr "로그인 실패"
+msgstr "Innskráning mistókst"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr "아이디와 비밀번호를 설정하세요."
+msgstr ""
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
-msgstr "앨범"
+msgstr ""
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr "음악가"
+msgstr ""
 
 #: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 앨범"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
 #: ../common/SongsSheet.qml:144
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 노래"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr "연주 중"
+msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:39
 msgid "Playlists"
-msgstr "재생목록"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:60
 msgid "Change name"
-msgstr "이름 변경"
+msgstr ""
 
 #: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
-msgstr "재생목록의 이름을 입력하세요."
+msgstr ""
 
 #: ../MusicPlaylists.qml:72
 msgid "Change"
-msgstr "수정"
+msgstr ""
 
 #: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
-msgstr "이름을 입력하세요."
+msgstr ""
 
 #: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
-msgstr "취소"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
-msgstr "확실하십니까?"
+msgstr ""
 
 #: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
-msgstr "재생목록을 삭제합니다."
+msgstr ""
 
 #: ../MusicPlaylists.qml:107
 msgid "Remove"
-msgstr "제거"
+msgstr ""
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr "검색"
+msgstr ""
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
-msgstr "설정"
+msgstr ""
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "이퀄라이저"
+msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "기본값"
+msgstr ""
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr "어쿠스틱"
+msgstr ""
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "클래식"
+msgstr ""
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "전자음악"
+msgstr ""
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "평평하게"
+msgstr ""
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "힙합"
+msgstr ""
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "재즈"
+msgstr ""
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "메탈"
+msgstr ""
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "팝"
+msgstr ""
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "락"
+msgstr ""
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr "사용자 설정"
+msgstr ""
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"툴바를 열면 \n"
-"현재 곡으로 가기"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr "계정"
+msgstr ""
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr "음악 재생을 기록하고 재생목록을 가져오려면 로그인하세요"
+msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr "음악 스트리밍"
+msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr "우분투 원"
+msgstr ""
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr "클라우드에 저장된 음악을 스트리밍하려면 로그인하세요"
+msgstr ""
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr "Wi-Fi에서만 스트리밍하기"
+msgstr ""
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "모두 정리하기!"
+msgstr ""
 
 #: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr "음악"
+msgstr ""
 
 #: ../MusicStart.qml:84
 msgid "Recent"
-msgstr "최근"
+msgstr ""
 
 #: ../MusicStart.qml:112
 msgid "Clear History"
-msgstr "사용 기록 지우기"
+msgstr ""
 
 #: ../MusicStart.qml:222
 msgid "Genres"
-msgstr "장르"
+msgstr ""
 
 #: ../MusicToolbar.qml:739
 msgid "No songs queued"
-msgstr "아무 노래도 대기열에 있지 않음"
+msgstr ""
 
 #: ../MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr "재생을 누르거나 재생할 항목을 눌러 시작하세요"
+msgstr ""
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
-msgstr "노래"
+msgstr ""
 
 #: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
 #: ../music-app.qml:699
 msgid "Select playlist"
-msgstr "재생목록 선택"
+msgstr ""
 
 #: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
-msgstr "새 재생목록"
+msgstr ""
 
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
 msgid "Play all"
-msgstr "모두 재생하기"
+msgstr ""
 
 #: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
 #: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
 #: ../music-app.qml:674
 msgid "Add to queue"
-msgstr "재생 대기열에 추가"
+msgstr ""
 
 #: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] " | %1 노래"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
-msgstr "재생 목록에 추가"
+msgstr ""
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr "삭제"
+msgstr ""
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr "수정"
+msgstr ""
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr "불러오는 중..."
+msgstr ""
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr "비우기"
+msgstr ""
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr "알 수 없는 앨범"
+msgstr ""
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr "알 수 없는 음악가"
+msgstr ""
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr "트랙 검색"
+msgstr ""
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr "다음"
+msgstr ""
 
 #: ../music-app.qml:156
 msgid "Next Track"
-msgstr "다음 트랙"
+msgstr ""
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr "일시 중지"
+msgstr ""
 
 #: ../music-app.qml:162
 msgid "Play"
-msgstr "재생"
+msgstr ""
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
-msgstr "일시 정지"
+msgstr ""
 
 #: ../music-app.qml:164
 msgid "Continue or start playback"
-msgstr "재생을 계속하거나 시작합니다."
+msgstr ""
 
 #: ../music-app.qml:169
 msgid "Back"
-msgstr "뒤로"
+msgstr ""
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr "마지막 페이지로 돌아가기"
+msgstr ""
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr "이전"
+msgstr ""
 
 #: ../music-app.qml:179
 msgid "Previous Track"
-msgstr "이전 트랙"
+msgstr ""
 
 #: ../music-app.qml:184
 msgid "Stop"
-msgstr "중지"
+msgstr ""
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
-msgstr "재생 중지"
+msgstr ""
 
 #: ../music-app.qml:193
 msgid "Music Settings"
-msgstr "음악 설정"
+msgstr ""
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:288
 msgid "songs played today"
-msgstr "오늘 재생한 노래"
+msgstr ""
 
 #: ../music-app.qml:289
 msgid "No songs played today"
-msgstr "오늘 재생한 노래가 없습니다."
+msgstr ""
 
 #: ../music-app.qml:396
 msgid "Debug: "
-msgstr "디버그: "
+msgstr ""
 
 #: ../music-app.qml:712
 msgid "New Playlist"
-msgstr "새 재생 목록"
+msgstr ""
 
 #: ../music-app.qml:713
 msgid "Name your playlist."
-msgstr "재생목록 이름을 정해주세요."
+msgstr ""
 
 #: ../music-app.qml:717
 msgid "Name"
-msgstr "이름"
+msgstr ""
 
 #: ../music-app.qml:725
 msgid "Create"
-msgstr "추가"
+msgstr ""
 
 #: ../music-app.qml:741
 msgid "Error: "
-msgstr "오류: "
+msgstr ""
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr "오류: 이름을 입력하지 않으셨습니다."
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "우분투를 위한 음악 애플리케이션"
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "음악;노래;재생;트랙;플레이어;음;"
+msgstr ""
