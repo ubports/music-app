@@ -286,7 +286,7 @@ MusicPage {
                 }
 
                 Component.onCompleted: {
-                    if (model.date !== undefined && songStackPage.year === "")
+                    if (model.date !== undefined)
                     {
                         songStackPage.file = model.filename;
                         songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
