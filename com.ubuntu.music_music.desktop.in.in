@@ -9,3 +9,4 @@ Icon=@ICON@
 StartupNotify=true
 X-Ubuntu-Touch=true
 X-Ubuntu-Single-Instance=true
+X-Ubuntu-Default-Department-ID=sound-video
