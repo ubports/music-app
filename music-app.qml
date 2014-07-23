@@ -873,6 +873,7 @@ MainView {
                 id: playlistName
                 objectName: "playlistnameTextfield"
                 placeholderText: i18n.tr("Name")
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
             Label {
                 id: newplaylistoutput
@@ -919,54 +920,6 @@ MainView {
         id: musicToolbar
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
-    }
-
-    Page {
-        id: emptyPage
-        title: i18n.tr("Music")
-        visible: false
-
-        property bool noMusic: allSongsModel.rowCount === 0 && loadedUI
-
-        onNoMusicChanged: {
-            if (noMusic)
-                mainPageStack.push(emptyPage)
-            else if (pageStack.currentPage == emptyPage)
-                mainPageStack.pop()
-        }
-
-        tools: ToolbarItems {
-            back: null
-            locked: true
-            opened: false
-        }
-
-        // Overlay to show when no tracks detected on the device
-        Rectangle {
-            id: libraryEmpty
-            anchors.fill: parent
-            anchors.topMargin: -emptyPage.header.height
-            color: styleMusic.libraryEmpty.backgroundColor
-
-            Column {
-                anchors.centerIn: parent
-
-                Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: styleMusic.libraryEmpty.labelColor
-                    fontSize: "large"
-                    font.bold: true
-                    text: "No music found"
-                }
-
-                Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: styleMusic.libraryEmpty.labelColor
-                    fontSize: "medium"
-                    text: "Please import music and restart the app"
-                }
-            }
-        }
     }
 
     PageStack {
@@ -1119,22 +1072,70 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
-    }
 
-    SongsPage {
-        id: songsPage
-    }
+        Page {
+            id: emptyPage
+            title: i18n.tr("Music")
+            visible: false
 
-    AlbumsPage {
-        id: albumsPage
-    }
+            property bool noMusic: allSongsModel.rowCount === 0 && loadedUI
 
-    MusicNowPlaying {
-        id: nowPlaying
-    }
+            onNoMusicChanged: {
+                if (noMusic)
+                    mainPageStack.push(emptyPage)
+                else if (pageStack.currentPage == emptyPage)
+                    mainPageStack.pop()
+            }
 
-    MusicaddtoPlaylist {
-        id: addtoPlaylist
+            tools: ToolbarItems {
+                back: null
+                locked: true
+                opened: false
+            }
+
+            // Overlay to show when no tracks detected on the device
+            Rectangle {
+                id: libraryEmpty
+                anchors.fill: parent
+                anchors.topMargin: -emptyPage.header.height
+                color: styleMusic.libraryEmpty.backgroundColor
+
+                Column {
+                    anchors.centerIn: parent
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "large"
+                        font.bold: true
+                        text: "No music found"
+                    }
+
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: styleMusic.libraryEmpty.labelColor
+                        fontSize: "medium"
+                        text: "Please import music and restart the app"
+                    }
+                }
+            }
+        }
+
+        SongsPage {
+            id: songsPage
+        }
+
+        AlbumsPage {
+            id: albumsPage
+        }
+
+        MusicNowPlaying {
+            id: nowPlaying
+        }
+
+        MusicaddtoPlaylist {
+            id: addtoPlaylist
+        }
     }
 
     LoadingSpinnerComponent {

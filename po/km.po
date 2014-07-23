@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-02-10 02:48+0000\n"
+"PO-Revision-Date: 2014-07-22 07:35+0000\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <km@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-06-20 06:08+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-23 07:00+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -77,7 +77,7 @@ msgstr[0] "%1 បទ"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr ""
+msgstr "កំពុង​ចាក់"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -122,7 +122,7 @@ msgstr "លុប​ចេញ"
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr ""
+msgstr "ស្វែងរក"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
@@ -138,7 +138,7 @@ msgstr "លំនាំដើម"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "អាគូស្ទិក"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -223,7 +223,7 @@ msgstr "ថ្មីៗ"
 
 #: ../MusicStart.qml:112
 msgid "Clear History"
-msgstr ""
+msgstr "សម្អាត​​ប្រវត្តិ"
 
 #: ../MusicStart.qml:222
 msgid "Genres"
@@ -235,7 +235,7 @@ msgstr "គ្មាន​បទ​បាន​ដាក់​ជា​ជួរ
 
 #: ../MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr ""
+msgstr "ប៉ះ​ចាក់ ឬ​ធាតុ​ណា​មួយ​ដើម្បី​ចាប់ផ្ដើម"
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
@@ -253,7 +253,7 @@ msgstr "បញ្ជី​ចាក់​ថ្មី"
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
 msgid "Play all"
-msgstr ""
+msgstr "ចាក់​ទាំងអស់"
 
 #: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
 #: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
@@ -299,7 +299,7 @@ msgstr "មិន​ស្គាល់​សិល្បករ​"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr ""
+msgstr "ស្វែងរក​បទ"
 
 #: ../music-app.qml:155
 msgid "Next"
@@ -392,8 +392,8 @@ msgstr "កំហុស៖ អ្នក​មិន​បាន​បញ្ច�
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "កម្មវិធី​ចាក់​តន្ត្រី​សម្រាប់ Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "តន្ត្រី; បទ​ចម្រៀង; ចាក់; បទ; កម្មវិធី​ចាក់; សូរ​សំឡេង;"

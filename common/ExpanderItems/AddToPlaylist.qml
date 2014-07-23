@@ -30,7 +30,7 @@ Rectangle {
         id: playlistTrack
         anchors.verticalCenter: parent.verticalCenter
         color: styleMusic.common.white
-        name: "add"
+        name: "add-to-playlist"
         height: styleMusic.common.expandedItem
         width: styleMusic.common.expandedItem
     }

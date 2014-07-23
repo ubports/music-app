@@ -117,8 +117,8 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
-                text: isAlbum ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-                              : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                text: isAlbum && line1 !== "Genre" ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                                                   : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
             }
 
@@ -132,11 +132,11 @@ MusicPage {
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
-                Image {
+                Icon {
                     id: playTrack
                     objectName: "songspage-playtrack"
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "../images/add-to-playback.png"
+                    name: "media-playback-start"
                     height: styleMusic.common.expandedItem
                     width: styleMusic.common.expandedItem
                 }
@@ -179,11 +179,11 @@ MusicPage {
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
-                Image {
+                Icon {
                     id: queueAll
                     objectName: "songspage-queue-all"
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "../images/add.svg"
+                    name: "add"
                     height: styleMusic.common.expandedItem
                     width: styleMusic.common.expandedItem
                 }
@@ -286,7 +286,7 @@ MusicPage {
                 }
 
                 Component.onCompleted: {
-                    if (model.date !== undefined && songStackPage.year === "")
+                    if (model.date !== undefined)
                     {
                         songStackPage.file = model.filename;
                         songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-04 03:38+0000\n"
+"PO-Revision-Date: 2014-07-18 14:47+0000\n"
 "Last-Translator: MinSik CHO <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:58+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2014-07-19 06:18+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -52,7 +52,7 @@ msgstr "로그인 실패"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr "ID와 열쇠글을 설정하세요."
+msgstr "아이디와 비밀번호를 설정하세요."
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
@@ -291,109 +291,109 @@ msgstr "비우기"
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr ""
+msgstr "알 수 없는 앨범"
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr ""
+msgstr "알 수 없는 음악가"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr ""
+msgstr "트랙 검색"
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 #: ../music-app.qml:156
 msgid "Next Track"
-msgstr ""
+msgstr "다음 트랙"
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr ""
+msgstr "일시 중지"
 
 #: ../music-app.qml:162
 msgid "Play"
-msgstr ""
+msgstr "재생"
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
-msgstr ""
+msgstr "일시 정지"
 
 #: ../music-app.qml:164
 msgid "Continue or start playback"
-msgstr ""
+msgstr "재생을 계속하거나 시작합니다."
 
 #: ../music-app.qml:169
 msgid "Back"
-msgstr ""
+msgstr "뒤로"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr ""
+msgstr "마지막 페이지로 돌아가기"
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr ""
+msgstr "이전"
 
 #: ../music-app.qml:179
 msgid "Previous Track"
-msgstr ""
+msgstr "이전 트랙"
 
 #: ../music-app.qml:184
 msgid "Stop"
-msgstr ""
+msgstr "중지"
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
-msgstr ""
+msgstr "재생 중지"
 
 #: ../music-app.qml:193
 msgid "Music Settings"
-msgstr ""
+msgstr "음악 설정"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:288
 msgid "songs played today"
-msgstr ""
+msgstr "오늘 재생한 노래"
 
 #: ../music-app.qml:289
 msgid "No songs played today"
-msgstr ""
+msgstr "오늘 재생한 노래가 없습니다."
 
 #: ../music-app.qml:396
 msgid "Debug: "
-msgstr ""
+msgstr "디버그: "
 
 #: ../music-app.qml:712
 msgid "New Playlist"
-msgstr ""
+msgstr "새 재생 목록"
 
 #: ../music-app.qml:713
 msgid "Name your playlist."
-msgstr ""
+msgstr "재생목록 이름을 정해주세요."
 
 #: ../music-app.qml:717
 msgid "Name"
-msgstr ""
+msgstr "이름"
 
 #: ../music-app.qml:725
 msgid "Create"
-msgstr ""
+msgstr "추가"
 
 #: ../music-app.qml:741
 msgid "Error: "
-msgstr ""
+msgstr "오류: "
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr ""
+msgstr "오류: 이름을 입력하지 않으셨습니다."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "우분투를 위한 음악 애플리케이션"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "음악;노래;재생;트랙;플레이어;음;"

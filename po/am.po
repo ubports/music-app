@@ -1,4 +1,4 @@
-# Portuguese translation for music-app
+# Amharic translation for music-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-22 10:58+0000\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
-"Language-Team: Portuguese <pt@li.org>\n"
+"PO-Revision-Date: 2014-07-20 16:26+0000\n"
+"Last-Translator: samson <Unknown>\n"
+"Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-23 07:00+0000\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Launchpad-Export-Date: 2014-07-21 06:56+0000\n"
 "X-Generator: Launchpad (build 17114)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
@@ -28,167 +28,165 @@ msgstr ""
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
-msgstr "Nome de utilizador"
+msgstr "የተጠቃሚ ስም"
 
 #: ../LoginLastFM.qml:73
 msgid "Password"
-msgstr "Palavra-Passe"
+msgstr "የመግቢያ ቃል"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr "Iniciar sessão"
+msgstr "መግቢያ"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr "A tentar início de de sessão..."
+msgstr "ለመግባት በመሞከር ላይ..."
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr "Início de sessão com sucesso"
+msgstr "ተሳክቶ ገብተዋል"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr "Início de sessão sem sucesso"
+msgstr "መግባቱ አልተሳካም"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr "Você esqueceu-se de defenir um utilizador e/ou a palavra-passe"
+msgstr ""
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
-msgstr "Álbuns"
+msgstr "አልበሞች"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr "Artistas"
+msgstr "ተዋንያን"
 
 #: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 albúm"
-msgstr[1] "%1 albúns"
+msgstr[0] "%1 አልበም"
+msgstr[1] "%1 አልበሞች"
 
 #: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
 #: ../common/SongsSheet.qml:144
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 música"
-msgstr[1] "%1 músicas"
+msgstr[0] "%1 ዘፈን"
+msgstr[1] "%1 ዘፈኖች"
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr "Em reprodução"
+msgstr "አሁን የሚጫወተው"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:39
 msgid "Playlists"
-msgstr "Listas de reprodução"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:60
 msgid "Change name"
-msgstr "Alterar nome"
+msgstr "ስም መቀየሪያ"
 
 #: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
-msgstr "Introduzir novo nome da lista de reprodução."
+msgstr ""
 
 #: ../MusicPlaylists.qml:72
 msgid "Change"
-msgstr "Alterar"
+msgstr "መቀየሪያ"
 
 #: ../MusicPlaylists.qml:85
 msgid "You didn't type in a name."
-msgstr "Você não introduziu um nome."
+msgstr "ስም አልጻፉም"
 
 #: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "መሰረዣ"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../MusicPlaylists.qml:103
 msgid "Are you sure?"
-msgstr "Você tem certeza?"
+msgstr "እርግጠኛ ነዎት?"
 
 #: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
-msgstr "Isto vai apagar a sua lista de reprodução."
+msgstr ""
 
 #: ../MusicPlaylists.qml:107
 msgid "Remove"
-msgstr "Remover"
+msgstr "ማስወገጃ"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr "Pesquisar"
+msgstr "መፈለጊያ"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
-msgstr "Definições"
+msgstr "ማሰናጃ"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "Equalizador"
+msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "Predefinido"
+msgstr "ነባር"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "አኩስቲክ"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "Clássica"
+msgstr "ክላሲካል"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr "Eletrónica"
+msgstr "ኤሌክትሮኒክ"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr "Plano"
+msgstr "ጠፍጣፋ"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr "Hip Hop"
+msgstr "ሂፕ ሆፕ"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr "Jazz"
+msgstr "ጃዝ"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "Metal"
+msgstr "ሜታል"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr "Pop"
+msgstr "ፖፕ"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr "Rock"
+msgstr "ሮክ"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr "Personalizar"
+msgstr ""
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
-"Mudar para a música atual \n"
-"ao abrir a barra de ferramentas"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr "Contas"
+msgstr ""
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
@@ -196,11 +194,11 @@ msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr "Streaming de música"
+msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr "Ubuntu One"
+msgstr "ኡቡንቱ ዋን"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
@@ -212,121 +210,121 @@ msgstr ""
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr "Limpar tudo!"
+msgstr "ሁሉንም ላጽዳ!"
 
 #: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr "Música"
+msgstr "ሙዚቃ"
 
 #: ../MusicStart.qml:84
 msgid "Recent"
-msgstr "Recente"
+msgstr "የቅርብ ጊዜ"
 
 #: ../MusicStart.qml:112
 msgid "Clear History"
-msgstr "Limpar histórico"
+msgstr "ታሪክ ማጽጃ"
 
 #: ../MusicStart.qml:222
 msgid "Genres"
-msgstr "Géneros"
+msgstr ""
 
 #: ../MusicToolbar.qml:739
 msgid "No songs queued"
-msgstr "Sem músicas em fila"
+msgstr ""
 
 #: ../MusicToolbar.qml:749
 msgid "Tap play or any item to start"
-msgstr "Toque em reproduzir ou em qualquer item para iniciar"
+msgstr ""
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
-msgstr ""
+msgstr "ዘፈኖች"
 
 #: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
 #: ../music-app.qml:699
 msgid "Select playlist"
-msgstr ""
+msgstr "የማጫወቻ ዝርዝር ይምረጡ"
 
 #: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
-msgstr ""
+msgstr "አዲስ የማጫወቻ ዝርዝር"
 
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
 msgid "Play all"
-msgstr "Reproduzir tudo"
+msgstr "ሁሉንም ማጫወቻ"
 
 #: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
 #: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
 #: ../music-app.qml:674
 msgid "Add to queue"
-msgstr "Adicionar à fila"
+msgstr ""
 
 #: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] " | %1 música"
-msgstr[1] " | %1 músicas"
+msgstr[0] " | %1 ዘፈን"
+msgstr[1] " | %1 ዘፈኖች"
 
 #: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
-msgstr "Adicionar à lista de reprodução"
+msgstr "ወደ ማጫወቻ ዝርዝር መጨመሪያ"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "ማጥፊያ"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "ማረሚያ"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr "A carregar..."
+msgstr "በመጫን ላይ..."
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
-msgstr "Limpar"
+msgstr "ማጽጃ"
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr "Álbum desconhecido"
+msgstr "ያልታወቀ አልበም"
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr "Artista desconhecido"
+msgstr "ያልታወቀ አርቲስት"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr "Pesquisar faixa"
+msgstr "ተረኛ መፈለጊያ"
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr "Seguinte"
+msgstr "ይቀጥሉ"
 
 #: ../music-app.qml:156
 msgid "Next Track"
-msgstr "Próxima faixa"
+msgstr "የሚቀጥለው ተረኛ"
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr "Pausa"
+msgstr "ማስቆሚያ"
 
 #: ../music-app.qml:162
 msgid "Play"
-msgstr "Reproduzir"
+msgstr "ማጫወቻ"
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
-msgstr "Pausar reprodução"
+msgstr ""
 
 #: ../music-app.qml:164
 msgid "Continue or start playback"
-msgstr "Continuar ou iniciar reprodução"
+msgstr ""
 
 #: ../music-app.qml:169
 msgid "Back"
@@ -346,7 +344,7 @@ msgstr ""
 
 #: ../music-app.qml:184
 msgid "Stop"
-msgstr "Parar"
+msgstr ""
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
@@ -359,39 +357,39 @@ msgstr ""
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:288
 msgid "songs played today"
-msgstr "músicas reproduzidas hoje"
+msgstr ""
 
 #: ../music-app.qml:289
 msgid "No songs played today"
-msgstr "Nenhuma música reproduzida hoje"
+msgstr ""
 
 #: ../music-app.qml:396
 msgid "Debug: "
-msgstr "Depuração: "
+msgstr ""
 
 #: ../music-app.qml:712
 msgid "New Playlist"
-msgstr "Nova lista de reprodução"
+msgstr ""
 
 #: ../music-app.qml:713
 msgid "Name your playlist."
-msgstr "Dê um nome à sua lista de reprodução."
+msgstr ""
 
 #: ../music-app.qml:717
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #: ../music-app.qml:725
 msgid "Create"
-msgstr "Criar"
+msgstr ""
 
 #: ../music-app.qml:741
 msgid "Error: "
-msgstr "Erro: "
+msgstr ""
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr "Erro: Você não introduziu um nome."
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
