@@ -230,13 +230,8 @@ class MainView(toolkit_emulators.MainView):
         return self.get_trackimage_from_label(tracktitle)
 
     def get_trackimage_from_label(self, label):
-        label_position = label.globalRect[1]
-        trackicons = self.select_many(
-            "QQuickImage", objectName="expanditem")
-
-        for item in trackicons:
-            if item.globalRect[1] == label_position:
-                return item
+        item = label.get_parent().get_parent().get_parent().get_parent()
+        return item.select_single('QQuickImage', objectName='expanditem')
 
     def get_songs_tab_add_to_queue_label(self):
         addtoqueue = self.select_many(
