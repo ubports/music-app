@@ -125,8 +125,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
         # click on close button to close the page
-        backButton = self.main_view.get_back_button()
-        self.pointing_device.click_object(backButton)
+        self.main_view.go_back()
 
         if self.main_view.wideAspect:
             play_button = self.main_view.get_now_playing_play_button()
@@ -346,8 +345,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
 
         # click on close button to close album page
-        backButton = self.main_view.get_back_button()
-        self.pointing_device.click_object(backButton)
+        self.main_view.go_back()
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_song_to_queue_from_albums_page(self):
@@ -377,8 +375,7 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
         # click on close button to close album page
-        backButton = self.main_view.get_back_button()
-        self.pointing_device.click_object(backButton)
+        self.main_view.go_back()
         self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
 
     def test_add_songs_to_queue_from_songs_tab_and_play(self):
