@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-22 10:58+0000\n"
+"PO-Revision-Date: 2014-07-23 23:10+0000\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-23 07:00+0000\n"
+"X-Launchpad-Export-Date: 2014-07-24 06:31+0000\n"
 "X-Generator: Launchpad (build 17114)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Inicie a sessão para poder fazer scrobble."
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -140,7 +140,7 @@ msgstr "Predefinido"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Acústico"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -192,7 +192,7 @@ msgstr "Contas"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Inicie a sessão para fazer scrobble e importar lista de reprodução"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -204,11 +204,11 @@ msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Inicie a sessão para ouvir as suas músicas"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Ouvir só em Wi-Fi"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
@@ -241,16 +241,16 @@ msgstr "Toque em reproduzir ou em qualquer item para iniciar"
 
 #: ../MusicTracks.qml:37
 msgid "Songs"
-msgstr ""
+msgstr "Músicas"
 
 #: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
 #: ../music-app.qml:699
 msgid "Select playlist"
-msgstr ""
+msgstr "Seleccionar lista de reprodução"
 
 #: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
-msgstr ""
+msgstr "Nova lista de reprodução"
 
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
@@ -277,12 +277,12 @@ msgstr "Adicionar à lista de reprodução"
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ExpanderItems/EditPlaylist.qml:48
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
@@ -330,19 +330,19 @@ msgstr "Continuar ou iniciar reprodução"
 
 #: ../music-app.qml:169
 msgid "Back"
-msgstr ""
+msgstr "Retroceder"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr ""
+msgstr "Retroceder para a última página"
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: ../music-app.qml:179
 msgid "Previous Track"
-msgstr ""
+msgstr "Faixa Anterior"
 
 #: ../music-app.qml:184
 msgid "Stop"
@@ -350,11 +350,11 @@ msgstr "Parar"
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
-msgstr ""
+msgstr "Parar Reprodução"
 
 #: ../music-app.qml:193
 msgid "Music Settings"
-msgstr ""
+msgstr "Definições de Música"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:288
@@ -395,8 +395,8 @@ msgstr "Erro: Você não introduziu um nome."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Uma aplicação de música para Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "música;músicas;reproduzir;faixas;leitor;melodias;"
