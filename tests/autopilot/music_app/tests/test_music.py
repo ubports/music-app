@@ -125,8 +125,9 @@ class TestMainWindow(MusicTestCase):
         self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
 
         # click on close button to close the page
-        backButton = self.main_view.get_back_button()
-        self.pointing_device.click_object(backButton)
+#        backButton = self.main_view.get_back_button()
+#        self.pointing_device.click_object(backButton)
+        self.main_view.go_back()
 
         if self.main_view.wideAspect:
             play_button = self.main_view.get_now_playing_play_button()
