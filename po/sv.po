@@ -1,22 +1,23 @@
 # Swedish translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright © 2013-2014 Rosetta Contributors and Canonical Ltd 2013-2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# Josef Andersson <josef.andersson@fripost.org>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-18 18:56+0000\n"
-"Last-Translator: Arve Eriksson <Unknown>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"PO-Revision-Date: 2014-07-24 13:55+0000\n"
+"Last-Translator: Josef Andersson <Unknown>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-19 06:18+0000\n"
+"X-Launchpad-Export-Date: 2014-07-25 07:53+0000\n"
 "X-Generator: Launchpad (build 17114)\n"
+"Language: sv\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -40,7 +41,7 @@ msgstr "Logga in"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr "Loggar in..."
+msgstr "Loggar in…"
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
@@ -85,7 +86,7 @@ msgstr "Nu spelas"
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:39
 msgid "Playlists"
-msgstr "Spelningslistor"
+msgstr "Spellistor"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:60
@@ -94,7 +95,7 @@ msgstr "Ändra namn"
 
 #: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."
-msgstr "Skriv in det nya namnet på spelningslistan."
+msgstr "Skriv in det nya namnet på spellistan."
 
 #: ../MusicPlaylists.qml:72
 msgid "Change"
@@ -115,7 +116,7 @@ msgstr "Är du säker?"
 
 #: ../MusicPlaylists.qml:104
 msgid "This will delete your playlist."
-msgstr "Detta kommer att ta bort din spelningslista."
+msgstr "Detta kommer att ta bort din spellista."
 
 #: ../MusicPlaylists.qml:107
 msgid "Remove"
@@ -132,11 +133,11 @@ msgstr "Inställningar"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr "Equaliser"
+msgstr "Equalizer"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr "Förvalt"
+msgstr "Standard"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
@@ -144,7 +145,7 @@ msgstr "Akustiskt"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr "Klassisk"
+msgstr "Klassiskt"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
@@ -164,7 +165,7 @@ msgstr "Jazz"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr "Metall"
+msgstr "Hårdrock"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
@@ -246,11 +247,11 @@ msgstr "Låtar"
 #: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
 #: ../music-app.qml:699
 msgid "Select playlist"
-msgstr "Välj spelningslista"
+msgstr "Välj spellista"
 
 #: ../MusicaddtoPlaylist.qml:131
 msgid "New playlist"
-msgstr "Ny spelningslista"
+msgstr "Ny spellista"
 
 #: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
 #: ../common/SongsSheet.qml:173
@@ -272,7 +273,7 @@ msgstr[1] " | %1 låtar"
 
 #: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
 msgid "Add to playlist"
-msgstr "Lägg till i spelningslista"
+msgstr "Lägg till i spellista"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ExpanderItems/DeletePlaylist.qml:48
@@ -286,7 +287,7 @@ msgstr "Redigera"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr "Läser in..."
+msgstr "Läser in…"
 
 #: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
 msgid "Clear"
@@ -367,15 +368,15 @@ msgstr "Inga låtar spelade idag"
 
 #: ../music-app.qml:396
 msgid "Debug: "
-msgstr "Felsök: "
+msgstr "Avlusa: "
 
 #: ../music-app.qml:712
 msgid "New Playlist"
-msgstr "Ny spelningslista"
+msgstr "Ny spellista"
 
 #: ../music-app.qml:713
 msgid "Name your playlist."
-msgstr "Namnge din spelningslista."
+msgstr "Namnge din spellista."
 
 #: ../music-app.qml:717
 msgid "Name"
@@ -391,11 +392,11 @@ msgstr "Fel: "
 
 #: ../music-app.qml:746
 msgid "Error: You didn't type a name."
-msgstr "Fel: Du skrev ingen namn."
+msgstr "Fel: Du skrev inget namn."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "En musikapplikation för Ubuntu"
+msgstr "Ett musikprogram för Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
