@@ -54,21 +54,18 @@ MusicPage {
         }
     }
 
-    Component.onCompleted: {
-        // check the four latest track in each playlist
-        // get the cover art of them
-        // print them in the icon
-        tabs.ensurePopulated(playlistTab)
+    onVisibleChanged: {
+        if (visible) {
+            tabs.ensurePopulated(playlistTab)
+        }
     }
 
     // show each playlist and make them chosable
     ListView {
         id: addtoPlaylistView
         anchors {
-            bottom: newPlaylistItem.top
-            left: parent.left
-            right: parent.right
-            top: parent.top
+            bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+            fill: parent
         }
         clip: true
         height: parent.width
@@ -85,18 +82,10 @@ MusicPage {
 
             onClicked: {
                 console.debug("Debug: "+chosenElement.filename+" added to "+name)
-                Playlists.addtoPlaylist(name,
-                                        chosenElement.filename,
-                                        chosenElement.author,
-                                        chosenElement.title,
-                                        chosenElement.album,
-                                        chosenElement.art,
-                                        "","","","")
-                count = Playlists.getPlaylistCount(
-                            name) // get the new count
-                playlistModel.model.set(index, {
-                                            count: count
-                                        }) // update number ot tracks in playlist
+
+                Playlists.addToPlaylist(name, chosenElement)
+
+                playlistModel.filterPlaylists();
 
                 musicToolbar.goBack();  // go back to the previous page
             }

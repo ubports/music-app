@@ -53,8 +53,6 @@ Rectangle {
             parent.parent.parent.expanderLink.expanderVisible = false;
             customdebug("Edit playlist")
             oldPlaylistName = parent.parent.parent.expanderLink.model.name
-            oldPlaylistID = parent.parent.parent.expanderLink.model.id
-            oldPlaylistIndex = parent.parent.parent.expanderLink.model.index
             PopupUtils.open(editPlaylistDialog, mainView)
         }
     }
