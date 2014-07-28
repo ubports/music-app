@@ -52,6 +52,9 @@ function initializePlaylist() {
             for (var i=0; i < rs.rows.length; i++) {
                 oldPlaylists.push(rs.rows.item(i).name)
             }
+
+            // Delete old extra db
+            tx.executeSql('DROP TABLE IF EXISTS playlists;');
         });
 
 
@@ -82,57 +85,65 @@ function initializePlaylist() {
 
             tx.executeSql('DROP TABLE IF EXISTS playlist;')
         })
-
-        // Delete old extra db
-        oldDb.transaction(function (tx) {
-            tx.executeSql('DROP TABLE IF EXISTS playlists;');
-        });
     }
 
     db.transaction(function (tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS playlist(name TEXT PRIMARY KEY, FOREIGN KEY (name) REFERENCES track(playlist));')
         tx.executeSql('CREATE TABLE IF NOT EXISTS track(i INTEGER NOT NULL, playlist TEXT NOT NULL, filename TEXT, title TEXT, author TEXT, album TEXT, PRIMARY KEY (playlist, i), FOREIGN KEY (playlist) REFERENCES tracks(playlist));')
+
+        console.debug("DB: Restore", JSON.stringify(playlists))
+
+        // Restore old db data if exists
+        for (var playlist in playlists) {
+            console.debug("Adding playlist", playlist)
+
+            addPlaylist(playlist, tx)
+
+            for (var i=0; i < playlists[playlist].length; i++) {
+                console.debug("Adding track to playlist", JSON.stringify(playlists[playlist][i]))
+
+                addToPlaylist(playlist, playlists[playlist][i], tx)
+            }
+        }
     })
 
-    console.debug("DB: Restore", JSON.stringify(playlists))
-
-    // Restore old db data if exists
-    for (var playlist in playlists) {
-        console.debug("Adding playlist", playlist)
-
-        addPlaylist(playlist)
-
-        for (var i=0; i < playlists[playlist].length; i++) {
-            console.debug("Adding track to playlist", JSON.stringify(playlists[playlist][i]))
-
-            addToPlaylist(playlist, playlists[playlist][i])
-        }
-    }
 }
 
-function addPlaylist(name) {
-    var db = getPlaylistDatabase()
-    var rs = false
+function addPlaylist(name, tx) {
+    if (tx === undefined) {
+        var db = getPlaylistDatabase()
 
-    console.debug("Add new playlists:", name)
-
-    try {
         db.transaction(function (tx) {
+            return addPlaylist(name, tx)
+        });
+    }
+    else {
+        var rs = false
+
+        console.debug("Add new playlists:", name)
+
+        try {
             rs = tx.executeSql('INSERT INTO playlist VALUES (?);',
                                [name]).rowsAffected > 0
-        })
-    } catch (e) {
-        rs = false
-    }
+        } catch (e) {
+            rs = false
+        }
 
-    return rs
+        return rs
+    }
 }
 
-function addToPlaylist(playlist, model) {
-    var db = getPlaylistDatabase()
-    var rs = false
+function addToPlaylist(playlist, model, tx) {
+    if (tx === undefined) {
+        var db = getPlaylistDatabase()
 
-    db.transaction(function (tx) {
+        db.transaction(function (tx) {
+            return addToPlaylist(playlist, model, tx)
+        });
+    }
+    else {
+        var rs = false
+
         // Generate new index number if records exist, otherwise use 0
         rs = tx.executeSql('SELECT MAX(i) FROM track WHERE playlist=?;',
                            playlist)
@@ -144,9 +155,10 @@ function addToPlaylist(playlist, model) {
         rs = tx.executeSql(
                     'INSERT OR REPLACE INTO track VALUES (?,?,?,?,?,?);',
                     [index, playlist, model.filename, model.title, model.author, model.album]).rowsAffected > 0
-    })
 
-    return rs
+        return rs
+    }
+
 }
 
 function getPlaylists() {
@@ -163,7 +175,7 @@ function getPlaylists() {
 
                 res.push({
                              name: dbItem.name,
-                             count: getPlaylistCount(dbItem.name)
+                             count: getPlaylistCount(dbItem.name, tx)
                          })
             }
         })
@@ -201,20 +213,26 @@ function getPlaylistTracks(playlist) {
     return res
 }
 
-function getPlaylistCount(playlist) {
-    var db = getPlaylistDatabase()
-    var res = 0
+function getPlaylistCount(playlist, tx) {
+    if (tx === undefined) {
+        var db = getPlaylistDatabase()
 
-    try {
         db.transaction(function (tx) {
+            return getPlaylistCount(playlist, tx)
+        });
+    }
+    else {
+        var res = 0
+
+        try {
             res = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
                                 [playlist]).rows.length
-        })
-    } catch (e) {
+        } catch (e) {
+            return res
+        }
+
         return res
     }
-
-    return res
 }
 
 function getPlaylistCovers(playlist, max) {
@@ -249,14 +267,16 @@ function getPlaylistCovers(playlist, max) {
 function renamePlaylist(from, to) {
     var db = getPlaylistDatabase()
 
-    addPlaylist(to)
 
     db.transaction(function (tx) {
+        addPlaylist(to, tx)
+
         tx.executeSql('UPDATE track SET playlist=? WHERE playlist=?;',
                       [to, from])
+
+        removePlaylist(from, tx)
     })
 
-    removePlaylist(from)
 }
 
 function removePlaylist(playlist) {
@@ -280,16 +300,21 @@ function removeFromPlaylist(playlist, index) {
         res = tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
                             [playlist, index]).rowsAffected > 0
 
-        reorder(playlist, "remove")
+        reorder(playlist, "remove", tx)
     })
 
     return res
 }
 
-function reorder(playlist, type) {
+function reorder(playlist, type, tx) {
     var db = getPlaylistDatabase()
 
-    db.transaction(function (tx) {
+    if (tx === undefined) {
+        db.transaction(function (tx) {
+            return reorder(playlist, type, tx)
+        });
+    }
+    else {
         var res = tx.executeSql(
                     "SELECT * FROM track WHERE i > ? AND playlist=? ORDER BY i ASC;",
                     [-1, playlist])
@@ -310,7 +335,7 @@ function reorder(playlist, type) {
             tx.executeSql('UPDATE track SET i=? WHERE i=? AND playlist=?;',
                           [type, -1, playlist])
         }
-    })
+    }
 }
 
 function move(playlist, from, to) {
@@ -322,10 +347,11 @@ function move(playlist, from, to) {
         // Hide track from list
         tx.executeSql('UPDATE track SET i=? WHERE i=? AND playlist=?;',
                       [-1, from, playlist])
+
+        reorder(playlist, "remove", tx) // 'remove' resorting the queue
+        reorder(playlist, to, tx) // insert the track in the new position
     })
 
-    reorder(playlist, "remove") // 'remove' resorting the queue
-    reorder(playlist, to) // insert the track in the new position
 }
 
 function reset() {
