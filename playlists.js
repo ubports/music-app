@@ -182,10 +182,11 @@ function getPlaylistTracks(playlist) {
         db.transaction(function (tx) {
             var rs = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
                                    [playlist])
-            for (var i = 0; i < rs.rows.length; i++) {
-                var dbItem = rs.rows.item(i)
+            for (var j = 0; j < rs.rows.length; j++) {
+                var dbItem = rs.rows.item(j)
 
                 res.push({
+                             i: dbItem.i,
                              filename: dbItem.filename,
                              title: dbItem.title,
                              author: dbItem.author,
@@ -292,19 +293,22 @@ function reorder(playlist, type) {
         var res = tx.executeSql(
                     "SELECT * FROM track WHERE i > ? AND playlist=? ORDER BY i ASC;",
                     [-1, playlist])
+        var i;
 
-        for (var i = 0; i < res.rows.length; i++) {
-            if (type === "remove") {
+        if (type === "remove") {
+            for (i = 0; i < res.rows.length; i++) {
                 tx.executeSql('UPDATE track SET i=? WHERE i=? AND playlist=?;',
-                              [res.rows.item(i).i, i, playlist])
-            } else {
-                // Case for insert
-                tx.executeSql(
-                            'UPDATE track SET i=i + 1 WHERE i >= ? AND playlist=?;',
-                            [type, playlist])
-                tx.executeSql('UPDATE track SET i=? WHERE i=? AND playlist=?;',
-                              [type, -1, playlist])
+                              [i, res.rows.item(i).i, playlist])
             }
+        }
+        else {  // insert -1 at {type}, shuffle >= {type} + 1 and put -1 in the gap
+            for (i=res.rows.item(res.rows.length - 1).i; i >= type; i--) {
+                tx.executeSql('UPDATE track SET i=i + 1 WHERE i >= ? AND playlist=?;',
+                              [i, playlist])
+            }
+
+            tx.executeSql('UPDATE track SET i=? WHERE i=? AND playlist=?;',
+                          [type, -1, playlist])
         }
     })
 }
