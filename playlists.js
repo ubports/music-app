@@ -47,10 +47,15 @@ function initializePlaylist() {
         var oldPlaylists = [];
 
         oldDb.transaction(function (tx) {
-            var rs = tx.executeSql('SELECT name FROM playlists;');
+            try {
+                var rs = tx.executeSql('SELECT name FROM playlists;');
 
-            for (var i=0; i < rs.rows.length; i++) {
-                oldPlaylists.push(rs.rows.item(i).name)
+                for (var i=0; i < rs.rows.length; i++) {
+                    oldPlaylists.push(rs.rows.item(i).name)
+                }
+            }
+            catch (err) {
+
             }
 
             // Delete old extra db
@@ -59,7 +64,14 @@ function initializePlaylist() {
 
 
         db.changeVersion(db.version, "1.3", function (tx) {
-            var rs = tx.executeSql('SELECT * FROM playlist ORDER BY id');
+            var rs;
+
+            try {
+                rs = tx.executeSql('SELECT * FROM playlist ORDER BY id');
+            }
+            catch (err) {
+                rs = {rows: []}
+            }
 
             console.debug("DB: Changing version of playlist db to 1.3, migrating", rs.rows.length, "tracks")
             console.debug("Old playlists", JSON.stringify(oldPlaylists))
