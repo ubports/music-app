@@ -119,7 +119,7 @@ Item {
     }
 
     function filterPlaylists() {
-        console.log("called LibraryListModel::filterPlaylistTracks()")
+        console.log("called LibraryListModel::filterPlaylist()")
 
         // Save query for queue
         query = Playlists.getPlaylists

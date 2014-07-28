@@ -55,7 +55,7 @@ function initializePlaylist() {
                 }
             }
             catch (err) {
-
+                console.debug("Error reading old playlists, probably doesn't exist.")
             }
 
             // Delete old extra db
@@ -71,6 +71,7 @@ function initializePlaylist() {
             }
             catch (err) {
                 rs = {rows: []}
+                console.debug("Error reading old playlists tracks, probably doesn't exist.")
             }
 
             console.debug("DB: Changing version of playlist db to 1.3, migrating", rs.rows.length, "tracks")
@@ -132,8 +133,6 @@ function addPlaylist(name, tx) {
         });
     }
     else {
-        var rs = false
-
         console.debug("Add new playlists:", name)
 
         try {
@@ -238,14 +237,14 @@ function getPlaylistCount(playlist, tx) {
     }
     else {
         try {
-            res = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
+            rs = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
                                 [playlist]).rows.length
         } catch (e) {
-            return res
+            return rs
         }
     }
 
-    return res
+    return rs
 }
 
 function getPlaylistCovers(playlist, max) {
