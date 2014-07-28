@@ -122,11 +122,13 @@ function initializePlaylist() {
 }
 
 function addPlaylist(name, tx) {
+    var rs = false;
+
     if (tx === undefined) {
         var db = getPlaylistDatabase()
 
         db.transaction(function (tx) {
-            return addPlaylist(name, tx)
+            rs = addPlaylist(name, tx)
         });
     }
     else {
@@ -140,22 +142,22 @@ function addPlaylist(name, tx) {
         } catch (e) {
             rs = false
         }
-
-        return rs
     }
+
+    return rs;
 }
 
 function addToPlaylist(playlist, model, tx) {
+    var rs = false
+
     if (tx === undefined) {
         var db = getPlaylistDatabase()
 
         db.transaction(function (tx) {
-            return addToPlaylist(playlist, model, tx)
+            rs = addToPlaylist(playlist, model, tx)
         });
     }
     else {
-        var rs = false
-
         // Generate new index number if records exist, otherwise use 0
         rs = tx.executeSql('SELECT MAX(i) FROM track WHERE playlist=?;',
                            playlist)
@@ -167,10 +169,9 @@ function addToPlaylist(playlist, model, tx) {
         rs = tx.executeSql(
                     'INSERT OR REPLACE INTO track VALUES (?,?,?,?,?,?);',
                     [index, playlist, model.filename, model.title, model.author, model.album]).rowsAffected > 0
-
-        return rs
     }
 
+    return rs
 }
 
 function getPlaylists() {
@@ -226,25 +227,25 @@ function getPlaylistTracks(playlist) {
 }
 
 function getPlaylistCount(playlist, tx) {
+    var rs = 0;
+
     if (tx === undefined) {
         var db = getPlaylistDatabase()
 
         db.transaction(function (tx) {
-            return getPlaylistCount(playlist, tx)
+            rs = getPlaylistCount(playlist, tx)
         });
     }
     else {
-        var res = 0
-
         try {
             res = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
                                 [playlist]).rows.length
         } catch (e) {
             return res
         }
-
-        return res
     }
+
+    return res
 }
 
 function getPlaylistCovers(playlist, max) {
@@ -278,7 +279,6 @@ function getPlaylistCovers(playlist, max) {
 
 function renamePlaylist(from, to) {
     var db = getPlaylistDatabase()
-
 
     db.transaction(function (tx) {
         addPlaylist(to, tx)
@@ -323,7 +323,7 @@ function reorder(playlist, type, tx) {
 
     if (tx === undefined) {
         db.transaction(function (tx) {
-            return reorder(playlist, type, tx)
+            reorder(playlist, type, tx)
         });
     }
     else {
