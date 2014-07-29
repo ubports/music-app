@@ -277,6 +277,8 @@ function getPlaylistCovers(playlist, max) {
 }
 
 function renamePlaylist(from, to) {
+    var res = false;
+
     if (from !== to) {
         var db = getPlaylistDatabase()
 
@@ -288,7 +290,11 @@ function renamePlaylist(from, to) {
 
             removePlaylist(from, tx)
         })
+
+        res = true
     }
+
+    return res;
 }
 
 function removePlaylist(playlist) {

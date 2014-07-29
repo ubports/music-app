@@ -82,14 +82,18 @@ MusicPage {
 
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
                         console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-                        Playlists.renamePlaylist(oldPlaylistName, playlistName.text)
 
-                        playlistModel.filterPlaylists()
+                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
+                            playlistModel.filterPlaylists()
 
-                        PopupUtils.close(dialogueEditPlaylist)
+                            PopupUtils.close(dialogueEditPlaylist)
 
-                        if (inPlaylist) {
-                            playlistInfoLabel.text = playlistName.text
+                            if (inPlaylist) {
+                                playlistInfoLabel.text = playlistName.text
+                            }
+                        }
+                        else {
+                            editplaylistoutput.text = i18n.tr("Playlist already exists")
                         }
                     }
                     else {
