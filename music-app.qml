@@ -732,7 +732,7 @@ MainView {
                     }
                     else {
                         newplaylistoutput.visible = true
-                        newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
+                        newplaylistoutput.text = i18n.tr("Please type in a name.")
                     }
                 }
             }

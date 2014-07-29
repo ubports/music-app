@@ -67,9 +67,11 @@ MusicPage {
             TextField {
                 id: playlistName
                 placeholderText: oldPlaylistName
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
-            ListItem.Standard {
+            Label {
                 id: editplaylistoutput
+                color: "white"
                 visible: false
             }
 
@@ -91,7 +93,7 @@ MusicPage {
                         }
                     }
                     else {
-                        editplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        editplaylistoutput.text = i18n.tr("Please type in a name.")
                     }
                 }
             }
