@@ -277,17 +277,18 @@ function getPlaylistCovers(playlist, max) {
 }
 
 function renamePlaylist(from, to) {
-    var db = getPlaylistDatabase()
+    if (from !== to) {
+        var db = getPlaylistDatabase()
 
-    db.transaction(function (tx) {
-        addPlaylist(to, tx)
+        db.transaction(function (tx) {
+            addPlaylist(to, tx)
 
-        tx.executeSql('UPDATE track SET playlist=? WHERE playlist=?;',
-                      [to, from])
+            tx.executeSql('UPDATE track SET playlist=? WHERE playlist=?;',
+                          [to, from])
 
-        removePlaylist(from, tx)
-    })
-
+            removePlaylist(from, tx)
+        })
+    }
 }
 
 function removePlaylist(playlist) {
