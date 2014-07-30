@@ -1,4 +1,4 @@
-# Icelandic translation for music-app
+# Faroese translation for music-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-17 13:05-0400\n"
-"PO-Revision-Date: 2014-07-24 10:32+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <is@li.org>\n"
+"PO-Revision-Date: 2014-07-25 22:43+0000\n"
+"Last-Translator: Jógvan Olsen <jeggy@jebster.net>\n"
+"Language-Team: Faroese <fo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-25 07:53+0000\n"
-"X-Generator: Launchpad (build 17114)\n"
+"X-Launchpad-Export-Date: 2014-07-26 07:15+0000\n"
+"X-Generator: Launchpad (build 17131)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
@@ -28,15 +28,15 @@ msgstr ""
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
-msgstr "Notandanafn"
+msgstr "Brúkaranavn"
 
 #: ../LoginLastFM.qml:73
 msgid "Password"
-msgstr "Lykilorð"
+msgstr "Loyniorð"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr "Innskráning"
+msgstr "Rita inn"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
@@ -44,11 +44,11 @@ msgstr ""
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr "Innskráning tókst"
+msgstr ""
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr "Innskráning mistókst"
+msgstr ""
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
@@ -56,11 +56,11 @@ msgstr ""
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:370
 msgid "Albums"
-msgstr "Albúm"
+msgstr "Plátur"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr "Flytjendur"
+msgstr ""
 
 #: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
 #, qt-format
@@ -74,23 +74,23 @@ msgstr[1] ""
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] "%1 lag"
-msgstr[1] "%1 lög"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../MusicNowPlaying.qml:34
 msgid "Now Playing"
-msgstr "Núna í spilun"
+msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:39
 msgid "Playlists"
-msgstr "Spilunarlisti"
+msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:60
 msgid "Change name"
-msgstr "Breyta heiti"
+msgstr ""
 
 #: ../MusicPlaylists.qml:61
 msgid "Enter the new name of the playlist."

@@ -113,9 +113,6 @@ class MainView(toolkit_emulators.MainView):
     def get_first_genre_item(self):
         return self.wait_select_single("*", objectName="genreItemObject")
 
-    def get_back_button(self):
-        return self.select_single("AbstractButton", objectName="backButton")
-
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")
 
@@ -230,13 +227,8 @@ class MainView(toolkit_emulators.MainView):
         return self.get_trackimage_from_label(tracktitle)
 
     def get_trackimage_from_label(self, label):
-        label_position = label.globalRect[1]
-        trackicons = self.select_many(
-            "QQuickImage", objectName="expanditem")
-
-        for item in trackicons:
-            if item.globalRect[1] == label_position:
-                return item
+        item = label.get_parent().get_parent().get_parent().get_parent()
+        return item.select_single('QQuickImage', objectName='expanditem')
 
     def get_songs_tab_add_to_queue_label(self):
         addtoqueue = self.select_many(
