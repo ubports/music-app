@@ -315,13 +315,15 @@ MainView {
             id: getMetaSongsModel
             store: musicStore
         }
-        sort.property: "file"
+        sort.property: "filename"
         sort.order: Qt.AscendingOrder
 
         function getFile(path) {
-            var max = getMetaModel.rowCount - 1;
+            var max = getMetaModel.count - 1;
             var min = 0;
             var mid;
+
+            path = Qt.resolvedUrl(path);
 
             while (max >= min) {
                 mid = Math.ceil((min + max) / 2);
@@ -346,8 +348,16 @@ MainView {
         interval: 500
         repeat: true
 
+        property var dialogue: null
         property string searchPath
         property int count: 0
+
+        function stopTimer() {
+            count = 0;
+            stop();
+
+            PopupUtils.close(dialogue)
+        }
 
         onTriggered: {
             var model = getMetaModel.getFile(searchPath)
@@ -355,23 +365,34 @@ MainView {
             if (model === false) {
                 count++;
 
-                if (count >= 10) {
-                    count = 0;
-                    stop();
+                if (count >= 20) {  // wait for 10s
+                    stopTimer();
 
-                    loading.visible = false;
+                    console.debug("File was not found", searchPath)
                 }
             }
             else {
-                count = 0;
-                stop();  // stop timer
-
-                loading.visible = false;
+                stopTimer();
 
                 trackQueue.model.clear();
 
                 trackQueue.append(makeDict(model));
                 trackQueueClick(0);
+            }
+        }
+    }
+
+    Component {
+        id: contentHubWait
+        Dialog {
+            id: dialogueContentHubWait
+
+            LoadingSpinnerComponent {
+                anchors {
+                    centerIn: parent
+                }
+                loadingText: i18n.tr("Waiting for file...")
+                visible: true
             }
         }
     }
@@ -442,8 +463,8 @@ MainView {
                         else {
                             PopupUtils.close(dialogueContentHubImport)
 
+                            contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
                             contentHubWaitForFile.searchPath = path;
-                            loading.visible = true;
                             contentHubWaitForFile.start();
                         }
                     }
@@ -545,6 +566,20 @@ MainView {
             musicToolbar.showToolbar();
             musicToolbar.startAutohideTimer();
         }
+
+        /*
+        // Debug for getFile() searching on SongsModel
+        for (var i=0; i < getMetaModel.count; i++) {
+            var model = getMetaModel.getFile(getMetaModel.get(i).filename)
+
+            if (Qt.resolvedUrl(model.filename) !== Qt.resolvedUrl(getMetaModel.get(i).filename)) {
+                console.debug("FAILED TO FIND", i, getMetaModel.get(i).filename);
+            }
+            else {
+                console.debug("FOUND", i, getMetaModel.get(i).filename);
+            }
+        }
+        */
     }
 
     // VARIABLES
