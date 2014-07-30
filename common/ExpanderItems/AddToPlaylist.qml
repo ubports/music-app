@@ -52,7 +52,7 @@ Rectangle {
        anchors.fill: parent
        onClicked: {
            parent.parent.parent.expanderLink.expanderVisible = false;
-           chosenElement = parent.parent.parent.expanderLink.model;
+           chosenElement = makeDict(parent.parent.parent.expanderLink.model);
            console.debug("Debug: Add track to playlist");
            mainPageStack.push(addtoPlaylist)
        }

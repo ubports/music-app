@@ -341,8 +341,8 @@ MainView {
         Library.initialize();
 
         // initialize playlists
-        Playlists.initializePlaylists()
         Playlists.initializePlaylist()
+
         // everything else
         loading.visible = true
         scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
@@ -717,23 +717,22 @@ MainView {
                 onClicked: {
                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        var newList = Playlists.addPlaylist(playlistName.text)
-                        if (newList === "OK") {
-                            console.debug("Debug: User created a new playlist named: "+playlistName.text)
-                            // add the new playlist to the tab
-                            var index = Playlists.getID(); // get the latest ID
-                            playlistModel.model.append({"id": index, "name": playlistName.text, "count": "0"})
+                        if (Playlists.addPlaylist(playlistName.text) === true) {
+                            console.debug("Debug: User created a new playlist named: ", playlistName.text)
+
+                            playlistModel.filterPlaylists();  // reload model
+
                             PopupUtils.close(dialogueNewPlaylist)
                         }
                         else {
-                            console.debug("Debug: Something went wrong: "+newList)
+                            console.debug("Debug: Playlist already exists")
                             newplaylistoutput.visible = true
-                            newplaylistoutput.text = i18n.tr("Error: "+newList)
+                            newplaylistoutput.text = i18n.tr("Playlist already exists")
                         }
                     }
                     else {
                         newplaylistoutput.visible = true
-                        newplaylistoutput.text = i18n.tr("Error: You didn't type a name.")
+                        newplaylistoutput.text = i18n.tr("Please type in a name.")
                     }
                 }
             }

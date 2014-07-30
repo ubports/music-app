@@ -40,8 +40,6 @@ MusicPage {
 
     property string playlistTracks: ""
     property string oldPlaylistName: ""
-    property string oldPlaylistIndex: ""
-    property string oldPlaylistID: ""
     property string inPlaylist: ""
 
     tools: ToolbarItems {
@@ -69,9 +67,11 @@ MusicPage {
             TextField {
                 id: playlistName
                 placeholderText: oldPlaylistName
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
-            ListItem.Standard {
+            Label {
                 id: editplaylistoutput
+                color: "white"
                 visible: false
             }
 
@@ -79,17 +79,25 @@ MusicPage {
                 text: i18n.tr("Change")
                 onClicked: {
                     editplaylistoutput.visible = true
+
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        var editList = Playlists.namechangePlaylist(oldPlaylistName,playlistName.text) // change the name of the playlist in DB
                         console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-                        playlistModel.model.set(oldPlaylistIndex, {"name": playlistName.text})
-                        PopupUtils.close(dialogueEditPlaylist)
-                        if (inPlaylist) {
-                            playlistInfoLabel.text = playlistName.text
+
+                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
+                            playlistModel.filterPlaylists()
+
+                            PopupUtils.close(dialogueEditPlaylist)
+
+                            if (inPlaylist) {
+                                playlistInfoLabel.text = playlistName.text
+                            }
+                        }
+                        else {
+                            editplaylistoutput.text = i18n.tr("Playlist already exists")
                         }
                     }
                     else {
-                        editplaylistoutput.text = i18n.tr("You didn't type in a name.")
+                        editplaylistoutput.text = i18n.tr("Please type in a name.")
                     }
                 }
             }
@@ -114,8 +122,10 @@ MusicPage {
                 text: i18n.tr("Remove")
                 onClicked: {
                     // removing playlist
-                    Playlists.removePlaylist(oldPlaylistID, oldPlaylistName) // remove using both ID and name, if playlists has similair names
-                    playlistModel.model.remove(oldPlaylistIndex)
+                    Playlists.removePlaylist(oldPlaylistName)
+
+                    playlistModel.filterPlaylists();
+
                     PopupUtils.close(dialogueRemovePlaylist)
                 }
             }
@@ -180,7 +190,7 @@ MusicPage {
                         fill: parent
                     }
                     listItem: playlist
-                    model: {"name": name, "id": id, "index": index}
+                    model: {"name": name, "index": index}
                     row: Row {
                         EditPlaylist {
 
