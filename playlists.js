@@ -283,15 +283,18 @@ function renamePlaylist(from, to) {
         var db = getPlaylistDatabase()
 
         db.transaction(function (tx) {
-            addPlaylist(to, tx)
+            if (addPlaylist(to, tx) === true) {
+                tx.executeSql('UPDATE track SET playlist=? WHERE playlist=?;',
+                              [to, from])
 
-            tx.executeSql('UPDATE track SET playlist=? WHERE playlist=?;',
-                          [to, from])
+                removePlaylist(from, tx)
 
-            removePlaylist(from, tx)
+                res = true
+            }
+            else {
+                res = false
+            }
         })
-
-        res = true
     }
 
     return res;
