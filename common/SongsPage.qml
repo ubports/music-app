@@ -24,7 +24,8 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
-import "ExpanderItems"
+import "../playlists.js" as Playlists
+import "ListItemActions"
 
 MusicPage {
     id: songStackPage
@@ -208,35 +209,53 @@ MusicPage {
         }
 
         Component {
+            id: playlistRemoveAction
+            Remove {
+                onTriggered: {
+                    Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+
+                    albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                }
+            }
+        }
+
+        Component {
             id: albumTracksDelegate
 
-            ListItem.Standard {
+            ListItemWithActions {
                 id: track
+                color: "transparent"
                 objectName: "songspage-track"
                 iconFrame: false
                 progression: false
                 height: styleMusic.common.itemHeight
 
-                MouseArea {
-                    anchors.fill: parent
-                    onDoubleClicked: {
+
+
+                leftSideAction: songStackPage.line1 === "Playlist"
+                                ? playlistRemoveAction : null
+
+                rightSideActions: [
+                    AddToQueue {
+
+                    },
+                    AddToPlaylist {
+
                     }
-                    onClicked: {
-                        if (focus == false) {
-                            focus = true
-                        }
+                ]
+                triggerActionOnMouseRelease: true
 
-                        trackClicked(albumtrackslist.model, index)  // play track
+                onItemClicked: {
+                    trackClicked(albumtrackslist.model, index)  // play track
 
-                        if (isAlbum && songStackPage.line1 !== "Genre") {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            mainView.hasRecent = true
-                            recentModel.filterRecent()
-                        } else if (songStackPage.line1 === "Playlist") {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            mainView.hasRecent = true
-                            recentModel.filterRecent()
-                        }
+                    if (isAlbum && songStackPage.line1 !== "Genre") {
+                        Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                        mainView.hasRecent = true
+                        recentModel.filterRecent()
+                    } else if (songStackPage.line1 === "Playlist") {
+                        Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                        mainView.hasRecent = true
+                        recentModel.filterRecent()
                     }
                 }
 
@@ -264,23 +283,6 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             fontSize: "xx-small"
                             text: model.album
-                        }
-                    }
-                }
-
-                Expander {
-                    id: expandable
-                    anchors {
-                        fill: parent
-                    }
-                    listItem: track
-                    model: isAlbum ? albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData) : albumtrackslist.model.get(index)
-                    row: Row {
-                        AddToPlaylist {
-
-                        }
-                        AddToQueue {
-
                         }
                     }
                 }

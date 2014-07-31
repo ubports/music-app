@@ -20,8 +20,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components 1.1 as Toolkit
-import Ubuntu.Components.ListItems 0.1
-import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
@@ -29,7 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "playlists.js" as Playlists
 import "common"
-import "common/ExpanderItems"
+import "common/ListItemActions"
 
 
 MusicPage {
@@ -54,21 +52,23 @@ MusicPage {
         delegate: trackDelegate
         Component {
             id: trackDelegate
-            ListItem.Standard {
+
+            ListItemWithActions {
                 id: track
+                color: "transparent"
                 width: parent.width
                 height: styleMusic.common.itemHeight
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (focus == false) {
-                            focus = true
-                        }
+                rightSideActions: [
+                    AddToQueue {
+                    },
+                    AddToPlaylist {
 
-                        trackClicked(tracklist.model, index)  // play track
                     }
-                }
+                ]
+                triggerActionOnMouseRelease: true
+
+                onItemClicked: trackClicked(tracklist.model, index)  // play track
 
                 MusicRow {
                     covers: [{author: model.author, album: model.album}]
@@ -94,23 +94,6 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             fontSize: "xx-small"
                             text: model.album
-                        }
-                    }
-                }
-
-                Expander {
-                    id: expandable
-                    anchors {
-                        fill: parent
-                    }
-                    listItem: track
-                    model: songsModelFilter.get(index, songsModelFilter.RoleModelData)
-                    row: Row {
-                        AddToPlaylist {
-
-                        }
-                        AddToQueue {
-
                         }
                     }
                 }

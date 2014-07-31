@@ -22,10 +22,9 @@ import QtMultimedia 5.0
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.Thumbnailer 0.1
 import "common"
-import "common/ExpanderItems"
+import "common/ListItemActions"
 import "settings.js" as Settings
 
 MusicPage {
@@ -56,7 +55,6 @@ MusicPage {
                 return;
             }
 
-            collapseExpand();  // Collapse expanded tracks
             queuelist.currentIndex = player.currentIndex;
 
             customdebug("MusicQueue update currentIndex: " + player.source);
@@ -126,370 +124,39 @@ MusicPage {
 
         Component {
             id: queueDelegate
-            ListItem.Standard {
+            ListItemWithActions {
                 id: queueListItem
+                color: "transparent"
                 height: queuelist.normalHeight
                 state: queuelist.currentIndex == index ? "current" : ""
 
                 // cached height used to restore the height after expansion
                 property int cachedHeight: -1
 
-                SwipeDelete {
-                    id: swipeBackground
-                    duration: queuelist.transitionDuration
-
-                    onDeleteStateChanged: {
-                        if (deleteState === true)
-                        {
-                            queueListItemRemoveAnimation.start();
+                leftSideAction: Remove {
+                    onTriggered: {
+                        if (index === player.currentIndex) {
+                            player.nextSong(player.isPlaying);
                         }
+
+                        if (index < player.currentIndex) {
+                            // update index as the old has been removed
+                            player.currentIndex -= 1;
+                        }
+
+                        queuelist.model.remove(index);
                     }
                 }
+                rightSideActions: [
+                    AddToPlaylist{
 
-                function onCollapseSwipeDelete(indexCol)
-                {
-                    if ((indexCol !== index || indexCol === -1) && swipeBackground !== undefined && swipeBackground.direction !== "")
-                    {
-                        customdebug("auto collapse swipeDelete")
-                        queueListItemResetStartAnimation.start();
                     }
-                }
+                ]
+                triggerActionOnMouseRelease: true
 
-                Component.onCompleted: {
-                    collapseSwipeDelete.connect(onCollapseSwipeDelete);
-                }
-
-                MouseArea {
-                    id: queueArea
-                    anchors.fill: parent
-
-                    property int startX: queueListItem.x
-                    property int startY: queueListItem.y
-                    property int startMouseY: -1
-
-                    // Allow dragging on the X axis for swipeDelete if not reordering
-                    drag.target: queueListItem
-                    drag.axis: Drag.XAxis
-                    drag.minimumX: queuelist.state == "reorder" ? 0 : -queueListItem.width
-                    drag.maximumX: queuelist.state == "reorder" ? 0 : queueListItem.width
-
-                    /* Get the mouse and item difference from the starting positions */
-                    function getDiff(mouseY)
-                    {
-                        return (mouseY - startMouseY) + (queueListItem.y - startY);
-                    }
-
-                    /*
-                     * Has the mouse crossed the current item
-                     * True - it has crossed
-                     * NULL - it is on the current
-                     * False - it has not crossed
-                     */
-                    function hasCrossedCurrent(diff, currentOffset)
-                    {
-                        // Only crossed if in same direction
-                        if ((diff > 0 || currentOffset > 0) && (diff <= 0 || currentOffset <= 0))
-                        {
-                            return false;
-                        }
-
-                        if (Math.abs(diff) > (Math.abs(currentOffset) * queuelist.normalHeight) + queuelist.currentHeight)
-                        {
-                            return true;
-                        }
-                        else if (Math.abs(diff) > (Math.abs(currentOffset) * queuelist.normalHeight))
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-
-                    function getNewIndex(mouseY, index)
-                    {
-                        var diff = getDiff(mouseY);
-                        var negPos = diff < 0 ? -1 : 1;
-                        var currentOffset = queuelist.currentIndex - index;  // get the current offset
-
-                        if (currentOffset < 0)  // when current is less the offset is actually +1
-                        {
-                            currentOffset += 1;
-                        }
-
-                        var hasCrossed = hasCrossedCurrent(diff, currentOffset);
-
-                        if (hasCrossed === true)
-                        {
-                            /* Take off difference so it just appears like a normalheight
-                             * minus when after and add when before */
-                            diff -= negPos * (queuelist.currentHeight - queuelist.normalHeight);
-                        }
-                        else if (hasCrossed === null)
-                        {
-                            // Work out how far into the current item it is
-                            var tmpDiff = Math.abs(diff) - (Math.abs(currentOffset) * queuelist.normalHeight);
-
-                            // Scale difference so is the same as a normalHeight
-                            tmpDiff *= (queuelist.normalHeight / queuelist.currentHeight);
-
-                            // rebuild Diff with new values
-                            diff = (currentOffset * queuelist.normalHeight) + (negPos * tmpDiff);
-                        }
-
-                        return index + (Math.round(diff / queuelist.normalHeight));
-                    }
-
-                    onClicked: {
-                        collapseSwipeDelete(-1);  // collapse all expands
-                        customdebug("File: " + model.filename) // debugger
-                        trackQueueClick(index);  // toggle track state
-                    }
-
-                    onMouseXChanged: {
-                        // Only allow XChange if not in reorder state
-                        if (queuelist.state == "reorder")
-                        {
-                            return;
-                        }
-
-                        // New X is less than start so swiping left
-                        if (queueListItem.x < startX)
-                        {
-                            collapseExpand();
-                            swipeBackground.state = "swipingLeft";
-                            startY = queueListItem.y;
-                        }
-                        // New X is greater sow swiping right
-                        else if (queueListItem.x > startX)
-                        {
-                            collapseExpand();
-                            swipeBackground.state = "swipingRight";
-                            startY = queueListItem.y;
-                        }
-                        // Same so reset state back to normal
-                        else
-                        {
-                            swipeBackground.state = "normal";
-                            queuelist.state = "normal";
-                        }
-                    }
-
-                    onMouseYChanged: {
-                        // Y change only affects when in reorder mode
-                        if (queuelist.state == "reorder")
-                        {
-                            /* update the listitem y position so that the
-                             * listitem horizontalCenter is under the mouse.y */
-                            queueListItem.y += mouse.y - (queueListItem.height / 2);
-                        }
-                    }
-
-                    onPressed: {
-                        startX = queueListItem.x;
-                        startY = queueListItem.y;
-                        startMouseY = mouse.y;
-                    }
-
-                    onPressAndHold: {
-                        // Must be in a normal state to change to reorder state
-                        if (queuelist.state == "normal" && swipeBackground.state == "normal" && queuelist.currentIndex != index)
-                        {
-                            collapseSwipeDelete(-1);  // collapse all swipedeletes
-                            collapseExpand();  // collapse all
-                            customdebug("Pressed and held queued track "+model.filename)
-                            queuelist.state = "reorder";  // enable reordering state
-                            trackContainerReorderAnimation.start();
-                        }
-                    }
-
-                    onReleased: {
-                        // Get current state to determine what to do
-                        if (queuelist.state == "reorder")
-                        {
-                            var newIndex = getNewIndex(mouse.y + (queueListItem.height / 2), index);  // get new index
-
-                            // Indexes larger than current need -1 because when it is moved the current is removed
-                            if (newIndex > index)
-                            {
-                                newIndex -= 1;
-                            }
-
-                            if (newIndex === index)
-                            {
-                                queueListItemResetAnimation.start();  // reset item position
-                                trackContainerResetAnimation.start();  // reset the trackContainer
-                            }
-                            else
-                            {
-                                queueListItem.x = startX;  // ensure X position is correct
-                                trackContainerResetAnimation.start();  // reset the trackContainer
-
-                                // Check that the newIndex is within the range
-                                if (newIndex < 0)
-                                {
-                                    newIndex = 0;
-                                }
-                                else if (newIndex > queuelist.count - 1)
-                                {
-                                    newIndex = queuelist.count - 1;
-                                }
-
-                                console.debug("Move: " + index + " To: " + newIndex);
-                                queuelist.model.move(index, newIndex, 1);  // update the model
-                            }
-                        }
-                        else if (swipeBackground.state == "swipingLeft" || swipeBackground.state == "swipingRight")
-                        {
-                            var moved = Math.abs(queueListItem.x - startX);
-
-                            // Make sure that item has been dragged far enough
-                            if (moved > queueListItem.width / 2 || (swipeBackground.primed === true && moved > units.gu(5)))
-                            {
-                                if (swipeBackground.primed === false)
-                                {
-                                    collapseSwipeDelete(index);  // collapse other swipeDeletes
-
-                                    // Move the listitem half way across to reveal the delete button
-                                    queueListItemPrepareRemoveAnimation.start();
-                                }
-                                else
-                                {
-                                    // Check that actually swiping to cancel
-                                    if (swipeBackground.direction !== "" &&
-                                            swipeBackground.direction !== swipeBackground.state)
-                                    {
-                                        // Reset the listitem to the centre
-                                        queueListItemResetStartAnimation.start();
-                                    }
-                                    else
-                                    {
-                                        // Reset the listitem to the centre
-                                        queueListItemResetAnimation.start();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // Reset the listitem to the centre
-                                queueListItemResetAnimation.start();
-                            }
-                        }
-
-                        // ensure states are normal
-                        swipeBackground.state = "normal";
-                        queuelist.state = "normal";
-                    }
-
-                    // Animation to reset the x, y of the queueitem
-                    ParallelAnimation {
-                        id: queueListItemResetAnimation
-                        running: false
-                        NumberAnimation {  // reset X
-                            target: queueListItem
-                            property: "x"
-                            to: queueArea.startX
-                            duration: queuelist.transitionDuration
-                        }
-                        NumberAnimation {  // reset Y
-                            target: queueListItem
-                            property: "y"
-                            to: queueArea.startY
-                            duration: queuelist.transitionDuration
-                        }
-                    }
-
-                    // Animation to reset the x, y of the item
-                    ParallelAnimation {
-                        id: queueListItemResetStartAnimation
-                        running: false
-                        NumberAnimation {  // reset X
-                            target: queueListItem
-                            property: "x"
-                            to: 0
-                            duration: queuelist.transitionDuration
-                        }
-                        NumberAnimation {  // reset Y
-                            target: queueListItem
-                            property: "y"
-                            to: queueArea.startY
-                            duration: queuelist.transitionDuration
-                        }
-                        onRunningChanged: {
-                            if (running === true)
-                            {
-                                swipeBackground.direction = "";
-                                swipeBackground.primed = false;
-                            }
-                        }
-                    }
-
-                    // Move the listitem half way across to reveal the delete button
-                    NumberAnimation {
-                        id: queueListItemPrepareRemoveAnimation
-                        target: queueListItem
-                        property: "x"
-                        to: swipeBackground.state == "swipingRight" ? queueListItem.width / 2 : 0 - (queueListItem.width / 2)
-                        duration: queuelist.transitionDuration
-                        onRunningChanged: {
-                            if (running === true)
-                            {
-                                swipeBackground.direction = swipeBackground.state;
-                                swipeBackground.primed = true;
-                            }
-                        }
-                    }
-
-                    ParallelAnimation {
-                        id: queueListItemRemoveAnimation
-                        running: false
-                        NumberAnimation {  // 'slide' up
-                            target: queueListItem
-                            property: "height"
-                            to: 0
-                            duration: queuelist.transitionDuration
-                        }
-                        NumberAnimation {  // 'slide' in direction of removal
-                            target: queueListItem
-                            property: "x"
-                            to: swipeBackground.direction === "swipingLeft" ? 0 - queueListItem.width : queueListItem.width
-                            duration: queuelist.transitionDuration
-                        }
-                        onRunningChanged: {
-                            if (running === false)
-                            {
-                                // Remove the item
-                                if (index == queuelist.currentIndex)
-                                {
-                                    if (queuelist.count > 1)
-                                    {
-                                        // Next song and only play if currently playing
-                                        player.nextSong(player.isPlaying);
-                                    }
-                                    else
-                                    {
-                                        player.stop();
-                                    }
-                                }
-
-                                if (index < player.currentIndex) {
-                                    player.currentIndex -= 1;
-                                }
-
-                                // Remove item from queue and clear caches
-                                trackQueue.model.remove(index);
-                            }
-                        }
-                    }
-                }
-
-                onFocusChanged: {
-                    if (focus == false) {
-                        selected = false
-                    } else {
-                        selected = false
-                    }
+                onItemClicked: {
+                    customdebug("File: " + model.filename) // debugger
+                    trackQueueClick(index);  // toggle track state
                 }
 
                 Rectangle {
@@ -497,7 +164,6 @@ MusicPage {
                     anchors {
                         fill: parent
                         margins: units.gu(0.5)
-                        rightMargin: expandable.expanderButtonWidth
                     }
                     color: "transparent"
 
@@ -599,31 +265,6 @@ MusicPage {
                     }
                 }
 
-                Expander {
-                    id: expandable
-                    anchors {
-                        fill: parent
-                    }
-                    actualListItemHeight: queueListItem.state === "current" ?
-                                              queuelist.currentHeight :
-                                              queuelist.normalHeight
-                    buttonEnabled: !swipeBackground.primed
-                    expanderButtonCentreFromBottom: queuelist.normalHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
-                    listItem: queueListItem
-                    model: trackQueue.model.get(index)
-                    row: Row {
-                        AddToPlaylist {
-                        }
-                    }
-                    Behavior on actualListItemHeight {
-                        NumberAnimation {
-                            target: expandable;
-                            property: "actualListItemHeight";
-                            duration: queuelist.transitionDuration;
-                        }
-                    }
-                }
-
                 states: State {
                     name: "current"
                     PropertyChanges {
@@ -647,10 +288,6 @@ MusicPage {
                         width: trackImage.width
                         x: trackImage.x
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
-                    }
-                    PropertyChanges {
-                        target: expandable
-                        expanderButtonCentreFromBottom: queuelist.currentHeight - (trackContainer.anchors.margins * 2) - nowPlayingTitle.y - (nowPlayingTitle.height / 2)
                     }
                 }
                 transitions: Transition {
