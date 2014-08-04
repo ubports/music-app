@@ -128,13 +128,10 @@ MusicPage {
                 id: queueListItem
                 color: "transparent"
                 height: queuelist.normalHeight
-                state: queuelist.currentIndex == index ? "current" : ""
-
-                // cached height used to restore the height after expansion
-                property int cachedHeight: -1
+                state: queuelist.currentIndex == index && !reordering ? "current" : ""
 
                 leftSideAction: Remove {
-                    onTriggered: {
+                    onItemRemoved: {
                         if (index === player.currentIndex) {
                             player.nextSong(player.isPlaying);
                         }
@@ -147,6 +144,7 @@ MusicPage {
                         queuelist.model.remove(index);
                     }
                 }
+                reorderable: true
                 rightSideActions: [
                     AddToPlaylist{
 
@@ -157,6 +155,23 @@ MusicPage {
                 onItemClicked: {
                     customdebug("File: " + model.filename) // debugger
                     trackQueueClick(index);  // toggle track state
+                }
+                onReorder: {
+                    console.debug("Move: ", from, to);
+
+                    queuelist.model.move(from, to, 1);
+
+
+                    // Maintain currentIndex with current song
+                    if (from === player.currentIndex) {
+                        player.currentIndex = to;
+                    }
+                    else if (from < player.currentIndex && to >= player.currentIndex) {
+                        player.currentIndex -= 1;
+                    }
+                    else if (from > player.currentIndex && to <= player.currentIndex) {
+                        player.currentIndex += 1;
+                    }
                 }
 
                 Rectangle {

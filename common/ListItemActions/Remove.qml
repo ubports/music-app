@@ -21,6 +21,14 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 
 Action {
+    id: removeAction
     iconName: "delete"
     text: i18n.tr("Remove")
+
+    onTriggered: {
+        removeAnimation.action = removeAction
+        removeAnimation.start()
+    }
+
+    signal itemRemoved()
 }

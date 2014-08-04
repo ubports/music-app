@@ -33,6 +33,9 @@ ListItem.Standard {  // CUSTOM
     property alias color: main.color
     default property alias contents: main.children
 
+    property bool reorderable: false  // CUSTOM
+    property bool reordering: false  // CUSTOM
+
     readonly property double actionWidth: units.gu(5)
     readonly property double leftActionWidth: units.gu(10)
     readonly property double actionThreshold: actionWidth * 0.4
@@ -42,6 +45,17 @@ ListItem.Standard {  // CUSTOM
 
     signal itemClicked(var mouse)
     signal itemPressAndHold(var mouse)
+
+    signal reorder(int from, int to)  // CUSTOM
+
+    onItemPressAndHold: reordering = reorderable && !reordering  // CUSTOM
+    onReorderingChanged: {  // CUSTOM
+        if (reordering) {
+            resetSwipe()
+        }
+
+        parent.state = reordering ? "reorder" : "normal"
+    }
 
     function returnToBoundsRTL()
     {
@@ -128,6 +142,13 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
+    Connections {  // CUSTOM
+        target: root.parent
+        onStateChanged: reordering = root.parent.state === "reorder"
+    }
+
+    Component.onCompleted: reordering = root.parent.state === "reorder"  // CUSTOM
+
     /* CUSTOM Dim Component */
     Rectangle {
         id: listItemDim
@@ -144,6 +165,21 @@ ListItem.Standard {  // CUSTOM
             ColorAnimation {
                 duration: UbuntuAnimation.SlowDuration
             }
+        }
+    }
+
+    // CUSTOM remove animation
+    SequentialAnimation {
+        id: removeAnimation
+        property Action action: null
+
+        UbuntuNumberAnimation {
+            target: root
+            property: "height";
+            to: 0
+        }
+        ScriptAction {
+            script: removeAction.itemRemoved()
         }
     }
 
@@ -180,11 +216,12 @@ ListItem.Standard {  // CUSTOM
        anchors {
            top: main.top
            left: main.right
-           leftMargin: units.gu(1)
+           leftMargin: reordering ? actionReorder.width : units.gu(1)  // CUSTOM
            bottom: main.bottom
        }
        visible: rightSideActions.length > 0
        width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + units.gu(2)) + actionThreshold : 0
+
        Row {
            anchors.fill: parent
            spacing: units.gu(2)
@@ -226,12 +263,106 @@ ListItem.Standard {  // CUSTOM
         }
 
         width: parent.width
+
         Behavior on x {
             UbuntuNumberAnimation {
                 id: mainItemMoving
 
                 easing.type: Easing.OutElastic
                 duration: UbuntuAnimation.SlowDuration
+            }
+        }
+    }
+
+    /* Reorder Component */
+    Rectangle {
+        id: actionReorder
+        anchors {
+            bottom: parent.bottom
+            right: main.right
+            rightMargin: units.gu(1)
+            top: parent.top
+        }
+        color: "transparent"
+        width: units.gu(4)
+        visible: reordering
+
+        Icon {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
+            name: "navigation-menu"  // TODO: use proper image
+            height: width
+            width: units.gu(3)
+        }
+
+        MouseArea {
+            id: actionReorderMouseArea
+            anchors {
+                fill: parent
+            }
+            property int startY: 0
+            property int startContentY: 0
+
+            onPressed: {
+                root.parent.parent.interactive = false;  // stop scrolling of listview
+                startY = root.y;
+                startContentY = root.parent.parent.contentY;
+                root.z += 10;  // force ontop of other elements
+
+                console.debug("Reorder listitem pressed", root.y)
+            }
+            onMouseYChanged: root.y += mouse.y - (root.height / 2);
+            onReleased: {
+                console.debug("Reorder diff by position", getDiff());
+
+                var diff = getDiff();
+
+                // Remove the height of the actual item if moved down
+                if (diff > 0) {
+                    diff -= 1;
+                }
+
+                root.parent.parent.interactive = true;  // reenable scrolling
+
+                if (diff === 0) {
+                    // Nothing has changed so reset the item
+                    // z index is restored after animation
+                    resetListItemYAnimation.start();
+                }
+                else {
+                    var newIndex = index + diff;
+
+                    if (newIndex < 0) {
+                        newIndex = 0;
+                    }
+                    else if (newIndex > root.parent.parent.count - 1) {
+                        newIndex = listView.count - 1;
+                    }
+
+                    root.z -= 10;  // restore z index
+                    reorder(index, newIndex)
+                }
+            }
+
+            function getDiff() {
+                // Get the amount of items that have been passed over (by centre)
+                return Math.round((((root.y - startY) + (root.parent.parent.contentY - startContentY)) / root.height) + 0.5);
+            }
+        }
+
+        SequentialAnimation {
+            id: resetListItemYAnimation
+            UbuntuNumberAnimation {
+                target: root;
+                property: "y";
+                to: actionReorderMouseArea.startY
+            }
+            ScriptAction {
+                script: {
+                    root.z -= 10;  // restore z index
+                }
             }
         }
     }
@@ -287,7 +418,7 @@ ListItem.Standard {  // CUSTOM
     MouseArea {
         id: mouseArea
 
-        property bool locked: root.locked || ((root.leftSideAction === null) && (root.rightSideActions.count === 0))
+        property bool locked: root.locked || ((root.leftSideAction === null) && (root.rightSideActions.count === 0)) || reordering  // CUSTOM
         property bool manual: false
 
         anchors.fill: parent
@@ -307,7 +438,10 @@ ListItem.Standard {  // CUSTOM
             }
         }
         onClicked: {
-            if (main.x === 0) {
+            if (reordering) {  // CUSTOM
+                reordering = false
+            }
+            else if (main.x === 0) {
                 root.itemClicked(mouse)
             } else if (main.x > 0) {
                 var action = getActionAt(Qt.point(mouse.x, mouse.y))

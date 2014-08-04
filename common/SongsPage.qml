@@ -208,10 +208,10 @@ MusicPage {
             }
         }
 
-        Component {
+        Loader {
             id: playlistRemoveAction
-            Remove {
-                onTriggered: {
+            sourceComponent: Remove {
+                onItemRemoved: {
                     Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
                     albumTracksModel.filterPlaylistTracks(songStackPage.line2)
@@ -230,11 +230,8 @@ MusicPage {
                 progression: false
                 height: styleMusic.common.itemHeight
 
-
-
                 leftSideAction: songStackPage.line1 === "Playlist"
-                                ? playlistRemoveAction : null
-
+                                ? playlistRemoveAction.item : null
                 rightSideActions: [
                     AddToQueue {
 
@@ -257,6 +254,13 @@ MusicPage {
                         mainView.hasRecent = true
                         recentModel.filterRecent()
                     }
+                }
+                onReorder: {
+                    console.debug("Move: ", from, to);
+
+                    Playlists.move(songStackPage.line2, from, to)
+
+                    albumTracksModel.filterPlaylistTracks(songStackPage.line2)
                 }
 
                 MusicRow {
