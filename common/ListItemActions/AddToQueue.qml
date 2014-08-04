@@ -21,7 +21,7 @@ import Ubuntu.Components 1.1
 
 Action {
     iconName: "add"
-    objectName: "queuetrack"
+    objectName: "addToQueueAction"
     text: i18n.tr("Add to Queue")
 
     onTriggered: {

@@ -359,7 +359,8 @@ class TestMainWindow(MusicTestCase):
 
         # verify track queue has added one to initial value
         endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+        self.assertThat(endtracksCount,
+                        Eventually(Equals(initialtracksCount + 1)))
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
@@ -415,15 +416,28 @@ class TestMainWindow(MusicTestCase):
         # switch to songs tab
         self.main_view.switch_to_tab("trackstab")
 
-        # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_trackimage(self.trackTitle)
-        self.pointing_device.click_object(trackitem)
-        addtoqueueLabel = self.main_view.get_songs_tab_add_to_queue_label()
-        self.pointing_device.click_object(addtoqueueLabel)
+        # get track item to swipe and queue
+        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
+        songspage = self.main_view.get_tracks_tab_listview()
+
+        # get coordinates to swipe
+        start_x = int(songspage.globalRect.x +
+                      (songspage.globalRect.width * 0.9))
+        stop_x = int(songspage.globalRect.x)
+        line_y = int(trackitem.globalRect.y)
+
+        # swipe to add to queue
+        self.pointing_device.move(start_x, line_y)
+        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
+
+        # click on add to queue
+        queueaction = self.main_view.get_add_to_queue_action()
+        self.pointing_device.click_object(queueaction)
 
         # verify track queue has added all songs to initial value
         endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
+        self.assertThat(endtracksCount,
+                        Eventually(Equals(initialtracksCount + 1)))
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
@@ -445,11 +459,23 @@ class TestMainWindow(MusicTestCase):
         # switch to songs tab
         self.main_view.switch_to_tab("trackstab")
 
-        # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_trackimage(self.trackTitle)
-        self.pointing_device.click_object(trackitem)
-        addtoplaylistLbl = self.main_view.get_songs_tab_add_to_playlist_label()
-        self.pointing_device.click_object(addtoplaylistLbl)
+        # get track item to swipe and queue
+        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
+        songspage = self.main_view.get_tracks_tab_listview()
+
+        # get coordinates to swipe
+        start_x = int(songspage.globalRect.x +
+                      (songspage.globalRect.width * 0.9))
+        stop_x = int(songspage.globalRect.x)
+        line_y = int(trackitem.globalRect.y)
+
+        # swipe to add to queue
+        self.pointing_device.move(start_x, line_y)
+        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
+
+        # click on add to playlist
+        playlistaction = self.main_view.get_add_to_playlist_action()
+        self.pointing_device.click_object(playlistaction)
 
         # get initial list view playlist count
         playlist_count = self.main_view.get_addtoplaylistview()[0].count
@@ -546,15 +572,15 @@ class TestMainWindow(MusicTestCase):
         musicnowplayingpage = self.main_view.get_MusicNowPlaying_page()
 
         # get coordinates to delete song
-        startX = int(musicnowplayingpage.globalRect[0] +
-                     musicnowplayingpage.width * 0.30)
-        stopX = int(musicnowplayingpage.globalRect[0] +
-                    musicnowplayingpage.width)
-        lineY = int(artistToDelete.globalRect[1])
+        start_x = int(musicnowplayingpage.globalRect.x +
+                      musicnowplayingpage.globalRect.width * 0.30)
+        stop_x = int(musicnowplayingpage.globalRect.x +
+                     musicnowplayingpage.globalRect.width * 0.90)
+        line_y = int(artistToDelete.globalRect.y)
 
         # swipe to remove song
-        self.pointing_device.move(startX, lineY)
-        self.pointing_device.drag(startX, lineY, stopX, lineY)
+        self.pointing_device.move(start_x, line_y)
+        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
 
         # click on delete icon/label to confirm removal
         swipedeleteicon = self.main_view.get_swipedelete_icon()
@@ -562,7 +588,8 @@ class TestMainWindow(MusicTestCase):
 
         # verify song has been deleted
         finalqueueCount = self.main_view.get_queue_track_count()
-        self.assertThat(finalqueueCount, Equals(initialqueueCount - 1))
+        self.assertThat(finalqueueCount,
+                        Eventually(Equals(initialqueueCount - 1)))
 
     def test_playback_stops_when_last_song_ends_and_repeat_off(self):
         """Check that playback stops when the last song in the queue ends"""

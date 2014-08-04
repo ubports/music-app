@@ -21,7 +21,7 @@ import Ubuntu.Components 0.1
 
 Action {
     iconName: "add-to-playlist"
-    objectName: "addtoplaylist"
+    objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
     onTriggered: {
        chosenElement = makeDict(model);
