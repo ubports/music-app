@@ -85,7 +85,6 @@ MusicPage {
         objectName: "queuelist"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-        spacing: units.gu(1)
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false

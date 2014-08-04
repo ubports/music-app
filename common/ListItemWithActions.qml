@@ -222,6 +222,17 @@ ListItem.Standard {  // CUSTOM
        visible: rightSideActions.length > 0
        width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + units.gu(2)) + actionThreshold : 0
 
+       Rectangle {  // CUSTOM
+           anchors {
+               bottom: parent.bottom
+               left: parent.left
+               top: parent.top
+           }
+           color: styleMusic.common.black
+           opacity: 0.7
+           width: parent.width + actionThreshold
+       }
+
        Row {
            anchors.fill: parent
            spacing: units.gu(2)
@@ -251,7 +262,6 @@ ListItem.Standard {  // CUSTOM
            }
        }
     }
-
 
     Rectangle {
         id: main
