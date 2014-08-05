@@ -56,6 +56,7 @@ MusicPage {
         }
         delegate: albumTracksDelegate
         model: isAlbum ? songsModel : albumTracksModel.model
+        objectName: "songspage-listview"
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo

@@ -39,6 +39,7 @@ MusicPage {
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         highlightFollowsCurrentItem: false
+        objectName: "trackstab-listview"
         model: Toolkit.SortFilterModel {
             id: songsModelFilter
             property alias rowCount: songsModel.rowCount
