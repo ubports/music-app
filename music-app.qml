@@ -707,7 +707,7 @@ MainView {
             }
             Label {
                 id: newplaylistoutput
-                color: "white"
+                color: "red"
                 visible: false // should only be visible when an error is made.
             }
 

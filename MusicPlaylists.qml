@@ -71,7 +71,7 @@ MusicPage {
             }
             Label {
                 id: editplaylistoutput
-                color: "white"
+                color: "red"
                 visible: false
             }
 
