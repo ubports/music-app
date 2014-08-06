@@ -23,6 +23,9 @@ Action {
     iconName: "add-to-playlist"
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
+
+    property bool primed: false
+
     onTriggered: {
        chosenElement = makeDict(model);
        console.debug("Debug: Add track to playlist");

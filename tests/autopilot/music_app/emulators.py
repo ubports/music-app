@@ -257,5 +257,5 @@ class MainView(toolkit_emulators.MainView):
 
     def get_swipedelete_icon(self):
         return self.wait_select_single(
-            "ListItemActionBase", objectName="swipeDeleteAction",
-            selected=True)
+            "Action", objectName="swipeDeleteAction",
+            primed=True)

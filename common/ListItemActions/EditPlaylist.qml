@@ -24,6 +24,9 @@ Action {
     iconName: "edit"
     // TRANSLATORS: this refers to editing a playlist
     text: i18n.tr("Edit")
+
+    property bool primed: false
+
     onTriggered: {
         customdebug("Edit playlist")
         oldPlaylistName = model.name

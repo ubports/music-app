@@ -62,13 +62,24 @@ ListItem.Standard {  // CUSTOM
         var actionFullWidth = actionWidth + units.gu(2)
         var xOffset = Math.abs(main.x)
         var index = Math.min(Math.floor(xOffset / actionFullWidth), rightSideActions.length)
+        var j;  // CUSTOM
 
         if (index < 1) {
             main.x = 0
+
+            resetPrimed()  // CUSTOM
         } else if (index === rightSideActions.length) {
             main.x = -rightActionsView.width
+
+            for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
+                rightSideActions[j].primed = true
+            }
         } else {
             main.x = -(actionFullWidth * index)
+
+            for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
+                rightSideActions[j].primed = j === index
+            }
         }
     }
 
@@ -77,8 +88,15 @@ ListItem.Standard {  // CUSTOM
         var finalX = leftActionWidth
         if (main.x > (finalX * root.threshold))
             main.x = finalX
-        else
+        else {
             main.x = 0
+
+            resetPrimed()  // CUSTOM
+        }
+
+        if (leftSideAction !== null) {  // CUSTOM
+            leftSideAction.primed = main.x > (finalX * root.threshold)
+        }
     }
 
     function returnToBounds()
@@ -87,6 +105,8 @@ ListItem.Standard {  // CUSTOM
             returnToBoundsRTL()
         } else if (main.x > 0) {
             returnToBoundsLTR()
+        } else {  // CUSTOM
+            resetPrimed()  // CUSTOM
         }
     }
 
@@ -128,9 +148,22 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
+    function resetPrimed()  // CUSTOM
+    {
+        if (leftSideAction !== null) {
+            leftSideAction.primed = false
+        }
+
+        for (var j=0; j < rightSideActions.length; j++) {
+            rightSideActions[j].primed = false
+        }
+    }
+
     function resetSwipe()
     {
         main.x = 0
+
+        resetPrimed()  // CUSTOM
     }
 
     Connections {  // CUSTOM

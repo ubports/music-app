@@ -22,8 +22,12 @@ import Ubuntu.Components.Popups 0.1
 
 Action {
     iconName: "delete"
+    objectName: "swipeDeleteAction"
     // TRANSLATORS: this refers to deleting a playlist
     text: i18n.tr("Delete")
+
+    property bool primed: false
+
     onTriggered: {
         customdebug("Delete")
         oldPlaylistName = model.name
