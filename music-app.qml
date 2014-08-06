@@ -387,7 +387,7 @@ MainView {
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
-    property bool wideAspect: width >= units.gu(70)
+    property bool wideAspect: width >= units.gu(70) && loadedUI
     property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS

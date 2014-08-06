@@ -274,4 +274,4 @@ class MainView(toolkit_emulators.MainView):
     def get_swipedelete_icon(self):
         swipedelete = self.wait_select_single(
             "SwipeDelete", direction="swipingRight")
-        return swipedelete.select_many("Icon",  name="delete")[1]
+        return swipedelete.select_single("Label",  objectName="leftDelete")
