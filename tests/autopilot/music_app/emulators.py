@@ -136,12 +136,12 @@ class MainView(toolkit_emulators.MainView):
                 return item
 
     def get_add_to_queue_action(self):
-        return self.wait_select_single("Action",
+        return self.wait_select_single("*",
                                        objectName="addToQueueAction",
                                        primed=True)
 
     def get_add_to_playlist_action(self):
-        return self.wait_select_single("Action",
+        return self.wait_select_single("*",
                                        objectName="addToPlaylistAction",
                                        primed=True)
 
@@ -257,5 +257,5 @@ class MainView(toolkit_emulators.MainView):
 
     def get_swipedelete_icon(self):
         return self.wait_select_single(
-            "Action", objectName="swipeDeleteAction",
+            "*", objectName="swipeDeleteAction",
             primed=True)

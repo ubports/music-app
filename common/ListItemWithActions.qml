@@ -72,13 +72,13 @@ ListItem.Standard {  // CUSTOM
             main.x = -rightActionsView.width
 
             for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
-                rightSideActions[j].primed = true
+                rightActionsRepeater.itemAt(j).primed = true
             }
         } else {
             main.x = -(actionFullWidth * index)
 
             for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
-                rightSideActions[j].primed = j === index
+                rightActionsRepeater.itemAt(j).primed = j === index
             }
         }
     }
@@ -95,7 +95,7 @@ ListItem.Standard {  // CUSTOM
         }
 
         if (leftSideAction !== null) {  // CUSTOM
-            leftSideAction.primed = main.x > (finalX * root.threshold)
+            leftActionIcon.primed = main.x > (finalX * root.threshold)
         }
     }
 
@@ -151,11 +151,11 @@ ListItem.Standard {  // CUSTOM
     function resetPrimed()  // CUSTOM
     {
         if (leftSideAction !== null) {
-            leftSideAction.primed = false
+            leftActionIcon.primed = false
         }
 
         for (var j=0; j < rightSideActions.length; j++) {
-            rightSideActions[j].primed = false
+            rightActionsRepeater.itemAt(j).primed = false
         }
     }
 
@@ -232,14 +232,18 @@ ListItem.Standard {  // CUSTOM
         color: "red"
 
         Icon {
+            id: leftActionIcon
             anchors {
                 centerIn: parent
                 horizontalCenterOffset: actionThreshold / 2
             }
+            objectName: "swipeDeleteAction"  // CUSTOM
             name: leftSideAction ? leftSideAction.iconName : ""
             color: Theme.palette.selected.field
             height: units.gu(3)
             width: units.gu(3)
+
+            property bool primed: false  // CUSTOM
         }
     }
 
@@ -282,14 +286,19 @@ ListItem.Standard {  // CUSTOM
                    }
                    width: root.actionWidth
 
+                   property alias primed: img.primed  // CUSTOM
+
                    Icon {
                        id: img
 
                        anchors.centerIn: parent
+                       objectName: rightSideActions[index].objectName  // CUSTOM
                        width: units.gu(3)
                        height: units.gu(3)
                        name: iconName
                        color: root.activeAction === modelData || !root.triggerActionOnMouseRelease ? UbuntuColors.lightAubergine : Theme.palette.selected.background
+
+                       property bool primed: false  // CUSTOM
                    }
                }
            }

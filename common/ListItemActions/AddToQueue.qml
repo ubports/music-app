@@ -24,8 +24,6 @@ Action {
     objectName: "addToQueueAction"
     text: i18n.tr("Add to Queue")
 
-    property bool primed: false
-
     onTriggered: {
         console.debug("Debug: Add track to queue: " + model)
         trackQueue.append(model)
