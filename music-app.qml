@@ -707,12 +707,13 @@ MainView {
             }
             Label {
                 id: newplaylistoutput
-                color: "white"
+                color: "red"
                 visible: false // should only be visible when an error is made.
             }
 
             Button {
                 text: i18n.tr("Create")
+                color: styleMusic.dialog.confirmButtonColor
                 objectName: "newPlaylistDialog_createButton"
                 onClicked: {
                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
@@ -739,7 +740,7 @@ MainView {
 
             Button {
                 text: i18n.tr("Cancel")
-                color: styleMusic.dialog.buttonColor
+                color: styleMusic.dialog.cancelButtonColor
                 onClicked: PopupUtils.close(dialogueNewPlaylist)
             }
         }
