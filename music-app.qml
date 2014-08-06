@@ -512,6 +512,8 @@ MainView {
             } else if (selectedAlbum) {
                 console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
             }
+
+            selectedAlbum = false;
         }
     }
 
