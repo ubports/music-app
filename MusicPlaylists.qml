@@ -71,13 +71,12 @@ MusicPage {
             }
             Label {
                 id: editplaylistoutput
-                color: "red"
+                color: "white"
                 visible: false
             }
 
             Button {
                 text: i18n.tr("Change")
-                color: styleMusic.dialog.confirmButtonColor
                 onClicked: {
                     editplaylistoutput.visible = true
 
@@ -104,7 +103,7 @@ MusicPage {
             }
             Button {
                 text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
+                color: styleMusic.dialog.buttonColor
                 onClicked: PopupUtils.close(dialogueEditPlaylist)
             }
         }
@@ -121,7 +120,6 @@ MusicPage {
 
             Button {
                 text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmButtonColor
                 onClicked: {
                     // removing playlist
                     Playlists.removePlaylist(oldPlaylistName)
@@ -133,7 +131,7 @@ MusicPage {
             }
             Button {
                 text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
+                color: styleMusic.dialog.buttonColor
                 onClicked: PopupUtils.close(dialogueRemovePlaylist)
             }
         }
