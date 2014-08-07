@@ -303,43 +303,12 @@ MainView {
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
+                // Assumes only 1 file to import for now
                 var dialogue = PopupUtils.open(contentHubImport, mainView)
                 dialogue.contentItem = importItems[0];
+
+                console.debug("Triggered content-hub import for item", importItems[0].url)
             }
-        }
-    }
-
-    SortFilterModel {
-        id: getMetaModel
-        model: SongsModel {
-            id: getMetaSongsModel
-            store: musicStore
-        }
-        sort.property: "filename"
-        sort.order: Qt.AscendingOrder
-
-        function getFile(path) {
-            var max = getMetaModel.count - 1;
-            var min = 0;
-            var mid;
-
-            path = Qt.resolvedUrl(path);
-
-            while (max >= min) {
-                mid = Math.ceil((min + max) / 2);
-
-                if (Qt.resolvedUrl(getMetaModel.get(mid).filename) === path) {
-                    return getMetaModel.get(mid);
-                }
-                else if (Qt.resolvedUrl(getMetaModel.get(mid).filename) < path) {
-                    min = mid + 1;
-                }
-                else {
-                    max = mid - 1;
-                }
-            }
-
-            return false;
         }
     }
 
@@ -360,9 +329,11 @@ MainView {
         }
 
         onTriggered: {
-            var model = getMetaModel.getFile(searchPath)
+            var model = musicStore.lookup(searchPath)
 
-            if (model === false) {
+            console.debug("MusicStore model from lookup", JSON.stringify(model))
+
+            if (!model) {
                 count++;
 
                 if (count >= 20) {  // wait for 10s
@@ -389,7 +360,7 @@ MainView {
 
             LoadingSpinnerComponent {
                 anchors {
-                    centerIn: parent
+                    margins: units.gu(0)
                 }
                 loadingText: i18n.tr("Waiting for file...")
                 visible: true
