@@ -27,11 +27,4 @@ Action {
     text: i18n.tr("Remove")
 
     property bool primed: false
-
-    onTriggered: {
-        removeAnimation.action = removeAction
-        removeAnimation.start()
-    }
-
-    signal itemRemoved()
 }

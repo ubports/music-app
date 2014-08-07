@@ -130,7 +130,7 @@ MusicPage {
                 state: queuelist.currentIndex == index && !reordering ? "current" : ""
 
                 leftSideAction: Remove {
-                    onItemRemoved: {
+                    onTriggered: {
                         if (index === player.currentIndex) {
                             player.nextSong(player.isPlaying);
                         }

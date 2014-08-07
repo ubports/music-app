@@ -237,7 +237,7 @@ class MainView(toolkit_emulators.MainView):
             "TextField", objectName="playlistnameTextfield")
 
     def get_addtoplaylistview(self):
-        return self.select_many_retry(
+        return self.wait_select_single(
             "QQuickListView", objectName="addtoplaylistview")
 
     def get_playlistname(self, playlistname):

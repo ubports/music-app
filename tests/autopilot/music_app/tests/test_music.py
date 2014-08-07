@@ -435,13 +435,13 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(queueaction)
 
         # verify track queue has added all songs to initial value
-        endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount,
+        endtracksCount = self.main_view.get_queue_track_count
+        self.assertThat(endtracksCount(),
                         Eventually(Equals(initialtracksCount + 1)))
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
-                        Eventually(NotEquals(endtracksCount)))
+                        Eventually(NotEquals(endtracksCount())))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view
@@ -478,7 +478,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(playlistaction)
 
         # get initial list view playlist count
-        playlist_count = self.main_view.get_addtoplaylistview()[0].count
+        playlist_count = self.main_view.get_addtoplaylistview().count
 
         # click on New playlist button in header
         self.main_view.tap_new_playlist_action()
@@ -494,7 +494,7 @@ class TestMainWindow(MusicTestCase):
         self.pointing_device.click_object(createButton)
 
         # verify playlist has been sucessfully created
-        palylist_final_count = self.main_view.get_addtoplaylistview()[0].count
+        palylist_final_count = self.main_view.get_addtoplaylistview().count
         self.assertThat(palylist_final_count, Equals(playlist_count + 1))
         playlist = self.main_view.get_playlistname("myPlaylist")
         self.assertThat(playlist, Not(Is(None)))

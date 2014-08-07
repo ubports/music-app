@@ -204,15 +204,17 @@ ListItem.Standard {  // CUSTOM
     // CUSTOM remove animation
     SequentialAnimation {
         id: removeAnimation
-        property Action action: null
+
+        property var action
 
         UbuntuNumberAnimation {
             target: root
+            duration: UbuntuAnimation.BriskDuration
             property: "height";
             to: 0
         }
         ScriptAction {
-            script: removeAction.itemRemoved()
+            script: removeAnimation.action.trigger()
         }
     }
 
@@ -498,7 +500,9 @@ ListItem.Standard {  // CUSTOM
             } else if (main.x > 0) {
                 var action = getActionAt(Qt.point(mouse.x, mouse.y))
                 if (action && action !== -1) {
-                    action.triggered(root)
+                    //action.triggered(root)
+                    removeAnimation.action = action  // CUSTOM
+                    removeAnimation.start()  // CUSTOM
                 }
             } else {
                 var actionIndex = getActionAt(Qt.point(mouse.x, mouse.y))
