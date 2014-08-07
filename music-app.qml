@@ -205,6 +205,7 @@ MainView {
         target: UriHandler
 
         function processAlbum(uri) {
+            selectedAlbum = true;
             var split = uri.split("/");
 
             if (split.length < 2) {
@@ -215,16 +216,6 @@ MainView {
             // Filter by artist and album
             songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
-
-            // Play album it tracks exist
-            if (songsAlbumArtistModel.rowCount > 0) {
-                // trackClicked(model, index, play, clear=true) will clear the model
-                trackClicked(songsAlbumArtistModel, 0, true, true);
-            }
-            else {
-                console.debug("Unknown artist-album " + uri + ", skipping")
-                return;
-            }
         }
 
         function processFile(uri, play) {
@@ -232,13 +223,8 @@ MainView {
 
             var track = false;
 
-            // Search for track in songs model
-            for (var i=0; i < allSongsModel.rowCount; i++) {
-                if (decodeURIComponent(allSongsModel.get(i, allSongsModel.RoleModelData).filename) === uri) {
-                    track = allSongsModel.get(i, allSongsModel.RoleModelData);
-                    break;
-                }
-            }
+            // Lookup track in songs model
+            track = musicStore.lookup(decodeURIComponent(uri));
 
             if (!track) {
                 console.debug("Unknown file " + uri + ", skipping")
@@ -383,6 +369,7 @@ MainView {
     property string timestamp // used to scrobble
     property var chosenElement: null
     property bool toolbarShown: musicToolbar.shown
+    property bool selectedAlbum: false
     signal collapseExpand();
     signal collapseSwipeDelete(int index);
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
@@ -518,6 +505,20 @@ MainView {
     SongsModel {
         id: songsAlbumArtistModel
         store: musicStore
+        onFilled: {
+            // Play album it tracks exist
+            if (rowCount > 0 && selectedAlbum) {
+                trackClicked(songsAlbumArtistModel, 0, true, true);
+            } else if (selectedAlbum) {
+                console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
+            }
+
+            selectedAlbum = false;
+
+            // Clear filter for artist and album
+            songsAlbumArtistModel.artist = ""
+            songsAlbumArtistModel.album = ""
+        }
     }
 
     // WHERE THE MAGIC HAPPENS
