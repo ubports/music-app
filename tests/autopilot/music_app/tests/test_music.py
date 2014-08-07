@@ -477,6 +477,9 @@ class TestMainWindow(MusicTestCase):
         playlistaction = self.main_view.get_add_to_playlist_action()
         self.pointing_device.click_object(playlistaction)
 
+        # Wait for animations to complete
+        playlistaction.primed.wait_for(False)
+
         # get initial list view playlist count
         playlist_count = self.main_view.get_addtoplaylistview().count
 

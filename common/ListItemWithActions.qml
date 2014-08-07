@@ -465,7 +465,9 @@ ListItem.Standard {  // CUSTOM
             target: main
             property: "x"
             to: 0
-
+        }
+        ScriptAction {
+            script: resetPrimed()
         }
     }
 

@@ -37,6 +37,7 @@ import "common"
 // Page that will be used when adding tracks to playlists
 MusicPage {
     id: addtoPlaylist
+    objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
     visible: false
 
