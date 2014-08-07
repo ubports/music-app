@@ -46,7 +46,8 @@ QtObject {
     }
 
     property QtObject dialog: QtObject {
-        property color buttonColor: UbuntuColors.coolGrey;
+        property color confirmButtonColor: UbuntuColors.orange;
+        property color cancelButtonColor: UbuntuColors.coolGrey;
         property color normalTextFieldColor: common.white
     }
 
