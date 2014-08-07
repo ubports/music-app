@@ -42,6 +42,7 @@ Rectangle {
         width: parent.width / 3
         Label {
             id: swipeBackgroundLeftText
+            objectName: "leftDelete"
             anchors.margins: units.gu(2)
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
@@ -77,6 +78,7 @@ Rectangle {
         width: parent.width / 3
         Label {
             id: swipeBackgroundRightText
+            objectName: "rightDelete"
             anchors.left: parent.left
             anchors.margins: units.gu(2)
             anchors.verticalCenter: parent.verticalCenter
