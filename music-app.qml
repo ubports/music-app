@@ -514,6 +514,10 @@ MainView {
             }
 
             selectedAlbum = false;
+
+            // Clear filter for artist and album
+            songsAlbumArtistModel.artist = ""
+            songsAlbumArtistModel.album = ""
         }
     }
 
