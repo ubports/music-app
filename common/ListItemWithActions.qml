@@ -298,7 +298,7 @@ ListItem.Standard {  // CUSTOM
                        width: units.gu(3)
                        height: units.gu(3)
                        name: iconName
-                       color: root.activeAction === modelData || !root.triggerActionOnMouseRelease ? UbuntuColors.lightAubergine : Theme.palette.selected.background
+                       color: root.activeAction === modelData || !root.triggerActionOnMouseRelease ? UbuntuColors.orange : Theme.palette.selected.background  // CUSTOM
 
                        property bool primed: false  // CUSTOM
                    }
