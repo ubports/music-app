@@ -273,7 +273,10 @@ ListItem.Standard {  // CUSTOM
        }
 
        Row {
-           anchors.fill: parent
+           anchors {
+               fill: parent
+               leftMargin: units.gu(2)  // CUSTOM
+           }
            spacing: units.gu(2)
            Repeater {
                id: rightActionsRepeater
@@ -392,7 +395,7 @@ ListItem.Standard {  // CUSTOM
                         newIndex = 0;
                     }
                     else if (newIndex > root.parent.parent.count - 1) {
-                        newIndex = listView.count - 1;
+                        newIndex = root.parent.parent.count - 1;
                     }
 
                     root.z -= 10;  // restore z index

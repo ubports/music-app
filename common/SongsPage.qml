@@ -233,6 +233,7 @@ MusicPage {
 
                 leftSideAction: songStackPage.line1 === "Playlist"
                                 ? playlistRemoveAction.item : null
+                reorderable: songStackPage.line1 === "Playlist"
                 rightSideActions: [
                     AddToQueue {
 

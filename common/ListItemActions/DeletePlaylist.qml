@@ -26,10 +26,4 @@ Action {
     text: i18n.tr("Delete")
 
     property bool primed: false
-
-    onTriggered: {
-        customdebug("Delete")
-        oldPlaylistName = model.name
-        PopupUtils.open(removePlaylistDialog, mainView)
-    }
 }

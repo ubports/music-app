@@ -108,35 +108,6 @@ MusicPage {
         }
     }
 
-    // Remove playlist dialog
-    Component {
-        id: removePlaylistDialog
-        Dialog {
-            id: dialogueRemovePlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-            title: i18n.tr("Are you sure?")
-            text: i18n.tr("This will delete your playlist.")
-
-            Button {
-                text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmButtonColor
-                onClicked: {
-                    // removing playlist
-                    Playlists.removePlaylist(oldPlaylistName)
-
-                    playlistModel.filterPlaylists();
-
-                    PopupUtils.close(dialogueRemovePlaylist)
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogueRemovePlaylist)
-            }
-        }
-    }
-
     MusicSettings {
         id: musicSettings
     }
@@ -168,7 +139,11 @@ MusicPage {
                 width: parent.width
 
                 leftSideAction: DeletePlaylist {
+                    onTriggered: {
+                        Playlists.removePlaylist(model.name)
 
+                        playlistModel.filterPlaylists();
+                    }
                 }
 
                 rightSideActions: [
