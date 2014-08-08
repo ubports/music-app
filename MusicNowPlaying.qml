@@ -177,7 +177,7 @@ MusicPage {
                     id: trackContainer;
                     anchors {
                         fill: parent
-                        margins: units.gu(0.5)
+                        margins: units.gu(1)
                     }
                     color: "transparent"
 
