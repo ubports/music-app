@@ -90,7 +90,11 @@ MusicPage {
                 musicToolbar.goBack();  // go back to the previous page
             }
 
+            // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+            onPressedChanged: musicRow.pressed = pressed
+
             MusicRow {
+                id: musicRow
                 covers: Playlists.getPlaylistCovers(playlist.name)
                 column: Column {
                     spacing: units.gu(1)

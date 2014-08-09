@@ -124,6 +124,9 @@ MusicPage {
 
                         mainPageStack.push(albumsPage)
                     }
+
+                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                    onPressedChanged: musicRow.pressed = pressed
                 }
             }
         }
