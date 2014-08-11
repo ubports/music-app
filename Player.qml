@@ -92,7 +92,9 @@ Item {
         console.log("currentIndex: " + currentIndex)
         console.log("trackQueue.count: " + trackQueue.model.count)
 
-        if (shuffle) {
+        // Do not shuffle if repeat is off and there is only one track in the queue
+        if (shuffle && !(trackQueue.model.count === 1 &&
+                         Settings.getSetting("repeat") === "0")) {
             var now = new Date();
             var seed = now.getSeconds();
 
