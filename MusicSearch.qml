@@ -27,7 +27,7 @@ import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "playlists.js" as Playlists
 import "common"
-import "common/ExpanderItems"
+import "common/ListItemActions"
 
 Item {
     id: sheetItem
@@ -154,13 +154,23 @@ Item {
                          searchTrackView.forceActiveFocus()
                      }
 
-                     delegate: ListItem.Standard {
+                     delegate: ListItemWithActions {
                             id: search
+                            color: "transparent"
                             objectName: "playlist"
                             width: parent.width
                             height: styleMusic.common.itemHeight
 
-                            onClicked: {
+                            rightSideActions: [
+                                AddToQueue {
+
+                                },
+                                AddToPlaylist {
+
+                                }
+                            ]
+
+                            onItemClicked: {
                                 console.debug("Debug: "+title+" added to queue")
                                 // now play this track, but keep current queue
                                 trackQueue.append(model)
@@ -190,23 +200,6 @@ Item {
                                         color: styleMusic.common.subtitle
                                         fontSize: "xx-small"
                                         text: model.album
-                                    }
-                                }
-                            }
-
-                            Expander {
-                                id: expandable
-                                anchors {
-                                    fill: parent
-                                }
-                                listItem: search
-                                model: songsSearchModel.get(index, songsSearchModel.RoleModelData)
-                                row: Row {
-                                    AddToPlaylist {
-
-                                    }
-                                    AddToQueue {
-
                                     }
                                 }
                             }

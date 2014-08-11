@@ -70,13 +70,23 @@ class MainView(toolkit_emulators.MainView):
         albumartist = self.get_albums_albumartist(artistName)
         self.pointing_device.click_object(albumartist)
 
-        # get track item to add to queue
-        trackicon = self.get_songs_page_listview_trackicon(trackTitle)
-        self.pointing_device.click_object(trackicon)
+        # get track item to swipe and queue
+        trackitem = self.get_songs_page_listview_tracktitle(trackTitle)
+        songspage = self.get_songs_page_listview()
 
-        # click on Add to queue
-        queueTrackLabel = self.get_songs_page_queuetrack_label()
-        self.pointing_device.click_object(queueTrackLabel)
+        # get coordinates to swipe
+        start_x = int(songspage.globalRect.x +
+                      (songspage.globalRect.width * 0.9))
+        stop_x = int(songspage.globalRect.x)
+        line_y = int(trackitem.globalRect.y)
+
+        # swipe to add to queue
+        self.pointing_device.move(start_x, line_y)
+        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
+
+        # click on add to queue
+        queueaction = self.get_add_to_queue_action()
+        self.pointing_device.click_object(queueaction)
 
     def tap_new_playlist_action(self):
         header = self.get_header()
@@ -124,6 +134,16 @@ class MainView(toolkit_emulators.MainView):
         for item in albumartistList:
             if item.text == artistName:
                 return item
+
+    def get_add_to_queue_action(self):
+        return self.wait_select_single("*",
+                                       objectName="addToQueueAction",
+                                       primed=True)
+
+    def get_add_to_playlist_action(self):
+        return self.wait_select_single("*",
+                                       objectName="addToPlaylistAction",
+                                       primed=True)
 
     def get_add_to_queue_button(self):
         return self.wait_select_single("QQuickImage",
@@ -174,27 +194,6 @@ class MainView(toolkit_emulators.MainView):
             if item.text == trackTitle:
                 return item
 
-    def get_album_page_listview_trackicon(self, trackTitle):
-        tracktitle = self.get_album_page_listview_tracktitle(trackTitle)
-        tracktitle_position = tracktitle.globalRect[1]
-        trackicons = self.select_many(
-            "QQuickImage", objectName="expanditem")
-        for item in trackicons:
-            if item.globalRect[1] == tracktitle_position:
-                return item
-
-    def get_songs_page_listview_trackicon(self, trackTitle):
-        tracktitle = self.get_songs_page_listview_tracktitle(trackTitle)
-
-        return self.get_trackimage_from_label(tracktitle)
-
-    def get_songs_page_queuetrack_label(self):
-        queuetracks = self.select_many_retry(
-            "Label", objectName="queuetrack")
-        for item in queuetracks:
-            if item.visible:
-                return item
-
     def get_queue_track_count(self):
         queuelist = self.select_single(
             "QQuickListView", objectName="queuelist")
@@ -214,34 +213,19 @@ class MainView(toolkit_emulators.MainView):
             if item.text == trackTitle:
                 return item
 
+    def get_tracks_tab_listview(self):
+        return self.select_single("QQuickListView",
+                                  objectName="trackstab-listview")
+
+    def get_songs_page_listview(self):
+        return self.select_single("QQuickListView",
+                                  objectName="songspage-listview")
+
     def get_songs_tab_tracktitle(self, trackTitle):
         tracktitles = self.select_many_retry(
             "Label", objectName="tracktitle")
         for item in tracktitles:
             if item.text == trackTitle:
-                return item
-
-    def get_songs_tab_trackimage(self, trackTitle):
-        tracktitle = self.get_songs_tab_tracktitle(trackTitle)
-
-        return self.get_trackimage_from_label(tracktitle)
-
-    def get_trackimage_from_label(self, label):
-        item = label.get_parent().get_parent().get_parent().get_parent()
-        return item.select_single('QQuickImage', objectName='expanditem')
-
-    def get_songs_tab_add_to_queue_label(self):
-        addtoqueue = self.select_many(
-            "Label", objectName="queuetrack")
-        for item in addtoqueue:
-            if item.visible:
-                return item
-
-    def get_songs_tab_add_to_playlist_label(self):
-        addtoplaylist = self.select_many(
-            "Label", objectName="addtoplaylist")
-        for item in addtoplaylist:
-            if item.visible:
                 return item
 
     def get_newPlaylistDialog_createButton(self):
@@ -253,7 +237,7 @@ class MainView(toolkit_emulators.MainView):
             "TextField", objectName="playlistnameTextfield")
 
     def get_addtoplaylistview(self):
-        return self.select_many_retry(
+        return self.wait_select_single(
             "QQuickListView", objectName="addtoplaylistview")
 
     def get_playlistname(self, playlistname):
@@ -272,6 +256,6 @@ class MainView(toolkit_emulators.MainView):
             "MusicNowPlaying", objectName="nowplayingpage")
 
     def get_swipedelete_icon(self):
-        swipedelete = self.wait_select_single(
-            "SwipeDelete", direction="swipingRight")
-        return swipedelete.select_single("Label",  objectName="leftDelete")
+        return self.wait_select_single(
+            "*", objectName="swipeDeleteAction",
+            primed=True)
