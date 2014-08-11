@@ -261,6 +261,7 @@ MusicPage {
                             Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                            playlistModel.filterPlaylists()
                         }
                     }
                 }
