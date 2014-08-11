@@ -1,4 +1,4 @@
-add_subdirectory(ExpanderItems)
+add_subdirectory(ListItemActions)
 
 # make the qml files visible on qtcreator
 file(GLOB COMMON_QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml)

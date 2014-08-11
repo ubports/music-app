@@ -24,7 +24,8 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
-import "ExpanderItems"
+import "../playlists.js" as Playlists
+import "ListItemActions"
 
 MusicPage {
     id: songStackPage
@@ -55,6 +56,7 @@ MusicPage {
         }
         delegate: albumTracksDelegate
         model: isAlbum ? songsModel : albumTracksModel.model
+        objectName: "songspage-listview"
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
@@ -210,36 +212,62 @@ MusicPage {
         Component {
             id: albumTracksDelegate
 
-            ListItem.Standard {
+            ListItemWithActions {
                 id: track
+                color: "transparent"
                 objectName: "songspage-track"
                 iconFrame: false
                 progression: false
                 height: styleMusic.common.itemHeight
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (focus == false) {
-                            focus = true
-                        }
+                leftSideAction: songStackPage.line1 === "Playlist"
+                                ? playlistRemoveAction.item : null
+                reorderable: songStackPage.line1 === "Playlist"
+                rightSideActions: [
+                    AddToQueue {
 
-                        trackClicked(albumtrackslist.model, index)  // play track
+                    },
+                    AddToPlaylist {
 
-                        if (isAlbum && songStackPage.line1 !== "Genre") {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            mainView.hasRecent = true
-                            recentModel.filterRecent()
-                        } else if (songStackPage.line1 === "Playlist") {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            mainView.hasRecent = true
-                            recentModel.filterRecent()
+                    }
+                ]
+                triggerActionOnMouseRelease: true
+
+                onItemClicked: {
+                    trackClicked(albumtrackslist.model, index)  // play track
+
+                    if (isAlbum && songStackPage.line1 !== "Genre") {
+                        Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                        mainView.hasRecent = true
+                        recentModel.filterRecent()
+                    } else if (songStackPage.line1 === "Playlist") {
+                        Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                        mainView.hasRecent = true
+                        recentModel.filterRecent()
+                    }
+                }
+                onReorder: {
+                    console.debug("Move: ", from, to);
+
+                    Playlists.move(songStackPage.line2, from, to)
+
+                    albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                }
+
+                Loader {
+                    id: playlistRemoveAction
+                    sourceComponent: Remove {
+                        onTriggered: {
+                            Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+
+                            albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                            playlistModel.filterPlaylists()
                         }
                     }
-
-                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                    onPressedChanged: musicRow.pressed = pressed
                 }
+
+                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                onPressedChanged: musicRow.pressed = pressed
 
                 MusicRow {
                     id: musicRow
@@ -266,23 +294,6 @@ MusicPage {
                             color: styleMusic.common.subtitle
                             fontSize: "xx-small"
                             text: model.album
-                        }
-                    }
-                }
-
-                Expander {
-                    id: expandable
-                    anchors {
-                        fill: parent
-                    }
-                    listItem: track
-                    model: isAlbum ? albumtrackslist.model.get(index, albumTracksModel.model.RoleModelData) : albumtrackslist.model.get(index)
-                    row: Row {
-                        AddToPlaylist {
-
-                        }
-                        AddToQueue {
-
                         }
                     }
                 }

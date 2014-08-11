@@ -20,16 +20,14 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
-import Ubuntu.Components.ListItems 0.1 as ListItem
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
 import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "common"
-import "common/ExpanderItems"
+import "common/ListItemActions"
 
 // page for the playlists
 MusicPage {
@@ -110,35 +108,6 @@ MusicPage {
         }
     }
 
-    // Remove playlist dialog
-    Component {
-        id: removePlaylistDialog
-        Dialog {
-            id: dialogueRemovePlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-            title: i18n.tr("Are you sure?")
-            text: i18n.tr("This will delete your playlist.")
-
-            Button {
-                text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmButtonColor
-                onClicked: {
-                    // removing playlist
-                    Playlists.removePlaylist(oldPlaylistName)
-
-                    playlistModel.filterPlaylists();
-
-                    PopupUtils.close(dialogueRemovePlaylist)
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogueRemovePlaylist)
-            }
-        }
-    }
-
     MusicSettings {
         id: musicSettings
     }
@@ -159,13 +128,43 @@ MusicPage {
 
         Component {
             id: playlistDelegate
-            ListItem.Standard {
+            ListItemWithActions {
                 id: playlist
                 property string name: model.name
                 property string count: model.count
                 property var covers: Playlists.getPlaylistCovers(name)
+
+                color: "transparent"
                 height: styleMusic.common.itemHeight
-                iconFrame: false
+                width: parent.width
+
+                leftSideAction: DeletePlaylist {
+                    onTriggered: {
+                        Playlists.removePlaylist(model.name)
+
+                        playlistModel.filterPlaylists();
+                    }
+                }
+
+                rightSideActions: [
+                    EditPlaylist {
+                    }
+                ]
+                triggerActionOnMouseRelease: true
+
+                onItemClicked: {
+                    albumTracksModel.filterPlaylistTracks(name)
+                    songsPage.isAlbum = false
+                    songsPage.line1 = "Playlist"
+                    songsPage.line2 = model.name
+                    songsPage.covers =  playlist.covers
+                    songsPage.title = i18n.tr("Playlist")
+
+                    mainPageStack.push(songsPage)
+                }
+
+                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                onPressedChanged: musicRow.pressed = pressed
 
                 MusicRow {
                     id: musicRow
@@ -186,37 +185,6 @@ MusicPage {
                         }
                     }
                 }
-
-                Expander {
-                    id: expandable
-                    anchors {
-                        fill: parent
-                    }
-                    listItem: playlist
-                    model: {"name": name, "index": index}
-                    row: Row {
-                        EditPlaylist {
-
-                        }
-                        DeletePlaylist {
-
-                        }
-                    }
-                }
-
-                onClicked: {
-                    albumTracksModel.filterPlaylistTracks(name)
-                    songsPage.isAlbum = false
-                    songsPage.line1 = "Playlist"
-                    songsPage.line2 = model.name
-                    songsPage.covers =  playlist.covers
-                    songsPage.title = i18n.tr("Playlist")
-
-                    mainPageStack.push(songsPage)
-                }
-
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: musicRow.pressed = pressed
             }
         }
     }

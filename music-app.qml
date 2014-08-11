@@ -370,8 +370,8 @@ MainView {
     property var chosenElement: null
     property bool toolbarShown: musicToolbar.shown
     property bool selectedAlbum: false
-    signal collapseExpand();
-    signal collapseSwipeDelete(int index);
+
+    signal listItemSwiping(int i)
     signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70) && loadedUI
@@ -460,8 +460,6 @@ MainView {
         else {
             player.source = file;
         }
-
-        collapseExpand();  // collapse all expands if track clicked
     }
 
     function trackQueueClick(index) {
