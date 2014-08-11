@@ -26,8 +26,7 @@ Row {
         left: parent.left
         leftMargin: units.gu(1)
         right: parent.right
-        // Set to expander item width for now set to 1GU when using listitem actions
-        rightMargin: (styleMusic.common.expandedItem * 2) + units.gu(1)
+        rightMargin: units.gu(1)
     }
 
     property alias covers: coverRow.covers
