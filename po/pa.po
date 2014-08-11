@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-17 13:05-0400\n"
+"POT-Creation-Date: 2014-08-11 01:07+0100\n"
 "PO-Revision-Date: 2014-05-11 04:34+0000\n"
 "Last-Translator: Gursharnjit_singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-20 06:08+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -54,74 +54,82 @@ msgstr "ਲਾੱਗ-ਇਨ ਫੇਲ੍ਹ ਹੋਇਆ"
 msgid "You forgot to set your username and/or password"
 msgstr "ਤੁਸੀ ਆਪਣਾ ਵਰਤੋਕਾਰ ਨਾਂ ਅਤੇ/ਯਾ ਪਾਸਵਰਡ ਲਗਾਉਣਾ ਭੁੱਲ ਚੁੱਕੇ ਹੋ"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:370
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:378
 msgid "Albums"
 msgstr "ਐਲਬਮ'ਸ"
+
+#: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
+#: ../common/AlbumsPage.qml:276
+msgid "Album"
+msgstr ""
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
 msgstr "ਕਲਾਕਾਰ"
 
-#: ../MusicArtists.qml:153 ../common/AlbumsSheet.qml:124
+#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:111
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 ਐਲਬਮ"
 msgstr[1] "%1 ਐਲਬਮ'ਸ"
 
-#: ../MusicArtists.qml:170 ../MusicPlaylists.qml:187 ../MusicStart.qml:351
-#: ../common/SongsSheet.qml:144
+#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
+#: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 ਗਾਣਾ"
 msgstr[1] "%1 ਗਾਣੇ"
 
-#: ../MusicNowPlaying.qml:34
+#: ../MusicArtists.qml:123
+msgid "Artist"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
 msgstr "ਹੁਣ ਚੱਲ ਰਿਹਾ ਹੈ"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:39
+#: ../MusicPlaylists.qml:37
 msgid "Playlists"
 msgstr "ਗੀਤ-ਸੂਚੀ"
 
+#: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
+msgid "New playlist"
+msgstr "ਨਵੀਂ ਗੀਤ-ਸੂਚੀ"
+
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:60
+#: ../MusicPlaylists.qml:63
 msgid "Change name"
 msgstr "ਨਾਂ ਬਦਲੋ"
 
-#: ../MusicPlaylists.qml:61
+#: ../MusicPlaylists.qml:64
 msgid "Enter the new name of the playlist."
 msgstr "ਗੀਤ-ਸੂਚੀ ਦਾ ਨਵਾਂ ਨਾਂ ਲਿਖੋ |"
 
-#: ../MusicPlaylists.qml:72
+#: ../MusicPlaylists.qml:77
 msgid "Change"
 msgstr "ਬਦਲੋ"
 
-#: ../MusicPlaylists.qml:85
-msgid "You didn't type in a name."
-msgstr "ਤੁਸੀ ਇੱਕ ਨਾਂ ਵਿੱਚ ਟਾਈਪ ਨਹੀ ਕਰ ਸਕਦੇ"
+#: ../MusicPlaylists.qml:95 ../music-app.qml:732
+msgid "Playlist already exists"
+msgstr ""
 
-#: ../MusicPlaylists.qml:90 ../MusicPlaylists.qml:116 ../music-app.qml:752
+#: ../MusicPlaylists.qml:99 ../music-app.qml:737
+msgid "Please type in a name."
+msgstr ""
+
+#: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
 msgstr "ਰੱਦ"
 
-#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../MusicPlaylists.qml:103
-msgid "Are you sure?"
-msgstr "ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ?"
+#: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
+msgid "Playlist"
+msgstr ""
 
-#: ../MusicPlaylists.qml:104
-msgid "This will delete your playlist."
-msgstr "ਇਹ ਤੁਹਾਡੀ ਗੀਤ-ਸੂਚੀ ਮਿਟਾ ਦੇਵੇਗਾ |"
-
-#: ../MusicPlaylists.qml:107
-msgid "Remove"
-msgstr "ਹਟਾਓ"
-
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:508 ../music-app.qml:94
+#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "ਖੋਜ"
@@ -214,81 +222,87 @@ msgstr "ਕੇਵਲ ਵਾਈ-ਫਾਈ ਤੇ ਚਲਾਓ"
 msgid "Clean everything!"
 msgstr "ਸੱਭ ਕੁੱਝ ਸਾਫ ਕਰੋ"
 
-#: ../MusicStart.qml:37 ../music-app.qml:373 ../music-app.qml:767
+#: ../MusicStart.qml:37 ../music-app.qml:363 ../music-app.qml:909
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "ਸੰਗੀਤ"
 
-#: ../MusicStart.qml:84
+#: ../MusicStart.qml:77
 msgid "Recent"
 msgstr "ਤਾਜ਼ਾ"
 
-#: ../MusicStart.qml:112
+#: ../MusicStart.qml:105
 msgid "Clear History"
 msgstr ""
 
-#: ../MusicStart.qml:222
+#: ../MusicStart.qml:224
 msgid "Genres"
 msgstr "ਸ਼ੈਲੀ"
 
-#: ../MusicToolbar.qml:739
+#: ../MusicStart.qml:309
+msgid "Genre"
+msgstr ""
+
+#: ../MusicToolbar.qml:756
 msgid "No songs queued"
 msgstr "ਕੋਈ ਗੀਤ ਕਤਾਰ ਵਿੱਚ ਨਹੀ"
 
-#: ../MusicToolbar.qml:749
+#: ../MusicToolbar.qml:766
 msgid "Tap play or any item to start"
 msgstr "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਪ੍ਲੇ ਨੂੰ  ਯਾ ਕਿਸੇ ਚੀਜ ਨੂੰ ਛੂਹੋ"
 
-#: ../MusicTracks.qml:37
+#: ../MusicTracks.qml:35
 msgid "Songs"
 msgstr "ਗਾਣੇ"
 
-#: ../MusicaddtoPlaylist.qml:39 ../common/ExpanderItems/AddToPlaylist.qml:59
-#: ../music-app.qml:699
+#: ../MusicaddtoPlaylist.qml:41
 msgid "Select playlist"
 msgstr "ਗੀਤ-ਸੂਚੀ ਚੁਣੋ"
 
-#: ../MusicaddtoPlaylist.qml:131
-msgid "New playlist"
-msgstr "ਨਵੀਂ ਗੀਤ-ਸੂਚੀ"
-
-#: ../common/AlbumsSheet.qml:180 ../common/AlbumsSheet.qml:382
-#: ../common/SongsSheet.qml:173
+#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
+#: ../common/SongsPage.qml:152
 msgid "Play all"
 msgstr "ਸਾਰੇ ਚਲਾਓ"
 
-#: ../common/AlbumsSheet.qml:228 ../common/AlbumsSheet.qml:427
-#: ../common/ExpanderItems/AddToQueue.qml:45 ../common/SongsSheet.qml:225
-#: ../music-app.qml:674
+#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
+#: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
 msgstr "ਕਤਾਰ ਵਿੱਚ ਜੋੜੋ"
 
-#: ../common/AlbumsSheet.qml:352 ../common/SongsSheet.qml:143
+#: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
 msgstr[0] " | %1 ਗਾਣਾ"
 msgstr[1] " | %1 ਗਾਣੇ"
 
-#: ../common/ExpanderItems/AddToPlaylist.qml:47 ../music-app.qml:688
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:679
 msgid "Add to playlist"
 msgstr "ਗੀਤ-ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ"
 
+#: ../common/ListItemActions/AddToQueue.qml:25
+msgid "Add to Queue"
+msgstr ""
+
 #. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ExpanderItems/DeletePlaylist.qml:48
+#: ../common/ListItemActions/DeletePlaylist.qml:26
 msgid "Delete"
 msgstr "ਹਟਾਓ"
 
 #. TRANSLATORS: this refers to editing a playlist
-#: ../common/ExpanderItems/EditPlaylist.qml:48
+#: ../common/ListItemActions/EditPlaylist.qml:26
 msgid "Edit"
 msgstr "ਫੇਰਬਦਲ"
+
+#: ../common/ListItemActions/Remove.qml:27
+msgid "Remove"
+msgstr "ਹਟਾਓ"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
 msgstr "ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…"
 
-#: ../common/SwipeDelete.qml:51 ../common/SwipeDelete.qml:86
+#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
 msgid "Clear"
 msgstr "ਸਾਫ਼ ਕਰੋ"
 
@@ -357,41 +371,33 @@ msgid "Music Settings"
 msgstr "ਸੰਗੀਤ ਸੈਟਿੰਂਗ'ਸ"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:288
+#: ../music-app.qml:278
 msgid "songs played today"
 msgstr "ਅੱਜ ਚਲਾਏ ਗਏੇ ਗੀਤ"
 
-#: ../music-app.qml:289
+#: ../music-app.qml:279
 msgid "No songs played today"
 msgstr "ਅੱਜ ਕੋਈ ਗੀਤ ਨਹੀ ਚਲਾਇਆ"
 
-#: ../music-app.qml:396
+#: ../music-app.qml:387
 msgid "Debug: "
 msgstr "ਖਾਮੀ ਪਛਾਣਨਾ ਤੇ ਠੀਕ ਕਰਨਾ: "
 
-#: ../music-app.qml:712
+#: ../music-app.qml:701
 msgid "New Playlist"
 msgstr "ਨਵੀਂ ਗੀਤ-ਸੂਚੀ"
 
-#: ../music-app.qml:713
+#: ../music-app.qml:702
 msgid "Name your playlist."
 msgstr "ਆਪਣੀ ਗੀਤ-ਸੂਚੀ ਨੂੰ ਨਾਂ ਦਿਓ"
 
-#: ../music-app.qml:717
+#: ../music-app.qml:706
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: ../music-app.qml:725
+#: ../music-app.qml:716
 msgid "Create"
 msgstr "ਬਣਾਓ"
-
-#: ../music-app.qml:741
-msgid "Error: "
-msgstr "ਗਲਤੀ: "
-
-#: ../music-app.qml:746
-msgid "Error: You didn't type a name."
-msgstr "ਗਲਤੀ: ਤੁਸੀ ਇੱਕ ਨਾਮ ਵਿੱਚ ਟਾਈਪ ਨਹੀ ਕਰ ਸਕਦੇ"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -400,3 +406,18 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
+
+#~ msgid "You didn't type in a name."
+#~ msgstr "ਤੁਸੀ ਇੱਕ ਨਾਂ ਵਿੱਚ ਟਾਈਪ ਨਹੀ ਕਰ ਸਕਦੇ"
+
+#~ msgid "Are you sure?"
+#~ msgstr "ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ?"
+
+#~ msgid "This will delete your playlist."
+#~ msgstr "ਇਹ ਤੁਹਾਡੀ ਗੀਤ-ਸੂਚੀ ਮਿਟਾ ਦੇਵੇਗਾ |"
+
+#~ msgid "Error: "
+#~ msgstr "ਗਲਤੀ: "
+
+#~ msgid "Error: You didn't type a name."
+#~ msgstr "ਗਲਤੀ: ਤੁਸੀ ਇੱਕ ਨਾਮ ਵਿੱਚ ਟਾਈਪ ਨਹੀ ਕਰ ਸਕਦੇ"
