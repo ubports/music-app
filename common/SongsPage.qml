@@ -209,17 +209,6 @@ MusicPage {
             }
         }
 
-        Loader {
-            id: playlistRemoveAction
-            sourceComponent: Remove {
-                onTriggered: {
-                    Playlists.removeFromPlaylist(songStackPage.line2, model.i)
-
-                    albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                }
-            }
-        }
-
         Component {
             id: albumTracksDelegate
 
@@ -263,6 +252,17 @@ MusicPage {
                     Playlists.move(songStackPage.line2, from, to)
 
                     albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                }
+
+                Loader {
+                    id: playlistRemoveAction
+                    sourceComponent: Remove {
+                        onTriggered: {
+                            Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+
+                            albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                        }
+                    }
                 }
 
                 MusicRow {

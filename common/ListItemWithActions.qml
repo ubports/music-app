@@ -54,6 +54,10 @@ ListItem.Standard {  // CUSTOM
             resetSwipe()
         }
 
+        for (var j=0; j < main.children.length; j++) {
+            main.children[j].anchors.rightMargin = reordering ? actionReorder.width + units.gu(2) : 0
+        }
+
         parent.state = reordering ? "reorder" : "normal"
     }
 
@@ -178,6 +182,11 @@ ListItem.Standard {  // CUSTOM
     Connections {  // CUSTOM
         target: root.parent
         onStateChanged: reordering = root.parent.state === "reorder"
+        onVisibleChanged: {
+            if (!visible) {
+                reordering = false
+            }
+        }
     }
 
     Component.onCompleted: reordering = root.parent.state === "reorder"  // CUSTOM
@@ -331,7 +340,7 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
-    /* Reorder Component */
+    /* CUSTOM Reorder Component */
     Rectangle {
         id: actionReorder
         anchors {
