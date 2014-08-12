@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -401,18 +401,3 @@ msgstr "ئۇبۇنتۇنىڭ مۇزىكا پروگراممىسى"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "مۇزىكا;ناخشا;قويۇش;نەغمە;قويغۇ;tunes;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "راستمۇ؟"
-
-#~ msgid "Error: "
-#~ msgstr "خاتالىق: "
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "بۇ قويۇش تىزىمىنى ئۆچۈرۈۋاتىدۇ."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "ئاتىنى كىرگۈزمىدىڭىز."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "خاتالىق: قويۇش تىزىمىغا ئىسىم قويمىدىڭىز."

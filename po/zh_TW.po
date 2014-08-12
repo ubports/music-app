@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -403,18 +403,3 @@ msgstr "Ubuntu 音樂程式"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "music;songs;play;tracks;player;tunes;音樂;歌曲;播放;曲目;軌道;播放器;播放機;樂曲;曲調;"
-
-#~ msgid "Error: "
-#~ msgstr "出錯： "
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "您尚未輸入名稱。"
-
-#~ msgid "Are you sure?"
-#~ msgstr "您是否確定？"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "這會刪除播放清單。"
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "出錯：尚未輸入名稱。"

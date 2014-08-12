@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -413,18 +413,3 @@ msgstr "Glasbeni program za Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "glasba;skladbe;predvajaj;sledi;predvajalnik;melodije;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Ali ste prepričani?"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Niste vnesli imena."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Napaka: niste vpisali imena."
-
-#~ msgid "Error: "
-#~ msgstr "Napaka: "
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "To bo izbrisalo vaš seznam predvajanja."

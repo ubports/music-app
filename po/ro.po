@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -412,18 +412,3 @@ msgstr "O aplicație de muzică pentru Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "muzică;melodie;redare;piste;player;cântece;"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Nu ați introdus un nume."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Sigur doriți să continuați?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Această acțiune va șterge lista de redare."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Eroare: Nu ați introdus un nume."
-
-#~ msgid "Error: "
-#~ msgstr "Eroare: "

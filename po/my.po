@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:42+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -401,12 +401,3 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-
-#~ msgid "Are you sure?"
-#~ msgstr "သေချာသလား။"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "သင်၏ဖွင့်မည့်စာရင်းကိုဖျက်လိမ့်မည်"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "အမည်မှာဘာမှမရိုက်ရသေးပါ"

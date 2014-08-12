@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2013-11-19 21:33+0000\n"
-"Last-Translator: Ιωάννης Ζαμπούκας <Unknown>\n"
+"PO-Revision-Date: 2014-08-11 14:52+0000\n"
+"Last-Translator: Fotis <fotisteipir@gmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
@@ -28,44 +28,44 @@ msgstr ""
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
-msgstr ""
+msgstr "Όνομα χρήστη"
 
 #: ../LoginLastFM.qml:73
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός πρόσβασης"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr ""
+msgstr "Σύνδεση σε εξέλιξη..."
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr ""
+msgstr "Επιτυχής σύνδεση"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr ""
+msgstr "Ανεπιτυχής σύνδεση"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "Ξεχάσατε να εισάγετε το όνομα χρήστη και/ή κωδικό"
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:378
 msgid "Albums"
-msgstr ""
+msgstr "Άλμπουμ"
 
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Άλμπουμ"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr ""
+msgstr "Καλλιτέχνες"
 
 #: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:111
 #, qt-format
@@ -84,26 +84,26 @@ msgstr[1] "%1 τραγούδια"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Καλλιτέχνης"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "Τώρα αναπαράγεται"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:37
 msgid "Playlists"
-msgstr ""
+msgstr "Λίστες αναπαραγωγής"
 
 #: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
 msgid "New playlist"
-msgstr ""
+msgstr "Νέα λίστα αναπαραγωγής"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:63
 msgid "Change name"
-msgstr ""
+msgstr "Αλλαγή ονόματος"
 
 #: ../MusicPlaylists.qml:64
 msgid "Enter the new name of the playlist."
@@ -111,7 +111,7 @@ msgstr "Πληκτρολογήστε το νέο όνομα της λίστας 
 
 #: ../MusicPlaylists.qml:77
 msgid "Change"
-msgstr ""
+msgstr "Αλλαγή"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
@@ -123,40 +123,40 @@ msgstr ""
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Λίστα αναπαραγωγής"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:192
 msgid "Settings"
-msgstr ""
+msgstr "Ρυθμίσεις"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "Ισοσταθμιστής"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "Προεπιλογή"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Ακουστική"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "Κλασική"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "Ηλεκτρονική"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
@@ -168,23 +168,23 @@ msgstr ""
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "Τζαζ"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "Μέταλ"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "Ποπ"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Ροκ"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr ""
+msgstr "Προσαρμοσμένη"
 
 #: ../MusicSettings.qml:112
 msgid ""
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Λογαριασμοί"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
@@ -206,7 +206,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Ubuntu One"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
@@ -223,27 +223,27 @@ msgstr ""
 #: ../MusicStart.qml:37 ../music-app.qml:363 ../music-app.qml:909
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Μουσική"
 
 #: ../MusicStart.qml:77
 msgid "Recent"
-msgstr ""
+msgstr "Πρόσφατα"
 
 #: ../MusicStart.qml:105
 msgid "Clear History"
-msgstr ""
+msgstr "Εκκαθάριση ιστορικού"
 
 #: ../MusicStart.qml:224
 msgid "Genres"
-msgstr ""
+msgstr "Είδη"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Είδος μουσικής"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
-msgstr ""
+msgstr "Δεν υπάρχουν τραγούδια στην ουρά"
 
 #: ../MusicToolbar.qml:766
 msgid "Tap play or any item to start"
@@ -251,7 +251,7 @@ msgstr ""
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
-msgstr ""
+msgstr "Τραγούδια"
 
 #: ../MusicaddtoPlaylist.qml:41
 msgid "Select playlist"
@@ -260,122 +260,122 @@ msgstr "Επιλογή λίστας αναπαραγωγής"
 #: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
 #: ../common/SongsPage.qml:152
 msgid "Play all"
-msgstr ""
+msgstr "Αναπαραγωγή όλων"
 
 #: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
-msgstr ""
+msgstr "Προσθήκη στην ουρά"
 
 #: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 τραγούδι"
+msgstr[1] " | %1 τραγούδια"
 
 #: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:679
 msgid "Add to playlist"
-msgstr ""
+msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Προσθήκη στην ουρά"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ListItemActions/EditPlaylist.qml:26
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: ../common/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr ""
+msgstr "Αφαίρεση"
 
 #: ../common/LoadingSpinnerComponent.qml:44
 msgid "Loading..."
-msgstr ""
+msgstr "Φόρτωση..."
 
 #: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
 msgid "Clear"
-msgstr ""
+msgstr "Εκκαθάριση"
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr ""
+msgstr "Άγνωστο άλμπουμ"
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Άγνωστος καλλιτέχνης"
 
 #: ../music-app.qml:143
 msgid "Search Track"
-msgstr ""
+msgstr "Αναζήτηση κομματιού"
 
 #: ../music-app.qml:155
 msgid "Next"
-msgstr ""
+msgstr "Επόμενο"
 
 #: ../music-app.qml:156
 msgid "Next Track"
-msgstr ""
+msgstr "Επόμενο κομμάτι"
 
 #: ../music-app.qml:162
 msgid "Pause"
-msgstr ""
+msgstr "Παύση"
 
 #: ../music-app.qml:162
 msgid "Play"
-msgstr ""
+msgstr "Αναπαραγωγή"
 
 #: ../music-app.qml:164
 msgid "Pause Playback"
-msgstr ""
+msgstr "Παύση αναπαραγωγής"
 
 #: ../music-app.qml:164
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Συνέχιση ή έναρξη αναπαραγωγής"
 
 #: ../music-app.qml:169
 msgid "Back"
-msgstr ""
+msgstr "Πίσω"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr ""
+msgstr "Επιστροφή στην τελευταία σελίδα"
 
 #: ../music-app.qml:178
 msgid "Previous"
-msgstr ""
+msgstr "Προηγούμενο"
 
 #: ../music-app.qml:179
 msgid "Previous Track"
-msgstr ""
+msgstr "Προηγούμενο κομμάτι"
 
 #: ../music-app.qml:184
 msgid "Stop"
-msgstr ""
+msgstr "Διακοπή"
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
-msgstr ""
+msgstr "Διακοπή αναπαραγωγής"
 
 #: ../music-app.qml:193
 msgid "Music Settings"
-msgstr ""
+msgstr "Ρυθμίσεις μουσικής"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:278
 msgid "songs played today"
-msgstr ""
+msgstr "τραγούδια που ακούστηκαν σήμερα"
 
 #: ../music-app.qml:279
 msgid "No songs played today"
-msgstr ""
+msgstr "Δεν ακούστηκαν τραγούδια σήμερα"
 
 #: ../music-app.qml:387
 msgid "Debug: "
@@ -404,9 +404,3 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Αυτό θα διαγράψει τη λίστα αναπαραγωγής σας."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Εσείς δεν πληκτρολογήσατε ένα όνομα."

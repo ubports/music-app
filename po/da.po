@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:42+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -408,18 +408,3 @@ msgstr "Et musikprogram til Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "musik;sange;numre;afspil;spor;afspiller;melodier;"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Du skrev ikke noget navn."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Er du sikker?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Dette vil slette din afspilningsliste."
-
-#~ msgid "Error: "
-#~ msgstr "Fejl: "
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Fejl: Du skrev ikke noget navn."

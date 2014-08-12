@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:42+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -407,18 +407,3 @@ msgstr "Una aplicació musical per Ubuntu"
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "música;cançons;temes;reprodueix;reproducció;peces;àlbums;reproductor;"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "No heu escrit cap nom."
-
-#~ msgid "Are you sure?"
-#~ msgstr "N'esteu segur?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Això suprimirà la llista de reproducció."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Error: no heu escrit cap nom."
-
-#~ msgid "Error: "
-#~ msgstr "Error: "

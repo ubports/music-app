@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-06-08 19:11+0000\n"
+"PO-Revision-Date: 2014-08-12 04:51+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -62,7 +62,7 @@ msgstr "Альбоми"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Альбом"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -87,7 +87,7 @@ msgstr[2] "%1 композицій"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Виконавець"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -118,11 +118,11 @@ msgstr "Змінити"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Список відтворення вже існує"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Будь ласка, вкажіть назву."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -130,7 +130,7 @@ msgstr "Скасувати"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Список відтворення"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
@@ -244,7 +244,7 @@ msgstr "Жанри"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Жанр"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -286,7 +286,7 @@ msgstr "Додати до списку відтворення"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Додати до черги"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -412,18 +412,3 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;музика;композиції;пісні;програвач;плеєр;"
 "звук;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Ви впевнені?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Буде вилучено ваш список відтворення."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Ви не вказали назви."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Помилка: ви не вказали назви."
-
-#~ msgid "Error: "
-#~ msgstr "Помилка: "

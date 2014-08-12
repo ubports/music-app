@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -403,18 +403,3 @@ msgstr "កម្មវិធី​ចាក់​តន្ត្រី​សម
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "តន្ត្រី; បទ​ចម្រៀង; ចាក់; បទ; កម្មវិធី​ចាក់; សូរ​សំឡេង;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "តើ​អ្នក​ប្រាកដ​ឬ?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "វា​នឹង​លុប​បញ្ជី​ចាក់​របស់​អ្នក។"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "អ្នក​មិន​បាន​បញ្ចូល​ឈ្មោះ។"
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "កំហុស៖ អ្នក​មិន​បាន​បញ្ចូល​ឈ្មោះ។"
-
-#~ msgid "Error: "
-#~ msgstr "កំហុស៖ "

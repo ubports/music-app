@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 "Language: sv\n"
 
@@ -407,18 +407,3 @@ msgstr "Ett musikprogram för Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "musik;sånger;spela;spår;spelare;låtar"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Är du säker?"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Du fyllde inte i något namn."
-
-#~ msgid "Error: "
-#~ msgstr "Fel: "
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Detta kommer att ta bort din spellista."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Fel: Du skrev inget namn."
