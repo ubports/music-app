@@ -72,7 +72,7 @@ Item {
                  }
 
                  width: parent.width/1.5
-                 placeholderText: "Search"
+                 placeholderText: i18n.tr("Search")
                  hasClearButton: true
                  highlighted: true
                  focus: true
