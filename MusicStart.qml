@@ -39,7 +39,7 @@ MusicPage {
     /* Dev button for search.
     Button {
         id: searchButton
-        text: "Search"
+        text: i18n.tr("Search")
         anchors.top: parent.top
         anchors.topMargin: units.gu(2)
         anchors.bottom: recentlyPlayed.top

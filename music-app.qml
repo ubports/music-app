@@ -939,14 +939,14 @@ MainView {
                         color: styleMusic.libraryEmpty.labelColor
                         fontSize: "large"
                         font.bold: true
-                        text: "No music found"
+                        text: i18n.tr("No music found")
                     }
 
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: styleMusic.libraryEmpty.labelColor
                         fontSize: "medium"
-                        text: "Please import music and restart the app"
+                        text: i18n.tr("Please import music and restart the app")
                     }
                 }
             }
