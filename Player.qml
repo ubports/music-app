@@ -93,8 +93,7 @@ Item {
         console.log("trackQueue.count: " + trackQueue.model.count)
 
         // Do not shuffle if repeat is off and there is only one track in the queue
-        if (shuffle && !(trackQueue.model.count === 1 &&
-                         Settings.getSetting("repeat") === "0")) {
+        if (shuffle && !(trackQueue.model.count === 1 && !repeat)) {
             var now = new Date();
             var seed = now.getSeconds();
 
@@ -107,10 +106,9 @@ Item {
             if ((currentIndex < trackQueue.model.count - 1 && direction === 1 )
                     || (currentIndex > 0 && direction === -1)) {
                 newIndex = currentIndex + direction
-            } else if(direction === 1 && (Settings.getSetting("repeat") === "1"
-                                          || fromControls)) {
+            } else if(direction === 1 && (repeat || fromControls)) {
                 newIndex = 0
-            } else if(direction === -1 && (Settings.getSetting("repeat") === "1" || fromControls)) {
+            } else if(direction === -1 && (repeat || fromControls)) {
                 newIndex = trackQueue.model.count - 1
             }
             else
