@@ -363,8 +363,6 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals(initialtracksCount + 1)))
 
         # Assert that the song added to the list is not playing
-        self.assertThat(self.player.currentIndex,
-                        Eventually(NotEquals(endtracksCount)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view
