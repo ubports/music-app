@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-06-26 04:46+0000\n"
-"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2014-08-12 16:28+0000\n"
+"Last-Translator: Víctor R. Ruiz <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-08-13 06:55+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "Álbumes"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Álbum"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -84,7 +84,7 @@ msgstr[1] "%1 canciones"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -94,7 +94,7 @@ msgstr "En reproducción"
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:37
 msgid "Playlists"
-msgstr "Listas de reproducción"
+msgstr "Listas"
 
 #: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
 msgid "New playlist"
@@ -115,11 +115,11 @@ msgstr "Cambiar"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "La lista ya existe"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Por favor, introduzca un nombre."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -127,7 +127,7 @@ msgstr "Cancelar"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Lista"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
@@ -241,7 +241,7 @@ msgstr "Géneros"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -282,7 +282,7 @@ msgstr "Añadir a la lista de reproducción"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Añadir a la cola"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-07-16 14:52+0000\n"
-"Last-Translator: GunChleoc <Unknown>\n"
+"PO-Revision-Date: 2014-08-13 00:18+0000\n"
+"Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-08-12 06:42+0000\n"
+"X-Launchpad-Export-Date: 2014-08-13 06:55+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 "Language: gd\n"
 
@@ -65,7 +65,7 @@ msgstr "Albaman"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Albam"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -92,7 +92,7 @@ msgstr[3] "%1 òran"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Neach-ciùil"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -123,11 +123,11 @@ msgstr "Atharraich"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Tha an liosta-chluich seo ann mu thràth"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Cuir a-steach ainm."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -135,7 +135,7 @@ msgstr "Sguir dheth"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Liosta-chluiche"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
@@ -251,7 +251,7 @@ msgstr "Gnèithean"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Gnè"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -294,7 +294,7 @@ msgstr "Cuir ris an liosta-chluiche"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Cuir ris a' chiutha"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26

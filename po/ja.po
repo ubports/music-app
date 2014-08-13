@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-04-04 19:22+0000\n"
+"PO-Revision-Date: 2014-08-13 01:56+0000\n"
 "Last-Translator: Shushi Kurose <md81bird@hitaki.net>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-08-13 06:55+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "scrobbleできるようにログイン。"
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -40,19 +40,19 @@ msgstr "ログイン"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr ""
+msgstr "ログインしています..."
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr ""
+msgstr "ログインに成功"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr ""
+msgstr "ログインに失敗"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "ユーザー名またはパスワードが入力されていないようです"
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:378
 msgid "Albums"
@@ -61,7 +61,7 @@ msgstr "アルバム"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "アルバム"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -71,8 +71,7 @@ msgstr "アーティスト"
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 アルバム"
 
 #: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
 #: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
@@ -83,11 +82,11 @@ msgstr[0] "%1 曲"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "アーティスト"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "再生中"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -106,7 +105,7 @@ msgstr "名前を変更"
 
 #: ../MusicPlaylists.qml:64
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "プレイリストの新しい名前を入力してください。"
 
 #: ../MusicPlaylists.qml:77
 msgid "Change"
@@ -126,7 +125,7 @@ msgstr "キャンセル"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "プレイリスト"
 
 #: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
 #: ../music-app.qml:142 ../music-app.qml:148
@@ -139,7 +138,7 @@ msgstr "設定"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "イコライザー"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
@@ -147,7 +146,7 @@ msgstr "デフォルト"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "アコースティック"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -163,7 +162,7 @@ msgstr "フラット"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "ヒップホップ"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
@@ -201,7 +200,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "音楽ストリーミング"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
@@ -230,7 +229,7 @@ msgstr ""
 
 #: ../MusicStart.qml:105
 msgid "Clear History"
-msgstr ""
+msgstr "履歴をクリア"
 
 #: ../MusicStart.qml:224
 msgid "Genres"
@@ -238,11 +237,11 @@ msgstr "ジャンル"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "ジャンル"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
-msgstr ""
+msgstr "曲が再生リストに入っていません"
 
 #: ../MusicToolbar.qml:766
 msgid "Tap play or any item to start"
@@ -254,17 +253,17 @@ msgstr "曲"
 
 #: ../MusicaddtoPlaylist.qml:41
 msgid "Select playlist"
-msgstr ""
+msgstr "プレイリストを選択"
 
 #: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
 #: ../common/SongsPage.qml:152
 msgid "Play all"
-msgstr ""
+msgstr "すべて再生"
 
 #: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
-msgstr ""
+msgstr "再生リストに追加"
 
 #: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
 #, qt-format
@@ -345,7 +344,7 @@ msgstr "戻る"
 
 #: ../music-app.qml:170
 msgid "Go back to last page"
-msgstr ""
+msgstr "最後のページに戻る"
 
 #: ../music-app.qml:178
 msgid "Previous"
@@ -361,11 +360,11 @@ msgstr "停止"
 
 #: ../music-app.qml:185
 msgid "Stop Playback"
-msgstr ""
+msgstr "再生を停止"
 
 #: ../music-app.qml:193
 msgid "Music Settings"
-msgstr ""
+msgstr "音楽の設定"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:278
@@ -374,7 +373,7 @@ msgstr ""
 
 #: ../music-app.qml:279
 msgid "No songs played today"
-msgstr ""
+msgstr "今日再生した曲はありません"
 
 #: ../music-app.qml:387
 msgid "Debug: "
