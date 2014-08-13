@@ -621,7 +621,8 @@ Item {
                         onPositionChanged: {
                             if (musicToolbarFullProgressBarContainer.seeking === false)
                             {
-                                musicToolbarFullPositionLabel.text = durationToString(player.position);
+                                musicToolbarFullPositionLabel.text = durationToString(player.position)
+                                musicToolbarFullDurationLabel.text = durationToString(player.duration)
                                 musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
                                         - musicToolbarFullProgressHandle.width / 2;
                             }
