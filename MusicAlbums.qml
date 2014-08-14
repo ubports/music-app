@@ -69,82 +69,80 @@ MusicPage {
         Component {
             id: albumDelegate
             Item {
+                property string artist: model.artist
+                property string album: model.title
+                property var covers: [{author: model.artist, album: model.title}]
+
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
                 width: albumlist.cellHeight - units.gu(1)
                 anchors.margins: units.gu(1)
-                UbuntuShape {
+
+                CoverRow {
                     id: albumShape
-                    height: albumItem.width
-                    width: albumItem.width
-                    radius: "medium"
-                    image: Image {
-                        id: icon
-                        fillMode: Image.Stretch
-                        source: "image://albumart/artist=" + model.artist + "&album=" + model.title
-                        onStatusChanged: {
-                            if (status === Image.Error) {
-                                source = Qt.resolvedUrl("images/music-app-cover@30.png")
-                            }
-                        }
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        verticalCenter: parent.verticalCenter
                     }
-                    Item {  // Background so can see text in current state
-                        id: albumBg
+                    count: albumItem.covers.length
+                    size: albumItem.width
+                    covers: albumItem.covers
+                    spacing: units.gu(2)
+                }
+                Item {  // Background so can see text in current state
+                    id: albumBg
+                    anchors {
+                        bottom: parent.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(5)
+                    clip: true
+                    UbuntuShape{
                         anchors {
                             bottom: parent.bottom
                             left: parent.left
                             right: parent.right
                         }
-                        height: units.gu(5)
-                        clip: true
-                        UbuntuShape{
-                            anchors {
-                                bottom: parent.bottom
-                                left: parent.left
-                                right: parent.right
-                            }
-                            height: albumShape.height
-                            radius: "medium"
-                            color: styleMusic.common.black
-                            opacity: 0.6
-                        }
-                    }
-                    Label {
-                        id: albumArtist
-                        objectName: "albums-albumartist"
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(1)
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        color: styleMusic.common.white
-                        elide: Text.ElideRight
-                        text: model.artist
-                        fontSize: "x-small"
-                    }
-                    Label {
-                        id: albumLabel
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: units.gu(3)
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1)
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        color: styleMusic.common.white
-                        elide: Text.ElideRight
-                        text: model.title
-                        fontSize: "small"
-                        font.weight: Font.DemiBold
+                        height: albumShape.height
+                        radius: "medium"
+                        color: styleMusic.common.black
+                        opacity: 0.6
                     }
                 }
+                Label {
+                    id: albumArtist
+                    objectName: "albums-albumartist"
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: units.gu(1)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1)
+                    color: styleMusic.common.white
+                    elide: Text.ElideRight
+                    text: model.artist
+                    fontSize: "x-small"
+                }
+                Label {
+                    id: albumLabel
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: units.gu(3)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(1)
+                    anchors.right: parent.right
+                    anchors.rightMargin: units.gu(1)
+                    color: styleMusic.common.white
+                    elide: Text.ElideRight
+                    text: model.title
+                    fontSize: "small"
+                    font.weight: Font.DemiBold
+                }
+
 
                 MouseArea {
                     anchors.fill: parent
-                    onDoubleClicked: {
-                    }
-                    onPressAndHold: {
-                    }
                     onClicked: {
                         songsPage.album = model.title;
                         songsPage.covers = [{author: model.artist, album: model.title}]
@@ -156,6 +154,9 @@ MusicPage {
 
                         mainPageStack.push(songsPage)
                     }
+
+                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                    onPressedChanged: albumShape.pressed = pressed
                 }
             }
         }

@@ -163,7 +163,11 @@ MusicPage {
                     mainPageStack.push(songsPage)
                 }
 
+                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                onPressedChanged: musicRow.pressed = pressed
+
                 MusicRow {
+                    id: musicRow
                     covers: playlist.covers
                     column: Column {
                         spacing: units.gu(1)

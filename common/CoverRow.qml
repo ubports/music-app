@@ -35,6 +35,9 @@ UbuntuShape {
     // Property to set the spacing size, default to units.gu(1)
     property var spacing: units.gu(1)
 
+    // Property to determine if item should appear pressed
+    property bool pressed: false
+
     width: size
     height: size
     radius: "medium"
@@ -75,6 +78,12 @@ UbuntuShape {
         height: width
         anchors.centerIn: parent
         hideSource: true
+    }
+
+    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+    onPressedChanged: {
+       pressed ? borderSource = "radius_pressed.sci"
+               : borderSource = "radius_idle.sci"
     }
 }
 
