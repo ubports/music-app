@@ -108,8 +108,10 @@ class TestMainWindow(MusicTestCase):
             self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
+        self.assertThat(self.main_view.get_queue_track_count(),
+                        Eventually(Equals(initialtracksCount + 1)))
+
         endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
