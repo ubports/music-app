@@ -173,6 +173,9 @@ MusicPage {
                     }
                 }
 
+                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                onPressedChanged: trackImage.pressed = pressed
+
                 Rectangle {
                     id: trackContainer;
                     anchors {
@@ -197,21 +200,19 @@ MusicPage {
                         to: units.gu(0.5)
                     }
 
-                    UbuntuShape {
+                    CoverRow {
                         id: trackImage
-                        anchors.left: parent.left
-                        anchors.leftMargin: units.gu(1.5)
-                        anchors.top: parent.top
-                        height: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
-                        width: height
-                        image: Image {
-                            source: "image://albumart/artist=" + model.author + "&album=" + model.album
-                            onStatusChanged: {
-                                if (status === Image.Error) {
-                                    source = Qt.resolvedUrl("images/music-app-cover@30.png")
-                                }
-                            }
+
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            leftMargin: units.gu(1.5)
                         }
+                        count: 1
+                        size: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
+                        covers: [{author: model.author, album: model.album}]
+
+                        spacing: units.gu(2)
 
                         function calcAnchors() {
                             if (trackImage.height > queuelist.normalHeight && mainView.wideAspect) {
