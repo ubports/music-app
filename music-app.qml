@@ -550,20 +550,6 @@ MainView {
             musicToolbar.showToolbar();
             musicToolbar.startAutohideTimer();
         }
-
-        /*
-        // Debug for getFile() searching on SongsModel
-        for (var i=0; i < getMetaModel.count; i++) {
-            var model = getMetaModel.getFile(getMetaModel.get(i).filename)
-
-            if (Qt.resolvedUrl(model.filename) !== Qt.resolvedUrl(getMetaModel.get(i).filename)) {
-                console.debug("FAILED TO FIND", i, getMetaModel.get(i).filename);
-            }
-            else {
-                console.debug("FOUND", i, getMetaModel.get(i).filename);
-            }
-        }
-        */
     }
 
     // VARIABLES
@@ -1115,7 +1101,6 @@ MainView {
             property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI && trackQueue.model.count === 0
 
             onNoMusicChanged: {
-                console.debug("NO MUSIC!", noMusic)
                 if (noMusic)
                     mainPageStack.push(emptyPage)
                 else if (mainPageStack.currentPage === emptyPage)
