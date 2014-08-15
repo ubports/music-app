@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-13 00:21+0100\n"
-"PO-Revision-Date: 2014-08-11 10:04+0000\n"
+"PO-Revision-Date: 2014-08-14 16:59+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-14 07:37+0000\n"
+"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -24,7 +24,7 @@ msgstr "Last.fm"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr "Logg på for a aktivere innsending"
+msgstr "Logg inn for å sende lyttestatistikk."
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -36,19 +36,19 @@ msgstr "Passord"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr "Logg på"
+msgstr "Logg inn"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr "Prøver å logge på …"
+msgstr "Prøver å logge inn …"
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr "Du er nå logget på"
+msgstr "Du er nå logget inn"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr "Klarte ikke å logge på"
+msgstr "Klarte ikke å logge inn"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
@@ -401,11 +401,11 @@ msgstr "Lag"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "Fant ingen musikk"
 
 #: ../music-app.qml:949
 msgid "Please import music and restart the app"
-msgstr ""
+msgstr "Importer musikk og start programmet på nytt"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-13 00:21+0100\n"
-"PO-Revision-Date: 2014-07-24 13:55+0000\n"
-"Last-Translator: Josef Andersson <Unknown>\n"
+"PO-Revision-Date: 2014-08-14 18:21+0000\n"
+"Last-Translator: Erik Simmesgård <Unknown>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-14 07:37+0000\n"
+"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 "Language: sv\n"
 
@@ -62,7 +62,7 @@ msgstr "Album"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -85,7 +85,7 @@ msgstr[1] "%1 låtar"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Artist"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -242,7 +242,7 @@ msgstr "Genrer"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Genre"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
