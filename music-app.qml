@@ -1093,54 +1093,6 @@ MainView {
             }
         } // end of tabs
 
-        Page {
-            id: emptyPage
-            title: i18n.tr("Music")
-            visible: false
-
-            property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI && trackQueue.model.count === 0
-
-            onNoMusicChanged: {
-                if (noMusic)
-                    mainPageStack.push(emptyPage)
-                else if (mainPageStack.currentPage === emptyPage)
-                    mainPageStack.pop()
-            }
-
-            tools: ToolbarItems {
-                back: null
-                locked: true
-                opened: false
-            }
-
-            // Overlay to show when no tracks detected on the device
-            Rectangle {
-                id: libraryEmpty
-                anchors.fill: parent
-                anchors.topMargin: -emptyPage.header.height
-                color: styleMusic.libraryEmpty.backgroundColor
-
-                Column {
-                    anchors.centerIn: parent
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "large"
-                        font.bold: true
-                        text: i18n.tr("No music found")
-                    }
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "medium"
-                        text: i18n.tr("Please import music and restart the app")
-                    }
-                }
-            }
-        }
-
         SongsPage {
             id: songsPage
         }
@@ -1155,6 +1107,47 @@ MainView {
 
         MusicaddtoPlaylist {
             id: addtoPlaylist
+        }
+    }
+
+    Page {
+        id: emptyPage
+        title: i18n.tr("Music")
+        visible: noMusic
+
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
+
+        tools: ToolbarItems {
+            back: null
+            locked: true
+            opened: false
+        }
+
+        // Overlay to show when no tracks detected on the device
+        Rectangle {
+            id: libraryEmpty
+            anchors.fill: parent
+            anchors.topMargin: -emptyPage.header.height
+            color: styleMusic.libraryEmpty.backgroundColor
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No music found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Please import music and restart the app")
+                }
+            }
         }
     }
 
