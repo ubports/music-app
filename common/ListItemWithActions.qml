@@ -27,6 +27,7 @@ ListItem.Standard {  // CUSTOM
     property list<Action> rightSideActions
     property double defaultHeight: units.gu(8)
     property bool locked: false
+    property bool pressed: false
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
@@ -542,6 +543,9 @@ ListItem.Standard {  // CUSTOM
                 root.itemPressAndHold(mouse)
             }
         }
+
+        onPressedChanged: root.pressed = pressed
+
         z: -1
     }
 }

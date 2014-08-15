@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-07-24 10:11+0000\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"PO-Revision-Date: 2014-08-11 14:09+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:37+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "Álbuns"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Álbum"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -84,7 +84,7 @@ msgstr[1] "%1 músicas"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -115,11 +115,11 @@ msgstr "Alterar"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Lista de reprodução já existe"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Por favor, introduza um nome."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -127,10 +127,10 @@ msgstr "Cancelar"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Lista de reprodução"
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -241,7 +241,7 @@ msgstr "Géneros"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -282,7 +282,7 @@ msgstr "Adicionar à lista de reprodução"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Adicionar à Fila de Reprodução"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -399,6 +399,14 @@ msgstr "Nome"
 msgid "Create"
 msgstr "Criar"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Uma aplicação de música para Ubuntu"
@@ -406,18 +414,3 @@ msgstr "Uma aplicação de música para Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "música;músicas;reproduzir;faixas;leitor;melodias;"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Você não introduziu um nome."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Você tem certeza?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Isto vai apagar a sua lista de reprodução."
-
-#~ msgid "Error: "
-#~ msgstr "Erro: "
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Erro: Você não introduziu um nome."

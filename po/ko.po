@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
 "PO-Revision-Date: 2014-07-18 14:47+0000\n"
 "Last-Translator: MinSik CHO <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:36+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -127,8 +127,8 @@ msgstr "취소"
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "검색"
 
@@ -396,6 +396,14 @@ msgstr "이름"
 msgid "Create"
 msgstr "추가"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "우분투를 위한 음악 애플리케이션"
@@ -403,18 +411,3 @@ msgstr "우분투를 위한 음악 애플리케이션"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "음악;노래;재생;트랙;플레이어;음;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "확실하십니까?"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "이름을 입력하세요."
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "재생목록을 삭제합니다."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "오류: 이름을 입력하지 않으셨습니다."
-
-#~ msgid "Error: "
-#~ msgstr "오류: "

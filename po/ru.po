@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
 "PO-Revision-Date: 2014-07-31 12:00+0000\n"
 "Last-Translator: Павед <pavelgeme2@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:37+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -132,8 +132,8 @@ msgstr "Отменить"
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Поиск"
 
@@ -403,6 +403,14 @@ msgstr "Название"
 msgid "Create"
 msgstr "Создать"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Музыкальное приложение для Ubuntu"
@@ -410,18 +418,3 @@ msgstr "Музыкальное приложение для Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "музыка;песни;воспроизведение;композиции;плеер;мелодии;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Вы уверены?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Данное действие приведёт к удалению плейлиста."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Вы не ввели название."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Ошибка: Вы не ввели имя"
-
-#~ msgid "Error: "
-#~ msgstr "Ошибка: "

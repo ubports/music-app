@@ -30,6 +30,7 @@ Row {
     }
 
     property alias covers: coverRow.covers
+    property alias pressed: coverRow.pressed
     property alias column: columnComponent.sourceComponent
 
     spacing: units.gu(1)

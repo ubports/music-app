@@ -39,7 +39,7 @@ MusicPage {
     /* Dev button for search.
     Button {
         id: searchButton
-        text: "Search"
+        text: i18n.tr("Search")
         anchors.top: parent.top
         anchors.topMargin: units.gu(2)
         anchors.bottom: recentlyPlayed.top
@@ -203,6 +203,9 @@ MusicPage {
 
                             mainPageStack.push(songsPage)
                         }
+
+                        // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                        onPressedChanged: recentShape.pressed = pressed
                     }
                 }
             }
@@ -310,6 +313,9 @@ MusicPage {
 
                             mainPageStack.push(songsPage)
                         }
+
+                        // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                        onPressedChanged: genreShape.pressed = pressed
                     }
                     Item {  // Background so can see text in current state
                         id: genreBg
@@ -441,6 +447,9 @@ MusicPage {
 
                             mainPageStack.push(songsPage)
                         }
+
+                        // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                        onPressedChanged: albumShape.pressed = pressed
                     }
                     Item {  // Background so can see text in current state
                         id: albumBg

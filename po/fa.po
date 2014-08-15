@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-08-03 10:02+0000\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"PO-Revision-Date: 2014-08-14 11:18+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "آلبوم‌ها"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "آلبوم"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -82,7 +82,7 @@ msgstr[0] "%1 آهنگ"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "هنرمند"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -113,11 +113,11 @@ msgstr "تغییر"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "فهرست‌پخش از پیش وجود دارد"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "لطفاُ یک نام بنویسید."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -125,10 +125,10 @@ msgstr "لغو"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "فهرست‌پخش"
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "جست‌وجو"
 
@@ -239,7 +239,7 @@ msgstr "سبک‌ها"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "سبک"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -279,7 +279,7 @@ msgstr "افزودن به فهرست پخش"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "افزودن به صف"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -396,6 +396,14 @@ msgstr "نام"
 msgid "Create"
 msgstr "ساختن"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr "هیچ آهنگی پیدا نشد"
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr "لطفاً آهنگ را وارد کنید و اپ را شروع مجدّد کنید"
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "یک نرم‌افزار موسیقی برای اوبونتو"
@@ -403,18 +411,3 @@ msgstr "یک نرم‌افزار موسیقی برای اوبونتو"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;صداها;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "مطمئن هستید؟"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "این کار فهرست پخشتان را حذف می‌کند."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "نامی وارد نکرده اید."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "خطا: نامی وارد نکرده‌اید."
-
-#~ msgid "Error: "
-#~ msgstr "خطا: "

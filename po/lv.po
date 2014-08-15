@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-06-23 08:33+0000\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"PO-Revision-Date: 2014-08-12 18:46+0000\n"
 "Last-Translator: Jānis-Marks Gailis <jm-gailis@fai-vianet.fr>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:36+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "Albumi"
 #: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
 #: ../common/AlbumsPage.qml:276
 msgid "Album"
-msgstr ""
+msgstr "Albums"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -86,7 +86,7 @@ msgstr[2] "%1 dziesma"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Mākslinieks"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -129,10 +129,10 @@ msgstr "Atcelt"
 
 #: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
 msgid "Playlist"
-msgstr ""
+msgstr "Atskaņošanas saraksts"
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Meklēt"
 
@@ -241,7 +241,7 @@ msgstr "Žanri"
 
 #: ../MusicStart.qml:309
 msgid "Genre"
-msgstr ""
+msgstr "Žanrs"
 
 #: ../MusicToolbar.qml:756
 msgid "No songs queued"
@@ -283,7 +283,7 @@ msgstr "Pievienot dziesmu sarakstam"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Pievienot rindai"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -400,6 +400,14 @@ msgstr "Nosaukums"
 msgid "Create"
 msgstr "Izveidot"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Mūzikas aplikācija Ubuntu videi"
@@ -407,18 +415,3 @@ msgstr "Mūzikas aplikācija Ubuntu videi"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-
-#~ msgid "Are you sure?"
-#~ msgstr "Vai esat pārliecināts?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Šis izdzēsīs jūsu atskaņošanas sarakstu."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Jūs naierakstijāt vārdu."
-
-#~ msgid "Error: "
-#~ msgstr "Kļūda: "
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Kļūda: Jūs neievadījāt nosaukumu."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
 "PO-Revision-Date: 2014-07-04 13:48+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:36+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -129,8 +129,8 @@ msgstr "Encaboxar"
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Guetar"
 
@@ -399,6 +399,14 @@ msgstr "Nome"
 msgid "Create"
 msgstr "Crear"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Aplicación de música pa Ubuntu"
@@ -406,18 +414,3 @@ msgstr "Aplicación de música pa Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "música;canciones;reproducir;pistes;reproductor;temes;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "¿Tas seguru?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Esto va desaniciar la to llista de reproducción."
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Nun s'escribió dengún nome."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Fallu: nun s'introduxo un nome."
-
-#~ msgid "Error: "
-#~ msgstr "Fallu: "

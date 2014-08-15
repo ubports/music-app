@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
-"PO-Revision-Date: 2014-08-11 06:27+0000\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"PO-Revision-Date: 2014-08-14 19:30+0000\n"
 "Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:32+0000\n"
+"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -132,8 +132,8 @@ msgstr "Anulează"
 msgid "Playlist"
 msgstr "Listă de redare"
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Căutare"
 
@@ -405,6 +405,14 @@ msgstr "Nume"
 msgid "Create"
 msgstr "Creează"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr "Nu a fost găsită muzică"
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr "Importați muzică și reporniți aplicația"
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "O aplicație de muzică pentru Ubuntu"
@@ -412,18 +420,3 @@ msgstr "O aplicație de muzică pentru Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "muzică;melodie;redare;piste;player;cântece;"
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Nu ați introdus un nume."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Sigur doriți să continuați?"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Această acțiune va șterge lista de redare."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Eroare: Nu ați introdus un nume."
-
-#~ msgid "Error: "
-#~ msgstr "Eroare: "

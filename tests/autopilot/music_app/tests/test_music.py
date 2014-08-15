@@ -108,8 +108,10 @@ class TestMainWindow(MusicTestCase):
             self.artistName, self.trackTitle)
 
         # verify track queue has added one to initial value
+        self.assertThat(self.main_view.get_queue_track_count(),
+                        Eventually(Equals(initialtracksCount + 1)))
+
         endtracksCount = self.main_view.get_queue_track_count()
-        self.assertThat(endtracksCount, Equals(initialtracksCount + 1))
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
@@ -363,8 +365,6 @@ class TestMainWindow(MusicTestCase):
                         Eventually(Equals(initialtracksCount + 1)))
 
         # Assert that the song added to the list is not playing
-        self.assertThat(self.player.currentIndex,
-                        Eventually(NotEquals(endtracksCount)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view

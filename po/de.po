@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-11 01:07+0100\n"
+"POT-Creation-Date: 2014-08-13 00:21+0100\n"
 "PO-Revision-Date: 2014-07-14 13:42+0000\n"
 "Last-Translator: Phillip Sz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-11 06:31+0000\n"
+"X-Launchpad-Export-Date: 2014-08-14 07:36+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -130,8 +130,8 @@ msgstr "Abbrechen"
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicSearch.qml:44 ../MusicToolbar.qml:519 ../music-app.qml:94
-#: ../music-app.qml:142 ../music-app.qml:148
+#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
+#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
 msgid "Search"
 msgstr "Suchen"
 
@@ -400,6 +400,14 @@ msgstr "Name"
 msgid "Create"
 msgstr "Erstellen"
 
+#: ../music-app.qml:942
+msgid "No music found"
+msgstr ""
+
+#: ../music-app.qml:949
+msgid "Please import music and restart the app"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Eine Musikwiedergabe-Anwendung für Ubuntu"
@@ -407,18 +415,3 @@ msgstr "Eine Musikwiedergabe-Anwendung für Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "Musik;Titel;Alben;Wiedergabe;Abspielen;"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Sind Sie sich sicher?"
-
-#~ msgid "Error: "
-#~ msgstr "Fehler: "
-
-#~ msgid "You didn't type in a name."
-#~ msgstr "Sie haben keinen Namen eingegeben."
-
-#~ msgid "Error: You didn't type a name."
-#~ msgstr "Fehler: Sie haben keinen Namen eingegeben"
-
-#~ msgid "This will delete your playlist."
-#~ msgstr "Dies wird Ihre Wiedergabeliste löschen."
