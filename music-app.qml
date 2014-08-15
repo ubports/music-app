@@ -298,7 +298,8 @@ MainView {
 
     Timer {
         id: contentHubWaitForFile
-        interval: 500
+        interval: 1000
+        triggeredOnStart: false
         repeat: true
 
         property var dialogue: null
@@ -320,10 +321,11 @@ MainView {
             if (!model) {
                 count++;
 
-                if (count >= 20) {  // wait for 10s
+                if (count >= 10) {  // wait for 10s
                     stopTimer();
 
                     console.debug("File was not found", searchPath)
+                    PopupUtils.open(contentHubNotFound, mainView)
                 }
             }
             else {
@@ -353,6 +355,33 @@ MainView {
     }
 
     Component {
+        id: contentHubNotFound
+        Dialog {
+            id: dialogueContentHubNotFound
+
+            Label {
+                color: styleMusic.common.black
+                text: i18n.tr("File not found in index")
+            }
+
+            Button {
+                text: i18n.tr("Wait")
+                onClicked: {
+                    PopupUtils.close(dialogueContentHubNotFound)
+
+                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.start();
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogueContentHubNotFound)
+            }
+        }
+    }
+
+    Component {
         id: contentHubImport
         Dialog {
             id: dialogueContentHubImport
@@ -369,7 +398,7 @@ MainView {
 
             Label {
                 id: contentHubOutput
-                color: "white"
+                color: styleMusic.common.black
                 visible: false // should only be visible when an error is made.
             }
 
@@ -419,7 +448,7 @@ MainView {
                             PopupUtils.close(dialogueContentHubImport)
 
                             contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
-                            contentHubWaitForFile.searchPath = path;
+                            contentHubWaitForFile.searchPath = dir + "/" + filename;
                             contentHubWaitForFile.start();
                         }
                     }
@@ -1083,12 +1112,13 @@ MainView {
             title: i18n.tr("Music")
             visible: false
 
-            property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
+            property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI && trackQueue.model.count === 0
 
             onNoMusicChanged: {
+                console.debug("NO MUSIC!", noMusic)
                 if (noMusic)
                     mainPageStack.push(emptyPage)
-                else if (pageStack.currentPage == emptyPage)
+                else if (mainPageStack.currentPage === emptyPage)
                     mainPageStack.pop()
             }
 
