@@ -110,7 +110,7 @@ MusicPage {
         }
 
         property int normalHeight: units.gu(12)
-        property int currentHeight: units.gu(48)
+        property int currentHeight: units.gu(40)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -209,10 +209,33 @@ MusicPage {
                             leftMargin: units.gu(1.5)
                         }
                         count: 1
-                        size: (queueListItem.state === "current" ? queuelist.currentHeight - units.gu(8) : queuelist.normalHeight) - units.gu(2)
+                        size: (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight) - units.gu(2)
                         covers: [{author: model.author, album: model.album}]
 
                         spacing: units.gu(2)
+
+                        Item {  // Background so can see text in current state
+                            id: albumBg
+                            visible: false
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                right: parent.right
+                            }
+                            height: units.gu(9)
+                            clip: true
+                            UbuntuShape{
+                                anchors {
+                                    bottom: parent.bottom
+                                    left: parent.left
+                                    right: parent.right
+                                }
+                                height: trackImage.height
+                                radius: "medium"
+                                color: styleMusic.common.black
+                                opacity: 0.6
+                            }
+                        }
 
                         function calcAnchors() {
                             if (trackImage.height > queuelist.normalHeight && mainView.wideAspect) {
@@ -288,21 +311,29 @@ MusicPage {
                     }
                     PropertyChanges {
                         target: nowPlayingArtist
-                        width: trackImage.width
-                        x: trackImage.x
-                        y: trackImage.y + trackImage.height + units.gu(0.5)
+                        width: trackImage.width - units.gu(4)
+                        x: trackImage.x + units.gu(2)
+                        y: trackImage.y + trackImage.height - albumBg.height + units.gu(1)
+                        color: styleMusic.common.white
                     }
                     PropertyChanges {
                         target: nowPlayingTitle
-                        width: trackImage.width
-                        x: trackImage.x
+                        width: trackImage.width - units.gu(4)
+                        x: trackImage.x + units.gu(2)
                         y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
+                        color: styleMusic.common.white
+                        font.weight: Font.DemiBold
                     }
                     PropertyChanges {
                         target: nowPlayingAlbum
-                        width: trackImage.width
-                        x: trackImage.x
+                        width: trackImage.width - units.gu(4)
+                        x: trackImage.x + units.gu(2)
                         y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
+                        color: styleMusic.common.white
+                    }
+                    PropertyChanges {
+                        target: albumBg
+                        visible: true
                     }
                 }
                 transitions: Transition {
