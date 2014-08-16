@@ -946,7 +946,7 @@ MainView {
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: styleMusic.libraryEmpty.labelColor
                         fontSize: "medium"
-                        text: i18n.tr("Please import music and restart the app")
+                        text: i18n.tr("Please import music")
                     }
                 }
             }
