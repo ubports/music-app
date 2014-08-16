@@ -117,7 +117,7 @@ MusicPage {
                 id: recentDelegate
                 Item {
                     property string title: model.title
-                    property string title2: model.title2
+                    property string title2: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
                     property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{author: model.title2, album: model.title}]
                     property string type: model.type
                     property string time: model.time
@@ -307,7 +307,7 @@ MusicPage {
                             songsPage.covers = genreShape.covers
                             songsPage.genre = model.genre
                             songsPage.isAlbum = true
-                            songsPage.line1 = "Genre"
+                            songsPage.line1 = i18n.tr("Genre")
                             songsPage.line2 = model.genre
                             songsPage.title = i18n.tr("Genre")
 
