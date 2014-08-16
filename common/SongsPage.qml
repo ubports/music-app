@@ -119,7 +119,7 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
-                text: isAlbum && line1 !== "Genre" ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                text: isAlbum && line1 !== i18n.tr("Genre") ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                                                    : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
             }
@@ -158,11 +158,11 @@ MusicPage {
                     onClicked: {
                         trackClicked(albumtrackslist.model, 0)  // play track
 
-                        if (isAlbum && songStackPage.line1 !== "Genre") {
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
-                        } else if (songStackPage.line1 === "Playlist") {
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                             Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
                             mainView.hasRecent = true
                             recentModel.filterRecent()
@@ -220,9 +220,9 @@ MusicPage {
                 progression: false
                 height: styleMusic.common.itemHeight
 
-                leftSideAction: songStackPage.line1 === "Playlist"
+                leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
                                 ? playlistRemoveAction.item : null
-                reorderable: songStackPage.line1 === "Playlist"
+                reorderable: songStackPage.line1 === i18n.tr("Playlist")
                 rightSideActions: [
                     AddToQueue {
 
@@ -236,11 +236,11 @@ MusicPage {
                 onItemClicked: {
                     trackClicked(albumtrackslist.model, index)  // play track
 
-                    if (isAlbum && songStackPage.line1 !== "Genre") {
+                    if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                         Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
                         mainView.hasRecent = true
                         recentModel.filterRecent()
-                    } else if (songStackPage.line1 === "Playlist") {
+                    } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                         Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
                         mainView.hasRecent = true
                         recentModel.filterRecent()

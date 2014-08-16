@@ -155,7 +155,7 @@ MusicPage {
                 onItemClicked: {
                     albumTracksModel.filterPlaylistTracks(name)
                     songsPage.isAlbum = false
-                    songsPage.line1 = "Playlist"
+                    songsPage.line1 = i18n.tr("Playlist")
                     songsPage.line2 = model.name
                     songsPage.covers =  playlist.covers
                     songsPage.title = i18n.tr("Playlist")
