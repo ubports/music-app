@@ -264,7 +264,7 @@ function getPlaylistCovers(playlist, max) {
                     album: rs.rows.item(i).album
                 }
 
-                if (res.indexOf(row) === -1) {
+                if (find(res, row) === null) {
                     res.push(row)
                 }
             }
@@ -274,6 +274,18 @@ function getPlaylistCovers(playlist, max) {
     }
 
     return res
+}
+
+function find(arraytosearch, object) {
+
+    for (var i = 0; i < arraytosearch.length; i++) {
+
+        if (arraytosearch[i]["author"] == object["author"] &&
+            arraytosearch[i]["album"] == object["album"]) {
+            return i;
+        }
+    }
+    return null;
 }
 
 function renamePlaylist(from, to) {
