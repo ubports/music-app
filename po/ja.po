@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"POT-Creation-Date: 2014-08-16 12:07-0500\n"
 "PO-Revision-Date: 2014-08-14 07:07+0000\n"
 "Last-Translator: Kentaro Kazuhama <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -54,12 +54,12 @@ msgstr "ログインに失敗"
 msgid "You forgot to set your username and/or password"
 msgstr "ユーザー名またはパスワードが入力されていないようです"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:378
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
 msgid "Albums"
 msgstr "アルバム"
 
-#: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
-#: ../common/AlbumsPage.qml:276
+#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
+#: ../common/AlbumsPage.qml:274
 msgid "Album"
 msgstr "アルバム"
 
@@ -73,8 +73,8 @@ msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 アルバム"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
-#: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
+#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -123,7 +123,10 @@ msgstr "名前を入力してください。"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
+#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
+#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
+#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
+#: ../common/SongsPage.qml:243
 msgid "Playlist"
 msgstr "プレイリスト"
 
@@ -233,21 +236,18 @@ msgstr "最近再生したファイル"
 msgid "Clear History"
 msgstr "履歴をクリア"
 
-#: ../MusicStart.qml:224
+#: ../MusicStart.qml:227
 msgid "Genres"
 msgstr "ジャンル"
 
-#: ../MusicStart.qml:309
+#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
+#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
 msgstr "ジャンル"
 
-#: ../MusicToolbar.qml:756
-msgid "No songs queued"
-msgstr "曲が再生リストに入っていません"
-
-#: ../MusicToolbar.qml:766
-msgid "Tap play or any item to start"
-msgstr "始めるにはタップしてください"
+#: ../MusicToolbar.qml:760
+msgid "Tap play to shuffle music"
+msgstr ""
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -257,17 +257,17 @@ msgstr "曲"
 msgid "Select playlist"
 msgstr "プレイリストを選択"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
+#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
 #: ../common/SongsPage.qml:152
 msgid "Play all"
 msgstr "すべて再生"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
+#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
 msgstr "再生リストに追加"
 
-#: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
+#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
@@ -401,8 +401,8 @@ msgid "No music found"
 msgstr "曲が見つかりません"
 
 #: ../music-app.qml:949
-msgid "Please import music and restart the app"
-msgstr "曲をインポートするかアプリを再起動してください"
+msgid "Please import music"
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -411,3 +411,9 @@ msgstr "Ubuntuのミュージックアプリ"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "music;songs;play;tracks;player;tunes;ミュージック;音楽;楽曲;再生;トラック;プレーヤー;"
+
+#~ msgid "No songs queued"
+#~ msgstr "曲が再生リストに入っていません"
+
+#~ msgid "Tap play or any item to start"
+#~ msgstr "始めるにはタップしてください"

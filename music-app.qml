@@ -739,10 +739,8 @@ MainView {
     }
 
     SongsModel {
-        property bool populated: false
         id: allSongsModel
         store: musicStore
-        onFilled: populated = true
     }
 
     SongsModel {
@@ -1165,7 +1163,7 @@ MainView {
         title: i18n.tr("Music")
         visible: noMusic
 
-        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === allSongsModel.Ready && loadedUI
 
         tools: ToolbarItems {
             back: null

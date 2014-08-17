@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"POT-Creation-Date: 2014-08-16 12:07-0500\n"
 "PO-Revision-Date: 2014-08-14 11:18+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -54,12 +54,12 @@ msgstr "ورود شکست خورد"
 msgid "You forgot to set your username and/or password"
 msgstr "یادتان رفت نام کاربری و/یا گذرواژه‌تان را تنظیم کنید"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:378
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
 msgid "Albums"
 msgstr "آلبوم‌ها"
 
-#: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
-#: ../common/AlbumsPage.qml:276
+#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
+#: ../common/AlbumsPage.qml:274
 msgid "Album"
 msgstr "آلبوم"
 
@@ -73,8 +73,8 @@ msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 آلبوم"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
-#: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
+#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -123,7 +123,10 @@ msgstr "لطفاُ یک نام بنویسید."
 msgid "Cancel"
 msgstr "لغو"
 
-#: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
+#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
+#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
+#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
+#: ../common/SongsPage.qml:243
 msgid "Playlist"
 msgstr "فهرست‌پخش"
 
@@ -233,21 +236,18 @@ msgstr "اخیر"
 msgid "Clear History"
 msgstr "پاک‌کردن تاریخچه"
 
-#: ../MusicStart.qml:224
+#: ../MusicStart.qml:227
 msgid "Genres"
 msgstr "سبک‌ها"
 
-#: ../MusicStart.qml:309
+#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
+#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
 msgstr "سبک"
 
-#: ../MusicToolbar.qml:756
-msgid "No songs queued"
-msgstr "آهنگی صف نشده است"
-
-#: ../MusicToolbar.qml:766
-msgid "Tap play or any item to start"
-msgstr "برای شروع، دکمه‌ی پخش یا هر موردی را بزنید"
+#: ../MusicToolbar.qml:760
+msgid "Tap play to shuffle music"
+msgstr ""
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -257,17 +257,17 @@ msgstr "آهنگ‌ها"
 msgid "Select playlist"
 msgstr "انتخاب فهرست پخش"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
+#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
 #: ../common/SongsPage.qml:152
 msgid "Play all"
 msgstr "پخش همه"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
+#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
 msgstr "افزودن به صف"
 
-#: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
+#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
@@ -401,8 +401,8 @@ msgid "No music found"
 msgstr "هیچ آهنگی پیدا نشد"
 
 #: ../music-app.qml:949
-msgid "Please import music and restart the app"
-msgstr "لطفاً آهنگ را وارد کنید و اپ را شروع مجدّد کنید"
+msgid "Please import music"
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -411,3 +411,9 @@ msgstr "یک نرم‌افزار موسیقی برای اوبونتو"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;صداها;"
+
+#~ msgid "No songs queued"
+#~ msgstr "آهنگی صف نشده است"
+
+#~ msgid "Tap play or any item to start"
+#~ msgstr "برای شروع، دکمه‌ی پخش یا هر موردی را بزنید"

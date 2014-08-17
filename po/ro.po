@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-13 00:21+0100\n"
-"PO-Revision-Date: 2014-08-14 19:30+0000\n"
+"POT-Creation-Date: 2014-08-16 12:07-0500\n"
+"PO-Revision-Date: 2014-08-17 04:51+0000\n"
 "Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-08-15 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -55,12 +55,12 @@ msgstr "Autentificarea a eșuat"
 msgid "You forgot to set your username and/or password"
 msgstr "Ați uitat să configurați numele de utilizator și parola"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:378
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
 msgid "Albums"
 msgstr "Albume"
 
-#: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
-#: ../common/AlbumsPage.qml:276
+#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
+#: ../common/AlbumsPage.qml:274
 msgid "Album"
 msgstr "Album"
 
@@ -76,8 +76,8 @@ msgstr[0] "%1 album"
 msgstr[1] "%1 albume"
 msgstr[2] "%1 de albume"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
-#: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
+#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -128,7 +128,10 @@ msgstr "Introduceți un nume."
 msgid "Cancel"
 msgstr "Anulează"
 
-#: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
+#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
+#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
+#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
+#: ../common/SongsPage.qml:243
 msgid "Playlist"
 msgstr "Listă de redare"
 
@@ -240,21 +243,18 @@ msgstr "Recente"
 msgid "Clear History"
 msgstr "Șterge istoricul"
 
-#: ../MusicStart.qml:224
+#: ../MusicStart.qml:227
 msgid "Genres"
 msgstr "Genuri"
 
-#: ../MusicStart.qml:309
+#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
+#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
 msgstr "Gen"
 
-#: ../MusicToolbar.qml:756
-msgid "No songs queued"
-msgstr "Nicio melodie selectată"
-
-#: ../MusicToolbar.qml:766
-msgid "Tap play or any item to start"
-msgstr "Pentru a începe apăsați butonul de redare sau orice alt element"
+#: ../MusicToolbar.qml:760
+msgid "Tap play to shuffle music"
+msgstr "Atingeți butonul de redare pentru a amesteca melodiile"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -264,17 +264,17 @@ msgstr "Melodii"
 msgid "Select playlist"
 msgstr "Selectați lista de redare"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
+#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
 #: ../common/SongsPage.qml:152
 msgid "Play all"
 msgstr "Redă tot"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
+#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
 msgstr "Adaugă la selecție"
 
-#: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
+#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
@@ -410,8 +410,8 @@ msgid "No music found"
 msgstr "Nu a fost găsită muzică"
 
 #: ../music-app.qml:949
-msgid "Please import music and restart the app"
-msgstr "Importați muzică și reporniți aplicația"
+msgid "Please import music"
+msgstr "Importați muzică"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -420,3 +420,9 @@ msgstr "O aplicație de muzică pentru Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "muzică;melodie;redare;piste;player;cântece;"
+
+#~ msgid "No songs queued"
+#~ msgstr "Nicio melodie selectată"
+
+#~ msgid "Tap play or any item to start"
+#~ msgstr "Pentru a începe apăsați butonul de redare sau orice alt element"
