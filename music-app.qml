@@ -508,21 +508,19 @@ MainView {
     SongsModel {
         id: songsAlbumArtistModel
         store: musicStore
-        onStatusChanged: {
-            if (status === songsAlbumArtistModel.Ready) {
-                // Play album it tracks exist
-                if (rowCount > 0 && selectedAlbum) {
-                    trackClicked(songsAlbumArtistModel, 0, true, true);
-                } else if (selectedAlbum) {
-                    console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
-                }
-
-                selectedAlbum = false;
-
-                // Clear filter for artist and album
-                songsAlbumArtistModel.artist = ""
-                songsAlbumArtistModel.album = ""
+        onFilled: {
+            // Play album it tracks exist
+            if (rowCount > 0 && selectedAlbum) {
+                trackClicked(songsAlbumArtistModel, 0, true, true);
+            } else if (selectedAlbum) {
+                console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
             }
+
+            selectedAlbum = false;
+
+            // Clear filter for artist and album
+            songsAlbumArtistModel.artist = ""
+            songsAlbumArtistModel.album = ""
         }
     }
 
