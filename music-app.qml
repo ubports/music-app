@@ -281,6 +281,7 @@ MainView {
     }
 
     Connections {
+        id: contentHub
         target: ContentHub
         onImportRequested: {
             activeTransfer = transfer;
@@ -288,10 +289,68 @@ MainView {
                 importItems = activeTransfer.items;
 
                 // Assumes only 1 file to import for now
-                var dialogue = PopupUtils.open(contentHubImport, mainView)
-                dialogue.contentItem = importItems[0];
+                //var dialogue = PopupUtils.open(contentHubImport, mainView)
+                //dialogue.contentItem = importItems[0];
 
-                console.debug("Triggered content-hub import for item", importItems[0].url)
+                var url = importItems[0].url.toString()
+                console.debug("Triggered content-hub import for item", url)
+
+                var path = "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + url.split("/").pop()
+                var out = contentHub.importFile(importItems[0], path)
+
+                if (out === true) {
+                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.searchPath = contentHub.searchPath;
+                    contentHubWaitForFile.start();
+                }
+                else {
+                    var errorDialogue = PopupUtils.open(contentHubError, mainView)
+                    errorDialogue.errorText = out
+                }
+            }
+        }
+
+        property string searchPath: ""
+
+        function importFile(contentItem, path) {
+            var contentUrl = contentItem.url.toString()
+
+            if (path.indexOf("~/Music/") !== 0) {
+                console.debug("Invalid dest (not in ~/Music/)")
+                return i18n.tr("Filepath must start with ~/Music/")
+            }
+            else {
+                // extract /home/$USER (or $HOME) from contentitem url
+                var homepath = contentUrl.substring(7).split("/");
+
+                if (homepath[1] === "home") {
+                    homepath.splice(3, homepath.length - 3)
+                    homepath = homepath.join("/")
+                }
+                else {
+                    console.debug("/home/$USER not detecting in contentItem assuming /home/phablet/")
+                    homepath = "/home/phablet"
+                }
+
+                console.debug("Move:", contentUrl, "to", path)
+
+                // Extract filename from path and replace ~ with $HOME
+                var dir = path.split("/")
+                var filename = dir.pop()
+                dir = dir.join("/").replace("~/", homepath + "/")
+
+                if (filename === "") {
+                    console.debug("Invalid dest (filename blank)")
+                    return i18n.tr("Filepath must be a file")
+                }
+                else if (!contentItem.move(dir, filename)) {
+                    console.debug("Move failed! DIR:", dir, "FILE:", filename)
+                    return i18n.tr("Failed to move file")
+                }
+                else {
+                    contentHub.searchPath = dir + "/" + filename
+                    return true
+                }
             }
         }
     }
@@ -355,6 +414,25 @@ MainView {
     }
 
     Component {
+        id: contentHubError
+        Dialog {
+            id: dialogueContentHubError
+
+            property alias errorText: errorLabel.text
+
+            Label {
+                id: errorLabel
+                color: styleMusic.common.black
+            }
+
+            Button {
+                text: i18n.tr("OK")
+                onClicked: PopupUtils.close(dialogueContentHubError)
+            }
+        }
+    }
+
+    Component {
         id: contentHubNotFound
         Dialog {
             id: dialogueContentHubNotFound
@@ -392,8 +470,7 @@ MainView {
 
             TextField {
                 id: pathField
-                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" +
-                      (contentItem === undefined ? "" : contentItem.url.toString().split("/").pop())
+                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + contentItem.url.split("/").pop()
             }
 
             Label {
@@ -405,52 +482,20 @@ MainView {
             Button {
                 text: i18n.tr("Import")
                 onClicked: {
-
                     contentHubOutput.visible = false
 
-                    if (pathField.text.toString().indexOf("~/Music/") !== 0) {
-                        console.debug("Invalid dest (not in ~/Music/)")
-                        contentHubOutput.visible = true
-                        contentHubOutput.text = i18n.tr("Filepath must start with ~/Music/")
+                    var out = contentHub.importFile(contentItem, pathField.text.toString())
+
+                    if (out === true) {
+                        PopupUtils.close(dialogueContentHubImport)
+
+                        contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                        contentHubWaitForFile.searchPath = contentHub.searchPath;
+                        contentHubWaitForFile.start();
                     }
                     else {
-                        // extract /home/$USER (or $HOME) from contentitem url
-                        var homepath = contentItem.url.toString().substring(7).split("/");
-
-                        if (homepath[1] === "home") {
-                            homepath.splice(3, homepath.length - 3)
-                            homepath = homepath.join("/")
-                        }
-                        else {
-                            console.debug("/home/$USER not detecting in contentItem assuming /home/phablet/")
-                            homepath = "/home/phablet"
-                        }
-
-                        var path = pathField.text.toString()  // target destination
-                        console.debug("Move:", contentItem.url.toString(), "to", path)
-
-                        // Extract filename from path and replace ~ with $HOME
-                        var dir = path.split("/")
-                        var filename = dir.pop()
-                        dir = dir.join("/").replace("~/", homepath + "/")
-
-                        if (filename === "") {
-                            console.debug("Invalid dest (filename blank)")
-                            contentHubOutput.visible = true
-                            contentHubOutput.text = i18n.tr("Filepath must be a file")
-                        }
-                        else if (!contentItem.move(dir, filename)) {
-                            console.debug("Move failed! DIR:", dir, "FILE:", filename)
-                            contentHubOutput.visible = true
-                            contentHubOutput.text = i18n.tr("Failed to move file")
-                        }
-                        else {
-                            PopupUtils.close(dialogueContentHubImport)
-
-                            contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
-                            contentHubWaitForFile.searchPath = dir + "/" + filename;
-                            contentHubWaitForFile.start();
-                        }
+                        contentHubOutput.visible = true
+                        contentHubOutput.text = out
                     }
                 }
             }
