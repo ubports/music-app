@@ -133,7 +133,7 @@ MusicPage {
                     onTriggered: {
                         if (queuelist.count === 1) {
                             player.stop()
-                            mainPageStack.pop()
+                            musicToolbar.goBack()
                         } else if (index === player.currentIndex) {
                             player.nextSong(player.isPlaying);
                         }

@@ -96,7 +96,7 @@ Item {
             mainPageStack.pop(currentPage)
         }
 
-        hideToolbar();
+        musicToolbar.startAutohideTimer()
     }
 
     // Hide the toolbar
