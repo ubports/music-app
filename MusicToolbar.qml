@@ -750,21 +750,17 @@ Item {
 
                     Label {
                         id: noSongsInQueueLabel
-                        anchors.left: parent.left
-                        anchors.margins: units.gu(1)
-                        anchors.top: parent.top
+                        anchors {
+                            left: parent.left
+                            right: disabledPlayerControlsPlayButton.left
+                            margins: units.gu(1)
+                            top: parent.top
+                        }
                         color: styleMusic.playerControls.labelColor
-                        text: i18n.tr("No songs queued")
+                        text: i18n.tr("Tap play to shuffle music")
                         fontSize: "large"
-                    }
-
-                    Label {
-                        id: tabToStartPlayingLabel
-                        color: styleMusic.playerControls.labelColor
-                        anchors.left: parent.left
-                        anchors.margins: units.gu(1)
-                        anchors.top: noSongsInQueueLabel.bottom
-                        text: i18n.tr("Tap play or any item to start")
+                        wrapMode: Text.WordWrap
+                        maximumLineCount: 2
                     }
 
                     Rectangle {

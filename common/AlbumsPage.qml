@@ -82,7 +82,7 @@ MusicPage {
                             left: parent.left
                             right: parent.right
                         }
-                        height: units.gu(10)
+                        height: units.gu(11)
                         clip: true
                         UbuntuShape{
                             anchors {
@@ -117,7 +117,7 @@ MusicPage {
                             left: parent.left
                             leftMargin: units.gu(1)
                             bottom: parent.bottom
-                            bottomMargin: units.gu(5)
+                            bottomMargin: units.gu(4.5)
                             right: parent.right
                             rightMargin: units.gu(1)
                         }

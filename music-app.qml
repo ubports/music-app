@@ -217,6 +217,11 @@ MainView {
             // Filter by artist and album
             songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
+
+            // Add album to recent list
+            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, null, songsAlbumArtistModel.album, "album")
+            mainView.hasRecent = true
+            recentModel.filterRecent()
         }
 
         function processFile(uri, play) {
@@ -1190,7 +1195,7 @@ MainView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
                     fontSize: "medium"
-                    text: i18n.tr("Please import music and restart the app")
+                    text: i18n.tr("Please import music")
                 }
             }
         }
