@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-13 00:21+0100\n"
+"POT-Creation-Date: 2014-08-16 12:07-0500\n"
 "PO-Revision-Date: 2014-07-24 08:42+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2014-08-14 07:37+0000\n"
+"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -55,12 +55,12 @@ msgstr "Prijava je spodletela"
 msgid "You forgot to set your username and/or password"
 msgstr "Pozabili ste nastaviti uporabniško ime in/ali geslo"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:378
+#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
 msgid "Albums"
 msgstr "Albumi"
 
-#: ../MusicAlbums.qml:155 ../MusicStart.qml:202 ../MusicStart.qml:440
-#: ../common/AlbumsPage.qml:276
+#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
+#: ../common/AlbumsPage.qml:274
 msgid "Album"
 msgstr ""
 
@@ -77,8 +77,8 @@ msgstr[1] "%1 album"
 msgstr[2] "%1 albuma"
 msgstr[3] "%1 albumi"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:174 ../MusicStart.qml:359
-#: ../MusicaddtoPlaylist.qml:102 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
+#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -130,7 +130,10 @@ msgstr ""
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: ../MusicPlaylists.qml:161 ../MusicStart.qml:202
+#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
+#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
+#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
+#: ../common/SongsPage.qml:243
 msgid "Playlist"
 msgstr ""
 
@@ -240,21 +243,18 @@ msgstr "Nedavno"
 msgid "Clear History"
 msgstr "Počisti zgodovino"
 
-#: ../MusicStart.qml:224
+#: ../MusicStart.qml:227
 msgid "Genres"
 msgstr "Zvrsti"
 
-#: ../MusicStart.qml:309
+#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
+#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
 msgstr ""
 
-#: ../MusicToolbar.qml:756
-msgid "No songs queued"
-msgstr "Ni skladb v čakalni vrsti"
-
-#: ../MusicToolbar.qml:766
-msgid "Tap play or any item to start"
-msgstr "Tapnite na predvajanje ali drug predmet za začetek"
+#: ../MusicToolbar.qml:760
+msgid "Tap play to shuffle music"
+msgstr ""
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -264,17 +264,17 @@ msgstr "Skladbe"
 msgid "Select playlist"
 msgstr "Izberite seznam predvajanja"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:357
+#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
 #: ../common/SongsPage.qml:152
 msgid "Play all"
 msgstr "Predvajaj vse"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:397
+#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
 #: ../common/SongsPage.qml:199 ../music-app.qml:665
 msgid "Add to queue"
 msgstr "Dodaj v vrsto"
 
-#: ../common/AlbumsPage.qml:327 ../common/SongsPage.qml:122
+#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
@@ -411,7 +411,7 @@ msgid "No music found"
 msgstr ""
 
 #: ../music-app.qml:949
-msgid "Please import music and restart the app"
+msgid "Please import music"
 msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
@@ -421,3 +421,9 @@ msgstr "Glasbeni program za Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "glasba;skladbe;predvajaj;sledi;predvajalnik;melodije;"
+
+#~ msgid "No songs queued"
+#~ msgstr "Ni skladb v čakalni vrsti"
+
+#~ msgid "Tap play or any item to start"
+#~ msgstr "Tapnite na predvajanje ali drug predmet za začetek"
