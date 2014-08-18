@@ -15,16 +15,16 @@ import logging
 import music_app
 
 import fixtures
-from music_app import emulators
+from music_app import MainView
 
 from autopilot import logging as autopilot_logging
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
+import ubuntuuitoolkit
 from ubuntuuitoolkit import (
     base,
-    emulators as toolkit_emulators,
     fixture_setup as toolkit_fixtures
 )
 
@@ -75,7 +75,7 @@ class MusicTestCase(AutopilotTestCase):
             self.local_location,
             "debug",
             app_type='qt',
-            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_installed(self):
@@ -84,13 +84,13 @@ class MusicTestCase(AutopilotTestCase):
             self.installed_location,
             "debug",
             app_type='qt',
-            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_click(self):
         self.app = self.launch_click_package(
             "com.ubuntu.music",
-            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
     def _copy_xauthority_file(self, directory):
         """ Copy .Xauthority file to directory, if it exists in /home
@@ -251,4 +251,4 @@ class MusicTestCase(AutopilotTestCase):
 
     @property
     def main_view(self):
-        return self.app.select_single(emulators.MainView)
+        return self.app.select_single(MainView)
