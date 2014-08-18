@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-12 04:51+0000\n"
+"PO-Revision-Date: 2014-08-17 14:52+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:39+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:20+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -252,7 +252,7 @@ msgstr "Жанр"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Торкніться кнопки відтворення, щоб перемішати композиції"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -405,11 +405,11 @@ msgstr "Створити"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "Музики не знайдено"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "Будь ласка, імпортуйте музичні твори"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -420,9 +420,3 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;музика;композиції;пісні;програвач;плеєр;"
 "звук;"
-
-#~ msgid "No songs queued"
-#~ msgstr "У черзі немає композицій"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Натисніть кнопку «Відтворити» або пункт, щоб почати відтворення"

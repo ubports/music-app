@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-14 19:45+0000\n"
+"PO-Revision-Date: 2014-08-17 08:23+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -249,7 +249,7 @@ msgstr "Xénero"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Toque para reproducir música ao chou"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -405,7 +405,7 @@ msgstr "Non foi posíbel atopar música"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "Importar música"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -414,9 +414,3 @@ msgstr "Aplicativo de música para Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "música;cancións;reproducir;pistas;reprodutor;tons;"
-
-#~ msgid "No songs queued"
-#~ msgstr "Non hai cancións na cola"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Toque para reproducir ou outro elemento para iniciar"

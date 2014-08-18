@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-14 18:21+0000\n"
-"Last-Translator: Erik Simmesgård <Unknown>\n"
+"PO-Revision-Date: 2014-08-18 00:00+0000\n"
+"Last-Translator: Daniel Holm <d.holmen@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 "Language: sv\n"
 
@@ -116,11 +116,11 @@ msgstr "Ändra"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Spellistan finns redan"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Fyll i ett namn."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -131,7 +131,7 @@ msgstr "Avbryt"
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Spellista"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
@@ -250,7 +250,7 @@ msgstr "Genre"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Tryck på spela för att blanda musik"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -283,7 +283,7 @@ msgstr "Lägg till i spellista"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Lägg till i spelkön"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -402,11 +402,11 @@ msgstr "Skapa"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "Ingen musik funnen"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "Importera musik"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -415,9 +415,3 @@ msgstr "Ett musikprogram för Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "musik;sånger;spela;spår;spelare;låtar"
-
-#~ msgid "No songs queued"
-#~ msgstr "Inga låtar i kö"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Tryck på spela upp eller något annat objekt för att börja"

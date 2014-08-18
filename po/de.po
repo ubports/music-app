@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-07-14 13:42+0000\n"
-"Last-Translator: Phillip Sz <Unknown>\n"
+"PO-Revision-Date: 2014-08-17 17:38+0000\n"
+"Last-Translator: Christian Gärtner <chrisdagardner@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -62,7 +62,7 @@ msgstr "Alben"
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -85,7 +85,7 @@ msgstr[1] "%1 Titel"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Künstler"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -116,11 +116,11 @@ msgstr "Ändern"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Wiedergabeliste existiert bereits"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "Bitte geben Sie einen Namen ein."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -131,7 +131,7 @@ msgstr "Abbrechen"
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Wiedergabeliste"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
@@ -246,7 +246,7 @@ msgstr "Genres"
 #: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
 #: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
-msgstr ""
+msgstr "Musikrichtung"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
@@ -283,7 +283,7 @@ msgstr "Zur Wiedergabeliste hinzufügen"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "In die Warteschlange aufnehmen"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -402,11 +402,11 @@ msgstr "Erstellen"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "Es konnte keine Musik gefunden werden"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "Bitte importieren Sie Musik"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -415,9 +415,3 @@ msgstr "Eine Musikwiedergabe-Anwendung für Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "Musik;Titel;Alben;Wiedergabe;Abspielen;"
-
-#~ msgid "No songs queued"
-#~ msgstr "Keine Titel in der Warteschlange"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Zum Starten Wiedergabe oder ein anderes Element antippen"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-14 11:18+0000\n"
+"PO-Revision-Date: 2014-08-17 09:22+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -247,7 +247,7 @@ msgstr "سبک"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "برای بر زدن آهنگ‌ها دکمه‌ی پخش را بزنید"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -402,7 +402,7 @@ msgstr "هیچ آهنگی پیدا نشد"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "لطفاً آهنگ‌ها را وارد کنید"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -411,9 +411,3 @@ msgstr "یک نرم‌افزار موسیقی برای اوبونتو"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;صداها;"
-
-#~ msgid "No songs queued"
-#~ msgstr "آهنگی صف نشده است"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "برای شروع، دکمه‌ی پخش یا هر موردی را بزنید"

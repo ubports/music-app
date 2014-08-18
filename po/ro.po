@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-18 07:19+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -420,9 +420,3 @@ msgstr "O aplicație de muzică pentru Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "muzică;melodie;redare;piste;player;cântece;"
-
-#~ msgid "No songs queued"
-#~ msgstr "Nicio melodie selectată"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Pentru a începe apăsați butonul de redare sau orice alt element"
