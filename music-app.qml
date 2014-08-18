@@ -444,7 +444,7 @@ MainView {
 
             Label {
                 color: styleMusic.common.black
-                text: i18n.tr("File not found in index")
+                text: i18n.tr("Imported file not found")
             }
 
             Button {
