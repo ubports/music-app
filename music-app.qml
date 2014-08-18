@@ -741,6 +741,9 @@ MainView {
     SongsModel {
         id: allSongsModel
         store: musicStore
+        onFilled: populated = true
+
+        property bool populated: false
     }
 
     SongsModel {
@@ -1163,7 +1166,8 @@ MainView {
         title: i18n.tr("Music")
         visible: noMusic
 
-        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === allSongsModel.Ready && loadedUI
+        // FIXME: use allSongsModel.status === allSongsModel.Ready when lp:1358275 is resolved
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
 
         tools: ToolbarItems {
             back: null
