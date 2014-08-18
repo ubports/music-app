@@ -300,7 +300,7 @@ MainView {
                 var url = importItems[0].url.toString()
                 console.debug("Triggered content-hub import for item", url)
 
-                var path = "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + url.split("/").pop()
+                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
                 var out = contentHub.importFile(importItems[0], path)
 
                 if (out === true) {
