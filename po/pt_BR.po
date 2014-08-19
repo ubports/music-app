@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-13 05:16+0000\n"
-"Last-Translator: Tiago Hillebrandt <tiagohillebrandt@gmail.com>\n"
+"PO-Revision-Date: 2014-08-18 13:24+0000\n"
+"Last-Translator: Salomão Carneiro de Brito <salomaocar@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:39+0000\n"
+"X-Launchpad-Export-Date: 2014-08-19 06:58+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -249,7 +249,7 @@ msgstr "Gênero"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Toque em reproduzir para embaralhar músicas"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -282,7 +282,7 @@ msgstr "Adicionar à lista de reprodução"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Adicionar à fila de reprodução"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -401,11 +401,11 @@ msgstr "Criar"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "Nenhuma música encontrada"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "Por favor, importar músicas"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -414,9 +414,3 @@ msgstr "Aplicativo de musica para o Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "música;músicas;tocar;faixas;player;tons;"
-
-#~ msgid "No songs queued"
-#~ msgstr "Sem músicas na fila"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Pressione Tocar ou em qualquer item para iniciar"

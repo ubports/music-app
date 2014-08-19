@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-07-18 14:47+0000\n"
+"PO-Revision-Date: 2014-08-19 05:10+0000\n"
 "Last-Translator: MinSik CHO <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-19 06:58+0000\n"
 "X-Generator: Launchpad (build 17156)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "앨범"
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "앨범"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -82,7 +82,7 @@ msgstr[0] "%1 노래"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "음악가"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -113,11 +113,11 @@ msgstr "수정"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:732
 msgid "Playlist already exists"
-msgstr ""
+msgstr "재생목록이 이미 존재합니다"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:737
 msgid "Please type in a name."
-msgstr ""
+msgstr "이름을 입력하세요."
 
 #: ../MusicPlaylists.qml:104 ../music-app.qml:743
 msgid "Cancel"
@@ -128,7 +128,7 @@ msgstr "취소"
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "재생목록"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
@@ -243,11 +243,11 @@ msgstr "장르"
 #: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
 #: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
-msgstr ""
+msgstr "장르"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "음악을 임의 재생하려면 터치하세요"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -279,7 +279,7 @@ msgstr "재생 목록에 추가"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "대기열에 추가"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -398,11 +398,11 @@ msgstr "추가"
 
 #: ../music-app.qml:942
 msgid "No music found"
-msgstr ""
+msgstr "음악을 찾을 수 없습니다"
 
 #: ../music-app.qml:949
 msgid "Please import music"
-msgstr ""
+msgstr "음악을 가져오세요"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -411,9 +411,3 @@ msgstr "우분투를 위한 음악 애플리케이션"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "음악;노래;재생;트랙;플레이어;음;"
-
-#~ msgid "No songs queued"
-#~ msgstr "아무 노래도 대기열에 있지 않음"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "재생을 누르거나 재생할 항목을 눌러 시작하세요"
