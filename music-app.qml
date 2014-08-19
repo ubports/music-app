@@ -501,10 +501,12 @@ MainView {
     }
 
     SongsModel {
-        property bool populated: false
         id: allSongsModel
+        objectName: "allSongsModel"
         store: musicStore
         onFilled: populated = true
+
+        property bool populated: false
     }
 
     SongsModel {
@@ -826,7 +828,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: tracksTab
-                objectName: "trackstab"
+                objectName: "tracksTab"
                 anchors.fill: parent
                 title: page.title
 

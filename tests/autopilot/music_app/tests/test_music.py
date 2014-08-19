@@ -15,40 +15,27 @@ from autopilot.matchers import Eventually
 from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
 
 
-from music_app.tests import MusicTestCase
+from music_app.tests import MusicAppTestCase
 
 logger = logging.getLogger(__name__)
 
 
-class TestMainWindow(MusicTestCase):
+class TestMainWindow(MusicAppTestCase):
 
     def setUp(self):
         super(TestMainWindow, self).setUp()
-        self.assertThat(
-            self.main_view.visible, Eventually(Equals(True)))
 
-        # wait for activity indicator to stop spinning
-        spinner = lambda: self.main_view.get_spinner().running
-        self.assertThat(spinner, Eventually(Equals(False)))
         self.trackTitle = u"Gran Vals"
         self.artistName = u"Francisco Tárrega"
         self.lastTrackTitle = u"TestMP3Title"
 
-    def populate_and_play_queue(self):
-        first_genre_item = self.main_view.get_first_genre_item()
-        self.pointing_device.click_object(first_genre_item)
+    @property
+    def main_view(self):
+        return self.app.main_view
 
-        song = self.main_view.get_album_page_listview_tracktitle(
-            self.trackTitle)
-        self.pointing_device.click_object(song)
-
-    def populate_and_play_queue_from_songs_tab(self):
-        # switch to songs tab
-        self.main_view.switch_to_tab("trackstab")
-
-        # get track item to add to queue
-        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
-        self.pointing_device.click_object(trackitem)
+    @property
+    def player(self):
+        return self.app.player
 
     def turn_shuffle_off(self):
         if self.player.shuffle:
@@ -90,8 +77,7 @@ class TestMainWindow(MusicTestCase):
         """ tests if the music library is populated from our
         fake mediascanner database"""
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         title = lambda: self.player.currentMetaTitle
         artist = lambda: self.player.currentMetaArtist
@@ -146,8 +132,7 @@ class TestMainWindow(MusicTestCase):
     def test_play_pause_now_playing(self):
         """ Test playing and pausing a track (Music Library must exist) """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -165,8 +150,7 @@ class TestMainWindow(MusicTestCase):
     def test_next_previous(self):
         """ Test going to next track (Music Library must exist) """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -222,8 +206,7 @@ class TestMainWindow(MusicTestCase):
     def test_mp3(self):
         """ Test that mp3 "plays" or at least doesn't crash on load """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         playbutton = self.main_view.get_now_playing_play_button()
 
@@ -265,8 +248,7 @@ class TestMainWindow(MusicTestCase):
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         """ Track is playing, shuffle is turned on"""
         forwardbutton = self.main_view.get_forward_button()
@@ -386,8 +368,7 @@ class TestMainWindow(MusicTestCase):
         # get number of tracks in queue before queuing a track
         initialtracksCount = self.main_view.get_queue_track_count()
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         # verify track queue has added all songs to initial value
         endtracksCount = self.main_view.get_queue_track_count()
@@ -563,8 +544,7 @@ class TestMainWindow(MusicTestCase):
         """tests navigating to the Now Playing queue, swiping to delete a
         track, and confirming the delete action. """
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         # get initial queue count
         initialqueueCount = self.main_view.get_queue_track_count()
@@ -597,8 +577,7 @@ class TestMainWindow(MusicTestCase):
     def test_playback_stops_when_last_song_ends_and_repeat_off(self):
         """Check that playback stops when the last song in the queue ends"""
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         self.turn_shuffle_off()
         self.turn_repeat_off()
@@ -616,8 +595,7 @@ class TestMainWindow(MusicTestCase):
     def test_playback_repeats_when_last_song_ends_and_repeat_on(self):
         """With repeat on, the 1st song should play after the last one ends"""
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         self.turn_shuffle_off()
         self.turn_repeat_on()
@@ -636,8 +614,7 @@ class TestMainWindow(MusicTestCase):
     def test_pressing_next_from_last_song_plays_first_when_repeat_on(self):
         """With repeat on, skipping the last song jumps to the first track"""
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         self.turn_shuffle_off()
         self.turn_repeat_on()
@@ -655,8 +632,7 @@ class TestMainWindow(MusicTestCase):
     def test_pressing_prev_from_first_song_plays_last_when_repeat_on(self):
         """With repeat on, 'previous' from the 1st song plays the last one."""
 
-        # populate queue
-        self.populate_and_play_queue_from_songs_tab()
+        self.app.populate_queue()  # populate queue
 
         self.turn_shuffle_off()
         self.turn_repeat_on()
