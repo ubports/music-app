@@ -37,6 +37,10 @@ class TestMainWindow(MusicAppTestCase):
     def player(self):
         return self.app.player
 
+    @property
+    def pointing_device(self):
+        return self.app.pointing_device
+
     def turn_shuffle_off(self):
         if self.player.shuffle:
             shufflebutton = self.main_view.get_shuffle_button()
