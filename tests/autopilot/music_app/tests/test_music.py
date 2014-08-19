@@ -399,7 +399,7 @@ class TestMainWindow(MusicAppTestCase):
         initialtracksCount = self.main_view.get_queue_track_count()
 
         # switch to songs tab
-        self.main_view.switch_to_tab("trackstab")
+        self.main_view.switch_to_tab("tracksTab")
 
         # get track item to swipe and queue
         trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
@@ -442,7 +442,7 @@ class TestMainWindow(MusicAppTestCase):
            selecting a song to add it to a new playlist. """
 
         # switch to songs tab
-        self.main_view.switch_to_tab("trackstab")
+        self.main_view.switch_to_tab("tracksTab")
 
         # get track item to swipe and queue
         trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
