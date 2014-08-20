@@ -247,7 +247,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
-    """Base test case that launches the reminders-app."""
+    """Base test case that launches the music-app."""
 
     def setUp(self):
         super(MusicAppTestCase, self).setUp()
