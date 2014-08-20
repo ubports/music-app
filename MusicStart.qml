@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components 1.1 as Toolkit
+import QtQuick 2.2
+import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
@@ -394,7 +393,7 @@ MusicPage {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: Toolkit.SortFilterModel {
+            model: SortFilterModel {
                 id: albumsModelFilter
                 property alias rowCount: albumsModel.rowCount
                 model: AlbumsModel {

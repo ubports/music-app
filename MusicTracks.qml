@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components 1.1 as Toolkit
+import QtQuick 2.2
+import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
@@ -40,7 +39,7 @@ MusicPage {
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         highlightFollowsCurrentItem: false
         objectName: "trackstab-listview"
-        model: Toolkit.SortFilterModel {
+        model: SortFilterModel {
             id: songsModelFilter
             property alias rowCount: songsModel.rowCount
             model: SongsModel {
