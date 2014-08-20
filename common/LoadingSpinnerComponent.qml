@@ -25,6 +25,9 @@ Item {
     height: units.gu(5)
     width: parent.width
     visible: false
+
+    property alias loadingText: loadingLabel.text
+
     anchors {
         horizontalCenter: parent.horizontalCenter
         top: parent.top

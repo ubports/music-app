@@ -18,10 +18,11 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import QtMultimedia 5.0
@@ -226,10 +227,8 @@ MainView {
         function processFile(uri, play) {
             uri = decodeURIComponent(uri);
 
-            var track = false;
-
             // Lookup track in songs model
-            track = musicStore.lookup(decodeURIComponent(uri));
+            var track = musicStore.lookup(decodeURIComponent(uri));
 
             if (!track) {
                 console.debug("Unknown file " + uri + ", skipping")
@@ -271,6 +270,245 @@ MainView {
                 console.debug("URI=" + uris[i])
 
                 uriHandler.process(uris[i], i === 0);
+            }
+        }
+    }
+
+    // Content hub support
+    property list<ContentItem> importItems
+    property var activeTransfer
+
+    ContentTransferHint {
+        anchors {
+            fill: parent
+        }
+        activeTransfer: parent.activeTransfer
+    }
+
+    Connections {
+        id: contentHub
+        target: ContentHub
+        onImportRequested: {
+            activeTransfer = transfer;
+            if (activeTransfer.state === ContentTransfer.Charged) {
+                importItems = activeTransfer.items;
+
+                // Assumes only 1 file to import for now
+                //var dialogue = PopupUtils.open(contentHubImport, mainView)
+                //dialogue.contentItem = importItems[0];
+
+                var url = importItems[0].url.toString()
+                console.debug("Triggered content-hub import for item", url)
+
+                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
+                var out = contentHub.importFile(importItems[0], path)
+
+                if (out === true) {
+                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.searchPath = contentHub.searchPath;
+                    contentHubWaitForFile.start();
+                }
+                else {
+                    var errorDialogue = PopupUtils.open(contentHubError, mainView)
+                    errorDialogue.errorText = out
+                }
+            }
+        }
+
+        property string searchPath: ""
+
+        function importFile(contentItem, path) {
+            var contentUrl = contentItem.url.toString()
+
+            if (path.indexOf("~/Music/") !== 0) {
+                console.debug("Invalid dest (not in ~/Music/)")
+                return i18n.tr("Filepath must start with ~/Music/")
+            }
+            else {
+                // extract /home/$USER (or $HOME) from contentitem url
+                var homepath = contentUrl.substring(7).split("/");
+
+                if (homepath[1] === "home") {
+                    homepath.splice(3, homepath.length - 3)
+                    homepath = homepath.join("/")
+                }
+                else {
+                    console.debug("/home/$USER not detecting in contentItem assuming /home/phablet/")
+                    homepath = "/home/phablet"
+                }
+
+                console.debug("Move:", contentUrl, "to", path)
+
+                // Extract filename from path and replace ~ with $HOME
+                var dir = path.split("/")
+                var filename = dir.pop()
+                dir = dir.join("/").replace("~/", homepath + "/")
+
+                if (filename === "") {
+                    console.debug("Invalid dest (filename blank)")
+                    return i18n.tr("Filepath must be a file")
+                }
+                else if (!contentItem.move(dir, filename)) {
+                    console.debug("Move failed! DIR:", dir, "FILE:", filename)
+                    return i18n.tr("Failed to move file")
+                }
+                else {
+                    contentHub.searchPath = dir + "/" + filename
+                    return true
+                }
+            }
+        }
+    }
+
+    Timer {
+        id: contentHubWaitForFile
+        interval: 1000
+        triggeredOnStart: false
+        repeat: true
+
+        property var dialogue: null
+        property string searchPath
+        property int count: 0
+
+        function stopTimer() {
+            count = 0;
+            stop();
+
+            PopupUtils.close(dialogue)
+        }
+
+        onTriggered: {
+            var model = musicStore.lookup(searchPath)
+
+            console.debug("MusicStore model from lookup", JSON.stringify(model))
+
+            if (!model) {
+                count++;
+
+                if (count >= 10) {  // wait for 10s
+                    stopTimer();
+
+                    console.debug("File was not found", searchPath)
+                    PopupUtils.open(contentHubNotFound, mainView)
+                }
+            }
+            else {
+                stopTimer();
+
+                trackQueue.model.clear();
+
+                trackQueue.append(makeDict(model));
+                trackQueueClick(0);
+            }
+        }
+    }
+
+    Component {
+        id: contentHubWait
+        Dialog {
+            id: dialogueContentHubWait
+
+            LoadingSpinnerComponent {
+                anchors {
+                    margins: units.gu(0)
+                }
+                loadingText: i18n.tr("Waiting for file...")
+                visible: true
+            }
+        }
+    }
+
+    Component {
+        id: contentHubError
+        Dialog {
+            id: dialogueContentHubError
+
+            property alias errorText: errorLabel.text
+
+            Label {
+                id: errorLabel
+                color: styleMusic.common.black
+            }
+
+            Button {
+                text: i18n.tr("OK")
+                onClicked: PopupUtils.close(dialogueContentHubError)
+            }
+        }
+    }
+
+    Component {
+        id: contentHubNotFound
+        Dialog {
+            id: dialogueContentHubNotFound
+
+            Label {
+                color: styleMusic.common.black
+                text: i18n.tr("Imported file not found")
+            }
+
+            Button {
+                text: i18n.tr("Wait")
+                onClicked: {
+                    PopupUtils.close(dialogueContentHubNotFound)
+
+                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.start();
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogueContentHubNotFound)
+            }
+        }
+    }
+
+    Component {
+        id: contentHubImport
+        Dialog {
+            id: dialogueContentHubImport
+            title: i18n.tr("Import")
+            text: i18n.tr("Target destination")
+
+            property var contentItem
+
+            TextField {
+                id: pathField
+                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + contentItem.url.split("/").pop()
+            }
+
+            Label {
+                id: contentHubOutput
+                color: styleMusic.common.black
+                visible: false // should only be visible when an error is made.
+            }
+
+            Button {
+                text: i18n.tr("Import")
+                onClicked: {
+                    contentHubOutput.visible = false
+
+                    var out = contentHub.importFile(contentItem, pathField.text.toString())
+
+                    if (out === true) {
+                        PopupUtils.close(dialogueContentHubImport)
+
+                        contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                        contentHubWaitForFile.searchPath = contentHub.searchPath;
+                        contentHubWaitForFile.start();
+                    }
+                    else {
+                        contentHubOutput.visible = true
+                        contentHubOutput.text = out
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                color: styleMusic.dialog.buttonColor
+                onClicked: PopupUtils.close(dialogueContentHubImport)
             }
         }
     }
@@ -501,10 +739,11 @@ MainView {
     }
 
     SongsModel {
-        property bool populated: false
         id: allSongsModel
         store: musicStore
         onFilled: populated = true
+
+        property bool populated: false
     }
 
     SongsModel {
@@ -647,10 +886,6 @@ MainView {
 
     // Blurred background
     BlurredBackground {
-    }
-
-    LoadingSpinnerComponent {
-        id:loading
     }
 
     // Popover for tracks, queue and add to playlist, for example
@@ -909,54 +1144,6 @@ MainView {
             }
         } // end of tabs
 
-        Page {
-            id: emptyPage
-            title: i18n.tr("Music")
-            visible: false
-
-            property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
-
-            onNoMusicChanged: {
-                if (noMusic)
-                    mainPageStack.push(emptyPage)
-                else if (pageStack.currentPage == emptyPage)
-                    mainPageStack.pop()
-            }
-
-            tools: ToolbarItems {
-                back: null
-                locked: true
-                opened: false
-            }
-
-            // Overlay to show when no tracks detected on the device
-            Rectangle {
-                id: libraryEmpty
-                anchors.fill: parent
-                anchors.topMargin: -emptyPage.header.height
-                color: styleMusic.libraryEmpty.backgroundColor
-
-                Column {
-                    anchors.centerIn: parent
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "large"
-                        font.bold: true
-                        text: i18n.tr("No music found")
-                    }
-
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: styleMusic.libraryEmpty.labelColor
-                        fontSize: "medium"
-                        text: i18n.tr("Please import music")
-                    }
-                }
-            }
-        }
-
         SongsPage {
             id: songsPage
         }
@@ -972,5 +1159,51 @@ MainView {
         MusicaddtoPlaylist {
             id: addtoPlaylist
         }
+    }
+
+    Page {
+        id: emptyPage
+        title: i18n.tr("Music")
+        visible: noMusic
+
+        // FIXME: use allSongsModel.status === allSongsModel.Ready when lp:1358275 is resolved
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
+
+        tools: ToolbarItems {
+            back: null
+            locked: true
+            opened: false
+        }
+
+        // Overlay to show when no tracks detected on the device
+        Rectangle {
+            id: libraryEmpty
+            anchors.fill: parent
+            anchors.topMargin: -emptyPage.header.height
+            color: styleMusic.libraryEmpty.backgroundColor
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No music found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Please import music")
+                }
+            }
+        }
+    }
+
+    LoadingSpinnerComponent {
+        id: loading
     }
 } // end of main view
