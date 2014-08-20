@@ -1,5 +1,7 @@
 {
     "policy_version": 1.2,
     "template": "unconfined",
-    "policy_groups": []
+    "policy_groups": [
+        "content_exchange"
+    ]
 }

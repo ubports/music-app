@@ -96,7 +96,7 @@ Item {
             mainPageStack.pop(currentPage)
         }
 
-        hideToolbar();
+        startAutohideTimer()
     }
 
     // Hide the toolbar

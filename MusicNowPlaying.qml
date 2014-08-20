@@ -131,7 +131,10 @@ MusicPage {
 
                 leftSideAction: Remove {
                     onTriggered: {
-                        if (index === player.currentIndex) {
+                        if (queuelist.count === 1) {
+                            player.stop()
+                            musicToolbar.goBack()
+                        } else if (index === player.currentIndex) {
                             player.nextSong(player.isPlaying);
                         }
 

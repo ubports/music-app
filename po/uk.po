@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-16 12:07-0500\n"
-"PO-Revision-Date: 2014-08-12 04:51+0000\n"
+"POT-Creation-Date: 2014-08-18 12:48+0100\n"
+"PO-Revision-Date: 2014-08-17 14:52+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-17 06:39+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-08-20 06:23+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -89,6 +89,24 @@ msgstr[2] "%1 композицій"
 msgid "Artist"
 msgstr "Виконавець"
 
+#: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
+#: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
+msgid "Import"
+msgstr ""
+
+#: ../MusicContentHub.qml:32
+msgid "Import file."
+msgstr ""
+
+#: ../MusicContentHub.qml:77 ../music-app.qml:353
+msgid "Failed to move file"
+msgstr ""
+
+#: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
+#: ../music-app.qml:509 ../music-app.qml:980
+msgid "Cancel"
+msgstr "Скасувати"
+
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
 msgstr "Зараз відтворюєтья"
@@ -116,17 +134,13 @@ msgstr "Вкажіть нову назву списку відтворення:"
 msgid "Change"
 msgstr "Змінити"
 
-#: ../MusicPlaylists.qml:95 ../music-app.qml:732
+#: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
 msgstr "Список відтворення вже існує"
 
-#: ../MusicPlaylists.qml:99 ../music-app.qml:737
+#: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
 msgstr "Будь ласка, вкажіть назву."
-
-#: ../MusicPlaylists.qml:104 ../music-app.qml:743
-msgid "Cancel"
-msgstr "Скасувати"
 
 #: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
 #: ../MusicStart.qml:202 ../common/SongsPage.qml:165
@@ -136,11 +150,11 @@ msgid "Playlist"
 msgstr "Список відтворення"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
+#: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
 msgid "Search"
 msgstr "Пошук"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:192
+#: ../MusicSettings.qml:30 ../music-app.qml:193
 msgid "Settings"
 msgstr "Параметри"
 
@@ -228,7 +242,7 @@ msgstr "Транслювати лише у Wi-Fi"
 msgid "Clean everything!"
 msgstr "Спорожнити усе!"
 
-#: ../MusicStart.qml:37 ../music-app.qml:363 ../music-app.qml:909
+#: ../MusicStart.qml:37 ../music-app.qml:606 ../music-app.qml:1163
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Музика"
@@ -252,7 +266,7 @@ msgstr "Жанр"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Торкніться кнопки відтворення, щоб перемішати композиції"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -268,7 +282,7 @@ msgid "Play all"
 msgstr "Відтворити все"
 
 #: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
-#: ../common/SongsPage.qml:199 ../music-app.qml:665
+#: ../common/SongsPage.qml:199 ../music-app.qml:902
 msgid "Add to queue"
 msgstr "Додати до черги відтворення"
 
@@ -280,7 +294,7 @@ msgstr[0] " | %1 композиція"
 msgstr[1] " | %1 композиції"
 msgstr[2] " | %1 композицій"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:679
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:916
 msgid "Add to playlist"
 msgstr "Додати до списку відтворення"
 
@@ -302,7 +316,7 @@ msgstr "Змінити"
 msgid "Remove"
 msgstr "Вилучити"
 
-#: ../common/LoadingSpinnerComponent.qml:44
+#: ../common/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
 msgstr "Завантаження…"
 
@@ -318,98 +332,126 @@ msgstr "Невідомий альбом"
 msgid "Unknown Artist"
 msgstr "Невідомий виконавець"
 
-#: ../music-app.qml:143
+#: ../music-app.qml:144
 msgid "Search Track"
 msgstr "Шукати композицію"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:156
 msgid "Next"
 msgstr "Далі"
 
-#: ../music-app.qml:156
+#: ../music-app.qml:157
 msgid "Next Track"
 msgstr "Наступна композиція"
 
-#: ../music-app.qml:162
+#: ../music-app.qml:163
 msgid "Pause"
 msgstr "Пауза"
 
-#: ../music-app.qml:162
+#: ../music-app.qml:163
 msgid "Play"
 msgstr "Пуск"
 
-#: ../music-app.qml:164
+#: ../music-app.qml:165
 msgid "Pause Playback"
 msgstr "Призупинити відтворення"
 
-#: ../music-app.qml:164
+#: ../music-app.qml:165
 msgid "Continue or start playback"
 msgstr "Продовжити або розпочати відтворення"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:170
 msgid "Back"
 msgstr "Назад"
 
-#: ../music-app.qml:170
+#: ../music-app.qml:171
 msgid "Go back to last page"
 msgstr "Повернутися до останньої сторінки"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:179
 msgid "Previous"
 msgstr "Назад"
 
-#: ../music-app.qml:179
+#: ../music-app.qml:180
 msgid "Previous Track"
 msgstr "Попередня композиція"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:185
 msgid "Stop"
 msgstr "Стоп"
 
-#: ../music-app.qml:185
+#: ../music-app.qml:186
 msgid "Stop Playback"
 msgstr "Зупинити відтворення"
 
-#: ../music-app.qml:193
+#: ../music-app.qml:194
 msgid "Music Settings"
 msgstr "Параметри відтворення музики"
 
+#: ../music-app.qml:325
+msgid "Filepath must start with ~/Music/"
+msgstr ""
+
+#: ../music-app.qml:349
+msgid "Filepath must be a file"
+msgstr ""
+
+#: ../music-app.qml:415
+msgid "Waiting for file..."
+msgstr ""
+
+#: ../music-app.qml:434
+msgid "OK"
+msgstr ""
+
+#: ../music-app.qml:447
+msgid "Imported file not found"
+msgstr ""
+
+#: ../music-app.qml:451
+msgid "Wait"
+msgstr ""
+
+#: ../music-app.qml:472
+msgid "Target destination"
+msgstr ""
+
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:278
+#: ../music-app.qml:521
 msgid "songs played today"
 msgstr "відтворених сьогодні композицій"
 
-#: ../music-app.qml:279
+#: ../music-app.qml:522
 msgid "No songs played today"
 msgstr "Сьогодні нічого не відтворювалося"
 
-#: ../music-app.qml:387
+#: ../music-app.qml:630
 msgid "Debug: "
 msgstr "Діагностика: "
 
-#: ../music-app.qml:701
+#: ../music-app.qml:938
 msgid "New Playlist"
 msgstr "Новий список відтворення"
 
-#: ../music-app.qml:702
+#: ../music-app.qml:939
 msgid "Name your playlist."
 msgstr "Назва вашого списку відтвоерння."
 
-#: ../music-app.qml:706
+#: ../music-app.qml:943
 msgid "Name"
 msgstr "Назва"
 
-#: ../music-app.qml:716
+#: ../music-app.qml:953
 msgid "Create"
 msgstr "Створити"
 
-#: ../music-app.qml:942
+#: ../music-app.qml:1189
 msgid "No music found"
-msgstr ""
+msgstr "Музики не знайдено"
 
-#: ../music-app.qml:949
+#: ../music-app.qml:1196
 msgid "Please import music"
-msgstr ""
+msgstr "Будь ласка, імпортуйте музичні твори"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -420,9 +462,3 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;музика;композиції;пісні;програвач;плеєр;"
 "звук;"
-
-#~ msgid "No songs queued"
-#~ msgstr "У черзі немає композицій"
-
-#~ msgid "Tap play or any item to start"
-#~ msgstr "Натисніть кнопку «Відтворити» або пункт, щоб почати відтворення"
