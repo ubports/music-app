@@ -23,7 +23,7 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def populate_queue(self):
-        tracksPage = self.open_tracks_tab()  # switch to track tabs
+        tracksPage = self.get_tracks_page()  # switch to track tabs
 
         # get and click to play first track
         track = tracksPage.get_track(0)
@@ -31,7 +31,7 @@ class MusicApp(object):
 
         # TODO: when using bottom edge wait for .isReady on tracksPage
 
-    def open_tracks_tab(self):
+    def get_tracks_page(self):
         """Open the Tracks tab.
 
         :return: The autopilot custom proxy object for the TracksPage.
