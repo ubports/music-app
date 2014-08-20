@@ -271,6 +271,7 @@ MusicPage {
                             songsPage.line2 = model.title
                             songsPage.isAlbum = true
                             songsPage.covers = [{author: model.artist, album: model.title}]
+                            songsPage.genre = undefined
                             songsPage.title = i18n.tr("Album")
 
                             mainPageStack.push(songsPage)
