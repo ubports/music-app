@@ -234,8 +234,14 @@ MusicPage {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
-            model: GenresModel {
-                store: musicStore
+            model: SortFilterModel {
+                id: genresModelFilter
+                model: GenresModel {
+                    id: genresModel
+                    store: musicStore
+                }
+                filter.property: "genre"
+                filter.pattern: /\S+/
             }
 
             delegate: genreDelegate

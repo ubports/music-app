@@ -119,7 +119,7 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(1.5)
                 elide: Text.ElideRight
-                text: isAlbum && line1 !== i18n.tr("Genre") ? i18n.tr(year + " | %1 song", year + " | %1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                                                    : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
             }

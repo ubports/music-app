@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-19 13:09+0000\n"
+"PO-Revision-Date: 2014-08-20 15:42+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2014-08-20 06:23+0000\n"
+"X-Launchpad-Export-Date: 2014-08-21 06:47+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -94,15 +94,15 @@ msgstr "Izvajalec"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Uvozi"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Uvozi datoteko."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Premik datoteke ni uspel"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -393,31 +393,31 @@ msgstr "Nastavitve Glasbe"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Pot datoteke se mora začeti z ~/Glasba/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Pot datoteke mora biti datoteka"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Čakanje na datoteko ..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "V redu"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Uvožene datoteke ni mogoče najti"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Počakajte"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Cilj"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
