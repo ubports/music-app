@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-16 12:07-0500\n"
+"POT-Creation-Date: 2014-08-18 12:48+0100\n"
 "PO-Revision-Date: 2014-08-17 09:05+0000\n"
 "Last-Translator: Jared Norris <jarednorris@ubuntu.com>\n"
 "Language-Team: English (Australia) <en_AU@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-18 07:20+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-08-21 06:47+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -86,6 +86,24 @@ msgstr[1] "%1 songs"
 msgid "Artist"
 msgstr "Artist"
 
+#: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
+#: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
+msgid "Import"
+msgstr ""
+
+#: ../MusicContentHub.qml:32
+msgid "Import file."
+msgstr ""
+
+#: ../MusicContentHub.qml:77 ../music-app.qml:353
+msgid "Failed to move file"
+msgstr ""
+
+#: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
+#: ../music-app.qml:509 ../music-app.qml:980
+msgid "Cancel"
+msgstr "Cancel"
+
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
 msgstr "Now Playing"
@@ -113,17 +131,13 @@ msgstr "Enter the new name of the playlist."
 msgid "Change"
 msgstr "Change"
 
-#: ../MusicPlaylists.qml:95 ../music-app.qml:732
+#: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
 msgstr "Playlist already exists"
 
-#: ../MusicPlaylists.qml:99 ../music-app.qml:737
+#: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
 msgstr "Please type in a name."
-
-#: ../MusicPlaylists.qml:104 ../music-app.qml:743
-msgid "Cancel"
-msgstr "Cancel"
 
 #: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
 #: ../MusicStart.qml:202 ../common/SongsPage.qml:165
@@ -133,11 +147,11 @@ msgid "Playlist"
 msgstr "Playlist"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:94 ../music-app.qml:142 ../music-app.qml:148
+#: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
 msgid "Search"
 msgstr "Search"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:192
+#: ../MusicSettings.qml:30 ../music-app.qml:193
 msgid "Settings"
 msgstr "Settings"
 
@@ -225,7 +239,7 @@ msgstr "Stream only on Wi-Fi"
 msgid "Clean everything!"
 msgstr "Clean everything!"
 
-#: ../MusicStart.qml:37 ../music-app.qml:363 ../music-app.qml:909
+#: ../MusicStart.qml:37 ../music-app.qml:606 ../music-app.qml:1163
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Music"
@@ -265,7 +279,7 @@ msgid "Play all"
 msgstr "Play all"
 
 #: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
-#: ../common/SongsPage.qml:199 ../music-app.qml:665
+#: ../common/SongsPage.qml:199 ../music-app.qml:902
 msgid "Add to queue"
 msgstr "Add to queue"
 
@@ -276,7 +290,7 @@ msgid_plural " | %1 songs"
 msgstr[0] " | %1 song"
 msgstr[1] " | %1 songs"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:679
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:916
 msgid "Add to playlist"
 msgstr "Add to playlist"
 
@@ -298,7 +312,7 @@ msgstr "Edit"
 msgid "Remove"
 msgstr "Remove"
 
-#: ../common/LoadingSpinnerComponent.qml:44
+#: ../common/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
 msgstr "Loading…"
 
@@ -314,96 +328,124 @@ msgstr "Unknown Album"
 msgid "Unknown Artist"
 msgstr "Unknown Artist"
 
-#: ../music-app.qml:143
+#: ../music-app.qml:144
 msgid "Search Track"
 msgstr "Search Track"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:156
 msgid "Next"
 msgstr "Next"
 
-#: ../music-app.qml:156
+#: ../music-app.qml:157
 msgid "Next Track"
 msgstr "Next Track"
 
-#: ../music-app.qml:162
+#: ../music-app.qml:163
 msgid "Pause"
 msgstr "Pause"
 
-#: ../music-app.qml:162
+#: ../music-app.qml:163
 msgid "Play"
 msgstr "Play"
 
-#: ../music-app.qml:164
+#: ../music-app.qml:165
 msgid "Pause Playback"
 msgstr "Pause Playback"
 
-#: ../music-app.qml:164
+#: ../music-app.qml:165
 msgid "Continue or start playback"
 msgstr "Continue or start playback"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:170
 msgid "Back"
 msgstr "Back"
 
-#: ../music-app.qml:170
+#: ../music-app.qml:171
 msgid "Go back to last page"
 msgstr "Go back to last page"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:179
 msgid "Previous"
 msgstr "Previous"
 
-#: ../music-app.qml:179
+#: ../music-app.qml:180
 msgid "Previous Track"
 msgstr "Previous Track"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:185
 msgid "Stop"
 msgstr "Stop"
 
-#: ../music-app.qml:185
+#: ../music-app.qml:186
 msgid "Stop Playback"
 msgstr "Stop Playback"
 
-#: ../music-app.qml:193
+#: ../music-app.qml:194
 msgid "Music Settings"
 msgstr "Music Settings"
 
+#: ../music-app.qml:325
+msgid "Filepath must start with ~/Music/"
+msgstr ""
+
+#: ../music-app.qml:349
+msgid "Filepath must be a file"
+msgstr ""
+
+#: ../music-app.qml:415
+msgid "Waiting for file..."
+msgstr ""
+
+#: ../music-app.qml:434
+msgid "OK"
+msgstr ""
+
+#: ../music-app.qml:447
+msgid "Imported file not found"
+msgstr ""
+
+#: ../music-app.qml:451
+msgid "Wait"
+msgstr ""
+
+#: ../music-app.qml:472
+msgid "Target destination"
+msgstr ""
+
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:278
+#: ../music-app.qml:521
 msgid "songs played today"
 msgstr "songs played today"
 
-#: ../music-app.qml:279
+#: ../music-app.qml:522
 msgid "No songs played today"
 msgstr "No songs played today"
 
-#: ../music-app.qml:387
+#: ../music-app.qml:630
 msgid "Debug: "
 msgstr "Debug: "
 
-#: ../music-app.qml:701
+#: ../music-app.qml:938
 msgid "New Playlist"
 msgstr "New Playlist"
 
-#: ../music-app.qml:702
+#: ../music-app.qml:939
 msgid "Name your playlist."
 msgstr "Name your playlist."
 
-#: ../music-app.qml:706
+#: ../music-app.qml:943
 msgid "Name"
 msgstr "Name"
 
-#: ../music-app.qml:716
+#: ../music-app.qml:953
 msgid "Create"
 msgstr "Create"
 
-#: ../music-app.qml:942
+#: ../music-app.qml:1189
 msgid "No music found"
 msgstr "No music found"
 
-#: ../music-app.qml:949
+#: ../music-app.qml:1196
 msgid "Please import music"
 msgstr "Please import music"
 

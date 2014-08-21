@@ -271,6 +271,7 @@ MusicPage {
                             songsPage.line2 = model.title
                             songsPage.isAlbum = true
                             songsPage.covers = [{author: model.artist, album: model.title}]
+                            songsPage.genre = undefined
                             songsPage.title = i18n.tr("Album")
 
                             mainPageStack.push(songsPage)
@@ -325,8 +326,8 @@ MusicPage {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(1.5)
                     elide: Text.ElideRight
-                    text: i18n.tr(songAlbumArtistModelRepeater.year + " | %1 song",
-                                  songAlbumArtistModelRepeater.year + " | %1 songs",
+                    text: songAlbumArtistModelRepeater.year + " | " +
+                          i18n.tr("%1 song", "%1 songs",
                                   songAlbumArtistModelRepeater.count).arg(songAlbumArtistModelRepeater.count)
                 }
 
