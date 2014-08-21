@@ -40,7 +40,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('tracksTab')
 
         return self.main_view.select_single(
-            Page10, objectName='tracksPage')
+            Page11, objectName='tracksPage')
 
     @property
     def loaded(self):
@@ -64,7 +64,7 @@ class MusicPage(Page):
 
 
 # FIXME: Represents MusicTracks related to bug 1341671 and bug 1337004
-class Page10(MusicPage):
+class Page11(MusicPage):
     """ Autopilot helper for the tracks page """
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
