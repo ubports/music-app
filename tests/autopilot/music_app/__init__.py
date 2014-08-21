@@ -23,7 +23,7 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def populate_queue(self):
-        tracksPage = self.get_tracks_page()  # switch to track tabs
+        tracksPage = self.get_tracks_page()  # switch to track tab
 
         # get and click to play first track
         track = tracksPage.get_track(0)
