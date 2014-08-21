@@ -741,27 +741,26 @@ MainView {
     SongsModel {
         id: allSongsModel
         store: musicStore
-        onFilled: populated = true
-
-        property bool populated: false
     }
 
     SongsModel {
         id: songsAlbumArtistModel
         store: musicStore
-        onFilled: {
-            // Play album it tracks exist
-            if (rowCount > 0 && selectedAlbum) {
-                trackClicked(songsAlbumArtistModel, 0, true, true);
-            } else if (selectedAlbum) {
-                console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
+        onStatusChanged: {
+            if (status === SongsModel.Ready) {
+                // Play album it tracks exist
+                if (rowCount > 0 && selectedAlbum) {
+                    trackClicked(songsAlbumArtistModel, 0, true, true);
+                } else if (selectedAlbum) {
+                    console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
+                }
+
+                selectedAlbum = false;
+
+                // Clear filter for artist and album
+                songsAlbumArtistModel.artist = ""
+                songsAlbumArtistModel.album = ""
             }
-
-            selectedAlbum = false;
-
-            // Clear filter for artist and album
-            songsAlbumArtistModel.artist = ""
-            songsAlbumArtistModel.album = ""
         }
     }
 
@@ -1166,8 +1165,7 @@ MainView {
         title: i18n.tr("Music")
         visible: noMusic
 
-        // FIXME: use allSongsModel.status === allSongsModel.Ready when lp:1358275 is resolved
-        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.populated && loadedUI
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
 
         tools: ToolbarItems {
             back: null
