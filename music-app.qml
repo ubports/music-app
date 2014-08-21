@@ -741,9 +741,6 @@ MainView {
     SongsModel {
         id: allSongsModel
         store: musicStore
-        onFilled: populated = true
-
-        property bool populated: false
     }
 
     SongsModel {
