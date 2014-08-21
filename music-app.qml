@@ -740,6 +740,7 @@ MainView {
 
     SongsModel {
         id: allSongsModel
+        objectName: "allSongsModel"
         store: musicStore
     }
 
@@ -1060,7 +1061,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: tracksTab
-                objectName: "trackstab"
+                objectName: "tracksTab"
                 anchors.fill: parent
                 title: page.title
 

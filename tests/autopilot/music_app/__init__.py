@@ -10,12 +10,86 @@ import ubuntuuitoolkit
 from time import sleep
 
 
-class MainView(ubuntuuitoolkit.MainView):
+class MusicAppException(Exception):
+    """Exception raised when there's an error in the Music App."""
 
-    """An emulator class that makes it easy to interact with the
-    music-app.
-    """
+
+class MusicApp(object):
+    """Autopilot helper object for the Music application."""
+
+    def __init__(self, app_proxy):
+        self.app = app_proxy
+        self.main_view = self.app.wait_select_single(MainView)
+        self.player = self.app.select_single(Player, objectName='player')
+
+    def populate_queue(self):
+        tracksPage = self.get_tracks_page()  # switch to track tab
+
+        # get and click to play first track
+        track = tracksPage.get_track(0)
+        self.app.pointing_device.click_object(track)
+
+        # TODO: when using bottom edge wait for .isReady on tracksPage
+
+    def get_tracks_page(self):
+        """Open the Tracks tab.
+
+        :return: The autopilot custom proxy object for the TracksPage.
+
+        """
+        self.main_view.switch_to_tab('tracksTab')
+
+        return self.main_view.select_single(
+            Page10, objectName='tracksPage')
+
+    @property
+    def loaded(self):
+        return (not self.main_view.select_single("ActivityIndicator",
+                objectName="LoadingSpinner").running and
+                self.main_view.select_single("*", "allSongsModel").populated)
+
+
+class Page(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for Pages."""
+    def __init__(self, *args):
+        super(Page, self).__init__(*args)
+        # XXX we need a better way to keep reference to the main view.
+        # --elopio - 2014-01-31
+        self.main_view = self.get_root_instance().select_single(MainView)
+
+
+class MusicPage(Page):
+    def __init__(self, *args):
+        super(Page, self).__init__(*args)
+
+
+# FIXME: Represents MusicTracks related to bug 1341671 and bug 1337004
+class Page10(MusicPage):
+    """ Autopilot helper for the tracks page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+    def get_track(self, i):
+        return (self.wait_select_single("ListItemWithActions",
+                objectName="tracksTabListItem" + str(i)))
+
+
+class Player(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for Player """
+
+
+class MainView(ubuntuuitoolkit.MainView):
+    """Autopilot custom proxy object for the MainView."""
     retry_delay = 0.2
+
+    def __init__(self, *args):
+        super(MainView, self).__init__(*args)
+        self.visible.wait_for(True)
+
+        # wait for activity indicator to stop spinning
+        spinner = self.wait_select_single("ActivityIndicator",
+                                          objectName="LoadingSpinner")
+        spinner.running.wait_for(False)
 
     def get_toolbar(self):
         return self.select_single("MusicToolbar",
@@ -115,10 +189,6 @@ class MainView(ubuntuuitoolkit.MainView):
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")
-
-    def get_spinner(self):
-        return self.select_single("ActivityIndicator",
-                                  objectName="LoadingSpinner")
 
     def get_first_genre_item(self):
         return self.wait_select_single("*", objectName="genreItemObject")

@@ -15,10 +15,10 @@ import logging
 import music_app
 
 import fixtures
-from music_app import MainView
+from music_app import MusicApp
 
 from autopilot import logging as autopilot_logging
-from autopilot.input import Mouse, Touch, Pointer
+from autopilot.input import Mouse, Touch
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
@@ -32,7 +32,7 @@ from ubuntuuitoolkit import (
 logger = logging.getLogger(__name__)
 
 
-class MusicTestCase(AutopilotTestCase):
+class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
     """A common test case class that provides several useful methods for
     music-app tests.
@@ -48,7 +48,7 @@ class MusicTestCase(AutopilotTestCase):
     local_location = local_location_dir + "/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
 
-    def setup_environment(self):
+    def get_launcher_method_and_type(self):
         if os.path.exists(self.local_location):
             launch = self.launch_test_local
             test_type = 'local'
@@ -61,16 +61,15 @@ class MusicTestCase(AutopilotTestCase):
         return launch, test_type
 
     def setUp(self):
-        launch, self.test_type = self.setup_environment()
-        self.home_dir = self._patch_home()
-        self._create_music_library()
-        self.pointing_device = Pointer(self.input_device_class.create())
-        super(MusicTestCase, self).setUp()
-        launch()
+        super(BaseTestCaseWithPatchedHome, self).setUp()
+        _, test_type = self.get_launcher_method_and_type()
+        self.home_dir = self._patch_home(test_type)
+
+        self._create_music_library(test_type)
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
-        self.app = self.launch_test_application(
+        return self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.local_location,
             "debug",
@@ -79,7 +78,7 @@ class MusicTestCase(AutopilotTestCase):
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_installed(self):
-        self.app = self.launch_test_application(
+        return self.launch_test_application(
             base.get_qmlscene_launch_command(),
             self.installed_location,
             "debug",
@@ -88,7 +87,7 @@ class MusicTestCase(AutopilotTestCase):
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_click(self):
-        self.app = self.launch_click_package(
+        return self.launch_click_package(
             "com.ubuntu.music",
             emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
@@ -109,12 +108,12 @@ class MusicTestCase(AutopilotTestCase):
                                    '.Xauthority')),
                 os.path.join(directory, '.Xauthority'))
 
-    def _patch_home(self):
+    def _patch_home(self, test_type):
         """ mock /home for testing purposes to preserve user data
         """
         # click requires apparmor profile, and writing to special dir
         # but the desktop can write to a traditional /tmp directory
-        if self.test_type == 'click':
+        if test_type == 'click':
             env_dir = os.path.join(os.environ.get('HOME'), 'autopilot',
                                    'fakeenv')
 
@@ -175,8 +174,8 @@ class MusicTestCase(AutopilotTestCase):
         logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
 
-    def _create_music_library(self):
-        logger.debug("Creating music library for %s test" % self.test_type)
+    def _create_music_library(self, test_type):
+        logger.debug("Creating music library for %s test" % test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
         logger.debug("Music path set to %s" % musicpath)
@@ -245,10 +244,12 @@ class MusicTestCase(AutopilotTestCase):
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
 
-    @property
-    def player(self):
-        return self.main_view.get_player()
 
-    @property
-    def main_view(self):
-        return self.app.select_single(MainView)
+class MusicAppTestCase(BaseTestCaseWithPatchedHome):
+
+    """Base test case that launches the music-app."""
+
+    def setUp(self):
+        super(MusicAppTestCase, self).setUp()
+        launcher_method, _ = self.get_launcher_method_and_type()
+        self.app = MusicApp(launcher_method())

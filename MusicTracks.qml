@@ -32,6 +32,7 @@ import "common/ListItemActions"
 
 MusicPage {
     id: mainpage
+    objectName: "tracksPage"
     title: i18n.tr("Songs")
 
     ListView {
@@ -57,6 +58,7 @@ MusicPage {
             ListItemWithActions {
                 id: track
                 color: "transparent"
+                objectName: "tracksTabListItem" + index
                 width: parent.width
                 height: styleMusic.common.itemHeight
 
