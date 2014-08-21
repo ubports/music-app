@@ -158,6 +158,7 @@ MusicPage {
                     songsPage.line1 = i18n.tr("Playlist")
                     songsPage.line2 = model.name
                     songsPage.covers =  playlist.covers
+                    songsPage.genre = undefined
                     songsPage.title = i18n.tr("Playlist")
 
                     mainPageStack.push(songsPage)
