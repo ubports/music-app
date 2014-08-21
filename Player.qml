@@ -65,7 +65,8 @@ Item {
                 player.currentIndex = 0;
                 player.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
             } else if (trackQueue.model.count === 0) {
-                currentMetaFile = ""
+                player.currentMetaFile = ""
+                player.source = ""
             }
         }
     }

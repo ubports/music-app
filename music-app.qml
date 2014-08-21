@@ -862,13 +862,6 @@ MainView {
             model.append(makeDict(listElement))
             console.debug(JSON.stringify(makeDict(listElement)));
         }
-
-        // If model is being emptied, clear the player source.
-        onCountChanged: {
-            if (count === 0) {
-                player.source = ""
-            }
-        }
     }
 
     // TODO: list of playlists move to U1DB
