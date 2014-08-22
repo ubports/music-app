@@ -102,12 +102,6 @@ class MusicNowPlaying(MusicPage):
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
-        root = self.get_root_instance()
-
-        self.player = root.select_single(Player, objectName="player")
-        self.toolbar = root.select_single(MusicToolbar,
-                                          objectName="musicToolbarObject")
-
     def get_count(self):
         return self.select_single("QQuickListView",
                                   objectName="nowPlayingQueueList").count
@@ -116,18 +110,6 @@ class MusicNowPlaying(MusicPage):
         return (self.wait_select_single("ListItemWithActions",
                 objectName="nowPlayingListItem" + str(i)))
 
-    def set_repeat(self, state):
-        if self.player.repeat != state:
-            self.toolbar.click_full_repeat_button()
-
-        self.player.repeat.wait_for(state)
-
-    def set_shuffle(self, state):
-        if self.player.shuffle != state:
-            self.toolbar.click_full_shuffle_button()
-
-        self.player.shuffle.wait_for(state)
-
 
 class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for the toolbar
@@ -135,30 +117,47 @@ class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
     expanded - refers to things when the toolbar is in its smaller state
     full - refers to things when the toolbar is in its larger state
     """
+    def __init__(self, *args):
+        super(MusicToolbar, self).__init__(*args)
+
+        root = self.get_root_instance()
+        self.player = root.select_single(Player, objectName="player")
 
     @click_object
-    def click_expanded_play_button(self):
-        return self.wait_select_single("*", objectName="expandedPlayShape")
+    def click_small_play_button(self):
+        return self.wait_select_single("*", objectName="smallPlayShape")
 
     @click_object
-    def click_full_forward_button(self):
-        return self.wait_select_single("*", objectName="fullForwardShape")
+    def click_forward_button(self):
+        return self.wait_select_single("*", objectName="forwardShape")
 
     @click_object
-    def click_full_play_button(self):
-        return self.wait_select_single("*", objectName="fullPlayShape")
+    def click_play_button(self):
+        return self.wait_select_single("*", objectName="playShape")
 
     @click_object
-    def click_full_previous_button(self):
-        return self.wait_select_single("*", objectName="fullPreviousShape")
+    def click_previous_button(self):
+        return self.wait_select_single("*", objectName="previousShape")
 
     @click_object
-    def click_full_repeat_button(self):
-        return self.wait_select_single("*", objectName="fullRepeatShape")
+    def click_repeat_button(self):
+        return self.wait_select_single("*", objectName="repeatShape")
 
     @click_object
-    def click_full_shuffle_button(self):
-        return self.wait_select_single("*", objectName="fullShuffleShape")
+    def click_shuffle_button(self):
+        return self.wait_select_single("*", objectName="shuffleShape")
+
+    def set_repeat(self, state):
+        if self.player.repeat != state:
+            self.click_repeat_button()
+
+        self.player.repeat.wait_for(state)
+
+    def set_shuffle(self, state):
+        if self.player.shuffle != state:
+            self.click_shuffle_button()
+
+        self.player.shuffle.wait_for(state)
 
     def show(self):
         self.pointing_device.move_to_object(self)

@@ -88,12 +88,12 @@ class TestMainWindow(MusicAppTestCase):
 
         """ Track is playing"""
         if self.main_view.wideAspect:
-            click_play_button = toolbar.click_full_play_button
+            click_play_button = toolbar.click_play_button
         else:
             if not toolbar.opened:
                 toolbar.show()
 
-            click_play_button = toolbar.click_expanded_play_button
+            click_play_button = toolbar.click_small_play_button
 
         click_play_button()
 
@@ -112,13 +112,13 @@ class TestMainWindow(MusicAppTestCase):
 
         """ Track is playing"""
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
 
         """ Track is not playing"""
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         """ Track is playing"""
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_next_previous(self):
@@ -140,18 +140,18 @@ class TestMainWindow(MusicAppTestCase):
         logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
         """ Pause track """
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         now_playing_page.set_shuffle(False)
 
         """ Select next """
         # goal is to go back and forth and ensure 2 different songs
-        toolbar.click_full_forward_button()
+        toolbar.click_forward_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Pause track """
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure different song
@@ -165,11 +165,11 @@ class TestMainWindow(MusicAppTestCase):
         self.main_view.seek_to_0()  # TODO: put in helper in future
 
         """ Select previous """
-        toolbar.click_full_previous_button()
+        toolbar.click_previous_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Pause track """
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure we're back to original song
@@ -200,10 +200,10 @@ class TestMainWindow(MusicAppTestCase):
             self.assertThat(count, LessThan(queue))
 
             """ Select next """
-            toolbar.click_full_forward_button()
+            toolbar.click_forward_button()
 
             """ Pause track """
-            toolbar.click_full_play_button()
+            toolbar.click_play_button()
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(False)))
 
@@ -217,7 +217,7 @@ class TestMainWindow(MusicAppTestCase):
         # make sure mp3 plays
         self.assertThat(self.player.source.endswith("mp3"),
                         Equals(True))
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_shuffle(self):
@@ -232,13 +232,13 @@ class TestMainWindow(MusicAppTestCase):
         # play for a second, then pause
         if not self.player.isPlaying:
             logger.debug("Play not selected")
-            toolbar.click_full_play_button()
+            toolbar.click_play_button()
         else:
             logger.debug("Already playing")
 
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
         time.sleep(1)
-        toolbar.click_full_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         count = 0
@@ -259,7 +259,7 @@ class TestMainWindow(MusicAppTestCase):
 
             now_playing_page.set_shuffle(True)
 
-            toolbar.click_full_forward_button()
+            toolbar.click_forward_button()
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(True)))
 
@@ -270,13 +270,13 @@ class TestMainWindow(MusicAppTestCase):
             # go back to previous and check against original
             # play song, then pause before switching
             time.sleep(1)
-            toolbar.click_full_play_button()
+            toolbar.click_play_button()
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(False)))
 
             now_playing_page.set_shuffle(False)
 
-            toolbar.click_full_previous_button()
+            toolbar.click_previous_button()
 
             title = self.player.currentMetaTitle
             artist = self.player.currentMetaArtist
@@ -575,7 +575,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # Skip through all songs in queue, stopping on last one.
         for count in range(0, now_playing_page.get_count() - 1):
-            toolbar.click_full_forward_button()
+            toolbar.click_forward_button()
 
         # When the last song ends, playback should stop
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
@@ -593,7 +593,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # Skip through all songs in queue, stopping on last one.
         for count in range(0, now_playing_page.get_count() - 1):
-            toolbar.click_full_forward_button()
+            toolbar.click_forward_button()
 
         # Make sure we loop back to first song after last song ends
         actual_title = lambda: self.player.currentMetaTitle
@@ -613,7 +613,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # Skip through all songs in queue, INCLUDING last one.
         for count in range(0, now_playing_page.get_count() - 1):
-            toolbar.click_full_forward_button()
+            toolbar.click_forward_button()
 
         actual_title = lambda: self.player.currentMetaTitle
         self.assertThat(actual_title, Eventually(Equals(self.trackTitle)))
@@ -631,13 +631,13 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page.set_repeat(True)
 
         initial_song = self.player.currentMetaTitle
-        toolbar.click_full_previous_button()
+        toolbar.click_previous_button()
 
         # If we're far enough into a song, pressing prev just takes us to the
         # beginning of that track.  In that case, hit prev again to actually
         # skip over the track.
         if self.player.currentMetaTitle == initial_song:
-            toolbar.click_full_previous_button()
+            toolbar.click_previous_button()
 
         actual_title = lambda: self.player.currentMetaTitle
         self.assertThat(actual_title, Eventually(Equals(self.lastTrackTitle)))

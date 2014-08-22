@@ -281,7 +281,7 @@ Item {
                 /* Repeat button */
                 Item {
                     id: nowPlayingRepeatButton
-                    objectName: "fullRepeatShape"
+                    objectName: "repeatShape"
                     anchors.right: nowPlayingPreviousButton.left
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
@@ -317,7 +317,7 @@ Item {
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    objectName: "fullPreviousShape"
+                    objectName: "previousShape"
                     opacity: trackQueue.model.count === 0  ? .4 : 1
                     width: height
 
@@ -400,7 +400,7 @@ Item {
                                         antialiasing: true
                                         color: styleMusic.toolbar.fullInnerPlayCircleColor
                                         height: nowPlayingPlayButtonInner.height - units.gu(.1)
-                                        objectName: "fullPlayShape"
+                                        objectName: "playShape"
                                         radius: height / 2
                                         width: height
 
@@ -441,7 +441,7 @@ Item {
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    objectName: "fullForwardShape"
+                    objectName: "forwardShape"
                     opacity: trackQueue.model.count === 0 ? .4 : 1
                     width: height
 
@@ -467,7 +467,7 @@ Item {
                 /* Shuffle button */
                 Item {
                     id: nowPlayingShuffleButton
-                    objectName: "fullShuffleShape"
+                    objectName: "shuffleShape"
                     anchors.left: nowPlayingNextButton.right
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
@@ -902,7 +902,7 @@ Item {
                         antialiasing: true
                         color: "#444"
                         height: units.gu(7)
-                        objectName: "expandedPlayShape"
+                        objectName: "smallPlayShape"
                         radius: height / 2
                         width: height
 
