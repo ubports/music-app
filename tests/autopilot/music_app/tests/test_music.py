@@ -358,6 +358,9 @@ class TestMainWindow(MusicAppTestCase):
 
         self.app.populate_queue()  # populate queue
 
+        # get now playing again as it has moved
+        now_playing_page = self.app.get_now_playing_page()
+
         # verify track queue has added all songs to initial value
         self.assertThat(now_playing_page.get_count(),
                         Equals(initial_tracks_count + 3))
@@ -513,6 +516,9 @@ class TestMainWindow(MusicAppTestCase):
         track = self.main_view.get_songs_page_listview_tracktitle(
             self.trackTitle)
         self.pointing_device.click_object(track)
+
+        # get now playing again as it has moved
+        now_playing_page = self.app.get_now_playing_page()
 
         # verify track queue has added all songs to initial value
         self.assertThat(now_playing_page.get_count(),

@@ -56,6 +56,9 @@ class MusicApp(object):
 
         # TODO: when using bottom edge wait for .isReady on tracksPage
 
+        # wait for now playing page to be visible
+        self.get_now_playing_page().visible.wait_for(True)
+
 
 class Page(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
