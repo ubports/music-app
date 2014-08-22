@@ -88,24 +88,19 @@ class TestMainWindow(MusicAppTestCase):
 
         """ Track is playing"""
         if self.main_view.wideAspect:
-            toolbar.click_full_play_button()
+            click_play_button = toolbar.click_full_play_button
         else:
             if not toolbar.opened:
                 toolbar.show()
 
-            toolbar.click_expanded_play_button()
+            click_play_button = toolbar.click_expanded_play_button
+
+        click_play_button()
 
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
-        if self.main_view.wideAspect:
-            toolbar.click_full_play_button()
-        else:
-            if not toolbar.opened:
-                toolbar.show()
-
-            toolbar.click_expanded_play_button()
-
+        click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_play_pause_now_playing(self):
@@ -259,7 +254,7 @@ class TestMainWindow(MusicAppTestCase):
             orgArtist = self.player.currentMetaArtist
             logger.debug("Original Song %s, %s" % (orgTitle, orgArtist))
 
-            if (not toolbar.opened):
+            if not toolbar.opened:
                 toolbar.show()
 
             now_playing_page.set_shuffle(True)
@@ -267,6 +262,7 @@ class TestMainWindow(MusicAppTestCase):
             toolbar.click_full_forward_button()
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(True)))
+
             title = self.player.currentMetaTitle
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
