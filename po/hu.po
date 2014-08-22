@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-19 07:16+0000\n"
+"PO-Revision-Date: 2014-08-21 08:15+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-08-22 07:38+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -89,15 +89,15 @@ msgstr "Előadó"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Importálás"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Fájl importálás."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Sikertelen a fájl áthelyezése"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -386,27 +386,27 @@ msgstr "Zene beállítások"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Az elérési útvonalnak a következővel kell kezdődnie: ~/Zenék/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Az elérési útvonalon fájlnak kell lennie"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Várakozás a fájlra…"
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Az importált fájl nem található"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Várakozás"
 
 #: ../music-app.qml:472
 msgid "Target destination"
