@@ -87,13 +87,23 @@ class TestMainWindow(MusicAppTestCase):
         self.main_view.go_back()
 
         """ Track is playing"""
+        if self.main_view.wideAspect:
+            toolbar.click_full_play_button()
+        else:
+            if not toolbar.opened:
+                toolbar.show()
+
+            toolbar.click_expanded_play_button()
+
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         """ Track is not playing"""
         if self.main_view.wideAspect:
             toolbar.click_full_play_button()
         else:
-            toolbar.show()
+            if not toolbar.opened:
+                toolbar.show()
+
             toolbar.click_expanded_play_button()
 
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
