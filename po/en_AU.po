@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-17 09:05+0000\n"
+"PO-Revision-Date: 2014-08-23 02:37+0000\n"
 "Last-Translator: Jared Norris <jarednorris@ubuntu.com>\n"
 "Language-Team: English (Australia) <en_AU@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:47+0000\n"
+"X-Launchpad-Export-Date: 2014-08-23 07:15+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -89,15 +89,15 @@ msgstr "Artist"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Import file."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Failed to move file"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -386,31 +386,31 @@ msgstr "Music Settings"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Filepath must start with ~/Music/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Filepath must be a file"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Waiting for file..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Imported file not found"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Wait"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Target destination"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
