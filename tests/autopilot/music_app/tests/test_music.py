@@ -126,7 +126,6 @@ class TestMainWindow(MusicAppTestCase):
 
         self.app.populate_queue()  # populate queue
 
-        now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
         title = lambda: self.player.currentMetaTitle
@@ -143,7 +142,7 @@ class TestMainWindow(MusicAppTestCase):
         toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
-        now_playing_page.set_shuffle(False)
+        toolbar.set_shuffle(False)
 
         """ Select next """
         # goal is to go back and forth and ensure 2 different songs
@@ -187,7 +186,7 @@ class TestMainWindow(MusicAppTestCase):
         title = self.player.currentMetaTitle
         artist = self.player.currentMetaArtist
 
-        now_playing_page.set_shuffle(False)
+        toolbar.set_shuffle(False)
 
         """ Track is playing """
         count = 1
@@ -226,7 +225,6 @@ class TestMainWindow(MusicAppTestCase):
         self.app.populate_queue()  # populate queue
 
         """ Track is playing, shuffle is turned on"""
-        now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
         # play for a second, then pause
@@ -257,7 +255,7 @@ class TestMainWindow(MusicAppTestCase):
             if not toolbar.opened:
                 toolbar.show()
 
-            now_playing_page.set_shuffle(True)
+            toolbar.set_shuffle(True)
 
             toolbar.click_forward_button()
             self.assertThat(self.player.isPlaying,
@@ -274,7 +272,7 @@ class TestMainWindow(MusicAppTestCase):
             self.assertThat(self.player.isPlaying,
                             Eventually(Equals(False)))
 
-            now_playing_page.set_shuffle(False)
+            toolbar.set_shuffle(False)
 
             toolbar.click_previous_button()
 
@@ -570,8 +568,8 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
-        now_playing_page.set_shuffle(False)
-        now_playing_page.set_repeat(False)
+        toolbar.set_shuffle(False)
+        toolbar.set_repeat(False)
 
         # Skip through all songs in queue, stopping on last one.
         for count in range(0, now_playing_page.get_count() - 1):
@@ -588,8 +586,8 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
-        now_playing_page.set_shuffle(False)
-        now_playing_page.set_repeat(True)
+        toolbar.set_shuffle(False)
+        toolbar.set_repeat(True)
 
         # Skip through all songs in queue, stopping on last one.
         for count in range(0, now_playing_page.get_count() - 1):
@@ -608,8 +606,8 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
-        now_playing_page.set_shuffle(False)
-        now_playing_page.set_repeat(True)
+        toolbar.set_shuffle(False)
+        toolbar.set_repeat(True)
 
         # Skip through all songs in queue, INCLUDING last one.
         for count in range(0, now_playing_page.get_count() - 1):
@@ -624,11 +622,10 @@ class TestMainWindow(MusicAppTestCase):
 
         self.app.populate_queue()  # populate queue
 
-        now_playing_page = self.app.get_now_playing_page()
         toolbar = self.app.get_toolbar()
 
-        now_playing_page.set_shuffle(False)
-        now_playing_page.set_repeat(True)
+        toolbar.set_shuffle(False)
+        toolbar.set_repeat(True)
 
         initial_song = self.player.currentMetaTitle
         toolbar.click_previous_button()
