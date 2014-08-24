@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-17 04:51+0000\n"
-"Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
+"PO-Revision-Date: 2014-08-23 19:12+0000\n"
+"Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-08-24 06:45+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -92,15 +92,15 @@ msgstr "Artist"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Importare"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Importare fișier."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Eșec la mutarea fișierului"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -400,19 +400,19 @@ msgstr ""
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Se așteaptă pentru fișier..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "În regulă"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Nu a fost găsit fișierul importat"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Așteptați"
 
 #: ../music-app.qml:472
 msgid "Target destination"
