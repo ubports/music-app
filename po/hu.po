@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-21 08:15+0000\n"
+"PO-Revision-Date: 2014-08-24 11:18+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:38+0000\n"
+"X-Launchpad-Export-Date: 2014-08-25 08:05+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -263,7 +263,7 @@ msgstr "Műfaj"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Koppintson a zene keveréséhez"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -410,7 +410,7 @@ msgstr "Várakozás"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Cél"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
