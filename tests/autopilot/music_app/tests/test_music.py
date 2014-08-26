@@ -188,15 +188,15 @@ class TestMainWindow(MusicAppTestCase):
 
         toolbar.set_shuffle(False)
 
-        """ Track is playing """
-        count = 1
-
         # ensure track appears before looping through queue more than once
         # needs to contain test mp3 metadata and end in *.mp3
-        queue = now_playing_page.get_count()
+        queue_size = now_playing_page.get_count()
+        count = 0
 
         while title != "TestMP3Title" and artist != "TestMP3Artist":
-            self.assertThat(count, LessThan(queue))
+            count = count + 1
+
+            self.assertThat(count, LessThan(queue_size))
 
             """ Select next """
             toolbar.click_forward_button()
@@ -210,8 +210,6 @@ class TestMainWindow(MusicAppTestCase):
             artist = self.player.currentMetaArtist
             logger.debug("Current Song %s, %s" % (title, artist))
             logger.debug("File found %s" % self.player.currentMetaFile)
-
-            count = count + 1
 
         # make sure mp3 plays
         self.assertThat(self.player.source.endswith("mp3"),
