@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 DROP TABLE media;
 CREATE TABLE media (
-    filename TEXT PRIMARY KEY NOT NULL,
+    filename TEXT PRIMARY KEY NOT NULL CHECK (filename LIKE '/%'),
     content_type TEXT,
     etag TEXT,
     title TEXT,
@@ -17,23 +17,25 @@ CREATE TABLE media (
     height INTEGER,       -- Only relevant to video/images
     latitude DOUBLE,
     longitude DOUBLE,
-    type INTEGER   -- 0=Audio, 1=Video
+    type INTEGER CHECK (type IN (1, 2, 3)) -- MediaType enum
 );
-INSERT INTO "media" VALUES('/home/phablet/Music/1.ogg','audio/ogg','1401368666:257952','Gran Vals','1902','Francisco Tárrega','','Francisco Tárrega','',0,0,202,0,0,0.0,0.0,1);
-INSERT INTO "media" VALUES('/home/phablet/Music/2.ogg','audio/ogg','1401457265:78191','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,0,0,0.0,0.0,1);
-INSERT INTO "media" VALUES('/home/phablet/Music/3.mp3','audio/mpeg','1401457265:78191','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,0,0,0.0,0.0,1);
-
-CREATE INDEX media_album_album_artist_idx ON media(album, album_artist);
-CREATE TRIGGER media_ai AFTER INSERT ON media BEGIN
-  INSERT INTO media_fts(docid, title, artist, album) VALUES (new.rowid, new.title, new.artist, new.album);
-END;
-CREATE TRIGGER media_au AFTER UPDATE ON media BEGIN
-  INSERT INTO media_fts(docid, title, artist, album) VALUES (new.rowid, new.title, new.artist, new.album);
+INSERT INTO `media` VALUES('/home/victor/Music/3.mp3','audio/mpeg','1409095536:151042','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,0,0,'0.0','0.0',1);
+INSERT INTO `media` VALUES('/home/victor/Music/1.ogg','audio/ogg','1409095536:159042','Gran Vals',1902,'Francisco Tárrega','','Francisco Tárrega','',0,0,202,0,0,'0.0','0.0',1);
+INSERT INTO `media` VALUES('/home/victor/Music/2.ogg','audio/ogg','1409095536:183042','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,0,0,'0.0','0.0',1);
+CREATE INDEX media_type_idx ON media(type);
+CREATE INDEX media_song_info_idx ON media(type, album_artist, album, disc_number, track_number, title) WHERE type = 0;
+CREATE INDEX media_genre_idx ON media(type, genre) WHERE type = 0;
+CREATE INDEX media_artist_idx ON media(type, artist) WHERE type = 0;
+CREATE TRIGGER media_bu BEFORE UPDATE ON media BEGIN
+  DELETE FROM media_fts WHERE docid=old.rowid;
 END;
 CREATE TRIGGER media_bd BEFORE DELETE ON media BEGIN
   DELETE FROM media_fts WHERE docid=old.rowid;
 END;
-CREATE TRIGGER media_bu BEFORE UPDATE ON media BEGIN
-  DELETE FROM media_fts WHERE docid=old.rowid;
+CREATE TRIGGER media_au AFTER UPDATE ON media BEGIN
+  INSERT INTO media_fts(docid, title, artist, album) VALUES (new.rowid, new.title, new.artist, new.album);
+END;
+CREATE TRIGGER media_ai AFTER INSERT ON media BEGIN
+  INSERT INTO media_fts(docid, title, artist, album) VALUES (new.rowid, new.title, new.artist, new.album);
 END;
 COMMIT;
