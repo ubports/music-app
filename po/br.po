@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-06-19 08:54+0000\n"
-"Last-Translator: Rouxel <vincent.rouxel@mailoo.org>\n"
+"PO-Revision-Date: 2014-08-26 06:51+0000\n"
+"Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-08-26 07:46+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "Albomoù"
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "Albom"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -84,20 +84,20 @@ msgstr[1] "%1 a donioù"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Arzour"
 
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Enporzhiañ"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Enporzhiañ ar restr."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "N'eus ket bet gallet dilec'hiañ ar restr"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -133,18 +133,18 @@ msgstr "Cheñch"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Ar roll tonioù zo anezhañ dija"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
-msgstr ""
+msgstr "Skrivit un anv, mar plij."
 
 #: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
 #: ../MusicStart.qml:202 ../common/SongsPage.qml:165
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Roll tonioù"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
@@ -259,11 +259,11 @@ msgstr "Stiloù"
 #: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
 #: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
-msgstr ""
+msgstr "Stil"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Pouezit war lenn evit selaou bommoù sonerezh"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -296,7 +296,7 @@ msgstr "Ouzhpennañ d'ar roll-tonioù"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Ouzhpennañ d'al lostennad"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -386,31 +386,31 @@ msgstr "Arventennoù sonerezh"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Hent ar restroù a rank kregiñ gant ~/Music/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Hent ar restroù a rank bezañ ur restr"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "O c'hortoz ur restr..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "Mat eo"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "N'eo ket bet kavet ar restr enporzhiet"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Gortoz"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Lec'h pal"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
@@ -443,11 +443,11 @@ msgstr "Krouiñ"
 
 #: ../music-app.qml:1189
 msgid "No music found"
-msgstr ""
+msgstr "N'eus ket bet kavet sonerezh"
 
 #: ../music-app.qml:1196
 msgid "Please import music"
-msgstr ""
+msgstr "Enporzhiit sonerezh, mar plij"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
