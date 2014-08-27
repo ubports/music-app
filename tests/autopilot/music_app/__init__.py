@@ -6,7 +6,7 @@
 # by the Free Software Foundation.
 
 """music-app tests and emulators - top level package."""
-import ubuntuuitoolkit
+from ubuntuuitoolkit import MainView, UbuntuUIToolkitCustomProxyObjectBase
 from time import sleep
 
 
@@ -68,7 +68,7 @@ class MusicApp(object):
         self.get_now_playing_page().visible.wait_for(True)
 
 
-class Page(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class Page(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
     def __init__(self, *args):
         super(Page, self).__init__(*args)
@@ -89,11 +89,11 @@ class Page11(MusicPage):
         super(MusicPage, self).__init__(*args)
 
     def get_track(self, i):
-        return (self.wait_select_single("ListItemWithActions",
+        return (self.wait_select_single(ListItemWithActions,
                 objectName="tracksTabListItem" + str(i)))
 
 
-class Player(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class Player(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Player"""
 
 
@@ -107,11 +107,11 @@ class MusicNowPlaying(MusicPage):
                                   objectName="nowPlayingQueueList").count
 
     def get_track(self, i):
-        return (self.wait_select_single("ListItemWithActions",
+        return (self.wait_select_single(ListItemWithActions,
                 objectName="nowPlayingListItem" + str(i)))
 
 
-class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for the toolbar
 
     expanded - refers to things when the toolbar is in its smaller state
@@ -147,6 +147,17 @@ class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
+    def seek_to(self, percentage):
+        progressBar = self.wait_select_single(
+            "*", objectName="progressBarShape")
+
+        x1, y1, width, height = progressBar.globalRect
+        y1 += height // 2
+
+        x2 = x1 + int(width * percentage / 100)
+
+        self.pointing_device.drag(x1, y1, x2, y1)
+
     def set_repeat(self, state):
         if self.player.repeat != state:
             self.click_repeat_button()
@@ -169,7 +180,40 @@ class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.drag(x1, y1, x1, y1 - self.fullHeight)
 
 
-class MainView(ubuntuuitoolkit.MainView):
+class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
+    @click_object
+    def click_add_to_playlist_action(self):
+        return self.wait_select_single(objectName="addToPlaylistAction")
+
+    @click_object
+    def click_add_to_queue_action(self):
+        return self.wait_select_single(objectName="addToQueueAction")
+
+    @click_object
+    def confirm_removal(self):
+        return self.wait_select_single(objectName="swipeDeleteAction")
+
+    def get_label_text(self, name):
+        return self.wait_select_single(objectName=name).text
+
+    def swipe_reveal_actions(self):
+        x, y, width, height = self.globalRect
+        start_x = x + (width * 0.8)
+        stop_x = x + (width * 0.2)
+        start_y = stop_y = y + (height // 2)
+
+        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
+
+    def swipe_to_delete(self):
+        x, y, width, height = self.globalRect
+        start_x = x + (width * 0.2)
+        stop_x = x + (width * 0.8)
+        start_y = stop_y = y + (height // 2)
+
+        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
+
+
+class MainView(MainView):
     """Autopilot custom proxy object for the MainView."""
     retry_delay = 0.2
 
@@ -194,24 +238,8 @@ class MainView(ubuntuuitoolkit.MainView):
             tries = tries - 1
         return items
 
-    def tap_item(self, item):
-        self.pointing_device.move_to_object(item)
-        self.pointing_device.press()
-        sleep(2)
-        self.pointing_device.release()
-
-    def seek_to_0(self):
-        # Get the progress bar object
-        progressBar = self.wait_select_single(
-            "*", objectName="progressBarShape")
-
-        # Move to the progress bar and get the position
-        self.pointing_device.move_to_object(progressBar)
-        x1, y1 = self.pointing_device.position()
-
-        self.pointing_device.drag(x1, y1, x1 - (progressBar.width / 2) + 1, y1)
-
     def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
+        # TODO: build helper for AlbumsPage SongsPage
         # switch to albums tab
         self.switch_to_tab("albumstab")
 
@@ -259,23 +287,10 @@ class MainView(ubuntuuitoolkit.MainView):
             if item.text == artistName:
                 return item
 
-    def get_add_to_queue_action(self):
+    def get_add_to_queue_action(self):  # TODO: remove once SongsPage helper
         return self.wait_select_single("*",
                                        objectName="addToQueueAction",
                                        primed=True)
-
-    def get_add_to_playlist_action(self):
-        return self.wait_select_single("*",
-                                       objectName="addToPlaylistAction",
-                                       primed=True)
-
-    def get_add_to_queue_button(self):
-        return self.wait_select_single("QQuickImage",
-                                       objectName="albumpage-queue-all")
-
-    def get_album_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="albumpage-albumartist")
 
     def get_songs_page_artist(self):
         return self.wait_select_single("Label",
@@ -301,9 +316,6 @@ class MainView(ubuntuuitoolkit.MainView):
             if item.text == artistName:
                 return item
 
-    def close_buttons(self):
-        return self.select_many("Button", text="close")
-
     def get_album_page_listview_tracktitle(self, trackTitle):
         tracktitles = self.select_many_retry(
             "Label", objectName="albumpage-tracktitle")
@@ -317,24 +329,6 @@ class MainView(ubuntuuitoolkit.MainView):
         for item in tracktitles:
             if item.text == trackTitle:
                 return item
-
-    def get_queue_now_playing_artist(self, artistName):
-        playingartists = self.select_many(
-            "Label", objectName="nowplayingartist")
-        for item in playingartists:
-            if item.text == artistName:
-                return item
-
-    def get_queue_now_playing_title(self, trackTitle):
-        playingtitles = self.select_many(
-            "Label", objectName="nowplayingtitle")
-        for item in playingtitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_tracks_tab_listview(self):
-        return self.select_single("QQuickListView",
-                                  objectName="trackstab-listview")
 
     def get_songs_page_listview(self):
         return self.select_single("QQuickListView",
@@ -369,8 +363,3 @@ class MainView(ubuntuuitoolkit.MainView):
     def get_playlistslist(self):
         return self.wait_select_single(
             "QQuickListView", objectName="playlistslist")
-
-    def get_swipedelete_icon(self):
-        return self.wait_select_single(
-            "*", objectName="swipeDeleteAction",
-            primed=True)

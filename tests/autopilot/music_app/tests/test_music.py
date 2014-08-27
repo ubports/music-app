@@ -25,6 +25,7 @@ class TestMainWindow(MusicAppTestCase):
     def setUp(self):
         super(TestMainWindow, self).setUp()
 
+        self.trackIndex = 0  # position on tracksPage
         self.trackTitle = u"Gran Vals"
         self.artistName = u"Francisco Tárrega"
         self.lastTrackTitle = u"TestMP3Title"
@@ -76,12 +77,12 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view
-        queueArtistName = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        self.assertThat(queueArtistName.text, Equals(self.artistName))
-        queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            self.trackTitle)
-        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+        current_track = now_playing_page.get_track(self.player.currentIndex)
+
+        self.assertThat(current_track.get_label_text("artist"),
+                        Equals(self.artistName))
+        self.assertThat(current_track.get_label_text("title"),
+                        Equals(self.trackTitle))
 
         # click on close button to close the page
         self.main_view.go_back()
@@ -160,8 +161,7 @@ class TestMainWindow(MusicAppTestCase):
         nextArtist = self.player.currentMetaArtist
         logger.debug("Next Song %s, %s" % (nextTitle, nextArtist))
 
-        """ Seek to 0 """
-        self.main_view.seek_to_0()  # TODO: put in helper in future
+        toolbar.seek_to(0)  # seek to 0 (start)
 
         """ Select previous """
         toolbar.click_previous_button()
@@ -323,12 +323,12 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view
-        queueArtistName = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        self.assertThat(queueArtistName.text, Equals(self.artistName))
-        queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            self.trackTitle)
-        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+        current_track = now_playing_page.get_track(self.player.currentIndex)
+
+        self.assertThat(current_track.get_label_text("artist"),
+                        Equals(self.artistName))
+        self.assertThat(current_track.get_label_text("title"),
+                        Equals(self.trackTitle))
 
         # click on close button to close album page
         self.main_view.go_back()
@@ -358,12 +358,12 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # verify song's metadata matches the item added to the Now Playing view
-        queueArtistName = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        self.assertThat(queueArtistName.text, Equals(self.artistName))
-        queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            self.trackTitle)
-        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+        current_track = now_playing_page.get_track(self.player.currentIndex)
+
+        self.assertThat(current_track.get_label_text("artist"),
+                        Equals(self.artistName))
+        self.assertThat(current_track.get_label_text("title"),
+                        Equals(self.trackTitle))
 
     def test_add_song_to_queue_from_songs_tab(self):
         """tests navigating to the Songs tab and adding a song from the library
@@ -374,26 +374,14 @@ class TestMainWindow(MusicAppTestCase):
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
 
-        # switch to songs tab
-        self.main_view.switch_to_tab("tracksTab")
+        # switch to tracks page
+        tracksPage = self.app.get_tracks_page()
 
-        # get track item to swipe and queue
-        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
-        songspage = self.main_view.get_tracks_tab_listview()
+        # get track row and swipe to reveal actions
+        track = tracksPage.get_track(self.trackIndex)
+        track.swipe_reveal_actions()
 
-        # get coordinates to swipe
-        start_x = int(songspage.globalRect.x +
-                      (songspage.globalRect.width * 0.9))
-        stop_x = int(songspage.globalRect.x)
-        line_y = int(trackitem.globalRect.y)
-
-        # swipe to add to queue
-        self.pointing_device.move(start_x, line_y)
-        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
-
-        # click on add to queue
-        queueaction = self.main_view.get_add_to_queue_action()
-        self.pointing_device.click_object(queueaction)
+        track.click_add_to_queue_action()  # add track to queue
 
         # verify track queue has added all songs to initial value
         self.assertThat(now_playing_page.get_count(),
@@ -405,40 +393,29 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # verify song's metadata matches the item added to the Now Playing view
-        queueArtistName = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        self.assertThat(queueArtistName.text, Equals(self.artistName))
-        queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            self.trackTitle)
-        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+        current_track = now_playing_page.get_track(self.player.currentIndex)
+
+        self.assertThat(current_track.get_label_text("artist"),
+                        Equals(self.artistName))
+        self.assertThat(current_track.get_label_text("title"),
+                        Equals(self.trackTitle))
 
     def test_create_playlist_from_songs_tab(self):
         """tests navigating to the Songs tab and creating a playlist by
            selecting a song to add it to a new playlist. """
 
-        # switch to songs tab
-        self.main_view.switch_to_tab("tracksTab")
+        # switch to tracks page
+        tracksPage = self.app.get_tracks_page()
 
-        # get track item to swipe and queue
-        trackitem = self.main_view.get_songs_tab_tracktitle(self.trackTitle)
-        songspage = self.main_view.get_tracks_tab_listview()
+        # get track row and swipe to reveal actions
+        track = tracksPage.get_track(self.trackIndex)
+        track.swipe_reveal_actions()
 
-        # get coordinates to swipe
-        start_x = int(songspage.globalRect.x +
-                      (songspage.globalRect.width * 0.9))
-        stop_x = int(songspage.globalRect.x)
-        line_y = int(trackitem.globalRect.y)
+        track.click_add_to_playlist_action()  # add track to queue
 
-        # swipe to add to queue
-        self.pointing_device.move(start_x, line_y)
-        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
-
-        # click on add to playlist
-        playlistaction = self.main_view.get_add_to_playlist_action()
-        self.pointing_device.click_object(playlistaction)
-
+        # TODO: move AddToPlaylist into its own helper
         # Wait for animations to complete
-        playlistaction.primed.wait_for(False)
+        # playlistaction.primed.wait_for(False)
 
         # get initial list view playlist count
         playlist_count = self.main_view.get_addtoplaylistview().count
@@ -517,12 +494,12 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # verify song's metadata matches the item added to the Now Playing view
-        queueArtistName = self.main_view.get_queue_now_playing_artist(
-            self.artistName)
-        self.assertThat(queueArtistName.text, Equals(self.artistName))
-        queueTrackTitle = self.main_view.get_queue_now_playing_title(
-            self.trackTitle)
-        self.assertThat(queueTrackTitle.text, Equals(self.trackTitle))
+        current_track = now_playing_page.get_track(self.player.currentIndex)
+
+        self.assertThat(current_track.get_label_text("artist"),
+                        Equals(self.artistName))
+        self.assertThat(current_track.get_label_text("title"),
+                        Equals(self.trackTitle))
 
     def test_swipe_to_delete_song(self):
         """tests navigating to the Now Playing queue, swiping to delete a
@@ -535,24 +512,11 @@ class TestMainWindow(MusicAppTestCase):
         # get initial queue count
         initial_queue_count = now_playing_page.get_count()
 
-        # get song to delete
-        track = now_playing_page.get_track(0)
+        # get track row and swipe to reveal swipe to delete
+        track = now_playing_page.get_track(self.trackIndex)
+        track.swipe_to_delete()
 
-        # TODO: make ListItemWithActions helper for swiping
-        # get coordinates to delete song
-        start_x = int(now_playing_page.globalRect.x +
-                      now_playing_page.globalRect.width * 0.30)
-        stop_x = int(now_playing_page.globalRect.x +
-                     now_playing_page.globalRect.width * 0.90)
-        line_y = int(track.globalRect.y) + int(track.height / 2)
-
-        # swipe to remove song
-        self.pointing_device.move(start_x, line_y)
-        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
-
-        # click on delete icon/label to confirm removal
-        swipedeleteicon = self.main_view.get_swipedelete_icon()
-        self.pointing_device.click_object(swipedeleteicon)
+        track.confirm_removal()  # confirm delete
 
         # verify song has been deleted
         self.assertThat(now_playing_page.get_count(),
