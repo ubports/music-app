@@ -29,7 +29,7 @@ import "settings.js" as Settings
 
 MusicPage {
     id: nowPlaying
-    objectName: "nowplayingpage"
+    objectName: "nowPlayingPage"
     title: i18n.tr("Now Playing")
     visible: false
 
@@ -82,7 +82,7 @@ MusicPage {
 
     ListView {
         id: queuelist
-        objectName: "queuelist"
+        objectName: "nowPlayingQueueList"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         delegate: queueDelegate
@@ -127,6 +127,7 @@ MusicPage {
                 id: queueListItem
                 color: "transparent"
                 height: queuelist.normalHeight
+                objectName: "nowPlayingListItem" + index
                 state: queuelist.currentIndex == index && !reordering ? "current" : ""
 
                 leftSideAction: Remove {

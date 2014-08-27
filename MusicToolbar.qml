@@ -317,7 +317,7 @@ Item {
                     anchors.rightMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    objectName: "previousshape"
+                    objectName: "previousShape"
                     opacity: trackQueue.model.count === 0  ? .4 : 1
                     width: height
 
@@ -400,7 +400,7 @@ Item {
                                         antialiasing: true
                                         color: styleMusic.toolbar.fullInnerPlayCircleColor
                                         height: nowPlayingPlayButtonInner.height - units.gu(.1)
-                                        objectName: "nowPlayingPlayShape"
+                                        objectName: "playShape"
                                         radius: height / 2
                                         width: height
 
@@ -441,7 +441,7 @@ Item {
                     anchors.leftMargin: units.gu(1)
                     anchors.verticalCenter: parent.verticalCenter
                     height: units.gu(6)
-                    objectName: "forwardshape"
+                    objectName: "forwardShape"
                     opacity: trackQueue.model.count === 0 ? .4 : 1
                     width: height
 
@@ -902,7 +902,7 @@ Item {
                         antialiasing: true
                         color: "#444"
                         height: units.gu(7)
-                        objectName: "playshape"
+                        objectName: "smallPlayShape"
                         radius: height / 2
                         width: height
 

@@ -14,6 +14,14 @@ class MusicAppException(Exception):
     """Exception raised when there's an error in the Music App."""
 
 
+def click_object(func):
+    """Wrapper which clicks the returned object"""
+    def func_wrapper(self, *args):
+        return self.pointing_device.click_object(func(self, *args))
+
+    return func_wrapper
+
+
 class MusicApp(object):
     """Autopilot helper object for the Music application."""
 
@@ -22,14 +30,13 @@ class MusicApp(object):
         self.main_view = self.app.wait_select_single(MainView)
         self.player = self.app.select_single(Player, objectName='player')
 
-    def populate_queue(self):
-        tracksPage = self.get_tracks_page()  # switch to track tab
+    def get_now_playing_page(self):
+        return self.app.wait_select_single(MusicNowPlaying,
+                                           objectName="nowPlayingPage")
 
-        # get and click to play first track
-        track = tracksPage.get_track(0)
-        self.app.pointing_device.click_object(track)
-
-        # TODO: when using bottom edge wait for .isReady on tracksPage
+    def get_toolbar(self):
+        return self.app.select_single(MusicToolbar,
+                                      objectName="musicToolbarObject")
 
     def get_tracks_page(self):
         """Open the Tracks tab.
@@ -47,6 +54,18 @@ class MusicApp(object):
         return (not self.main_view.select_single("ActivityIndicator",
                 objectName="LoadingSpinner").running and
                 self.main_view.select_single("*", "allSongsModel").populated)
+
+    def populate_queue(self):
+        tracksPage = self.get_tracks_page()  # switch to track tab
+
+        # get and click to play first track
+        track = tracksPage.get_track(0)
+        self.app.pointing_device.click_object(track)
+
+        # TODO: when using bottom edge wait for .isReady on tracksPage
+
+        # wait for now playing page to be visible
+        self.get_now_playing_page().visible.wait_for(True)
 
 
 class Page(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
@@ -75,7 +94,79 @@ class Page11(MusicPage):
 
 
 class Player(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
-    """Autopilot helper for Player """
+    """Autopilot helper for Player"""
+
+
+class MusicNowPlaying(MusicPage):
+    """ Autopilot helper for now playing page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+    def get_count(self):
+        return self.select_single("QQuickListView",
+                                  objectName="nowPlayingQueueList").count
+
+    def get_track(self, i):
+        return (self.wait_select_single("ListItemWithActions",
+                objectName="nowPlayingListItem" + str(i)))
+
+
+class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for the toolbar
+
+    expanded - refers to things when the toolbar is in its smaller state
+    full - refers to things when the toolbar is in its larger state
+    """
+    def __init__(self, *args):
+        super(MusicToolbar, self).__init__(*args)
+
+        root = self.get_root_instance()
+        self.player = root.select_single(Player, objectName="player")
+
+    @click_object
+    def click_small_play_button(self):
+        return self.wait_select_single("*", objectName="smallPlayShape")
+
+    @click_object
+    def click_forward_button(self):
+        return self.wait_select_single("*", objectName="forwardShape")
+
+    @click_object
+    def click_play_button(self):
+        return self.wait_select_single("*", objectName="playShape")
+
+    @click_object
+    def click_previous_button(self):
+        return self.wait_select_single("*", objectName="previousShape")
+
+    @click_object
+    def click_repeat_button(self):
+        return self.wait_select_single("*", objectName="repeatShape")
+
+    @click_object
+    def click_shuffle_button(self):
+        return self.wait_select_single("*", objectName="shuffleShape")
+
+    def set_repeat(self, state):
+        if self.player.repeat != state:
+            self.click_repeat_button()
+
+        self.player.repeat.wait_for(state)
+
+    def set_shuffle(self, state):
+        if self.player.shuffle != state:
+            self.click_shuffle_button()
+
+        self.player.shuffle.wait_for(state)
+
+    def show(self):
+        self.pointing_device.move_to_object(self)
+
+        x1, y1 = self.pointing_device.position()
+
+        y1 -= (self.height / 2) + 1  # get position at top of toolbar
+
+        self.pointing_device.drag(x1, y1, x1, y1 - self.fullHeight)
 
 
 class MainView(ubuntuuitoolkit.MainView):
@@ -90,10 +181,6 @@ class MainView(ubuntuuitoolkit.MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
-
-    def get_toolbar(self):
-        return self.select_single("MusicToolbar",
-                                  objectName="musicToolbarObject")
 
     def select_many_retry(self, object_type, **kwargs):
         """Returns the item that is searched for with app.select_many
@@ -124,18 +211,6 @@ class MainView(ubuntuuitoolkit.MainView):
 
         self.pointing_device.drag(x1, y1, x1 - (progressBar.width / 2) + 1, y1)
 
-    def show_toolbar(self):
-        # Get the toolbar object and create a mouse
-        toolbar = self.get_toolbar()
-
-        # Move to the toolbar and get the position
-        self.pointing_device.move_to_object(toolbar)
-        x1, y1 = self.pointing_device.position()
-
-        y1 -= (toolbar.height / 2) + 1  # get position at top of toolbar
-
-        self.pointing_device.drag(x1, y1, x1, y1 - toolbar.fullHeight)
-
     def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
         # switch to albums tab
         self.switch_to_tab("albumstab")
@@ -165,27 +240,6 @@ class MainView(ubuntuuitoolkit.MainView):
     def tap_new_playlist_action(self):
         header = self.get_header()
         header.click_action_button('newplaylistButton')
-
-    def get_player(self):
-        return self.select_single("*", objectName="player")
-
-    def get_play_button(self):
-        return self.wait_select_single("*", objectName="playshape")
-
-    def get_now_playing_play_button(self):
-        return self.wait_select_single("*", objectName="nowPlayingPlayShape")
-
-    def get_repeat_button(self):
-        return self.wait_select_single("*", objectName="repeatShape")
-
-    def get_shuffle_button(self):
-        return self.wait_select_single("*", objectName="shuffleShape")
-
-    def get_forward_button(self):
-        return self.wait_select_single("*", objectName="forwardshape")
-
-    def get_previous_button(self):
-        return self.wait_select_single("*", objectName="previousshape")
 
     def get_player_control_title(self):
         return self.select_single("Label", objectName="playercontroltitle")
@@ -264,11 +318,6 @@ class MainView(ubuntuuitoolkit.MainView):
             if item.text == trackTitle:
                 return item
 
-    def get_queue_track_count(self):
-        queuelist = self.select_single(
-            "QQuickListView", objectName="queuelist")
-        return queuelist.count
-
     def get_queue_now_playing_artist(self, artistName):
         playingartists = self.select_many(
             "Label", objectName="nowplayingartist")
@@ -320,10 +369,6 @@ class MainView(ubuntuuitoolkit.MainView):
     def get_playlistslist(self):
         return self.wait_select_single(
             "QQuickListView", objectName="playlistslist")
-
-    def get_MusicNowPlaying_page(self):
-        return self.wait_select_single(
-            "MusicNowPlaying", objectName="nowplayingpage")
 
     def get_swipedelete_icon(self):
         return self.wait_select_single(
