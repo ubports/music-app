@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-18 18:47+0000\n"
-"Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
+"PO-Revision-Date: 2014-08-26 21:27+0000\n"
+"Last-Translator: Turan Mahmudov <turan.mahmudov@gmail.com>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-08-27 07:45+0000\n"
+"X-Generator: Launchpad (build 17174)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -61,7 +61,7 @@ msgstr "Albomlar"
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "Albom"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -84,20 +84,20 @@ msgstr[1] "%1 mahnılar"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "İfaçı"
 
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "İdxal"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Fayl idxal et"
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Faylı köçürmək alınmadı"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -133,7 +133,7 @@ msgstr "Dəyişdir"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Çalğı siyahısı onsuzda var"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
@@ -144,7 +144,7 @@ msgstr ""
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Çalğı siyahısı"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
@@ -161,7 +161,7 @@ msgstr ""
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "Varsayılan"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
