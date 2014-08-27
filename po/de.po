@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-17 17:38+0000\n"
-"Last-Translator: Christian Gärtner <chrisdagardner@gmail.com>\n"
+"PO-Revision-Date: 2014-08-21 16:20+0000\n"
+"Last-Translator: Martin Pitt <martin.pitt@ubuntu.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-08-22 07:38+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -90,15 +90,15 @@ msgstr "Künstler"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Datei importieren."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Datei verschieben fehlgeschlagen."
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -264,7 +264,7 @@ msgstr "Musikrichtung"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Abspielen drücken um Musik zu mischen"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -387,31 +387,31 @@ msgstr "Musik-Einstellungen"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Dateipfad muss mit ~/Music/ starten"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Dateipfad muss eine Datei sein"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Warte auf Datei..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Importierte Datei nicht gefunden"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Warten"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Zielort"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521

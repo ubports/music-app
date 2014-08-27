@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-17 22:58+0000\n"
+"PO-Revision-Date: 2014-08-23 02:51+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-08-24 06:45+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -24,7 +24,7 @@ msgstr "ላስት.ኤፌም"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "ሙዚቃ ለማጫወት ይግቡ"
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
@@ -89,15 +89,15 @@ msgstr "ተዋናይ"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "ማምጫ"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "ፋይል ማምጫ"
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "ፋይሉን ማንቀሳቀስ አልተቻለም"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -215,7 +215,7 @@ msgstr "መግለጫ"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "ሙዚቃ ለማጫወት እና ለማምጣት ይግቡ"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
@@ -384,23 +384,23 @@ msgstr "ሙዚቃ ማሰናጃ"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "የ ፋይል መንገድ በዚህ መጀመር አለበት ~/ሙዚቃ/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "የ ፋይል መንገድ ፋይል መሆን አለበት"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "ፋይል በመጠበቅ ላይ..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "እሺ"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "የመጣውን ፋይል ማግኘት አልተቻለም"
 
 #: ../music-app.qml:451
 msgid "Wait"

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-07-31 12:00+0000\n"
-"Last-Translator: Павед <pavelgeme2@gmail.com>\n"
+"PO-Revision-Date: 2014-08-26 10:21+0000\n"
+"Last-Translator: Jay ZDLin <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:47+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-08-27 07:45+0000\n"
+"X-Generator: Launchpad (build 17174)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
@@ -62,7 +62,7 @@ msgstr "Альбомы"
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "Альбом"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -87,20 +87,20 @@ msgstr[2] "%1 композиций"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Исполнитель"
 
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Импортировать файл."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Не удалось переместить файл"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -136,18 +136,18 @@ msgstr "Изменить"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Плей-лист уже существует"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
-msgstr ""
+msgstr "Введите название."
 
 #: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
 #: ../MusicStart.qml:202 ../common/SongsPage.qml:165
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Плей-лист"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
@@ -262,11 +262,11 @@ msgstr "Жанры"
 #: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
 #: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
-msgstr ""
+msgstr "Жанр"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Нажмите воспроизведение, чтобы перемешать список"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -300,7 +300,7 @@ msgstr "Добавить в плейлист"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Добавить в очередь"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -390,31 +390,31 @@ msgstr "Настройки приложения"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Путь к файлу должен начинаться с ~/Music/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Путь должен указывать на файл"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Ожидание файла..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Импортированный файл не найден"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Подождите"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Папка назначения"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
@@ -447,11 +447,11 @@ msgstr "Создать"
 
 #: ../music-app.qml:1189
 msgid "No music found"
-msgstr ""
+msgstr "Музыкальные произведения отсутствуют"
 
 #: ../music-app.qml:1196
 msgid "Please import music"
-msgstr ""
+msgstr "Импортируйте музыкальные произведения"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
