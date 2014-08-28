@@ -25,7 +25,7 @@ class TestMainWindow(MusicAppTestCase):
     def setUp(self):
         super(TestMainWindow, self).setUp()
 
-        self.trackIndex = 0  # position on tracksPage
+        self.trackIndex = 0  # position on tracks_page
         self.trackTitle = u"Gran Vals"
         self.artistName = u"Francisco Tárrega"
         self.lastTrackTitle = u"TestMP3Title"
@@ -62,8 +62,21 @@ class TestMainWindow(MusicAppTestCase):
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
 
-        self.main_view.add_to_queue_from_albums_tab_album_page(
-            self.artistName, self.trackTitle)
+        # TODO: add helper
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        # select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        # get track item to swipe and queue
+        songs_page = self.app.get_songs_page()
+
+        track = songs_page.get_track(0)
+        track.swipe_reveal_actions()
+
+        track.click_add_to_queue_action()  # add track to the queue
 
         # verify track queue has added one to initial value
         self.assertThat(now_playing_page.get_count(),
@@ -290,15 +303,17 @@ class TestMainWindow(MusicAppTestCase):
         """tests navigating to the Albums tab and displaying the album page"""
 
         # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
+        self.main_view.switch_to_tab("albumstab")  # TODO: make helper
 
         # select album
         albumartist = self.main_view.get_albums_albumartist(self.artistName)
         self.pointing_device.click_object(albumartist)
 
         # get album page album artist
-        songs_page_albumartist = self.main_view.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
+        songs_page = self.app.get_songs_page()
+        artist_label = songs_page.get_header_artist_label()
+
+        self.assertThat(artist_label.text, Eventually(Equals(self.artistName)))
 
         # click on close button to close album page
         self.main_view.go_back()
@@ -312,8 +327,21 @@ class TestMainWindow(MusicAppTestCase):
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
 
-        self.main_view.add_to_queue_from_albums_tab_album_page(
-            self.artistName, self.trackTitle)
+        # TODO: add helper
+        # switch to albums tab
+        self.main_view.switch_to_tab("albumstab")
+
+        # select album
+        albumartist = self.main_view.get_albums_albumartist(artistName)
+        self.pointing_device.click_object(albumartist)
+
+        # get track item to swipe and queue
+        songs_page = self.app.get_songs_page()
+
+        track = songs_page.get_track(0)
+        track.swipe_reveal_actions()
+
+        track.click_add_to_queue_action()  # add track to the queue
 
         # verify track queue has added one to initial value
         self.assertThat(now_playing_page.get_count(),
@@ -375,10 +403,10 @@ class TestMainWindow(MusicAppTestCase):
         initial_tracks_count = now_playing_page.get_count()
 
         # switch to tracks page
-        tracksPage = self.app.get_tracks_page()
+        tracks_page = self.app.get_tracks_page()
 
         # get track row and swipe to reveal actions
-        track = tracksPage.get_track(self.trackIndex)
+        track = tracks_page.get_track(self.trackIndex)
         track.swipe_reveal_actions()
 
         track.click_add_to_queue_action()  # add track to queue
@@ -405,42 +433,38 @@ class TestMainWindow(MusicAppTestCase):
            selecting a song to add it to a new playlist. """
 
         # switch to tracks page
-        tracksPage = self.app.get_tracks_page()
+        tracks_page = self.app.get_tracks_page()
 
         # get track row and swipe to reveal actions
-        track = tracksPage.get_track(self.trackIndex)
+        track = tracks_page.get_track(self.trackIndex)
         track.swipe_reveal_actions()
 
         track.click_add_to_playlist_action()  # add track to queue
 
-        # TODO: move AddToPlaylist into its own helper
-        # Wait for animations to complete
-        # playlistaction.primed.wait_for(False)
+        add_to_playlist_page = self.app.get_add_to_playlist_page()
 
         # get initial list view playlist count
-        playlist_count = self.main_view.get_addtoplaylistview().count
+        playlist_count = add_to_playlist_page.get_count()
 
         # click on New playlist button in header
-        self.main_view.tap_new_playlist_action()
+        add_to_playlist_page.click_new_playlist_action()
 
         # input playlist name
-        playlistNameFld = self.main_view.get_newPlaylistDialog_name_textfield()
-        self.pointing_device.click_object(playlistNameFld)
-        playlistNameFld.focus.wait_for(True)
-        self.keyboard.type("myPlaylist")
+        add_to_playlist_page.set_focus_to_new_playlist_dialog_name_textfield()
+        add_to_playlist_page.type_new_playlist_dialogue_name("myPlaylist")
 
-        # click on get_newPlaylistDialog create Button
-        createButton = self.main_view.get_newPlaylistDialog_createButton()
-        self.pointing_device.click_object(createButton)
+        # click on the create Button
+        add_to_playlist_page.click_new_playlist_dialogue_create_button()
 
         # verify playlist has been sucessfully created
-        palylist_final_count = self.main_view.get_addtoplaylistview().count
-        self.assertThat(palylist_final_count, Equals(playlist_count + 1))
-        playlist = self.main_view.get_playlistname("myPlaylist")
-        self.assertThat(playlist, Not(Is(None)))
+        self.assertThat(add_to_playlist_page.get_count(),
+                        Eventually(Equals(playlist_count + 1)))
+
+        self.assertThat(add_to_playlist_page.get_playlist(0).name,
+                        Equals("myPlaylist"))
 
         # select playlist to add song to
-        self.pointing_device.click_object(playlist)
+        add_to_playlist_page.click_playlist(0)
 
         # verify song has been added to playlist
         playlistslist = self.main_view.get_playlistslist()
@@ -455,7 +479,7 @@ class TestMainWindow(MusicAppTestCase):
         initial_tracks_count = now_playing_page.get_count()
 
         # switch to artists tab
-        self.main_view.switch_to_tab("artiststab")
+        self.main_view.switch_to_tab("artiststab")  # TODO: make helper
 
         # select artist
         artist = self.main_view.get_artists_artist(self.artistName)
@@ -470,16 +494,12 @@ class TestMainWindow(MusicAppTestCase):
         self.pointing_device.click_object(albumartist_cover)
 
         # get song page album artist
-        songs_page_albumartist = self.main_view.get_songs_page_artist()
-        self.assertThat(songs_page_albumartist.text, Equals(self.artistName))
+        songs_page = self.app.get_songs_page()
 
-        # click on song to populate queue and start playing
-        self.pointing_device.click_object(songs_page_albumartist)
+        artist_label = songs_page.get_header_artist_label()
+        self.assertThat(artist_label.text, Equals(self.artistName))
 
-        # select artist
-        track = self.main_view.get_songs_page_listview_tracktitle(
-            self.trackTitle)
-        self.pointing_device.click_object(track)
+        track = songs_page.click_track(self.trackIndex)
 
         # get now playing again as it has moved
         now_playing_page = self.app.get_now_playing_page()

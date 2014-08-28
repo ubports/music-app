@@ -34,6 +34,13 @@ class MusicApp(object):
         return self.app.wait_select_single(MusicNowPlaying,
                                            objectName="nowPlayingPage")
 
+    def get_add_to_playlist_page(self):
+        return self.app.wait_select_single(MusicaddtoPlaylist,
+                                           objectName="addToPlaylistPage")
+
+    def get_songs_page(self):
+        return self.app.wait_select_single(SongsPage, objectName="songsPage")
+
     def get_toolbar(self):
         return self.app.select_single(MusicToolbar,
                                       objectName="musicToolbarObject")
@@ -111,6 +118,66 @@ class MusicNowPlaying(MusicPage):
                 objectName="nowPlayingListItem" + str(i)))
 
 
+class MusicaddtoPlaylist(MusicPage):
+    """ Autopilot helper for add to playlist page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    def click_new_playlist_action(self):
+        self.get_header().click_action_button("newPlaylistButton")
+
+    @click_object
+    def click_new_playlist_dialogue_create_button(self):
+        return self.wait_select_single(
+            "Button", objectName="newPlaylistDialog_createButton")
+
+    @click_object
+    def click_playlist(self, i):
+        return self.get_playlist(i)
+
+    def get_count(self):
+        return self.wait_select_single(
+            "QQuickListView", objectName="addToPlaylistListView").count
+
+    def get_playlist(self, i):
+        return (self.wait_select_single("Standard",
+            objectName="addToPlaylistListItem" + str(i)))
+
+    def type_new_playlist_dialogue_name(self, text):  # TODO: improve
+        field = self.wait_select_single(
+            "TextField", objectName="playlistnameTextfield")
+        field.focus.wait_for(True)
+
+        self.keyboard.type("myPlaylist")
+
+    @click_object
+    def set_focus_to_new_playlist_dialog_name_textfield(self):
+        return self.wait_select_single(
+            "TextField", objectName="playlistnameTextfield")
+
+
+class SongsPage(MusicPage):
+    """ Autopilot helper for the songs page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_track(self, i):
+        return self.get_track(i)
+
+    def get_header_artist_label(self):
+        return self.wait_select_single("Label",
+            objectName="songsPageHeaderAlbumArtist")
+
+    def get_track(self, i):
+        return (self.wait_select_single(ListItemWithActions,
+                objectName="songsPageListItem" + str(i)))
+
+
 class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for the toolbar
 
@@ -148,10 +215,10 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("*", objectName="shuffleShape")
 
     def seek_to(self, percentage):
-        progressBar = self.wait_select_single(
+        progress_bar = self.wait_select_single(
             "*", objectName="progressBarShape")
 
-        x1, y1, width, height = progressBar.globalRect
+        x1, y1, width, height = progress_bar.globalRect
         y1 += height // 2
 
         x2 = x1 + int(width * percentage / 100)
@@ -226,55 +293,6 @@ class MainView(MainView):
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
 
-    def select_many_retry(self, object_type, **kwargs):
-        """Returns the item that is searched for with app.select_many
-        In case of no item was not found (not created yet) a second attempt is
-        taken 1 second later"""
-        items = self.select_many(object_type, **kwargs)
-        tries = 10
-        while len(items) < 1 and tries > 0:
-            sleep(self.retry_delay)
-            items = self.select_many(object_type, **kwargs)
-            tries = tries - 1
-        return items
-
-    def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
-        # TODO: build helper for AlbumsPage SongsPage
-        # switch to albums tab
-        self.switch_to_tab("albumstab")
-
-        # select album
-        albumartist = self.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
-
-        # get track item to swipe and queue
-        trackitem = self.get_songs_page_listview_tracktitle(trackTitle)
-        songspage = self.get_songs_page_listview()
-
-        # get coordinates to swipe
-        start_x = int(songspage.globalRect.x +
-                      (songspage.globalRect.width * 0.9))
-        stop_x = int(songspage.globalRect.x)
-        line_y = int(trackitem.globalRect.y)
-
-        # swipe to add to queue
-        self.pointing_device.move(start_x, line_y)
-        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
-
-        # click on add to queue
-        queueaction = self.get_add_to_queue_action()
-        self.pointing_device.click_object(queueaction)
-
-    def tap_new_playlist_action(self):
-        header = self.get_header()
-        header.click_action_button('newplaylistButton')
-
-    def get_player_control_title(self):
-        return self.select_single("Label", objectName="playercontroltitle")
-
-    def get_first_genre_item(self):
-        return self.wait_select_single("*", objectName="genreItemObject")
-
     def get_albumstab(self):
         return self.select_single("Tab", objectName="albumstab")
 
@@ -286,15 +304,6 @@ class MainView(MainView):
         for item in albumartistList:
             if item.text == artistName:
                 return item
-
-    def get_add_to_queue_action(self):  # TODO: remove once SongsPage helper
-        return self.wait_select_single("*",
-                                       objectName="addToQueueAction",
-                                       primed=True)
-
-    def get_songs_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="songspage-albumartist")
 
     def get_artist_page_artist(self):
         return self.wait_select_single("Label",
@@ -316,50 +325,6 @@ class MainView(MainView):
             if item.text == artistName:
                 return item
 
-    def get_album_page_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="albumpage-tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_songs_page_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="songspage-tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_songs_page_listview(self):
-        return self.select_single("QQuickListView",
-                                  objectName="songspage-listview")
-
-    def get_songs_tab_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_newPlaylistDialog_createButton(self):
-        return self.wait_select_single(
-            "Button", objectName="newPlaylistDialog_createButton")
-
-    def get_newPlaylistDialog_name_textfield(self):
-        return self.wait_select_single(
-            "TextField", objectName="playlistnameTextfield")
-
-    def get_addtoplaylistview(self):
-        return self.wait_select_single(
-            "QQuickListView", objectName="addtoplaylistview")
-
-    def get_playlistname(self, playlistname):
-        playlistnames = self.select_many_retry(
-            "Standard", objectName="playlist")
-        for item in playlistnames:
-            if item.name == playlistname:
-                return item
-
-    def get_playlistslist(self):
+    def get_playlistslist(self):  # TODO: put in PlaylistPage helper
         return self.wait_select_single(
             "QQuickListView", objectName="playlistslist")
