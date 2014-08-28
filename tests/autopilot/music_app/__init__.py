@@ -189,7 +189,7 @@ class MusicaddtoPlaylist(MusicPage):
 
 class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
     """
-    FIXME: Represents MusicTracks, MusicArtists, MusicAlbums, MusicaddtoPlaylists
+    FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
     due to bug 1341671 and bug 1337004 they all appear as Page11
     Therefore this class 'contains' all of them for now
     Once the bugs are fixed Page11 should be swaped for MusicTracks etc
