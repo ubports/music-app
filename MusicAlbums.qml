@@ -31,6 +31,7 @@ import "common"
 
 MusicPage {
     id: mainpage
+    objectName: "albumsPage"
     title: i18n.tr("Albums")
 
     // TODO: This ListView is empty and causes the header to get painted with the desired background color because the
@@ -72,6 +73,7 @@ MusicPage {
 
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
+                objectName: "albumsPageGridItem" + index
                 width: albumlist.cellHeight - units.gu(1)
                 anchors.margins: units.gu(1)
 

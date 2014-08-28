@@ -7,7 +7,6 @@
 
 """music-app tests and emulators - top level package."""
 from ubuntuuitoolkit import MainView, UbuntuUIToolkitCustomProxyObjectBase
-from time import sleep
 
 
 class MusicAppException(Exception):
@@ -30,20 +29,46 @@ class MusicApp(object):
         self.main_view = self.app.wait_select_single(MainView)
         self.player = self.app.select_single(Player, objectName='player')
 
+    def get_add_to_playlist_page(self):
+        return self.app.wait_select_single(Page11,
+                                           objectName="addToPlaylistPage")
+
+    def get_albums_page(self):
+        self.main_view.switch_to_tab('albumsTab')
+
+        return self.main_view.wait_select_single(
+            Page11, objectName='albumsPage')
+
+    def get_albums_artist_page(self):
+        return self.main_view.wait_select_single(
+            AlbumsPage, objectName='albumsArtistPage')
+
+    def get_artists_page(self):
+        self.main_view.switch_to_tab('artistsTab')
+
+        return self.main_view.wait_select_single(
+            Page11, objectName='artistsPage')
+
+    def get_new_playlist_dialogue(self):
+        return self.main_view.wait_select_single(
+            Dialog, objectName="dialogueNewPlaylist")
+
     def get_now_playing_page(self):
         return self.app.wait_select_single(MusicNowPlaying,
                                            objectName="nowPlayingPage")
 
-    def get_add_to_playlist_page(self):
-        return self.app.wait_select_single(MusicaddtoPlaylist,
-                                           objectName="addToPlaylistPage")
+    def get_playlists_page(self):
+        self.main_view.switch_to_tab('playlistsTab')
+
+        return self.main_view.wait_select_single(
+            MusicPlaylists, objectName='playlistsPage')
 
     def get_songs_page(self):
         return self.app.wait_select_single(SongsPage, objectName="songsPage")
 
     def get_toolbar(self):
-        return self.app.select_single(MusicToolbar,
-                                      objectName="musicToolbarObject")
+        return self.app.wait_select_single(MusicToolbar,
+                                           objectName="musicToolbarObject")
 
     def get_tracks_page(self):
         """Open the Tracks tab.
@@ -53,7 +78,7 @@ class MusicApp(object):
         """
         self.main_view.switch_to_tab('tracksTab')
 
-        return self.main_view.select_single(
+        return self.main_view.wait_select_single(
             Page11, objectName='tracksPage')
 
     @property
@@ -89,15 +114,91 @@ class MusicPage(Page):
         super(Page, self).__init__(*args)
 
 
-# FIXME: Represents MusicTracks related to bug 1341671 and bug 1337004
-class Page11(MusicPage):
+class MusicAlbums(MusicPage):
+    """ Autopilot helper for the albums page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_album(self, i):
+        return (self.wait_select_single("*",
+                objectName="albumsPageGridItem" + str(i)))
+
+
+class MusicArtists(MusicPage):
+    """ Autopilot helper for the artists page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_artist(self, i):
+        return (self.wait_select_single("Standard",
+                objectName="artistsPageListItem" + str(i)))
+
+
+class MusicTracks(MusicPage):
     """ Autopilot helper for the tracks page """
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
+        self.visible.wait_for(True)
+
     def get_track(self, i):
         return (self.wait_select_single(ListItemWithActions,
-                objectName="tracksTabListItem" + str(i)))
+                objectName="tracksPageListItem" + str(i)))
+
+
+class MusicPlaylists(MusicPage):
+    """ Autopilot helper for the playlists page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    def get_count(self):
+        return self.wait_select_single(
+            "QQuickListView", objectName="playlistsListView").count
+
+
+class MusicaddtoPlaylist(MusicPage):
+    """ Autopilot helper for add to playlist page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    def click_new_playlist_action(self):
+        self.main_view.get_header().click_action_button("newPlaylistButton")
+
+    @click_object
+    def click_playlist(self, i):
+        return self.get_playlist(i)
+
+    def get_count(self):
+        return self.wait_select_single(
+            "QQuickListView", objectName="addToPlaylistListView").count
+
+    def get_playlist(self, i):
+        return (self.wait_select_single("Standard",
+                objectName="addToPlaylistListItem" + str(i)))
+
+
+class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
+    """
+    FIXME: Represents MusicTracks, MusicArtists, MusicAlbums, MusicaddtoPlaylists
+    due to bug 1341671 and bug 1337004 they all appear as Page11
+    Therefore this class 'contains' all of them for now
+    Once the bugs are fixed Page11 should be swaped for MusicTracks etc
+    """
+    def __init__(self, *args):
+        super(MusicAlbums, self).__init__(*args)
+        super(MusicArtists, self).__init__(*args)
+        super(MusicTracks, self).__init__(*args)
+        super(MusicaddtoPlaylist, self).__init__(*args)
 
 
 class Player(UbuntuUIToolkitCustomProxyObjectBase):
@@ -118,44 +219,21 @@ class MusicNowPlaying(MusicPage):
                 objectName="nowPlayingListItem" + str(i)))
 
 
-class MusicaddtoPlaylist(MusicPage):
-    """ Autopilot helper for add to playlist page """
+class AlbumsPage(MusicPage):
+    """ Autopilot helper for the albums page """
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
         self.visible.wait_for(True)
 
-    def click_new_playlist_action(self):
-        self.get_header().click_action_button("newPlaylistButton")
-
     @click_object
-    def click_new_playlist_dialogue_create_button(self):
-        return self.wait_select_single(
-            "Button", objectName="newPlaylistDialog_createButton")
+    def click_artist(self, i):
+        return self.wait_select_single("Standard",
+                                       objectName="albumsArtistListItem"
+                                       + str(i))
 
-    @click_object
-    def click_playlist(self, i):
-        return self.get_playlist(i)
-
-    def get_count(self):
-        return self.wait_select_single(
-            "QQuickListView", objectName="addToPlaylistListView").count
-
-    def get_playlist(self, i):
-        return (self.wait_select_single("Standard",
-            objectName="addToPlaylistListItem" + str(i)))
-
-    def type_new_playlist_dialogue_name(self, text):  # TODO: improve
-        field = self.wait_select_single(
-            "TextField", objectName="playlistnameTextfield")
-        field.focus.wait_for(True)
-
-        self.keyboard.type("myPlaylist")
-
-    @click_object
-    def set_focus_to_new_playlist_dialog_name_textfield(self):
-        return self.wait_select_single(
-            "TextField", objectName="playlistnameTextfield")
+    def get_artist(self):
+        return self.wait_select_single("Label", objectName="artist").text
 
 
 class SongsPage(MusicPage):
@@ -171,7 +249,7 @@ class SongsPage(MusicPage):
 
     def get_header_artist_label(self):
         return self.wait_select_single("Label",
-            objectName="songsPageHeaderAlbumArtist")
+                                       objectName="songsPageHeaderAlbumArtist")
 
     def get_track(self, i):
         return (self.wait_select_single(ListItemWithActions,
@@ -280,6 +358,17 @@ class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
 
 
+class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
+    @click_object
+    def click_new_playlist_dialogue_create_button(self):
+        return self.wait_select_single(
+            "Button", objectName="newPlaylistDialogCreateButton")
+
+    def type_new_playlist_dialogue_name(self, text):
+        self.wait_select_single(
+            "TextField", objectName="playlistNameTextField").write(text)
+
+
 class MainView(MainView):
     """Autopilot custom proxy object for the MainView."""
     retry_delay = 0.2
@@ -292,39 +381,3 @@ class MainView(MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
-
-    def get_albumstab(self):
-        return self.select_single("Tab", objectName="albumstab")
-
-    def get_albums_albumartist_list(self):
-        return self.select_many("Label", objectName="albums-albumartist")
-
-    def get_albums_albumartist(self, artistName):
-        albumartistList = self.get_albums_albumartist_list()
-        for item in albumartistList:
-            if item.text == artistName:
-                return item
-
-    def get_artist_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="artistpage-albumartist")
-
-    def get_artist_page_artist_cover(self):
-        return self.wait_select_single("*",
-                                       objectName="artistpage-albumcover")
-
-    def get_artiststab(self):
-        return self.select_single("Tab", objectName="artiststab")
-
-    def get_artists_artist_list(self):
-        return self.select_many("Label", objectName="artists-artist")
-
-    def get_artists_artist(self, artistName):
-        artistList = self.get_artists_artist_list()
-        for item in artistList:
-            if item.text == artistName:
-                return item
-
-    def get_playlistslist(self):  # TODO: put in PlaylistPage helper
-        return self.wait_select_single(
-            "QQuickListView", objectName="playlistslist")

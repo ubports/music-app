@@ -32,6 +32,7 @@ import "common/ListItemActions"
 // page for the playlists
 MusicPage {
     id: listspage
+    objectName: "playlistsPage"
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
@@ -114,7 +115,7 @@ MusicPage {
 
     ListView {
         id: playlistslist
-        objectName: "playlistslist"
+        objectName: "playlistsListView"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         model: playlistModel.model

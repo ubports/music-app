@@ -937,11 +937,12 @@ MainView {
         id: newPlaylistDialog
         Dialog {
             id: dialogueNewPlaylist
+            objectName: "dialogueNewPlaylist"
             title: i18n.tr("New Playlist")
             text: i18n.tr("Name your playlist.")
             TextField {
                 id: playlistName
-                objectName: "playlistnameTextfield"
+                objectName: "playlistNameTextField"
                 placeholderText: i18n.tr("Name")
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
@@ -954,7 +955,7 @@ MainView {
             Button {
                 text: i18n.tr("Create")
                 color: styleMusic.dialog.confirmButtonColor
-                objectName: "newPlaylistDialog_createButton"
+                objectName: "newPlaylistDialogCreateButton"
                 onClicked: {
                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
@@ -1009,7 +1010,7 @@ MainView {
                 property bool loading: false
                 property var model: [recentModel, albumTracksModel]
                 id: startTab
-                objectName: "starttab"
+                objectName: "startTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1026,7 +1027,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: artistsTab
-                objectName: "artiststab"
+                objectName: "artistsTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1043,7 +1044,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: albumsTab
-                objectName: "albumstab"
+                objectName: "albumsTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1078,7 +1079,7 @@ MainView {
                 property bool loading: false
                 property var model: [playlistModel, albumTracksModel]
                 id: playlistTab
-                objectName: "playlisttab"
+                objectName: "playlistsTab"
                 anchors.fill: parent
                 title: page.title
 

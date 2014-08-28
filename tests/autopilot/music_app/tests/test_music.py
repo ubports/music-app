@@ -12,7 +12,7 @@ from __future__ import absolute_import
 import time
 import logging
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, Is, Not, LessThan, NotEquals
+from testtools.matchers import Equals, LessThan, NotEquals
 
 
 from music_app.tests import MusicAppTestCase
@@ -25,10 +25,13 @@ class TestMainWindow(MusicAppTestCase):
     def setUp(self):
         super(TestMainWindow, self).setUp()
 
-        self.trackIndex = 0  # position on tracks_page
-        self.trackTitle = u"Gran Vals"
-        self.artistName = u"Francisco Tárrega"
-        self.lastTrackTitle = u"TestMP3Title"
+        self.album_artist_index = 0  # position on AlbumsPage
+        self.album_index = 0  # position on MusicAlbums
+        self.artist_index = 0  # position on MusicArtists
+        self.track_index = 0  # position on MusicTracks
+        self.track_title = u"Gran Vals"
+        self.artist_name = u"Francisco Tárrega"
+        self.last_track_title = u"TestMP3Title"
 
     @property
     def main_view(self):
@@ -50,8 +53,8 @@ class TestMainWindow(MusicAppTestCase):
 
         title = lambda: self.player.currentMetaTitle
         artist = lambda: self.player.currentMetaArtist
-        self.assertThat(title, Eventually(Equals(self.trackTitle)))
-        self.assertThat(artist, Eventually(Equals(self.artistName)))
+        self.assertThat(title, Eventually(Equals(self.track_title)))
+        self.assertThat(artist, Eventually(Equals(self.artist_name)))
 
     def test_play_pause_library(self):
         """ Test playing and pausing a track (Music Library must exist) """
@@ -62,13 +65,9 @@ class TestMainWindow(MusicAppTestCase):
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
 
-        # TODO: add helper
         # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
-
-        # select album
-        albumartist = self.main_view.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
+        albums_page = self.app.get_albums_page()
+        albums_page.click_album(self.album_index)  # select album
 
         # get track item to swipe and queue
         songs_page = self.app.get_songs_page()
@@ -93,9 +92,9 @@ class TestMainWindow(MusicAppTestCase):
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
         self.assertThat(current_track.get_label_text("artist"),
-                        Equals(self.artistName))
+                        Equals(self.artist_name))
         self.assertThat(current_track.get_label_text("title"),
-                        Equals(self.trackTitle))
+                        Equals(self.track_title))
 
         # click on close button to close the page
         self.main_view.go_back()
@@ -303,21 +302,21 @@ class TestMainWindow(MusicAppTestCase):
         """tests navigating to the Albums tab and displaying the album page"""
 
         # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")  # TODO: make helper
+        albums_page = self.app.get_albums_page()
+        albums_page.click_album(self.album_index)  # select album
 
-        # select album
-        albumartist = self.main_view.get_albums_albumartist(self.artistName)
-        self.pointing_device.click_object(albumartist)
-
-        # get album page album artist
+        # get songs page album artist
         songs_page = self.app.get_songs_page()
         artist_label = songs_page.get_header_artist_label()
 
-        self.assertThat(artist_label.text, Eventually(Equals(self.artistName)))
+        self.assertThat(artist_label.text,
+                        Eventually(Equals(self.artist_name)))
 
-        # click on close button to close album page
+        # click on close button to close songs page
         self.main_view.go_back()
-        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
+
+        # check that the albums page is now visible
+        self.assertThat(albums_page.visible, Eventually(Equals(True)))
 
     def test_add_song_to_queue_from_albums_page(self):
         """tests navigating to the Albums tab and adding a song to queue"""
@@ -327,13 +326,9 @@ class TestMainWindow(MusicAppTestCase):
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
 
-        # TODO: add helper
         # switch to albums tab
-        self.main_view.switch_to_tab("albumstab")
-
-        # select album
-        albumartist = self.main_view.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
+        albums_page = self.app.get_albums_page()
+        albums_page.click_album(self.album_index)  # select album
 
         # get track item to swipe and queue
         songs_page = self.app.get_songs_page()
@@ -354,13 +349,15 @@ class TestMainWindow(MusicAppTestCase):
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
         self.assertThat(current_track.get_label_text("artist"),
-                        Equals(self.artistName))
+                        Equals(self.artist_name))
         self.assertThat(current_track.get_label_text("title"),
-                        Equals(self.trackTitle))
+                        Equals(self.track_title))
 
-        # click on close button to close album page
+        # click on close button to close songs page
         self.main_view.go_back()
-        self.assertThat(self.main_view.get_albumstab(), Not(Is(None)))
+
+        # check that the albums page is now visible
+        self.assertThat(albums_page.visible, Eventually(Equals(True)))
 
     def test_add_songs_to_queue_from_songs_tab_and_play(self):
         """tests navigating to the Songs tab and adding the library to the
@@ -389,9 +386,9 @@ class TestMainWindow(MusicAppTestCase):
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
         self.assertThat(current_track.get_label_text("artist"),
-                        Equals(self.artistName))
+                        Equals(self.artist_name))
         self.assertThat(current_track.get_label_text("title"),
-                        Equals(self.trackTitle))
+                        Equals(self.track_title))
 
     def test_add_song_to_queue_from_songs_tab(self):
         """tests navigating to the Songs tab and adding a song from the library
@@ -406,7 +403,7 @@ class TestMainWindow(MusicAppTestCase):
         tracks_page = self.app.get_tracks_page()
 
         # get track row and swipe to reveal actions
-        track = tracks_page.get_track(self.trackIndex)
+        track = tracks_page.get_track(self.track_index)
         track.swipe_reveal_actions()
 
         track.click_add_to_queue_action()  # add track to queue
@@ -424,9 +421,9 @@ class TestMainWindow(MusicAppTestCase):
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
         self.assertThat(current_track.get_label_text("artist"),
-                        Equals(self.artistName))
+                        Equals(self.artist_name))
         self.assertThat(current_track.get_label_text("title"),
-                        Equals(self.trackTitle))
+                        Equals(self.track_title))
 
     def test_create_playlist_from_songs_tab(self):
         """tests navigating to the Songs tab and creating a playlist by
@@ -436,7 +433,7 @@ class TestMainWindow(MusicAppTestCase):
         tracks_page = self.app.get_tracks_page()
 
         # get track row and swipe to reveal actions
-        track = tracks_page.get_track(self.trackIndex)
+        track = tracks_page.get_track(self.track_index)
         track.swipe_reveal_actions()
 
         track.click_add_to_playlist_action()  # add track to queue
@@ -449,12 +446,14 @@ class TestMainWindow(MusicAppTestCase):
         # click on New playlist button in header
         add_to_playlist_page.click_new_playlist_action()
 
+        # get dialogue
+        new_dialogue = self.app.get_new_playlist_dialogue()
+
         # input playlist name
-        add_to_playlist_page.set_focus_to_new_playlist_dialog_name_textfield()
-        add_to_playlist_page.type_new_playlist_dialogue_name("myPlaylist")
+        new_dialogue.type_new_playlist_dialogue_name("myPlaylist")
 
         # click on the create Button
-        add_to_playlist_page.click_new_playlist_dialogue_create_button()
+        new_dialogue.click_new_playlist_dialogue_create_button()
 
         # verify playlist has been sucessfully created
         self.assertThat(add_to_playlist_page.get_count(),
@@ -466,9 +465,14 @@ class TestMainWindow(MusicAppTestCase):
         # select playlist to add song to
         add_to_playlist_page.click_playlist(0)
 
+        # wait for add to playlist page to close
+        add_to_playlist_page.visible.wait_for(False)
+
+        # open playlists page
+        playlists_page = self.app.get_playlists_page()
+
         # verify song has been added to playlist
-        playlistslist = self.main_view.get_playlistslist()
-        self.assertThat(playlistslist.count, Equals(1))
+        self.assertThat(playlists_page.get_count(), Equals(1))
 
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
@@ -479,27 +483,27 @@ class TestMainWindow(MusicAppTestCase):
         initial_tracks_count = now_playing_page.get_count()
 
         # switch to artists tab
-        self.main_view.switch_to_tab("artiststab")  # TODO: make helper
+        artists_page = self.app.get_artists_page()
+        artists_page.click_artist(self.artist_index)
 
-        # select artist
-        artist = self.main_view.get_artists_artist(self.artistName)
-        self.pointing_device.click_object(artist)
+        # get albums (by an artist) page
+        albums_page = self.app.get_albums_artist_page()
 
-        # get album page album artist
-        page_albumartist = self.main_view.get_artist_page_artist()
-        self.assertThat(page_albumartist.text, Equals(self.artistName))
+        # check album artist label is correct
+        self.assertThat(albums_page.get_artist(), Equals(self.artist_name))
 
-        # click on album to shows the artists
-        albumartist_cover = self.main_view.get_artist_page_artist_cover()
-        self.pointing_device.click_object(albumartist_cover)
+        # click on album to show tracks
+        albums_page.click_artist(self.album_artist_index)
 
         # get song page album artist
         songs_page = self.app.get_songs_page()
 
+        # check the artist label
         artist_label = songs_page.get_header_artist_label()
-        self.assertThat(artist_label.text, Equals(self.artistName))
+        self.assertThat(artist_label.text, Equals(self.artist_name))
 
-        track = songs_page.click_track(self.trackIndex)
+        # click on track to play
+        songs_page.click_track(self.track_index)
 
         # get now playing again as it has moved
         now_playing_page = self.app.get_now_playing_page()
@@ -517,9 +521,9 @@ class TestMainWindow(MusicAppTestCase):
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
         self.assertThat(current_track.get_label_text("artist"),
-                        Equals(self.artistName))
+                        Equals(self.artist_name))
         self.assertThat(current_track.get_label_text("title"),
-                        Equals(self.trackTitle))
+                        Equals(self.track_title))
 
     def test_swipe_to_delete_song(self):
         """tests navigating to the Now Playing queue, swiping to delete a
@@ -533,7 +537,7 @@ class TestMainWindow(MusicAppTestCase):
         initial_queue_count = now_playing_page.get_count()
 
         # get track row and swipe to reveal swipe to delete
-        track = now_playing_page.get_track(self.trackIndex)
+        track = now_playing_page.get_track(self.track_index)
         track.swipe_to_delete()
 
         track.confirm_removal()  # confirm delete
@@ -577,7 +581,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # Make sure we loop back to first song after last song ends
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.trackTitle)))
+        self.assertThat(actual_title, Eventually(Equals(self.track_title)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_pressing_next_from_last_song_plays_first_when_repeat_on(self):
@@ -596,7 +600,7 @@ class TestMainWindow(MusicAppTestCase):
             toolbar.click_forward_button()
 
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.trackTitle)))
+        self.assertThat(actual_title, Eventually(Equals(self.track_title)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_pressing_prev_from_first_song_plays_last_when_repeat_on(self):
@@ -619,5 +623,6 @@ class TestMainWindow(MusicAppTestCase):
             toolbar.click_previous_button()
 
         actual_title = lambda: self.player.currentMetaTitle
-        self.assertThat(actual_title, Eventually(Equals(self.lastTrackTitle)))
+        self.assertThat(actual_title,
+                        Eventually(Equals(self.last_track_title)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))

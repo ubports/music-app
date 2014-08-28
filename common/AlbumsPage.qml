@@ -29,6 +29,7 @@ import "../meta-database.js" as Library
 MusicPage {
     id: albumStackPage
     anchors.bottomMargin: units.gu(.5)
+    objectName: "albumsArtistPage"
     visible: false
 
     property string artist: ""
@@ -123,6 +124,7 @@ MusicPage {
                         }
                         color: styleMusic.common.white
                         elide: Text.ElideRight
+                        objectName: "artist"
                         text: albumStackPage.artist
                         fontSize: "large"
                     }
@@ -227,6 +229,7 @@ MusicPage {
 
             ListItem.Standard {
                 id: albumInfo
+                objectName: "albumsArtistListItem" + index
                 width: parent.width
                 height: units.gu(20)
 
@@ -244,6 +247,29 @@ MusicPage {
                     onItemAdded: year = item.text
                 }
 
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (focus == false) {
+                            focus = true
+                        }
+
+                        songsPage.album = model.title;
+
+                        songsPage.line1 = model.artist
+                        songsPage.line2 = model.title
+                        songsPage.isAlbum = true
+                        songsPage.covers = [{author: model.artist, album: model.title}]
+                        songsPage.genre = undefined
+                        songsPage.title = i18n.tr("Album")
+
+                        mainPageStack.push(songsPage)
+                    }
+
+                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
+                    onPressedChanged: albumImage.pressed = pressed
+                }
+
                 CoverRow {
                     id: albumImage
                     anchors {
@@ -255,36 +281,11 @@ MusicPage {
                     count: 1
                     size: parent.height
                     covers: [{author: model.artist, album: model.title}]
-                    objectName: "artistpage-albumcover"
                     spacing: units.gu(2)
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if (focus == false) {
-                                focus = true
-                            }
-
-                            songsPage.album = model.title;
-
-                            songsPage.line1 = model.artist
-                            songsPage.line2 = model.title
-                            songsPage.isAlbum = true
-                            songsPage.covers = [{author: model.artist, album: model.title}]
-                            songsPage.genre = undefined
-                            songsPage.title = i18n.tr("Album")
-
-                            mainPageStack.push(songsPage)
-                        }
-
-                        // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                        onPressedChanged: albumImage.pressed = pressed
-                    }
                 }
 
                 Label {
                     id: albumArtist
-                    objectName: "artistpage-albumartist"
                     wrapMode: Text.NoWrap
                     maximumLineCount: 1
                     fontSize: "small"
