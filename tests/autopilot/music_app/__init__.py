@@ -178,7 +178,7 @@ class MusicaddtoPlaylist(MusicPage):
     def click_playlist(self, i):
         return self.get_playlist(i)
 
-    def get_count(self):
+    def get_count(self):  # careful not to conflict until Page11 is fixed
         return self.wait_select_single(
             "QQuickListView", objectName="addToPlaylistListView").count
 
