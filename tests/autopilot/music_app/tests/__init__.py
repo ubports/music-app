@@ -223,7 +223,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
                                 "/mediastore.sql", dblocation, relhome)
 
         con = sqlite3.connect(mediascannerpath + "/mediastore.db")
-        f = open(mediascannerpath + "/mediastore.sql", 'r')
+        f = open(mediascannerpath + "/mediastore.sql", 'r', encoding='utf-8')
         sql = f.read()
         cur = con.cursor()
         cur.executescript(sql)
