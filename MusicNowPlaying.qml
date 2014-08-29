@@ -213,7 +213,11 @@ MusicPage {
                             leftMargin: units.gu(1.5)
                         }
                         count: 1
-                        size: (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight) - units.gu(2)
+                        size: (queueListItem.state === "current"
+                               ? (mainView.wideAspect
+                                  ? queuelist.currentHeight
+                                  : mainView.width - (trackImage.anchors.leftMargin * 2))
+                               : queuelist.normalHeight) - units.gu(2)
                         covers: [{author: model.author, album: model.album}]
 
                         spacing: units.gu(2)
@@ -311,7 +315,7 @@ MusicPage {
                     name: "current"
                     PropertyChanges {
                         target: queueListItem
-                        height: queuelist.currentHeight
+                        height: trackImage.height + (trackContainer.anchors.margins * 2)
                     }
                     PropertyChanges {
                         target: nowPlayingArtist
