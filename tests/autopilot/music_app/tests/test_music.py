@@ -446,14 +446,14 @@ class TestMainWindow(MusicAppTestCase):
         # click on New playlist button in header
         add_to_playlist_page.click_new_playlist_action()
 
-        # get dialogue
-        new_dialogue = self.app.get_new_playlist_dialogue()
+        # get dialog
+        new_dialog = self.app.get_new_playlist_dialog()
 
         # input playlist name
-        new_dialogue.type_new_playlist_dialogue_name("myPlaylist")
+        new_dialog.type_new_playlist_dialog_name("myPlaylist")
 
         # click on the create Button
-        new_dialogue.click_new_playlist_dialogue_create_button()
+        new_dialog.click_new_playlist_dialog_create_button()
 
         # verify playlist has been sucessfully created
         self.assertThat(add_to_playlist_page.get_count(),
