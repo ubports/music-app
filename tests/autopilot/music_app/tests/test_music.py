@@ -285,7 +285,7 @@ class TestMainWindow(MusicAppTestCase):
 
             # check the file has actually changed
             self.assertThat(self.player.currentMetaFile,
-                            Eventually(NotEquals(False)))
+                            Eventually(NotEquals(source)))
 
             count += 1  # increment count
 
