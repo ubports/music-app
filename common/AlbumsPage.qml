@@ -114,6 +114,7 @@ MusicPage {
                     }
                     Label {
                         id: artistLabel
+                        objectName: "artistLabel"
                         anchors {
                             left: parent.left
                             leftMargin: units.gu(1)
@@ -124,7 +125,6 @@ MusicPage {
                         }
                         color: styleMusic.common.white
                         elide: Text.ElideRight
-                        objectName: "artist"
                         text: albumStackPage.artist
                         fontSize: "large"
                     }

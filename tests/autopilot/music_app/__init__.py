@@ -60,9 +60,9 @@ class MusicApp(object):
         return self.main_view.wait_select_single(
             Page11, objectName='artistsPage')
 
-    def get_new_playlist_dialogue(self):
+    def get_new_playlist_dialog(self):
         return self.main_view.wait_select_single(
-            Dialog, objectName="dialogueNewPlaylist")
+            Dialog, objectName="dialogNewPlaylist")
 
     def get_now_playing_page(self):
         return self.app.wait_select_single(MusicNowPlaying,
@@ -203,7 +203,7 @@ class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
     FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
     due to bug 1341671 and bug 1337004 they all appear as Page11
     Therefore this class 'contains' all of them for now
-    Once the bugs are fixed Page11 should be swaped for MusicTracks etc
+    Once the bugs are fixed Page11 should be swapped for MusicTracks etc
     """
     def __init__(self, *args):
         super(MusicAlbums, self).__init__(*args)
@@ -244,7 +244,7 @@ class AlbumsPage(MusicPage):
                                        + str(i))
 
     def get_artist(self):
-        return self.wait_select_single("Label", objectName="artist").text
+        return self.wait_select_single("Label", objectName="artistLabel").text
 
 
 class SongsPage(MusicPage):
@@ -380,11 +380,11 @@ class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
     @click_object
-    def click_new_playlist_dialogue_create_button(self):
+    def click_new_playlist_dialog_create_button(self):
         return self.wait_select_single(
             "Button", objectName="newPlaylistDialogCreateButton")
 
-    def type_new_playlist_dialogue_name(self, text):
+    def type_new_playlist_dialog_name(self, text):
         self.wait_select_single(
             "TextField", objectName="playlistNameTextField").write(text)
 

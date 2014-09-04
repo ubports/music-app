@@ -213,7 +213,11 @@ MusicPage {
                             leftMargin: units.gu(1.5)
                         }
                         count: 1
-                        size: (queueListItem.state === "current" ? queuelist.currentHeight : queuelist.normalHeight) - units.gu(2)
+                        size: (queueListItem.state === "current"
+                               ? (mainView.wideAspect
+                                  ? queuelist.currentHeight
+                                  : mainView.width - (trackImage.anchors.leftMargin * 2))
+                               : queuelist.normalHeight) - units.gu(2)
                         covers: [{author: model.author, album: model.album}]
 
                         spacing: units.gu(2)
@@ -271,7 +275,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingArtist
-                        objectName: "artist"
+                        objectName: "artistLabel"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -283,7 +287,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingTitle
-                        objectName: "title"
+                        objectName: "titleLabel"
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -295,7 +299,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingAlbum
-                        objectName: "album"
+                        objectName: "albumLabel"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -311,7 +315,7 @@ MusicPage {
                     name: "current"
                     PropertyChanges {
                         target: queueListItem
-                        height: queuelist.currentHeight
+                        height: trackImage.size + (trackContainer.anchors.margins * 2)
                     }
                     PropertyChanges {
                         target: nowPlayingArtist

@@ -8,450 +8,455 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-02-17 19:17+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-09-01 13:30+0000\n"
+"Last-Translator: Magnum <magnumns@hotmail.com>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:47+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-02 07:20+0000\n"
+"X-Generator: Launchpad (build 17192)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
-msgstr ""
+msgstr "Ласт.фм"
 
 #: ../LoginLastFM.qml:55
 msgid "Login to be able to scrobble."
-msgstr ""
+msgstr "Пријави се да скроблујеш."
 
 #: ../LoginLastFM.qml:63
 msgid "Username"
-msgstr ""
+msgstr "Корисничко име"
 
 #: ../LoginLastFM.qml:73
 msgid "Password"
-msgstr ""
+msgstr "Лозинка"
 
 #: ../LoginLastFM.qml:95
 msgid "Login"
-msgstr ""
+msgstr "Пријави ме"
 
 #: ../LoginLastFM.qml:102
 msgid "Trying to login..."
-msgstr ""
+msgstr "Пријављивање у току..."
 
 #: ../LoginLastFM.qml:116
 msgid "Login Successful"
-msgstr ""
+msgstr "Успешна пријава"
 
 #: ../LoginLastFM.qml:122
 msgid "Login Failed"
-msgstr ""
+msgstr "Неуспешна пријава"
 
 #: ../LoginLastFM.qml:128
 msgid "You forgot to set your username and/or password"
-msgstr ""
+msgstr "Нисте поставили своје корисничко име или лозинку"
 
 #: ../MusicAlbums.qml:37 ../MusicStart.qml:384
 msgid "Albums"
-msgstr ""
+msgstr "Албуми"
 
 #: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
 #: ../common/AlbumsPage.qml:274
 msgid "Album"
-msgstr ""
+msgstr "Албум"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
-msgstr ""
+msgstr "Извођачи"
 
 #: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:111
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 албум"
+msgstr[1] "%1 албума"
+msgstr[2] "%1 албума"
 
 #: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
 #: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 песма"
+msgstr[1] "%1 песме"
+msgstr[2] "%1 песама"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Извођач"
 
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Увези"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Увези датотеку."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Неуспешно премештање датотеке"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
 msgid "Cancel"
-msgstr ""
+msgstr "Откажи"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "Тренутно пушта"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:37
 msgid "Playlists"
-msgstr ""
+msgstr "Списак песама"
 
 #: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
 msgid "New playlist"
-msgstr ""
+msgstr "Нови списак песама"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../MusicPlaylists.qml:63
 msgid "Change name"
-msgstr ""
+msgstr "Преименуј"
 
 #: ../MusicPlaylists.qml:64
 msgid "Enter the new name of the playlist."
-msgstr ""
+msgstr "Унеси ново име списка песама."
 
 #: ../MusicPlaylists.qml:77
 msgid "Change"
-msgstr ""
+msgstr "Промени"
 
 #: ../MusicPlaylists.qml:95 ../music-app.qml:969
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Списак песама већ постоји"
 
 #: ../MusicPlaylists.qml:99 ../music-app.qml:974
 msgid "Please type in a name."
-msgstr ""
+msgstr "Унесите име."
 
 #: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
 #: ../MusicStart.qml:202 ../common/SongsPage.qml:165
 #: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
 #: ../common/SongsPage.qml:243
 msgid "Playlist"
-msgstr ""
+msgstr "Списак песама"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
 msgid "Search"
-msgstr ""
+msgstr "Тражи"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:193
 msgid "Settings"
-msgstr ""
+msgstr "Подешавања"
 
 #: ../MusicSettings.qml:81
 msgid "Equaliser"
-msgstr ""
+msgstr "Изједначивач"
 
 #: ../MusicSettings.qml:82
 msgid "Default"
-msgstr ""
+msgstr "Уобичајено"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Акустична"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
-msgstr ""
+msgstr "Класична"
 
 #: ../MusicSettings.qml:85
 msgid "Electronic"
-msgstr ""
+msgstr "Електронска"
 
 #: ../MusicSettings.qml:86
 msgid "Flat"
-msgstr ""
+msgstr "Равно"
 
 #: ../MusicSettings.qml:87
 msgid "Hip Hop"
-msgstr ""
+msgstr "Хип хоп"
 
 #: ../MusicSettings.qml:88
 msgid "Jazz"
-msgstr ""
+msgstr "Џез"
 
 #: ../MusicSettings.qml:89
 msgid "Metal"
-msgstr ""
+msgstr "Метал"
 
 #: ../MusicSettings.qml:90
 msgid "Pop"
-msgstr ""
+msgstr "Поп"
 
 #: ../MusicSettings.qml:91
 msgid "Rock"
-msgstr ""
+msgstr "Рок"
 
 #: ../MusicSettings.qml:92
 msgid "Custom"
-msgstr ""
+msgstr "Произвољна"
 
 #: ../MusicSettings.qml:112
 msgid ""
 "Snap to current song \n"
 "when opening toolbar"
 msgstr ""
+"Прикачи на текућу песму \n"
+"када се отвори алатница"
 
 #: ../MusicSettings.qml:132
 msgid "Accounts"
-msgstr ""
+msgstr "Налози"
 
 #: ../MusicSettings.qml:146
 msgid "Login to scrobble and import playlists"
-msgstr ""
+msgstr "Пријавите се да скроблујете и увезете спискове песама"
 
 #: ../MusicSettings.qml:169
 msgid "Music Streaming"
-msgstr ""
+msgstr "Музика уживо"
 
 #: ../MusicSettings.qml:179
 msgid "Ubuntu One"
-msgstr ""
+msgstr "Убунту Један"
 
 #: ../MusicSettings.qml:180
 msgid "Sign in to stream your cloud music"
-msgstr ""
+msgstr "Пријавит се да уживо слушате своју музику из облака"
 
 #: ../MusicSettings.qml:196
 msgid "Stream only on Wi-Fi"
-msgstr ""
+msgstr "Уживо само преко бежичне мреже"
 
 #: ../MusicSettings.qml:230
 msgid "Clean everything!"
-msgstr ""
+msgstr "Очисти све!"
 
 #: ../MusicStart.qml:37 ../music-app.qml:606 ../music-app.qml:1163
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Музика"
 
 #: ../MusicStart.qml:77
 msgid "Recent"
-msgstr ""
+msgstr "Скорашње"
 
 #: ../MusicStart.qml:105
 msgid "Clear History"
-msgstr ""
+msgstr "Очисти историјат"
 
 #: ../MusicStart.qml:227
 msgid "Genres"
-msgstr ""
+msgstr "Жанрови"
 
 #: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
 #: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
 msgid "Genre"
-msgstr ""
+msgstr "Жанр"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Тапните „пусти“ да измешате музику"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
-msgstr ""
+msgstr "Песме"
 
 #: ../MusicaddtoPlaylist.qml:41
 msgid "Select playlist"
-msgstr ""
+msgstr "Одабери списак песама"
 
 #: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
 #: ../common/SongsPage.qml:152
 msgid "Play all"
-msgstr ""
+msgstr "Пусти све"
 
 #: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
 #: ../common/SongsPage.qml:199 ../music-app.qml:902
 msgid "Add to queue"
-msgstr ""
+msgstr "Додај у ред"
 
 #: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
 #, qt-format
 msgid " | %1 song"
 msgid_plural " | %1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " | %1 песма"
+msgstr[1] " | %1 песме"
+msgstr[2] " | %1 песама"
 
 #: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:916
 msgid "Add to playlist"
-msgstr ""
+msgstr "Додај у списак песама"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Додај међу заказане"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
 msgid "Delete"
-msgstr ""
+msgstr "Обриши"
 
 #. TRANSLATORS: this refers to editing a playlist
 #: ../common/ListItemActions/EditPlaylist.qml:26
 msgid "Edit"
-msgstr ""
+msgstr "Уреди"
 
 #: ../common/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr ""
+msgstr "Уклони"
 
 #: ../common/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr ""
+msgstr "Учитава..."
 
 #: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
 msgid "Clear"
-msgstr ""
+msgstr "Очисти"
 
 #: ../meta-database.js:90 ../meta-database.js:92
 msgid "Unknown Album"
-msgstr ""
+msgstr "Непознат албум"
 
 #: ../meta-database.js:91
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Непознат извођач"
 
 #: ../music-app.qml:144
 msgid "Search Track"
-msgstr ""
+msgstr "Тражи песму"
 
 #: ../music-app.qml:156
 msgid "Next"
-msgstr ""
+msgstr "Следећа"
 
 #: ../music-app.qml:157
 msgid "Next Track"
-msgstr ""
+msgstr "Следећа песма"
 
 #: ../music-app.qml:163
 msgid "Pause"
-msgstr ""
+msgstr "Застани"
 
 #: ../music-app.qml:163
 msgid "Play"
-msgstr ""
+msgstr "Пусти"
 
 #: ../music-app.qml:165
 msgid "Pause Playback"
-msgstr ""
+msgstr "Паузирај извођење"
 
 #: ../music-app.qml:165
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Настави или почни извођење"
 
 #: ../music-app.qml:170
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: ../music-app.qml:171
 msgid "Go back to last page"
-msgstr ""
+msgstr "Назад на претходну страну"
 
 #: ../music-app.qml:179
 msgid "Previous"
-msgstr ""
+msgstr "Претходна"
 
 #: ../music-app.qml:180
 msgid "Previous Track"
-msgstr ""
+msgstr "Претходна песма"
 
 #: ../music-app.qml:185
 msgid "Stop"
-msgstr ""
+msgstr "Заустави"
 
 #: ../music-app.qml:186
 msgid "Stop Playback"
-msgstr ""
+msgstr "Заустави извођење"
 
 #: ../music-app.qml:194
 msgid "Music Settings"
-msgstr ""
+msgstr "Подешавање музике"
 
 #: ../music-app.qml:325
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Путања мора почети са ~/Music/"
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Путања мора бити до датотеке"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "Чека на датотеку..."
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "У реду"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Увезена датотека није нађена"
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Чекај"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Одредиште"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
 msgid "songs played today"
-msgstr ""
+msgstr "данас пуштене песме"
 
 #: ../music-app.qml:522
 msgid "No songs played today"
-msgstr ""
+msgstr "Данас нема пуштених песама"
 
 #: ../music-app.qml:630
 msgid "Debug: "
-msgstr ""
+msgstr "Уклони бубе: "
 
 #: ../music-app.qml:938
 msgid "New Playlist"
-msgstr ""
+msgstr "Нови списак песама"
 
 #: ../music-app.qml:939
 msgid "Name your playlist."
-msgstr ""
+msgstr "Именујте свој списак песама."
 
 #: ../music-app.qml:943
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #: ../music-app.qml:953
 msgid "Create"
-msgstr ""
+msgstr "Направи"
 
 #: ../music-app.qml:1189
 msgid "No music found"
-msgstr ""
+msgstr "Није нађена музика"
 
 #: ../music-app.qml:1196
 msgid "Please import music"
-msgstr ""
+msgstr "Увезите музику"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Програм за музику у Убунтуу"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "музика;песме;пуштање;извођење;мелодије;"
