@@ -200,7 +200,8 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        self._patch_mediascanner_home(mediascannerpath)
+        # Current update does not require DB patching
+        # self._patch_mediascanner_home(mediascannerpath)
 
         logger.debug(
             "Mediascanner database copied, files " +
