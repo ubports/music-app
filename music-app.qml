@@ -23,7 +23,6 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
-import Ubuntu.Unity.Action 1.0 as UnityActions
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.XmlListModel 2.0
