@@ -77,7 +77,7 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: [{author: model.author, album: model.album}]
+                    covers: [{art: model.art}]
                     column: Column {
                         spacing: units.gu(1)
                         Label {

@@ -267,8 +267,7 @@ MusicPage {
                         }
 
                         delegate: Item {
-                            property string author: model.artist
-                            property string album: model.title
+                            property string art: model.art
                         }
                         property var covers: []
                         signal finished()
@@ -278,7 +277,7 @@ MusicPage {
                             genreShape.covers = covers
                         }
                         onItemAdded: {
-                            covers.push({author: item.author, album: item.album});
+                            covers.push({art: item.art});
 
                             if (index === count - 1) {
                                 finished();
@@ -420,7 +419,7 @@ MusicPage {
                 Item {
                     property string artist: model.artist
                     property string album: model.title
-                    property var covers: [{author: model.artist, album: model.title}]
+                    property var covers: [{art: model.art}]
 
                     id: albumItem
                     objectName: "albumItemObject"

@@ -271,7 +271,7 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: [{author: model.author, album: model.album}]
+                    covers: songStackPage.line1 !== i18n.tr("Playlist") ? [{art: model.art}] : [{author: model.author, album: model.album}]
                     column: Column {
                         spacing: units.gu(1)
                         Label {

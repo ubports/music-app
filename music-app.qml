@@ -657,7 +657,7 @@ MainView {
     function makeDict(model) {
         return {
             album: model.album,
-            art: "image://albumart/artist=" + model.author + "&album=" + model.album,
+            art: model.art,
             author: model.author,
             filename: model.filename,
             title: model.title
