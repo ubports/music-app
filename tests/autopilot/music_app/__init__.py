@@ -233,7 +233,7 @@ class AlbumsPage(MusicPage):
                                        + str(i))
 
     def get_artist(self):
-        return self.wait_select_single("Label", objectName="artist").text
+        return self.wait_select_single("Label", objectName="artistLabel").text
 
 
 class SongsPage(MusicPage):

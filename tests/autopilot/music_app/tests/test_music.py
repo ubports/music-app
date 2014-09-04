@@ -91,9 +91,9 @@ class TestMainWindow(MusicAppTestCase):
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
-        self.assertThat(current_track.get_label_text("artist"),
+        self.assertThat(current_track.get_label_text("artistLabel"),
                         Equals(self.artist_name))
-        self.assertThat(current_track.get_label_text("title"),
+        self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.track_title))
 
         # click on close button to close the page
@@ -348,9 +348,9 @@ class TestMainWindow(MusicAppTestCase):
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
-        self.assertThat(current_track.get_label_text("artist"),
+        self.assertThat(current_track.get_label_text("artistLabel"),
                         Equals(self.artist_name))
-        self.assertThat(current_track.get_label_text("title"),
+        self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.track_title))
 
         # click on close button to close songs page
@@ -385,9 +385,9 @@ class TestMainWindow(MusicAppTestCase):
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
-        self.assertThat(current_track.get_label_text("artist"),
+        self.assertThat(current_track.get_label_text("artistLabel"),
                         Equals(self.artist_name))
-        self.assertThat(current_track.get_label_text("title"),
+        self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.track_title))
 
     def test_add_song_to_queue_from_songs_tab(self):
@@ -420,9 +420,9 @@ class TestMainWindow(MusicAppTestCase):
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
-        self.assertThat(current_track.get_label_text("artist"),
+        self.assertThat(current_track.get_label_text("artistLabel"),
                         Equals(self.artist_name))
-        self.assertThat(current_track.get_label_text("title"),
+        self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.track_title))
 
     def test_create_playlist_from_songs_tab(self):
@@ -520,9 +520,9 @@ class TestMainWindow(MusicAppTestCase):
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
-        self.assertThat(current_track.get_label_text("artist"),
+        self.assertThat(current_track.get_label_text("artistLabel"),
                         Equals(self.artist_name))
-        self.assertThat(current_track.get_label_text("title"),
+        self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.track_title))
 
     def test_swipe_to_delete_song(self):

@@ -271,7 +271,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingArtist
-                        objectName: "artist"
+                        objectName: "artistLabel"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -283,7 +283,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingTitle
-                        objectName: "title"
+                        objectName: "titleLabel"
                         color: styleMusic.common.white
                         elide: Text.ElideRight
                         height: units.gu(1)
@@ -295,7 +295,7 @@ MusicPage {
                     }
                     Label {
                         id: nowPlayingAlbum
-                        objectName: "album"
+                        objectName: "albumLabel"
                         color: styleMusic.nowPlaying.labelSecondaryColor
                         elide: Text.ElideRight
                         height: units.gu(1)
