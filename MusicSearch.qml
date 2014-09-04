@@ -179,7 +179,7 @@ Item {
                             }
 
                             MusicRow {
-                                covers: [{author: model.author, album: model.title}]
+                                covers: [{art: model.art}]
                                 column: Column {
                                     spacing: units.gu(1)
                                     Label {

@@ -116,7 +116,7 @@ MusicPage {
                 Item {
                     property string title: model.title
                     property string title2: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
-                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{author: model.title2, album: model.title}]
+                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{art: model.art}]
                     property string type: model.type
                     property string time: model.time
                     property string key: model.key

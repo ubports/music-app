@@ -90,6 +90,7 @@ function getRecent() {
                              title:dbItem.title || i18n.tr("Unknown Album"),
                              title2:dbItem.title2 || i18n.tr("Unknown Artist"),
                              key:dbItem.key || i18n.tr("Unknown Album"),
+                             art:dbItem.cover || Qt.resolvedUrl("../images/music-app-cover@30.png"),
                              type:dbItem.type
                          });
             }

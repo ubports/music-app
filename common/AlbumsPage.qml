@@ -254,7 +254,7 @@ MusicPage {
                     }
                     count: 1
                     size: parent.height
-                    covers: [{author: model.artist, album: model.title}]
+                    covers: [{art: model.art}]
                     objectName: "artistpage-albumcover"
                     spacing: units.gu(2)
 
@@ -270,7 +270,7 @@ MusicPage {
                             songsPage.line1 = model.artist
                             songsPage.line2 = model.title
                             songsPage.isAlbum = true
-                            songsPage.covers = [{author: model.artist, album: model.title}]
+                            songsPage.covers = [{art: model.art}]
                             songsPage.genre = undefined
                             songsPage.title = i18n.tr("Album")
 

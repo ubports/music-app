@@ -68,7 +68,7 @@ MusicPage {
             Item {
                 property string artist: model.artist
                 property string album: model.title
-                property var covers: [{author: model.artist, album: model.title}]
+                property var covers: [{art: model.art}]
 
                 id: albumItem
                 height: albumlist.cellHeight - units.gu(1)
@@ -142,7 +142,7 @@ MusicPage {
                     anchors.fill: parent
                     onClicked: {
                         songsPage.album = model.title;
-                        songsPage.covers = [{author: model.artist, album: model.title}]
+                        songsPage.covers = [{art: model.art}]
                         songsPage.genre = undefined
                         songsPage.isAlbum = true
                         songsPage.line1 = model.artist
