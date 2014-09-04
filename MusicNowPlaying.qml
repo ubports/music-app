@@ -315,7 +315,7 @@ MusicPage {
                     name: "current"
                     PropertyChanges {
                         target: queueListItem
-                        height: trackImage.height + (trackContainer.anchors.margins * 2)
+                        height: trackImage.size + (trackContainer.anchors.margins * 2)
                     }
                     PropertyChanges {
                         target: nowPlayingArtist
