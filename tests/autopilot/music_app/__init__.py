@@ -281,18 +281,16 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
 
     @ensure_toolbar_visible
     @click_object
-    def click_small_play_button(self):
-        return self.wait_select_single("*", objectName="smallPlayShape")
-
-    @ensure_toolbar_visible
-    @click_object
     def click_forward_button(self):
         return self.wait_select_single("*", objectName="forwardShape")
 
     @ensure_toolbar_visible
     @click_object
     def click_play_button(self):
-        return self.wait_select_single("*", objectName="playShape")
+        if self.currentMode == "full":
+            return self.wait_select_single("*", objectName="playShape")
+        else:
+            return self.wait_select_single("*", objectName="smallPlayShape")
 
     @ensure_toolbar_visible
     @click_object

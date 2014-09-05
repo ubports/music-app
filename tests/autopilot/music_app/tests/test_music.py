@@ -81,9 +81,8 @@ class TestMainWindow(MusicAppTestCase):
 
         track.click_add_to_queue_action()  # add track to the queue
 
-        # verify track queue has added one to initial value
-        self.assertThat(now_playing_page.get_count(),
-                        Eventually(Equals(initial_tracks_count + 1)))
+        # wait for track to be queued
+        now_playing_page.get_count().wait_for(initial_tracks_count + 1)
 
         end_tracks_count = now_playing_page.get_count()
 
@@ -103,18 +102,12 @@ class TestMainWindow(MusicAppTestCase):
         # click on close button to close the page
         self.app.main_view.go_back()
 
-        # get the play button depending on aspect
-        if self.app.main_view.wideAspect:
-            click_play_button = toolbar.click_play_button
-        else:
-            click_play_button = toolbar.click_small_play_button
-
         # click the play button to start playing
-        click_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # click the play button to stop playing
-        click_play_button()
+        toolbar.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
     def test_play_pause_now_playing(self):
@@ -214,20 +207,14 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.source.endswith("mp3"),
                         Equals(True))
 
-        # get the play button depending on aspect
-        if self.app.main_view.wideAspect:
-            click_play_button = toolbar.click_play_button
-        else:
-            click_play_button = toolbar.click_small_play_button
-
         # Start playing the track
-        click_play_button()
+        toolbar.click_play_button()
 
         # Check that the track is playing
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # Stop playing the track
-        click_play_button()
+        toolbar.click_play_button()
 
         # Check current meta data is correct
         self.assertThat(self.player.currentMetaTitle,
