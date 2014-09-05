@@ -212,10 +212,12 @@ MusicPage {
         ListItem.ThinDivider {
             id: genreDivider
             anchors.top: mainView.hasRecent ? recentlist.bottom : parent.top
+            visible: genrelist.count > 1
         }
         ListItem.Standard {
             id: genres
             anchors.top: genreDivider.bottom
+            visible: genrelist.count > 1
             Label {
                 anchors {
                     verticalCenter: parent.verticalCenter
@@ -234,6 +236,7 @@ MusicPage {
             anchors.topMargin: units.gu(1)
             spacing: units.gu(1)
             height: units.gu(18)
+            visible: genrelist.count > 1
             model: SortFilterModel {
                 id: genresModelFilter
                 model: GenresModel {
@@ -375,7 +378,9 @@ MusicPage {
 
         ListItem.ThinDivider {
             id: albumsDivider
-            anchors.top: genrelist.bottom
+            anchors.top: genrelist.visible
+                         ? genrelist.bottom
+                         : (mainView.hasRecent ? recentlist.bottom : parent.top)
         }
         ListItem.Standard {
             id: albums
