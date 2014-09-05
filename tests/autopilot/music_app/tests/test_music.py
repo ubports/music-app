@@ -214,17 +214,26 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.source.endswith("mp3"),
                         Equals(True))
 
+        # get the play button depending on aspect
+        if self.app.main_view.wideAspect:
+            click_play_button = toolbar.click_play_button
+        else:
+            click_play_button = toolbar.click_small_play_button
+
         # Start playing the track
-        toolbar.click_small_play_button()
+        click_play_button()
+
+        # Check that the track is playing
+        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+
+        # Stop playing the track
+        click_play_button()
 
         # Check current meta data is correct
         self.assertThat(self.player.currentMetaTitle,
                         Eventually(Equals(self.tracks[i]["title"])))
         self.assertThat(self.player.currentMetaArtist,
                         Eventually(Equals(self.tracks[i]["artist"])))
-
-        # Check that the track is playing
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
     def test_shuffle(self):
         """ Test shuffle (Music Library must exist) """
