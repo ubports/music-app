@@ -39,7 +39,6 @@ Architecture: all
 Depends: libautopilot-qt (>= 1.4),
          libqt5test5,
          music-app (= ${source:Version}),
-         python3-mock,
          ubuntu-ui-toolkit-autopilot,
          ${misc:Depends},
 Description: Autopilot tests for Music App
