@@ -24,7 +24,7 @@ class TestMainWindow(MusicAppTestCase):
     def setUp(self):
         super(TestMainWindow, self).setUp()
 
-        # metadata for test tracks sorted by source
+        # metadata for test tracks sorted by title
         # tests should sort themselves if they require by artist/album
         self.tracks = [
             {
@@ -187,9 +187,9 @@ class TestMainWindow(MusicAppTestCase):
 
         toolbar = self.app.get_toolbar()
 
-        # Get the index of an mp3 file
-        i = [i for i, k in enumerate(self.tracks)
-             if k["source"].endswith("mp3")][0]
+        # Get list of tracks which are mp3 and then take the index of the first
+        i = [i for i, track in enumerate(self.tracks)
+             if track["source"].endswith("mp3")][0]
 
         # switch to tracks page
         tracks_page = self.app.get_tracks_page()
@@ -269,7 +269,7 @@ class TestMainWindow(MusicAppTestCase):
             source = self.player.currentMetaFile
 
             # select previous track while will break if this previous track
-            # is different and therefore a shuffle has occured
+            # is different and therefore a shuffle has occurred
             toolbar.click_previous_button()
 
             # pause the track if it is playing
