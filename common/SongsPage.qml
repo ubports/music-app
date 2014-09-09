@@ -30,6 +30,7 @@ import "ListItemActions"
 MusicPage {
     id: songStackPage
     anchors.bottomMargin: units.gu(.5)
+    objectName: "songsPage"
     visible: false
 
     property string line1: ""
@@ -77,7 +78,7 @@ MusicPage {
 
             Label {
                 id: albumArtist
-                objectName: "songspage-albumartist"
+                objectName: "songsPageHeaderAlbumArtist"
                 wrapMode: Text.NoWrap
                 maximumLineCount: 1
                 fontSize: "small"
@@ -215,7 +216,7 @@ MusicPage {
             ListItemWithActions {
                 id: track
                 color: "transparent"
-                objectName: "songspage-track"
+                objectName: "songsPageListItem" + index
                 iconFrame: false
                 progression: false
                 height: styleMusic.common.itemHeight

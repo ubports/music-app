@@ -292,8 +292,8 @@ MainView {
                 importItems = activeTransfer.items;
 
                 // Assumes only 1 file to import for now
-                //var dialogue = PopupUtils.open(contentHubImport, mainView)
-                //dialogue.contentItem = importItems[0];
+                //var dialog = PopupUtils.open(contentHubImport, mainView)
+                //dialog.contentItem = importItems[0];
 
                 var url = importItems[0].url.toString()
                 console.debug("Triggered content-hub import for item", url)
@@ -302,13 +302,13 @@ MainView {
                 var out = contentHub.importFile(importItems[0], path)
 
                 if (out === true) {
-                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
                     contentHubWaitForFile.searchPath = contentHub.searchPath;
                     contentHubWaitForFile.start();
                 }
                 else {
-                    var errorDialogue = PopupUtils.open(contentHubError, mainView)
-                    errorDialogue.errorText = out
+                    var errordialog = PopupUtils.open(contentHubError, mainView)
+                    errordialog.errorText = out
                 }
             }
         }
@@ -364,7 +364,7 @@ MainView {
         triggeredOnStart: false
         repeat: true
 
-        property var dialogue: null
+        property var dialog: null
         property string searchPath
         property int count: 0
 
@@ -372,7 +372,7 @@ MainView {
             count = 0;
             stop();
 
-            PopupUtils.close(dialogue)
+            PopupUtils.close(dialog)
         }
 
         onTriggered: {
@@ -404,7 +404,7 @@ MainView {
     Component {
         id: contentHubWait
         Dialog {
-            id: dialogueContentHubWait
+            id: dialogContentHubWait
 
             LoadingSpinnerComponent {
                 anchors {
@@ -419,7 +419,7 @@ MainView {
     Component {
         id: contentHubError
         Dialog {
-            id: dialogueContentHubError
+            id: dialogContentHubError
 
             property alias errorText: errorLabel.text
 
@@ -430,7 +430,7 @@ MainView {
 
             Button {
                 text: i18n.tr("OK")
-                onClicked: PopupUtils.close(dialogueContentHubError)
+                onClicked: PopupUtils.close(dialogContentHubError)
             }
         }
     }
@@ -438,7 +438,7 @@ MainView {
     Component {
         id: contentHubNotFound
         Dialog {
-            id: dialogueContentHubNotFound
+            id: dialogContentHubNotFound
 
             Label {
                 color: styleMusic.common.black
@@ -448,16 +448,16 @@ MainView {
             Button {
                 text: i18n.tr("Wait")
                 onClicked: {
-                    PopupUtils.close(dialogueContentHubNotFound)
+                    PopupUtils.close(dialogContentHubNotFound)
 
-                    contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
                     contentHubWaitForFile.start();
                 }
             }
 
             Button {
                 text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogueContentHubNotFound)
+                onClicked: PopupUtils.close(dialogContentHubNotFound)
             }
         }
     }
@@ -465,7 +465,7 @@ MainView {
     Component {
         id: contentHubImport
         Dialog {
-            id: dialogueContentHubImport
+            id: dialogContentHubImport
             title: i18n.tr("Import")
             text: i18n.tr("Target destination")
 
@@ -490,9 +490,9 @@ MainView {
                     var out = contentHub.importFile(contentItem, pathField.text.toString())
 
                     if (out === true) {
-                        PopupUtils.close(dialogueContentHubImport)
+                        PopupUtils.close(dialogContentHubImport)
 
-                        contentHubWaitForFile.dialogue = PopupUtils.open(contentHubWait, mainView)
+                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
                         contentHubWaitForFile.searchPath = contentHub.searchPath;
                         contentHubWaitForFile.start();
                     }
@@ -506,7 +506,7 @@ MainView {
             Button {
                 text: i18n.tr("Cancel")
                 color: styleMusic.dialog.buttonColor
-                onClicked: PopupUtils.close(dialogueContentHubImport)
+                onClicked: PopupUtils.close(dialogContentHubImport)
             }
         }
     }
@@ -935,12 +935,13 @@ MainView {
     Component {
         id: newPlaylistDialog
         Dialog {
-            id: dialogueNewPlaylist
+            id: dialogNewPlaylist
+            objectName: "dialogNewPlaylist"
             title: i18n.tr("New Playlist")
             text: i18n.tr("Name your playlist.")
             TextField {
                 id: playlistName
-                objectName: "playlistnameTextfield"
+                objectName: "playlistNameTextField"
                 placeholderText: i18n.tr("Name")
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
@@ -953,7 +954,7 @@ MainView {
             Button {
                 text: i18n.tr("Create")
                 color: styleMusic.dialog.confirmButtonColor
-                objectName: "newPlaylistDialog_createButton"
+                objectName: "newPlaylistDialogCreateButton"
                 onClicked: {
                     newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
@@ -962,7 +963,7 @@ MainView {
 
                             playlistModel.filterPlaylists();  // reload model
 
-                            PopupUtils.close(dialogueNewPlaylist)
+                            PopupUtils.close(dialogNewPlaylist)
                         }
                         else {
                             console.debug("Debug: Playlist already exists")
@@ -980,7 +981,7 @@ MainView {
             Button {
                 text: i18n.tr("Cancel")
                 color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogueNewPlaylist)
+                onClicked: PopupUtils.close(dialogNewPlaylist)
             }
         }
     }
@@ -1008,7 +1009,7 @@ MainView {
                 property bool loading: false
                 property var model: [recentModel, albumTracksModel]
                 id: startTab
-                objectName: "starttab"
+                objectName: "startTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1025,7 +1026,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: artistsTab
-                objectName: "artiststab"
+                objectName: "artistsTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1042,7 +1043,7 @@ MainView {
                 property bool loading: false
                 property var model: []
                 id: albumsTab
-                objectName: "albumstab"
+                objectName: "albumsTab"
                 anchors.fill: parent
                 title: page.title
 
@@ -1077,7 +1078,7 @@ MainView {
                 property bool loading: false
                 property var model: [playlistModel, albumTracksModel]
                 id: playlistTab
-                objectName: "playlisttab"
+                objectName: "playlistsTab"
                 anchors.fill: parent
                 title: page.title
 

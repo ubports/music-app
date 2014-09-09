@@ -6,8 +6,7 @@
 # by the Free Software Foundation.
 
 """music-app tests and emulators - top level package."""
-import ubuntuuitoolkit
-from time import sleep
+from ubuntuuitoolkit import MainView, UbuntuUIToolkitCustomProxyObjectBase
 
 
 class MusicAppException(Exception):
@@ -30,13 +29,46 @@ class MusicApp(object):
         self.main_view = self.app.wait_select_single(MainView)
         self.player = self.app.select_single(Player, objectName='player')
 
+    def get_add_to_playlist_page(self):
+        return self.app.wait_select_single(Page11,
+                                           objectName="addToPlaylistPage")
+
+    def get_albums_page(self):
+        self.main_view.switch_to_tab('albumsTab')
+
+        return self.main_view.wait_select_single(
+            Page11, objectName='albumsPage')
+
+    def get_albums_artist_page(self):
+        return self.main_view.wait_select_single(
+            AlbumsPage, objectName='albumsArtistPage')
+
+    def get_artists_page(self):
+        self.main_view.switch_to_tab('artistsTab')
+
+        return self.main_view.wait_select_single(
+            Page11, objectName='artistsPage')
+
+    def get_new_playlist_dialog(self):
+        return self.main_view.wait_select_single(
+            Dialog, objectName="dialogNewPlaylist")
+
     def get_now_playing_page(self):
         return self.app.wait_select_single(MusicNowPlaying,
                                            objectName="nowPlayingPage")
 
+    def get_playlists_page(self):
+        self.main_view.switch_to_tab('playlistsTab')
+
+        return self.main_view.wait_select_single(
+            MusicPlaylists, objectName='playlistsPage')
+
+    def get_songs_page(self):
+        return self.app.wait_select_single(SongsPage, objectName="songsPage")
+
     def get_toolbar(self):
-        return self.app.select_single(MusicToolbar,
-                                      objectName="musicToolbarObject")
+        return self.app.wait_select_single(MusicToolbar,
+                                           objectName="musicToolbarObject")
 
     def get_tracks_page(self):
         """Open the Tracks tab.
@@ -46,7 +78,7 @@ class MusicApp(object):
         """
         self.main_view.switch_to_tab('tracksTab')
 
-        return self.main_view.select_single(
+        return self.main_view.wait_select_single(
             Page11, objectName='tracksPage')
 
     @property
@@ -68,7 +100,7 @@ class MusicApp(object):
         self.get_now_playing_page().visible.wait_for(True)
 
 
-class Page(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class Page(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
     def __init__(self, *args):
         super(Page, self).__init__(*args)
@@ -82,18 +114,94 @@ class MusicPage(Page):
         super(Page, self).__init__(*args)
 
 
-# FIXME: Represents MusicTracks related to bug 1341671 and bug 1337004
-class Page11(MusicPage):
+class MusicAlbums(MusicPage):
+    """ Autopilot helper for the albums page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_album(self, i):
+        return (self.wait_select_single("*",
+                objectName="albumsPageGridItem" + str(i)))
+
+
+class MusicArtists(MusicPage):
+    """ Autopilot helper for the artists page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_artist(self, i):
+        return (self.wait_select_single("Standard",
+                objectName="artistsPageListItem" + str(i)))
+
+
+class MusicTracks(MusicPage):
     """ Autopilot helper for the tracks page """
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
+        self.visible.wait_for(True)
+
     def get_track(self, i):
-        return (self.wait_select_single("ListItemWithActions",
-                objectName="tracksTabListItem" + str(i)))
+        return (self.wait_select_single(ListItemWithActions,
+                objectName="tracksPageListItem" + str(i)))
 
 
-class Player(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class MusicPlaylists(MusicPage):
+    """ Autopilot helper for the playlists page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    def get_count(self):
+        return self.wait_select_single(
+            "QQuickListView", objectName="playlistsListView").count
+
+
+class MusicaddtoPlaylist(MusicPage):
+    """ Autopilot helper for add to playlist page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    def click_new_playlist_action(self):
+        self.main_view.get_header().click_action_button("newPlaylistButton")
+
+    @click_object
+    def click_playlist(self, i):
+        return self.get_playlist(i)
+
+    def get_count(self):  # careful not to conflict until Page11 is fixed
+        return self.wait_select_single(
+            "QQuickListView", objectName="addToPlaylistListView").count
+
+    def get_playlist(self, i):
+        return (self.wait_select_single("Standard",
+                objectName="addToPlaylistListItem" + str(i)))
+
+
+class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
+    """
+    FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
+    due to bug 1341671 and bug 1337004 they all appear as Page11
+    Therefore this class 'contains' all of them for now
+    Once the bugs are fixed Page11 should be swapped for MusicTracks etc
+    """
+    def __init__(self, *args):
+        super(MusicAlbums, self).__init__(*args)
+        super(MusicArtists, self).__init__(*args)
+        super(MusicTracks, self).__init__(*args)
+        super(MusicaddtoPlaylist, self).__init__(*args)
+
+
+class Player(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Player"""
 
 
@@ -107,11 +215,48 @@ class MusicNowPlaying(MusicPage):
                                   objectName="nowPlayingQueueList").count
 
     def get_track(self, i):
-        return (self.wait_select_single("ListItemWithActions",
+        return (self.wait_select_single(ListItemWithActions,
                 objectName="nowPlayingListItem" + str(i)))
 
 
-class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
+class AlbumsPage(MusicPage):
+    """ Autopilot helper for the albums page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_artist(self, i):
+        return self.wait_select_single("Standard",
+                                       objectName="albumsArtistListItem"
+                                       + str(i))
+
+    def get_artist(self):
+        return self.wait_select_single("Label", objectName="artistLabel").text
+
+
+class SongsPage(MusicPage):
+    """ Autopilot helper for the songs page """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def click_track(self, i):
+        return self.get_track(i)
+
+    def get_header_artist_label(self):
+        return self.wait_select_single("Label",
+                                       objectName="songsPageHeaderAlbumArtist")
+
+    def get_track(self, i):
+        return (self.wait_select_single(ListItemWithActions,
+                objectName="songsPageListItem" + str(i)))
+
+
+class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for the toolbar
 
     expanded - refers to things when the toolbar is in its smaller state
@@ -147,6 +292,17 @@ class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
+    def seek_to(self, percentage):
+        progress_bar = self.wait_select_single(
+            "*", objectName="progressBarShape")
+
+        x1, y1, width, height = progress_bar.globalRect
+        y1 += height // 2
+
+        x2 = x1 + int(width * percentage / 100)
+
+        self.pointing_device.drag(x1, y1, x2, y1)
+
     def set_repeat(self, state):
         if self.player.repeat != state:
             self.click_repeat_button()
@@ -169,7 +325,51 @@ class MusicToolbar(ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.drag(x1, y1, x1, y1 - self.fullHeight)
 
 
-class MainView(ubuntuuitoolkit.MainView):
+class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
+    @click_object
+    def click_add_to_playlist_action(self):
+        return self.wait_select_single(objectName="addToPlaylistAction")
+
+    @click_object
+    def click_add_to_queue_action(self):
+        return self.wait_select_single(objectName="addToQueueAction")
+
+    @click_object
+    def confirm_removal(self):
+        return self.wait_select_single(objectName="swipeDeleteAction")
+
+    def get_label_text(self, name):
+        return self.wait_select_single(objectName=name).text
+
+    def swipe_reveal_actions(self):
+        x, y, width, height = self.globalRect
+        start_x = x + (width * 0.8)
+        stop_x = x + (width * 0.2)
+        start_y = stop_y = y + (height // 2)
+
+        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
+
+    def swipe_to_delete(self):
+        x, y, width, height = self.globalRect
+        start_x = x + (width * 0.2)
+        stop_x = x + (width * 0.8)
+        start_y = stop_y = y + (height // 2)
+
+        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
+
+
+class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
+    @click_object
+    def click_new_playlist_dialog_create_button(self):
+        return self.wait_select_single(
+            "Button", objectName="newPlaylistDialogCreateButton")
+
+    def type_new_playlist_dialog_name(self, text):
+        self.wait_select_single(
+            "TextField", objectName="playlistNameTextField").write(text)
+
+
+class MainView(MainView):
     """Autopilot custom proxy object for the MainView."""
     retry_delay = 0.2
 
@@ -181,196 +381,3 @@ class MainView(ubuntuuitoolkit.MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
-
-    def select_many_retry(self, object_type, **kwargs):
-        """Returns the item that is searched for with app.select_many
-        In case of no item was not found (not created yet) a second attempt is
-        taken 1 second later"""
-        items = self.select_many(object_type, **kwargs)
-        tries = 10
-        while len(items) < 1 and tries > 0:
-            sleep(self.retry_delay)
-            items = self.select_many(object_type, **kwargs)
-            tries = tries - 1
-        return items
-
-    def tap_item(self, item):
-        self.pointing_device.move_to_object(item)
-        self.pointing_device.press()
-        sleep(2)
-        self.pointing_device.release()
-
-    def seek_to_0(self):
-        # Get the progress bar object
-        progressBar = self.wait_select_single(
-            "*", objectName="progressBarShape")
-
-        # Move to the progress bar and get the position
-        self.pointing_device.move_to_object(progressBar)
-        x1, y1 = self.pointing_device.position()
-
-        self.pointing_device.drag(x1, y1, x1 - (progressBar.width / 2) + 1, y1)
-
-    def add_to_queue_from_albums_tab_album_page(self, artistName, trackTitle):
-        # switch to albums tab
-        self.switch_to_tab("albumstab")
-
-        # select album
-        albumartist = self.get_albums_albumartist(artistName)
-        self.pointing_device.click_object(albumartist)
-
-        # get track item to swipe and queue
-        trackitem = self.get_songs_page_listview_tracktitle(trackTitle)
-        songspage = self.get_songs_page_listview()
-
-        # get coordinates to swipe
-        start_x = int(songspage.globalRect.x +
-                      (songspage.globalRect.width * 0.9))
-        stop_x = int(songspage.globalRect.x)
-        line_y = int(trackitem.globalRect.y)
-
-        # swipe to add to queue
-        self.pointing_device.move(start_x, line_y)
-        self.pointing_device.drag(start_x, line_y, stop_x, line_y)
-
-        # click on add to queue
-        queueaction = self.get_add_to_queue_action()
-        self.pointing_device.click_object(queueaction)
-
-    def tap_new_playlist_action(self):
-        header = self.get_header()
-        header.click_action_button('newplaylistButton')
-
-    def get_player_control_title(self):
-        return self.select_single("Label", objectName="playercontroltitle")
-
-    def get_first_genre_item(self):
-        return self.wait_select_single("*", objectName="genreItemObject")
-
-    def get_albumstab(self):
-        return self.select_single("Tab", objectName="albumstab")
-
-    def get_albums_albumartist_list(self):
-        return self.select_many("Label", objectName="albums-albumartist")
-
-    def get_albums_albumartist(self, artistName):
-        albumartistList = self.get_albums_albumartist_list()
-        for item in albumartistList:
-            if item.text == artistName:
-                return item
-
-    def get_add_to_queue_action(self):
-        return self.wait_select_single("*",
-                                       objectName="addToQueueAction",
-                                       primed=True)
-
-    def get_add_to_playlist_action(self):
-        return self.wait_select_single("*",
-                                       objectName="addToPlaylistAction",
-                                       primed=True)
-
-    def get_add_to_queue_button(self):
-        return self.wait_select_single("QQuickImage",
-                                       objectName="albumpage-queue-all")
-
-    def get_album_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="albumpage-albumartist")
-
-    def get_songs_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="songspage-albumartist")
-
-    def get_artist_page_artist(self):
-        return self.wait_select_single("Label",
-                                       objectName="artistpage-albumartist")
-
-    def get_artist_page_artist_cover(self):
-        return self.wait_select_single("*",
-                                       objectName="artistpage-albumcover")
-
-    def get_artiststab(self):
-        return self.select_single("Tab", objectName="artiststab")
-
-    def get_artists_artist_list(self):
-        return self.select_many("Label", objectName="artists-artist")
-
-    def get_artists_artist(self, artistName):
-        artistList = self.get_artists_artist_list()
-        for item in artistList:
-            if item.text == artistName:
-                return item
-
-    def close_buttons(self):
-        return self.select_many("Button", text="close")
-
-    def get_album_page_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="albumpage-tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_songs_page_listview_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="songspage-tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_queue_now_playing_artist(self, artistName):
-        playingartists = self.select_many(
-            "Label", objectName="nowplayingartist")
-        for item in playingartists:
-            if item.text == artistName:
-                return item
-
-    def get_queue_now_playing_title(self, trackTitle):
-        playingtitles = self.select_many(
-            "Label", objectName="nowplayingtitle")
-        for item in playingtitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_tracks_tab_listview(self):
-        return self.select_single("QQuickListView",
-                                  objectName="trackstab-listview")
-
-    def get_songs_page_listview(self):
-        return self.select_single("QQuickListView",
-                                  objectName="songspage-listview")
-
-    def get_songs_tab_tracktitle(self, trackTitle):
-        tracktitles = self.select_many_retry(
-            "Label", objectName="tracktitle")
-        for item in tracktitles:
-            if item.text == trackTitle:
-                return item
-
-    def get_newPlaylistDialog_createButton(self):
-        return self.wait_select_single(
-            "Button", objectName="newPlaylistDialog_createButton")
-
-    def get_newPlaylistDialog_name_textfield(self):
-        return self.wait_select_single(
-            "TextField", objectName="playlistnameTextfield")
-
-    def get_addtoplaylistview(self):
-        return self.wait_select_single(
-            "QQuickListView", objectName="addtoplaylistview")
-
-    def get_playlistname(self, playlistname):
-        playlistnames = self.select_many_retry(
-            "Standard", objectName="playlist")
-        for item in playlistnames:
-            if item.name == playlistname:
-                return item
-
-    def get_playlistslist(self):
-        return self.wait_select_single(
-            "QQuickListView", objectName="playlistslist")
-
-    def get_swipedelete_icon(self):
-        return self.wait_select_single(
-            "*", objectName="swipeDeleteAction",
-            primed=True)
