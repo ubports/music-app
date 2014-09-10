@@ -633,7 +633,6 @@ class TestMainWindow(MusicAppTestCase):
         self.app.populate_queue()  # populate queue
 
         toolbar = self.app.get_toolbar()
-        now_playing_page = self.app.get_now_playing_page()
 
         self.player.isPlaying.wait_for(True)  # ensure the track is playing
         self.player.position.wait_for(GreaterThan(5000))  # wait until > 5s
