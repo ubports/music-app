@@ -7,7 +7,7 @@ find_program(INTLTOOL_EXTRACT intltool-extract)
 include(GNUInstallDirs)
 
 option(INSTALL_TESTS "Install the tests on make install" on)
-option(CLICK_MODE "Installs to a contained location" off)
+option(CLICK_MODE "Installs to a contained location" on)
 
 set(APP_NAME music)
 set(DESKTOP_FILE "${PROJECT_NAME}_${APP_NAME}.desktop")
@@ -16,7 +16,7 @@ set(APP_HARDCODE music-app)
 set(MAIN_QML music-app.qml)
 set(ICON_FILE images/music-app@30.png)
 set(AUTOPILOT_DIR music_app)
-
+set(UBUNTU_MANIFEST_PATH "click/manifest.json.in" CACHE INTERNAL "Tell QtCreator location and name of the manifest file")
 
 if(CLICK_MODE)
     if(NOT DEFINED BZR_SOURCE)
