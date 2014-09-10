@@ -28,19 +28,19 @@ class TestMainWindow(MusicAppTestCase):
         # tests should sort themselves if they require by artist/album
         self.tracks = [
             {
-                "album": "Unknown",
+                "album": "",
                 "artist": u"Francisco Tárrega",
                 "source": "1.ogg",
                 "title": u"Gran Vals"
             },
             {
-                "album": "Unknown",
+                "album": "",
                 "artist": "Josh Woodward",
                 "source": "2.ogg",
                 "title": "Swansong"
             },
             {
-                "album": "Unknown",
+                "album": "TestMP3Album",
                 "artist": "TestMP3Artist",
                 "source": "3.mp3",
                 "title": "TestMP3Title",
