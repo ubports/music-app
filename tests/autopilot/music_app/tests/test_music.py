@@ -12,7 +12,7 @@ from __future__ import absolute_import
 import time
 import logging
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals, LessThan, NotEquals
+from testtools.matchers import Equals, GreaterThan, LessThan, NotEquals
 
 
 from music_app.tests import MusicAppTestCase
@@ -626,3 +626,25 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(actual_title,
                         Eventually(Equals(self.last_track_title)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
+
+    def test_pressing_prev_after_5_seconds(self):
+        """Pressing previous after 5s jumps to the start of current song"""
+
+        self.app.populate_queue()  # populate queue
+
+        toolbar = self.app.get_toolbar()
+
+        self.player.isPlaying.wait_for(True)  # ensure the track is playing
+        self.player.position.wait_for(GreaterThan(5000))  # wait until > 5s
+
+        toolbar.click_play_button()  # pause the track
+        self.player.isPlaying.wait_for(False)  # ensure the track has paused
+
+        source = self.player.source  # store current source
+
+        toolbar.click_previous_button()  # click previous
+
+        self.player.position.wait_for(LessThan(5000))  # wait until < 5s
+
+        # Check that the source is the same
+        self.assertThat(self.player.source, Eventually(Equals(source)))
