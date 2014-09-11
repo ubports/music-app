@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-08-13 00:18+0000\n"
-"Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
+"PO-Revision-Date: 2014-09-10 16:39+0000\n"
+"Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-11 07:27+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 "Language: gd\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -410,7 +410,7 @@ msgstr ""
 
 #: ../music-app.qml:434
 msgid "OK"
-msgstr ""
+msgstr "Ceart ma-thà"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
@@ -418,7 +418,7 @@ msgstr ""
 
 #: ../music-app.qml:451
 msgid "Wait"
-msgstr ""
+msgstr "Fuirich"
 
 #: ../music-app.qml:472
 msgid "Target destination"
