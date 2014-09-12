@@ -32,6 +32,7 @@ import "common/ListItemActions"
 // page for the playlists
 MusicPage {
     id: listspage
+    objectName: "playlistsPage"
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
@@ -58,7 +59,7 @@ MusicPage {
     Component {
         id: editPlaylistDialog
         Dialog {
-            id: dialogueEditPlaylist
+            id: dialogEditPlaylist
             // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
             title: i18n.tr("Change name")
             text: i18n.tr("Enter the new name of the playlist.")
@@ -85,7 +86,7 @@ MusicPage {
                         if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
                             playlistModel.filterPlaylists()
 
-                            PopupUtils.close(dialogueEditPlaylist)
+                            PopupUtils.close(dialogEditPlaylist)
 
                             if (inPlaylist) {
                                 playlistInfoLabel.text = playlistName.text
@@ -103,7 +104,7 @@ MusicPage {
             Button {
                 text: i18n.tr("Cancel")
                 color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogueEditPlaylist)
+                onClicked: PopupUtils.close(dialogEditPlaylist)
             }
         }
     }
@@ -114,7 +115,7 @@ MusicPage {
 
     ListView {
         id: playlistslist
-        objectName: "playlistslist"
+        objectName: "playlistsListView"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
         model: playlistModel.model

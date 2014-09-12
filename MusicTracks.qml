@@ -57,7 +57,7 @@ MusicPage {
             ListItemWithActions {
                 id: track
                 color: "transparent"
-                objectName: "tracksTabListItem" + index
+                objectName: "tracksPageListItem" + index
                 width: parent.width
                 height: styleMusic.common.itemHeight
 

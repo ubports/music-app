@@ -33,6 +33,7 @@ import "common"
 
 MusicPage {
     id: mainpage
+    objectName: "artistsPage"
     title: i18n.tr("Artists")
 
     ListView {
@@ -52,6 +53,7 @@ MusicPage {
 
             ListItem.Standard {
                 id: track
+                objectName: "artistsPageListItem" + index
                 height: styleMusic.common.itemHeight
 
                 AlbumsModel {

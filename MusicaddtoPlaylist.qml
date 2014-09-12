@@ -44,7 +44,7 @@ MusicPage {
     tools: ToolbarItems {
         ToolbarButton {
             action: Action {
-                objectName: "newplaylistButton"
+                objectName: "newPlaylistButton"
                 text: i18n.tr("New playlist")
                 iconName: "add"
                 onTriggered: {
@@ -71,11 +71,11 @@ MusicPage {
         clip: true
         height: parent.width
         model: playlistModel.model
-        objectName: "addtoplaylistview"
+        objectName: "addToPlaylistListView"
         width: parent.width
         delegate: ListItem.Standard {
             id: playlist
-            objectName: "playlist"
+            objectName: "addToPlaylistListItem" + index
             height: styleMusic.common.itemHeight
 
             property string name: model.name

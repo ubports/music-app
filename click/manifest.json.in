@@ -1,8 +1,9 @@
 {
+    "architecture": "all",
     "description": "A music application for ubuntu",
     "framework": "ubuntu-sdk-14.10-qml-dev3",
     "hooks": {
-        "@APP_NAME@": {
+        "music": {
             "apparmor": "apparmor.json",
             "content-hub": "music-app-content.json",
             "desktop": "@DESKTOP_FILE@",
