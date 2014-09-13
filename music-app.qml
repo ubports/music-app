@@ -292,13 +292,11 @@ MainView {
                 importItems = activeTransfer.items;
 
                 // Assumes only 1 file to import for now
-                //var dialog = PopupUtils.open(contentHubImport, mainView)
-                //dialog.contentItem = importItems[0];
-
                 var url = importItems[0].url.toString()
                 console.debug("Triggered content-hub import for item", url)
 
-                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
+                var path = "~/" + i18n.tr("Music") + "/" + i18n.tr("Imported") + "/"
+                        + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
                 var out = contentHub.importFile(importItems[0], path)
 
                 if (out === true) {
@@ -318,9 +316,9 @@ MainView {
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
 
-            if (path.indexOf("~/Music/") !== 0) {
+            if (path.indexOf("~/" + i18n.tr("Music") + "/") !== 0) {
                 console.debug("Invalid dest (not in ~/Music/)")
-                return i18n.tr("Filepath must start with ~/Music/")
+                return i18n.tr("Filepath must start with") + "~/" + i18n.tr("Music") + "/"
             }
             else {
                 // extract /home/$USER (or $HOME) from contentitem url
@@ -458,55 +456,6 @@ MainView {
             Button {
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialogContentHubNotFound)
-            }
-        }
-    }
-
-    Component {
-        id: contentHubImport
-        Dialog {
-            id: dialogContentHubImport
-            title: i18n.tr("Import")
-            text: i18n.tr("Target destination")
-
-            property var contentItem
-
-            TextField {
-                id: pathField
-                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + contentItem.url.split("/").pop()
-            }
-
-            Label {
-                id: contentHubOutput
-                color: styleMusic.common.black
-                visible: false // should only be visible when an error is made.
-            }
-
-            Button {
-                text: i18n.tr("Import")
-                onClicked: {
-                    contentHubOutput.visible = false
-
-                    var out = contentHub.importFile(contentItem, pathField.text.toString())
-
-                    if (out === true) {
-                        PopupUtils.close(dialogContentHubImport)
-
-                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                        contentHubWaitForFile.searchPath = contentHub.searchPath;
-                        contentHubWaitForFile.start();
-                    }
-                    else {
-                        contentHubOutput.visible = true
-                        contentHubOutput.text = out
-                    }
-                }
-            }
-
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.buttonColor
-                onClicked: PopupUtils.close(dialogContentHubImport)
             }
         }
     }
