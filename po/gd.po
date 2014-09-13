@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-09-10 16:39+0000\n"
+"PO-Revision-Date: 2014-09-12 16:34+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
-"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-09-11 07:27+0000\n"
+"X-Launchpad-Export-Date: 2014-09-13 08:40+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 "Language: gd\n"
 
@@ -97,15 +97,15 @@ msgstr "Neach-ciùil"
 #: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
 #: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
 msgid "Import"
-msgstr ""
+msgstr "Ion-phortaich"
 
 #: ../MusicContentHub.qml:32
 msgid "Import file."
-msgstr ""
+msgstr "Ion-phortaich faidhle."
 
 #: ../MusicContentHub.qml:77 ../music-app.qml:353
 msgid "Failed to move file"
-msgstr ""
+msgstr "Dh'fhàillig le gluasad an fhaidhle"
 
 #: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
 #: ../music-app.qml:509 ../music-app.qml:980
@@ -273,7 +273,7 @@ msgstr "Gnè"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr ""
+msgstr "Thoir gnogag gus an ceòl a chur air thuaiream"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
@@ -402,11 +402,11 @@ msgstr ""
 
 #: ../music-app.qml:349
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Feumaidh slighe an fhaidhle a bhith 'na fhaidhle"
 
 #: ../music-app.qml:415
 msgid "Waiting for file..."
-msgstr ""
+msgstr "A' feitheamh air faidhle..."
 
 #: ../music-app.qml:434
 msgid "OK"
@@ -414,7 +414,7 @@ msgstr "Ceart ma-thà"
 
 #: ../music-app.qml:447
 msgid "Imported file not found"
-msgstr ""
+msgstr "Cha deach faidhle air ion-phortachadh a lorg"
 
 #: ../music-app.qml:451
 msgid "Wait"
@@ -422,7 +422,7 @@ msgstr "Fuirich"
 
 #: ../music-app.qml:472
 msgid "Target destination"
-msgstr ""
+msgstr "Ceann-uidhe"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:521
@@ -455,11 +455,11 @@ msgstr "Cruthaich"
 
 #: ../music-app.qml:1189
 msgid "No music found"
-msgstr ""
+msgstr "Cha deach ceòl a lorg"
 
 #: ../music-app.qml:1196
 msgid "Please import music"
-msgstr ""
+msgstr "Feuch an ion-phortaich thu ceòl"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
