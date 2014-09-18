@@ -320,7 +320,7 @@ MainView {
                 console.debug("Invalid dest (not in ~/Music/)")
 
                 // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/
-                return i18n.tr("Filepath must start with") + "~/" + i18n.tr("Music") + "/"
+                return i18n.tr("Filepath must start with") + " ~/Music/"
             }
             else {
                 // extract /home/$USER (or $HOME) from contentitem url
