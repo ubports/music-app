@@ -295,7 +295,7 @@ MainView {
                 var url = importItems[0].url.toString()
                 console.debug("Triggered content-hub import for item", url)
 
-                var path = "~/" + i18n.tr("Music") + "/" + i18n.tr("Imported") + "/"
+                var path = "~/Music/" + i18n.tr("Imported") + "/"
                         + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
                 var out = contentHub.importFile(importItems[0], path)
 
@@ -316,7 +316,7 @@ MainView {
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
 
-            if (path.indexOf("~/" + i18n.tr("Music") + "/") !== 0) {
+            if (path.indexOf("~/Music/") !== 0) {
                 console.debug("Invalid dest (not in ~/Music/)")
 
                 // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/
