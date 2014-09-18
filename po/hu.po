@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-09-06 14:16+0000\n"
+"PO-Revision-Date: 2014-09-17 10:06+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-07 06:57+0000\n"
+"X-Launchpad-Export-Date: 2014-09-18 07:15+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -263,7 +263,7 @@ msgstr "Műfaj"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
-msgstr "Koppintson a zene keveréséhez"
+msgstr "Zenelejátszáshoz koppintson ide"
 
 #: ../MusicTracks.qml:35
 msgid "Songs"
