@@ -217,7 +217,7 @@ MainView {
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
 
             // Add album to recent list
-            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, null, songsAlbumArtistModel.album, "album")
+            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
             mainView.hasRecent = true
             recentModel.filterRecent()
         }
@@ -657,7 +657,7 @@ MainView {
     function makeDict(model) {
         return {
             album: model.album,
-            art: "image://albumart/artist=" + model.author + "&album=" + model.album,
+            art: model.art,
             author: model.author,
             filename: model.filename,
             title: model.title

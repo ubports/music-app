@@ -280,7 +280,7 @@ MusicPage {
                     }
                     count: 1
                     size: parent.height
-                    covers: [{author: model.artist, album: model.title}]
+                    covers: [{art: model.art}]
                     spacing: units.gu(2)
                 }
 

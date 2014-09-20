@@ -116,7 +116,7 @@ MusicPage {
                 Item {
                     property string title: model.title
                     property string title2: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
-                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : [{author: model.title2, album: model.title}]
+                    property var covers: type === "playlist" ? Playlists.getPlaylistCovers(title) : (model.art !== undefined ? [{art: model.art}] : [{author: model.title2, album: model.title}])
                     property string type: model.type
                     property string time: model.time
                     property string key: model.key
@@ -270,8 +270,7 @@ MusicPage {
                         }
 
                         delegate: Item {
-                            property string author: model.artist
-                            property string album: model.title
+                            property string art: model.art
                         }
                         property var covers: []
                         signal finished()
@@ -281,7 +280,7 @@ MusicPage {
                             genreShape.covers = covers
                         }
                         onItemAdded: {
-                            covers.push({author: item.author, album: item.album});
+                            covers.push({art: item.art});
 
                             if (index === count - 1) {
                                 finished();
@@ -425,7 +424,7 @@ MusicPage {
                 Item {
                     property string artist: model.artist
                     property string album: model.title
-                    property var covers: [{author: model.artist, album: model.title}]
+                    property var covers: [{art: model.art}]
 
                     id: albumItem
                     objectName: "albumItemObject"

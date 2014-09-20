@@ -218,7 +218,7 @@ MusicPage {
                                   ? queuelist.currentHeight
                                   : mainView.width - (trackImage.anchors.leftMargin * 2))
                                : queuelist.normalHeight) - units.gu(2)
-                        covers: [{author: model.author, album: model.album}]
+                        covers: [{art: model.art}]
 
                         spacing: units.gu(2)
 

@@ -82,7 +82,7 @@ function getRecent() {
         var rs = tx.executeSql("SELECT * FROM recent ORDER BY time DESC LIMIT 15");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Type:"+dbItem.type);
+            console.log("Time:"+ dbItem.time + ", Key:"+dbItem.key + ", Title:"+dbItem.title + ", Title2:"+dbItem.title2 + ", Type:"+dbItem.type + ", Art:"+dbItem.cover);
 
             if (dbItem.type === "album")
             {
@@ -90,6 +90,7 @@ function getRecent() {
                              title:dbItem.title || i18n.tr("Unknown Album"),
                              title2:dbItem.title2 || i18n.tr("Unknown Artist"),
                              key:dbItem.key || i18n.tr("Unknown Album"),
+                             art:dbItem.cover || undefined,
                              type:dbItem.type
                          });
             }
