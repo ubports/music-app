@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-18 17:31+0100\n"
+"POT-Creation-Date: 2014-09-22 15:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -360,10 +360,6 @@ msgstr ""
 
 #: ../music-app.qml:192
 msgid "Music Settings"
-msgstr ""
-
-#: ../music-app.qml:298
-msgid "Imported"
 msgstr ""
 
 #. TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/

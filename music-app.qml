@@ -295,8 +295,8 @@ MainView {
                 var url = importItems[0].url.toString()
                 console.debug("Triggered content-hub import for item", url)
 
-                var path = "~/Music/" + i18n.tr("Imported") + "/"
-                        + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
+                // fixed path allows for apparmor protection
+                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
                 var out = contentHub.importFile(importItems[0], path)
 
                 if (out === true) {
@@ -316,11 +316,11 @@ MainView {
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
 
-            if (path.indexOf("~/Music/") !== 0) {
-                console.debug("Invalid dest (not in ~/Music/)")
+            if (path.indexOf("~/Music/Imported/") !== 0) {
+                console.debug("Invalid dest (not in ~/Music/Imported/)")
 
                 // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/
-                return i18n.tr("Filepath must start with") + " ~/Music/"
+                return i18n.tr("Filepath must start with") + " ~/Music/Imported/"
             }
             else {
                 // extract /home/$USER (or $HOME) from contentitem url
