@@ -319,7 +319,7 @@ MainView {
             if (path.indexOf("~/Music/Imported/") !== 0) {
                 console.debug("Invalid dest (not in ~/Music/Imported/)")
 
-                // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/
+                // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/Imported/
                 return i18n.tr("Filepath must start with") + " ~/Music/Imported/"
             }
             else {
