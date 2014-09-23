@@ -303,7 +303,8 @@ MainView {
                     url = importItems[i].url.toString()
                     console.debug("Triggered content-hub import for item", url)
 
-                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
+                    // fixed path allows for apparmor protection
+                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
                     res = contentHub.importFile(importItems[i], path)
 
                     if (res !== true) {
@@ -330,9 +331,11 @@ MainView {
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
 
-            if (path.indexOf("~/Music/") !== 0) {
-                console.debug("Invalid dest (not in ~/Music/)")
-                return i18n.tr("Filepath must start with ~/Music/")
+            if (path.indexOf("~/Music/Imported/") !== 0) {
+                console.debug("Invalid dest (not in ~/Music/Imported/)")
+
+                // TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
+                return i18n.tr("Filepath must start with") + " ~/Music/Imported/"
             }
             else {
                 // extract /home/$USER (or $HOME) from contentitem url
@@ -356,10 +359,14 @@ MainView {
 
                 if (filename === "") {
                     console.debug("Invalid dest (filename blank)")
+
+                    // TRANSLATORS: This string represents that a blank filepath destination has been used
                     return i18n.tr("Filepath must be a file")
                 }
                 else if (!contentItem.move(dir, filename)) {
                     console.debug("Move failed! DIR:", dir, "FILE:", filename)
+
+                    // TRANSLATORS: This string represents that there was failure moving the file to the target destination
                     return i18n.tr("Failed to move file")
                 }
                 else {
@@ -485,55 +492,6 @@ MainView {
             Button {
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialogContentHubNotFound)
-            }
-        }
-    }
-
-    Component {
-        id: contentHubImport
-        Dialog {
-            id: dialogContentHubImport
-            title: i18n.tr("Import")
-            text: i18n.tr("Target destination")
-
-            property var contentItem
-
-            TextField {
-                id: pathField
-                text: "~/Music/Imported/" + Date("YYYYMMDDHHMMSS") + "-" + contentItem.url.split("/").pop()
-            }
-
-            Label {
-                id: contentHubOutput
-                color: styleMusic.common.black
-                visible: false // should only be visible when an error is made.
-            }
-
-            Button {
-                text: i18n.tr("Import")
-                onClicked: {
-                    contentHubOutput.visible = false
-
-                    var out = contentHub.importFile(contentItem, pathField.text.toString())
-
-                    if (out === true) {
-                        PopupUtils.close(dialogContentHubImport)
-
-                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
-                        contentHubWaitForFile.start();
-                    }
-                    else {
-                        contentHubOutput.visible = true
-                        contentHubOutput.text = out
-                    }
-                }
-            }
-
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.buttonColor
-                onClicked: PopupUtils.close(dialogContentHubImport)
             }
         }
     }
