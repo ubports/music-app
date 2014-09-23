@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-18 12:48+0100\n"
+"POT-Creation-Date: 2014-09-18 16:58+0100\n"
 "PO-Revision-Date: 2014-08-20 04:24+0000\n"
 "Last-Translator: Sok Sophea <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,51 +15,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-21 06:46+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-23 07:20+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
-#: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: ../LoginLastFM.qml:55
+#: ../LoginLastFM.qml:54
 msgid "Login to be able to scrobble."
 msgstr "ចូល​ ដើម្បីអាច​ផ្ញើ​ព័ត៌មាន​បទ​ចម្រៀង។"
 
-#: ../LoginLastFM.qml:63
+#: ../LoginLastFM.qml:62
 msgid "Username"
 msgstr "អ្នក​ប្រើ"
 
-#: ../LoginLastFM.qml:73
+#: ../LoginLastFM.qml:72
 msgid "Password"
 msgstr "ពាក្យសម្ងាត់"
 
-#: ../LoginLastFM.qml:95
+#: ../LoginLastFM.qml:94
 msgid "Login"
 msgstr "ចូល"
 
-#: ../LoginLastFM.qml:102
+#: ../LoginLastFM.qml:101
 msgid "Trying to login..."
 msgstr "កំពុង​ព្យាយាម​ចូល..."
 
-#: ../LoginLastFM.qml:116
+#: ../LoginLastFM.qml:115
 msgid "Login Successful"
 msgstr "ចូល​បាន​ជោគជ័យ"
 
-#: ../LoginLastFM.qml:122
+#: ../LoginLastFM.qml:121
 msgid "Login Failed"
 msgstr "ចូល​បាន​បរាជ័យ"
 
-#: ../LoginLastFM.qml:128
+#: ../LoginLastFM.qml:127
 msgid "You forgot to set your username and/or password"
 msgstr "អ្នក​ភ្លេច​កំណត់​ឈ្មោះ​អ្នកប្រើ និង/ពាក្យ​សម្ងាត់​របស់​អ្នក"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
+#: ../MusicAlbums.qml:35 ../MusicStart.qml:388
 msgid "Albums"
 msgstr "អាល់ប៊ុម"
 
-#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
-#: ../common/AlbumsPage.qml:274
+#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:450
+#: ../common/AlbumsPage.qml:264
 msgid "Album"
 msgstr "អាល់ប៊ុម"
 
@@ -67,40 +67,23 @@ msgstr "អាល់ប៊ុម"
 msgid "Artists"
 msgstr "សិល្បករ"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:111
+#: ../MusicArtists.qml:108 ../common/AlbumsPage.qml:112
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "អាល់ប៊ុម %1"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
-#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:114 ../MusicPlaylists.qml:180 ../MusicStart.qml:369
+#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
+#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 បទ"
 
-#: ../MusicArtists.qml:123
+#: ../MusicArtists.qml:124
 msgid "Artist"
 msgstr "សិល្បករ"
-
-#: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
-#: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
-msgid "Import"
-msgstr "នាំចូល"
-
-#: ../MusicContentHub.qml:32
-msgid "Import file."
-msgstr "នាំចូល​ឯកសារ។"
-
-#: ../MusicContentHub.qml:77 ../music-app.qml:353
-msgid "Failed to move file"
-msgstr "ការ​ផ្លាស់ទី​ឯកសារ​បាន​បរាជ័យ"
-
-#: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
-#: ../music-app.qml:509 ../music-app.qml:980
-msgid "Cancel"
-msgstr "បោះ​បង់"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -108,48 +91,53 @@ msgstr "កំពុង​ចាក់"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:37
+#: ../MusicPlaylists.qml:38
 msgid "Playlists"
 msgstr "បញ្ជី​ចាក់"
 
-#: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
+#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
 msgid "New playlist"
 msgstr "បញ្ជី​ចាក់​ថ្មី"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:63
+#: ../MusicPlaylists.qml:64
 msgid "Change name"
 msgstr "ប្ដូរឈ្មោះ"
 
-#: ../MusicPlaylists.qml:64
+#: ../MusicPlaylists.qml:65
 msgid "Enter the new name of the playlist."
 msgstr "បញ្ចូល​ឈ្មោះ​បញ្ជី​ចាក់​ថ្មី។"
 
-#: ../MusicPlaylists.qml:77
+#: ../MusicPlaylists.qml:78
 msgid "Change"
 msgstr "ប្ដូរ"
 
-#: ../MusicPlaylists.qml:95 ../music-app.qml:969
+#: ../MusicPlaylists.qml:96 ../music-app.qml:998
 msgid "Playlist already exists"
 msgstr "បញ្ជី​ចាក់​មាន​រួចហើយ"
 
-#: ../MusicPlaylists.qml:99 ../music-app.qml:974
+#: ../MusicPlaylists.qml:100 ../music-app.qml:1003
 msgid "Please type in a name."
 msgstr "សូម​បញ្ចូល​ឈ្មោះ។"
 
-#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
-#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
-#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
-#: ../common/SongsPage.qml:243
+#: ../MusicPlaylists.qml:105 ../music-app.qml:486 ../music-app.qml:534
+#: ../music-app.qml:1009
+msgid "Cancel"
+msgstr "បោះ​បង់"
+
+#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
+#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
+#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
+#: ../common/SongsPage.qml:244
 msgid "Playlist"
 msgstr "បញ្ជី​ចាក់"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
+#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
 msgid "Search"
 msgstr "ស្វែងរក"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:193
+#: ../MusicSettings.qml:30 ../music-app.qml:191
 msgid "Settings"
 msgstr "ការកំណត់"
 
@@ -237,25 +225,25 @@ msgstr "ចរន្ត​តែ​លើវ៉ាយហ្វាយ"
 msgid "Clean everything!"
 msgstr "សម្អាត​ទាំងអស់!"
 
-#: ../MusicStart.qml:37 ../music-app.qml:606 ../music-app.qml:1163
+#: ../MusicStart.qml:35 ../music-app.qml:631 ../music-app.qml:1192
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "តន្ត្រី"
 
-#: ../MusicStart.qml:77
+#: ../MusicStart.qml:75
 msgid "Recent"
 msgstr "ថ្មីៗ"
 
-#: ../MusicStart.qml:105
+#: ../MusicStart.qml:103
 msgid "Clear History"
 msgstr "សម្អាត​​ប្រវត្តិ"
 
-#: ../MusicStart.qml:227
+#: ../MusicStart.qml:225
 msgid "Genres"
 msgstr "ចង្វាក់"
 
-#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
-#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
+#: ../MusicStart.qml:314 ../MusicStart.qml:316 ../common/SongsPage.qml:123
+#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
 msgid "Genre"
 msgstr "ចង្វាក់"
 
@@ -271,23 +259,17 @@ msgstr "បទ​ចម្រៀង"
 msgid "Select playlist"
 msgstr "ជ្រើស​បញ្ជី​ចាក់"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
-#: ../common/SongsPage.qml:152
+#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
+#: ../common/SongsPage.qml:153
 msgid "Play all"
 msgstr "ចាក់​ទាំងអស់"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
-#: ../common/SongsPage.qml:199 ../music-app.qml:902
+#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
+#: ../common/SongsPage.qml:200 ../music-app.qml:930
 msgid "Add to queue"
 msgstr "បន្ថែម​ទៅ​ជួរ"
 
-#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
-#, qt-format
-msgid " | %1 song"
-msgid_plural " | %1 songs"
-msgstr[0] " | បទ​ចម្រៀង %1"
-
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:916
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:944
 msgid "Add to playlist"
 msgstr "បន្ថែម​ទៅ​បញ្ជីចាក់"
 
@@ -325,124 +307,132 @@ msgstr "មិន​ស្គាល់​អាល់ប៊ុម"
 msgid "Unknown Artist"
 msgstr "មិន​ស្គាល់​សិល្បករ​"
 
-#: ../music-app.qml:144
+#: ../music-app.qml:142
 msgid "Search Track"
 msgstr "ស្វែងរក​បទ"
 
-#: ../music-app.qml:156
+#: ../music-app.qml:154
 msgid "Next"
 msgstr "បន្ទាប់"
 
-#: ../music-app.qml:157
+#: ../music-app.qml:155
 msgid "Next Track"
 msgstr "បទ​បន្ទាប់"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:161
 msgid "Pause"
 msgstr "ផ្អាក"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:161
 msgid "Play"
 msgstr "ចាក់"
 
-#: ../music-app.qml:165
+#: ../music-app.qml:163
 msgid "Pause Playback"
 msgstr "ផ្អាក​ការ​ចាក់​ឡើងវិញ"
 
-#: ../music-app.qml:165
+#: ../music-app.qml:163
 msgid "Continue or start playback"
 msgstr "បន្ត ឬ​ចាប់ផ្ដើម​បញ្ជីចាក់"
 
-#: ../music-app.qml:170
+#: ../music-app.qml:168
 msgid "Back"
 msgstr "ថយក្រោយ"
 
-#: ../music-app.qml:171
+#: ../music-app.qml:169
 msgid "Go back to last page"
 msgstr "ត្រឡប់​ទៅ​ទំព័រ​ចុងក្រោយ"
 
-#: ../music-app.qml:179
+#: ../music-app.qml:177
 msgid "Previous"
 msgstr "មុន"
 
-#: ../music-app.qml:180
+#: ../music-app.qml:178
 msgid "Previous Track"
 msgstr "បទ​មុន"
 
-#: ../music-app.qml:185
+#: ../music-app.qml:183
 msgid "Stop"
 msgstr "ឈប់"
 
-#: ../music-app.qml:186
+#: ../music-app.qml:184
 msgid "Stop Playback"
 msgstr "បញ្ឈប់​បញ្ជីចាក់"
 
-#: ../music-app.qml:194
+#: ../music-app.qml:192
 msgid "Music Settings"
 msgstr "ការ​កំណត់​តន្ត្រី"
 
-#: ../music-app.qml:325
+#: ../music-app.qml:335
 msgid "Filepath must start with ~/Music/"
 msgstr "ផ្លូវ​ឯកសារ​ត្រុវតែ​ចាប់ផ្ដើម​ដោយ ~/Music/"
 
-#: ../music-app.qml:349
+#: ../music-app.qml:359
 msgid "Filepath must be a file"
 msgstr "ផ្លូវ​ឯកសារ​ត្រុវតែ​ជា​ឯកសារ"
 
-#: ../music-app.qml:415
-msgid "Waiting for file..."
-msgstr "សូម​ង់ចាំ​ឯកសារ..."
+#: ../music-app.qml:363
+msgid "Failed to move file"
+msgstr "ការ​ផ្លាស់ទី​ឯកសារ​បាន​បរាជ័យ"
 
-#: ../music-app.qml:434
+#: ../music-app.qml:440
+msgid "Waiting for file(s)..."
+msgstr ""
+
+#: ../music-app.qml:459
 msgid "OK"
 msgstr "យល់ព្រម"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:472
 msgid "Imported file not found"
 msgstr "រក​មិន​ឃើញ​ឯកសារ​នាំចូល"
 
-#: ../music-app.qml:451
+#: ../music-app.qml:476
 msgid "Wait"
 msgstr "រង​ចាំ"
 
-#: ../music-app.qml:472
+#: ../music-app.qml:496 ../music-app.qml:513
+msgid "Import"
+msgstr "នាំចូល"
+
+#: ../music-app.qml:497
 msgid "Target destination"
 msgstr "ទិសដៅ​គោលដៅ"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:521
+#: ../music-app.qml:546
 msgid "songs played today"
 msgstr "បទ​ចម្រៀង​បាន​ចាក់​ថ្ងៃ​នេះ"
 
-#: ../music-app.qml:522
+#: ../music-app.qml:547
 msgid "No songs played today"
 msgstr "គ្មាន​បទ​ចម្រៀង​បាន​ចាក់​ថ្ងៃ​នេះ"
 
-#: ../music-app.qml:630
+#: ../music-app.qml:655
 msgid "Debug: "
 msgstr "កែ​កំហុស៖ "
 
-#: ../music-app.qml:938
+#: ../music-app.qml:967
 msgid "New Playlist"
 msgstr "បញ្ជីចាក់​ថ្មី"
 
-#: ../music-app.qml:939
+#: ../music-app.qml:968
 msgid "Name your playlist."
 msgstr "ដាក់​ឈ្មោះ​បញ្ជី​ចាក់​របស់​អ្នក។"
 
-#: ../music-app.qml:943
+#: ../music-app.qml:972
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: ../music-app.qml:953
+#: ../music-app.qml:982
 msgid "Create"
 msgstr "បង្កើត"
 
-#: ../music-app.qml:1189
+#: ../music-app.qml:1218
 msgid "No music found"
 msgstr "រក​មិន​ឃើញ​ឯកសារ"
 
-#: ../music-app.qml:1196
+#: ../music-app.qml:1225
 msgid "Please import music"
 msgstr "សូម​នាំចូល​តន្ត្រី"
 
@@ -453,3 +443,14 @@ msgstr "កម្មវិធី​ចាក់​តន្ត្រី​សម
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "តន្ត្រី; បទ​ចម្រៀង; ចាក់; បទ; កម្មវិធី​ចាក់; សូរ​សំឡេង;"
+
+#, qt-format
+#~ msgid " | %1 song"
+#~ msgid_plural " | %1 songs"
+#~ msgstr[0] " | បទ​ចម្រៀង %1"
+
+#~ msgid "Waiting for file..."
+#~ msgstr "សូម​ង់ចាំ​ឯកសារ..."
+
+#~ msgid "Import file."
+#~ msgstr "នាំចូល​ឯកសារ។"
