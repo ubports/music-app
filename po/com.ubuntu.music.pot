@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-23 13:31+0100\n"
+"POT-Creation-Date: 2014-09-23 13:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -362,17 +362,17 @@ msgstr ""
 msgid "Music Settings"
 msgstr ""
 
-#. TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/Imported/
+#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:338
 msgid "Filepath must start with"
 msgstr ""
 
-#. TRANSLATORS: This is when the filename for the import is blank
+#. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:364
 msgid "Filepath must be a file"
 msgstr ""
 
-#. TRANSLATORS: This is when content-hub failed to move the file to the target destination
+#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../music-app.qml:370
 msgid "Failed to move file"
 msgstr ""

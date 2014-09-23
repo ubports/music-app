@@ -334,7 +334,7 @@ MainView {
             if (path.indexOf("~/Music/Imported/") !== 0) {
                 console.debug("Invalid dest (not in ~/Music/Imported/)")
 
-                // TRANSLATORS: This when the destination filepath of an import does not start with ~/Music/Imported/
+                // TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
                 return i18n.tr("Filepath must start with") + " ~/Music/Imported/"
             }
             else {
@@ -360,13 +360,13 @@ MainView {
                 if (filename === "") {
                     console.debug("Invalid dest (filename blank)")
 
-                    // TRANSLATORS: This is when the filename for the import is blank
+                    // TRANSLATORS: This string represents that a blank filepath destination has been used
                     return i18n.tr("Filepath must be a file")
                 }
                 else if (!contentItem.move(dir, filename)) {
                     console.debug("Move failed! DIR:", dir, "FILE:", filename)
 
-                    // TRANSLATORS: This is when content-hub failed to move the file to the target destination
+                    // TRANSLATORS: This string represents that there was failure moving the file to the target destination
                     return i18n.tr("Failed to move file")
                 }
                 else {
