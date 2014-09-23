@@ -291,29 +291,41 @@ MainView {
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
-                // Assumes only 1 file to import for now
-                //var dialog = PopupUtils.open(contentHubImport, mainView)
-                //dialog.contentItem = importItems[0];
+                searchPaths = [];
 
-                var url = importItems[0].url.toString()
-                console.debug("Triggered content-hub import for item", url)
+                var err = [];
+                var path;
+                var res;
+                var success = true;
+                var url;
 
-                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
-                var out = contentHub.importFile(importItems[0], path)
+                for (var i=0; i < importItems.length; i++) {
+                    url = importItems[i].url.toString()
+                    console.debug("Triggered content-hub import for item", url)
 
-                if (out === true) {
+                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyyMMddhhmmss") + "-" + url.split("/").pop()
+                    res = contentHub.importFile(importItems[i], path)
+
+                    if (res !== true) {
+                        success = false;
+                        err.push(url.split("/").pop() + " " + res)
+                    }
+                }
+
+
+                if (success === true) {
                     contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                    contentHubWaitForFile.searchPath = contentHub.searchPath;
+                    contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                     contentHubWaitForFile.start();
                 }
                 else {
                     var errordialog = PopupUtils.open(contentHubError, mainView)
-                    errordialog.errorText = out
+                    errordialog.errorText = err.join("\n")
                 }
             }
         }
 
-        property string searchPath: ""
+        property var searchPaths: []
 
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
@@ -351,7 +363,7 @@ MainView {
                     return i18n.tr("Failed to move file")
                 }
                 else {
-                    contentHub.searchPath = dir + "/" + filename
+                    contentHub.searchPaths.push(dir + "/" + filename)
                     return true
                 }
             }
@@ -365,7 +377,7 @@ MainView {
         repeat: true
 
         property var dialog: null
-        property string searchPath
+        property var searchPaths
         property int count: 0
 
         function stopTimer() {
@@ -376,17 +388,27 @@ MainView {
         }
 
         onTriggered: {
-            var model = musicStore.lookup(searchPath)
+            var found = true
+            var i;
+            var model;
 
-            console.debug("MusicStore model from lookup", JSON.stringify(model))
+            for (i=0; i < searchPaths.length; i++) {
+                model = musicStore.lookup(searchPaths[i])
 
-            if (!model) {
+                console.debug("MusicStore model from lookup", JSON.stringify(model))
+
+                if (!model) {
+                    found = false
+                }
+            }
+
+            if (!found) {
                 count++;
 
                 if (count >= 10) {  // wait for 10s
                     stopTimer();
 
-                    console.debug("File was not found", searchPath)
+                    console.debug("File(s) were not found", JSON.stringify(searchPaths))
                     PopupUtils.open(contentHubNotFound, mainView)
                 }
             }
@@ -395,7 +417,12 @@ MainView {
 
                 trackQueue.model.clear();
 
-                trackQueue.append(makeDict(model));
+                for (i=0; i < searchPaths.length; i++) {
+                    model = musicStore.lookup(searchPaths[i])
+
+                    trackQueue.append(makeDict(model));
+                }
+
                 trackQueueClick(0);
             }
         }
@@ -410,7 +437,7 @@ MainView {
                 anchors {
                     margins: units.gu(0)
                 }
-                loadingText: i18n.tr("Waiting for file...")
+                loadingText: i18n.tr("Waiting for file(s)...")
                 visible: true
             }
         }
@@ -493,7 +520,7 @@ MainView {
                         PopupUtils.close(dialogContentHubImport)
 
                         contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                        contentHubWaitForFile.searchPath = contentHub.searchPath;
+                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                         contentHubWaitForFile.start();
                     }
                     else {
