@@ -51,6 +51,9 @@ Item {
     property alias animating: musicToolbarPanel.animating
     property alias opened: musicToolbarPanel.opened
 
+    // Alias for autopilot
+    property alias currentMode: musicToolbarPanel.currentMode
+
     Connections {
         id: pageStackConn
         target: mainPageStack

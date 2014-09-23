@@ -15,8 +15,19 @@ class MusicAppException(Exception):
 
 def click_object(func):
     """Wrapper which clicks the returned object"""
-    def func_wrapper(self, *args):
-        return self.pointing_device.click_object(func(self, *args))
+    def func_wrapper(self, *args, **kwargs):
+        return self.pointing_device.click_object(func(self, *args, **kwargs))
+
+    return func_wrapper
+
+
+def ensure_toolbar_visible(func):
+    """Wrapper which ensures the toolbar is shown before clicking"""
+    def func_wrapper(self, *args, **kwargs):
+        if not self.opened:
+            self.show()
+
+        return func(self, *args, **kwargs)
 
     return func_wrapper
 
@@ -268,30 +279,35 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
 
-    @click_object
-    def click_small_play_button(self):
-        return self.wait_select_single("*", objectName="smallPlayShape")
-
+    @ensure_toolbar_visible
     @click_object
     def click_forward_button(self):
         return self.wait_select_single("*", objectName="forwardShape")
 
+    @ensure_toolbar_visible
     @click_object
     def click_play_button(self):
-        return self.wait_select_single("*", objectName="playShape")
+        if self.currentMode == "full":
+            return self.wait_select_single("*", objectName="playShape")
+        else:
+            return self.wait_select_single("*", objectName="smallPlayShape")
 
+    @ensure_toolbar_visible
     @click_object
     def click_previous_button(self):
         return self.wait_select_single("*", objectName="previousShape")
 
+    @ensure_toolbar_visible
     @click_object
     def click_repeat_button(self):
         return self.wait_select_single("*", objectName="repeatShape")
 
+    @ensure_toolbar_visible
     @click_object
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
+    @ensure_toolbar_visible
     def seek_to(self, percentage):
         progress_bar = self.wait_select_single(
             "*", objectName="progressBarShape")
@@ -303,12 +319,14 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
 
         self.pointing_device.drag(x1, y1, x2, y1)
 
+    @ensure_toolbar_visible
     def set_repeat(self, state):
         if self.player.repeat != state:
             self.click_repeat_button()
 
         self.player.repeat.wait_for(state)
 
+    @ensure_toolbar_visible
     def set_shuffle(self, state):
         if self.player.shuffle != state:
             self.click_shuffle_button()
