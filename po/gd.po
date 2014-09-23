@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-18 12:48+0100\n"
-"PO-Revision-Date: 2014-09-12 16:34+0000\n"
+"POT-Creation-Date: 2014-09-18 16:58+0100\n"
+"PO-Revision-Date: 2014-09-15 11:16+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,54 +16,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-09-13 08:40+0000\n"
+"X-Launchpad-Export-Date: 2014-09-23 07:19+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 "Language: gd\n"
 
-#: ../LoginLastFM.qml:49 ../MusicSettings.qml:145 ../MusicSettings.qml:153
+#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: ../LoginLastFM.qml:55
+#: ../LoginLastFM.qml:54
 msgid "Login to be able to scrobble."
 msgstr "Clàraich a-steach airson scrobble a dhèanamh."
 
-#: ../LoginLastFM.qml:63
+#: ../LoginLastFM.qml:62
 msgid "Username"
 msgstr "Ainm-cleachdaiche"
 
-#: ../LoginLastFM.qml:73
+#: ../LoginLastFM.qml:72
 msgid "Password"
 msgstr "Facal-faire"
 
-#: ../LoginLastFM.qml:95
+#: ../LoginLastFM.qml:94
 msgid "Login"
 msgstr "Clàraich a-steach"
 
-#: ../LoginLastFM.qml:102
+#: ../LoginLastFM.qml:101
 msgid "Trying to login..."
 msgstr "A' feuchainn ri clàradh a-steach"
 
-#: ../LoginLastFM.qml:116
+#: ../LoginLastFM.qml:115
 msgid "Login Successful"
 msgstr "Chaidh do chlàradh a-steach"
 
-#: ../LoginLastFM.qml:122
+#: ../LoginLastFM.qml:121
 msgid "Login Failed"
 msgstr "Dh'fhàillig an clàradh a-steach"
 
-#: ../LoginLastFM.qml:128
+#: ../LoginLastFM.qml:127
 msgid "You forgot to set your username and/or password"
 msgstr ""
 "Dhìochuimhnich thu an t-ainm-cleachdaiche agus/no am facal-faire agad a "
 "shuidheachadh"
 
-#: ../MusicAlbums.qml:37 ../MusicStart.qml:384
+#: ../MusicAlbums.qml:35 ../MusicStart.qml:388
 msgid "Albums"
 msgstr "Albaman"
 
-#: ../MusicAlbums.qml:153 ../MusicStart.qml:202 ../MusicStart.qml:446
-#: ../common/AlbumsPage.qml:274
+#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:450
+#: ../common/AlbumsPage.qml:264
 msgid "Album"
 msgstr "Albam"
 
@@ -71,7 +71,7 @@ msgstr "Albam"
 msgid "Artists"
 msgstr "Luchd-ciùil"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:111
+#: ../MusicArtists.qml:108 ../common/AlbumsPage.qml:112
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -80,8 +80,9 @@ msgstr[1] "%1 albam"
 msgstr[2] "%1 albaman"
 msgstr[3] "%1 albam"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:178 ../MusicStart.qml:365
-#: ../MusicaddtoPlaylist.qml:106 ../common/SongsPage.qml:123
+#: ../MusicArtists.qml:114 ../MusicPlaylists.qml:180 ../MusicStart.qml:369
+#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
+#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -90,27 +91,9 @@ msgstr[1] "%1 òran"
 msgstr[2] "%1 òrain"
 msgstr[3] "%1 òran"
 
-#: ../MusicArtists.qml:123
+#: ../MusicArtists.qml:124
 msgid "Artist"
 msgstr "Neach-ciùil"
-
-#: ../MusicContentHub.qml:31 ../MusicContentHub.qml:64
-#: ../MusicContentHub.qml:92 ../music-app.qml:471 ../music-app.qml:488
-msgid "Import"
-msgstr "Ion-phortaich"
-
-#: ../MusicContentHub.qml:32
-msgid "Import file."
-msgstr "Ion-phortaich faidhle."
-
-#: ../MusicContentHub.qml:77 ../music-app.qml:353
-msgid "Failed to move file"
-msgstr "Dh'fhàillig le gluasad an fhaidhle"
-
-#: ../MusicContentHub.qml:83 ../MusicPlaylists.qml:104 ../music-app.qml:461
-#: ../music-app.qml:509 ../music-app.qml:980
-msgid "Cancel"
-msgstr "Sguir dheth"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
@@ -118,48 +101,53 @@ msgstr "'Ga chluich an-dràsta"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:37
+#: ../MusicPlaylists.qml:38
 msgid "Playlists"
 msgstr "Liostaichean-cluiche"
 
-#: ../MusicPlaylists.qml:47 ../MusicaddtoPlaylist.qml:48
+#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
 msgid "New playlist"
 msgstr "Liosta-chluiche ùr"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:63
+#: ../MusicPlaylists.qml:64
 msgid "Change name"
 msgstr "Atharraich an t-ainm"
 
-#: ../MusicPlaylists.qml:64
+#: ../MusicPlaylists.qml:65
 msgid "Enter the new name of the playlist."
 msgstr "Cuir a-steach ainm ùr na liosta-chluich."
 
-#: ../MusicPlaylists.qml:77
+#: ../MusicPlaylists.qml:78
 msgid "Change"
 msgstr "Atharraich"
 
-#: ../MusicPlaylists.qml:95 ../music-app.qml:969
+#: ../MusicPlaylists.qml:96 ../music-app.qml:998
 msgid "Playlist already exists"
 msgstr "Tha an liosta-chluich seo ann mu thràth"
 
-#: ../MusicPlaylists.qml:99 ../music-app.qml:974
+#: ../MusicPlaylists.qml:100 ../music-app.qml:1003
 msgid "Please type in a name."
 msgstr "Cuir a-steach ainm."
 
-#: ../MusicPlaylists.qml:158 ../MusicPlaylists.qml:161 ../MusicStart.qml:120
-#: ../MusicStart.qml:202 ../common/SongsPage.qml:165
-#: ../common/SongsPage.qml:223 ../common/SongsPage.qml:225
-#: ../common/SongsPage.qml:243
+#: ../MusicPlaylists.qml:105 ../music-app.qml:486 ../music-app.qml:534
+#: ../music-app.qml:1009
+msgid "Cancel"
+msgstr "Sguir dheth"
+
+#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
+#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
+#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
+#: ../common/SongsPage.qml:244
 msgid "Playlist"
 msgstr "Liosta-chluiche"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:95 ../music-app.qml:143 ../music-app.qml:149
+#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
 msgid "Search"
 msgstr "Lorg"
 
-#: ../MusicSettings.qml:30 ../music-app.qml:193
+#: ../MusicSettings.qml:30 ../music-app.qml:191
 msgid "Settings"
 msgstr "Roghainnean"
 
@@ -249,25 +237,25 @@ msgstr "Na sruthaich ach air WiFi"
 msgid "Clean everything!"
 msgstr "Glan na h-uile"
 
-#: ../MusicStart.qml:37 ../music-app.qml:606 ../music-app.qml:1163
+#: ../MusicStart.qml:35 ../music-app.qml:631 ../music-app.qml:1192
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Ceòl"
 
-#: ../MusicStart.qml:77
+#: ../MusicStart.qml:75
 msgid "Recent"
 msgstr "O chionn goirid"
 
-#: ../MusicStart.qml:105
+#: ../MusicStart.qml:103
 msgid "Clear History"
 msgstr "Falamhaich an eachdraidh"
 
-#: ../MusicStart.qml:227
+#: ../MusicStart.qml:225
 msgid "Genres"
 msgstr "Gnèithean"
 
-#: ../MusicStart.qml:310 ../MusicStart.qml:312 ../common/SongsPage.qml:122
-#: ../common/SongsPage.qml:161 ../common/SongsPage.qml:239
+#: ../MusicStart.qml:314 ../MusicStart.qml:316 ../common/SongsPage.qml:123
+#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
 msgid "Genre"
 msgstr "Gnè"
 
@@ -283,26 +271,17 @@ msgstr "Òrain"
 msgid "Select playlist"
 msgstr "Tagh liosta-chluiche"
 
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
-#: ../common/SongsPage.qml:152
+#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
+#: ../common/SongsPage.qml:153
 msgid "Play all"
 msgstr "Cluich na h-uile"
 
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
-#: ../common/SongsPage.qml:199 ../music-app.qml:902
+#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
+#: ../common/SongsPage.qml:200 ../music-app.qml:930
 msgid "Add to queue"
 msgstr "Cuir ris a' chiutha"
 
-#: ../common/AlbumsPage.qml:328 ../common/SongsPage.qml:122
-#, qt-format
-msgid " | %1 song"
-msgid_plural " | %1 songs"
-msgstr[0] " | %1 òran"
-msgstr[1] " | %1 òran"
-msgstr[2] " | %1 òrain"
-msgstr[3] " | %1 òran"
-
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:916
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:944
 msgid "Add to playlist"
 msgstr "Cuir ris an liosta-chluiche"
 
@@ -340,124 +319,132 @@ msgstr "Albam nach aithne dhuinn"
 msgid "Unknown Artist"
 msgstr "Neach-ciùil nach aithne dhuinn"
 
-#: ../music-app.qml:144
+#: ../music-app.qml:142
 msgid "Search Track"
 msgstr "Lorg traca"
 
-#: ../music-app.qml:156
+#: ../music-app.qml:154
 msgid "Next"
 msgstr "Air adhart"
 
-#: ../music-app.qml:157
+#: ../music-app.qml:155
 msgid "Next Track"
 msgstr "An ath-thraca"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:161
 msgid "Pause"
 msgstr "Cuir 'na stad"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:161
 msgid "Play"
 msgstr "Cluich"
 
-#: ../music-app.qml:165
+#: ../music-app.qml:163
 msgid "Pause Playback"
 msgstr "Cuir a chluich 'na stad"
 
-#: ../music-app.qml:165
+#: ../music-app.qml:163
 msgid "Continue or start playback"
 msgstr "Lean no tòisich air a chluich"
 
-#: ../music-app.qml:170
+#: ../music-app.qml:168
 msgid "Back"
 msgstr "Air ais"
 
-#: ../music-app.qml:171
+#: ../music-app.qml:169
 msgid "Go back to last page"
 msgstr "Air ais gun duilleag mu dheireadh"
 
-#: ../music-app.qml:179
+#: ../music-app.qml:177
 msgid "Previous"
 msgstr "Air ais"
 
-#: ../music-app.qml:180
+#: ../music-app.qml:178
 msgid "Previous Track"
 msgstr "An traca roimhe"
 
-#: ../music-app.qml:185
+#: ../music-app.qml:183
 msgid "Stop"
 msgstr "Cuir stad air"
 
-#: ../music-app.qml:186
+#: ../music-app.qml:184
 msgid "Stop Playback"
 msgstr "Sguir dhen chluich"
 
-#: ../music-app.qml:194
+#: ../music-app.qml:192
 msgid "Music Settings"
 msgstr "Roghainnean a' chiùil"
 
-#: ../music-app.qml:325
+#: ../music-app.qml:335
 msgid "Filepath must start with ~/Music/"
-msgstr ""
+msgstr "Feumaidh slighe an fhaidhle tòiseachadh le ~/Music/"
 
-#: ../music-app.qml:349
+#: ../music-app.qml:359
 msgid "Filepath must be a file"
 msgstr "Feumaidh slighe an fhaidhle a bhith 'na fhaidhle"
 
-#: ../music-app.qml:415
-msgid "Waiting for file..."
-msgstr "A' feitheamh air faidhle..."
+#: ../music-app.qml:363
+msgid "Failed to move file"
+msgstr "Dh'fhàillig le gluasad an fhaidhle"
 
-#: ../music-app.qml:434
+#: ../music-app.qml:440
+msgid "Waiting for file(s)..."
+msgstr ""
+
+#: ../music-app.qml:459
 msgid "OK"
 msgstr "Ceart ma-thà"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:472
 msgid "Imported file not found"
 msgstr "Cha deach faidhle air ion-phortachadh a lorg"
 
-#: ../music-app.qml:451
+#: ../music-app.qml:476
 msgid "Wait"
 msgstr "Fuirich"
 
-#: ../music-app.qml:472
+#: ../music-app.qml:496 ../music-app.qml:513
+msgid "Import"
+msgstr "Ion-phortaich"
+
+#: ../music-app.qml:497
 msgid "Target destination"
 msgstr "Ceann-uidhe"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:521
+#: ../music-app.qml:546
 msgid "songs played today"
 msgstr "òrain air an cluich an-dhiugh"
 
-#: ../music-app.qml:522
+#: ../music-app.qml:547
 msgid "No songs played today"
 msgstr "Cha deach òran a chluich an-diugh"
 
-#: ../music-app.qml:630
+#: ../music-app.qml:655
 msgid "Debug: "
 msgstr "Dì-bhugachadh: "
 
-#: ../music-app.qml:938
+#: ../music-app.qml:967
 msgid "New Playlist"
 msgstr "Liosta-chluiche ùr"
 
-#: ../music-app.qml:939
+#: ../music-app.qml:968
 msgid "Name your playlist."
 msgstr "Thoir ainm air an liosta-chluiche agad."
 
-#: ../music-app.qml:943
+#: ../music-app.qml:972
 msgid "Name"
 msgstr "Ainm"
 
-#: ../music-app.qml:953
+#: ../music-app.qml:982
 msgid "Create"
 msgstr "Cruthaich"
 
-#: ../music-app.qml:1189
+#: ../music-app.qml:1218
 msgid "No music found"
 msgstr "Cha deach ceòl a lorg"
 
-#: ../music-app.qml:1196
+#: ../music-app.qml:1225
 msgid "Please import music"
 msgstr "Feuch an ion-phortaich thu ceòl"
 
@@ -470,3 +457,17 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;ceòl;ciùil;òran;òrain;cluich;cluiche;tra"
 "ca;tracaichean;cluicheadair;fonn;fuinn;port;puirt;audio;fuaim;"
+
+#, qt-format
+#~ msgid " | %1 song"
+#~ msgid_plural " | %1 songs"
+#~ msgstr[0] " | %1 òran"
+#~ msgstr[1] " | %1 òran"
+#~ msgstr[2] " | %1 òrain"
+#~ msgstr[3] " | %1 òran"
+
+#~ msgid "Import file."
+#~ msgstr "Ion-phortaich faidhle."
+
+#~ msgid "Waiting for file..."
+#~ msgstr "A' feitheamh air faidhle..."

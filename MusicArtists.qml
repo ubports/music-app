@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
@@ -66,8 +66,7 @@ MusicPage {
                     id: albumArtistModelRepeater
                     model: albumArtistModel
                     delegate: Item {
-                        property string author: model.artist
-                        property string album: model.title
+                        property string art: model.art
                     }
                     property var covers: []
                     signal finished()
@@ -76,7 +75,7 @@ MusicPage {
                         musicRow.covers = covers
                     }
                     onItemAdded: {
-                        covers.push({author: item.author, album: item.album});
+                        covers.push({art: item.art});
 
                         if (index === count - 1) {
                             finished();

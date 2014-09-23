@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
@@ -217,7 +217,7 @@ MainView {
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
 
             // Add album to recent list
-            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, null, songsAlbumArtistModel.album, "album")
+            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
             mainView.hasRecent = true
             recentModel.filterRecent()
         }
@@ -291,27 +291,42 @@ MainView {
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
-                // Assumes only 1 file to import for now
-                var url = importItems[0].url.toString()
-                console.debug("Triggered content-hub import for item", url)
+                searchPaths = [];
 
-                // fixed path allows for apparmor protection
-                var path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
-                var out = contentHub.importFile(importItems[0], path)
+                var err = [];
+                var path;
+                var res;
+                var success = true;
+                var url;
 
-                if (out === true) {
+                for (var i=0; i < importItems.length; i++) {
+                    url = importItems[i].url.toString()
+                    console.debug("Triggered content-hub import for item", url)
+
+                    // fixed path allows for apparmor protection
+                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MMdd/hhmmss") + "-" + url.split("/").pop()
+                    res = contentHub.importFile(importItems[i], path)
+
+                    if (res !== true) {
+                        success = false;
+                        err.push(url.split("/").pop() + " " + res)
+                    }
+                }
+
+
+                if (success === true) {
                     contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                    contentHubWaitForFile.searchPath = contentHub.searchPath;
+                    contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                     contentHubWaitForFile.start();
                 }
                 else {
                     var errordialog = PopupUtils.open(contentHubError, mainView)
-                    errordialog.errorText = out
+                    errordialog.errorText = err.join("\n")
                 }
             }
         }
 
-        property string searchPath: ""
+        property var searchPaths: []
 
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
@@ -355,7 +370,7 @@ MainView {
                     return i18n.tr("Failed to move file")
                 }
                 else {
-                    contentHub.searchPath = dir + "/" + filename
+                    contentHub.searchPaths.push(dir + "/" + filename)
                     return true
                 }
             }
@@ -369,7 +384,7 @@ MainView {
         repeat: true
 
         property var dialog: null
-        property string searchPath
+        property var searchPaths
         property int count: 0
 
         function stopTimer() {
@@ -380,17 +395,27 @@ MainView {
         }
 
         onTriggered: {
-            var model = musicStore.lookup(searchPath)
+            var found = true
+            var i;
+            var model;
 
-            console.debug("MusicStore model from lookup", JSON.stringify(model))
+            for (i=0; i < searchPaths.length; i++) {
+                model = musicStore.lookup(searchPaths[i])
 
-            if (!model) {
+                console.debug("MusicStore model from lookup", JSON.stringify(model))
+
+                if (!model) {
+                    found = false
+                }
+            }
+
+            if (!found) {
                 count++;
 
                 if (count >= 10) {  // wait for 10s
                     stopTimer();
 
-                    console.debug("File was not found", searchPath)
+                    console.debug("File(s) were not found", JSON.stringify(searchPaths))
                     PopupUtils.open(contentHubNotFound, mainView)
                 }
             }
@@ -399,7 +424,12 @@ MainView {
 
                 trackQueue.model.clear();
 
-                trackQueue.append(makeDict(model));
+                for (i=0; i < searchPaths.length; i++) {
+                    model = musicStore.lookup(searchPaths[i])
+
+                    trackQueue.append(makeDict(model));
+                }
+
                 trackQueueClick(0);
             }
         }
@@ -414,7 +444,7 @@ MainView {
                 anchors {
                     margins: units.gu(0)
                 }
-                loadingText: i18n.tr("Waiting for file...")
+                loadingText: i18n.tr("Waiting for file(s)...")
                 visible: true
             }
         }
@@ -612,7 +642,7 @@ MainView {
     function makeDict(model) {
         return {
             album: model.album,
-            art: "image://albumart/artist=" + model.author + "&album=" + model.album,
+            art: model.art,
             author: model.author,
             filename: model.filename,
             title: model.title

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
@@ -280,7 +280,7 @@ MusicPage {
                     }
                     count: 1
                     size: parent.height
-                    covers: [{author: model.artist, album: model.title}]
+                    covers: [{art: model.art}]
                     spacing: units.gu(2)
                 }
 

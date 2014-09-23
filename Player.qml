@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "settings.js" as Settings
@@ -33,6 +33,7 @@ Item {
     objectName: "player"
 
     property string currentMetaAlbum: ""
+    property string currentMetaArt: ""
     property string currentMetaArtist: ""
     property string currentMetaFile: ""
     property string currentMetaTitle: ""
@@ -186,6 +187,7 @@ Item {
             else {
                 var obj = trackQueue.model.get(player.currentIndex);
                 currentMetaAlbum = obj.album;
+                currentMetaArt = obj.art;
                 currentMetaArtist = obj.author;
                 currentMetaFile = obj.filename;
                 currentMetaTitle = obj.title;

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
@@ -77,7 +77,7 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: [{author: model.author, album: model.album}]
+                    covers: [{art: model.art}]
                     column: Column {
                         spacing: units.gu(1)
                         Label {

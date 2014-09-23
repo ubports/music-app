@@ -18,7 +18,7 @@
  */
 
 import QtMultimedia 5.0
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
@@ -179,7 +179,7 @@ Item {
                             }
 
                             MusicRow {
-                                covers: [{author: model.author, album: model.title}]
+                                covers: [{art: model.art}]
                                 column: Column {
                                     spacing: units.gu(1)
                                     Label {

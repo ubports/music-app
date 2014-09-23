@@ -17,14 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.3
 import Ubuntu.Components 1.1
 import QtGraphicalEffects 1.0
 
 // Blurred background
 Rectangle {
     anchors.fill: parent
-    property string art: player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : "image://albumart/artist=" + player.currentMetaArtist + "&album=" + player.currentMetaAlbum
+    property string art: player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
 
     // the album art
     Image {
