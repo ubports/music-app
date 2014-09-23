@@ -304,7 +304,7 @@ MainView {
                     console.debug("Triggered content-hub import for item", url)
 
                     // fixed path allows for apparmor protection
-                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MMdd/hhmmss") + "-" + url.split("/").pop()
+                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
                     res = contentHub.importFile(importItems[i], path)
 
                     if (res !== true) {
