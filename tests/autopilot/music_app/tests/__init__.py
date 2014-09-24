@@ -113,6 +113,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         """
 
         original_home = os.environ.get('HOME')
+        original_ual = os.environ.get('UBUNTU_APP_LAUNCH_LINK_FARM')
 
         # click requires apparmor profile, and writing to special dir
         # but the desktop can write to a traditional /tmp directory
@@ -174,9 +175,22 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             self.useFixture(fixtures.EnvironmentVariable('HOME',
                                                          newvalue=temp_dir))
 
+        def undo_patch(key, value):
+            logging.info(
+                "Resetting environment variable '%s' to '%s'",
+                key,
+                value
+            )
+
+            os.environ[key] = value
+
         os.environ["HOME"] = temp_dir
         os.environ["UBUNTU_APP_LAUNCH_LINK_FARM"] = original_home + "/.cache" \
             "/ubuntu-app-launch/desktop"
+
+        self.addCleanup(undo_patch, "HOME", original_home)
+        self.addCleanup(undo_patch, "UBUNTU_APP_LAUNCH_LINK_FARM",
+                        original_ual or "")
 
         logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
