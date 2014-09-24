@@ -111,6 +111,9 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
     def _patch_home(self, test_type):
         """ mock /home for testing purposes to preserve user data
         """
+
+        original_home = os.environ.get('HOME')
+
         # click requires apparmor profile, and writing to special dir
         # but the desktop can write to a traditional /tmp directory
         if test_type == 'click':
@@ -170,6 +173,10 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             self._copy_xauthority_file(temp_dir)
             self.useFixture(fixtures.EnvironmentVariable('HOME',
                                                          newvalue=temp_dir))
+
+        os.environ["HOME"] = temp_dir
+        os.environ["UBUNTU_APP_LAUNCH_LINK_FARM"] = original_home + "/.cache" \
+            "/ubuntu-app-launch/desktop"
 
         logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
