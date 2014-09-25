@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-26 06:51+0000\n"
+"PO-Revision-Date: 2014-09-24 09:03+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
+"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -367,7 +367,7 @@ msgstr "Arventennoù sonerezh"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:338
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Ret eo da hent ar restr kregiñ gant"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:364
@@ -381,7 +381,7 @@ msgstr "N'eus ket bet gallet dilec'hiañ ar restr"
 
 #: ../music-app.qml:447
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "O c'hortoz ur restr pe restroù..."
 
 #: ../music-app.qml:466
 msgid "OK"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-20 11:16+0000\n"
+"PO-Revision-Date: 2014-09-25 01:19+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
+"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -365,7 +365,7 @@ msgstr "تنظیمات آهنگ"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:338
 msgid "Filepath must start with"
-msgstr ""
+msgstr "مسیر پرونده باید با این شروع شود:"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:364
@@ -379,7 +379,7 @@ msgstr "شکست در جابه‌جایی پرونده"
 
 #: ../music-app.qml:447
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "در حال  انتظار برای پرونده(ها)…"
 
 #: ../music-app.qml:466
 msgid "OK"

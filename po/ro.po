@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-24 14:17+0000\n"
+"PO-Revision-Date: 2014-09-24 13:47+0000\n"
 "Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
+"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -372,7 +372,7 @@ msgstr "Configurări muzică"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:338
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Calea către fișier trebuie să înceapă cu"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:364
@@ -386,7 +386,7 @@ msgstr "Eșec la mutarea fișierului"
 
 #: ../music-app.qml:447
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Se așteaptă fișierul (fișierele)..."
 
 #: ../music-app.qml:466
 msgid "OK"

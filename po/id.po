@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-03-02 17:06+0000\n"
+"PO-Revision-Date: 2014-09-25 06:39+0000\n"
 "Last-Translator: Dirgita <Unknown>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
+"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -61,7 +61,7 @@ msgstr "Album"
 #: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
 #: ../common/AlbumsPage.qml:264
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../MusicArtists.qml:37
 msgid "Artists"
@@ -83,11 +83,11 @@ msgstr[0] "%1 lagu"
 
 #: ../MusicArtists.qml:123
 msgid "Artist"
-msgstr ""
+msgstr "Artis"
 
 #: ../MusicNowPlaying.qml:33
 msgid "Now Playing"
-msgstr ""
+msgstr "Sedang Diputar"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -114,11 +114,11 @@ msgstr "Ubah"
 
 #: ../MusicPlaylists.qml:96 ../music-app.qml:956
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Daftar putar sudah ada"
 
 #: ../MusicPlaylists.qml:100 ../music-app.qml:961
 msgid "Please type in a name."
-msgstr ""
+msgstr "Silakan ketik nama."
 
 #: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
 msgid "Cancel"
@@ -129,12 +129,12 @@ msgstr "Batal"
 #: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
 #: ../common/SongsPage.qml:244
 msgid "Playlist"
-msgstr ""
+msgstr "Daftar Putar"
 
 #: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
 #: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
 msgid "Search"
-msgstr ""
+msgstr "Cari"
 
 #: ../MusicSettings.qml:30 ../music-app.qml:191
 msgid "Settings"
@@ -150,7 +150,7 @@ msgstr "Baku"
 
 #: ../MusicSettings.qml:83
 msgid "Acoustic"
-msgstr ""
+msgstr "Akustik"
 
 #: ../MusicSettings.qml:84
 msgid "Classical"
@@ -233,7 +233,7 @@ msgstr "Terkini"
 
 #: ../MusicStart.qml:103
 msgid "Clear History"
-msgstr ""
+msgstr "Bersihkan Riwayat"
 
 #: ../MusicStart.qml:227
 msgid "Genres"
@@ -242,7 +242,7 @@ msgstr "Genre"
 #: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
 #: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
 msgid "Genre"
-msgstr ""
+msgstr "Genre"
 
 #: ../MusicToolbar.qml:760
 msgid "Tap play to shuffle music"
@@ -259,7 +259,7 @@ msgstr "Pilih daftar putar"
 #: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
 #: ../common/SongsPage.qml:153
 msgid "Play all"
-msgstr ""
+msgstr "Putar semua"
 
 #: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
 #: ../common/SongsPage.qml:200 ../music-app.qml:888
@@ -272,7 +272,7 @@ msgstr "Tambah ke daftar putar"
 
 #: ../common/ListItemActions/AddToQueue.qml:25
 msgid "Add to Queue"
-msgstr ""
+msgstr "Tambah ke Antrian"
 
 #. TRANSLATORS: this refers to deleting a playlist
 #: ../common/ListItemActions/DeletePlaylist.qml:26
@@ -306,7 +306,7 @@ msgstr "Artis Tak Dikenal"
 
 #: ../music-app.qml:142
 msgid "Search Track"
-msgstr ""
+msgstr "Cari Trek"
 
 #: ../music-app.qml:154
 msgid "Next"
@@ -363,33 +363,33 @@ msgstr "Pengaturan Musik"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:338
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Lokasi berkas harus diawali"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:364
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Lokasi berkas harus berupa berkas"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../music-app.qml:370
 msgid "Failed to move file"
-msgstr ""
+msgstr "Gagal memindahkan berkas"
 
 #: ../music-app.qml:447
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Menunggu berkas..."
 
 #: ../music-app.qml:466
 msgid "OK"
-msgstr ""
+msgstr "Oke"
 
 #: ../music-app.qml:479
 msgid "Imported file not found"
-msgstr ""
+msgstr "Berkas yang diimpor tak ketemu"
 
 #: ../music-app.qml:483
 msgid "Wait"
-msgstr ""
+msgstr "Tunggu"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:504
@@ -422,16 +422,16 @@ msgstr "Buat"
 
 #: ../music-app.qml:1176
 msgid "No music found"
-msgstr ""
+msgstr "Tak ada musik"
 
 #: ../music-app.qml:1183
 msgid "Please import music"
-msgstr ""
+msgstr "Silakan impor musik"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Aplikasi musik untuk Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "music;songs;play;tracks;player;tunes;musik;lagu"
