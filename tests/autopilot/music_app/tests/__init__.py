@@ -184,6 +184,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
             os.environ[key] = value
 
+        # TODO: Remove code once pad.lv/1370800 is fixed
         os.environ["HOME"] = temp_dir
         os.environ["UBUNTU_APP_LAUNCH_LINK_FARM"] = original_home + "/.cache" \
             "/ubuntu-app-launch/desktop"
