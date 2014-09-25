@@ -367,6 +367,8 @@ class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
 
         self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
 
+        self.swipping.wait_for(False)
+
     def swipe_to_delete(self):
         x, y, width, height = self.globalRect
         start_x = x + (width * 0.2)
@@ -374,6 +376,8 @@ class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
         start_y = stop_y = y + (height // 2)
 
         self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
+
+        self.swipping.wait_for(False)
 
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
