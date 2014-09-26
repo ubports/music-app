@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-24 05:44+0000\n"
+"PO-Revision-Date: 2014-09-25 07:17+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
+"X-Launchpad-Export-Date: 2014-09-26 06:51+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
@@ -258,7 +258,7 @@ msgstr "Számok"
 
 #: ../MusicaddtoPlaylist.qml:41
 msgid "Select playlist"
-msgstr "Lejátszólista kiválasztása"
+msgstr "Lejátszólista választása"
 
 #: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
 #: ../common/SongsPage.qml:153
