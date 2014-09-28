@@ -19,15 +19,9 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
-import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
-import QtQuick.LocalStorage 2.0
-import QtGraphicalEffects 1.0
-import "settings.js" as Settings
-import "playlists.js" as Playlists
 import "common"
+
 
 MusicPage {
     id: mainpage
