@@ -34,19 +34,8 @@ MusicPage {
     objectName: "albumsPage"
     title: i18n.tr("Albums")
 
-    // TODO: This ListView is empty and causes the header to get painted with the desired background color because the
-    //       page is now vertically flickable.
-    ListView {
-        anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
-    }
-
     CardView {
         id: albumlist
-        anchors {
-            topMargin: mainView.header.height
-        }
-
         model: SortFilterModel {
             id: albumsModelFilter
             property alias rowCount: albumsModel.rowCount
