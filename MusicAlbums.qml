@@ -41,15 +41,12 @@ MusicPage {
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
     }
 
-    GridView {
+    CardView {
         id: albumlist
-        anchors.fill: parent
-        anchors.leftMargin: units.gu(1)
-        anchors.top: parent.top
-        anchors.topMargin: mainView.header.height + units.gu(1)
-        anchors.bottomMargin: units.gu(1)
-        cellHeight: height/3
-        cellWidth: height/3
+        anchors {
+            topMargin: mainView.header.height
+        }
+
         model: SortFilterModel {
             id: albumsModelFilter
             property alias rowCount: albumsModel.rowCount
@@ -60,102 +57,27 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
         }
-
         delegate: albumDelegate
-        flow: GridView.TopToBottom
 
         Component {
             id: albumDelegate
-            Item {
-                property string artist: model.artist
-                property string album: model.title
-                property var covers: [{art: model.art}]
-
+            Card {
                 id: albumItem
-                height: albumlist.cellHeight - units.gu(1)
+                imageSource: model.art
                 objectName: "albumsPageGridItem" + index
-                width: albumlist.cellHeight - units.gu(1)
-                anchors.margins: units.gu(1)
+                primaryText: model.title
+                secondaryText: model.artist
 
-                CoverRow {
-                    id: albumShape
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        verticalCenter: parent.verticalCenter
-                    }
-                    count: albumItem.covers.length
-                    size: albumItem.width
-                    covers: albumItem.covers
-                    spacing: units.gu(2)
-                }
-                Item {  // Background so can see text in current state
-                    id: albumBg
-                    anchors {
-                        bottom: parent.bottom
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: units.gu(6)
-                    clip: true
-                    UbuntuShape{
-                        anchors {
-                            bottom: parent.bottom
-                            left: parent.left
-                            right: parent.right
-                        }
-                        height: albumShape.height
-                        radius: "medium"
-                        color: styleMusic.common.black
-                        opacity: 0.6
-                    }
-                }
-                Label {
-                    id: albumArtist
-                    objectName: "albums-albumartist"
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: units.gu(1)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(1)
-                    color: styleMusic.common.white
-                    elide: Text.ElideRight
-                    text: model.artist
-                    fontSize: "x-small"
-                }
-                Label {
-                    id: albumLabel
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: units.gu(3)
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(1)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(1)
-                    color: styleMusic.common.white
-                    elide: Text.ElideRight
-                    text: model.title
-                    fontSize: "small"
-                    font.weight: Font.DemiBold
-                }
+                onClicked: {
+                    songsPage.album = model.title;
+                    songsPage.covers = [{art: model.art}]
+                    songsPage.genre = undefined
+                    songsPage.isAlbum = true
+                    songsPage.line1 = model.artist
+                    songsPage.line2 = model.title
+                    songsPage.title = i18n.tr("Album")
 
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        songsPage.album = model.title;
-                        songsPage.covers = [{art: model.art}]
-                        songsPage.genre = undefined
-                        songsPage.isAlbum = true
-                        songsPage.line1 = model.artist
-                        songsPage.line2 = model.title
-                        songsPage.title = i18n.tr("Album")
-
-                        mainPageStack.push(songsPage)
-                    }
-
-                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                    onPressedChanged: albumShape.pressed = pressed
+                    mainPageStack.push(songsPage)
                 }
             }
         }
