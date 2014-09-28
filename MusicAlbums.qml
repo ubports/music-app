@@ -24,12 +24,12 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: albumsPage
     objectName: "albumsPage"
     title: i18n.tr("Albums")
 
     CardView {
-        id: albumlist
+        id: albumCardView
         model: SortFilterModel {
             id: albumsModelFilter
             property alias rowCount: albumsModel.rowCount
@@ -40,31 +40,24 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
         }
-        delegate: albumDelegate
+        delegate: Card {
+            id: albumCard
+            imageSource: model.art
+            objectName: "albumsPageGridItem" + index
+            primaryText: model.title
+            secondaryText: model.artist
 
-        Component {
-            id: albumDelegate
-            Card {
-                id: albumItem
-                imageSource: model.art
-                objectName: "albumsPageGridItem" + index
-                primaryText: model.title
-                secondaryText: model.artist
+            onClicked: {
+                songsPage.album = model.title;
+                songsPage.covers = [{art: model.art}]
+                songsPage.genre = undefined
+                songsPage.isAlbum = true
+                songsPage.line1 = model.artist
+                songsPage.line2 = model.title
+                songsPage.title = i18n.tr("Album")
 
-                onClicked: {
-                    songsPage.album = model.title;
-                    songsPage.covers = [{art: model.art}]
-                    songsPage.genre = undefined
-                    songsPage.isAlbum = true
-                    songsPage.line1 = model.artist
-                    songsPage.line2 = model.title
-                    songsPage.title = i18n.tr("Album")
-
-                    mainPageStack.push(songsPage)
-                }
+                mainPageStack.push(songsPage)
             }
         }
     }
 }
-
-
