@@ -41,8 +41,8 @@ MainView {
     useDeprecatedToolbar: false
 
     // Use toolbar color for header
-    headerColor: styleMusic.toolbar.fullBackgroundColor
-    backgroundColor: styleMusic.toolbar.fullBackgroundColor
+    backgroundColor: "#1e1e23"
+    headerColor: "#1e1e23"
 
     // Global keyboard shortcuts
     focus: true
@@ -865,10 +865,6 @@ MainView {
     // load sheets (after model)
     MusicSearch {
         id: searchSheet
-    }
-
-    // Blurred background
-    BlurredBackground {
     }
 
     // Popover for tracks, queue and add to playlist, for example

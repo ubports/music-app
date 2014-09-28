@@ -24,7 +24,7 @@ import QtGraphicalEffects 1.0
 // Blurred background
 Rectangle {
     anchors.fill: parent
-    property string art: player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
+    property string art  // : player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
 
     // the album art
     Image {
