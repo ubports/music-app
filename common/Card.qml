@@ -146,6 +146,6 @@ Rectangle {
         }
         onClicked: card.clicked(mouse)
         onPressAndHold: card.pressAndHold(mouse)
-        onPressedChanged: overlay.opacity = pressed ? 0.2 : 0
+        onPressedChanged: overlay.opacity = pressed ? 0.3 : 0
     }
 }

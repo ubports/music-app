@@ -36,5 +36,6 @@ GridView {
 
     Card {  // Empty object to calculate margin/height
         id: card
+        visible: false
     }
 }
