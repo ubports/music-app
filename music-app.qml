@@ -40,7 +40,6 @@ MainView {
     id: mainView
     useDeprecatedToolbar: false
 
-    // Use toolbar color for header
     backgroundColor: "#1e1e23"
     headerColor: "#1e1e23"
 
