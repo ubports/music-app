@@ -37,6 +37,7 @@ Rectangle {
         visible: false
         onStatusChanged: {
             if (status === Image.Error) {
+                console.log("VIC: " + source)
                 source = Qt.resolvedUrl("../images/music-app-cover@30.png")
             }
         }

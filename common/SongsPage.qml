@@ -65,11 +65,12 @@ MusicPage {
 
             BlurredBackground {
                 id: blurredBackground
-                art: Qt.resolvedUrl(covers[0].art) || Qt.resolvedUrl("../images/music-app-cover@30.png")
+                art: albumImage.source
             }
 
             Image {
                 id: albumImage
+                property string s: source
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -77,7 +78,11 @@ MusicPage {
                 }
                 width: units.gu(20)
                 height: width
-                source: Qt.resolvedUrl(covers[0].art) || Qt.resolvedUrl("../images/music-app-cover@30.png")
+                source: covers.length > 0
+                        ? (covers[0].art !== undefined
+                           ? covers[0].art
+                           : decodeURIComponent("image://albumart/artist=" + covers[0].author + "&album=" + covers[0].album))
+                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
             }
 
             Label {
