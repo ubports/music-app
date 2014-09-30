@@ -27,7 +27,7 @@ Rectangle {
 
     // columnLabelHeight is so that CardView knows cellHeight
     property int columnLabelHeight: primaryLabel.height + secondaryLabel.height
-                                    + column.spacing * 4
+                                    + units.gu(5)  // spacing + extra paddings (before album, after artist)
     property alias imageSource: image.source
     property int margin: units.gu(2)
     property alias primaryText: primaryLabel.text
@@ -94,6 +94,12 @@ Rectangle {
             }
         }
 
+        Rectangle {
+            color: "transparent"
+            height: units.gu(1)
+            width: units.gu(1)
+        }
+
         Label {
             id: primaryLabel
             anchors {
@@ -104,7 +110,7 @@ Rectangle {
             }
             color: "#FFF"
             elide: Text.ElideRight
-            height: units.gu(2)
+            fontSize: "small"
             opacity: 1.0
         }
 
@@ -118,7 +124,7 @@ Rectangle {
             }
             color: "#FFF"
             elide: Text.ElideRight
-            height: units.gu(2)
+            fontSize: "small"
             opacity: 0.4
         }
     }
