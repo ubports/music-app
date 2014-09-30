@@ -230,6 +230,7 @@ MusicPage {
                 objectName: "songsPageListItem" + index
                 iconFrame: false
                 progression: false
+                showDivider: false
                 height: units.gu(9)
 
                 leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
