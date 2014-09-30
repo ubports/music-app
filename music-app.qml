@@ -46,11 +46,7 @@ MainView {
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
-        if (event.key === Qt.Key_Alt) {
-            // On alt key press show toolbar and start autohide timer
-            musicToolbar.showToolbar();
-        }
-        else if(event.key === Qt.Key_Escape) {
+        if(event.key === Qt.Key_Escape) {
             musicToolbar.goBack();  // Esc      Go back
         }
         else if(event.modifiers === Qt.AltModifier) {
@@ -95,11 +91,9 @@ MainView {
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 nowPlaying.visible = true;
                 nowPlaying.positionAt(player.currentIndex);
-                musicToolbar.showToolbar();
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show now playing
                 nowPlaying.visible = true;
-                musicToolbar.showToolbar();
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
                 player.toggle();
@@ -576,12 +570,6 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
-
-        // Show toolbar and start timer if there is music
-        if (!emptyPage.noMusic) {
-            musicToolbar.showToolbar();
-            musicToolbar.startAutohideTimer();
-        }
     }
 
     // VARIABLES
@@ -597,7 +585,6 @@ MainView {
     property bool selectedAlbum: false
 
     signal listItemSwiping(int i)
-    signal onToolbarShownChanged(bool shown, var currentPage, var currentTab)
 
     property bool wideAspect: width >= units.gu(70) && loadedUI
     property bool loadedUI: false  // property to detect if the UI has finished
@@ -679,8 +666,6 @@ MainView {
             // Show the Now Playing page and make sure the track is visible
             tabs.pushNowPlaying();
             nowPlaying.ensureVisibleIndex = index;
-
-            musicToolbar.showToolbar();
         }
         else {
             player.source = file;
@@ -698,8 +683,6 @@ MainView {
         // Show the Now Playing page and make sure the track is visible
         tabs.pushNowPlaying();
         nowPlaying.ensureVisibleIndex = index;
-
-        musicToolbar.showToolbar();
     }
 
     function playRandomSong(shuffle)
