@@ -61,19 +61,38 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: units.gu(22)
+            height: width
 
-            CoverRow {
+            BlurredBackground {
+                id: blurredBackground
+                art: Qt.resolvedUrl(covers[0].art) || Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+
+            Image {
                 id: albumImage
                 anchors {
                     top: parent.top
                     left: parent.left
-                    margins: units.gu(1)
+                    margins: units.gu(3)
                 }
-                count: songStackPage.covers.length
-                size: units.gu(20)
-                covers: songStackPage.covers
-                spacing: units.gu(2)
+                width: units.gu(20)
+                height: width
+                source: Qt.resolvedUrl(covers[0].art) || Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+
+            Label {
+                id: albumLabel
+                wrapMode: Text.NoWrap
+                maximumLineCount: 2
+                fontSize: "x-large"
+                color: styleMusic.common.music
+                anchors {
+                    top: albumImage.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.left
+                }
+                elide: Text.ElideRight
+                text: line2
             }
 
             Label {
@@ -81,44 +100,28 @@ MusicPage {
                 objectName: "songsPageHeaderAlbumArtist"
                 wrapMode: Text.NoWrap
                 maximumLineCount: 1
-                fontSize: "small"
+                fontSize: "large"
                 color: styleMusic.common.subtitle
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1.5)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
+                anchors {
+                    top: albumLabel.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.left
+                }
                 elide: Text.ElideRight
                 text: line1
             }
-            Label {
-                id: albumLabel
-                wrapMode: Text.NoWrap
-                maximumLineCount: 2
-                fontSize: "medium"
-                color: styleMusic.common.music
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: albumArtist.bottom
-                anchors.topMargin: units.gu(0.8)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
-                elide: Text.ElideRight
-                text: line2
-            }
+
             Label {
                 id: albumYear
                 wrapMode: Text.NoWrap
                 maximumLineCount: 1
-                fontSize: "x-small"
+                fontSize: "small"
                 color: styleMusic.common.subtitle
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: albumLabel.bottom
-                anchors.topMargin: units.gu(2)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
+                anchors {
+                    top: albumArtist.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.left
+                }
                 elide: Text.ElideRight
                 text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                                                    : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
@@ -128,10 +131,11 @@ MusicPage {
             // Play
             Rectangle {
                 id: playRow
-                anchors.top: albumYear.bottom
-                anchors.topMargin: units.gu(1)
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
+                anchors {
+                    verticalCenter: albumImage.verticalCenter
+                    left: albumImage.right
+                    leftMargin: units.gu(1)
+                }
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
@@ -175,10 +179,12 @@ MusicPage {
             // Queue
             Rectangle {
                 id: queueAllRow
-                anchors.top: playRow.bottom
-                anchors.topMargin: units.gu(1)
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
+                anchors {
+                    top: playRow.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.right
+                    leftMargin: units.gu(1)
+                }
                 color: "transparent"
                 height: units.gu(4)
                 width: units.gu(15)
@@ -219,7 +225,7 @@ MusicPage {
                 objectName: "songsPageListItem" + index
                 iconFrame: false
                 progression: false
-                height: styleMusic.common.itemHeight
+                height: units.gu(9)
 
                 leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
                                 ? playlistRemoveAction.item : null
@@ -272,29 +278,23 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: model.art !== undefined ? [{art: model.art}] : [{author: model.author, album: model.album}]
+                    covers: []
+                    showCovers: false
                     column: Column {
                         spacing: units.gu(1)
                         Label {
-                            id: trackArtist
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: model.author
-                        }
-
-                        Label {
                             id: trackTitle
-                            color: styleMusic.common.subtitle
-                            fontSize: "medium"
+                            color: styleMusic.common.music
+                            fontSize: "large"
                             objectName: "songspage-tracktitle"
                             text: model.title
                         }
 
                         Label {
-                            id: trackAlbum
+                            id: trackArtist
                             color: styleMusic.common.subtitle
-                            fontSize: "xx-small"
-                            text: model.album
+                            fontSize: "medium"
+                            text: model.author
                         }
                     }
                 }

@@ -35,8 +35,10 @@ Rectangle {
         height: Math.max(parent.height, parent.width)
         width: Math.max(parent.height, parent.width)
         visible: false
+        onSourceChanged: console.log("VIC2: " + source)
         onStatusChanged: {
             if (status === Image.Error) {
+                console.log("VIC: " + source)
                 source = Qt.resolvedUrl("../images/music-app-cover@30.png")
             }
         }
@@ -48,10 +50,10 @@ Rectangle {
         source: backgroundImage
         radius: units.dp(42)
     }
-    // transparent white layer
+    // transparent dark layer
     Rectangle {
         anchors.fill: parent
-        color: "white"
+        color: "black"
         opacity: 0.7
     }
     onArtChanged: {
