@@ -682,47 +682,14 @@ Item {
                     }
                 ]
 
-                /* Object which provides the progress bar when toolbar is minimized */
-                Rectangle {
-                    id: playerControlsProgressBar
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        top: parent.top
-                    }
-                    color: styleMusic.common.black
-                    height: units.gu(0.25)
-
-                    Rectangle {
-                        id: playerControlsProgressBarHint
-                        anchors {
-                            left: parent.left
-                            top: parent.top
-                        }
-                        color: UbuntuColors.blue
-                        height: parent.height
-                        width: 0
-
-                        Connections {
-                            target: player
-                            onPositionChanged: {
-                                playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
-                            }
-                            onStopped: {
-                                playerControlsProgressBarHint.width = 0;
-                            }
-                        }
-                    }
-                }
-
                 /* Disabled (empty state) controls */
                 Rectangle {
                     id: disabledPlayerControlsGroup
                     anchors {
-                        bottom: parent.bottom
+                        bottom: playerControlsProgressBar.top
                         left: parent.left
                         right: parent.right
-                        top: playerControlsProgressBar.bottom
+                        top: parent.top
                     }
                     color: "transparent"
 
@@ -778,13 +745,14 @@ Item {
                     }
                 }
 
+                /* Enabled (queue > 0) controls */
                 Rectangle {
                     id: enabledPlayerControlsGroup
                     anchors {
-                        bottom: parent.bottom
+                        bottom: playerControlsProgressBar.top
                         left: parent.left
                         right: parent.right
-                        top: playerControlsProgressBar.bottom
+                        top: parent.top
                     }
                     color: "transparent"
 
@@ -903,6 +871,39 @@ Item {
                         color: "transparent"
                         function trigger() {
                             tabs.pushNowPlaying();
+                        }
+                    }
+                }
+
+                /* Object which provides the progress bar when toolbar is minimized */
+                Rectangle {
+                    id: playerControlsProgressBar
+                    anchors {
+                        bottom: parent.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+                    color: styleMusic.common.black
+                    height: units.gu(0.25)
+
+                    Rectangle {
+                        id: playerControlsProgressBarHint
+                        anchors {
+                            left: parent.left
+                            top: parent.top
+                        }
+                        color: UbuntuColors.blue
+                        height: parent.height
+                        width: 0
+
+                        Connections {
+                            target: player
+                            onPositionChanged: {
+                                playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
+                            }
+                            onStopped: {
+                                playerControlsProgressBarHint.width = 0;
+                            }
                         }
                     }
                 }
