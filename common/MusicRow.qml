@@ -24,9 +24,9 @@ import Ubuntu.Components 1.1
 Row {
     anchors {
         left: parent.left
-        leftMargin: units.gu(3)
+        leftMargin: units.gu(2)
         right: parent.right
-        rightMargin: units.gu(3)
+        rightMargin: units.gu(2)
     }
 
     property alias covers: coverRow.covers

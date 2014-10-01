@@ -61,7 +61,7 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: width
+            height: width * 0.8
 
             BlurredBackground {
                 id: blurredBackground
@@ -74,7 +74,7 @@ MusicPage {
                 anchors {
                     top: parent.top
                     left: parent.left
-                    margins: units.gu(3)
+                    margins: units.gu(2)
                 }
                 width: units.gu(20)
                 height: width
@@ -133,36 +133,49 @@ MusicPage {
 
             }
 
+            // Shuffle
+            Button {
+                id: shuffleRow
+                anchors {
+                    bottom: playRow.top
+                    bottomMargin: units.gu(2)
+                    left: albumImage.right
+                    leftMargin: units.gu(2)
+                }
+                color: "forestgreen"
+                height: units.gu(4)
+                width: units.gu(15)
+                text: i18n.tr("Shuffle")
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        shuffleModel(albumtrackslist.model)  // play track
+
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
+                        }
+                    }
+                }
+            }
+
             // Play
-            Rectangle {
+            Button {
                 id: playRow
                 anchors {
                     verticalCenter: albumImage.verticalCenter
                     left: albumImage.right
-                    leftMargin: units.gu(1)
+                    leftMargin: units.gu(2)
                 }
-                color: "transparent"
+                color: "forestgreen"
                 height: units.gu(4)
                 width: units.gu(15)
-                Icon {
-                    id: playTrack
-                    objectName: "songspage-playtrack"
-                    anchors.verticalCenter: parent.verticalCenter
-                    name: "media-playback-start"
-                    height: styleMusic.common.expandedItem
-                    width: styleMusic.common.expandedItem
-                }
-                Label {
-                    anchors.left: playTrack.right
-                    anchors.leftMargin: units.gu(0.5)
-                    anchors.verticalCenter: parent.verticalCenter
-                    fontSize: "small"
-                    color: styleMusic.common.subtitle
-                    width: parent.width - playTrack.width - units.gu(1)
-                    text: i18n.tr("Play all")
-                    wrapMode: Text.WordWrap
-                    maximumLineCount: 3
-                }
+                text: i18n.tr("Play all")
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -182,36 +195,18 @@ MusicPage {
             }
 
             // Queue
-            Rectangle {
+            Button {
                 id: queueAllRow
                 anchors {
                     top: playRow.bottom
-                    topMargin: units.gu(1)
+                    topMargin: units.gu(2)
                     left: albumImage.right
-                    leftMargin: units.gu(1)
+                    leftMargin: units.gu(2)
                 }
-                color: "transparent"
+                color: "forestgreen"
                 height: units.gu(4)
                 width: units.gu(15)
-                Icon {
-                    id: queueAll
-                    objectName: "songspage-queue-all"
-                    anchors.verticalCenter: parent.verticalCenter
-                    name: "add"
-                    height: styleMusic.common.expandedItem
-                    width: styleMusic.common.expandedItem
-                }
-                Label {
-                    anchors.left: queueAll.right
-                    anchors.leftMargin: units.gu(0.5)
-                    anchors.verticalCenter: parent.verticalCenter
-                    fontSize: "small"
-                    color: styleMusic.common.subtitle
-                    width: parent.width - queueAll.width - units.gu(1)
-                    text: i18n.tr("Add to queue")
-                    wrapMode: Text.WordWrap
-                    maximumLineCount: 3
-                }
+                text: i18n.tr("Queue all")
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
