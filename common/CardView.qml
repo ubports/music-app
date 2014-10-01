@@ -19,23 +19,30 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 
 
-GridView {
+Flickable {
     anchors {
         fill: parent
-        rightMargin: card.margin
-        bottomMargin: card.margin
     }
-    cellWidth: width / parseInt(width / units.gu(15))  // 15 GU minimum
-    cellHeight: cellWidth + card.columnLabelHeight
-    displaced: Transition {  // Animate when items are added/moved/removed
-        UbuntuNumberAnimation {
-            properties: "x,y"
+    contentWidth: parent.width;
+    contentHeight: flow.childrenRect.height
+
+    property int cellWidth: flow.width / parseInt(flow.width / units.gu(15)) - units.gu(2)  // 15 GU minimum
+    property alias delegate: flowRepeater.delegate
+    property alias model: flowRepeater.model
+
+    Flow {
+        id: flow
+        anchors {
+            fill: parent
+            leftMargin: units.gu(2)
+            topMargin: units.gu(2)
+        }
+        flow: Flow.LeftToRight
+        spacing: units.gu(2)
+
+        Repeater {
+            id: flowRepeater
         }
     }
-    flow: GridView.LeftToRight
-
-    Card {  // Empty object to calculate margin/height
-        id: card
-        visible: false
-    }
 }
+

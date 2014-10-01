@@ -22,12 +22,9 @@ import Ubuntu.Components 1.1
 Rectangle {
     id: card
     color: "transparent"
-    height: parent.parent.cellHeight  // FIXME: parent.GridView?
-    width: parent.parent.cellWidth
+    height: cardColumn.childrenRect.height
+    width: parent.parent.parent.cellWidth
 
-    // columnLabelHeight is so that CardView knows cellHeight
-    property int columnLabelHeight: primaryLabel.height + secondaryLabel.height
-                                    + units.gu(5)  // spacing + extra paddings (before album, after artist)
     property alias imageSource: image.source
     property int margin: units.gu(2)
     property alias primaryText: primaryLabel.text
@@ -66,19 +63,15 @@ Rectangle {
         id: bg
         anchors {
             fill: parent
-            leftMargin: card.margin
-            topMargin: card.margin
         }
         color: "#2c2c34"
     }
 
     /* Column containing image and labels */
     Column {
-        id: column
+        id: cardColumn
         anchors {
             fill: parent
-            leftMargin: card.margin
-            topMargin: card.margin
         }
         spacing: units.gu(0.5)
 
@@ -112,6 +105,7 @@ Rectangle {
             elide: Text.ElideRight
             fontSize: "small"
             opacity: 1.0
+            wrapMode: Text.WordWrap
         }
 
         Label {
@@ -126,6 +120,13 @@ Rectangle {
             elide: Text.ElideRight
             fontSize: "small"
             opacity: 0.4
+            wrapMode: Text.WordWrap
+        }
+
+        Rectangle {
+            color: "transparent"
+            height: units.gu(1.5)
+            width: units.gu(1)
         }
     }
 

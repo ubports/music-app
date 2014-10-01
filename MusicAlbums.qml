@@ -47,6 +47,8 @@ MusicPage {
             primaryText: model.title
             secondaryText: model.artist
 
+            width: albumCardView.cellWidth
+
             onClicked: {
                 songsPage.album = model.title;
                 songsPage.covers = [{art: model.art}]
