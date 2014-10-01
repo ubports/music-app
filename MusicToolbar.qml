@@ -796,7 +796,12 @@ Item {
                             left: parent.left
                             top: parent.top
                         }
-                        source: player.currentMetaArt
+                        smooth: true
+                        source: player.currentMetaArt === "" ?
+                                    decodeURIComponent("image://albumart/artist=" +
+                                                       player.currentMetaArtist +
+                                                       "&album=" + player.currentMetaAlbum)
+                                  : player.currentMetaArt
                         width: parent.height
 
                         onStatusChanged: {
@@ -812,7 +817,7 @@ Item {
                         anchors {
                             left: playerControlsImage.right
                             leftMargin: units.gu(1.5)
-                            right: playerControlsPreviousButton.left
+                            right: playerControlsPlayButton.left
                             rightMargin: units.gu(1)
                             verticalCenter: parent.verticalCenter
                         }
@@ -827,7 +832,7 @@ Item {
                             color: "#FFF"
                             elide: Text.ElideRight
                             fontSize: "small"
-                            objectName: "playercontroltitle"
+                            font.weight: Font.DemiBold
                             text: player.currentMetaTitle === ""
                                   ? player.source : player.currentMetaTitle
                         }
@@ -847,35 +852,11 @@ Item {
                         }
                     }
 
-                    /* Previous Button */
-                    Icon {
-                        id: playerControlsPreviousButton
-                        anchors {
-                            right: playerControlsPlayButton.left
-                            rightMargin: units.gu(3)
-                            verticalCenter: parent.verticalCenter
-                        }
-                        color: "#FFF"
-                        height: units.gu(2.5)
-                        name: "media-skip-backward"
-                        width: height
-                    }
-
-                    MouseArea {
-                        anchors {
-                            bottom: parent.bottom
-                            left: playerControlsLabels.right
-                            right: playerControlsPlayButton.left
-                            top: parent.top
-                        }
-                        onClicked: player.previousSong()
-                    }
-
                     /* Play/Pause button */
                     Icon {
                         id: playerControlsPlayButton
                         anchors {
-                            right: playerControlsNextButton.left
+                            right: parent.right
                             rightMargin: units.gu(3)
                             verticalCenter: parent.verticalCenter
                         }
@@ -890,35 +871,25 @@ Item {
                     MouseArea {
                         anchors {
                             bottom: parent.bottom
-                            left: playerControlsPreviousButton.right
-                            right: playerControlsNextButton.left
+                            horizontalCenter: playerControlsPlayButton.horizontalCenter
                             top: parent.top
                         }
                         onClicked: player.toggle()
-                    }
+                        width: units.gu(8)
 
-                    /* Next button */
-                    Icon {
-                        id: playerControlsNextButton
-                        anchors {
-                            right: parent.right
-                            rightMargin: units.gu(3)
-                            verticalCenter: parent.verticalCenter
-                        }
-                        color: "#FFF"
-                        height: units.gu(2.5)
-                        name: "media-skip-forward"
-                        width: height
-                    }
+                        Rectangle {
+                            anchors {
+                                fill: parent
+                            }
+                            color: "#FFF"
+                            opacity: parent.pressed ? 0.1 : 0
 
-                    MouseArea {
-                        anchors {
-                            bottom: parent.bottom
-                            left: playerControlsPlayButton.right
-                            right: parent.right
-                            top: parent.top
+                            Behavior on opacity {
+                                UbuntuNumberAnimation {
+                                    duration: UbuntuAnimation.FastDuration
+                                }
+                            }
                         }
-                        onClicked: player.nextSong()
                     }
 
                     /* Mouse area to jump to now playing */
