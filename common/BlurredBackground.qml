@@ -26,6 +26,12 @@ Rectangle {
     anchors.fill: parent
     property string art  // : player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
 
+    // dark layer
+    Rectangle {
+        anchors.fill: parent
+        color: "black" 
+    }
+
     // the album art
     Image {
         id: backgroundImage
@@ -48,12 +54,7 @@ Rectangle {
         anchors.fill: backgroundImage
         source: backgroundImage
         radius: units.dp(42)
-    }
-    // transparent dark layer
-    Rectangle {
-        anchors.fill: parent
-        color: "black"
-        opacity: 0.7
+        opacity: 0.2
     }
     onArtChanged: {
         // TODO: This is a work around for LP:1261078 and LP:1306845. Ideally,

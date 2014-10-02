@@ -52,7 +52,7 @@ Row {
         id: columnComponent
         anchors {
             top: parent.top
-            topMargin: units.gu(2)
+            topMargin: units.gu(1)
         }
         width: parent.width - coverRow.width - parent.spacing
 
