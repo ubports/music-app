@@ -70,7 +70,6 @@ MusicPage {
 
             Image {
                 id: albumImage
-                property string s: source
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -78,6 +77,7 @@ MusicPage {
                 }
                 width: units.gu(18)
                 height: width
+                smooth: true
                 source: covers.length > 0
                         ? (covers[0].art !== undefined
                            ? covers[0].art
