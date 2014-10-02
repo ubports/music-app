@@ -187,7 +187,11 @@ Item {
             else {
                 var obj = trackQueue.model.get(player.currentIndex);
                 currentMetaAlbum = obj.album;
-                currentMetaArt = obj.art;
+
+                if (obj.art !== undefined) {  // FIXME: protect against not art property in playlists
+                    currentMetaArt = obj.art;
+                }
+
                 currentMetaArtist = obj.author;
                 currentMetaFile = obj.filename;
                 currentMetaTitle = obj.title;
