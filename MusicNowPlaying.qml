@@ -87,7 +87,7 @@ MusicPage {
     Rectangle {
         id: fullview
         visible: !isListView
-        height: units.gu(33)
+        height: units.gu(27)
         width: parent.width
         anchors.top: parent.top
         anchors.topMargin: mainView.header.height
@@ -115,7 +115,7 @@ MusicPage {
         Item {
             id: musicToolbarFullContainer
             anchors.top: blurredBackground.bottom
-            anchors.topMargin: units.gu(6)
+            anchors.topMargin: units.gu(4)
             width: blurredBackground.width
 
             /* Column for labels in wideAspect */

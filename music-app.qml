@@ -979,7 +979,7 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: nowPlaying.isListView
+        visible: nowPlaying.isListView || !nowPlaying.visible
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
