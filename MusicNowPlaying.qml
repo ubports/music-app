@@ -85,7 +85,7 @@ MusicPage {
     }
 
     Rectangle {
-        id: queueview
+        id: fullview
         visible: !isListView
         height: units.gu(33)
         width: parent.width
