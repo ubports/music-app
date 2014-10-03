@@ -61,7 +61,7 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: units.gu(33)
+            height: albumArtist.visible ? units.gu(33) : units.gu(30)
 
             BlurredBackground {
                 id: blurredBackground
