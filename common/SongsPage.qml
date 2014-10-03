@@ -61,19 +61,47 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: units.gu(22)
+            height: units.gu(33)
 
-            CoverRow {
+            BlurredBackground {
+                id: blurredBackground
+                height: parent.height
+                art: albumImage.source
+            }
+
+            Image {
                 id: albumImage
                 anchors {
                     top: parent.top
                     left: parent.left
-                    margins: units.gu(1)
+                    topMargin: units.gu(3)
+                    bottomMargin: units.gu(2)
+                    leftMargin: units.gu(2)
+                    rightMargin: units.gu(2)
                 }
-                count: songStackPage.covers.length
-                size: units.gu(20)
-                covers: songStackPage.covers
-                spacing: units.gu(2)
+                width: units.gu(18)
+                height: width
+                smooth: true
+                source: covers.length > 0
+                        ? (covers[0].art !== undefined
+                           ? covers[0].art
+                           : decodeURIComponent("image://albumart/artist=" + covers[0].author + "&album=" + covers[0].album))
+                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+
+            Label {
+                id: albumLabel
+                wrapMode: Text.NoWrap
+                maximumLineCount: 2
+                fontSize: "x-large"
+                color: styleMusic.common.music
+                anchors {
+                    top: albumImage.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.left
+                }
+                elide: Text.ElideRight
+                text: line2
             }
 
             Label {
@@ -83,77 +111,111 @@ MusicPage {
                 maximumLineCount: 1
                 fontSize: "small"
                 color: styleMusic.common.subtitle
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: parent.top
-                anchors.topMargin: units.gu(1.5)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
+                visible: text !== i18n.tr("Playlist") &&
+                         text !== i18n.tr("Genre")
+                anchors {
+                    top: albumLabel.bottom
+                    topMargin: units.gu(0.75)
+                    left: albumImage.left
+                }
                 elide: Text.ElideRight
                 text: line1
             }
-            Label {
-                id: albumLabel
-                wrapMode: Text.NoWrap
-                maximumLineCount: 2
-                fontSize: "medium"
-                color: styleMusic.common.music
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: albumArtist.bottom
-                anchors.topMargin: units.gu(0.8)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
-                elide: Text.ElideRight
-                text: line2
-            }
+
             Label {
                 id: albumYear
                 wrapMode: Text.NoWrap
                 maximumLineCount: 1
-                fontSize: "x-small"
+                fontSize: "small"
                 color: styleMusic.common.subtitle
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                anchors.top: albumLabel.bottom
-                anchors.topMargin: units.gu(2)
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1.5)
+                anchors {
+                    top: albumArtist.visible ? albumArtist.bottom
+                                             : albumLabel.bottom
+                    topMargin: units.gu(1)
+                    left: albumImage.left
+                }
                 elide: Text.ElideRight
                 text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                                                    : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
 
             }
 
-            // Play
-            Rectangle {
-                id: playRow
-                anchors.top: albumYear.bottom
-                anchors.topMargin: units.gu(1)
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                color: "transparent"
+            // Shuffle
+            Button {
+                id: shuffleRow
+                anchors {
+                    bottom: queueAllRow.top
+                    bottomMargin: units.gu(2)
+                    left: albumImage.right
+                    leftMargin: units.gu(2)
+                }
+                strokeColor: UbuntuColors.green
                 height: units.gu(4)
                 width: units.gu(15)
-                Icon {
-                    id: playTrack
-                    objectName: "songspage-playtrack"
-                    anchors.verticalCenter: parent.verticalCenter
-                    name: "media-playback-start"
-                    height: styleMusic.common.expandedItem
-                    width: styleMusic.common.expandedItem
+                Text {
+                    anchors {
+                        centerIn: parent
+                    }
+                    color: "white"
+                    text: i18n.tr("Shuffle")
                 }
-                Label {
-                    anchors.left: playTrack.right
-                    anchors.leftMargin: units.gu(0.5)
-                    anchors.verticalCenter: parent.verticalCenter
-                    fontSize: "small"
-                    color: styleMusic.common.subtitle
-                    width: parent.width - playTrack.width - units.gu(1)
-                    text: i18n.tr("Play all")
-                    wrapMode: Text.WordWrap
-                    maximumLineCount: 3
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        shuffleModel(albumtrackslist.model)  // play track
+
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                            mainView.hasRecent = true
+                            recentModel.filterRecent()
+                        }
+                    }
                 }
+            }
+
+            // Queue
+            Button {
+                id: queueAllRow
+                anchors {
+                    bottom: playRow.top
+                    bottomMargin: units.gu(2)
+                    left: albumImage.right
+                    leftMargin: units.gu(2)
+                }
+                strokeColor: UbuntuColors.green
+                height: units.gu(4)
+                width: units.gu(15)
+                Text {
+                    anchors {
+                        centerIn: parent
+                    }
+                    color: "white"
+                    text: i18n.tr("Queue all")
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        addQueueFromModel(albumtrackslist.model)
+                    }
+                }
+            }
+
+            // Play
+            Button {
+                id: playRow
+                anchors {
+                    bottom: albumImage.bottom
+                    left: albumImage.right
+                    leftMargin: units.gu(2)
+                }
+                color: UbuntuColors.green
+                height: units.gu(4)
+                width: units.gu(15)
+                text: i18n.tr("Play all")
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -171,43 +233,6 @@ MusicPage {
                     }
                 }
             }
-
-            // Queue
-            Rectangle {
-                id: queueAllRow
-                anchors.top: playRow.bottom
-                anchors.topMargin: units.gu(1)
-                anchors.left: albumImage.right
-                anchors.leftMargin: units.gu(1)
-                color: "transparent"
-                height: units.gu(4)
-                width: units.gu(15)
-                Icon {
-                    id: queueAll
-                    objectName: "songspage-queue-all"
-                    anchors.verticalCenter: parent.verticalCenter
-                    name: "add"
-                    height: styleMusic.common.expandedItem
-                    width: styleMusic.common.expandedItem
-                }
-                Label {
-                    anchors.left: queueAll.right
-                    anchors.leftMargin: units.gu(0.5)
-                    anchors.verticalCenter: parent.verticalCenter
-                    fontSize: "small"
-                    color: styleMusic.common.subtitle
-                    width: parent.width - queueAll.width - units.gu(1)
-                    text: i18n.tr("Add to queue")
-                    wrapMode: Text.WordWrap
-                    maximumLineCount: 3
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        addQueueFromModel(albumtrackslist.model)
-                    }
-                }
-            }
         }
 
         Component {
@@ -219,7 +244,8 @@ MusicPage {
                 objectName: "songsPageListItem" + index
                 iconFrame: false
                 progression: false
-                height: styleMusic.common.itemHeight
+                showDivider: false
+                height: units.gu(6)
 
                 leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
                                 ? playlistRemoveAction.item : null
@@ -272,29 +298,22 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: model.art !== undefined ? [{art: model.art}] : [{author: model.author, album: model.album}]
+                    covers: []
+                    showCovers: false
                     column: Column {
-                        spacing: units.gu(1)
-                        Label {
-                            id: trackArtist
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: model.author
-                        }
-
                         Label {
                             id: trackTitle
-                            color: styleMusic.common.subtitle
-                            fontSize: "medium"
+                            color: styleMusic.common.music
+                            fontSize: "small"
                             objectName: "songspage-tracktitle"
                             text: model.title
                         }
 
                         Label {
-                            id: trackAlbum
+                            id: trackArtist
                             color: styleMusic.common.subtitle
-                            fontSize: "xx-small"
-                            text: model.album
+                            fontSize: "x-small"
+                            text: model.author
                         }
                     }
                 }

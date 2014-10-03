@@ -715,6 +715,17 @@ MainView {
         trackClicked(allSongsModel, index, true)
     }
 
+    function shuffleModel(model)
+    {
+        var now = new Date();
+        var seed = now.getSeconds();
+        var index = Math.floor(model.count * Math.random(seed));
+
+        player.shuffle = true;
+
+        trackClicked(model, index, true)
+    }
+
     // Load mediascanner store
     MediaStore {
         id: musicStore
@@ -968,6 +979,7 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
+        visible: nowPlaying.isListView
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
