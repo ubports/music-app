@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import QtMultimedia 5.0
 import QtQuick 2.3
 import QtQuick.LocalStorage 2.0
@@ -34,18 +33,24 @@ MusicPage {
     visible: false
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
+    property bool isListView: true
 
-    Rectangle {
-        anchors.fill: parent
-        color: styleMusic.nowPlaying.backgroundColor
-        opacity: 0.75 // change later
-        MouseArea {  // Block events to lower layers
-            anchors.fill: parent
+    Component.onCompleted: {
+        if (isListView) {
+            onToolbarShownChanged.connect(jumpToCurrent)
         }
     }
 
-    Component.onCompleted: {
-        onToolbarShownChanged.connect(jumpToCurrent)
+    head {
+        actions: [
+            Action {
+                objectName: "toggleView"
+                iconName: "media-playlist"
+                onTriggered: {
+                    isListView = !isListView
+                }
+            }
+        ]
     }
 
     Connections {
@@ -77,11 +82,39 @@ MusicPage {
 
     function positionAt(index) {
         queuelist.positionViewAtIndex(index, ListView.Beginning);
-        queuelist.contentY -= header.height;
+    }
+
+    Rectangle {
+        id: queueview
+        visible: !isListView
+        height: units.gu(33)
+        width: parent.width
+        anchors.top: parent.top
+        anchors.topMargin: mainView.header.height
+
+        BlurredBackground {
+            id: blurredBackground
+            height: parent.height
+            art: albumImage.source
+        }
+
+        Image {
+            id: albumImage
+            anchors.centerIn: parent
+            width: units.gu(18)
+            height: width
+            smooth: true
+            source: player.currentMetaArt === "" ?
+                        decodeURIComponent("image://albumart/artist=" +
+                                           player.currentMetaArtist +
+                                           "&album=" + player.currentMetaAlbum)
+                      : player.currentMetaArt
+        }
     }
 
     ListView {
         id: queuelist
+        visible: isListView
         objectName: "nowPlayingQueueList"
         anchors.fill: parent
         anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
