@@ -39,7 +39,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         source: art // this has to be fixed for the default cover art to work - cant find in this dir
         fillMode: Image.PreserveAspectCrop
-        height: Math.max(parent.height, parent.width) * 0.8
+        height: parent.height
         width: Math.max(parent.height, parent.width)
         visible: false
         onStatusChanged: {

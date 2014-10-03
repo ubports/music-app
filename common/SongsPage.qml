@@ -61,10 +61,11 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: width * 0.8
+            height: units.gu(33)
 
             BlurredBackground {
                 id: blurredBackground
+                height: parent.height
                 art: albumImage.source
             }
 
@@ -73,7 +74,10 @@ MusicPage {
                 anchors {
                     top: parent.top
                     left: parent.left
-                    margins: units.gu(2)
+                    topMargin: units.gu(3)
+                    bottomMargin: units.gu(2)
+                    leftMargin: units.gu(2)
+                    rightMargin: units.gu(2)
                 }
                 width: units.gu(18)
                 height: width
@@ -111,7 +115,7 @@ MusicPage {
                          text !== i18n.tr("Genre")
                 anchors {
                     top: albumLabel.bottom
-                    topMargin: units.gu(1)
+                    topMargin: units.gu(0.75)
                     left: albumImage.left
                 }
                 elide: Text.ElideRight
@@ -148,7 +152,13 @@ MusicPage {
                 strokeColor: UbuntuColors.green
                 height: units.gu(4)
                 width: units.gu(15)
-                text: i18n.tr("Shuffle")
+                Text {
+                    anchors {
+                        centerIn: parent
+                    }
+                    color: "white"
+                    text: i18n.tr("Shuffle")
+                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -179,7 +189,13 @@ MusicPage {
                 strokeColor: UbuntuColors.green
                 height: units.gu(4)
                 width: units.gu(15)
-                text: i18n.tr("Queue all")
+                Text {
+                    anchors {
+                        centerIn: parent
+                    }
+                    color: "white"
+                    text: i18n.tr("Queue all")
+                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
