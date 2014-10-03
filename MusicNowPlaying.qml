@@ -31,6 +31,13 @@ MusicPage {
     objectName: "nowPlayingPage"
     title: i18n.tr("Now Playing")
     visible: false
+    onVisibleChanged: {
+        if (!visible) {
+            // Reset the isListView property
+            // TODO: In the future this will default to false
+            isListView = true
+        }
+    }
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
     property bool isListView: true
