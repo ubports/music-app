@@ -192,10 +192,10 @@ MusicPage {
                 /* Position label */
                 Label {
                     id: musicToolbarFullPositionLabel
-                    anchors.top: musicToolbarFullProgressBarContainer.bottom
+                    anchors.top: progressSliderMusic.bottom
                     anchors.left: parent.left
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    fontSize: "x-small"
+                    fontSize: "small"
                     height: parent.height
                     horizontalAlignment: Text.AlignHCenter
                     text: durationToString(player.position)
@@ -203,49 +203,11 @@ MusicPage {
                     width: units.gu(3)
                 }
 
-                /* Progress bar */
-                Rectangle {
-                    id: musicToolbarFullProgressBarContainer
-                    objectName: "progressBarShape"
+                Slider {
+                    id: progressSliderMusic
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: "transparent"
-                    height: units.gu(0.5);
-                    state: trackQueue.model.count === 0 ? "disabled" : "enabled"
-
-                    states: [
-                        State {
-                            name: "disabled"
-                            PropertyChanges {
-                                target: musicToolbarFullProgressMouseArea
-                                enabled: false
-                            }
-                            PropertyChanges {
-                                target: musicToolbarFullProgressTrough
-                                visible: false
-                            }
-                            PropertyChanges {
-                                target: musicToolbarFullProgressHandle
-                                visible: false
-                            }
-                        },
-                        State {
-                            name: "enabled"
-                            PropertyChanges {
-                                target: musicToolbarFullProgressMouseArea
-                                enabled: true
-                            }
-                            PropertyChanges {
-                                target: musicToolbarFullProgressTrough
-                                visible: true
-                            }
-                            PropertyChanges {
-                                target: musicToolbarFullProgressHandle
-                                visible: true
-                            }
-                        }
-                    ]
+                    function formatValue(v) { return durationToString(v) }
 
                     property bool seeking: false
 
@@ -255,63 +217,29 @@ MusicPage {
                         }
                     }
 
+                    onPressedChanged: {
+                        seeking = pressed
+                        if (!pressed) {
+                           player.seek(value)
+                       }
+                    }
+
                     Connections {
                         target: player
                         onDurationChanged: {
-                            console.debug("Duration changed: " + player.duration)
                             musicToolbarFullDurationLabel.text = durationToString(player.duration)
+                            progressSliderMusic.maximumValue = player.duration
                         }
                         onPositionChanged: {
-                            if (musicToolbarFullProgressBarContainer.seeking === false)
-                            {
+                            if (progressSliderMusic.seeking === false) {
+                                progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
-                                musicToolbarFullProgressHandle.x = (player.position / player.duration) * musicToolbarFullProgressBarContainer.width
-                                        - musicToolbarFullProgressHandle.width / 2;
                             }
                         }
                         onStopped: {
-                            musicToolbarFullProgressHandle.x = -musicToolbarFullProgressHandle.width / 2;
-
                             musicToolbarFullPositionLabel.text = durationToString(0);
                             musicToolbarFullDurationLabel.text = durationToString(0);
-                        }
-                    }
-
-                    // Black background behind the progress bar
-                    Rectangle {
-                        id: musicToolbarFullProgressBackground
-                        anchors.verticalCenter: parent.verticalCenter;
-                        color: styleMusic.toolbar.fullProgressBackgroundColor;
-                        height: parent.height;
-                        width: parent.width;
-                    }
-
-                    // The orange fill of the progress bar
-                    Rectangle {
-                        id: musicToolbarFullProgressTrough
-                        anchors.verticalCenter: parent.verticalCenter;
-                        antialiasing: true
-                        color: styleMusic.toolbar.fullProgressTroughColor;
-                        height: parent.height;
-                        width: musicToolbarFullProgressHandle.x + (height / 2);  // +radius
-                    }
-
-                    // The current position (handle) of the progress bar
-                    Rectangle {
-                        id: musicToolbarFullProgressHandle
-                        anchors.verticalCenter: musicToolbarFullProgressBackground.verticalCenter
-                        antialiasing: true
-                        color: styleMusic.nowPlaying.progressHandleColor
-                        height: units.gu(1.5)
-                        width: height
-
-                        // On X change update the position string
-                        onXChanged: {
-                            if (musicToolbarFullProgressBarContainer.seeking) {
-                                var fraction = (x + (width / 2)) / parent.width;
-                                musicToolbarFullPositionLabel.text = durationToString(fraction * player.duration)
-                            }
                         }
                     }
                 }
@@ -319,48 +247,15 @@ MusicPage {
                 /* Duration label */
                 Label {
                     id: musicToolbarFullDurationLabel
-                    anchors.top: musicToolbarFullProgressBarContainer.bottom
+                    anchors.top: progressSliderMusic.bottom
                     anchors.right: parent.right
                     color: styleMusic.nowPlaying.labelSecondaryColor
-                    fontSize: "x-small"
+                    fontSize: "small"
                     height: parent.height
                     horizontalAlignment: Text.AlignHCenter
                     text: durationToString(player.duration)
                     verticalAlignment: Text.AlignVCenter
                     width: units.gu(3)
-                }
-
-                /* Mouse events for the progress bar
-                       is after musicToolbarMouseArea so that it captures mouse events for dragging */
-                MouseArea {
-                    id: musicToolbarFullProgressMouseArea
-                    anchors.fill: musicToolbarFullProgressContainer
-                    width: musicToolbarFullProgressBarContainer.width
-                    x: musicToolbarFullProgressBarContainer.x
-                    y: musicToolbarFullProgressBarContainer.y
-
-                    drag.axis: Drag.XAxis
-                    drag.minimumX: -(musicToolbarFullProgressHandle.width / 2)
-                    drag.maximumX: musicToolbarFullProgressBarContainer.width - (musicToolbarFullProgressHandle.width / 2)
-                    drag.target: musicToolbarFullProgressHandle
-
-                    onPressed: {
-                        musicToolbarFullProgressBarContainer.seeking = true;
-
-                        // Jump the handle to the current mouse position
-                        musicToolbarFullProgressHandle.x = mouse.x - (musicToolbarFullProgressHandle.width / 2);
-                    }
-
-                    onReleased: {
-                        var fraction = mouse.x / musicToolbarFullProgressBarContainer.width;
-
-                        // Limit the bounds of the fraction
-                        fraction = fraction < 0 ? 0 : fraction
-                        fraction = fraction > 1 ? 1 : fraction
-
-                        player.seek((fraction) * player.duration);
-                        musicToolbarFullProgressBarContainer.seeking = false;
-                    }
                 }
             }
 
