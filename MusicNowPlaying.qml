@@ -204,6 +204,10 @@ MusicPage {
                         }
                     }
 
+                    Component.onCompleted: {
+                        Theme.palette.selected.foreground = UbuntuColors.blue
+                    }
+
                     onPressedChanged: {
                         seeking = pressed
                         if (!pressed) {
