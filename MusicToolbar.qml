@@ -114,14 +114,15 @@ Item {
             bottom: parent.bottom
         }
         // TODO: this will be removed when the toolbar is redone
-        height: currentMode === "hidden" ? 0 : expandedHeight
+        height: currentMode === "hidden" ? 0 : (currentMode === "full" ? fullHeight : expandedHeight)
         locked: true
         opened: true
 
         // TODO: this will be removed when the toolbar is redone
         // The current mode of the controls
-        property string currentMode: !nowPlaying.isListView
-                                     ? "hidden" : "expanded"
+        property string currentMode: !nowPlaying.isListView && currentPage === nowPlaying
+            ? "hidden" : (wideAspect || currentPage === nowPlaying
+                ?  "full" : "expanded")
 
         // Properties for the different heights
         property int expandedHeight: units.gu(7.25)
