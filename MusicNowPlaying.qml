@@ -65,9 +65,10 @@ MusicPage {
 
             customdebug("MusicQueue update currentIndex: " + player.source);
 
-            // Always jump to current track
-            nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
-
+            // TODO: Never jump to track? Or only jump to track in queue view?
+            if (isListView) {
+                nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
+            }
         }
     }
 
