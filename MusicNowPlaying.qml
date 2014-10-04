@@ -42,12 +42,6 @@ MusicPage {
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
     property bool isListView: true
 
-    Component.onCompleted: {
-        if (isListView) {
-            onToolbarShownChanged.connect(jumpToCurrent)
-        }
-    }
-
     head {
         actions: [
             Action {
@@ -180,7 +174,6 @@ MusicPage {
                 anchors.topMargin: units.gu(3)
                 height: units.gu(3)
                 width: parent.width
-                z: 1
 
                 /* Position label */
                 Label {
@@ -306,7 +299,7 @@ MusicPage {
             MouseArea {
                 id: nowPlayingPlayButton
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top:musicToolbarFullProgressContainer.bottom
+                anchors.top: musicToolbarFullProgressContainer.bottom
                 anchors.topMargin: units.gu(2)
                 height: units.gu(12)
                 objectName: "playShape"
