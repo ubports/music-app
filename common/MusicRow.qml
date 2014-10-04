@@ -24,12 +24,13 @@ import Ubuntu.Components 1.1
 Row {
     anchors {
         left: parent.left
-        leftMargin: units.gu(1)
+        leftMargin: units.gu(2)
         right: parent.right
-        rightMargin: units.gu(1)
+        rightMargin: units.gu(2)
     }
 
     property alias covers: coverRow.covers
+    property bool showCovers: true
     property alias pressed: coverRow.pressed
     property alias column: columnComponent.sourceComponent
 
@@ -37,6 +38,7 @@ Row {
 
     CoverRow {
         id: coverRow
+        visible: showCovers
         anchors {
             top: parent.top
             topMargin: units.gu(1)
@@ -50,7 +52,7 @@ Row {
         id: columnComponent
         anchors {
             top: parent.top
-            topMargin: units.gu(2)
+            topMargin: units.gu(1)
         }
         width: parent.width - coverRow.width - parent.spacing
 
