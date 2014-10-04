@@ -94,28 +94,29 @@ MusicPage {
     Rectangle {
         id: fullview
         visible: !isListView
-        height: units.gu(27)
-        width: parent.width
-        anchors.top: parent.top
-        anchors.topMargin: mainView.header.height
+        anchors.fill: parent
+        color: "transparent"
+        clip: true
 
         BlurredBackground {
             id: blurredBackground
-            height: parent.height
+            anchors.top: parent.top
+            anchors.topMargin: mainView.header.height
+            height: units.gu(27)
             art: albumImage.source
-        }
 
-        Image {
-            id: albumImage
-            anchors.centerIn: parent
-            width: units.gu(18)
-            height: width
-            smooth: true
-            source: player.currentMetaArt === "" ?
-                        decodeURIComponent("image://albumart/artist=" +
-                                           player.currentMetaArtist +
-                                           "&album=" + player.currentMetaAlbum)
-                      : player.currentMetaArt
+            Image {
+                id: albumImage
+                anchors.centerIn: parent
+                width: units.gu(18)
+                height: width
+                smooth: true
+                source: player.currentMetaArt === "" ?
+                            decodeURIComponent("image://albumart/artist=" +
+                                               player.currentMetaArtist +
+                                               "&album=" + player.currentMetaAlbum)
+                          : player.currentMetaArt
+            }
         }
 
         /* Full toolbar */
@@ -128,8 +129,8 @@ MusicPage {
             /* Column for labels in wideAspect */
             Column {
                 id: nowPlayingWideAspectLabels
+                spacing: units.gu(1)
                 anchors {
-                    horizontalCenter: parent.horizontalCenter
                     left: parent.left
                     leftMargin: units.gu(2)
                     right: parent.right
@@ -166,21 +167,6 @@ MusicPage {
                     fontSize: "small"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
                 }
-
-                /* Album of track */
-                Label {
-                    id: nowPlayingWideAspectAlbum
-                    anchors {
-                        left: parent.left
-                        leftMargin: units.gu(1)
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                    }
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    text: trackQueue.model.count === 0 ? "" : player.currentMetaAlbum
-                }
             }
 
             /* Progress bar component */
@@ -200,6 +186,7 @@ MusicPage {
                 Label {
                     id: musicToolbarFullPositionLabel
                     anchors.top: progressSliderMusic.bottom
+                    anchors.topMargin: units.gu(-2)
                     anchors.left: parent.left
                     color: styleMusic.nowPlaying.labelSecondaryColor
                     fontSize: "small"
@@ -255,6 +242,7 @@ MusicPage {
                 Label {
                     id: musicToolbarFullDurationLabel
                     anchors.top: progressSliderMusic.bottom
+                    anchors.topMargin: units.gu(-2)
                     anchors.right: parent.right
                     color: styleMusic.nowPlaying.labelSecondaryColor
                     fontSize: "small"
@@ -278,14 +266,14 @@ MusicPage {
                 width: height
                 onClicked: player.repeat = !player.repeat
 
-                Image {
+                Icon {
                     id: repeatIcon
                     height: units.gu(3)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-repeat.svg")
-                    verticalAlignment: Text.AlignVCenter
+                    color: "white"
+                    name: "media-playlist-repeat"
                     opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
                 }
             }
@@ -302,13 +290,14 @@ MusicPage {
                 width: height
                 onClicked: player.previousSong()
 
-                Image {
+                Icon {
                     id: nowPlayingPreviousIndicator
                     height: units.gu(3)
                     width: height
-                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: Qt.resolvedUrl("images/media-skip-backward.svg")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    name: "media-skip-backward"
                     opacity: 1
                 }
             }
@@ -324,15 +313,15 @@ MusicPage {
                 width: height
                 onClicked: player.toggle()
 
-                Image {
+                Icon {
                     id: nowPlayingPlayIndicator
                     height: units.gu(6)
                     width: height
-                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     opacity: emptyPage.noMusic ? .4 : 1
-                    source: player.playbackState === MediaPlayer.PlayingState ?
-                                Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
+                    color: "white"
+                    name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
                 }
             }
 
@@ -348,13 +337,14 @@ MusicPage {
                 width: height
                 onClicked: player.nextSong()
 
-                Image {
+                Icon {
                     id: nowPlayingNextIndicator
                     height: units.gu(3)
                     width: height
-                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    source: Qt.resolvedUrl("images/media-skip-forward.svg")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    name: "media-skip-forward"
                     opacity: 1
                 }
             }
@@ -371,13 +361,14 @@ MusicPage {
                 width: height
                 onClicked: player.shuffle = !player.shuffle
 
-                Image {
+                Icon {
                     id: shuffleIcon
                     height: units.gu(3)
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("images/media-playlist-shuffle.svg")
+                    color: "white"
+                    name: "media-playlist-shuffle"
                     opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
                 }
             }
