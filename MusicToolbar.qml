@@ -43,7 +43,6 @@ Item {
     property int transitionDuration: 100
 
     property alias currentHeight: musicToolbarPanel.height
-    property alias minimizedHeight: musicToolbarPanel.minimizedHeight
     property alias expandedHeight: musicToolbarPanel.expandedHeight
     property alias fullHeight: musicToolbarPanel.fullHeight
     property alias mouseAreaOffset: musicToolbarPanel.hintSize
@@ -72,22 +71,6 @@ Item {
 
     /* Helper functions */
 
-    // Disable the toolbar for this page/view (eg a dialog)
-    function disableToolbar()
-    {
-        cachedStates.push(state);
-        musicToolbarPanel.state = "hidden";
-    }
-
-    // Enable the toolbar (run when closing a page that disabled it)
-    function enableToolbar()
-    {
-        if (cachedStates.length > 0)
-        {
-            musicToolbarPanel.state = cachedStates.pop();
-        }
-    }
-
     // Back button has been pressed, jump up pageStack or back to parent page
     function goBack()
     {
@@ -98,18 +81,6 @@ Item {
         else if (mainPageStack !== null && mainPageStack.depth > 1) {
             mainPageStack.pop(currentPage)
         }
-
-        startAutohideTimer()
-    }
-
-    // Hide the toolbar
-    function hideToolbar()
-    {
-        if (!wideAspect) {
-            musicToolbarPanel.close();
-        }
-
-        toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
     // Remove sheet as it has been closed
@@ -135,32 +106,6 @@ Item {
         currentSheet.push(sheet)
     }
 
-    // Show the toolbar
-    function showToolbar()
-    {
-        startAutohideTimer();  // always attempt to autohide toolbar
-
-        if (!musicToolbarPanel.opened) {
-            musicToolbarPanel.open();
-        }
-    }
-
-    // Start the autohidetimer
-    function startAutohideTimer()
-    {
-        toolbarAutoHideTimer.restart();
-    }
-
-    Connections {
-        target: mainView
-        onWideAspectChanged: {
-            // Force toolbar to show if in wideAspect
-            if (wideAspect && !opened) {
-                showToolbar();
-            }
-        }
-    }
-
     Panel {
         id: musicToolbarPanel
         anchors {
@@ -169,29 +114,19 @@ Item {
             bottom: parent.bottom
         }
         height: currentMode === "full" ? fullHeight : expandedHeight
-        locked: wideAspect
-
-        __closeOnContentsClicks: false  // TODO: fix bug 1295720
+        locked: true
+        opened: true
 
         // The current mode of the controls
         property string currentMode: wideAspect || (currentPage === nowPlaying)
                                      ? "full" : "expanded"
 
         // Properties for the different heights
-        property int minimizedHeight: units.gu(0.25)
-        property int expandedHeight: units.gu(7)
+        property int expandedHeight: units.gu(7.25)
         property int fullHeight: units.gu(11)
 
         onCurrentModeChanged: {
             musicToolbarFullProgressMouseArea.enabled = currentMode === "full"
-        }
-
-        onOpenedChanged: {
-            onToolbarShownChanged(opened, currentPage, currentTab);
-
-            if (opened) {
-                startAutohideTimer();
-            }
         }
 
         /* Full toolbar */
@@ -747,10 +682,14 @@ Item {
                     }
                 ]
 
+                /* Disabled (empty state) controls */
                 Rectangle {
                     id: disabledPlayerControlsGroup
                     anchors {
-                        fill: parent
+                        bottom: playerControlsProgressBar.top
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
                     }
                     color: "transparent"
 
@@ -806,10 +745,14 @@ Item {
                     }
                 }
 
+                /* Enabled (queue > 0) controls */
                 Rectangle {
                     id: enabledPlayerControlsGroup
                     anchors {
-                        fill: parent
+                        bottom: playerControlsProgressBar.top
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
                     }
                     color: "transparent"
 
@@ -931,38 +874,37 @@ Item {
                         }
                     }
                 }
-            }
-        }
 
-        /* Object which provides the progress bar when toolbar is minimized */
-        Rectangle {
-            id: musicToolbarSmallProgressBackground
-            anchors {
-                bottom: parent.top
-                left: parent.left
-                right: parent.right
-            }
-            color: styleMusic.common.black
-            height: musicToolbarPanel.minimizedHeight
-            visible: (!musicToolbarPanel.animating &&
-                        !musicToolbarPanel.opened)
-                     || musicToolbarPanel.currentMode == "expanded"
-
-            Rectangle {
-                id: musicToolbarSmallProgressHint
-                anchors.left: parent.left
-                anchors.top: parent.top
-                color: UbuntuColors.blue
-                height: parent.height
-                width: 0
-
-                Connections {
-                    target: player
-                    onPositionChanged: {
-                        musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
+                /* Object which provides the progress bar when toolbar is minimized */
+                Rectangle {
+                    id: playerControlsProgressBar
+                    anchors {
+                        bottom: parent.bottom
+                        left: parent.left
+                        right: parent.right
                     }
-                    onStopped: {
-                        musicToolbarSmallProgressHint.width = 0;
+                    color: styleMusic.common.black
+                    height: units.gu(0.25)
+
+                    Rectangle {
+                        id: playerControlsProgressBarHint
+                        anchors {
+                            left: parent.left
+                            top: parent.top
+                        }
+                        color: UbuntuColors.blue
+                        height: parent.height
+                        width: 0
+
+                        Connections {
+                            target: player
+                            onPositionChanged: {
+                                playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
+                            }
+                            onStopped: {
+                                playerControlsProgressBarHint.width = 0;
+                            }
+                        }
                     }
                 }
             }
@@ -998,19 +940,6 @@ Item {
 
                 player.seek((fraction) * player.duration);
                 musicToolbarFullProgressBarContainer.seeking = false;
-            }
-        }
-
-        // Timer for autohide
-        Timer {
-            id: toolbarAutoHideTimer
-            interval: 5000
-            repeat: false
-            running: false
-            onTriggered: {
-                if (currentPage !== nowPlaying) {  // don't autohide on now playing
-                    hideToolbar();
-                }
             }
         }
     }

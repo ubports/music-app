@@ -379,8 +379,9 @@ MusicPage {
         id: queuelist
         visible: isListView
         objectName: "nowPlayingQueueList"
-        anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors {
+            fill: parent
+        }
         delegate: queueDelegate
         model: trackQueue.model
         highlightFollowsCurrentItem: false
@@ -411,10 +412,6 @@ MusicPage {
 
         onCountChanged: {
             customdebug("Queue: Now has: " + queuelist.count + " tracks")
-        }
-
-        onMovementStarted: {
-            musicToolbar.hideToolbar();
         }
 
         Component {

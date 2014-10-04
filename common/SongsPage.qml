@@ -29,7 +29,6 @@ import "ListItemActions"
 
 MusicPage {
     id: songStackPage
-    anchors.bottomMargin: units.gu(.5)
     objectName: "songsPage"
     visible: false
 
@@ -52,7 +51,6 @@ MusicPage {
     ListView {
         id: albumtrackslist
         anchors {
-            bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             fill: parent
         }
         delegate: albumTracksDelegate
@@ -61,7 +59,7 @@ MusicPage {
         width: parent.width
         header: ListItem.Standard {
             id: albumInfo
-            height: units.gu(33)
+            height: albumArtist.visible ? units.gu(33) : units.gu(30)
 
             BlurredBackground {
                 id: blurredBackground

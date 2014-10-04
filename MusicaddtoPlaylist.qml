@@ -65,7 +65,6 @@ MusicPage {
     ListView {
         id: addtoPlaylistView
         anchors {
-            bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             fill: parent
         }
         clip: true
