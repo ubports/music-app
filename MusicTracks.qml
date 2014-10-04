@@ -36,8 +36,9 @@ MusicPage {
 
     ListView {
         id: tracklist
-        anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors {
+            fill: parent
+        }
         highlightFollowsCurrentItem: false
         objectName: "trackstab-listview"
         model: SortFilterModel {

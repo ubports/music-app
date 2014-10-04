@@ -38,8 +38,9 @@ MusicPage {
 
     ListView {
         id: artistlist
-        anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors {
+            fill: parent
+        }
         model: ArtistsModel {
             id: artistsModel
             albumArtists: true

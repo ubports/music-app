@@ -29,7 +29,6 @@ import "ListItemActions"
 
 MusicPage {
     id: songStackPage
-    anchors.bottomMargin: units.gu(.5)
     objectName: "songsPage"
     visible: false
 
@@ -52,7 +51,6 @@ MusicPage {
     ListView {
         id: albumtrackslist
         anchors {
-            bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             fill: parent
         }
         delegate: albumTracksDelegate

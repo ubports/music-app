@@ -116,8 +116,9 @@ MusicPage {
     ListView {
         id: playlistslist
         objectName: "playlistsListView"
-        anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors {
+            fill: parent
+        }
         model: playlistModel.model
         delegate: playlistDelegate
         onCountChanged: {
