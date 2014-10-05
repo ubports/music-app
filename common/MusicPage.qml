@@ -23,6 +23,10 @@ import Ubuntu.Components 1.1
 // generic page for music, could be useful for bottomedge implementation
 Page {
     id: thisPage
+    anchors {
+        bottomMargin: musicToolbar.currentHeight
+        fill: parent
+    }
 
     onVisibleChanged: {
         if (visible) {

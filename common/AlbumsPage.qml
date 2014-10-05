@@ -28,7 +28,6 @@ import "../meta-database.js" as Library
 
 MusicPage {
     id: albumStackPage
-    anchors.bottomMargin: units.gu(.5)
     objectName: "albumsArtistPage"
     visible: false
 
@@ -38,7 +37,6 @@ MusicPage {
     ListView {
         id: albumtrackslist
         anchors {
-            bottomMargin: wideAspect ? musicToolbar.fullHeight : musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
             fill: parent
         }
         delegate: albumTracksDelegate

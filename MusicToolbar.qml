@@ -43,7 +43,6 @@ Item {
     property int transitionDuration: 100
 
     property alias currentHeight: musicToolbarPanel.height
-    property alias minimizedHeight: musicToolbarPanel.minimizedHeight
     property alias expandedHeight: musicToolbarPanel.expandedHeight
     property alias fullHeight: musicToolbarPanel.fullHeight
     property alias mouseAreaOffset: musicToolbarPanel.hintSize
@@ -72,22 +71,6 @@ Item {
 
     /* Helper functions */
 
-    // Disable the toolbar for this page/view (eg a dialog)
-    function disableToolbar()
-    {
-        cachedStates.push(state);
-        musicToolbarPanel.state = "hidden";
-    }
-
-    // Enable the toolbar (run when closing a page that disabled it)
-    function enableToolbar()
-    {
-        if (cachedStates.length > 0)
-        {
-            musicToolbarPanel.state = cachedStates.pop();
-        }
-    }
-
     // Back button has been pressed, jump up pageStack or back to parent page
     function goBack()
     {
@@ -98,18 +81,6 @@ Item {
         else if (mainPageStack !== null && mainPageStack.depth > 1) {
             mainPageStack.pop(currentPage)
         }
-
-        startAutohideTimer()
-    }
-
-    // Hide the toolbar
-    function hideToolbar()
-    {
-        if (!wideAspect) {
-            musicToolbarPanel.close();
-        }
-
-        toolbarAutoHideTimer.stop();  // cancel any autohide
     }
 
     // Remove sheet as it has been closed
@@ -135,32 +106,6 @@ Item {
         currentSheet.push(sheet)
     }
 
-    // Show the toolbar
-    function showToolbar()
-    {
-        startAutohideTimer();  // always attempt to autohide toolbar
-
-        if (!musicToolbarPanel.opened) {
-            musicToolbarPanel.open();
-        }
-    }
-
-    // Start the autohidetimer
-    function startAutohideTimer()
-    {
-        toolbarAutoHideTimer.restart();
-    }
-
-    Connections {
-        target: mainView
-        onWideAspectChanged: {
-            // Force toolbar to show if in wideAspect
-            if (wideAspect && !opened) {
-                showToolbar();
-            }
-        }
-    }
-
     Panel {
         id: musicToolbarPanel
         anchors {
@@ -168,30 +113,23 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        height: currentMode === "full" ? fullHeight : expandedHeight
-        locked: wideAspect
+        // TODO: this will be removed when the toolbar is redone
+        height: currentMode === "hidden" ? 0 : (currentMode === "full" ? fullHeight : expandedHeight)
+        locked: true
+        opened: true
 
-        __closeOnContentsClicks: false  // TODO: fix bug 1295720
-
+        // TODO: this will be removed when the toolbar is redone
         // The current mode of the controls
-        property string currentMode: wideAspect || (currentPage === nowPlaying)
-                                     ? "full" : "expanded"
+        property string currentMode: !nowPlaying.isListView && currentPage === nowPlaying
+            ? "hidden" : (wideAspect || currentPage === nowPlaying
+                ?  "full" : "expanded")
 
         // Properties for the different heights
-        property int minimizedHeight: units.gu(0.5)
-        property int expandedHeight: units.gu(8)
+        property int expandedHeight: units.gu(7.25)
         property int fullHeight: units.gu(11)
 
         onCurrentModeChanged: {
             musicToolbarFullProgressMouseArea.enabled = currentMode === "full"
-        }
-
-        onOpenedChanged: {
-            onToolbarShownChanged(opened, currentPage, currentTab);
-
-            if (opened) {
-                startAutohideTimer();
-            }
         }
 
         /* Full toolbar */
@@ -717,8 +655,10 @@ Item {
 
             Rectangle {
                 id: musicToolbarPlayerControls
-                anchors.fill: parent
-                color: styleMusic.playerControls.backgroundColor
+                anchors {
+                    fill: parent
+                }
+                color: "#000"
                 state: trackQueue.model.count === 0 ? "disabled" : "enabled"
                 states: [
                     State {
@@ -745,39 +685,55 @@ Item {
                     }
                 ]
 
+                /* Disabled (empty state) controls */
                 Rectangle {
                     id: disabledPlayerControlsGroup
-                    anchors.fill: parent
+                    anchors {
+                        bottom: playerControlsProgressBar.top
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
                     color: "transparent"
-                    visible: trackQueue.model.count === 0
 
                     Label {
                         id: noSongsInQueueLabel
                         anchors {
                             left: parent.left
+                            leftMargin: units.gu(2)
                             right: disabledPlayerControlsPlayButton.left
-                            margins: units.gu(1)
-                            top: parent.top
+                            rightMargin: units.gu(2)
+                            verticalCenter: parent.verticalCenter
                         }
                         color: styleMusic.playerControls.labelColor
-                        text: i18n.tr("Tap play to shuffle music")
+                        text: i18n.tr("Tap to shuffle music")
                         fontSize: "large"
                         wrapMode: Text.WordWrap
                         maximumLineCount: 2
                     }
 
-                    Rectangle {
+                    /* Play/Pause button */
+                    Icon {
                         id: disabledPlayerControlsPlayButton
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        anchors.verticalCenter: parent.verticalCenter
-                        antialiasing: true
-                        color: "#444"
-                        height: units.gu(7)
-                        radius: height / 2
+                        anchors {
+                            right: parent.right
+                            rightMargin: units.gu(3)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        color: "#FFF"
+                        height: units.gu(2.5)
+                        name: player.playbackState === MediaPlayer.PlayingState ?
+                                  "media-playback-pause" : "media-playback-start"
+                        objectName: "disabledSmallPlayShape"
                         width: height
+                    }
 
-                        function trigger() {
+                    /* Click to shuffle music */
+                    MouseArea {
+                        anchors {
+                            fill: parent
+                        }
+                        onClicked: {
                             if (emptyPage.noMusic) {
                                 return;
                             }
@@ -787,232 +743,67 @@ Item {
                             }
                             else {
                                 player.toggle();
-                            }
-                        }
-
-                        // draws the outer shadow/highlight
-                        Rectangle {
-                            id: disabledSourceOutter
-                            anchors { fill: parent; margins: -units.gu(0.1) }
-                            radius: (width / 2)
-                            antialiasing: true
-                            gradient: Gradient {
-                                GradientStop { position: 0.0; color: "black" }
-                                GradientStop { position: 0.5; color: "transparent" }
-                                GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
-                            }
-
-                            Rectangle {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                antialiasing: true
-                                color: "#444"
-                                height: playerControlsPlayButton.height - units.gu(.1)
-                                radius: height / 2
-                                width: height
-
-                                Rectangle {
-                                    id: disabledPlayerControlsPlayInnerCircle
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    antialiasing: true
-                                    height: units.gu(4.5)
-                                    radius: height / 2
-                                    width: height
-                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
-
-                                    // draws the inner shadow/highlight
-                                    Rectangle {
-                                        id: disabledSourceInner
-                                        anchors { fill: parent; margins: -units.gu(0.1) }
-                                        radius: (width / 2)
-                                        antialiasing: true
-                                        gradient: Gradient {
-                                            GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
-                                            GradientStop { position: 0.5; color: "transparent" }
-                                            GradientStop { position: 1.0; color: "black" }
-                                        }
-
-                                        Rectangle {
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            antialiasing: true
-                                            height: playerControlsPlayInnerCircle.height - units.gu(.1)
-                                            radius: height / 2
-                                            width: height
-                                            color: styleMusic.toolbar.fullInnerPlayCircleColor
-
-                                            Image {
-                                                id: disabledPlayIndicator
-                                                height: units.gu(4)
-                                                width: height
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                opacity: emptyPage.noMusic ? .4 : 1
-                                                source: player.playbackState === MediaPlayer.PlayingState ?
-                                                            Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
-                                            }
-                                        }
-                                    }
-                                }
                             }
                         }
                     }
                 }
 
+                /* Enabled (queue > 0) controls */
                 Rectangle {
                     id: enabledPlayerControlsGroup
-                    anchors.fill: parent
+                    anchors {
+                        bottom: playerControlsProgressBar.top
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
                     color: "transparent"
-                    visible: trackQueue.model.count !== 0
 
-                    /* Settings button */
-                    // TODO: Enable settings when it is practical
-                    /* Rectangle {
-                        id: playerControlsSettings
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: units.gu(6)
-                        height: width
-                        color: "transparent"
-
-                        Image {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            height: units.gu(3)
-                            source: Qt.resolvedUrl("images/settings.png")
-                            width: height
+                    /* Album art in player controls */
+                    Image {
+                        id: playerControlsImage
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            top: parent.top
                         }
+                        smooth: true
+                        source: player.currentMetaArt === "" ?
+                                    decodeURIComponent("image://albumart/artist=" +
+                                                       player.currentMetaArtist +
+                                                       "&album=" + player.currentMetaAlbum)
+                                  : player.currentMetaArt
+                        width: parent.height
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                console.debug('Debug: Show settings')
-                                PopupUtils.open(Qt.resolvedUrl("MusicSettings.qml"), mainView,
-                                                {
-                                                    title: i18n.tr("Settings")
-                                                } )
-                            }
-                        }
-                    } */
-
-                    /* Play/Pause button TODO: image and colours needs updating */
-                    Rectangle {
-                        id: playerControlsPlayButton
-                        anchors.right: parent.right
-                        anchors.rightMargin: units.gu(1)
-                        anchors.verticalCenter: parent.verticalCenter
-                        antialiasing: true
-                        color: "#444"
-                        height: units.gu(7)
-                        objectName: "smallPlayShape"
-                        radius: height / 2
-                        width: height
-
-                        function trigger() {
-                            if (emptyPage.noMusic) {
-                                return;
-                            }
-
-                            if (trackQueue.model.count === 0) {
-                                playRandomSong();
-                            }
-                            else {
-                                player.toggle();
-                            }
-                        }
-
-                        // draws the outer shadow/highlight
-                        Rectangle {
-                            id: sourceOutter
-                            anchors { fill: parent; margins: -units.gu(0.1) }
-                            radius: (width / 2)
-                            antialiasing: true
-                            gradient: Gradient {
-                                GradientStop { position: 0.0; color: "black" }
-                                GradientStop { position: 0.5; color: "transparent" }
-                                GradientStop { position: 1.0; color: UbuntuColors.warmGrey }
-                            }
-
-                            Rectangle {
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                antialiasing: true
-                                color: "#444"
-                                height: playerControlsPlayButton.height - units.gu(.1)
-                                radius: height / 2
-                                width: height
-
-                                Rectangle {
-                                    id: playerControlsPlayInnerCircle
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    antialiasing: true
-                                    height: units.gu(4.5)
-                                    radius: height / 2
-                                    width: height
-                                    color: styleMusic.toolbar.fullInnerPlayCircleColor
-
-                                    // draws the inner shadow/highlight
-                                    Rectangle {
-                                        id: sourceInner
-                                        anchors { fill: parent; margins: -units.gu(0.1) }
-                                        radius: (width / 2)
-                                        antialiasing: true
-                                        gradient: Gradient {
-                                            GradientStop { position: 0.0; color: UbuntuColors.warmGrey }
-                                            GradientStop { position: 0.5; color: "transparent" }
-                                            GradientStop { position: 1.0; color: "black" }
-                                        }
-
-                                        Rectangle {
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            antialiasing: true
-                                            height: playerControlsPlayInnerCircle.height - units.gu(.1)
-                                            radius: height / 2
-                                            width: height
-                                            color: styleMusic.toolbar.fullInnerPlayCircleColor
-
-                                            Image {
-                                                id: playindicator
-                                                height: units.gu(4)
-                                                width: height
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                opacity: emptyPage.noMusic ? .4 : 1
-                                                source: player.playbackState === MediaPlayer.PlayingState ?
-                                                            Qt.resolvedUrl("images/media-playback-pause.svg") : Qt.resolvedUrl("images/media-playback-start.svg")
-                                            }
-                                        }
-                                    }
-                                }
+                        onStatusChanged: {
+                            if (status === Image.Error) {
+                                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
                             }
                         }
                     }
 
-                    /* Container holding the labels for the toolbar */
-                    Rectangle {
-                        id: playerControlLabelContainer
-                        anchors.bottom: parent.bottom
-                        anchors.left: parent.left
-                        anchors.right: playerControlsPlayButton.left
-                        anchors.top: parent.top
-                        color: "transparent"
+                    /* Column of meta labels */
+                    Column {
+                        id: playerControlsLabels
+                        anchors {
+                            left: playerControlsImage.right
+                            leftMargin: units.gu(1.5)
+                            right: playerControlsPlayButton.left
+                            rightMargin: units.gu(1)
+                            verticalCenter: parent.verticalCenter
+                        }
 
                         /* Title of track */
                         Label {
                             id: playerControlsTitle
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(1)
-                            anchors.right: parent.right
-                            anchors.rightMargin: units.gu(1)
-                            anchors.top: parent.top
-                            anchors.topMargin: units.gu(1)
-                            color: styleMusic.playerControls.labelColor
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+                            color: "#FFF"
                             elide: Text.ElideRight
-                            fontSize: "medium"
-                            objectName: "playercontroltitle"
+                            fontSize: "small"
+                            font.weight: Font.DemiBold
                             text: player.currentMetaTitle === ""
                                   ? player.source : player.currentMetaTitle
                         }
@@ -1020,72 +811,103 @@ Item {
                         /* Artist of track */
                         Label {
                             id: playerControlsArtist
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(1)
-                            anchors.right: parent.right
-                            anchors.rightMargin: units.gu(1)
-                            anchors.top: playerControlsTitle.bottom
-                            color: styleMusic.playerControls.labelColor
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+                            color: "#FFF"
                             elide: Text.ElideRight
                             fontSize: "small"
+                            opacity: 0.4
                             text: player.currentMetaArtist
-                        }
-
-                        /* Album of track */
-                        Label {
-                            id: playerControlsAlbum
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.gu(1)
-                            anchors.right: parent.right
-                            anchors.rightMargin: units.gu(1)
-                            anchors.top: playerControlsArtist.bottom
-                            color: styleMusic.playerControls.labelColor
-                            elide: Text.ElideRight
-                            fontSize: "small"
-                            text: player.currentMetaAlbum
                         }
                     }
 
+                    /* Play/Pause button */
+                    Icon {
+                        id: playerControlsPlayButton
+                        anchors {
+                            right: parent.right
+                            rightMargin: units.gu(3)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        color: "#FFF"
+                        height: units.gu(2.5)
+                        name: player.playbackState === MediaPlayer.PlayingState ?
+                                  "media-playback-pause" : "media-playback-start"
+                        objectName: "smallPlayShape"
+                        width: height
+                    }
+
+                    MouseArea {
+                        anchors {
+                            bottom: parent.bottom
+                            horizontalCenter: playerControlsPlayButton.horizontalCenter
+                            top: parent.top
+                        }
+                        onClicked: player.toggle()
+                        width: units.gu(8)
+
+                        Rectangle {
+                            anchors {
+                                fill: parent
+                            }
+                            color: "#FFF"
+                            opacity: parent.pressed ? 0.1 : 0
+
+                            Behavior on opacity {
+                                UbuntuNumberAnimation {
+                                    duration: UbuntuAnimation.FastDuration
+                                }
+                            }
+                        }
+                    }
+
+                    /* Mouse area to jump to now playing */
                     Rectangle {
-                        anchors.fill: playerControlLabelContainer
+                        anchors {
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: playerControlsLabels.right
+                            top: parent.top
+                        }
                         color: "transparent"
                         function trigger() {
                             tabs.pushNowPlaying();
                         }
                     }
                 }
-            }
-        }
 
-        /* Object which provides the progress bar when toolbar is minimized */
-        Rectangle {
-            id: musicToolbarSmallProgressBackground
-            anchors {
-                bottom: parent.top
-                left: parent.left
-                right: parent.right
-            }
-            color: styleMusic.common.black
-            height: musicToolbarPanel.minimizedHeight
-            visible: (!musicToolbarPanel.animating &&
-                        !musicToolbarPanel.opened)
-                     || musicToolbarPanel.currentMode == "expanded"
-
-            Rectangle {
-                id: musicToolbarSmallProgressHint
-                anchors.left: parent.left
-                anchors.top: parent.top
-                color: styleMusic.nowPlaying.progressForegroundColor
-                height: parent.height
-                width: 0
-
-                Connections {
-                    target: player
-                    onPositionChanged: {
-                        musicToolbarSmallProgressHint.width = (player.position / player.duration) * musicToolbarSmallProgressBackground.width
+                /* Object which provides the progress bar when toolbar is minimized */
+                Rectangle {
+                    id: playerControlsProgressBar
+                    anchors {
+                        bottom: parent.bottom
+                        left: parent.left
+                        right: parent.right
                     }
-                    onStopped: {
-                        musicToolbarSmallProgressHint.width = 0;
+                    color: styleMusic.common.black
+                    height: units.gu(0.25)
+
+                    Rectangle {
+                        id: playerControlsProgressBarHint
+                        anchors {
+                            left: parent.left
+                            top: parent.top
+                        }
+                        color: UbuntuColors.blue
+                        height: parent.height
+                        width: 0
+
+                        Connections {
+                            target: player
+                            onPositionChanged: {
+                                playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
+                            }
+                            onStopped: {
+                                playerControlsProgressBarHint.width = 0;
+                            }
+                        }
                     }
                 }
             }
@@ -1121,19 +943,6 @@ Item {
 
                 player.seek((fraction) * player.duration);
                 musicToolbarFullProgressBarContainer.seeking = false;
-            }
-        }
-
-        // Timer for autohide
-        Timer {
-            id: toolbarAutoHideTimer
-            interval: 5000
-            repeat: false
-            running: false
-            onTriggered: {
-                if (currentPage !== nowPlaying) {  // don't autohide on now playing
-                    hideToolbar();
-                }
             }
         }
     }

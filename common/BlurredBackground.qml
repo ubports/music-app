@@ -23,8 +23,14 @@ import QtGraphicalEffects 1.0
 
 // Blurred background
 Rectangle {
-    anchors.fill: parent
+    width: parent.width
     property string art  // : player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
+
+    // dark layer
+    Rectangle {
+        anchors.fill: parent
+        color: "black" 
+    }
 
     // the album art
     Image {
@@ -32,7 +38,8 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         source: art // this has to be fixed for the default cover art to work - cant find in this dir
-        height: Math.max(parent.height, parent.width)
+        fillMode: Image.PreserveAspectCrop
+        height: parent.height
         width: Math.max(parent.height, parent.width)
         visible: false
         onStatusChanged: {
@@ -47,12 +54,7 @@ Rectangle {
         anchors.fill: backgroundImage
         source: backgroundImage
         radius: units.dp(42)
-    }
-    // transparent white layer
-    Rectangle {
-        anchors.fill: parent
-        color: "white"
-        opacity: 0.7
+        opacity: 0.2
     }
     onArtChanged: {
         // TODO: This is a work around for LP:1261078 and LP:1306845. Ideally,
