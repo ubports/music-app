@@ -42,10 +42,10 @@ MusicPage {
         }
         delegate: Card {
             id: albumCard
-            imageSource: art
+            imageSource: model.art
             objectName: "albumsPageGridItem" + index
-            primaryText: title
-            secondaryText: artist
+            primaryText: model.title
+            secondaryText: model.artist
 
             onClicked: {
                 songsPage.album = model.title;
