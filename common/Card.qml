@@ -22,11 +22,9 @@ import Ubuntu.Components 1.1
 Rectangle {
     id: card
     color: "transparent"
-    height: cardColumn.childrenRect.height
-    width: parent.parent.parent.cellWidth
+    height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
 
     property alias imageSource: image.source
-    property int margin: units.gu(2)
     property alias primaryText: primaryLabel.text
     property alias secondaryText: secondaryLabel.text
 
@@ -63,6 +61,7 @@ Rectangle {
         id: bg
         anchors {
             fill: parent
+            margins: units.gu(1)
         }
         color: "#2c2c34"
     }
@@ -71,7 +70,7 @@ Rectangle {
     Column {
         id: cardColumn
         anchors {
-            fill: parent
+            fill: bg
         }
         spacing: units.gu(0.5)
 

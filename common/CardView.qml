@@ -22,27 +22,20 @@ import Ubuntu.Components 1.1
 Flickable {
     anchors {
         fill: parent
+        margins: units.gu(1)
     }
-    contentWidth: parent.width;
+
+    // dont use flow.contentHeight as it is inaccurate due to height of labels
+    // changing as they load
     contentHeight: flow.childrenRect.height
+    contentWidth: width
 
-    property int cellWidth: flow.width / parseInt(flow.width / units.gu(15)) - units.gu(2)  // 15 GU minimum
-    property alias delegate: flowRepeater.delegate
-    property alias model: flowRepeater.model
+    property alias delegate: flow.delegate
+    property alias model: flow.model
 
-    Flow {
+    ColumnFlow {
         id: flow
-        anchors {
-            fill: parent
-            leftMargin: units.gu(2)
-            topMargin: units.gu(2)
-        }
-        flow: Flow.LeftToRight
-        spacing: units.gu(2)
-
-        Repeater {
-            id: flowRepeater
-        }
+        columns: parseInt(width / units.gu(15))
+        width: parent.width
     }
 }
-
