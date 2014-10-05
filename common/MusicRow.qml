@@ -54,7 +54,8 @@ Row {
             top: parent.top
             topMargin: units.gu(1)
         }
-        width: parent.width - coverRow.width - parent.spacing
+        width: showCovers ? parent.width - coverRow.width - parent.spacing
+                          : parent.width - parent.spacing
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {
