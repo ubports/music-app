@@ -69,6 +69,11 @@ Item {
 
         //add the first <column> elements
         for (i = 0; count < columns && i < columnFlow.children.length; i++) {
+            // CUSTOM - ignore if has just been removed
+            if (i === repeater.removeHintIndex && columnFlow.children[i] === repeater.removeHintItem) {
+                continue
+            }
+
             if (!columnFlow.children[i] || String(columnFlow.children[i]).indexOf("QQuickRepeater") == 0)
                     //|| !columnFlow.children[i].visible)  // CUSTOM - view is invisible at start
                 continue
@@ -89,6 +94,11 @@ Item {
         for (i = i; i < columnFlow.children.length; i++) {
             var highestHeight = Number.MAX_VALUE
             var newColumn = 0
+
+            // CUSTOM - ignore if has just been removed
+            if (i === repeater.removeHintIndex && columnFlow.children[i] === repeater.removeHintItem) {
+                continue
+            }
 
             if (!columnFlow.children[i] || String(columnFlow.children[i]).indexOf("QQuickRepeater") == 0)
                     //|| !columnFlow.children[i].visible)  // CUSTOM - view is invisible at start
@@ -129,7 +139,21 @@ Item {
             columnFlow.repeaterCompleted = true
             columnFlow.reEvalColumns()
         }
+
+        // Provide a hint of the removed item
+        property int removeHintIndex: -1  // CUSTOM
+        property var removeHintItem  // CUSTOM
+
         onItemAdded: columnFlow.reEvalColumns()  // CUSTOM - ms2 models are live
-        onItemRemoved: columnFlow.reEvalColumns()  // CUSTOM - ms2 models are live
+        onItemRemoved: {
+            removeHintIndex = index
+            removeHintItem = item
+
+            columnFlow.reEvalColumns()  // CUSTOM - ms2 models are live
+
+            // Set back to null to allow freeing of memory
+            removeHintIndex = -1
+            removeHintItem = undefined
+        }
     }
 }
