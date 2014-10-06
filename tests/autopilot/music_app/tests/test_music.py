@@ -316,6 +316,7 @@ class TestMainWindow(MusicAppTestCase):
         """tests navigating to the Albums tab and adding a song to queue"""
 
         now_playing_page = self.app.get_now_playing_page()
+        toolbar = self.app.get_toolbar()
 
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
