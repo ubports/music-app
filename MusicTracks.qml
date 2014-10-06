@@ -60,7 +60,8 @@ MusicPage {
                 color: "transparent"
                 objectName: "tracksPageListItem" + index
                 width: parent.width
-                height: styleMusic.common.itemHeight
+                height: units.gu(6)
+                showDivider: false
 
                 rightSideActions: [
                     AddToQueue {
@@ -79,28 +80,22 @@ MusicPage {
                 MusicRow {
                     id: musicRow
                     covers: [{art: model.art}]
+                    isSquare: true
+                    coverSize: units.gu(6)
                     column: Column {
-                        spacing: units.gu(1)
-                        Label {
-                            id: trackArtist
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: model.author
-                        }
-
                         Label {
                             id: trackTitle
                             color: styleMusic.common.music
-                            fontSize: "medium"
+                            fontSize: "small"
                             objectName: "tracktitle"
                             text: model.title
                         }
 
                         Label {
-                            id: trackAlbum
+                            id: trackArtist
                             color: styleMusic.common.subtitle
-                            fontSize: "xx-small"
-                            text: model.album
+                            fontSize: "x-small"
+                            text: model.author
                         }
                     }
                 }

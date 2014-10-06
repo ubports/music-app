@@ -31,21 +31,44 @@ Row {
 
     property alias covers: coverRow.covers
     property bool showCovers: true
+    property bool isSquare: false
     property alias pressed: coverRow.pressed
     property alias column: columnComponent.sourceComponent
+    property real coverSize: styleMusic.common.albumSize
 
     spacing: units.gu(1)
 
     CoverRow {
         id: coverRow
-        visible: showCovers
+        visible: showCovers && !isSquare
         anchors {
             top: parent.top
             topMargin: units.gu(1)
         }
         count: covers.length
         covers: []
-        size: styleMusic.common.albumSize
+        size: coverSize
+    }
+
+    Image {
+        id: coverSquare
+        visible: showCovers && isSquare
+        width: coverSize
+        height: coverSize
+        anchors {
+            top: parent.top
+            topMargin: units.gu(0.25)
+        }
+        source: coverRow.count !== 0 && coverRow.covers[0] !== "" && coverRow.covers[0] !== undefined
+                ? (coverRow.covers[0].art !== undefined
+                   ? coverRow.covers[0].art
+                   : "image://albumart/artist=" + coverRow.covers[0].author + "&album=" + coverRow.covers[0].album)
+                : Qt.resolvedUrl("../images/music-app-cover@30.png")
+        onStatusChanged: {
+            if (status === Image.Error) {
+                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+        }
     }
 
     Loader {
@@ -54,7 +77,8 @@ Row {
             top: parent.top
             topMargin: units.gu(1)
         }
-        width: parent.width - coverRow.width - parent.spacing
+        width: isSquare ? parent.width - coverRow.width - parent.spacing
+                        : parent.width - coverSquare.width - parent.spacing
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {
