@@ -330,6 +330,7 @@ Item {
                             top: parent.top
                         }
                         color: "transparent"
+                        objectName: "jumpNowPlaying"
                         function trigger() {
                             tabs.pushNowPlaying();
                         }

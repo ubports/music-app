@@ -91,6 +91,8 @@ class TestMainWindow(MusicAppTestCase):
                         Eventually(NotEquals(end_tracks_count)))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
+        toolbar.switch_to_now_playing()  # Switch to the now playing page
+
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
@@ -99,7 +101,7 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(self.tracks[0]["title"]))
 
-        # click on close button to close the page
+        # click on close button to close the page and now playing page
         self.app.main_view.go_back()
 
         # click the play button (toolbar) to start playing
@@ -341,6 +343,8 @@ class TestMainWindow(MusicAppTestCase):
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
+        toolbar.switch_to_now_playing()  # Switch to the now playing page
+
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
@@ -349,7 +353,7 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(tracks[0]["title"]))
 
-        # click on close button to close songs page
+        # click on close button to close nowplaying and songs page
         self.app.main_view.go_back()
 
         # check that the albums page is now visible
@@ -391,6 +395,7 @@ class TestMainWindow(MusicAppTestCase):
            to the queue via the expandable list view item. """
 
         now_playing_page = self.app.get_now_playing_page()
+        toolbar = self.app.get_toolbar()
 
         # get number of tracks in queue before queuing a track
         initial_tracks_count = now_playing_page.get_count()
@@ -412,6 +417,8 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.currentIndex,
                         Eventually(NotEquals(now_playing_page.get_count())))
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+        toolbar.switch_to_now_playing()  # Switch to the now playing page
 
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
