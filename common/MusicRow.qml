@@ -77,8 +77,9 @@ Row {
             top: parent.top
             topMargin: units.gu(1)
         }
-        width: isSquare ? parent.width - coverRow.width - parent.spacing
-                        : parent.width - coverSquare.width - parent.spacing
+        width: !showCovers ? parent.width - parent.spacing
+                           : (isSquare ? parent.width - coverSquare.width - parent.spacing
+                                       : parent.width - coverRow.width - parent.spacing)
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {

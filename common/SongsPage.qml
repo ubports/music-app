@@ -90,13 +90,15 @@ MusicPage {
             Label {
                 id: albumLabel
                 wrapMode: Text.NoWrap
-                maximumLineCount: 2
+                maximumLineCount: 1
                 fontSize: "x-large"
                 color: styleMusic.common.music
                 anchors {
                     top: albumImage.bottom
                     topMargin: units.gu(1)
                     left: albumImage.left
+                    right: parent.right
+                    rightMargin: units.gu(2)
                 }
                 elide: Text.ElideRight
                 text: line2
@@ -115,6 +117,8 @@ MusicPage {
                     top: albumLabel.bottom
                     topMargin: units.gu(0.75)
                     left: albumImage.left
+                    right: parent.right
+                    rightMargin: units.gu(2)
                 }
                 elide: Text.ElideRight
                 text: line1
@@ -131,6 +135,8 @@ MusicPage {
                                              : albumLabel.bottom
                     topMargin: units.gu(1)
                     left: albumImage.left
+                    right: parent.right
+                    rightMargin: units.gu(2)
                 }
                 elide: Text.ElideRight
                 text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
