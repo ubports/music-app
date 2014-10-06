@@ -28,19 +28,19 @@ import "settings.js" as Settings
 
 MusicPage {
     id: nowPlaying
+    flickable: isListView ? queuelist : null
     objectName: "nowPlayingPage"
     title: i18n.tr("Now Playing")
     visible: false
     onVisibleChanged: {
         if (!visible) {
             // Reset the isListView property
-            // TODO: In the future this will default to false
-            isListView = true
+            isListView = false
         }
     }
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
-    property bool isListView: true
+    property bool isListView: false
 
     head {
         actions: [
@@ -88,10 +88,9 @@ MusicPage {
 
     Rectangle {
         id: fullview
-        visible: !isListView
         anchors.fill: parent
         color: "transparent"
-        clip: true
+        visible: !isListView
 
         BlurredBackground {
             id: blurredBackground
@@ -195,6 +194,7 @@ MusicPage {
                     id: progressSliderMusic
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    objectName: "progressSliderShape"
                     function formatValue(v) { return durationToString(v) }
 
                     property bool seeking: false
@@ -371,14 +371,16 @@ MusicPage {
 
     ListView {
         id: queuelist
-        visible: isListView
-        objectName: "nowPlayingQueueList"
         anchors {
             fill: parent
         }
         delegate: queueDelegate
-        model: trackQueue.model
+        footer: Item {
+            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
+        }
         highlightFollowsCurrentItem: false
+        model: trackQueue.model
+        objectName: "nowPlayingQueueList"
         state: "normal"
         states: [
             State {
@@ -396,9 +398,7 @@ MusicPage {
                 }
             }
         ]
-        footer: Item {
-            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
-        }
+        visible: isListView
 
         property int normalHeight: units.gu(12)
         property int currentHeight: units.gu(40)
