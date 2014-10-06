@@ -38,7 +38,7 @@ MusicPage {
     //       page is now vertically flickable.
     ListView {
         anchors.fill: parent
-        anchors.bottomMargin: musicToolbar.mouseAreaOffset + musicToolbar.minimizedHeight
+        anchors.bottomMargin: musicToolbar.currentHeight
     }
 
     GridView {
