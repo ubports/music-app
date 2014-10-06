@@ -21,6 +21,28 @@ def click_object(func):
     return func_wrapper
 
 
+def ensure_now_playing_full(func):
+    """Wrapper which ensures the now playing is full before clicking"""
+    def func_wrapper(self, *args, **kwargs):
+        if self.isListView:
+            self.click_toggle_view()
+
+        return func(self, *args, **kwargs)
+
+    return func_wrapper
+
+
+def ensure_now_playing_list(func):
+    """Wrapper which ensures the now playing is list before clicking"""
+    def func_wrapper(self, *args, **kwargs):
+        if not self.isListView:
+            self.click_toggle_view()
+
+        return func(self, *args, **kwargs)
+
+    return func_wrapper
+
+
 class MusicApp(object):
     """Autopilot helper object for the Music application."""
 
@@ -213,22 +235,45 @@ class MusicNowPlaying(MusicPage):
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
 
+    @ensure_now_playing_full
     @click_object
     def click_forward_button(self):
         return self.wait_select_single("*", objectName="forwardShape")
 
+    @ensure_now_playing_full
+    @click_object
+    def click_play_button(self):
+        return self.wait_select_single("*", objectName="playShape")
+
+    @ensure_now_playing_full
     @click_object
     def click_previous_button(self):
         return self.wait_select_single("*", objectName="previousShape")
 
+    @ensure_now_playing_full
     @click_object
     def click_repeat_button(self):
         return self.wait_select_single("*", objectName="repeatShape")
 
+    @ensure_now_playing_full
     @click_object
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
+    def click_toggle_view(self):
+        self.main_view.get_header().click_action_button("toggleView")
+
+    @ensure_now_playing_list
+    def get_count(self):
+        return self.select_single("QQuickListView",
+                                  objectName="nowPlayingQueueList").count
+
+    @ensure_now_playing_list
+    def get_track(self, i):
+        return (self.wait_select_single(ListItemWithActions,
+                objectName="nowPlayingListItem" + str(i)))
+
+    @ensure_now_playing_full
     def seek_to(self, percentage):
         progress_bar = self.wait_select_single(
             "*", objectName="progressSliderShape")
@@ -239,14 +284,6 @@ class MusicNowPlaying(MusicPage):
         x2 = x1 + int(width * percentage / 100)
 
         self.pointing_device.drag(x1, y1, x2, y1)
-
-    def get_count(self):
-        return self.select_single("QQuickListView",
-                                  objectName="nowPlayingQueueList").count
-
-    def get_track(self, i):
-        return (self.wait_select_single(ListItemWithActions,
-                objectName="nowPlayingListItem" + str(i)))
 
     def set_repeat(self, state):
         if self.player.repeat != state:
