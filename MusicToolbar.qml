@@ -46,14 +46,14 @@ Item {
         target: mainPageStack
 
         onCurrentPageChanged: {
-            previousPage = currentPage;
-
             // If going back from nowPlaying jump back to tabs
             if (previousPage === nowPlaying && mainPageStack.currentPage !== nowPlaying) {
                 while (mainPageStack.depth > 1) {
                     mainPageStack.pop(mainPageStack.currentPage)
                 }
             }
+
+            previousPage = currentPage;
         }
     }
 

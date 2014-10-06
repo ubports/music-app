@@ -93,6 +93,9 @@ class TestMainWindow(MusicAppTestCase):
 
         toolbar.switch_to_now_playing()  # Switch to the now playing page
 
+        # Re get now playing page as it has changed
+        now_playing_page = self.app.get_now_playing_page()
+
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
@@ -346,6 +349,9 @@ class TestMainWindow(MusicAppTestCase):
 
         toolbar.switch_to_now_playing()  # Switch to the now playing page
 
+        # Re get now playing page as it has changed
+        now_playing_page = self.app.get_now_playing_page()
+
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
 
@@ -420,6 +426,9 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         toolbar.switch_to_now_playing()  # Switch to the now playing page
+
+        # Re get now playing page as it has changed
+        now_playing_page = self.app.get_now_playing_page()
 
         # verify song's metadata matches the item added to the Now Playing view
         current_track = now_playing_page.get_track(self.player.currentIndex)
