@@ -263,7 +263,6 @@ class MusicNowPlaying(MusicPage):
     def click_toggle_view(self):
         self.main_view.get_header().click_action_button("toggleView")
 
-    @ensure_now_playing_list
     def get_count(self):
         return self.select_single("QQuickListView",
                                   objectName="nowPlayingQueueList").count
