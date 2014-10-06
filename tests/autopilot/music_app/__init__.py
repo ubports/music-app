@@ -210,6 +210,36 @@ class MusicNowPlaying(MusicPage):
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
+        root = self.get_root_instance()
+        self.player = root.select_single(Player, objectName="player")
+
+    @click_object
+    def click_forward_button(self):
+        return self.wait_select_single("*", objectName="forwardShape")
+
+    @click_object
+    def click_previous_button(self):
+        return self.wait_select_single("*", objectName="previousShape")
+
+    @click_object
+    def click_repeat_button(self):
+        return self.wait_select_single("*", objectName="repeatShape")
+
+    @click_object
+    def click_shuffle_button(self):
+        return self.wait_select_single("*", objectName="shuffleShape")
+
+    def seek_to(self, percentage):
+        progress_bar = self.wait_select_single(
+            "*", objectName="progressSliderShape")
+
+        x1, y1, width, height = progress_bar.globalRect
+        y1 += height // 2
+
+        x2 = x1 + int(width * percentage / 100)
+
+        self.pointing_device.drag(x1, y1, x2, y1)
+
     def get_count(self):
         return self.select_single("QQuickListView",
                                   objectName="nowPlayingQueueList").count
@@ -217,6 +247,18 @@ class MusicNowPlaying(MusicPage):
     def get_track(self, i):
         return (self.wait_select_single(ListItemWithActions,
                 objectName="nowPlayingListItem" + str(i)))
+
+    def set_repeat(self, state):
+        if self.player.repeat != state:
+            self.click_repeat_button()
+
+        self.player.repeat.wait_for(state)
+
+    def set_shuffle(self, state):
+        if self.player.shuffle != state:
+            self.click_shuffle_button()
+
+        self.player.shuffle.wait_for(state)
 
 
 class AlbumsPage(MusicPage):
@@ -257,59 +299,13 @@ class SongsPage(MusicPage):
 
 
 class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
-    """Autopilot helper for the toolbar
-
-    expanded - refers to things when the toolbar is in its smaller state
-    full - refers to things when the toolbar is in its larger state
-    """
+    """Autopilot helper for the toolbar"""
     def __init__(self, *args):
         super(MusicToolbar, self).__init__(*args)
-
-        root = self.get_root_instance()
-        self.player = root.select_single(Player, objectName="player")
-
-    @click_object
-    def click_forward_button(self):
-        return self.wait_select_single("*", objectName="forwardShape")
 
     @click_object
     def click_play_button(self):
         return self.wait_select_single("*", objectName="playShape")
-
-    @click_object
-    def click_previous_button(self):
-        return self.wait_select_single("*", objectName="previousShape")
-
-    @click_object
-    def click_repeat_button(self):
-        return self.wait_select_single("*", objectName="repeatShape")
-
-    @click_object
-    def click_shuffle_button(self):
-        return self.wait_select_single("*", objectName="shuffleShape")
-
-    def seek_to(self, percentage):
-        progress_bar = self.wait_select_single(
-            "*", objectName="progressSliderShape")
-
-        x1, y1, width, height = progress_bar.globalRect
-        y1 += height // 2
-
-        x2 = x1 + int(width * percentage / 100)
-
-        self.pointing_device.drag(x1, y1, x2, y1)
-
-    def set_repeat(self, state):
-        if self.player.repeat != state:
-            self.click_repeat_button()
-
-        self.player.repeat.wait_for(state)
-
-    def set_shuffle(self, state):
-        if self.player.shuffle != state:
-            self.click_shuffle_button()
-
-        self.player.shuffle.wait_for(state)
 
 
 class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):

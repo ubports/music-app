@@ -293,7 +293,7 @@ Item {
                         height: units.gu(2.5)
                         name: player.playbackState === MediaPlayer.PlayingState ?
                                   "media-playback-pause" : "media-playback-start"
-                        objectName: "smallPlayShape"
+                        objectName: "playShape"
                         width: height
                     }
 

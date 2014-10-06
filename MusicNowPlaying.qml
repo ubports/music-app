@@ -251,7 +251,6 @@ MusicPage {
             /* Repeat button */
             MouseArea {
                 id: nowPlayingRepeatButton
-                objectName: "repeatShape"
                 anchors.right: nowPlayingPreviousButton.left
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -268,6 +267,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-playlist-repeat"
+                    objectName: "repeatShape"
                     opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
                 }
             }
@@ -279,7 +279,6 @@ MusicPage {
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
                 height: units.gu(6)
-                objectName: "previousShape"
                 opacity: trackQueue.model.count === 0  ? .4 : 1
                 width: height
                 onClicked: player.previousSong()
@@ -292,6 +291,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-skip-backward"
+                    objectName: "previousShape"
                     opacity: 1
                 }
             }
@@ -303,7 +303,6 @@ MusicPage {
                 anchors.top: musicToolbarFullProgressContainer.bottom
                 anchors.topMargin: units.gu(2)
                 height: units.gu(12)
-                objectName: "playShape"
                 width: height
                 onClicked: player.toggle()
 
@@ -316,6 +315,7 @@ MusicPage {
                     opacity: emptyPage.noMusic ? .4 : 1
                     color: "white"
                     name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+                    objectName: "playShape"
                 }
             }
 
@@ -326,7 +326,6 @@ MusicPage {
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
                 height: units.gu(6)
-                objectName: "forwardShape"
                 opacity: trackQueue.model.count === 0 ? .4 : 1
                 width: height
                 onClicked: player.nextSong()
@@ -339,6 +338,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-skip-forward"
+                    objectName: "forwardShape"
                     opacity: 1
                 }
             }
@@ -346,7 +346,6 @@ MusicPage {
             /* Shuffle button */
             MouseArea {
                 id: nowPlayingShuffleButton
-                objectName: "shuffleShape"
                 anchors.left: nowPlayingNextButton.right
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -363,6 +362,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-playlist-shuffle"
+                    objectName: "shuffleShape"
                     opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
                 }
             }
