@@ -344,8 +344,17 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("*", objectName="playShape")
 
     @click_object
-    def switch_to_now_playing(self):
+    def click_jump_to_now_playing(self):
         return self.wait_select_single("*", objectName="jumpNowPlaying")
+
+    def switch_to_now_playing(self):
+        self.click_jump_to_now_playing()
+
+        root = self.get_root_instance()
+        now_playing_page = root.wait_select_single(MusicNowPlaying,
+                                                   objectName="nowPlayingPage")
+
+        now_playing_page.visible.wait_for(True)
 
 
 class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
