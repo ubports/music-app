@@ -44,6 +44,7 @@ MusicPage {
 
     head.backAction: Action {
         iconName: "back";
+        objectName: "backButton"
         onTriggered: {
             mainPageStack.pop();
 
