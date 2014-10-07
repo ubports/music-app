@@ -35,27 +35,10 @@ Item {
     property var currentPage: null
     property var currentSheet: []
     property var currentTab: null
-    property var previousPage: null
 
     // Properties and signals for the toolbar
     property alias currentHeight: musicToolbarPanel.height
     property alias opened: musicToolbarPanel.opened
-
-    Connections {
-        id: pageStackConn
-        target: mainPageStack
-
-        onCurrentPageChanged: {
-            // If going back from nowPlaying jump back to tabs
-            if (previousPage === nowPlaying && mainPageStack.currentPage !== nowPlaying) {
-                while (mainPageStack.depth > 1) {
-                    mainPageStack.pop(mainPageStack.currentPage)
-                }
-            }
-
-            previousPage = currentPage;
-        }
-    }
 
     /* Helper functions */
 

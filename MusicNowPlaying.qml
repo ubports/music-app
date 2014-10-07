@@ -28,7 +28,7 @@ import "settings.js" as Settings
 
 MusicPage {
     id: nowPlaying
-    flickable: isListView ? queuelist : null
+    flickable: isListView ? queuelist : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
     title: i18n.tr("Now Playing")
     visible: false
@@ -41,6 +41,17 @@ MusicPage {
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
     property bool isListView: false
+
+    head.backAction: Action {
+        iconName: "back";
+        onTriggered: {
+            mainPageStack.pop();
+
+            while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
+                mainPageStack.pop();
+            }
+        }
+    }
 
     head {
         actions: [
