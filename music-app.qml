@@ -581,7 +581,7 @@ MainView {
     property string lastfmpassword
     property string timestamp // used to scrobble
     property var chosenElement: null
-    property bool toolbarShown: musicToolbar.shown
+    property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
     signal listItemSwiping(int i)
@@ -973,7 +973,6 @@ MainView {
         Tabs {
             id: tabs
             anchors {
-                bottomMargin: wideAspect ? musicToolbar.fullHeight : undefined
                 fill: parent
             }
 
