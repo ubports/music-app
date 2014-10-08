@@ -257,7 +257,7 @@ MusicPage {
                         songsPage.line1 = model.artist
                         songsPage.line2 = model.title
                         songsPage.isAlbum = true
-                        songsPage.covers = [{author: model.artist, album: model.title}]
+                        songsPage.covers = [{art: model.art}]
                         songsPage.genre = undefined
                         songsPage.title = i18n.tr("Album")
 
