@@ -419,10 +419,7 @@ MusicPage {
                 }
             }
         ]
-<<<<<<< TREE
-=======
         visible: isListView
->>>>>>> MERGE-SOURCE
 
         property int normalHeight: units.gu(6)
         property int transitionDuration: 250  // transition length of animations
