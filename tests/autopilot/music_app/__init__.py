@@ -21,11 +21,22 @@ def click_object(func):
     return func_wrapper
 
 
-def ensure_toolbar_visible(func):
-    """Wrapper which ensures the toolbar is shown before clicking"""
+def ensure_now_playing_full(func):
+    """Wrapper which ensures the now playing is full before clicking"""
     def func_wrapper(self, *args, **kwargs):
-        if not self.opened:
-            self.show()
+        if self.isListView:
+            self.click_toggle_view()
+
+        return func(self, *args, **kwargs)
+
+    return func_wrapper
+
+
+def ensure_now_playing_list(func):
+    """Wrapper which ensures the now playing is list before clicking"""
+    def func_wrapper(self, *args, **kwargs):
+        if not self.isListView:
+            self.click_toggle_view()
 
         return func(self, *args, **kwargs)
 
@@ -221,13 +232,73 @@ class MusicNowPlaying(MusicPage):
     def __init__(self, *args):
         super(MusicPage, self).__init__(*args)
 
+        root = self.get_root_instance()
+        self.player = root.select_single(Player, objectName="player")
+
+    @ensure_now_playing_full
+    @click_object
+    def click_forward_button(self):
+        return self.wait_select_single("*", objectName="forwardShape")
+
+    @ensure_now_playing_full
+    @click_object
+    def click_play_button(self):
+        return self.wait_select_single("*", objectName="playShape")
+
+    @ensure_now_playing_full
+    @click_object
+    def click_previous_button(self):
+        return self.wait_select_single("*", objectName="previousShape")
+
+    @ensure_now_playing_full
+    @click_object
+    def click_repeat_button(self):
+        return self.wait_select_single("*", objectName="repeatShape")
+
+    @ensure_now_playing_full
+    @click_object
+    def click_shuffle_button(self):
+        return self.wait_select_single("*", objectName="shuffleShape")
+
+    def click_toggle_view(self):
+        self.main_view.get_header().click_action_button("toggleView")
+
     def get_count(self):
         return self.select_single("QQuickListView",
                                   objectName="nowPlayingQueueList").count
 
+    def go_back(self):
+        """Use custom back button to go back"""
+        self.main_view.get_header().click_custom_back_button()
+
+    @ensure_now_playing_list
     def get_track(self, i):
         return (self.wait_select_single(ListItemWithActions,
                 objectName="nowPlayingListItem" + str(i)))
+
+    @ensure_now_playing_full
+    def seek_to(self, percentage):
+        progress_bar = self.wait_select_single(
+            "*", objectName="progressSliderShape")
+
+        x1, y1, width, height = progress_bar.globalRect
+        y1 += height // 2
+
+        x2 = x1 + int(width * percentage / 100)
+
+        self.pointing_device.drag(x1, y1, x2, y1)
+
+    def set_repeat(self, state):
+        if self.player.repeat != state:
+            self.click_repeat_button()
+
+        self.player.repeat.wait_for(state)
+
+    def set_shuffle(self, state):
+        if self.player.shuffle != state:
+            self.click_shuffle_button()
+
+        self.player.shuffle.wait_for(state)
 
 
 class AlbumsPage(MusicPage):
@@ -268,79 +339,26 @@ class SongsPage(MusicPage):
 
 
 class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
-    """Autopilot helper for the toolbar
-
-    expanded - refers to things when the toolbar is in its smaller state
-    full - refers to things when the toolbar is in its larger state
-    """
+    """Autopilot helper for the toolbar"""
     def __init__(self, *args):
         super(MusicToolbar, self).__init__(*args)
 
-        root = self.get_root_instance()
-        self.player = root.select_single(Player, objectName="player")
-
-    @ensure_toolbar_visible
-    @click_object
-    def click_forward_button(self):
-        return self.wait_select_single("*", objectName="forwardShape")
-
-    @ensure_toolbar_visible
     @click_object
     def click_play_button(self):
-        if self.currentMode == "full":
-            return self.wait_select_single("*", objectName="playShape")
-        else:
-            return self.wait_select_single("*", objectName="smallPlayShape")
+        return self.wait_select_single("*", objectName="playShape")
 
-    @ensure_toolbar_visible
     @click_object
-    def click_previous_button(self):
-        return self.wait_select_single("*", objectName="previousShape")
+    def click_jump_to_now_playing(self):
+        return self.wait_select_single("*", objectName="jumpNowPlaying")
 
-    @ensure_toolbar_visible
-    @click_object
-    def click_repeat_button(self):
-        return self.wait_select_single("*", objectName="repeatShape")
+    def switch_to_now_playing(self):
+        self.click_jump_to_now_playing()
 
-    @ensure_toolbar_visible
-    @click_object
-    def click_shuffle_button(self):
-        return self.wait_select_single("*", objectName="shuffleShape")
+        root = self.get_root_instance()
+        now_playing_page = root.wait_select_single(MusicNowPlaying,
+                                                   objectName="nowPlayingPage")
 
-    @ensure_toolbar_visible
-    def seek_to(self, percentage):
-        progress_bar = self.wait_select_single(
-            "*", objectName="progressBarShape")
-
-        x1, y1, width, height = progress_bar.globalRect
-        y1 += height // 2
-
-        x2 = x1 + int(width * percentage / 100)
-
-        self.pointing_device.drag(x1, y1, x2, y1)
-
-    @ensure_toolbar_visible
-    def set_repeat(self, state):
-        if self.player.repeat != state:
-            self.click_repeat_button()
-
-        self.player.repeat.wait_for(state)
-
-    @ensure_toolbar_visible
-    def set_shuffle(self, state):
-        if self.player.shuffle != state:
-            self.click_shuffle_button()
-
-        self.player.shuffle.wait_for(state)
-
-    def show(self):
-        self.pointing_device.move_to_object(self)
-
-        x1, y1 = self.pointing_device.position()
-
-        y1 -= (self.height / 2) + 1  # get position at top of toolbar
-
-        self.pointing_device.drag(x1, y1, x1, y1 - self.fullHeight)
+        now_playing_page.visible.wait_for(True)
 
 
 class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):

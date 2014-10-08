@@ -28,19 +28,31 @@ import "settings.js" as Settings
 
 MusicPage {
     id: nowPlaying
+    flickable: isListView ? queuelist : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
     title: i18n.tr("Now Playing")
     visible: false
     onVisibleChanged: {
         if (!visible) {
             // Reset the isListView property
-            // TODO: In the future this will default to false
-            isListView = true
+            isListView = false
         }
     }
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
-    property bool isListView: true
+    property bool isListView: false
+
+    head.backAction: Action {
+        iconName: "back";
+        objectName: "backButton"
+        onTriggered: {
+            mainPageStack.pop();
+
+            while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
+                mainPageStack.pop();
+            }
+        }
+    }
 
     head {
         actions: [
@@ -88,10 +100,9 @@ MusicPage {
 
     Rectangle {
         id: fullview
-        visible: !isListView
         anchors.fill: parent
         color: "transparent"
-        clip: true
+        visible: !isListView
 
         BlurredBackground {
             id: blurredBackground
@@ -195,6 +206,7 @@ MusicPage {
                     id: progressSliderMusic
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    objectName: "progressSliderShape"
                     function formatValue(v) { return durationToString(v) }
 
                     property bool seeking: false
@@ -255,7 +267,6 @@ MusicPage {
             /* Repeat button */
             MouseArea {
                 id: nowPlayingRepeatButton
-                objectName: "repeatShape"
                 anchors.right: nowPlayingPreviousButton.left
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -272,6 +283,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-playlist-repeat"
+                    objectName: "repeatShape"
                     opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
                 }
             }
@@ -283,7 +295,6 @@ MusicPage {
                 anchors.rightMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
                 height: units.gu(6)
-                objectName: "previousShape"
                 opacity: trackQueue.model.count === 0  ? .4 : 1
                 width: height
                 onClicked: player.previousSong()
@@ -296,6 +307,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-skip-backward"
+                    objectName: "previousShape"
                     opacity: 1
                 }
             }
@@ -307,7 +319,6 @@ MusicPage {
                 anchors.top: musicToolbarFullProgressContainer.bottom
                 anchors.topMargin: units.gu(2)
                 height: units.gu(12)
-                objectName: "playShape"
                 width: height
                 onClicked: player.toggle()
 
@@ -320,6 +331,7 @@ MusicPage {
                     opacity: emptyPage.noMusic ? .4 : 1
                     color: "white"
                     name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+                    objectName: "playShape"
                 }
             }
 
@@ -330,7 +342,6 @@ MusicPage {
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
                 height: units.gu(6)
-                objectName: "forwardShape"
                 opacity: trackQueue.model.count === 0 ? .4 : 1
                 width: height
                 onClicked: player.nextSong()
@@ -343,6 +354,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-skip-forward"
+                    objectName: "forwardShape"
                     opacity: 1
                 }
             }
@@ -350,7 +362,6 @@ MusicPage {
             /* Shuffle button */
             MouseArea {
                 id: nowPlayingShuffleButton
-                objectName: "shuffleShape"
                 anchors.left: nowPlayingNextButton.right
                 anchors.leftMargin: units.gu(1)
                 anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -367,6 +378,7 @@ MusicPage {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     name: "media-playlist-shuffle"
+                    objectName: "shuffleShape"
                     opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
                 }
             }
@@ -375,14 +387,16 @@ MusicPage {
 
     ListView {
         id: queuelist
-        visible: isListView
-        objectName: "nowPlayingQueueList"
         anchors {
             fill: parent
         }
         delegate: queueDelegate
-        model: trackQueue.model
+        footer: Item {
+            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
+        }
         highlightFollowsCurrentItem: false
+        model: trackQueue.model
+        objectName: "nowPlayingQueueList"
         state: "normal"
         states: [
             State {
@@ -400,9 +414,7 @@ MusicPage {
                 }
             }
         ]
-        footer: Item {
-            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
-        }
+        visible: isListView
 
         property int normalHeight: units.gu(12)
         property int currentHeight: units.gu(40)
