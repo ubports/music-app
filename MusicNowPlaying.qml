@@ -210,6 +210,7 @@ MusicPage {
                     function formatValue(v) { return durationToString(v) }
 
                     property bool seeking: false
+                    property bool seeked: false
 
                     onSeekingChanged: {
                         if (seeking === false) {
@@ -224,7 +225,8 @@ MusicPage {
                     onPressedChanged: {
                         seeking = pressed
                         if (!pressed) {
-                           player.seek(value)
+                            seeked = true
+                            player.seek(value)
                        }
                     }
 
@@ -235,11 +237,13 @@ MusicPage {
                             progressSliderMusic.maximumValue = player.duration
                         }
                         onPositionChanged: {
-                            if (progressSliderMusic.seeking === false) {
+                            if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
                                 progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
                             }
+
+                            progressSliderMusic.seeked = false;
                         }
                         onStopped: {
                             musicToolbarFullPositionLabel.text = durationToString(0);
