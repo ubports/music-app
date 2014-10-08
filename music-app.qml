@@ -89,11 +89,11 @@ MainView {
                 }
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
-                nowPlaying.visible = true;
+                tabs.pushNowPlaying()
                 nowPlaying.positionAt(player.currentIndex);
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show now playing
-                nowPlaying.visible = true;
+                tabs.pushNowPlaying()
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
                 player.toggle();
