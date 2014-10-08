@@ -1099,6 +1099,8 @@ MainView {
                 if (mainPageStack.currentPage !== nowPlaying) {
                     mainPageStack.push(nowPlaying);
                 }
+
+                nowPlaying.isListView = false;  // ensure full view
             }
 
             Component.onCompleted: musicToolbar.currentTab = selectedTab
