@@ -316,6 +316,8 @@ Item {
                         objectName: "jumpNowPlaying"
                         function trigger() {
                             tabs.pushNowPlaying();
+
+                            nowPlaying.isListView = false;  // ensure full view when from toolbar
                         }
                     }
                 }
