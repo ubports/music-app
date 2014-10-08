@@ -24,7 +24,7 @@ import Ubuntu.Components 1.1
 Page {
     id: thisPage
     anchors {
-        bottomMargin: musicToolbar.currentHeight
+        bottomMargin: musicToolbar.visible ? musicToolbar.currentHeight : 0
         fill: parent
     }
 
