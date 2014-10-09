@@ -58,7 +58,7 @@ MusicPage {
         actions: [
             Action {
                 objectName: "toggleView"
-                iconName: "media-playlist"
+                iconName: isListView ? "clear" : "media-playlist"
                 onTriggered: {
                     isListView = !isListView
                 }
@@ -396,6 +396,7 @@ MusicPage {
         }
         model: trackQueue.model
         highlightFollowsCurrentItem: true
+        highlightMoveDuration: 0
         highlight: Rectangle {
             color: "#2c2c34"
             focus: true
@@ -514,12 +515,13 @@ MusicPage {
                     MusicRow {
                         id: musicRow
                         covers: [{art: model.art, album: model.album, author: model.author}]
-                        isSquare: true
+                        showCovers: false
                         coverSize: units.gu(6)
                         column: Column {
                             Label {
                                 id: trackTitle
-                                color: styleMusic.common.music
+                                color: queuelist.currentIndex === index ? UbuntuColors.blue
+                                                                        : styleMusic.common.music
                                 fontSize: "small"
                                 objectName: "titleLabel"
                                 text: model.title
