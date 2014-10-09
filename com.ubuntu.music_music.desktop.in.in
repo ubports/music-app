@@ -11,5 +11,5 @@ X-Ubuntu-Touch=true
 X-Ubuntu-Single-Instance=true
 X-Ubuntu-Splash-Show-Header=true
 _X-Ubuntu-Splash-Title=Music
-_X-Ubuntu-Splash-Color=#1e1e23
+X-Ubuntu-Splash-Color=#1e1e23
 X-Ubuntu-Default-Department-ID=sound-video
