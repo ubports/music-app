@@ -30,7 +30,7 @@ MusicPage {
     id: nowPlaying
     flickable: isListView ? queuelist : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
-    title: isListView ? i18n.tr("Queue") : i18n.tr("Now Playing")
+    title: isListView ? i18n.tr("Queue") : i18n.tr("Now playing")
     visible: false
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup

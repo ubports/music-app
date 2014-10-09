@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 20:03-0500\n"
+"POT-Creation-Date: 2014-10-08 20:48-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgid "Queue"
 msgstr ""
 
 #: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
+msgid "Now playing"
 msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Clean everything!"
 msgstr ""
 
-#: ../MusicStart.qml:35 ../music-app.qml:576 ../music-app.qml:1139
+#: ../MusicStart.qml:35 ../music-app.qml:576 ../music-app.qml:1141
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr ""
@@ -436,11 +436,11 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1165
+#: ../music-app.qml:1167
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1172
+#: ../music-app.qml:1174
 msgid "Please import music"
 msgstr ""
 
