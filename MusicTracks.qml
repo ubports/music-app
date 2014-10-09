@@ -60,7 +60,7 @@ MusicPage {
                 color: "transparent"
                 objectName: "tracksPageListItem" + index
                 width: parent.width
-                height: units.gu(6)
+                height: units.gu(7)
                 showDivider: false
 
                 rightSideActions: [
@@ -82,6 +82,7 @@ MusicPage {
                     covers: [{art: model.art}]
                     isSquare: true
                     coverSize: units.gu(6)
+                    spacing: units.gu(2)
                     column: Column {
                         Label {
                             id: trackTitle

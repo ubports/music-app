@@ -56,8 +56,10 @@ Row {
         width: coverSize
         height: coverSize
         anchors {
-            top: parent.top
-            topMargin: units.gu(0.25)
+            verticalCenter: parent.verticalCenter
+            topMargin: units.gu(0.5)
+            bottomMargin: units.gu(0.5)
+            leftMargin: units.gu(2)
         }
         source: coverRow.count !== 0 && coverRow.covers[0] !== "" && coverRow.covers[0] !== undefined
                 ? (coverRow.covers[0].art !== undefined
