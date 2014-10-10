@@ -30,7 +30,7 @@ MusicPage {
     id: nowPlaying
     flickable: isListView ? queuelist : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
-    title: i18n.tr("Now Playing")
+    title: isListView ? i18n.tr("Queue") : i18n.tr("Now playing")
     visible: false
 
     property int ensureVisibleIndex: 0  // ensure first index is visible at startup
@@ -52,7 +52,7 @@ MusicPage {
         actions: [
             Action {
                 objectName: "toggleView"
-                iconName: "media-playlist"
+                iconName: isListView ? "clear" : "media-playlist"
                 onTriggered: {
                     isListView = !isListView
                 }
@@ -395,13 +395,20 @@ MusicPage {
         id: queuelist
         anchors {
             fill: parent
+            topMargin: units.gu(2)
         }
         delegate: queueDelegate
         footer: Item {
             height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
         }
-        highlightFollowsCurrentItem: false
         model: trackQueue.model
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 0
+        highlight: Rectangle {
+            color: "#2c2c34"
+            focus: true
+        }
+
         objectName: "nowPlayingQueueList"
         state: "normal"
         states: [
@@ -422,8 +429,7 @@ MusicPage {
         ]
         visible: isListView
 
-        property int normalHeight: units.gu(12)
-        property int currentHeight: units.gu(40)
+        property int normalHeight: units.gu(6)
         property int transitionDuration: 250  // transition length of animations
 
         onCountChanged: {
@@ -437,7 +443,8 @@ MusicPage {
                 color: "transparent"
                 height: queuelist.normalHeight
                 objectName: "nowPlayingListItem" + index
-                state: queuelist.currentIndex == index && !reordering ? "current" : ""
+                showDivider: false
+                state: ""
 
                 leftSideAction: Remove {
                     onTriggered: {
@@ -493,7 +500,6 @@ MusicPage {
                     id: trackContainer;
                     anchors {
                         fill: parent
-                        margins: units.gu(1)
                     }
                     color: "transparent"
 
@@ -513,159 +519,28 @@ MusicPage {
                         to: units.gu(0.5)
                     }
 
-                    CoverRow {
-                        id: trackImage
-
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            leftMargin: units.gu(1.5)
-                        }
-                        count: 1
-                        size: (queueListItem.state === "current"
-                               ? (mainView.wideAspect
-                                  ? queuelist.currentHeight
-                                  : mainView.width - (trackImage.anchors.leftMargin * 2))
-                               : queuelist.normalHeight) - units.gu(2)
+                    MusicRow {
+                        id: musicRow
                         covers: [{art: model.art, album: model.album, author: model.author}]
-
-                        spacing: units.gu(2)
-
-                        Item {  // Background so can see text in current state
-                            id: albumBg
-                            visible: false
-                            anchors {
-                                bottom: parent.bottom
-                                left: parent.left
-                                right: parent.right
-                            }
-                            height: units.gu(9)
-                            clip: true
-                            UbuntuShape{
-                                anchors {
-                                    bottom: parent.bottom
-                                    left: parent.left
-                                    right: parent.right
-                                }
-                                height: trackImage.height
-                                radius: "medium"
-                                color: styleMusic.common.black
-                                opacity: 0.6
-                            }
-                        }
-
-                        function calcAnchors() {
-                            if (trackImage.height > queuelist.normalHeight && mainView.wideAspect) {
-                                trackImage.anchors.left = undefined
-                                trackImage.anchors.horizontalCenter = trackImage.parent.horizontalCenter
-                            } else {
-                                trackImage.anchors.left = trackImage.parent.left
-                                trackImage.anchors.horizontalCenter = undefined
+                        showCovers: false
+                        coverSize: units.gu(6)
+                        column: Column {
+                            Label {
+                                id: trackTitle
+                                color: queuelist.currentIndex === index ? UbuntuColors.blue
+                                                                        : styleMusic.common.music
+                                fontSize: "small"
+                                objectName: "titleLabel"
+                                text: model.title
                             }
 
-                            trackImage.width = trackImage.height;  // force width to match height
-                        }
-
-                        Connections {
-                            target: mainView
-                            onWideAspectChanged: trackImage.calcAnchors()
-                        }
-
-                        onHeightChanged: {
-                            calcAnchors()
-                        }
-                        Behavior on height {
-                            NumberAnimation {
-                                target: trackImage;
-                                property: "height";
-                                duration: queuelist.transitionDuration;
+                            Label {
+                                id: trackArtist
+                                color: styleMusic.common.subtitle
+                                fontSize: "x-small"
+                                objectName: "artistLabel"
+                                text: model.author
                             }
-                        }
-                    }
-                    Label {
-                        id: nowPlayingArtist
-                        objectName: "artistLabel"
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        height: units.gu(1)
-                        text: model.author
-                        fontSize: 'small'
-                        width: parent.width - trackImage.width - units.gu(3.5)
-                        x: trackImage.x + trackImage.width + units.gu(1)
-                        y: trackImage.y + units.gu(1)
-                    }
-                    Label {
-                        id: nowPlayingTitle
-                        objectName: "titleLabel"
-                        color: styleMusic.common.white
-                        elide: Text.ElideRight
-                        height: units.gu(1)
-                        text: model.title
-                        fontSize: 'medium'
-                        width: parent.width - trackImage.width - units.gu(3.5)
-                        x: trackImage.x + trackImage.width + units.gu(1)
-                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
-                    }
-                    Label {
-                        id: nowPlayingAlbum
-                        objectName: "albumLabel"
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        elide: Text.ElideRight
-                        height: units.gu(1)
-                        text: model.album
-                        fontSize: 'x-small'
-                        width: parent.width - trackImage.width - units.gu(3.5)
-                        x: trackImage.x + trackImage.width + units.gu(1)
-                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
-                    }
-                }
-
-                states: State {
-                    name: "current"
-                    PropertyChanges {
-                        target: queueListItem
-                        height: trackImage.size + (trackContainer.anchors.margins * 2)
-                    }
-                    PropertyChanges {
-                        target: nowPlayingArtist
-                        width: trackImage.width - units.gu(4)
-                        x: trackImage.x + units.gu(2)
-                        y: trackImage.y + trackImage.height - albumBg.height + units.gu(1)
-                        color: styleMusic.common.white
-                    }
-                    PropertyChanges {
-                        target: nowPlayingTitle
-                        width: trackImage.width - units.gu(4)
-                        x: trackImage.x + units.gu(2)
-                        y: nowPlayingArtist.y + nowPlayingArtist.height + units.gu(1.25)
-                        color: styleMusic.common.white
-                        font.weight: Font.DemiBold
-                    }
-                    PropertyChanges {
-                        target: nowPlayingAlbum
-                        width: trackImage.width - units.gu(4)
-                        x: trackImage.x + units.gu(2)
-                        y: nowPlayingTitle.y + nowPlayingTitle.height + units.gu(1.25)
-                        color: styleMusic.common.white
-                    }
-                    PropertyChanges {
-                        target: albumBg
-                        visible: true
-                    }
-                }
-                transitions: Transition {
-                    from: ",current"
-                    to: "current,"
-                    NumberAnimation {
-                        duration: queuelist.transitionDuration
-                        properties: "height,opacity,width,x,y"
-                    }
-
-                    onRunningChanged: {
-                        if (running === false && ensureVisibleIndex != -1)
-                        {
-                            queuelist.positionViewAtIndex(ensureVisibleIndex, ListView.Beginning);
-                            ensureVisibleIndex = -1;
                         }
                     }
                 }
