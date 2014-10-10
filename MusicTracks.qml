@@ -38,6 +38,7 @@ MusicPage {
         id: tracklist
         anchors {
             fill: parent
+            topMargin: units.gu(2)
         }
         highlightFollowsCurrentItem: false
         objectName: "trackstab-listview"
