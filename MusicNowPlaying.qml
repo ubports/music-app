@@ -383,6 +383,7 @@ MusicPage {
         id: queuelist
         anchors {
             fill: parent
+            topMargin: units.gu(2)
         }
         delegate: queueDelegate
         footer: Item {
