@@ -681,7 +681,10 @@ MainView {
         }
 
         // Show the Now Playing page and make sure the track is visible
-        tabs.pushNowPlaying();
+        if (!nowPlaying.isListView) {
+            tabs.pushNowPlaying();
+        }
+
         nowPlaying.ensureVisibleIndex = index;
     }
 
