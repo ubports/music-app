@@ -201,9 +201,17 @@ MusicPage {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     objectName: "progressSliderShape"
-                    function formatValue(v) { return durationToString(v) }
+
+                    function formatValue(v) {
+                        if (seeking) {  // update position label while dragging
+                            musicToolbarFullPositionLabel.text = durationToString(v)
+                        }
+
+                        return durationToString(v)
+                    }
 
                     property bool seeking: false
+                    property bool seeked: false
 
                     onSeekingChanged: {
                         if (seeking === false) {
@@ -218,7 +226,8 @@ MusicPage {
                     onPressedChanged: {
                         seeking = pressed
                         if (!pressed) {
-                           player.seek(value)
+                            seeked = true
+                            player.seek(value)
                        }
                     }
 
@@ -229,11 +238,14 @@ MusicPage {
                             progressSliderMusic.maximumValue = player.duration
                         }
                         onPositionChanged: {
-                            if (progressSliderMusic.seeking === false) {
+                            // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
+                            if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
                                 progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
                             }
+
+                            progressSliderMusic.seeked = false;
                         }
                         onStopped: {
                             musicToolbarFullPositionLabel.text = durationToString(0);
