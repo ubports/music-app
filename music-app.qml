@@ -90,7 +90,7 @@ MainView {
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
-                nowPlaying.positionAt(player.currentIndex);
+                nowPlaying.isListView = true;
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show now playing
                 tabs.pushNowPlaying()
@@ -665,7 +665,6 @@ MainView {
 
             // Show the Now Playing page and make sure the track is visible
             tabs.pushNowPlaying();
-            nowPlaying.ensureVisibleIndex = index;
         }
         else {
             player.source = file;
@@ -684,8 +683,6 @@ MainView {
         if (!nowPlaying.isListView) {
             tabs.pushNowPlaying();
         }
-
-        nowPlaying.ensureVisibleIndex = index;
     }
 
     function playRandomSong(shuffle)
