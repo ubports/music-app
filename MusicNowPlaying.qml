@@ -60,7 +60,7 @@ MusicPage {
     }
 
     function positionAt(index) {
-        queuelist.positionViewAtIndex(index, ListView.Beginning);
+        queuelist.positionViewAtIndex(index, ListView.Center);
     }
 
     Rectangle {
