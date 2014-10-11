@@ -75,7 +75,6 @@ MusicPage {
                 albumsPage.artist = model.artist;
                 albumsPage.covers = [{art: artistCard.imageSource}]
                 albumsPage.title = i18n.tr("Artist")
-                console.log("VIC art: "+ artistCard.imageSource)
 
                 mainPageStack.push(albumsPage)
             }
