@@ -59,6 +59,10 @@ MusicPage {
         ]
     }
 
+    function positionAt(index) {
+        queuelist.positionViewAtIndex(index, ListView.Beginning);
+    }
+
     Rectangle {
         id: fullview
         anchors.fill: parent
