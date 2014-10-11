@@ -91,7 +91,6 @@ MainView {
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
                 nowPlaying.isListView = true;
-                nowPlaying.positionAt(player.currentIndex);
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show now playing
                 tabs.pushNowPlaying()

@@ -35,6 +35,12 @@ MusicPage {
 
     property bool isListView: false
 
+    onIsListViewChanged: {
+        if (isListView) {
+            positionAt(player.currentIndex);
+        }
+    }
+
     head.backAction: Action {
         iconName: "back";
         objectName: "backButton"
