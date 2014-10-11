@@ -374,19 +374,11 @@ MusicPage {
             fill: parent
             topMargin: units.gu(2)
         }
-        currentIndex: player.currentIndex
         delegate: queueDelegate
         footer: Item {
             height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
         }
         model: trackQueue.model
-        highlightFollowsCurrentItem: true
-        highlightMoveDuration: 0
-        highlight: Rectangle {
-            color: "#2c2c34"
-            focus: true
-        }
-
         objectName: "nowPlayingQueueList"
         state: "normal"
         states: [
@@ -418,7 +410,7 @@ MusicPage {
             id: queueDelegate
             ListItemWithActions {
                 id: queueListItem
-                color: "transparent"
+                color: player.currentIndex === index ? "#2c2c34" : "transparent"
                 height: queuelist.normalHeight
                 objectName: "nowPlayingListItem" + index
                 showDivider: false
@@ -502,7 +494,7 @@ MusicPage {
                         column: Column {
                             Label {
                                 id: trackTitle
-                                color: queuelist.currentIndex === index ? UbuntuColors.blue
+                                color: player.currentIndex === index ? UbuntuColors.blue
                                                                         : styleMusic.common.music
                                 fontSize: "small"
                                 objectName: "titleLabel"
