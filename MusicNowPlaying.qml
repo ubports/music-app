@@ -448,6 +448,8 @@ MusicPage {
 
                 leftSideAction: Remove {
                     onTriggered: {
+                        var removedIndex = index
+
                         if (queuelist.count === 1) {
                             player.stop()
                             musicToolbar.goBack()
@@ -455,12 +457,12 @@ MusicPage {
                             player.nextSong(player.isPlaying);
                         }
 
-                        if (index < player.currentIndex) {
+                        queuelist.model.remove(index);
+
+                        if (removedIndex < player.currentIndex) {
                             // update index as the old has been removed
                             player.currentIndex -= 1;
                         }
-
-                        queuelist.model.remove(index);
                     }
                 }
                 reorderable: true
