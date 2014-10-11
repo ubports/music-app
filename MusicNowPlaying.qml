@@ -33,7 +33,6 @@ MusicPage {
     title: isListView ? i18n.tr("Queue") : i18n.tr("Now playing")
     visible: false
 
-    property int ensureVisibleIndex: 0  // ensure first index is visible at startup
     property bool isListView: false
 
     head.backAction: Action {
@@ -58,38 +57,6 @@ MusicPage {
                 }
             }
         ]
-    }
-
-    Connections {
-        target: player
-        onCurrentIndexChanged: {
-            if (player.source === "") {
-                return;
-            }
-
-            queuelist.currentIndex = player.currentIndex;
-
-            customdebug("MusicQueue update currentIndex: " + player.source);
-
-            // TODO: Never jump to track? Or only jump to track in queue view?
-            if (isListView) {
-                nowPlaying.jumpToCurrent(musicToolbar.opened, nowPlaying, musicToolbar.currentTab)
-            }
-        }
-    }
-
-    function jumpToCurrent(shown, currentPage, currentTab)
-    {
-        // If the toolbar is shown, the page is now playing and snaptrack is enabled
-        if (shown && currentPage === nowPlaying && Settings.getSetting("snaptrack") === "1")
-        {
-            // Then position the view at the current index
-            queuelist.positionViewAtIndex(queuelist.currentIndex, ListView.Beginning);
-        }
-    }
-
-    function positionAt(index) {
-        queuelist.positionViewAtIndex(index, ListView.Beginning);
     }
 
     Rectangle {
@@ -397,6 +364,7 @@ MusicPage {
             fill: parent
             topMargin: units.gu(2)
         }
+        currentIndex: player.currentIndex
         delegate: queueDelegate
         footer: Item {
             height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
@@ -492,9 +460,6 @@ MusicPage {
                         player.currentIndex += 1;
                     }
                 }
-
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: trackImage.pressed = pressed
 
                 Rectangle {
                     id: trackContainer;
