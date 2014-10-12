@@ -64,10 +64,14 @@ MusicPage {
             BlurredBackground {
                 id: blurredBackground
                 height: parent.height
-                art: albumImage.source
+                art: albumImage.covers.length > 0
+                     ? (albumImage.covers[0].art !== undefined
+                        ? albumImage.covers[0].art
+                        : decodeURIComponent("image://albumart/artist=" + albumImage.covers[0].author + "&album=" + albumImage.covers[0].album))
+                     : Qt.resolvedUrl("../images/music-app-cover@30.png")
             }
 
-            Image {
+            CoverGrid {
                 id: albumImage
                 anchors {
                     top: parent.top
@@ -77,14 +81,8 @@ MusicPage {
                     leftMargin: units.gu(2)
                     rightMargin: units.gu(2)
                 }
-                width: units.gu(18)
-                height: width
-                smooth: true
-                source: covers.length > 0
-                        ? (covers[0].art !== undefined
-                           ? covers[0].art
-                           : decodeURIComponent("image://albumart/artist=" + covers[0].author + "&album=" + covers[0].album))
-                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                covers: songStackPage.covers
+                size: units.gu(18)
             }
 
             Label {
