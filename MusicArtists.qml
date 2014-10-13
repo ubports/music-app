@@ -38,6 +38,7 @@ MusicPage {
 
     CardView {
         id: artistCardView
+        itemWidth: units.gu(12)
         model: ArtistsModel {
             id: artistsModel
             albumArtists: true
