@@ -24,7 +24,7 @@ Rectangle {
     color: "transparent"
     height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
 
-    property alias imageSource: image.source
+    property alias coverSources: coverGrid.covers
     property alias primaryText: primaryLabel.text
     property alias secondaryText: secondaryLabel.text
     property alias secondaryTextVisible: secondaryLabel.visible
@@ -75,16 +75,9 @@ Rectangle {
         }
         spacing: units.gu(0.5)
 
-        Image {
-            id: image
-            height: parent.width
-            width: parent.width
-
-            onStatusChanged: {
-                if (status === Image.Error) {
-                    source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-                }
-            }
+        CoverGrid {
+            id: coverGrid
+            size: parent.width
         }
 
         Rectangle {

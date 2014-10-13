@@ -42,7 +42,7 @@ MusicPage {
         }
         delegate: Card {
             id: albumCard
-            imageSource: model.art
+            coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
             primaryText: model.title
             secondaryText: model.artist
