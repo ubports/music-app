@@ -64,15 +64,15 @@ MusicPage {
             BlurredBackground {
                 id: blurredBackground
                 height: parent.height
-                art: albumImage.covers.length > 0
-                     ? (albumImage.covers[0].art !== undefined
-                        ? albumImage.covers[0].art
-                        : decodeURIComponent("image://albumart/artist=" + albumImage.covers[0].author + "&album=" + albumImage.covers[0].album))
+                art: coversImage.covers.length > 0
+                     ? (coversImage.covers[0].art !== undefined
+                        ? coversImage.covers[0].art
+                        : decodeURIComponent("image://albumart/artist=" + coversImage.covers[0].author + "&album=" + coversImage.covers[0].album))
                      : Qt.resolvedUrl("../images/music-app-cover@30.png")
             }
 
             CoverGrid {
-                id: albumImage
+                id: coversImage
                 anchors {
                     top: parent.top
                     left: parent.left
@@ -92,9 +92,9 @@ MusicPage {
                 fontSize: "x-large"
                 color: styleMusic.common.music
                 anchors {
-                    top: albumImage.bottom
+                    top: coversImage.bottom
                     topMargin: units.gu(1)
-                    left: albumImage.left
+                    left: coversImage.left
                     right: parent.right
                     rightMargin: units.gu(2)
                 }
@@ -114,7 +114,7 @@ MusicPage {
                 anchors {
                     top: albumLabel.bottom
                     topMargin: units.gu(0.75)
-                    left: albumImage.left
+                    left: coversImage.left
                     right: parent.right
                     rightMargin: units.gu(2)
                 }
@@ -132,7 +132,7 @@ MusicPage {
                     top: albumArtist.visible ? albumArtist.bottom
                                              : albumLabel.bottom
                     topMargin: units.gu(1)
-                    left: albumImage.left
+                    left: coversImage.left
                     right: parent.right
                     rightMargin: units.gu(2)
                 }
@@ -148,7 +148,7 @@ MusicPage {
                 anchors {
                     bottom: queueAllRow.top
                     bottomMargin: units.gu(2)
-                    left: albumImage.right
+                    left: coversImage.right
                     leftMargin: units.gu(2)
                 }
                 strokeColor: UbuntuColors.green
@@ -185,7 +185,7 @@ MusicPage {
                 anchors {
                     bottom: playRow.top
                     bottomMargin: units.gu(2)
-                    left: albumImage.right
+                    left: coversImage.right
                     leftMargin: units.gu(2)
                 }
                 strokeColor: UbuntuColors.green
@@ -210,8 +210,8 @@ MusicPage {
             Button {
                 id: playRow
                 anchors {
-                    bottom: albumImage.bottom
-                    left: albumImage.right
+                    bottom: coversImage.bottom
+                    left: coversImage.right
                     leftMargin: units.gu(2)
                 }
                 color: UbuntuColors.green
