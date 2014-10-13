@@ -27,6 +27,7 @@ Rectangle {
     property alias coverSources: coverGrid.covers
     property alias primaryText: primaryLabel.text
     property alias secondaryText: secondaryLabel.text
+    property alias secondaryTextVisible: secondaryLabel.visible
 
     signal clicked(var mouse)
     signal pressAndHold(var mouse)

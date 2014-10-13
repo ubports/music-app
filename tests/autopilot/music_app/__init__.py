@@ -158,8 +158,8 @@ class MusicArtists(MusicPage):
 
     @click_object
     def click_artist(self, i):
-        return (self.wait_select_single("Standard",
-                objectName="artistsPageListItem" + str(i)))
+        return (self.wait_select_single("Card",
+                objectName="artistsPageGridItem" + str(i)))
 
 
 class MusicTracks(MusicPage):
