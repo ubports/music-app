@@ -56,8 +56,17 @@ MusicPage {
     head {
         actions: [
             Action {
+                objectName: "clearQueue"
+                iconName: "delete"
+                visible: isListView
+                onTriggered: {
+                    head.backAction.trigger()
+                    trackQueue.model.clear()
+                }
+            },
+            Action {
                 objectName: "toggleView"
-                iconName: isListView ? "clear" : "media-playlist"
+                iconName: "media-playlist"
                 onTriggered: {
                     isListView = !isListView
                 }
