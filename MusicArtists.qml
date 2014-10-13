@@ -36,99 +36,48 @@ MusicPage {
     objectName: "artistsPage"
     title: i18n.tr("Artists")
 
-    ListView {
-        id: artistlist
-        anchors {
-            fill: parent
-        }
+    CardView {
+        id: artistCardView
+        itemWidth: units.gu(12)
         model: ArtistsModel {
             id: artistsModel
             albumArtists: true
             store: musicStore
         }
+        delegate: Card {
+            id: artistCard
+            imageSource: "image://artistart/artist=" + model.artist + "&album=" + artistCard.album
+            objectName: "artistsPageGridItem" + index
+            primaryText: model.artist
+            secondaryTextVisible: false
 
-        delegate: artistDelegate
+            property string album: ""
 
-        Component {
-            id: artistDelegate
+            AlbumsModel {
+                id: albumArtistModel
+                albumArtist: model.artist
+                store: musicStore
+            }
 
-            ListItem.Standard {
-                id: track
-                objectName: "artistsPageListItem" + index
-                height: styleMusic.common.itemHeight
-
-                AlbumsModel {
-                    id: albumArtistModel
-                    albumArtist: model.artist
-                    store: musicStore
+            Repeater {
+                id: albumArtistModelRepeater
+                model: albumArtistModel
+                delegate: Item {
+                    property string album: model.title
                 }
 
-                Repeater {
-                    id: albumArtistModelRepeater
-                    model: albumArtistModel
-                    delegate: Item {
-                        property string art: model.art
-                    }
-                    property var covers: []
-                    signal finished()
-
-                    onFinished: {
-                        musicRow.covers = covers
-                    }
-                    onItemAdded: {
-                        covers.push({art: item.art});
-
-                        if (index === count - 1) {
-                            finished();
-                        }
-                    }
+                onItemAdded: {
+                    artistCard.album = item.album
                 }
+            }
 
-                SongsModel {
-                    id: songArtistModel
-                    albumArtist: model.artist
-                    store: musicStore
-                }
 
-                MusicRow {
-                    id: musicRow
-                    column: Column {
-                        spacing: units.gu(1)
-                        Label {
-                            id: trackArtistAlbum
-                            color: styleMusic.common.music
-                            fontSize: "medium"
-                            objectName: "artists-artist"
-                            text: model.artist
-                        }
-                        Label {
-                            id: trackArtistAlbums
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: i18n.tr("%1 album", "%1 albums", albumArtistModel.rowCount).arg(albumArtistModel.rowCount)
-                        }
-                        Label {
-                            id: trackArtistAlbumTracks
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: i18n.tr("%1 song", "%1 songs", songArtistModel.rowCount).arg(songArtistModel.rowCount)
-                        }
-                    }
-                }
+            onClicked: {
+                albumsPage.artist = model.artist;
+                albumsPage.covers = [{art: artistCard.imageSource}]
+                albumsPage.title = i18n.tr("Artist")
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        albumsPage.artist = model.artist
-                        albumsPage.covers = musicRow.covers
-                        albumsPage.title = i18n.tr("Artist")
-
-                        mainPageStack.push(albumsPage)
-                    }
-
-                    // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                    onPressedChanged: musicRow.pressed = pressed
-                }
+                mainPageStack.push(albumsPage)
             }
         }
     }
