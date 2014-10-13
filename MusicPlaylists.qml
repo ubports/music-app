@@ -53,7 +53,7 @@ MusicPage {
     CardView {
         id: playlistslist
         model: playlistModel.model
-        objectName: "playlistsListView"
+        objectName: "playlistsCardView"
         delegate: Card {
             id: playlistCard
             coverSources: Playlists.getPlaylistCovers(name)

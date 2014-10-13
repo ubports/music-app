@@ -26,6 +26,7 @@ Item {
     id: columnFlow
     property int columns: 1
     property bool repeaterCompleted: false
+    property alias count: repeater.count
     property alias model: repeater.model
     property alias delegate: repeater.delegate
     property int contentHeight: 0

@@ -30,6 +30,7 @@ Flickable {
     contentHeight: flow.childrenRect.height
     contentWidth: width
 
+    property alias count: flow.count
     property alias delegate: flow.delegate
     property alias model: flow.model
     property real itemWidth: units.gu(15)

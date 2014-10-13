@@ -183,7 +183,7 @@ class MusicPlaylists(MusicPage):
 
     def get_count(self):
         return self.wait_select_single(
-            "QQuickListView", objectName="playlistsListView").count
+            "CardView", objectName="playlistsCardView").count
 
 
 class MusicaddtoPlaylist(MusicPage):
