@@ -44,7 +44,7 @@ Rectangle {
     Flow {
         id: imageRow
         anchors {
-            fill: paernt
+            fill: parent
         }
 
         Repeater {
