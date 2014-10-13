@@ -32,10 +32,11 @@ Flickable {
 
     property alias delegate: flow.delegate
     property alias model: flow.model
+    property real itemWidth: units.gu(15)
 
     ColumnFlow {
         id: flow
-        columns: parseInt(width / units.gu(15))
+        columns: parseInt(width / itemWidth)
         width: parent.width
     }
 }
