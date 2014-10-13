@@ -32,9 +32,6 @@ Rectangle {
     // Property to set the size of the cover image
     property int size
 
-    // Property to determine if item should appear pressed
-    property bool pressed: false
-
     onCoversChanged: {
         if (covers !== undefined) {
             while (covers.length > 4) {  // remove any covers after 4
@@ -43,12 +40,12 @@ Rectangle {
         }
     }
 
-    // Component to assemble the pictures in a row with appropriate spacing.
+    // Flow of the cover arts in either 1, 1x1, 2x1, 2x2
     Flow {
         id: imageRow
-
-        width: coverGrid.size
-        height: width
+        anchors {
+            fill: parent
+        }
 
         Repeater {
             id: repeat
@@ -69,17 +66,6 @@ Rectangle {
                 }
             }
         }
-    }
-
-    // Component to render the cover images as one image which is then passed as argument to the Ubuntu Shape widget.
-    ShaderEffectSource {
-        id: finalImageRender
-        anchors {
-            fill: parent
-        }
-        height: width
-        hideSource: true
-        sourceItem: imageRow
     }
 }
 
