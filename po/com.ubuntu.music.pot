@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-14 01:06+0100\n"
+"POT-Creation-Date: 2014-10-14 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgid "Albums"
 msgstr ""
 
 #: ../MusicAlbums.qml:57 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:262
+#: ../common/AlbumsPage.qml:146
 msgid "Album"
 msgstr ""
 
@@ -86,8 +86,8 @@ msgid "Playlists"
 msgstr ""
 
 #: ../MusicPlaylists.qml:61 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:105 ../common/AlbumsPage.qml:329
-#: ../common/SongsPage.qml:184 ../common/SongsPage.qml:185
+#: ../MusicaddtoPlaylist.qml:105 ../common/SongsPage.qml:220
+#: ../common/SongsPage.qml:221
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -96,9 +96,10 @@ msgstr[1] ""
 
 #: ../MusicPlaylists.qml:66 ../MusicPlaylists.qml:70 ../MusicStart.qml:118
 #: ../MusicStart.qml:200 ../common/SongsPage.qml:47
-#: ../common/SongsPage.qml:156 ../common/SongsPage.qml:217
-#: ../common/SongsPage.qml:274 ../common/SongsPage.qml:296
-#: ../common/SongsPage.qml:298 ../common/SongsPage.qml:316
+#: ../common/SongsPage.qml:126 ../common/SongsPage.qml:166
+#: ../common/SongsPage.qml:176 ../common/SongsPage.qml:204
+#: ../common/SongsPage.qml:239 ../common/SongsPage.qml:241
+#: ../common/SongsPage.qml:259
 msgid "Playlist"
 msgstr ""
 
@@ -210,9 +211,10 @@ msgstr ""
 msgid "Genres"
 msgstr ""
 
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:157
-#: ../common/SongsPage.qml:184 ../common/SongsPage.qml:213
-#: ../common/SongsPage.qml:270 ../common/SongsPage.qml:312
+#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:122
+#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:177
+#: ../common/SongsPage.qml:205 ../common/SongsPage.qml:220
+#: ../common/SongsPage.qml:255
 msgid "Genre"
 msgstr ""
 
@@ -232,22 +234,24 @@ msgstr ""
 msgid "New playlist"
 msgstr ""
 
-#: ../common/AlbumsPage.qml:110
+#: ../common/AlbumsPage.qml:55 ../common/SongsPage.qml:115
+msgid "Shuffle"
+msgstr ""
+
+#: ../common/AlbumsPage.qml:72 ../common/SongsPage.qml:144
+msgid "Queue all"
+msgstr ""
+
+#: ../common/AlbumsPage.qml:83 ../common/SongsPage.qml:155
+msgid "Play all"
+msgstr ""
+
+#: ../common/AlbumsPage.qml:115
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] ""
 msgstr[1] ""
-
-#: ../common/AlbumsPage.qml:165 ../common/AlbumsPage.qml:358
-#: ../common/SongsPage.qml:264
-msgid "Play all"
-msgstr ""
-
-#: ../common/AlbumsPage.qml:209 ../common/AlbumsPage.qml:398
-#: ../music-app.qml:877
-msgid "Add to queue"
-msgstr ""
 
 #: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:891
 msgid "Add to playlist"
@@ -257,7 +261,7 @@ msgstr ""
 msgid "Add to Queue"
 msgstr ""
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:446
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:389
 msgid "Remove"
 msgstr ""
 
@@ -265,46 +269,38 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: ../common/SongsPage.qml:206
-msgid "Shuffle"
-msgstr ""
-
-#: ../common/SongsPage.qml:243
-msgid "Queue all"
-msgstr ""
-
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:384
+#: ../common/SongsPage.qml:327
 msgid "Change name"
 msgstr ""
 
-#: ../common/SongsPage.qml:385
+#: ../common/SongsPage.qml:328
 msgid "Enter the new name of the playlist."
 msgstr ""
 
-#: ../common/SongsPage.qml:402
+#: ../common/SongsPage.qml:345
 msgid "Change"
 msgstr ""
 
-#: ../common/SongsPage.qml:418 ../music-app.qml:945
+#: ../common/SongsPage.qml:361 ../music-app.qml:945
 msgid "Playlist already exists"
 msgstr ""
 
-#: ../common/SongsPage.qml:422 ../music-app.qml:950
+#: ../common/SongsPage.qml:365 ../music-app.qml:950
 msgid "Please type in a name."
 msgstr ""
 
-#: ../common/SongsPage.qml:427 ../common/SongsPage.qml:460
+#: ../common/SongsPage.qml:370 ../common/SongsPage.qml:403
 #: ../music-app.qml:486 ../music-app.qml:956
 msgid "Cancel"
 msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:440
+#: ../common/SongsPage.qml:383
 msgid "Are you sure?"
 msgstr ""
 
-#: ../common/SongsPage.qml:441
+#: ../common/SongsPage.qml:384
 msgid "This will delete your playlist."
 msgstr ""
 
@@ -418,6 +414,10 @@ msgstr ""
 
 #: ../music-app.qml:599
 msgid "Debug: "
+msgstr ""
+
+#: ../music-app.qml:877
+msgid "Add to queue"
 msgstr ""
 
 #: ../music-app.qml:914
