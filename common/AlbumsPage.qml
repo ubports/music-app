@@ -97,6 +97,7 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "x-large"
                     maximumLineCount: 1
+                    objectName: "artistLabel"
                     text: artist
                     wrapMode: Text.NoWrap
                 }
