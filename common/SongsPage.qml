@@ -20,6 +20,7 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
@@ -42,6 +43,47 @@ MusicPage {
 
     property alias album: songsModel.album
     property alias genre: songsModel.genre
+
+    state: songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album"
+    states: [
+        PageHeadState {
+            id: albumState
+            name: "album"
+            PropertyChanges {
+                target: songStackPage.head
+                backAction: albumState.backAction
+                actions: albumState.actions
+            }
+        },
+        PageHeadState {
+            id: playlistState
+
+            name: "playlist"
+            actions: [
+                Action {
+                    objectName: "editPlaylist"
+                    iconName: "edit"
+                    onTriggered: {
+                        var dialog = PopupUtils.open(editPlaylistDialog, mainView)
+                        dialog.oldPlaylistName = line2
+                    }
+                },
+                Action {
+                    objectName: "deletePlaylist"
+                    iconName: "delete"
+                    onTriggered: {
+                        var dialog = PopupUtils.open(removePlaylistDialog, mainView)
+                        dialog.oldPlaylistName = line2
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: songStackPage.head
+                backAction: playlistState.backAction
+                actions: playlistState.actions
+            }
+        }
+    ]
 
     SongsModel {
         id: songsModel
@@ -327,6 +369,95 @@ MusicPage {
                         songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                     }
                 }
+            }
+        }
+    }
+
+    // Edit name of playlist dialog
+    Component {
+        id: editPlaylistDialog
+        Dialog {
+            id: dialogEditPlaylist
+            // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+            title: i18n.tr("Change name")
+            text: i18n.tr("Enter the new name of the playlist.")
+
+            property alias oldPlaylistName: playlistName.placeholderText
+
+            TextField {
+                id: playlistName
+                inputMethodHints: Qt.ImhNoPredictiveText
+
+                onPlaceholderTextChanged: text = placeholderText
+            }
+            Label {
+                id: editplaylistoutput
+                color: "red"
+                visible: false
+            }
+
+            Button {
+                text: i18n.tr("Change")
+                color: styleMusic.dialog.confirmButtonColor
+                onClicked: {
+                    editplaylistoutput.visible = true
+
+                    if (playlistName.text.length > 0) { // make sure something is acually inputed
+                        console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
+
+                        if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
+                            playlistModel.filterPlaylists()
+
+                            PopupUtils.close(dialogEditPlaylist)
+
+                            line2 = playlistName.text
+                        }
+                        else {
+                            editplaylistoutput.text = i18n.tr("Playlist already exists")
+                        }
+                    }
+                    else {
+                        editplaylistoutput.text = i18n.tr("Please type in a name.")
+                    }
+                }
+            }
+            Button {
+                text: i18n.tr("Cancel")
+                color: styleMusic.dialog.cancelButtonColor
+                onClicked: PopupUtils.close(dialogEditPlaylist)
+            }
+        }
+    }
+
+    // Remove playlist dialog
+    Component {
+        id: removePlaylistDialog
+        Dialog {
+            id: dialogRemovePlaylist
+            // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+            title: i18n.tr("Are you sure?")
+            text: i18n.tr("This will delete your playlist.")
+
+            property string oldPlaylistName
+
+            Button {
+                text: i18n.tr("Remove")
+                color: styleMusic.dialog.confirmButtonColor
+                onClicked: {
+                    // removing playlist
+                    Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
+
+                    playlistModel.filterPlaylists();
+
+                    PopupUtils.close(dialogRemovePlaylist)
+
+                    musicToolbar.goBack()
+                }
+            }
+            Button {
+                text: i18n.tr("Cancel")
+                color: styleMusic.dialog.cancelButtonColor
+                onClicked: PopupUtils.close(dialogRemovePlaylist)
             }
         }
     }
