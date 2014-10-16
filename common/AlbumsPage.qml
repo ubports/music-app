@@ -363,7 +363,6 @@ MusicPage {
                         anchors.fill: parent
                         onClicked: {
                             Library.addRecent(model.title, artist, "", model.title, "album")
-                            mainView.hasRecent = true
                             recentModel.filterRecent()
                             trackClicked(songAlbumArtistModel, 0, true)
                         }
