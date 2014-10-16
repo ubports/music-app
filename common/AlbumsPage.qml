@@ -40,7 +40,7 @@ MusicPage {
             fill: parent
         }
         header: BlurredHeader {
-            buttons: Column {
+            rightColumn: Column {
                 spacing: units.gu(2)
                 Button {
                     id: shuffleRow
@@ -90,9 +90,13 @@ MusicPage {
             }
             coverSources: albumStackPage.covers
             height: units.gu(30)
-            labels: Column {
+            bottomColumn: Column {
                 Label {
                     id: artistLabel
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     color: styleMusic.common.music
                     elide: Text.ElideRight
                     fontSize: "x-large"
@@ -109,6 +113,10 @@ MusicPage {
 
                 Label {
                     id: artistCount
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     color: styleMusic.common.subtitle
                     elide: Text.ElideRight
                     fontSize: "small"

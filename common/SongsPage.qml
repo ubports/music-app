@@ -100,7 +100,7 @@ MusicPage {
         objectName: "songspage-listview"
         width: parent.width
         header: BlurredHeader {
-            buttons: Column {
+            rightColumn: Column {
                 spacing: units.gu(2)
                 Button {
                     id: shuffleRow
@@ -176,9 +176,13 @@ MusicPage {
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
                     songStackPage.line1 !== i18n.tr("Genre") ?
                         units.gu(33) : units.gu(30)
-            labels: Column {
+            bottomColumn: Column {
                 Label {
                     id: albumLabel
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     color: styleMusic.common.music
                     elide: Text.ElideRight
                     fontSize: "x-large"
@@ -195,11 +199,15 @@ MusicPage {
 
                 Label {
                     id: albumArtist
-                    objectName: "songsPageHeaderAlbumArtist"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     color: styleMusic.common.subtitle
                     elide: Text.ElideRight
                     fontSize: "small"
                     maximumLineCount: 1
+                    objectName: "songsPageHeaderAlbumArtist"
                     text: line1
                     visible: text !== i18n.tr("Playlist") &&
                              text !== i18n.tr("Genre")
@@ -213,6 +221,10 @@ MusicPage {
 
                 Label {
                     id: albumYear
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     color: styleMusic.common.subtitle
                     elide: Text.ElideRight
                     fontSize: "small"

@@ -24,9 +24,9 @@ ListItem.Standard {
     id: albumInfo
     width: parent.width
 
-    property alias buttons: buttonColumn.sourceComponent
+    property alias bottomColumn: bottomColumnLoader.sourceComponent
     property alias coverSources: coversImage.covers
-    property alias labels: labelColumn.sourceComponent
+    property alias rightColumn: rightColumnLoader.sourceComponent
 
     BlurredBackground {
         id: blurredBackground
@@ -52,7 +52,7 @@ ListItem.Standard {
     }
 
     Loader {
-        id: buttonColumn
+        id: rightColumnLoader
         anchors {
             bottom: coversImage.bottom
             left: coversImage.right
@@ -61,7 +61,7 @@ ListItem.Standard {
     }
 
     Loader {
-        id: labelColumn
+        id: bottomColumnLoader
         anchors {
             left: coversImage.left
             right: parent.right
