@@ -268,6 +268,7 @@ MainView {
     // Content hub support
     property list<ContentItem> importItems
     property var activeTransfer
+    property int importId: 0
 
     ContentTransferHint {
         anchors {
@@ -283,6 +284,10 @@ MainView {
             activeTransfer = transfer;
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
+
+                var processId = importId++;
+
+                console.debug("Triggering content-hub import ID", processId);
 
                 searchPaths = [];
 
@@ -308,9 +313,16 @@ MainView {
 
 
                 if (success === true) {
-                    contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                    contentHubWaitForFile.searchPaths = contentHub.searchPaths;
-                    contentHubWaitForFile.start();
+                    if (contentHubWaitForFile.processId === -1) {
+                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
+                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
+                        contentHubWaitForFile.processId = processId;
+                        contentHubWaitForFile.start();
+                    } else {
+                        contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
+                        contentHubWaitForFile.count = 0;
+                        contentHubWaitForFile.restart();
+                    }
                 }
                 else {
                     var errordialog = PopupUtils.open(contentHubError, mainView)
@@ -379,8 +391,10 @@ MainView {
         property var dialog: null
         property var searchPaths
         property int count: 0
+        property int processId: -1
 
         function stopTimer() {
+            processId = -1;
             count = 0;
             stop();
 
