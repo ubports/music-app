@@ -312,8 +312,8 @@ class AlbumsPage(MusicPage):
 
     @click_object
     def click_artist(self, i):
-        return self.wait_select_single("Standard",
-                                       objectName="albumsArtistListItem"
+        return self.wait_select_single("Card",
+                                       objectName="albumsPageGridItem"
                                        + str(i))
 
     def get_artist(self):
