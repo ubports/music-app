@@ -116,6 +116,8 @@ class MusicApp(object):
         track = tracksPage.get_track(0)
         self.app.pointing_device.click_object(track)
 
+        tracksPage.visible.wait_for(False)  # wait until page has hidden
+
         # TODO: when using bottom edge wait for .isReady on tracksPage
 
         # wait for now playing page to be visible
