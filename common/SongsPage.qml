@@ -365,6 +365,11 @@ MusicPage {
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
                             playlistModel.filterPlaylists()
 
+                            if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
+                                Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
+                                recentModel.filterRecent()
+                            }
+
                             PopupUtils.close(dialogEditPlaylist)
 
                             line2 = playlistName.text
@@ -405,6 +410,12 @@ MusicPage {
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
 
                     playlistModel.filterPlaylists();
+
+                    if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
+                        Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
+                        mainView.hasRecent = !Library.isRecentEmpty()
+                        recentModel.filterRecent()
+                    }
 
                     PopupUtils.close(dialogRemovePlaylist)
 
