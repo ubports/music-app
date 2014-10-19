@@ -32,7 +32,133 @@ function initialize() {
             tx.executeSql('DROP TABLE IF EXISTS metadata');  // TODO: drop recent as well to reset data
 
             createRecent();
+            createQueue();
       });
+}
+
+function createQueue() {
+    var db = getDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, album TEXT, art TEXT, author TEXT, filename TEXT, title TEXT)");
+      });
+}
+
+function clearQueue() {
+    var db = getDatabase();
+    db.transaction(
+        function(tx) {
+            tx.executeSql('DROP TABLE IF EXISTS queue');
+            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, album TEXT, art TEXT, author TEXT, filename TEXT, title TEXT)");
+      });
+}
+
+function addQueueItem(ind, album, art, author, filename, title) {
+    var db = getDatabase();
+    var res="";
+
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, album, art, author, filename, title) VALUES (?,?,?,?,?,?);', [ind, album, art, author, filename, title]);
+              if (rs.rowsAffected > 0) {
+                console.log("QUEUE add OK")
+                res = "OK";
+              } else {
+                console.log("QUEUE add Fail")
+                res = "Error";
+              }
+        }
+    );
+}
+
+function moveQueueItem(from, to) {
+    var db = getDatabase();
+    var res="";
+
+    // Index starts at 1, so increment.
+    from++
+    to++
+
+    db.transaction(function(tx) {
+
+        // Generate new index number if records exist, otherwise use 0
+        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
+
+        var nextIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
+                                                                   0)["MAX(ind)"] + 1
+
+        tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                      [nextIndex, from])
+
+        if (from > to) {
+            for (var i = from-1; i >= to; i--) {
+                tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                              [i+1, i])
+            }
+        } else {
+            for (var j = from+1; j <= to; j++) {
+                tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                              [j-1, j])
+            }
+        }
+
+        tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                      [to, nextIndex])
+
+    })
+}
+
+function removeQueueItem(ind) {
+    var db = getDatabase()
+    var res = false
+
+    // Index starts at 1, so increment.
+    ind++
+
+    db.transaction(function (tx) {
+        tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
+
+        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
+
+        var lastIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
+                                                           0)["MAX(ind)"]
+        for(var i = ind+1; i <= lastIndex; i++) {
+            tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                          [i-1, i])
+        }
+    })
+
+    return res
+}
+
+
+function getQueue() {
+    var res = [];
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
+        for(var i = 0; i < rs.rows.length; i++) {
+            var dbItem = rs.rows.item(i);
+            res.push({album:dbItem.album,
+                         art:dbItem.art,
+                         author:dbItem.author,
+                         filename:dbItem.filename,
+                         title:dbItem.title
+                     });
+        }
+    });
+    return res;
+}
+
+function isQueueEmpty() {
+    var db = getDatabase();
+    var res = 0;
+
+    db.transaction( function(tx) {
+        createRecent();
+        var rs = tx.executeSql("SELECT count(*) as value FROM queue")
+        res = rs.rows.item(0).value === 0
+    });
+    return res
 }
 
 function createRecent() {

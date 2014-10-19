@@ -25,6 +25,7 @@ import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
 import "settings.js" as Settings
+import "meta-database.js" as Library
 
 MusicPage {
     id: nowPlaying
@@ -62,6 +63,7 @@ MusicPage {
                 onTriggered: {
                     head.backAction.trigger()
                     trackQueue.model.clear()
+                    Library.clearQueue()
                 }
             },
             Action {
@@ -437,6 +439,7 @@ MusicPage {
                         }
 
                         queuelist.model.remove(index);
+                        Library.removeQueueItem(removedIndex);
 
                         if (removedIndex < player.currentIndex) {
                             // update index as the old has been removed
@@ -460,7 +463,7 @@ MusicPage {
                     console.debug("Move: ", from, to);
 
                     queuelist.model.move(from, to, 1);
-
+                    Library.moveQueueItem(from, to);
 
                     // Maintain currentIndex with current song
                     if (from === player.currentIndex) {

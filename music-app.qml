@@ -559,6 +559,14 @@ MainView {
         }
         Library.initialize();
 
+        // Load previous queue
+        if (!Library.isQueueEmpty()) {
+            var queue = Library.getQueue()
+            for(var i = 0; i <= queue.length; i++) {
+                trackQueue.model.append(queue[i])
+            }
+        }
+
         // initialize playlists
         Playlists.initializePlaylist()
 
@@ -622,7 +630,8 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
+            //trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
+            trackQueue.append(model.get(i, model.RoleModelData));
         }
     }
 
@@ -671,6 +680,7 @@ MainView {
         }
 
         trackQueue.model.clear();  // clear the old model
+        Library.clearQueue();  // clear the persistent queue
 
         addQueueFromModel(model);
 
@@ -851,6 +861,9 @@ MainView {
         {
             model.append(makeDict(listElement))
             console.debug(JSON.stringify(makeDict(listElement)));
+            Library.addQueueItem(trackQueue.count, listElement.album,
+                                 listElement.art, listElement.author,
+                                 listElement.filename, listElement.title)
         }
     }
 
