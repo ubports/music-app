@@ -860,7 +860,7 @@ MainView {
         {
             model.append(makeDict(listElement))
             console.debug(JSON.stringify(makeDict(listElement)));
-            Library.addQueueItem(trackQueue.count, listElement.album,
+            Library.addQueueItem(trackQueue.count - 1, listElement.album,
                                  listElement.art, listElement.author,
                                  listElement.filename, listElement.title)
         }

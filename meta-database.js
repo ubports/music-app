@@ -74,10 +74,6 @@ function moveQueueItem(from, to) {
     var db = getDatabase();
     var res="";
 
-    // Index starts at 1, so increment.
-    from++
-    to++
-
     db.transaction(function(tx) {
 
         // Generate new index number if records exist, otherwise use 0
@@ -110,9 +106,6 @@ function moveQueueItem(from, to) {
 function removeQueueItem(ind) {
     var db = getDatabase()
     var res = false
-
-    // Index starts at 1, so increment.
-    ind++
 
     db.transaction(function (tx) {
         tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
