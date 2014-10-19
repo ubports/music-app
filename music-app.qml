@@ -630,7 +630,6 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            //trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
             trackQueue.append(model.get(i, model.RoleModelData));
         }
     }
