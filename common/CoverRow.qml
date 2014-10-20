@@ -58,6 +58,7 @@ UbuntuShape {
             delegate: Image {
                 width: coverRow.size
                 height: width
+                smooth: true
                 source: coverRow.count !== 0 && coverRow.covers[index] !== "" && coverRow.covers[index] !== undefined
                         ? (coverRow.covers[index].art !== undefined
                            ? coverRow.covers[index].art
