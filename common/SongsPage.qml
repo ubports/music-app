@@ -407,7 +407,6 @@ MusicPage {
 
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                        mainView.hasRecent = !Library.isRecentEmpty()
                         recentModel.filterRecent()
                     }
 
