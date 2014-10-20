@@ -32,6 +32,8 @@ Rectangle {
     // Property to set the size of the cover image
     property int size
 
+    property string firstSource
+
     onCoversChanged: {
         if (covers !== undefined) {
             while (covers.length > 4) {  // remove any covers after 4
@@ -58,10 +60,15 @@ Rectangle {
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
-                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                        : undefined
+                sourceSize.height: height
+                sourceSize.width: width
+
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                    } else if (status === Image.Ready && index === 0) {
+                        firstSource = source
                     }
                 }
             }

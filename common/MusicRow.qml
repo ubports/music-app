@@ -50,27 +50,17 @@ Row {
         size: coverSize
     }
 
-    Image {
+    CoverGrid {
         id: coverSquare
-        visible: showCovers && isSquare
-        width: coverSize
-        height: coverSize
         anchors {
             verticalCenter: parent.verticalCenter
             topMargin: units.gu(0.5)
             bottomMargin: units.gu(0.5)
             leftMargin: units.gu(2)
         }
-        source: coverRow.count !== 0 && coverRow.covers[0] !== "" && coverRow.covers[0] !== undefined
-                ? (coverRow.covers[0].art !== undefined
-                   ? coverRow.covers[0].art
-                   : "image://albumart/artist=" + coverRow.covers[0].author + "&album=" + coverRow.covers[0].album)
-                : Qt.resolvedUrl("../images/music-app-cover@30.png")
-        onStatusChanged: {
-            if (status === Image.Error) {
-                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-            }
-        }
+        covers: coverRow.covers
+        size: coverSize
+        visible: showCovers && isSquare
     }
 
     Loader {

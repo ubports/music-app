@@ -22,6 +22,7 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
+import "common"
 import "settings.js" as Settings
 
 Item {
@@ -201,26 +202,15 @@ Item {
                     color: "transparent"
 
                     /* Album art in player controls */
-                    Image {
-                        id: playerControlsImage
-                        anchors {
-                            bottom: parent.bottom
-                            left: parent.left
-                            top: parent.top
-                        }
-                        smooth: true
-                        source: player.currentMetaArt === "" ?
-                                    decodeURIComponent("image://albumart/artist=" +
-                                                       player.currentMetaArtist +
-                                                       "&album=" + player.currentMetaAlbum)
-                                  : player.currentMetaArt
-                        width: parent.height
-
-                        onStatusChanged: {
-                            if (status === Image.Error) {
-                                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-                            }
-                        }
+                    CoverGrid {
+                         id:  playerControlsImage
+                         anchors {
+                             bottom: parent.bottom
+                             left: parent.left
+                             top: parent.top
+                         }
+                         covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaArt}]
+                         size: parent.height
                     }
 
                     /* Column of meta labels */
