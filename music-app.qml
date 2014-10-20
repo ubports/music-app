@@ -232,7 +232,7 @@ MainView {
             }
 
             // enqueue
-            trackQueue.append(makeDict(track));
+            trackQueue.model.append(makeDict(track));
 
             // play first URI
             if (play) {
@@ -434,7 +434,7 @@ MainView {
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(searchPaths[i])
 
-                    trackQueue.append(makeDict(model));
+                    trackQueue.model.append(makeDict(model));
                 }
 
                 trackQueueClick(0);
@@ -630,8 +630,11 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.append(model.get(i, model.RoleModelData));
+            trackQueue.model.append(model.get(i, model.RoleModelData));
         }
+
+        // Add model to queue storage
+        Library.addQueueList(trackQueue.model);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -855,15 +858,6 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
-
-        function append(listElement)
-        {
-            model.append(makeDict(listElement))
-            console.debug(JSON.stringify(makeDict(listElement)));
-            Library.addQueueItem(trackQueue.count - 1, listElement.album,
-                                 listElement.art, listElement.author,
-                                 listElement.filename, listElement.title)
-        }
     }
 
     // TODO: list of playlists move to U1DB
@@ -909,7 +903,7 @@ MainView {
                     onClicked: {
                         console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
                         PopupUtils.close(trackPopover)
-                        trackQueue.append(chosenElement)
+                        trackQueue.model.append(makeDict(listElement))
                     }
                 }
                 ListItem.Standard {

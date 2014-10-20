@@ -70,6 +70,24 @@ function addQueueItem(ind, album, art, author, filename, title) {
     );
 }
 
+function addQueueList(model) {
+    var db = getDatabase();
+    var res="";
+
+    db.transaction(function(tx) {
+
+        for (var i = 0; i < model.count; i++) {
+            var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, album, art, author, filename, title) VALUES (?,?,?,?,?,?);', [i, model.get(i).album, model.get(i).art, model.get(i).author, model.get(i).filename, model.get(i).title]);
+            if (rs.rowsAffected > 0) {
+                res = "OK";
+            } else {
+                res = "Error";
+            }
+        }
+    }
+    );
+}
+
 function moveQueueItem(from, to) {
     var db = getDatabase();
     var res="";
