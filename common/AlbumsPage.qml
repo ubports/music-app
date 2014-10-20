@@ -31,7 +31,7 @@ MusicPage {
     objectName: "albumsArtistPage"
     visible: false
 
-    property string artist: ""
+    property string artist: "Unknown Artist"
     property var covers: []
 
     CardView {
