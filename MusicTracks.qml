@@ -73,9 +73,6 @@ MusicPage {
                 ]
                 triggerActionOnMouseRelease: true
 
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: musicRow.pressed = pressed
-
                 onItemClicked: trackClicked(tracklist.model, index)  // play track
 
                 MusicRow {

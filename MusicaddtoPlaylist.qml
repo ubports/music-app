@@ -90,9 +90,6 @@ MusicPage {
                 musicToolbar.goBack();  // go back to the previous page
             }
 
-            // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-            onPressedChanged: musicRow.pressed = pressed
-
             MusicRow {
                 id: musicRow
                 anchors.verticalCenter: parent.verticalCenter
