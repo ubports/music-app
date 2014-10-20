@@ -89,20 +89,15 @@ MusicPage {
             anchors.top: parent.top
             anchors.topMargin: mainView.header.height
             height: units.gu(27)
-            art: albumImage.source
+            art: albumImage.firstSource
 
-            Image {
+            CoverGrid {
                 id: albumImage
-                anchors.centerIn: parent
-                width: units.gu(18)
-                height: width
-                source: player.currentMetaArt === "" ?
-                            decodeURIComponent("image://albumart/artist=" +
-                                               player.currentMetaArtist +
-                                               "&album=" + player.currentMetaAlbum)
-                          : player.currentMetaArt
-                sourceSize.height: height
-                sourceSize.width: width
+                anchors {
+                    centerIn: parent
+                }
+                covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
+                size: units.gu(18)
             }
         }
 

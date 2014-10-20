@@ -32,6 +32,8 @@ Rectangle {
     // Property to set the size of the cover image
     property int size
 
+    property string firstSource
+
     onCoversChanged: {
         if (covers !== undefined) {
             while (covers.length > 4) {  // remove any covers after 4
@@ -65,6 +67,8 @@ Rectangle {
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                    } else if (status === Image.Ready && index === 0) {
+                        firstSource = source
                     }
                 }
             }
