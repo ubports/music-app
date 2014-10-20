@@ -63,6 +63,8 @@ UbuntuShape {
                            ? coverRow.covers[index].art
                            : "image://albumart/artist=" + coverRow.covers[index].author + "&album=" + coverRow.covers[index].album)
                         : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                sourceSize.height: height
+                sourceSize.width: width
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")

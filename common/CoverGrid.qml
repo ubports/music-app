@@ -59,6 +59,9 @@ Rectangle {
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
                         : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                sourceSize.height: height
+                sourceSize.width: width
+
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")

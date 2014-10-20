@@ -66,6 +66,8 @@ Row {
                    ? coverRow.covers[0].art
                    : "image://albumart/artist=" + coverRow.covers[0].author + "&album=" + coverRow.covers[0].album)
                 : Qt.resolvedUrl("../images/music-app-cover@30.png")
+        sourceSize.height: height
+        sourceSize.width: width
         onStatusChanged: {
             if (status === Image.Error) {
                 source = Qt.resolvedUrl("../images/music-app-cover@30.png")

@@ -102,6 +102,8 @@ MusicPage {
                                                player.currentMetaArtist +
                                                "&album=" + player.currentMetaAlbum)
                           : player.currentMetaArt
+                sourceSize.height: height
+                sourceSize.width: width
             }
         }
 
