@@ -26,6 +26,6 @@ Action {
 
     onTriggered: {
         console.debug("Debug: Add track to queue: " + model)
-        trackQueue.append(model)
+        trackQueue.model.append(model)
     }
 }
