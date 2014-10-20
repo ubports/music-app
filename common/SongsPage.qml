@@ -121,11 +121,9 @@ MusicPage {
 
                             if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                                 Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                                 Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             }
                         }
@@ -161,11 +159,9 @@ MusicPage {
 
                             if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                                 Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                                 Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             }
                         }
@@ -266,11 +262,9 @@ MusicPage {
 
                     if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                         Library.addRecent(songStackPage.line2, songStackPage.line1, model.art, songStackPage.line2, "album")
-                        mainView.hasRecent = true
                         recentModel.filterRecent()
                     } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                         Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                        mainView.hasRecent = true
                         recentModel.filterRecent()
                     }
                 }
@@ -413,7 +407,6 @@ MusicPage {
 
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                        mainView.hasRecent = !Library.isRecentEmpty()
                         recentModel.filterRecent()
                     }
 
