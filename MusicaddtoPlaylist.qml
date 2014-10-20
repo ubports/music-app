@@ -97,7 +97,6 @@ MusicPage {
                 id: musicRow
                 anchors.verticalCenter: parent.verticalCenter
                 covers: Playlists.getPlaylistCovers(playlist.name)
-                isSquare: true
                 column: Column {
                     spacing: units.gu(1)
                     Label {

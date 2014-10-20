@@ -37,7 +37,7 @@ Row {
     spacing: units.gu(1)
 
     CoverGrid {
-        id: coverSquare
+        id: coverGrid
         anchors {
             verticalCenter: parent.verticalCenter
             topMargin: units.gu(0.5)
@@ -56,7 +56,7 @@ Row {
             topMargin: units.gu(1)
         }
         width: !showCovers ? parent.width - parent.spacing
-                           : parent.width - coverSquare.width - parent.spacing
+                           : parent.width - coverGrid.width - parent.spacing
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {

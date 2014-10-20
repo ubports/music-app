@@ -82,7 +82,6 @@ MusicPage {
                     id: musicRow
                     anchors.verticalCenter: parent.verticalCenter
                     covers: [{art: model.art}]
-                    isSquare: true
                     coverSize: units.gu(6)
                     spacing: units.gu(2)
                     column: Column {
