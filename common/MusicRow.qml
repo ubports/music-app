@@ -61,7 +61,6 @@ Row {
             bottomMargin: units.gu(0.5)
             leftMargin: units.gu(2)
         }
-        smooth: true
         source: coverRow.count !== 0 && coverRow.covers[0] !== "" && coverRow.covers[0] !== undefined
                 ? (coverRow.covers[0].art !== undefined
                    ? coverRow.covers[0].art

@@ -96,7 +96,6 @@ MusicPage {
                 anchors.centerIn: parent
                 width: units.gu(18)
                 height: width
-                smooth: true
                 source: player.currentMetaArt === "" ?
                             decodeURIComponent("image://albumart/artist=" +
                                                player.currentMetaArtist +

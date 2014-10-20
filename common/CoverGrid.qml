@@ -54,7 +54,6 @@ Rectangle {
                 fillMode: Image.PreserveAspectCrop
                 height: coverGrid.size / (coverGrid.covers.length > 1 ? 2 : 1)
                 width: coverGrid.size / (coverGrid.covers.length > 2 && !(coverGrid.covers.length === 3 && index === 2) ? 2 : 1)
-                smooth: true
                 source: coverGrid.covers.length !== 0 && coverGrid.covers[index] !== "" && coverGrid.covers[index] !== undefined
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
