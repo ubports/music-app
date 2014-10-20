@@ -99,178 +99,135 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
-        header: ListItem.Standard {
-            id: albumInfo
-            height: albumArtist.visible ? units.gu(33) : units.gu(30)
-
-            BlurredBackground {
-                id: blurredBackground
-                height: parent.height
-                art: coversImage.covers.length > 0
-                     ? (coversImage.covers[0].art !== undefined
-                        ? coversImage.covers[0].art
-                        : decodeURIComponent("image://albumart/artist=" + coversImage.covers[0].author + "&album=" + coversImage.covers[0].album))
-                     : Qt.resolvedUrl("../images/music-app-cover@30.png")
-            }
-
-            CoverGrid {
-                id: coversImage
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    topMargin: units.gu(3)
-                    bottomMargin: units.gu(2)
-                    leftMargin: units.gu(2)
-                    rightMargin: units.gu(2)
-                }
-                covers: songStackPage.covers
-                size: units.gu(18)
-            }
-
-            Label {
-                id: albumLabel
-                wrapMode: Text.NoWrap
-                maximumLineCount: 1
-                fontSize: "x-large"
-                color: styleMusic.common.music
-                anchors {
-                    top: coversImage.bottom
-                    topMargin: units.gu(1)
-                    left: coversImage.left
-                    right: parent.right
-                    rightMargin: units.gu(2)
-                }
-                elide: Text.ElideRight
-                text: line2
-            }
-
-            Label {
-                id: albumArtist
-                objectName: "songsPageHeaderAlbumArtist"
-                wrapMode: Text.NoWrap
-                maximumLineCount: 1
-                fontSize: "small"
-                color: styleMusic.common.subtitle
-                visible: text !== i18n.tr("Playlist") &&
-                         text !== i18n.tr("Genre")
-                anchors {
-                    top: albumLabel.bottom
-                    topMargin: units.gu(0.75)
-                    left: coversImage.left
-                    right: parent.right
-                    rightMargin: units.gu(2)
-                }
-                elide: Text.ElideRight
-                text: line1
-            }
-
-            Label {
-                id: albumYear
-                wrapMode: Text.NoWrap
-                maximumLineCount: 1
-                fontSize: "small"
-                color: styleMusic.common.subtitle
-                anchors {
-                    top: albumArtist.visible ? albumArtist.bottom
-                                             : albumLabel.bottom
-                    topMargin: units.gu(1)
-                    left: coversImage.left
-                    right: parent.right
-                    rightMargin: units.gu(2)
-                }
-                elide: Text.ElideRight
-                text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-                                                   : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-
-            }
-
-            // Shuffle
-            Button {
-                id: shuffleRow
-                anchors {
-                    bottom: queueAllRow.top
-                    bottomMargin: units.gu(2)
-                    left: coversImage.right
-                    leftMargin: units.gu(2)
-                }
-                strokeColor: UbuntuColors.green
-                height: units.gu(4)
-                width: units.gu(15)
-                Text {
-                    anchors {
-                        centerIn: parent
+        header: BlurredHeader {
+            rightColumn: Column {
+                spacing: units.gu(2)
+                Button {
+                    id: shuffleRow
+                    height: units.gu(4)
+                    strokeColor: UbuntuColors.green
+                    width: units.gu(15)
+                    Text {
+                        anchors {
+                            centerIn: parent
+                        }
+                        color: "white"
+                        text: i18n.tr("Shuffle")
                     }
-                    color: "white"
-                    text: i18n.tr("Shuffle")
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        shuffleModel(albumtrackslist.model)  // play track
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            shuffleModel(albumtrackslist.model)  // play track
 
-                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            recentModel.filterRecent()
-                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            recentModel.filterRecent()
+                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                                recentModel.filterRecent()
+                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                                recentModel.filterRecent()
+                            }
+                        }
+                    }
+                }
+                Button {
+                    id: queueAllRow
+                    height: units.gu(4)
+                    strokeColor: UbuntuColors.green
+                    width: units.gu(15)
+                    Text {
+                        anchors {
+                            centerIn: parent
+                        }
+                        color: "white"
+                        text: i18n.tr("Queue all")
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: addQueueFromModel(albumtrackslist.model)
+                    }
+                }
+                Button {
+                    id: playRow
+                    color: UbuntuColors.green
+                    height: units.gu(4)
+                    text: i18n.tr("Play all")
+                    width: units.gu(15)
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            trackClicked(albumtrackslist.model, 0)  // play track
+
+                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                                recentModel.filterRecent()
+                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                                recentModel.filterRecent()
+                            }
                         }
                     }
                 }
             }
-
-            // Queue
-            Button {
-                id: queueAllRow
-                anchors {
-                    bottom: playRow.top
-                    bottomMargin: units.gu(2)
-                    left: coversImage.right
-                    leftMargin: units.gu(2)
-                }
-                strokeColor: UbuntuColors.green
-                height: units.gu(4)
-                width: units.gu(15)
-                Text {
+            coverSources: songStackPage.covers
+            height: songStackPage.line1 !== i18n.tr("Playlist") &&
+                    songStackPage.line1 !== i18n.tr("Genre") ?
+                        units.gu(33) : units.gu(30)
+            bottomColumn: Column {
+                Label {
+                    id: albumLabel
                     anchors {
-                        centerIn: parent
+                        left: parent.left
+                        right: parent.right
                     }
-                    color: "white"
-                    text: i18n.tr("Queue all")
+                    color: styleMusic.common.music
+                    elide: Text.ElideRight
+                    fontSize: "x-large"
+                    maximumLineCount: 1
+                    text: line2
+                    wrapMode: Text.NoWrap
                 }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        addQueueFromModel(albumtrackslist.model)
-                    }
-                }
-            }
 
-            // Play
-            Button {
-                id: playRow
-                anchors {
-                    bottom: coversImage.bottom
-                    left: coversImage.right
-                    leftMargin: units.gu(2)
+                Item {
+                    height: units.gu(0.75)
+                    width: parent.width
+                    visible: albumArtist.visible
                 }
-                color: UbuntuColors.green
-                height: units.gu(4)
-                width: units.gu(15)
-                text: i18n.tr("Play all")
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        trackClicked(albumtrackslist.model, 0)  // play track
 
-                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            recentModel.filterRecent()
-                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            recentModel.filterRecent()
-                        }
+                Label {
+                    id: albumArtist
+                    anchors {
+                        left: parent.left
+                        right: parent.right
                     }
+                    color: styleMusic.common.subtitle
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    maximumLineCount: 1
+                    objectName: "songsPageHeaderAlbumArtist"
+                    text: line1
+                    visible: text !== i18n.tr("Playlist") &&
+                             text !== i18n.tr("Genre")
+                    wrapMode: Text.NoWrap
+                }
+
+                Item {
+                    height: units.gu(1)
+                    width: parent.width
+                }
+
+                Label {
+                    id: albumYear
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    color: styleMusic.common.subtitle
+                    elide: Text.ElideRight
+                    fontSize: "small"
+                    maximumLineCount: 1
+                    text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                                                       : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                    wrapMode: Text.NoWrap
                 }
             }
         }
@@ -402,6 +359,11 @@ MusicPage {
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
                             playlistModel.filterPlaylists()
 
+                            if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
+                                Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
+                                recentModel.filterRecent()
+                            }
+
                             PopupUtils.close(dialogEditPlaylist)
 
                             line2 = playlistName.text
@@ -442,6 +404,12 @@ MusicPage {
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
 
                     playlistModel.filterPlaylists();
+
+                    if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
+                        Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
+                        mainView.hasRecent = !Library.isRecentEmpty()
+                        recentModel.filterRecent()
+                    }
 
                     PopupUtils.close(dialogRemovePlaylist)
 

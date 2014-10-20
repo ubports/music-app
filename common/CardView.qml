@@ -22,22 +22,40 @@ import Ubuntu.Components 1.1
 Flickable {
     anchors {
         fill: parent
-        margins: units.gu(1)
     }
 
     // dont use flow.contentHeight as it is inaccurate due to height of labels
     // changing as they load
-    contentHeight: flow.childrenRect.height
+    contentHeight: headerLoader.childrenRect.height + flowContainer.height
     contentWidth: width
 
     property alias count: flow.count
     property alias delegate: flow.delegate
+    property alias header: headerLoader.sourceComponent
     property alias model: flow.model
     property real itemWidth: units.gu(15)
 
-    ColumnFlow {
-        id: flow
-        columns: parseInt(width / itemWidth)
+    Loader {
+        id: headerLoader
         width: parent.width
+    }
+
+    Item {
+        id: flowContainer
+        anchors {
+            top: headerLoader.bottom
+        }
+        height: flow.childrenRect.height + flow.anchors.margins * 2
+        width: parent.width
+
+        ColumnFlow {
+            id: flow
+            anchors {
+                fill: parent
+                margins: units.gu(1)
+            }
+
+            columns: parseInt(width / itemWidth)
+        }
     }
 }

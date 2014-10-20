@@ -74,7 +74,7 @@ MusicPage {
 
             onClicked: {
                 albumsPage.artist = model.artist;
-                albumsPage.covers = [{art: artistCard.imageSource}]
+                albumsPage.covers = artistCard.coverSources
                 albumsPage.title = i18n.tr("Artist")
 
                 mainPageStack.push(albumsPage)

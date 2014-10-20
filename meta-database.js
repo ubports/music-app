@@ -103,6 +103,37 @@ function getRecent() {
     return res;
 }
 
+function recentContainsPlaylist(key) {
+    var db = getDatabase();
+    var rs;
+    db.transaction( function(tx) {
+        rs = tx.executeSql("SELECT count(*) as value FROM recent WHERE type=? AND key=?",
+                               ["playlist", key]);
+    }
+    );
+    return rs.rows.item(0).value > 0;
+}
+
+function recentRemovePlaylist(key) {
+    var res = false
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        res = tx.executeSql("DELETE FROM recent WHERE type=? AND key=?",
+                            ["playlist", key]).rowsAffected > 0;
+
+    })
+    return res
+}
+
+function recentRenamePlaylist(oldKey, newKey) {
+    var db = getDatabase();
+    db.transaction( function(tx) {
+        tx.executeSql("UPDATE recent SET title=?,key=? WHERE type=? AND key=?",
+                            [newKey, newKey, "playlist", oldKey]);
+
+    })
+}
+
 function isRecentEmpty() {
     var db = getDatabase();
     var res = 0;

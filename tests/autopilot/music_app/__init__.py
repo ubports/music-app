@@ -116,6 +116,8 @@ class MusicApp(object):
         track = tracksPage.get_track(0)
         self.app.pointing_device.click_object(track)
 
+        tracksPage.visible.wait_for(False)  # wait until page has hidden
+
         # TODO: when using bottom edge wait for .isReady on tracksPage
 
         # wait for now playing page to be visible
@@ -310,8 +312,8 @@ class AlbumsPage(MusicPage):
 
     @click_object
     def click_artist(self, i):
-        return self.wait_select_single("Standard",
-                                       objectName="albumsArtistListItem"
+        return self.wait_select_single("Card",
+                                       objectName="albumsPageGridItem"
                                        + str(i))
 
     def get_artist(self):
