@@ -20,9 +20,8 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 
 /* SwipeDelete object */
-Rectangle {
+Item {
     id: swipeBackground
-    color: "transparent"
     height: parent.height
     state: "normal"
     width: parent.width * 3

@@ -1183,8 +1183,10 @@ MainView {
         // Overlay to show when no tracks detected on the device
         Rectangle {
             id: libraryEmpty
-            anchors.fill: parent
-            anchors.topMargin: -emptyPage.header.height
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
             color: styleMusic.libraryEmpty.backgroundColor
 
             Column {

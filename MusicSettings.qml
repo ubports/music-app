@@ -86,9 +86,8 @@ ComposerSheet {
     }
 
     // Snap to current track
-    Rectangle {
+    Item {
         id: snapRow
-        color: "transparent"
         width: parent.width
         anchors.top: equaliser.bottom
         anchors.topMargin: units.gu(2)
@@ -107,13 +106,12 @@ ComposerSheet {
         }
     }
     // Accounts
-    Rectangle {
+    Item {
         id: accounts
         anchors.top: equaliser.bottom
         anchors.topMargin: units.gu(12)
         anchors.bottom: streaming.top
         anchors.bottomMargin: units.gu(2)
-        color: "transparent"
         width: parent.width
 
         Label {
@@ -148,11 +146,10 @@ ComposerSheet {
 
     // Music Streaming
     // Activate in 1.+
-    Rectangle {
+    Item {
         id: streaming
         anchors.top: equaliser.bottom
         anchors.topMargin: units.gu(24)
-        color: "transparent"
         width: parent.width
         Label {
             text: i18n.tr("Music Streaming")
@@ -174,11 +171,10 @@ ComposerSheet {
             }
         }
 
-        Rectangle {
+        Item {
             id: wifiRow
             anchors.top: parent.top
             anchors.topMargin: units.gu(10)
-            color: "transparent"
             width: parent.width
             Label {
                 id: streamwifiLabel

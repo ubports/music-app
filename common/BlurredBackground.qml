@@ -22,13 +22,16 @@ import Ubuntu.Components 1.1
 import QtGraphicalEffects 1.0
 
 // Blurred background
-Rectangle {
+Item {
     width: parent.width
+
     property string art  // : player.currentMetaFile === "" ? Qt.resolvedUrl("../images/music-app-cover@30.png") : player.currentMetaArt
 
     // dark layer
     Rectangle {
-        anchors.fill: parent
+        anchors {
+            fill: parent
+        }
         color: "black" 
     }
 
