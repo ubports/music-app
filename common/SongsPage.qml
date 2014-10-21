@@ -96,7 +96,7 @@ MusicPage {
                     text: i18n.tr("Select All")
                     onTriggered: {
                         if (albumtrackslist.selectedItems.length === albumtrackslist.model.count) {
-                            albumtrackslist.clearSelection(false)
+                            albumtrackslist.clearSelection()
                         } else {
                             albumtrackslist.selectAll()
                         }
@@ -116,7 +116,7 @@ MusicPage {
                         chosenElements = items;
                         mainPageStack.push(addtoPlaylist)
 
-                        albumtrackslist.clearSelection(true)
+                        albumtrackslist.closeSelection()
                     }
                 },
                 Action {
@@ -128,7 +128,7 @@ MusicPage {
                             trackQueue.model.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
-                        albumtrackslist.clearSelection(true)
+                        albumtrackslist.closeSelection()
                     }
                 },
                 Action {
@@ -141,7 +141,7 @@ MusicPage {
                             Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i] - i)
                         }
 
-                        albumtrackslist.clearSelection(true)
+                        albumtrackslist.closeSelection()
 
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
                         playlistModel.filterPlaylists()
@@ -174,15 +174,14 @@ MusicPage {
         // Requirements for ListItemWithActions
         property var selectedItems: []
 
-        signal clearSelection(bool closeSelection)
+        signal clearSelection()
+        signal closeSelection()
         signal selectAll()
 
-        onClearSelection: {
-            selectedItems = []
-
-            if (closeSelection || closeSelection === undefined) {
-                state = "normal"
-            }
+        onClearSelection: selectedItems = []
+        onCloseSelection: {
+            clearSelection()
+            state = "normal"
         }
         onSelectAll: {
             var tmp = selectedItems

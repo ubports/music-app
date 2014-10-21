@@ -50,7 +50,7 @@ MusicPage {
                     text: i18n.tr("Select All")
                     onTriggered: {
                         if (tracklist.selectedItems.length === tracklist.model.count) {
-                            tracklist.clearSelection(false)
+                            tracklist.clearSelection()
                         } else {
                             tracklist.selectAll()
                         }
@@ -70,7 +70,7 @@ MusicPage {
                         chosenElements = items;
                         mainPageStack.push(addtoPlaylist)
 
-                        tracklist.clearSelection(true)
+                        tracklist.closeSelection()
                     }
                 },
                 Action {
@@ -82,7 +82,7 @@ MusicPage {
                             trackQueue.model.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        tracklist.clearSelection(true)
+                        tracklist.closeSelection()
                     }
                 }
             ]
@@ -116,15 +116,14 @@ MusicPage {
         // Requirements for ListItemWithActions
         property var selectedItems: []
 
-        signal clearSelection(bool closeSelection)
+        signal clearSelection()
+        signal closeSelection()
         signal selectAll()
 
-        onClearSelection: {
-            selectedItems = []
-
-            if (closeSelection || closeSelection === undefined) {
-                state = "normal"
-            }
+        onClearSelection: selectedItems = []
+        onCloseSelection: {
+            clearSelection()
+            state = "normal"
         }
         onSelectAll: {
             var tmp = selectedItems

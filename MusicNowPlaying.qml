@@ -102,7 +102,7 @@ MusicPage {
                     iconName: "select"
                     onTriggered: {
                         if (queuelist.selectedItems.length === queuelist.model.count) {
-                            queuelist.clearSelection(false)
+                            queuelist.clearSelection()
                         } else {
                             queuelist.selectAll()
                         }
@@ -122,7 +122,7 @@ MusicPage {
                         chosenElements = items;
                         mainPageStack.push(addtoPlaylist)
 
-                        queuelist.clearSelection(true)
+                        queuelist.closeSelection()
                     }
                 },
                 Action {
@@ -134,7 +134,7 @@ MusicPage {
                             removeQueue(queuelist.selectedItems[i])
                         }
 
-                        queuelist.clearSelection(true)
+                        queuelist.closeSelection()
                     }
                 }
             ]
@@ -487,15 +487,14 @@ MusicPage {
         // Requirements for ListItemWithActions
         property var selectedItems: []
 
-        signal clearSelection(bool closeSelection)
+        signal clearSelection()
+        signal closeSelection()
         signal selectAll()
 
-        onClearSelection: {
-            selectedItems = []
-
-            if (closeSelection || closeSelection === undefined) {
-                state = "normal"
-            }
+        onClearSelection: selectedItems = []
+        onCloseSelection: {
+            clearSelection()
+            state = "normal"
         }
         onSelectAll: {
             var tmp = selectedItems
