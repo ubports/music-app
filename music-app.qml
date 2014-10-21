@@ -1041,6 +1041,23 @@ MainView {
                 }
             }
 
+            // forth tab is genres
+            Tab {
+                property bool populated: true
+                property var loader: []
+                property bool loading: false
+                property var model: []
+                id: genresTab
+                objectName: "genresTab"
+                anchors.fill: parent
+                title: page.title
+
+                // Tab content begins here
+                page: MusicGenres {
+                    id: musicGenresPage
+                }
+            }
+
             // fourth tab is all songs
             Tab {
                 property bool populated: true

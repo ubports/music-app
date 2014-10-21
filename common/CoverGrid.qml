@@ -61,7 +61,7 @@ Rectangle {
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
-                        : undefined
+                        : ""
                 sourceSize.height: height
                 sourceSize.width: width
 
