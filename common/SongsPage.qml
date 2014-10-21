@@ -185,11 +185,15 @@ MusicPage {
             }
         }
         onSelectAll: {
+            var tmp = selectedItems
+
             for (var i=0; i < model.count; i++) {
-                if (selectedItems.indexOf(i) === -1) {
-                    selectedItems.push(i)
+                if (tmp.indexOf(i) === -1) {
+                    tmp.push(i)
                 }
             }
+
+            selectedItems = tmp
         }
         onVisibleChanged: {
             if (!visible) {

@@ -493,7 +493,7 @@ Item {
             top: parent.top
         }
         width: units.gu(4)
-        visible: reorderable && selectionMode
+        visible: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
 
         Icon {
             anchors {
