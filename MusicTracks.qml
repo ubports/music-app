@@ -34,6 +34,66 @@ MusicPage {
     objectName: "tracksPage"
     title: i18n.tr("Songs")
 
+    state: tracklist.state === "multiselectable" ? "selection" : "default"
+    states: [
+        PageHeadState {
+            id: selectionState
+            name: "selection"
+            backAction: Action {
+                text: i18n.tr("Cancel selection")
+                iconName: "back"
+                onTriggered: tracklist.state = "normal"
+            }
+            actions: [
+                Action {
+                    iconName: "select"
+                    text: i18n.tr("Select All")
+                    onTriggered: {
+                        if (tracklist.selectedItems.length === tracklist.model.count) {
+                            tracklist.clearSelection(false)
+                        } else {
+                            tracklist.selectAll()
+                        }
+                    }
+                },
+                Action {
+                    enabled: tracklist.selectedItems.length !== 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    onTriggered: {
+                        var items = []
+
+                        for (var i=0; i < tracklist.selectedItems.length; i++) {
+                            items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                        }
+
+                        chosenElements = items;
+                        mainPageStack.push(addtoPlaylist)
+
+                        tracklist.clearSelection(true)
+                    }
+                },
+                Action {
+                    enabled: tracklist.selectedItems.length > 0
+                    iconName: "add"
+                    text: i18n.tr("Add to queue")
+                    onTriggered: {
+                        for (var i=0; i < tracklist.selectedItems.length; i++) {
+                            trackQueue.model.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                        }
+
+                        tracklist.clearSelection(true)
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: mainpage.head
+                backAction: selectionState.backAction
+                actions: selectionState.actions
+            }
+        }
+    ]
+
     ListView {
         id: tracklist
         anchors {
@@ -52,6 +112,33 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
         }
+
+        // Requirements for ListItemWithActions
+        property var selectedItems: []
+
+        signal clearSelection(bool closeSelection)
+        signal selectAll()
+
+        onClearSelection: {
+            selectedItems = []
+
+            if (closeSelection || closeSelection === undefined) {
+                state = "normal"
+            }
+        }
+        onSelectAll: {
+            for (var i=0; i < model.count; i++) {
+                if (selectedItems.indexOf(i) === -1) {
+                    selectedItems.push(i)
+                }
+            }
+        }
+        onVisibleChanged: {
+            if (!visible) {
+                clearSelection(true)
+            }
+        }
+
         delegate: trackDelegate
         Component {
             id: trackDelegate
@@ -64,6 +151,7 @@ MusicPage {
                 height: units.gu(7)
                 showDivider: false
 
+                multiselectable: true
                 rightSideActions: [
                     AddToQueue {
                     },
@@ -71,7 +159,6 @@ MusicPage {
 
                     }
                 ]
-                triggerActionOnMouseRelease: true
 
                 // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
                 onPressedChanged: musicRow.pressed = pressed

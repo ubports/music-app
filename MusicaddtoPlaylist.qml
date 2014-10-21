@@ -81,9 +81,11 @@ MusicPage {
             property string count: model.count
 
             onClicked: {
-                console.debug("Debug: "+chosenElement.filename+" added to "+name)
+                for (var i=0; i < chosenElements.length; i++) {
+                    console.debug("Debug: "+chosenElements[i].filename+" added to "+name)
 
-                Playlists.addToPlaylist(name, chosenElement)
+                    Playlists.addToPlaylist(name, chosenElements[i])
+                }
 
                 playlistModel.filterPlaylists();
 

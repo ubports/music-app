@@ -25,6 +25,7 @@ import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
 import "settings.js" as Settings
+import "playlists.js" as Playlists
 
 MusicPage {
     id: nowPlaying
@@ -41,42 +42,109 @@ MusicPage {
         }
     }
 
-    head.backAction: Action {
-        iconName: "back";
-        objectName: "backButton"
-        onTriggered: {
-            mainPageStack.pop();
-
-            while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
-                mainPageStack.pop();
-            }
-        }
-    }
-
-    head {
-        actions: [
-            Action {
-                objectName: "clearQueue"
-                iconName: "delete"
-                visible: isListView
-                onTriggered: {
-                    head.backAction.trigger()
-                    trackQueue.model.clear()
-                }
-            },
-            Action {
-                objectName: "toggleView"
-                iconName: "media-playlist"
-                onTriggered: {
-                    isListView = !isListView
-                }
-            }
-        ]
-    }
-
     function positionAt(index) {
         queuelist.positionViewAtIndex(index, ListView.Center);
     }
+
+    state: isListView && queuelist.state === "multiselectable" ? "selection" : "default"
+    states: [
+        PageHeadState {
+            id: defaultState
+
+            name: "default"
+            backAction: Action {
+                iconName: "back";
+                objectName: "backButton"
+                onTriggered: {
+                    mainPageStack.pop();
+
+                    while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
+                        mainPageStack.pop();
+                    }
+                }
+            }
+            actions: [
+                Action {
+                    objectName: "clearQueue"
+                    iconName: "delete"
+                    visible: isListView
+                    onTriggered: {
+                        head.backAction.trigger()
+                        trackQueue.model.clear()
+                    }
+                },
+                Action {
+                    objectName: "toggleView"
+                    iconName: "media-playlist"
+                    onTriggered: {
+                        isListView = !isListView
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: nowPlaying.head
+                backAction: defaultState.backAction
+                actions: defaultState.actions
+            }
+        },
+        PageHeadState {
+            id: selectionState
+
+            name: "selection"
+            backAction: Action {
+                text: i18n.tr("Cancel selection")
+                iconName: "back"
+                onTriggered: queuelist.state = "normal"
+            }
+            actions: [
+                Action {
+                    text: i18n.tr("Select All")
+                    iconName: "select"
+                    onTriggered: {
+                        if (queuelist.selectedItems.length === queuelist.model.count) {
+                            queuelist.clearSelection(false)
+                        } else {
+                            queuelist.selectAll()
+                        }
+                    }
+                },
+                Action {
+                    enabled: queuelist.selectedItems.length > 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    onTriggered: {
+                        var items = []
+
+                        for (var i=0; i < queuelist.selectedItems.length; i++) {
+                            items.push(makeDict(trackQueue.model.get(queuelist.selectedItems[i])));
+                        }
+
+                        chosenElements = items;
+                        mainPageStack.push(addtoPlaylist)
+
+                        queuelist.clearSelection(true)
+                    }
+                },
+                Action {
+                    enabled: queuelist.selectedItems.length > 0
+                    iconName: "delete"
+                    text: i18n.tr("Delete")
+                    onTriggered: {
+                        for (var i=0; i < queuelist.selectedItems.length; i++) {
+                            removeQueue(queuelist.selectedItems[i])
+                        }
+
+                        queuelist.clearSelection(true)
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: nowPlaying.head
+                backAction: selectionState.backAction
+                actions: selectionState.actions
+            }
+        }
+    ]
 
     Rectangle {
         id: fullview
@@ -377,6 +445,25 @@ MusicPage {
         }
     }
 
+    function removeQueue(index)
+    {
+        var removedIndex = index
+
+        if (queuelist.count === 1) {
+            player.stop()
+            musicToolbar.goBack()
+        } else if (index === player.currentIndex) {
+            player.nextSong(player.isPlaying);
+        }
+
+        queuelist.model.remove(index);
+
+        if (removedIndex < player.currentIndex) {
+            // update index as the old has been removed
+            player.currentIndex -= 1;
+        }
+    }
+
     ListView {
         id: queuelist
         anchors {
@@ -389,23 +476,6 @@ MusicPage {
         }
         model: trackQueue.model
         objectName: "nowPlayingQueueList"
-        state: "normal"
-        states: [
-            State {
-                name: "normal"
-                PropertyChanges {
-                    target: queuelist
-                    interactive: true
-                }
-            },
-            State {
-                name: "reorder"
-                PropertyChanges {
-                    target: queuelist
-                    interactive: false
-                }
-            }
-        ]
         visible: isListView
 
         property int normalHeight: units.gu(6)
@@ -413,6 +483,32 @@ MusicPage {
 
         onCountChanged: {
             customdebug("Queue: Now has: " + queuelist.count + " tracks")
+        }
+
+        // Requirements for ListItemWithActions
+        property var selectedItems: []
+
+        signal clearSelection(bool closeSelection)
+        signal selectAll()
+
+        onClearSelection: {
+            selectedItems = []
+
+            if (closeSelection || closeSelection === undefined) {
+                state = "normal"
+            }
+        }
+        onSelectAll: {
+            for (var i=0; i < model.count; i++) {
+                if (selectedItems.indexOf(i) === -1) {
+                    selectedItems.push(i)
+                }
+            }
+        }
+        onVisibleChanged: {
+            if (!visible) {
+                clearSelection(true)
+            }
         }
 
         Component {
@@ -426,31 +522,15 @@ MusicPage {
                 state: ""
 
                 leftSideAction: Remove {
-                    onTriggered: {
-                        var removedIndex = index
-
-                        if (queuelist.count === 1) {
-                            player.stop()
-                            musicToolbar.goBack()
-                        } else if (index === player.currentIndex) {
-                            player.nextSong(player.isPlaying);
-                        }
-
-                        queuelist.model.remove(index);
-
-                        if (removedIndex < player.currentIndex) {
-                            // update index as the old has been removed
-                            player.currentIndex -= 1;
-                        }
-                    }
+                    onTriggered: removeQueue(index)
                 }
+                multiselectable: true
                 reorderable: true
                 rightSideActions: [
                     AddToPlaylist{
 
                     }
                 ]
-                triggerActionOnMouseRelease: true
 
                 onItemClicked: {
                     customdebug("File: " + model.filename) // debugger

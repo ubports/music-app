@@ -27,108 +27,164 @@ ListItem.Standard {  // CUSTOM
     property list<Action> rightSideActions
     property double defaultHeight: units.gu(8)
     property bool locked: false
-    property bool pressed: false
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
-    property alias color: main.color
-    default property alias contents: main.children
+    property color color: Theme.palette.normal.background
+    property color selectedColor: "#3d3d45"  // "#E6E6E6"  // CUSTOM
+    property bool selected: false
+    property bool selectionMode: false
+    property alias internalAnchors: mainContents.anchors
+    default property alias contents: mainContents.children
 
-    property bool reorderable: false  // CUSTOM
-    property bool reordering: false  // CUSTOM
-
-    readonly property double actionWidth: units.gu(5)
+    readonly property double actionWidth: units.gu(4)  // CUSTOM 5?
     readonly property double leftActionWidth: units.gu(10)
     readonly property double actionThreshold: actionWidth * 0.4
     readonly property double threshold: 0.4
     readonly property string swipeState: main.x == 0 ? "Normal" : main.x > 0 ? "LeftToRight" : "RightToLeft"
     readonly property alias swipping: mainItemMoving.running
+    readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
+
+    property bool pressed: false  // CUSTOM??? FIXME:
+
+    property bool reorderable: false  // CUSTOM
+    property bool reordering: false  // CUSTOM
+    property bool multiselectable: false  // CUSTOM
+
+    property int previousListItemIndex: -1  // CUSTOM
+    property int listItemIndex: index  // CUSTOM
+
+    /* internal */
+    property var _visibleRightSideActions: filterVisibleActions(rightSideActions)
 
     signal itemClicked(var mouse)
     signal itemPressAndHold(var mouse)
 
     signal reorder(int from, int to)  // CUSTOM
 
-    onItemPressAndHold: reordering = reorderable && !reordering  // CUSTOM
-    onReorderingChanged: {  // CUSTOM
-        if (reordering) {
+    onItemPressAndHold: {
+        //reordering = reorderable && !reordering  // CUSTOM
+        if (multiselectable) {
+            selectionMode = true
+        }
+    }
+    onListItemIndexChanged: {
+        var i = parent.parent.selectedItems.lastIndexOf(previousListItemIndex)
+
+        if (i !== -1) {
+            parent.parent.selectedItems[i] = listItemIndex
+        }
+
+        previousListItemIndex = listItemIndex
+    }
+
+    onSelectedChanged: {
+        if (selectionMode) {
+            var tmp = parent.parent.selectedItems
+
+            if (selected) {
+                if (parent.parent.selectedItems.indexOf(listItemIndex) === -1) {
+                    tmp.push(listItemIndex)
+                    parent.parent.selectedItems = tmp
+                }
+            } else {
+                tmp.splice(parent.parent.selectedItems.indexOf(listItemIndex), 1)
+                parent.parent.selectedItems = tmp
+            }
+        }
+    }
+
+    onSelectionModeChanged: {  // CUSTOM
+        if (reorderable && selectionMode) {
             resetSwipe()
         }
 
         for (var j=0; j < main.children.length; j++) {
-            main.children[j].anchors.rightMargin = reordering ? actionReorder.width + units.gu(2) : 0
+            main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorder.width + units.gu(2) : 0
         }
 
-        parent.state = reordering ? "reorder" : "normal"
+        parent.parent.state = selectionMode ? "multiselectable" : "normal"
+
+        if (!selectionMode) {
+            selected = false
+        }
     }
 
-    function returnToBoundsRTL()
+    function returnToBoundsRTL(direction)
     {
         var actionFullWidth = actionWidth + units.gu(2)
+
+        // go back to normal state if swipping reverse
+        if (direction === "LTR") {
+            updatePosition(0)
+            return
+        } else if (!triggerActionOnMouseRelease) {
+            updatePosition(-rightActionsView.width + units.gu(2))
+            return
+        }
+
         var xOffset = Math.abs(main.x)
-        var index = Math.min(Math.floor(xOffset / actionFullWidth), rightSideActions.length)
-        var j;  // CUSTOM
+        var index = Math.min(Math.floor(xOffset / actionFullWidth), _visibleRightSideActions.length)
+        var newX = 0
+        var j  // CUSTOM
 
-        if (index < 1) {
-            main.x = 0
-
-            resetPrimed()  // CUSTOM
-        } else if (index === rightSideActions.length) {
-            main.x = -rightActionsView.width
+        if (index === _visibleRightSideActions.length) {
+            newX = -(rightActionsView.width - units.gu(2))
 
             for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
                 rightActionsRepeater.itemAt(j).primed = true
             }
-        } else {
-            main.x = -(actionFullWidth * index)
+        } else if (index >= 1) {
+            newX = -(actionFullWidth * index)
 
             for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
                 rightActionsRepeater.itemAt(j).primed = j === index
             }
         }
+
+        updatePosition(newX)
     }
 
-    function returnToBoundsLTR()
+    function returnToBoundsLTR(direction)
     {
         var finalX = leftActionWidth
-        if (main.x > (finalX * root.threshold))
-            main.x = finalX
-        else {
-            main.x = 0
-
-            resetPrimed()  // CUSTOM
-        }
+        if ((direction === "RTL") || (main.x <= (finalX * root.threshold)))
+            finalX = 0
+        updatePosition(finalX)
 
         if (leftSideAction !== null) {  // CUSTOM
             leftActionIcon.primed = main.x > (finalX * root.threshold)
         }
     }
 
-    function returnToBounds()
+    function returnToBounds(direction)
     {
         if (main.x < 0) {
-            returnToBoundsRTL()
+            returnToBoundsRTL(direction)
         } else if (main.x > 0) {
-            returnToBoundsLTR()
-        } else {  // CUSTOM
-            resetPrimed()  // CUSTOM
+            returnToBoundsLTR(direction)
+        } else {
+            updatePosition(0)
         }
     }
 
-    function contains(item, point)
+    function contains(item, point, marginX)
     {
-        return (point.x >= item.x) && (point.x <= (item.x + item.width)) && (point.y >= item.y) && (point.y <= (item.y + item.height));
+        var itemStartX = item.x - marginX
+        var itemEndX = item.x + item.width + marginX
+        return (point.x >= itemStartX) && (point.x <= itemEndX) &&
+               (point.y >= item.y) && (point.y <= (item.y + item.height));
     }
 
     function getActionAt(point)
     {
-        if (contains(leftActionView, point)) {
+        if (contains(leftActionView, point, 0)) {
             return leftSideAction
-        } else if (contains(rightActionsView, point)) {
+        } else if (contains(rightActionsView, point, 0)) {
             var newPoint = root.mapToItem(rightActionsView, point.x, point.y)
             for (var i = 0; i < rightActionsRepeater.count; i++) {
                 var child = rightActionsRepeater.itemAt(i)
-                if (contains(child, newPoint)) {
+                if (contains(child, newPoint, units.gu(1))) {
                     return i
                 }
             }
@@ -138,15 +194,16 @@ ListItem.Standard {  // CUSTOM
 
     function updateActiveAction()
     {
-        if ((main.x <= -root.actionWidth) &&
-            (main.x > -rightActionsView.width)) {
+        if (triggerActionOnMouseRelease &&
+            (main.x <= -(root.actionWidth + units.gu(2))) &&
+            (main.x > -(rightActionsView.width - units.gu(2)))) {
             var actionFullWidth = actionWidth + units.gu(2)
             var xOffset = Math.abs(main.x)
-            var index = Math.min(Math.floor(xOffset / actionFullWidth), rightSideActions.length)
+            var index = Math.min(Math.floor(xOffset / actionFullWidth), _visibleRightSideActions.length)
             index = index - 1
             if (index > -1) {
                 root.activeItem = rightActionsRepeater.itemAt(index)
-                root.activeAction = root.rightSideActions[index]
+                root.activeAction = root._visibleRightSideActions[index]
             }
         } else {
             root.activeAction = null
@@ -160,15 +217,40 @@ ListItem.Standard {  // CUSTOM
         }
 
         for (var j=0; j < rightSideActions.length; j++) {
+            console.debug(rightActionsRepeater.itemAt(j));
             rightActionsRepeater.itemAt(j).primed = false
         }
     }
 
     function resetSwipe()
     {
-        main.x = 0
+        updatePosition(0)
+    }
 
-        resetPrimed()  // CUSTOM
+    function filterVisibleActions(actions)
+    {
+        var visibleActions = []
+        for(var i = 0; i < actions.length; i++) {
+            var action = actions[i]
+            if (action.visible) {
+                visibleActions.push(action)
+            }
+        }
+        return visibleActions
+    }
+
+    function updatePosition(pos)
+    {
+        if (!root.triggerActionOnMouseRelease && (pos !== 0)) {
+            mouseArea.state = pos > 0 ? "RightToLeft" : "LeftToRight"
+        } else {
+            mouseArea.state = ""
+        }
+        main.x = pos
+
+        if (pos === 0) {  // CUSTOM
+            //resetPrimed()
+        }
     }
 
     Connections {  // CUSTOM
@@ -181,8 +263,10 @@ ListItem.Standard {  // CUSTOM
     }
 
     Connections {  // CUSTOM
-        target: root.parent
-        onStateChanged: reordering = root.parent.state === "reorder"
+        target: root.parent.parent
+        onClearSelection: selected = false
+        onSelectAll: selected = true
+        onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
         onVisibleChanged: {
             if (!visible) {
                 reordering = false
@@ -190,7 +274,13 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
-    Component.onCompleted: reordering = root.parent.state === "reorder"  // CUSTOM
+    Component.onCompleted: {  // CUSTOM
+        if (parent.parent.selectedItems.indexOf(index) !== -1) {  // FIXME:
+            selected = true
+        }
+
+        selectionMode = root.parent.parent.state === "multiselectable"
+    }
 
     /* CUSTOM Dim Component */
     Rectangle {
@@ -228,6 +318,26 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
+    states: [
+        State {
+            name: "select"
+            when: selectionMode || selected
+            PropertyChanges {
+                target: selectionIcon
+                source: Qt.resolvedUrl("ListItemActions/CheckBox.qml")
+                anchors.leftMargin: units.gu(2)
+            }
+            PropertyChanges {
+                target: root
+                locked: true
+            }
+            PropertyChanges {
+                target: main
+                x: 0
+            }
+        }
+    ]
+
     height: defaultHeight
     clip: height !== defaultHeight
 
@@ -241,16 +351,15 @@ ListItem.Standard {  // CUSTOM
         }
         width: root.leftActionWidth + actionThreshold
         visible: leftSideAction
-        color: "red"
+        color: UbuntuColors.red
 
         Icon {
-            id: leftActionIcon
             anchors {
                 centerIn: parent
                 horizontalCenterOffset: actionThreshold / 2
             }
             objectName: "swipeDeleteAction"  // CUSTOM
-            name: leftSideAction ? leftSideAction.iconName : ""
+            name: leftSideAction && _showActions ? leftSideAction.iconName : ""
             color: Theme.palette.selected.field
             height: units.gu(3)
             width: units.gu(3)
@@ -259,7 +368,8 @@ ListItem.Standard {  // CUSTOM
         }
     }
 
-    Item {
+    //Rectangle {
+    Item {  // CUSTOM
        id: rightActionsView
 
        anchors {
@@ -268,8 +378,9 @@ ListItem.Standard {  // CUSTOM
            leftMargin: reordering ? actionReorder.width : units.gu(1)  // CUSTOM
            bottom: main.bottom
        }
-       visible: rightSideActions.length > 0
-       width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + units.gu(2)) + actionThreshold : 0
+       visible: _visibleRightSideActions.length > 0
+       width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + units.gu(2)) + root.actionThreshold + units.gu(2) : 0
+       // color: "white"  // CUSTOM
 
        Rectangle {  // CUSTOM
            anchors {
@@ -283,22 +394,23 @@ ListItem.Standard {  // CUSTOM
        }
 
        Row {
-           anchors {
-               fill: parent
-               leftMargin: units.gu(2)  // CUSTOM
+           anchors{
+               top: parent.top
+               left: parent.left
+               leftMargin: units.gu(2)
+               right: parent.right
+               rightMargin: units.gu(2)
+               bottom: parent.bottom
            }
            spacing: units.gu(2)
            Repeater {
                id: rightActionsRepeater
 
-               model: rightSideActions
+               model: _showActions ? _visibleRightSideActions : []
                Item {
                    property alias image: img
 
-                   anchors {
-                       top: parent.top
-                       bottom: parent.bottom
-                   }
+                   height: rightActionsView.height
                    width: root.actionWidth
 
                    property alias primed: img.primed  // CUSTOM
@@ -310,8 +422,8 @@ ListItem.Standard {  // CUSTOM
                        objectName: rightSideActions[index].objectName  // CUSTOM
                        width: units.gu(3)
                        height: units.gu(3)
-                       name: iconName
-                       color: root.activeAction === modelData || !root.triggerActionOnMouseRelease ? UbuntuColors.orange : styleMusic.common.white  // CUSTOM
+                       name: modelData.iconName
+                       color: root.activeAction === modelData ? UbuntuColors.orange : styleMusic.common.white  // CUSTOM
 
                        property bool primed: false  // CUSTOM
                    }
@@ -330,6 +442,38 @@ ListItem.Standard {  // CUSTOM
         }
 
         width: parent.width
+        color: root.selected ? root.selectedColor : root.color
+
+        Loader {
+            id: selectionIcon
+
+            anchors {
+                left: main.left
+                verticalCenter: main.verticalCenter
+            }
+            width: (status === Loader.Ready) ? item.implicitWidth : 0
+            visible: (status === Loader.Ready) && (item.width === item.implicitWidth)
+            Behavior on width {
+                NumberAnimation {
+                    duration: UbuntuAnimation.SnapDuration
+                }
+            }
+        }
+
+        Item {
+            id: mainContents
+
+            anchors {
+                left: selectionIcon.right
+                //leftMargin: units.gu(2)  // CUSTOM
+                top: parent.top
+                //topMargin: units.gu(1)  // CUSTOM
+                right: parent.right
+                //rightMargin: units.gu(2)  // CUSTOM
+                bottom: parent.bottom
+                //bottomMargin: units.gu(1)  // CUSTOM
+            }
+        }
 
         Behavior on x {
             UbuntuNumberAnimation {
@@ -352,7 +496,7 @@ ListItem.Standard {  // CUSTOM
         }
         color: "transparent"
         width: units.gu(4)
-        visible: reordering
+        visible: reorderable && selectionMode
 
         Icon {
             anchors {
@@ -469,7 +613,10 @@ ListItem.Standard {  // CUSTOM
             value: 1.0
         }
         ScriptAction {
-            script: root.activeAction.triggered(root)
+            script: {
+                root.activeAction.triggered(root)
+                mouseArea.state = ""
+            }
         }
         PauseAnimation {
             duration: 500
@@ -479,23 +626,53 @@ ListItem.Standard {  // CUSTOM
             property: "x"
             to: 0
         }
-        ScriptAction {
-            script: resetPrimed()
-        }
     }
 
     MouseArea {
         id: mouseArea
 
-        property bool locked: root.locked || ((root.leftSideAction === null) && (root.rightSideActions.count === 0)) || reordering  // CUSTOM
+        property bool locked: root.locked || ((root.leftSideAction === null) && (root._visibleRightSideActions.count === 0)) || reordering  // CUSTOM
         property bool manual: false
+        property string direction: "None"
+        property real lastX: -1
 
         anchors.fill: parent
         drag {
             target: locked ? null : main
             axis: Drag.XAxis
-            minimumX: rightActionsView.visible ? -(rightActionsView.width + root.actionThreshold) : 0
+            minimumX: rightActionsView.visible ? -(rightActionsView.width) : 0
             maximumX: leftActionView.visible ? leftActionView.width : 0
+            threshold: root.actionThreshold
+        }
+
+        states: [
+            State {
+                name: "LeftToRight"
+                PropertyChanges {
+                    target: mouseArea
+                    drag.maximumX: 0
+                }
+            },
+            State {
+                name: "RightToLeft"
+                PropertyChanges {
+                    target: mouseArea
+                    drag.minimumX: 0
+                }
+            }
+        ]
+
+        onMouseXChanged: {
+            var offset = (lastX - mouseX)
+            if (Math.abs(offset) <= root.actionThreshold) {
+                return
+            }
+            lastX = mouseX
+            direction = offset > 0 ? "RTL" : "LTR";
+        }
+
+        onPressed: {
+            lastX = mouse.x
         }
 
         onReleased: {
@@ -505,10 +682,16 @@ ListItem.Standard {  // CUSTOM
                 root.returnToBounds()
                 root.activeAction = null
             }
+            lastX = -1
+            direction = "None"
         }
         onClicked: {
-            if (reordering) {  // CUSTOM
+            /*if (reordering || selectionMode) {  // CUSTOM
                 reordering = false
+            }*/
+            if (selectionMode) {  // CUSTOM
+                selected = !selected
+                return
             }
             else if (main.x === 0) {
                 root.itemClicked(mouse)
@@ -544,7 +727,7 @@ ListItem.Standard {  // CUSTOM
             }
         }
 
-        onPressedChanged: root.pressed = pressed
+        onPressedChanged: root.pressed = pressed  // CUSTOM
 
         z: -1
     }
