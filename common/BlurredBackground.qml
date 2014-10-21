@@ -37,6 +37,7 @@ Rectangle {
         id: backgroundImage
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
+        asynchronous: true
         source: art // this has to be fixed for the default cover art to work - cant find in this dir
         fillMode: Image.PreserveAspectCrop
         height: parent.height

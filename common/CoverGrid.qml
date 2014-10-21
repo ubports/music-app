@@ -53,6 +53,7 @@ Rectangle {
             id: repeat
             model: coverGrid.covers.length === 0 ? 1 : coverGrid.covers.length
             delegate: Image {
+                asynchronous: true
                 fillMode: Image.PreserveAspectCrop
                 height: coverGrid.size / (coverGrid.covers.length > 1 ? 2 : 1)
                 width: coverGrid.size / (coverGrid.covers.length > 2 && !(coverGrid.covers.length === 3 && index === 2) ? 2 : 1)
