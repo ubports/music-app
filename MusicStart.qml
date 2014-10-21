@@ -37,6 +37,7 @@ MusicPage {
     head {
         actions: [
             Action {
+                enabled: recentModel.model.count > 0
                 iconName: "delete"
                 onTriggered: {
                     Library.clearRecentHistory()
