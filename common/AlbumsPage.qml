@@ -142,7 +142,7 @@ MusicPage {
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
             primaryText: model.title
-            secondaryText: model.artist
+            secondaryTextVisible: false
 
             onClicked: {
                 songsPage.album = model.title;
