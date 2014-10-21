@@ -65,10 +65,11 @@ MusicPage {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
         model: playlistModel.model
+        objectName: "addToPlaylistCardView"
         delegate: Card {
             id: playlist
             coverSources: Playlists.getPlaylistCovers(playlist.name)
-            objectName: "addToPlaylistListItem" + index
+            objectName: "addToPlaylistCardItem" + index
             property string name: model.name
             property string count: model.count
 
