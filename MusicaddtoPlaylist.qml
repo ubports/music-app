@@ -61,24 +61,19 @@ MusicPage {
         }
     }
 
-    // show each playlist and make them chosable
-    ListView {
+    CardView {
         id: addtoPlaylistView
-        anchors {
-            fill: parent
-        }
-        clip: true
-        height: parent.width
+        itemWidth: units.gu(12)
         model: playlistModel.model
-        objectName: "addToPlaylistListView"
-        width: parent.width
-        delegate: ListItem.Standard {
+        delegate: Card {
             id: playlist
+            coverSources: Playlists.getPlaylistCovers(playlist.name)
             objectName: "addToPlaylistListItem" + index
-            height: styleMusic.common.itemHeight
-
             property string name: model.name
             property string count: model.count
+
+            primaryText: playlist.name
+            secondaryText: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
 
             onClicked: {
                 console.debug("Debug: "+chosenElement.filename+" added to "+name)
@@ -88,27 +83,6 @@ MusicPage {
                 playlistModel.filterPlaylists();
 
                 musicToolbar.goBack();  // go back to the previous page
-            }
-
-            MusicRow {
-                id: musicRow
-                anchors.verticalCenter: parent.verticalCenter
-                covers: Playlists.getPlaylistCovers(playlist.name)
-                column: Column {
-                    spacing: units.gu(1)
-                    Label {
-                        id: playlistCount
-                        color: styleMusic.common.subtitle
-                        fontSize: "x-small"
-                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                    }
-                    Label {
-                        id: playlistName
-                        color: styleMusic.common.music
-                        fontSize: "medium"
-                        text: playlist.name
-                    }
-                }
             }
         }
     }
