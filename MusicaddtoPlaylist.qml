@@ -41,9 +41,9 @@ MusicPage {
     title: i18n.tr("Select playlist")
     visible: false
 
-    tools: ToolbarItems {
-        ToolbarButton {
-            action: Action {
+    head {
+        actions: [
+            Action {
                 objectName: "newPlaylistButton"
                 text: i18n.tr("New playlist")
                 iconName: "add"
@@ -52,7 +52,7 @@ MusicPage {
                     PopupUtils.open(newPlaylistDialog, mainView)
                 }
             }
-        }
+        ]
     }
 
     onVisibleChanged: {
