@@ -1156,10 +1156,9 @@ MainView {
         visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0
-        property bool noRecent: recentModel.model.count === 0
-
-        tools: ToolbarItems {
+        property bool noPlaylists: playlistModel.model.count === 0 && recentModel.complete
+        property bool noRecent: recentModel.model.count === 0 && playlistModel.complete
+tools: ToolbarItems {
             back: null
             locked: true
             opened: false
