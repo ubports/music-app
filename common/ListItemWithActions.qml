@@ -19,9 +19,9 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 
-ListItem.Standard {  // CUSTOM
-//Item {
+Item {
     id: root
+    width: parent.width
 
     property Action leftSideAction: null
     property list<Action> rightSideActions
@@ -44,8 +44,6 @@ ListItem.Standard {  // CUSTOM
     readonly property string swipeState: main.x == 0 ? "Normal" : main.x > 0 ? "LeftToRight" : "RightToLeft"
     readonly property alias swipping: mainItemMoving.running
     readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
-
-    property bool pressed: false  // CUSTOM??? FIXME:
 
     property bool reorderable: false  // CUSTOM
     property bool reordering: false  // CUSTOM
@@ -486,7 +484,7 @@ ListItem.Standard {  // CUSTOM
     }
 
     /* CUSTOM Reorder Component */
-    Rectangle {
+    Item {
         id: actionReorder
         anchors {
             bottom: parent.bottom
@@ -494,7 +492,6 @@ ListItem.Standard {  // CUSTOM
             rightMargin: units.gu(1)
             top: parent.top
         }
-        color: "transparent"
         width: units.gu(4)
         visible: reorderable && selectionMode
 
@@ -686,9 +683,6 @@ ListItem.Standard {  // CUSTOM
             direction = "None"
         }
         onClicked: {
-            /*if (reordering || selectionMode) {  // CUSTOM
-                reordering = false
-            }*/
             if (selectionMode) {  // CUSTOM
                 selected = !selected
                 return
@@ -726,8 +720,6 @@ ListItem.Standard {  // CUSTOM
                 root.itemPressAndHold(mouse)
             }
         }
-
-        onPressedChanged: root.pressed = pressed  // CUSTOM
 
         z: -1
     }

@@ -517,7 +517,6 @@ MusicPage {
                 color: player.currentIndex === index ? "#2c2c34" : "transparent"
                 height: queuelist.normalHeight
                 objectName: "nowPlayingListItem" + index
-                showDivider: false
                 state: ""
 
                 leftSideAction: Remove {

@@ -145,11 +145,8 @@ MusicPage {
 
             ListItemWithActions {
                 id: track
-                color: "transparent"
                 objectName: "tracksPageListItem" + index
-                width: parent.width
                 height: units.gu(7)
-                showDivider: false
 
                 multiselectable: true
                 rightSideActions: [
@@ -159,9 +156,6 @@ MusicPage {
 
                     }
                 ]
-
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: musicRow.pressed = pressed
 
                 onItemClicked: trackClicked(tracklist.model, index)  // play track
 

@@ -336,11 +336,7 @@ MusicPage {
 
             ListItemWithActions {
                 id: track
-                color: "transparent"
                 objectName: "songsPageListItem" + index
-                iconFrame: false
-                progression: false
-                showDivider: false
                 height: units.gu(6)
 
                 leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
@@ -386,9 +382,6 @@ MusicPage {
                         }
                     }
                 }
-
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: musicRow.pressed = pressed
 
                 MusicRow {
                     id: musicRow
