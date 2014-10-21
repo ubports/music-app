@@ -207,9 +207,12 @@ MusicPage {
 
                     onPressedChanged: {
                         seeking = pressed
+
                         if (!pressed) {
                             seeked = true
                             player.seek(value)
+
+                            musicToolbarFullPositionLabel.text = durationToString(value)
                        }
                     }
 
