@@ -31,7 +31,7 @@ MusicPage {
     objectName: "albumsArtistPage"
     visible: false
 
-    property string artist: ""
+    property string artist: "Unknown Artist"
     property var covers: []
 
     CardView {
@@ -142,7 +142,7 @@ MusicPage {
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
             primaryText: model.title
-            secondaryText: model.artist
+            secondaryTextVisible: false
 
             onClicked: {
                 songsPage.album = model.title;

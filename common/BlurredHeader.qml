@@ -31,11 +31,7 @@ ListItem.Standard {
     BlurredBackground {
         id: blurredBackground
         height: parent.height
-        art: coversImage.covers.length > 0
-             ? (coversImage.covers[0].art !== undefined
-                ? coversImage.covers[0].art
-                : decodeURIComponent("image://albumart/artist=" + coversImage.covers[0].author + "&album=" + coversImage.covers[0].album))
-             : Qt.resolvedUrl("../images/music-app-cover@30.png")
+        art: coversImage.firstSource
     }
 
     CoverGrid {

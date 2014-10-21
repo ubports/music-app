@@ -219,11 +219,9 @@ MusicPage {
 
                             if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                                 Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                                 Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             }
                         }
@@ -259,11 +257,9 @@ MusicPage {
 
                             if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                                 Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                                 Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                mainView.hasRecent = true
                                 recentModel.filterRecent()
                             }
                         }
@@ -327,8 +323,9 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "small"
                     maximumLineCount: 1
-                    text: isAlbum && line1 !== i18n.tr("Genre") ? year + " | " + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-                                                       : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                    text: isAlbum && line1 !== i18n.tr("Genre")
+                          ? (year !== "" ? year + " | " : "") + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                          : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                     wrapMode: Text.NoWrap
                 }
             }
@@ -364,11 +361,9 @@ MusicPage {
 
                     if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                         Library.addRecent(songStackPage.line2, songStackPage.line1, model.art, songStackPage.line2, "album")
-                        mainView.hasRecent = true
                         recentModel.filterRecent()
                     } else if (songStackPage.line1 === i18n.tr("Playlist")) {
                         Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                        mainView.hasRecent = true
                         recentModel.filterRecent()
                     }
                 }
@@ -511,7 +506,6 @@ MusicPage {
 
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                        mainView.hasRecent = !Library.isRecentEmpty()
                         recentModel.filterRecent()
                     }
 

@@ -211,7 +211,6 @@ MainView {
 
             // Add album to recent list
             Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
-            mainView.hasRecent = true
             recentModel.filterRecent()
         }
 
@@ -576,7 +575,9 @@ MainView {
         // TODO: Switch tabs back and forth to get the background color in the
         //       header to work properly.
         tabs.selectedTabIndex = 1
-        tabs.selectedTabIndex = 0
+
+        // goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = Library.isRecentEmpty() ? 2 : 0
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -589,7 +590,6 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property bool hasRecent: !Library.isRecentEmpty()
     property bool scrobble: false
     property string lastfmusername
     property string lastfmpassword
@@ -1041,6 +1041,23 @@ MainView {
                 // Tab content begins here
                 page: MusicAlbums {
                     id: musicAlbumsPage
+                }
+            }
+
+            // forth tab is genres
+            Tab {
+                property bool populated: true
+                property var loader: []
+                property bool loading: false
+                property var model: []
+                id: genresTab
+                objectName: "genresTab"
+                anchors.fill: parent
+                title: page.title
+
+                // Tab content begins here
+                page: MusicGenres {
+                    id: musicGenresPage
                 }
             }
 
