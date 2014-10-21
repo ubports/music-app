@@ -225,9 +225,9 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "small"
                     maximumLineCount: 1
-                    text: isAlbum && line1 !== i18n.tr("Genre")?
-                              (year !== "" ? year + " | " : "") + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-                            : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                    text: isAlbum && line1 !== i18n.tr("Genre")
+                          ? (year !== "" ? year + " | " : "") + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                          : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
                     wrapMode: Text.NoWrap
                 }
             }
