@@ -64,19 +64,37 @@ MusicPage {
             }
             actions: [
                 Action {
-                    objectName: "clearQueue"
-                    iconName: "delete"
-                    visible: isListView
-                    onTriggered: {
-                        head.backAction.trigger()
-                        trackQueue.model.clear()
-                    }
-                },
-                Action {
                     objectName: "toggleView"
                     iconName: "media-playlist"
                     onTriggered: {
                         isListView = !isListView
+                    }
+                },
+                Action {
+                    enabled: trackQueue.model.count > 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    visible: isListView
+                    onTriggered: {
+                        var items = []
+
+                        for (var i=0; i < trackQueue.model.count; i++) {
+                            items.push(makeDict(trackQueue.model.get(i)));
+                        }
+
+                        chosenElements = items;
+                        mainPageStack.push(addtoPlaylist)
+                    }
+                },
+                Action {
+                    enabled: trackQueue.model.count > 0
+                    iconName: "delete"
+                    objectName: "clearQueue"
+                    text: i18n.tr("Clear queue")
+                    visible: isListView
+                    onTriggered: {
+                        head.backAction.trigger()
+                        trackQueue.model.clear()
                     }
                 }
             ]
