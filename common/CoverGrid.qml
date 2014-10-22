@@ -20,9 +20,8 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 
-Rectangle {
+Item {
     id: coverGrid
-    color: "transparent"
     height: size
     width: size
 
@@ -53,6 +52,7 @@ Rectangle {
             id: repeat
             model: coverGrid.covers.length === 0 ? 1 : coverGrid.covers.length
             delegate: Image {
+                asynchronous: true
                 fillMode: Image.PreserveAspectCrop
                 height: coverGrid.size / (coverGrid.covers.length > 1 ? 2 : 1)
                 width: coverGrid.size / (coverGrid.covers.length > 2 && !(coverGrid.covers.length === 3 && index === 2) ? 2 : 1)
@@ -60,7 +60,7 @@ Rectangle {
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
-                        : undefined
+                        : ""
                 sourceSize.height: height
                 sourceSize.width: width
 

@@ -29,6 +29,7 @@ Item {
         property var linkLibraryListModel: libraryListModelItem
     }
     property alias count: libraryModel.count
+    property alias workerComplete: worker.completed
     property var query: null
     property var param: null
     property bool canLoad: true

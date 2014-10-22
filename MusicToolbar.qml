@@ -88,12 +88,11 @@ Item {
         opened: true
 
         /* Expanded toolbar */
-        Rectangle {
+        Item {
             id: musicToolbarExpandedContainer
             anchors {
                 fill: parent
             }
-            color: "transparent"
 
             Rectangle {
                 id: musicToolbarPlayerControls
@@ -128,7 +127,7 @@ Item {
                 ]
 
                 /* Disabled (empty state) controls */
-                Rectangle {
+                Item {
                     id: disabledPlayerControlsGroup
                     anchors {
                         bottom: playerControlsProgressBar.top
@@ -136,7 +135,6 @@ Item {
                         right: parent.right
                         top: parent.top
                     }
-                    color: "transparent"
 
                     Label {
                         id: noSongsInQueueLabel
@@ -191,7 +189,7 @@ Item {
                 }
 
                 /* Enabled (queue > 0) controls */
-                Rectangle {
+                Item {
                     id: enabledPlayerControlsGroup
                     anchors {
                         bottom: playerControlsProgressBar.top
@@ -199,7 +197,6 @@ Item {
                         right: parent.right
                         top: parent.top
                     }
-                    color: "transparent"
 
                     /* Album art in player controls */
                     CoverGrid {
@@ -295,14 +292,13 @@ Item {
                     }
 
                     /* Mouse area to jump to now playing */
-                    Rectangle {
+                    Item {
                         anchors {
                             bottom: parent.bottom
                             left: parent.left
                             right: playerControlsLabels.right
                             top: parent.top
                         }
-                        color: "transparent"
                         objectName: "jumpNowPlaying"
                         function trigger() {
                             tabs.pushNowPlaying();

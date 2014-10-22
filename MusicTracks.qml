@@ -34,6 +34,66 @@ MusicPage {
     objectName: "tracksPage"
     title: i18n.tr("Songs")
 
+    state: tracklist.state === "multiselectable" ? "selection" : "default"
+    states: [
+        PageHeadState {
+            id: selectionState
+            name: "selection"
+            backAction: Action {
+                text: i18n.tr("Cancel selection")
+                iconName: "back"
+                onTriggered: tracklist.state = "normal"
+            }
+            actions: [
+                Action {
+                    iconName: "select"
+                    text: i18n.tr("Select All")
+                    onTriggered: {
+                        if (tracklist.selectedItems.length === tracklist.model.count) {
+                            tracklist.clearSelection()
+                        } else {
+                            tracklist.selectAll()
+                        }
+                    }
+                },
+                Action {
+                    enabled: tracklist.selectedItems.length !== 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    onTriggered: {
+                        var items = []
+
+                        for (var i=0; i < tracklist.selectedItems.length; i++) {
+                            items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                        }
+
+                        chosenElements = items;
+                        mainPageStack.push(addtoPlaylist)
+
+                        tracklist.closeSelection()
+                    }
+                },
+                Action {
+                    enabled: tracklist.selectedItems.length > 0
+                    iconName: "add"
+                    text: i18n.tr("Add to queue")
+                    onTriggered: {
+                        for (var i=0; i < tracklist.selectedItems.length; i++) {
+                            trackQueue.model.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                        }
+
+                        tracklist.closeSelection()
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: mainpage.head
+                backAction: selectionState.backAction
+                actions: selectionState.actions
+            }
+        }
+    ]
+
     ListView {
         id: tracklist
         anchors {
@@ -52,18 +112,46 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
         }
+
+        // Requirements for ListItemWithActions
+        property var selectedItems: []
+
+        signal clearSelection()
+        signal closeSelection()
+        signal selectAll()
+
+        onClearSelection: selectedItems = []
+        onCloseSelection: {
+            clearSelection()
+            state = "normal"
+        }
+        onSelectAll: {
+            var tmp = selectedItems
+
+            for (var i=0; i < model.count; i++) {
+                if (tmp.indexOf(i) === -1) {
+                    tmp.push(i)
+                }
+            }
+
+            selectedItems = tmp
+        }
+        onVisibleChanged: {
+            if (!visible) {
+                clearSelection(true)
+            }
+        }
+
         delegate: trackDelegate
         Component {
             id: trackDelegate
 
             ListItemWithActions {
                 id: track
-                color: "transparent"
                 objectName: "tracksPageListItem" + index
-                width: parent.width
                 height: units.gu(7)
-                showDivider: false
 
+                multiselectable: true
                 rightSideActions: [
                     AddToQueue {
                     },
@@ -71,7 +159,6 @@ MusicPage {
 
                     }
                 ]
-                triggerActionOnMouseRelease: true
 
                 onItemClicked: trackClicked(tracklist.model, index)  // play track
 
