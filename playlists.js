@@ -214,7 +214,8 @@ function getPlaylistTracks(playlist) {
                              filename: dbItem.filename,
                              title: dbItem.title,
                              author: dbItem.author,
-                             album: dbItem.album // FIXME: need to construct art: ?
+                             album: dbItem.album,
+                             art: musicStore.lookup(dbItem.filename).art
                          })
             }
         })
