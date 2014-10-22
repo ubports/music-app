@@ -37,7 +37,9 @@ Flickable {
 
     Loader {
         id: headerLoader
+        asynchronous: true
         width: parent.width
+        visible: sourceComponent !== undefined
     }
 
     Item {
