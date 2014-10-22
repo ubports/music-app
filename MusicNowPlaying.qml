@@ -146,10 +146,9 @@ MusicPage {
         }
     ]
 
-    Rectangle {
+    Item {
         id: fullview
         anchors.fill: parent
-        color: "transparent"
         visible: !isListView
 
         BlurredBackground {
@@ -555,12 +554,11 @@ MusicPage {
                     }
                 }
 
-                Rectangle {
+                Item {
                     id: trackContainer;
                     anchors {
                         fill: parent
                     }
-                    color: "transparent"
 
                     NumberAnimation {
                         id: trackContainerReorderAnimation
