@@ -482,6 +482,7 @@ MusicPage {
     ListView {
         id: queuelist
         anchors {
+            bottomMargin: units.gu(2)
             fill: parent
             topMargin: units.gu(2)
         }

@@ -96,6 +96,7 @@ MusicPage {
     ListView {
         id: tracklist
         anchors {
+            bottomMargin: units.gu(2)
             fill: parent
             topMargin: units.gu(2)
         }
