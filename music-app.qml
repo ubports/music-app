@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
+import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
@@ -30,6 +31,7 @@ import UserMetrics 0.1
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
+import "common/walkthrough"
 
 MainView {
     objectName: "music"
@@ -39,6 +41,14 @@ MainView {
 
     backgroundColor: "#1e1e23"
     headerColor: "#1e1e23"
+
+    // Startup settigns
+    Settings {
+        id: startupSettings
+        category: "StartupSettings"
+
+        property bool firstRun: true
+    }
 
     // Global keyboard shortcuts
     focus: true
@@ -527,7 +537,6 @@ MainView {
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
-        customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
 
@@ -554,6 +563,11 @@ MainView {
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
 
+        if (firstRun && emptyPage.noMusic) {
+            musicToolbar.visible = false
+            mainPageStack.push(walkthrough)
+        }
+
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
@@ -565,6 +579,7 @@ MainView {
     property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
+    property alias firstRun: startupSettings.firstRun
 
     signal listItemSwiping(int i)
 
@@ -1141,5 +1156,17 @@ MainView {
 
     LoadingSpinnerComponent {
         id: loading
+    }
+
+    FirstRunWalkthrough {
+        id: walkthrough
+        visible: false
+
+        onVisibleChanged: {
+            if (!walkthrough.visible) {
+                firstRun = false
+                musicToolbar.visible = true
+            }
+        }
     }
 } // end of main view
