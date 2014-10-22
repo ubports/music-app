@@ -24,7 +24,6 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
-import "settings.js" as Settings
 import "playlists.js" as Playlists
 
 MusicPage {

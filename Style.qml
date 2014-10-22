@@ -66,10 +66,6 @@ QtObject {
         property color headerColor: "#57365E";
     }
 
-    property QtObject musicSettings: QtObject {
-        property color labelColor: UbuntuColors.coolGrey;
-    }
-
     property QtObject nowPlaying: QtObject {
         property color backgroundColor: "#1d1d1d"
         property color foregroundColor: "#454545"

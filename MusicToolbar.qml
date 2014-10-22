@@ -23,7 +23,6 @@ import QtMultimedia 5.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import "common"
-import "settings.js" as Settings
 
 Item {
     anchors {

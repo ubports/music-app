@@ -20,7 +20,7 @@
 import QtQuick 2.3
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "settings.js" as Settings
+import Qt.labs.settings 1.0
 
 /*
  * This file should *only* manage the media playing and the relevant settings
@@ -42,21 +42,19 @@ Item {
     property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
     property alias playbackState: mediaPlayer.playbackState
     property alias position: mediaPlayer.position
-    property bool repeat: Settings.getSetting("repeat") === "1"
-    property bool shuffle: Settings.getSetting("shuffle") === "1"
+    property alias repeat: settings.repeat
+    property alias shuffle: settings.shuffle
     property alias source: mediaPlayer.source
     property alias volume: mediaPlayer.volume
 
     signal stopped()
 
-    onRepeatChanged: {
-        Settings.setSetting("repeat", repeat ? "1" : "0")
-        console.debug("Repeat:", Settings.getSetting("repeat") === "1")
-    }
+    Settings {
+        id: settings
+        category: "PlayerSettings"
 
-    onShuffleChanged: {
-        Settings.setSetting("shuffle", shuffle ? "1" : "0")
-        console.debug("Shuffle:", Settings.getSetting("shuffle") === "1")
+        property bool repeat: true
+        property bool shuffle: false
     }
 
     Connections {

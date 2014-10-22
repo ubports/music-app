@@ -25,10 +25,8 @@ import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import QtQuick.XmlListModel 2.0
 import QtGraphicalEffects 1.0
 import UserMetrics 0.1
-import "settings.js" as Settings
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
@@ -175,17 +173,6 @@ MainView {
         text: i18n.tr("Stop")
         keywords: i18n.tr("Stop Playback")
         onTriggered: player.stop()
-    }
-
-    // TODO: Currently there are no settings, so do not display the Action
-    Action {
-        id: settingsAction
-        text: i18n.tr("Settings")
-        keywords: i18n.tr("Music Settings")
-        onTriggered: {
-            customdebug('Show settings')
-            musicSettings.visible = true
-        }
     }
 
     actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
@@ -544,16 +531,6 @@ MainView {
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
 
-        Settings.initialize()
-        console.debug("INITIALIZED in tracks")
-        if (Settings.getSetting("initialized") !== "true") {
-            // initialize settings
-            console.debug("reset settings")
-            Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-            Settings.setSetting("snaptrack", "1") // default state of snaptrack
-            Settings.setSetting("shuffle", "0") // default state of shuffle
-            Settings.setSetting("repeat", "0") // default state of repeat
-        }
         Library.initialize();
 
         // initialize playlists
