@@ -449,8 +449,10 @@ Item {
                 left: main.left
                 verticalCenter: main.verticalCenter
             }
+            asynchronous: true  // CUSTOM
             width: (status === Loader.Ready) ? item.implicitWidth : 0
             visible: (status === Loader.Ready) && (item.width === item.implicitWidth)
+
             Behavior on width {
                 NumberAnimation {
                     duration: UbuntuAnimation.SnapDuration
