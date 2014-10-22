@@ -204,11 +204,11 @@ class MusicaddtoPlaylist(MusicPage):
 
     def get_count(self):  # careful not to conflict until Page11 is fixed
         return self.wait_select_single(
-            "QQuickListView", objectName="addToPlaylistListView").count
+            "CardView", objectName="addToPlaylistCardView").count
 
     def get_playlist(self, i):
-        return (self.wait_select_single("Standard",
-                objectName="addToPlaylistListItem" + str(i)))
+        return (self.wait_select_single("Card",
+                objectName="addToPlaylistCardItem" + str(i)))
 
 
 class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):

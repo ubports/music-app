@@ -41,9 +41,9 @@ MusicPage {
     title: i18n.tr("Select playlist")
     visible: false
 
-    tools: ToolbarItems {
-        ToolbarButton {
-            action: Action {
+    head {
+        actions: [
+            Action {
                 objectName: "newPlaylistButton"
                 text: i18n.tr("New playlist")
                 iconName: "add"
@@ -52,7 +52,7 @@ MusicPage {
                     PopupUtils.open(newPlaylistDialog, mainView)
                 }
             }
-        }
+        ]
     }
 
     onVisibleChanged: {
@@ -61,24 +61,20 @@ MusicPage {
         }
     }
 
-    // show each playlist and make them chosable
-    ListView {
+    CardView {
         id: addtoPlaylistView
-        anchors {
-            fill: parent
-        }
-        clip: true
-        height: parent.width
+        itemWidth: units.gu(12)
         model: playlistModel.model
-        objectName: "addToPlaylistListView"
-        width: parent.width
-        delegate: ListItem.Standard {
+        objectName: "addToPlaylistCardView"
+        delegate: Card {
             id: playlist
-            objectName: "addToPlaylistListItem" + index
-            height: styleMusic.common.itemHeight
-
+            coverSources: Playlists.getPlaylistCovers(playlist.name)
+            objectName: "addToPlaylistCardItem" + index
             property string name: model.name
             property string count: model.count
+
+            primaryText: playlist.name
+            secondaryText: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
 
             onClicked: {
                 for (var i=0; i < chosenElements.length; i++) {
@@ -90,26 +86,6 @@ MusicPage {
                 playlistModel.filterPlaylists();
 
                 musicToolbar.goBack();  // go back to the previous page
-            }
-
-            MusicRow {
-                id: musicRow
-                covers: Playlists.getPlaylistCovers(playlist.name)
-                column: Column {
-                    spacing: units.gu(1)
-                    Label {
-                        id: playlistCount
-                        color: styleMusic.common.subtitle
-                        fontSize: "x-small"
-                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                    }
-                    Label {
-                        id: playlistName
-                        color: styleMusic.common.music
-                        fontSize: "medium"
-                        text: playlist.name
-                    }
-                }
             }
         }
     }
