@@ -87,26 +87,6 @@ MusicPage {
 
                 musicToolbar.goBack();  // go back to the previous page
             }
-
-            MusicRow {
-                id: musicRow
-                covers: Playlists.getPlaylistCovers(playlist.name)
-                column: Column {
-                    spacing: units.gu(1)
-                    Label {
-                        id: playlistCount
-                        color: styleMusic.common.subtitle
-                        fontSize: "x-small"
-                        text: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
-                    }
-                    Label {
-                        id: playlistName
-                        color: styleMusic.common.music
-                        fontSize: "medium"
-                        text: playlist.name
-                    }
-                }
-            }
         }
     }
 }
