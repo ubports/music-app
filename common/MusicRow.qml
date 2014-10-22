@@ -55,6 +55,7 @@ Row {
             top: parent.top
             topMargin: units.gu(1)
         }
+        asynchronous: true
         width: !showCovers ? parent.width - parent.spacing
                            : parent.width - coverGrid.width - parent.spacing
 
