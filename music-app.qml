@@ -1059,10 +1059,11 @@ MainView {
     Page {
         id: emptyPage
         title: i18n.tr("Music")
-        visible: noMusic
+        visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
         tools: ToolbarItems {
             back: null
             locked: true
@@ -1076,7 +1077,8 @@ MainView {
                 fill: parent
                 topMargin: -emptyPage.header.height
             }
-            color: styleMusic.libraryEmpty.backgroundColor
+            color: mainView.backgroundColor
+            visible: emptyPage.noMusic
 
             Column {
                 anchors.centerIn: parent
@@ -1097,6 +1099,67 @@ MainView {
                 }
             }
         }
+
+        // Overlay to show when no playlists are on the device
+        Rectangle {
+            id: playlistsEmpty
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
+            color: mainView.backgroundColor
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && tabs.selectedTab.index === 4
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No playlists found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Click the + to create a playlist")
+                }
+            }
+        }
+
+        // Overlay to show when no recent items are on the device
+        Rectangle {
+            id: recentEmpty
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
+            color: mainView.backgroundColor
+            visible: emptyPage.noRecent && !emptyPage.noMusic && tabs.selectedTab.index === 0
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No recent albums or playlists found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Play some music to see your favorites")
+                }
+            }
+        }
+
     }
 
     LoadingSpinnerComponent {
