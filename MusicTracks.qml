@@ -164,10 +164,10 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    anchors.verticalCenter: parent.verticalCenter
-                    covers: [{art: model.art}]
-                    coverSize: units.gu(6)
-                    spacing: units.gu(2)
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                    imageSource: {"art": model.art}
                     column: Column {
                         Label {
                             id: trackTitle

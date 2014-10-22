@@ -388,8 +388,7 @@ MusicPage {
 
                 MusicRow {
                     id: musicRow
-                    covers: []
-                    showCovers: false
+                    height: parent.height
                     column: Column {
                         Label {
                             id: trackTitle

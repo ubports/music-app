@@ -337,7 +337,7 @@ Item {
     ]
 
     height: defaultHeight
-    clip: height !== defaultHeight
+    //clip: height !== defaultHeight  // CUSTOM
 
     Rectangle {
         id: leftActionView
@@ -352,6 +352,7 @@ Item {
         color: UbuntuColors.red
 
         Icon {
+            id: leftActionIcon
             anchors {
                 centerIn: parent
                 horizontalCenterOffset: actionThreshold / 2

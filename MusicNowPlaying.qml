@@ -596,9 +596,7 @@ MusicPage {
 
                     MusicRow {
                         id: musicRow
-                        covers: [{art: model.art, album: model.album, author: model.author}]
-                        showCovers: false
-                        coverSize: units.gu(6)
+                        height: parent.height
                         column: Column {
                             Label {
                                 id: trackTitle
