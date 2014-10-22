@@ -25,7 +25,6 @@ import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import QtQuick.XmlListModel 2.0
 import QtGraphicalEffects 1.0
 import UserMetrics 0.1
 import "meta-database.js" as Library
