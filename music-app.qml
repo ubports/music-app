@@ -585,7 +585,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property var chosenElement: null
+    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 

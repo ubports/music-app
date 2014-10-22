@@ -44,7 +44,7 @@ MusicPage {
     property alias album: songsModel.album
     property alias genre: songsModel.genre
 
-    state: songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album"
+    state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album")
     states: [
         PageHeadState {
             id: albumState
@@ -57,7 +57,6 @@ MusicPage {
         },
         PageHeadState {
             id: playlistState
-
             name: "playlist"
             actions: [
                 Action {
@@ -82,6 +81,78 @@ MusicPage {
                 backAction: playlistState.backAction
                 actions: playlistState.actions
             }
+        },
+        PageHeadState {
+            id: selectionState
+            name: "selection"
+            backAction: Action {
+                text: i18n.tr("Cancel selection")
+                iconName: "back"
+                onTriggered: albumtrackslist.state = "normal"
+            }
+            actions: [
+                Action {
+                    iconName: "select"
+                    text: i18n.tr("Select All")
+                    onTriggered: {
+                        if (albumtrackslist.selectedItems.length === albumtrackslist.model.count) {
+                            albumtrackslist.clearSelection()
+                        } else {
+                            albumtrackslist.selectAll()
+                        }
+                    }
+                },
+                Action {
+                    enabled: albumtrackslist.selectedItems.length > 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    onTriggered: {
+                        var items = []
+
+                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
+                            items.push(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
+                        }
+
+                        chosenElements = items;
+                        mainPageStack.push(addtoPlaylist)
+
+                        albumtrackslist.closeSelection()
+                    }
+                },
+                Action {
+                    enabled: albumtrackslist.selectedItems.length > 0
+                    iconName: "add"
+                    text: i18n.tr("Add to queue")
+                    onTriggered: {
+                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
+                            trackQueue.model.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
+                        }
+
+                        albumtrackslist.closeSelection()
+                    }
+                },
+                Action {
+                    enabled: albumtrackslist.selectedItems.length > 0
+                    iconName: "delete"
+                    text: i18n.tr("Delete")
+                    visible: songStackPage.line1 === i18n.tr("Playlist")
+                    onTriggered: {
+                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
+                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i] - i)
+                        }
+
+                        albumtrackslist.closeSelection()
+
+                        albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                        playlistModel.filterPlaylists()
+                    }
+                }
+            ]
+            PropertyChanges {
+                target: songStackPage.head
+                backAction: selectionState.backAction
+                actions: selectionState.actions
+            }
         }
     ]
 
@@ -99,6 +170,36 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
+
+        // Requirements for ListItemWithActions
+        property var selectedItems: []
+
+        signal clearSelection()
+        signal closeSelection()
+        signal selectAll()
+
+        onClearSelection: selectedItems = []
+        onCloseSelection: {
+            clearSelection()
+            state = "normal"
+        }
+        onSelectAll: {
+            var tmp = selectedItems
+
+            for (var i=0; i < model.count; i++) {
+                if (tmp.indexOf(i) === -1) {
+                    tmp.push(i)
+                }
+            }
+
+            selectedItems = tmp
+        }
+        onVisibleChanged: {
+            if (!visible) {
+                clearSelection(true)
+            }
+        }
+
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
@@ -238,15 +339,12 @@ MusicPage {
 
             ListItemWithActions {
                 id: track
-                color: "transparent"
                 objectName: "songsPageListItem" + index
-                iconFrame: false
-                progression: false
-                showDivider: false
                 height: units.gu(6)
 
                 leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
                                 ? playlistRemoveAction.item : null
+                multiselectable: true
                 reorderable: songStackPage.line1 === i18n.tr("Playlist")
                 rightSideActions: [
                     AddToQueue {
@@ -256,7 +354,6 @@ MusicPage {
 
                     }
                 ]
-                triggerActionOnMouseRelease: true
 
                 onItemClicked: {
                     trackClicked(albumtrackslist.model, index)  // play track
@@ -288,9 +385,6 @@ MusicPage {
                         }
                     }
                 }
-
-                // TODO: If http://pad.lv/1354753 is fixed to expose whether the Shape should appear pressed, update this as well.
-                onPressedChanged: musicRow.pressed = pressed
 
                 MusicRow {
                     id: musicRow
