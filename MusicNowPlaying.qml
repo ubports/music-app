@@ -72,9 +72,8 @@ MusicPage {
                 },
                 Action {
                     enabled: trackQueue.model.count > 0
-                    iconName: "save-as"
-                    objectName: "saveToPlaylist"
-                    text: i18n.tr("Save to playlist")
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
                     visible: isListView
                     onTriggered: {
                         var items = []
