@@ -594,7 +594,7 @@ MainView {
     property string lastfmusername
     property string lastfmpassword
     property string timestamp // used to scrobble
-    property var chosenElement: null
+    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
@@ -875,7 +875,7 @@ MainView {
     }
 
     // Popover for tracks, queue and add to playlist, for example
-    Component {
+    Component {  // TODO: needed anymore? remove?
         id: trackPopoverComponent
         Popover {
             id: trackPopover
@@ -895,9 +895,12 @@ MainView {
                         anchors.verticalCenter: parent.verticalCenter
                     }
                     onClicked: {
-                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
+                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElements))
                         PopupUtils.close(trackPopover)
-                        trackQueue.append(chosenElement)
+
+                        for (var i=0; i < chosenElements.length; i++) {
+                            trackQueue.append(chosenElements[i])
+                        }
                     }
                 }
                 ListItem.Standard {

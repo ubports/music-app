@@ -154,6 +154,31 @@ Item {
                          searchTrackView.forceActiveFocus()
                      }
 
+                     // Requirements for ListItemWithActions
+                     property var selectedItems: []
+
+                     signal clearSelection(bool closeSelection)
+                     signal selectAll()
+
+                     onClearSelection: {
+                         selectedItems = []
+
+                         if (closeSelection || closeSelection === undefined) {
+                             state = "normal"
+                         }
+                     }
+                     onSelectAll: {
+                         for (var i=0; i < model.count; i++) {
+                             if (selectedItems.indexOf(i) === -1) {
+                                 selectedItems.push(i)
+                             }
+                         }
+                     }
+                     onVisibleChanged: {
+                         if (!visible) {
+                             clearSelection(true)
+                         }
+                     }
                      delegate: ListItemWithActions {
                             id: search
                             color: "transparent"
