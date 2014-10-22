@@ -28,36 +28,47 @@ Row {
         right: parent.right
         rightMargin: units.gu(2)
     }
+    height: units.gu(7)
 
-    property alias covers: coverGrid.covers
-    property bool showCovers: true
     property alias column: columnComponent.sourceComponent
     property real coverSize: styleMusic.common.albumSize
+    property var imageSource
 
-    spacing: units.gu(1)
+    spacing: units.gu(2)
 
-    CoverGrid {
-        id: coverGrid
+    Image {
+        id: image
         anchors {
             verticalCenter: parent.verticalCenter
-            topMargin: units.gu(0.5)
-            bottomMargin: units.gu(0.5)
-            leftMargin: units.gu(2)
         }
-        covers: []
-        size: coverSize
-        visible: showCovers
+        asynchronous: true
+        fillMode: Image.PreserveAspectCrop
+        height: width
+        source: imageSource !== undefined && imageSource !== ""
+                ? (imageSource.art !== undefined
+                   ? imageSource.art
+                   : "image://albumart/artist=" + imageSource.author + "&album=" + imageSource.album)
+                : ""
+        sourceSize.height: height
+        sourceSize.width: width
+        width: units.gu(6)
+
+        onStatusChanged: {
+            if (status === Image.Error) {
+                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+            }
+        }
+        visible: imageSource !== undefined
     }
 
     Loader {
         id: columnComponent
         anchors {
-            top: parent.top
-            topMargin: units.gu(1)
+            verticalCenter: parent.verticalCenter
         }
         asynchronous: true
-        width: !showCovers ? parent.width - parent.spacing
-                           : parent.width - coverGrid.width - parent.spacing
+        width: imageSource === undefined ? parent.width - parent.spacing
+                                         : parent.width - image.width - parent.spacing
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {
