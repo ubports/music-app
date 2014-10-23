@@ -66,7 +66,6 @@ Row {
         anchors {
             verticalCenter: parent.verticalCenter
         }
-        asynchronous: true
         width: imageSource === undefined ? parent.width - parent.spacing
                                          : parent.width - image.width - parent.spacing
 
