@@ -22,19 +22,6 @@ function getDatabase() {
      return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
 }
 
-// At the start of the application, we can initialize the tables we need if they haven't been created yet
-function initialize() {
-    var db = getDatabase();
-    db.transaction(
-        function(tx) {
-            // Create the table if it doesn't already exist
-            // If the table exists, this is skipped
-            tx.executeSql('DROP TABLE IF EXISTS metadata');  // TODO: drop recent as well to reset data
-
-            createRecent();
-      });
-}
-
 function createRecent() {
     var db = getDatabase();
     db.transaction(
