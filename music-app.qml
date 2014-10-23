@@ -649,7 +649,7 @@ MainView {
             tabs.pushNowPlaying();
         }
         else {
-            player.source = file;
+            player.setSource(file);
         }
     }
 
@@ -1016,20 +1016,8 @@ MainView {
             }
         } // end of tabs
 
-        SongsPage {
-            id: songsPage
-        }
-
-        AlbumsPage {
-            id: albumsPage
-        }
-
         MusicNowPlaying {
             id: nowPlaying
-        }
-
-        MusicaddtoPlaylist {
-            id: addtoPlaylist
         }
     }
 

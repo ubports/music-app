@@ -67,7 +67,15 @@ MusicPage {
                         }
 
                         chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {});
+
+                        if (addToPlaylist === null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         tracklist.closeSelection()
                     }

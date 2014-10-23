@@ -29,6 +29,14 @@ Action {
     onTriggered: {
        chosenElements = [makeDict(model)];
        console.debug("Debug: Add track to playlist");
-       mainPageStack.push(addtoPlaylist)
+
+        var comp = Qt.createComponent("../../MusicaddtoPlaylist.qml")
+        var addToPlaylist = comp.createObject(mainPageStack, {});
+
+        if (addToPlaylist === null) {  // Error Handling
+            console.log("Error creating object");
+        }
+
+       mainPageStack.push(addToPlaylist)
     }
 }
