@@ -20,9 +20,8 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 
-Rectangle {
+Item {
     id: coverGrid
-    color: "transparent"
     height: size
     width: size
 
@@ -31,6 +30,8 @@ Rectangle {
 
     // Property to set the size of the cover image
     property int size
+
+    property string firstSource
 
     onCoversChanged: {
         if (covers !== undefined) {
@@ -51,6 +52,7 @@ Rectangle {
             id: repeat
             model: coverGrid.covers.length === 0 ? 1 : coverGrid.covers.length
             delegate: Image {
+                asynchronous: true
                 fillMode: Image.PreserveAspectCrop
                 height: coverGrid.size / (coverGrid.covers.length > 1 ? 2 : 1)
                 width: coverGrid.size / (coverGrid.covers.length > 2 && !(coverGrid.covers.length === 3 && index === 2) ? 2 : 1)
@@ -58,10 +60,15 @@ Rectangle {
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
-                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                        : ""
+                sourceSize.height: height
+                sourceSize.width: width
+
                 onStatusChanged: {
                     if (status === Image.Error) {
                         source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                    } else if (status === Image.Ready && index === 0) {
+                        firstSource = source
                     }
                 }
             }

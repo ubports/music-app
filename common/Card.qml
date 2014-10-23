@@ -19,9 +19,8 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 
 
-Rectangle {
+Item {
     id: card
-    color: "transparent"
     height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
 
     property alias coverSources: coverGrid.covers
@@ -80,8 +79,7 @@ Rectangle {
             size: parent.width
         }
 
-        Rectangle {
-            color: "transparent"
+        Item {
             height: units.gu(1)
             width: units.gu(1)
         }
@@ -116,8 +114,7 @@ Rectangle {
             wrapMode: Text.WordWrap
         }
 
-        Rectangle {
-            color: "transparent"
+        Item {
             height: units.gu(1.5)
             width: units.gu(1)
         }

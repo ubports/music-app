@@ -22,7 +22,7 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
-import "settings.js" as Settings
+import "common"
 
 Item {
     anchors {
@@ -87,12 +87,11 @@ Item {
         opened: true
 
         /* Expanded toolbar */
-        Rectangle {
+        Item {
             id: musicToolbarExpandedContainer
             anchors {
                 fill: parent
             }
-            color: "transparent"
 
             Rectangle {
                 id: musicToolbarPlayerControls
@@ -127,7 +126,7 @@ Item {
                 ]
 
                 /* Disabled (empty state) controls */
-                Rectangle {
+                Item {
                     id: disabledPlayerControlsGroup
                     anchors {
                         bottom: playerControlsProgressBar.top
@@ -135,7 +134,6 @@ Item {
                         right: parent.right
                         top: parent.top
                     }
-                    color: "transparent"
 
                     Label {
                         id: noSongsInQueueLabel
@@ -190,7 +188,7 @@ Item {
                 }
 
                 /* Enabled (queue > 0) controls */
-                Rectangle {
+                Item {
                     id: enabledPlayerControlsGroup
                     anchors {
                         bottom: playerControlsProgressBar.top
@@ -198,29 +196,17 @@ Item {
                         right: parent.right
                         top: parent.top
                     }
-                    color: "transparent"
 
                     /* Album art in player controls */
-                    Image {
-                        id: playerControlsImage
-                        anchors {
-                            bottom: parent.bottom
-                            left: parent.left
-                            top: parent.top
-                        }
-                        smooth: true
-                        source: player.currentMetaArt === "" ?
-                                    decodeURIComponent("image://albumart/artist=" +
-                                                       player.currentMetaArtist +
-                                                       "&album=" + player.currentMetaAlbum)
-                                  : player.currentMetaArt
-                        width: parent.height
-
-                        onStatusChanged: {
-                            if (status === Image.Error) {
-                                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-                            }
-                        }
+                    CoverGrid {
+                         id:  playerControlsImage
+                         anchors {
+                             bottom: parent.bottom
+                             left: parent.left
+                             top: parent.top
+                         }
+                         covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaArt}]
+                         size: parent.height
                     }
 
                     /* Column of meta labels */
@@ -305,14 +291,13 @@ Item {
                     }
 
                     /* Mouse area to jump to now playing */
-                    Rectangle {
+                    Item {
                         anchors {
                             bottom: parent.bottom
                             left: parent.left
                             right: playerControlsLabels.right
                             top: parent.top
                         }
-                        color: "transparent"
                         objectName: "jumpNowPlaying"
                         function trigger() {
                             tabs.pushNowPlaying();

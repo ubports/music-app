@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014 Andrew Hayzen <ahayzen@gmail.com>
- *                    Daniel Holm <d.holmen@gmail.com>
- *                    Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2012-2014 Canonical, Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.2
 import Ubuntu.Components 1.1
 
-Action {
-    iconName: "add-to-playlist"
-    objectName: "addToPlaylistAction"
-    text: i18n.tr("Add to playlist")
-
-    property bool primed: false
-
-    onTriggered: {
-       chosenElements = [makeDict(model)];
-       console.debug("Debug: Add track to playlist");
-       mainPageStack.push(addtoPlaylist)
-    }
+CheckBox {
+    checked: root.selected
+    width: implicitWidth
+    // disable item mouse area to avoid conflicts with parent mouse area
+    __mouseArea.enabled: false
 }

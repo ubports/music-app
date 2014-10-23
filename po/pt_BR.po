@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-14 16:45+0100\n"
+"POT-Creation-Date: 2014-10-20 15:09+0100\n"
 "PO-Revision-Date: 2014-09-30 18:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-10-18 07:22+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-10-21 07:54+0000\n"
+"X-Generator: Launchpad (build 17203)\n"
 
 #: ../LoginLastFM.qml:48 ../MusicSettings.qml:134 ../MusicSettings.qml:142
 msgid "Last.fm"
@@ -54,12 +54,11 @@ msgstr "Falha no login"
 msgid "You forgot to set your username and/or password"
 msgstr "Você esqueceu de definir seu usuário e/ou senha"
 
-#: ../MusicAlbums.qml:29 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Álbuns"
 
-#: ../MusicAlbums.qml:57 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:146
+#: ../MusicAlbums.qml:57 ../MusicStart.qml:71 ../common/AlbumsPage.qml:155
 msgid "Album"
 msgstr "Álbum"
 
@@ -85,21 +84,19 @@ msgstr ""
 msgid "Playlists"
 msgstr "Listas de reprodução"
 
-#: ../MusicPlaylists.qml:61 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:105 ../common/SongsPage.qml:220
-#: ../common/SongsPage.qml:221
+#: ../MusicPlaylists.qml:61 ../MusicaddtoPlaylist.qml:105
+#: ../common/SongsPage.qml:228 ../common/SongsPage.qml:229
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 música"
 msgstr[1] "%1 músicas"
 
-#: ../MusicPlaylists.qml:66 ../MusicPlaylists.qml:70 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:47
-#: ../common/SongsPage.qml:126 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:176 ../common/SongsPage.qml:204
-#: ../common/SongsPage.qml:239 ../common/SongsPage.qml:241
-#: ../common/SongsPage.qml:259
+#: ../MusicPlaylists.qml:66 ../MusicPlaylists.qml:70 ../MusicStart.qml:57
+#: ../MusicStart.qml:71 ../common/SongsPage.qml:47 ../common/SongsPage.qml:125
+#: ../common/SongsPage.qml:163 ../common/SongsPage.qml:172
+#: ../common/SongsPage.qml:208 ../common/SongsPage.qml:247
+#: ../common/SongsPage.qml:249 ../common/SongsPage.qml:266
 msgid "Playlist"
 msgstr "Lista de reprodução"
 
@@ -196,29 +193,9 @@ msgstr "Transmitir apenas através de Wi-Fi"
 msgid "Clean everything!"
 msgstr "Limpar tudo!"
 
-#: ../MusicStart.qml:35 ../music-app.qml:576 ../music-app.qml:1141
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Música"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:35
 msgid "Recent"
 msgstr "Recente"
-
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Limpar histórico"
-
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Gêneros"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:122
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:177
-#: ../common/SongsPage.qml:205 ../common/SongsPage.qml:220
-#: ../common/SongsPage.qml:255
-msgid "Genre"
-msgstr "Gênero"
 
 #: ../MusicToolbar.qml:150
 msgid "Tap to shuffle music"
@@ -240,22 +217,22 @@ msgstr "Nova lista de reprodução"
 msgid "Shuffle"
 msgstr ""
 
-#: ../common/AlbumsPage.qml:72 ../common/SongsPage.qml:144
+#: ../common/AlbumsPage.qml:72 ../common/SongsPage.qml:142
 msgid "Queue all"
 msgstr ""
 
-#: ../common/AlbumsPage.qml:83 ../common/SongsPage.qml:155
+#: ../common/AlbumsPage.qml:83 ../common/SongsPage.qml:153
 msgid "Play all"
 msgstr "Tocar tudo"
 
-#: ../common/AlbumsPage.qml:115
+#: ../common/AlbumsPage.qml:124
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 álbum"
 msgstr[1] "%1 álbuns"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:891
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:905
 msgid "Add to playlist"
 msgstr "Adicionar à lista de reprodução"
 
@@ -263,7 +240,7 @@ msgstr "Adicionar à lista de reprodução"
 msgid "Add to Queue"
 msgstr "Adicionar à fila de reprodução"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:389
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:400
 msgid "Remove"
 msgstr "Remover"
 
@@ -271,38 +248,44 @@ msgstr "Remover"
 msgid "Loading..."
 msgstr "Carregando..."
 
+#: ../common/SongsPage.qml:122 ../common/SongsPage.qml:160
+#: ../common/SongsPage.qml:173 ../common/SongsPage.qml:209
+#: ../common/SongsPage.qml:228 ../common/SongsPage.qml:263
+msgid "Genre"
+msgstr "Gênero"
+
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:333
 msgid "Change name"
 msgstr "Alterar nome"
 
-#: ../common/SongsPage.qml:328
+#: ../common/SongsPage.qml:334
 msgid "Enter the new name of the playlist."
 msgstr "Inserir o novo nome da lista de reprodução."
 
-#: ../common/SongsPage.qml:345
+#: ../common/SongsPage.qml:351
 msgid "Change"
 msgstr "Alterar"
 
-#: ../common/SongsPage.qml:361 ../music-app.qml:945
+#: ../common/SongsPage.qml:372 ../music-app.qml:959
 msgid "Playlist already exists"
 msgstr "Lista de reprodução já existe"
 
-#: ../common/SongsPage.qml:365 ../music-app.qml:950
+#: ../common/SongsPage.qml:376 ../music-app.qml:964
 msgid "Please type in a name."
 msgstr "Por favor, informe um nome."
 
-#: ../common/SongsPage.qml:370 ../common/SongsPage.qml:403
-#: ../music-app.qml:486 ../music-app.qml:956
+#: ../common/SongsPage.qml:381 ../common/SongsPage.qml:420
+#: ../music-app.qml:499 ../music-app.qml:970
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:383
+#: ../common/SongsPage.qml:394
 msgid "Are you sure?"
 msgstr ""
 
-#: ../common/SongsPage.qml:384
+#: ../common/SongsPage.qml:395
 msgid "This will delete your playlist."
 msgstr ""
 
@@ -375,74 +358,79 @@ msgid "Music Settings"
 msgstr "Configurações de Música"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:331
+#: ../music-app.qml:342
 msgid "Filepath must start with"
 msgstr "O caminho do arquivo deve começar com"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:357
+#: ../music-app.qml:368
 msgid "Filepath must be a file"
 msgstr "O caminho deve ser de um arquivo"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:363
+#: ../music-app.qml:374
 msgid "Failed to move file"
 msgstr "Falhou ao mover arquivo"
 
-#: ../music-app.qml:440
+#: ../music-app.qml:453
 msgid "Waiting for file(s)..."
 msgstr "Aguardando pelo(s) arquivo(s)"
 
-#: ../music-app.qml:459
+#: ../music-app.qml:472
 msgid "OK"
 msgstr "OK"
 
-#: ../music-app.qml:472
+#: ../music-app.qml:485
 msgid "Imported file not found"
 msgstr "O arquivo importado não foi encontrado"
 
-#: ../music-app.qml:476
+#: ../music-app.qml:489
 msgid "Wait"
 msgstr "Aguardando"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:497
+#: ../music-app.qml:510
 msgid "songs played today"
 msgstr "músicas tocadas hoje"
 
-#: ../music-app.qml:498
+#: ../music-app.qml:511
 msgid "No songs played today"
 msgstr "Nenhuma música tocada hoje"
 
-#: ../music-app.qml:599
+#: ../music-app.qml:591 ../music-app.qml:1155
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Música"
+
+#: ../music-app.qml:613
 msgid "Debug: "
 msgstr "Debug: "
 
-#: ../music-app.qml:877
+#: ../music-app.qml:891
 msgid "Add to queue"
 msgstr "Adicionar à fila"
 
-#: ../music-app.qml:914
+#: ../music-app.qml:928
 msgid "New Playlist"
 msgstr "Nova lista de reprodução"
 
-#: ../music-app.qml:915
+#: ../music-app.qml:929
 msgid "Name your playlist."
 msgstr "Nomear sua lista de reprodução."
 
-#: ../music-app.qml:919
+#: ../music-app.qml:933
 msgid "Name"
 msgstr "Nome"
 
-#: ../music-app.qml:929
+#: ../music-app.qml:943
 msgid "Create"
 msgstr "Criar"
 
-#: ../music-app.qml:1167
+#: ../music-app.qml:1181
 msgid "No music found"
 msgstr "Nenhuma música encontrada"
 
-#: ../music-app.qml:1174
+#: ../music-app.qml:1188
 msgid "Please import music"
 msgstr "Por favor, importar músicas"
 
@@ -460,5 +448,11 @@ msgstr "música;músicas;tocar;faixas;player;tons;"
 #~ msgid "Delete"
 #~ msgstr "Apagar"
 
+#~ msgid "Genres"
+#~ msgstr "Gêneros"
+
 #~ msgid "Now Playing"
 #~ msgstr "Reproduzindo agora"
+
+#~ msgid "Clear History"
+#~ msgstr "Limpar histórico"

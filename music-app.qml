@@ -25,12 +25,9 @@ import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import QtQuick.XmlListModel 2.0
 import QtGraphicalEffects 1.0
 import UserMetrics 0.1
-import "settings.js" as Settings
 import "meta-database.js" as Library
-import "scrobble.js" as Scrobble
 import "playlists.js" as Playlists
 import "common"
 
@@ -178,17 +175,6 @@ MainView {
         onTriggered: player.stop()
     }
 
-    // TODO: Currently there are no settings, so do not display the Action
-    Action {
-        id: settingsAction
-        text: i18n.tr("Settings")
-        keywords: i18n.tr("Music Settings")
-        onTriggered: {
-            customdebug('Show settings')
-            musicSettings.visible = true
-        }
-    }
-
     actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
@@ -211,7 +197,6 @@ MainView {
 
             // Add album to recent list
             Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
-            mainView.hasRecent = true
             recentModel.filterRecent()
         }
 
@@ -546,17 +531,6 @@ MainView {
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
 
-        Settings.initialize()
-        console.debug("INITIALIZED in tracks")
-        if (Settings.getSetting("initialized") !== "true") {
-            // initialize settings
-            console.debug("reset settings")
-            Settings.setSetting("initialized", "true") // setting to make sure the DB is there
-            Settings.setSetting("snaptrack", "1") // default state of snaptrack
-            Settings.setSetting("shuffle", "0") // default state of shuffle
-            Settings.setSetting("repeat", "0") // default state of repeat
-            //Settings.setSetting("scrobble", "0") // default state of scrobble
-        }
         Library.initialize();
 
         // Load previous queue
@@ -572,19 +546,14 @@ MainView {
 
         // everything else
         loading.visible = true
-        scrobble = Settings.getSetting("scrobble") == "1" // scrobble state
-        lastfmusername = Settings.getSetting("lastfmusername") // lastfm username
-        lastfmpassword = Settings.getSetting("lastfmpassword") // lastfm password
 
         // push the page to view
         mainPageStack.push(tabs)
 
         loadedUI = true;
 
-        // TODO: Switch tabs back and forth to get the background color in the
-        //       header to work properly.
-        tabs.selectedTabIndex = 1
-        tabs.selectedTabIndex = 0
+        // goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = Library.isRecentEmpty() ? albumsTab.index : startTab.index
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -597,12 +566,7 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property bool hasRecent: !Library.isRecentEmpty()
-    property bool scrobble: false
-    property string lastfmusername
-    property string lastfmpassword
-    property string timestamp // used to scrobble
-    property var chosenElement: null
+    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
@@ -772,58 +736,6 @@ MainView {
         id: player
     }
 
-    // Model to send the data
-    XmlListModel {
-        id: scrobblemodel
-        query: "/"
-
-        function rpcRequest(request,handler) {
-            var http = new XMLHttpRequest()
-
-            http.open("POST",scrobble_url,true)
-            http.setRequestHeader("User-Agent", "Music-App/"+appVersion)
-            http.setRequestHeader("Content-type", "text/xml")
-            http.setRequestHeader("Content-length", request.length)
-            if (root.authenticate) {
-                http.setRequestHeader("Authorization", "Basic " + Qt.btoa(lastfmusername+":"+lastfmusername))
-            }
-            http.setRequestHeader("Connection", "close")
-            http.onreadystatechange = function() {
-                if(http.readyState == 4 && http.status == 200) {
-                    console.debug("Debug: XmlRpc::rpcRequest.onreadystatechange()")
-                    handler(http.responseText)
-                }
-            }
-            http.send(request)
-        }
-
-        function callHandler(response) {
-            xml = response
-        }
-
-        function call(cmd,params) {
-            console.debug("Debug: XmlRpc.call(",cmd,params,")")
-            var request = ""
-            request += "<?xml version='1.0'?>"
-            request += "<methodCall>"
-            request += "<methodName>" + cmd + "</methodName>"
-            request += "<params>"
-            for (var i=0; i<params.length; i++) {
-                request += "<param><value>"
-                if (typeof(params[i])=="string") {
-                    request += "<string>" + params[i] + "</string>"
-                }
-                if (typeof(params[i])=="number") {
-                    request += "<int>" + params[i] + "</int>"
-                }
-                request += "</value></param>"
-            }
-            request += "</params>"
-            request += "</methodCall>"
-            rpcRequest(request,callHandler)
-        }
-    }
-
     // TODO: Used by playlisttracks move to U1DB
     LibraryListModel {
         id: albumTracksModel
@@ -871,56 +783,6 @@ MainView {
                 loading.visible = false
                 playlistTab.loading = false
                 playlistTab.populated = true
-            }
-        }
-    }
-
-    // load sheets (after model)
-    MusicSearch {
-        id: searchSheet
-    }
-
-    // Popover for tracks, queue and add to playlist, for example
-    Component {
-        id: trackPopoverComponent
-        Popover {
-            id: trackPopover
-            Column {
-                id: containerLayout
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    right: parent.right
-                }
-                ListItem.Standard {
-                    Label {
-                        text: i18n.tr("Add to queue")
-                        color: styleMusic.popover.labelColor
-                        fontSize: "large"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    onClicked: {
-                        console.debug("Debug: Add track to queue: " + JSON.stringify(chosenElement))
-                        PopupUtils.close(trackPopover)
-                        trackQueue.model.append(makeDict(listElement))
-                    }
-                }
-                ListItem.Standard {
-                    Label {
-                        text: i18n.tr("Add to playlist")
-                        color: styleMusic.popover.labelColor
-                        fontSize: "large"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    onClicked: {
-                        console.debug("Debug: Add track to playlist")
-                        PopupUtils.close(trackPopover)
-
-                        mainPageStack.push(addtoPlaylist)
-                    }
-                }
             }
         }
     }
@@ -1047,6 +909,23 @@ MainView {
                 }
             }
 
+            // forth tab is genres
+            Tab {
+                property bool populated: true
+                property var loader: []
+                property bool loading: false
+                property var model: []
+                id: genresTab
+                objectName: "genresTab"
+                anchors.fill: parent
+                title: page.title
+
+                // Tab content begins here
+                page: MusicGenres {
+                    id: musicGenresPage
+                }
+            }
+
             // fourth tab is all songs
             Tab {
                 property bool populated: true
@@ -1159,10 +1038,11 @@ MainView {
     Page {
         id: emptyPage
         title: i18n.tr("Music")
-        visible: noMusic
+        visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
         tools: ToolbarItems {
             back: null
             locked: true
@@ -1172,9 +1052,12 @@ MainView {
         // Overlay to show when no tracks detected on the device
         Rectangle {
             id: libraryEmpty
-            anchors.fill: parent
-            anchors.topMargin: -emptyPage.header.height
-            color: styleMusic.libraryEmpty.backgroundColor
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
+            color: mainView.backgroundColor
+            visible: emptyPage.noMusic
 
             Column {
                 anchors.centerIn: parent
@@ -1195,6 +1078,67 @@ MainView {
                 }
             }
         }
+
+        // Overlay to show when no playlists are on the device
+        Rectangle {
+            id: playlistsEmpty
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
+            color: mainView.backgroundColor
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && playlistTab.index === tabs.selectedTab.index
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No playlists found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Click the + to create a playlist")
+                }
+            }
+        }
+
+        // Overlay to show when no recent items are on the device
+        Rectangle {
+            id: recentEmpty
+            anchors {
+                fill: parent
+                topMargin: -emptyPage.header.height
+            }
+            color: mainView.backgroundColor
+            visible: emptyPage.noRecent && !emptyPage.noMusic && startTab.index === tabs.selectedTab.index
+
+            Column {
+                anchors.centerIn: parent
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "large"
+                    font.bold: true
+                    text: i18n.tr("No recent albums or playlists found")
+                }
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: styleMusic.libraryEmpty.labelColor
+                    fontSize: "medium"
+                    text: i18n.tr("Play some music to see your favorites")
+                }
+            }
+        }
+
     }
 
     LoadingSpinnerComponent {

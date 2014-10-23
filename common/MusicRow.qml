@@ -29,48 +29,24 @@ Row {
         rightMargin: units.gu(2)
     }
 
-    property alias covers: coverRow.covers
+    property alias covers: coverGrid.covers
     property bool showCovers: true
-    property bool isSquare: false
-    property alias pressed: coverRow.pressed
     property alias column: columnComponent.sourceComponent
     property real coverSize: styleMusic.common.albumSize
 
     spacing: units.gu(1)
 
-    CoverRow {
-        id: coverRow
-        visible: showCovers && !isSquare
-        anchors {
-            top: parent.top
-            topMargin: units.gu(1)
-        }
-        count: covers.length
-        covers: []
-        size: coverSize
-    }
-
-    Image {
-        id: coverSquare
-        visible: showCovers && isSquare
-        width: coverSize
-        height: coverSize
+    CoverGrid {
+        id: coverGrid
         anchors {
             verticalCenter: parent.verticalCenter
             topMargin: units.gu(0.5)
             bottomMargin: units.gu(0.5)
             leftMargin: units.gu(2)
         }
-        source: coverRow.count !== 0 && coverRow.covers[0] !== "" && coverRow.covers[0] !== undefined
-                ? (coverRow.covers[0].art !== undefined
-                   ? coverRow.covers[0].art
-                   : "image://albumart/artist=" + coverRow.covers[0].author + "&album=" + coverRow.covers[0].album)
-                : Qt.resolvedUrl("../images/music-app-cover@30.png")
-        onStatusChanged: {
-            if (status === Image.Error) {
-                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
-            }
-        }
+        covers: []
+        size: coverSize
+        visible: showCovers
     }
 
     Loader {
@@ -79,9 +55,9 @@ Row {
             top: parent.top
             topMargin: units.gu(1)
         }
+        asynchronous: true
         width: !showCovers ? parent.width - parent.spacing
-                           : (isSquare ? parent.width - coverSquare.width - parent.spacing
-                                       : parent.width - coverRow.width - parent.spacing)
+                           : parent.width - coverGrid.width - parent.spacing
 
         onSourceComponentChanged: {
             for (var i=0; i < item.children.length; i++) {
