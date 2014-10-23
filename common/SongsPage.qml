@@ -215,18 +215,15 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Shuffle")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            shuffleModel(albumtrackslist.model)  // play track
+                    onClicked: {
+                        shuffleModel(albumtrackslist.model)  // play track
 
-                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                recentModel.filterRecent()
-                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                recentModel.filterRecent()
-                            }
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                            recentModel.filterRecent()
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                            recentModel.filterRecent()
                         }
                     }
                 }
@@ -242,10 +239,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Queue all")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: addQueueFromModel(albumtrackslist.model)
-                    }
+                    onClicked: addQueueFromModel(albumtrackslist.model)
                 }
                 Button {
                     id: playRow
@@ -253,18 +247,15 @@ MusicPage {
                     height: units.gu(4)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            trackClicked(albumtrackslist.model, 0)  // play track
+                    onClicked: {
+                        trackClicked(albumtrackslist.model, 0)  // play track
 
-                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                recentModel.filterRecent()
-                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                recentModel.filterRecent()
-                            }
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
+                            recentModel.filterRecent()
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
+                            recentModel.filterRecent()
                         }
                     }
                 }
