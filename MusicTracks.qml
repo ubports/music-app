@@ -66,10 +66,8 @@ MusicPage {
                             items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        chosenElements = items;
-
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {});
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist === null) {  // Error Handling
                             console.log("Error creating object");

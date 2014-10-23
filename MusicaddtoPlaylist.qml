@@ -41,6 +41,8 @@ MusicPage {
     title: i18n.tr("Select playlist")
     visible: false
 
+    property var chosenElements: []
+
     head {
         actions: [
             Action {

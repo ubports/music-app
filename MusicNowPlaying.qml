@@ -82,10 +82,8 @@ MusicPage {
                             items.push(makeDict(trackQueue.model.get(i)));
                         }
 
-                        chosenElements = items;
-
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {});
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist === null) {  // Error Handling
                             console.log("Error creating object");
@@ -144,8 +142,14 @@ MusicPage {
                             items.push(makeDict(trackQueue.model.get(queuelist.selectedItems[i])));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist === null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         queuelist.closeSelection()
                     }
