@@ -85,6 +85,10 @@ class MusicApp(object):
         return self.main_view.wait_select_single(
             MusicPlaylists, objectName='playlistsPage')
 
+    def get_queue_count(self):
+        return self.main_view.select_single("LibraryListModel",
+                                            objectName="trackQueue").count
+
     def get_songs_page(self):
         return self.app.wait_select_single(SongsPage, objectName="songsPage")
 
@@ -236,6 +240,8 @@ class MusicNowPlaying(MusicPage):
 
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
+
+        self.visible.wait_for(True)
 
     @ensure_now_playing_full
     @click_object

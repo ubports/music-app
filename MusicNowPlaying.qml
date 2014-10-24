@@ -302,16 +302,14 @@ MusicPage {
 
                     Connections {
                         target: player
-                        onDurationChanged: {
-                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
-                            progressSliderMusic.maximumValue = player.duration
-                        }
                         onPositionChanged: {
                             // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
                             if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                                progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                                progressSliderMusic.value = player.position
+                                progressSliderMusic.maximumValue = player.duration
                             }
 
                             progressSliderMusic.seeked = false;
