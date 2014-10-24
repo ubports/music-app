@@ -271,10 +271,6 @@ class MusicNowPlaying(MusicPage):
     def click_toggle_view(self):
         self.main_view.get_header().click_action_button("toggleView")
 
-    def get_count(self):
-        return self.select_single("QQuickListView",
-                                  objectName="nowPlayingQueueList").count
-
     def go_back(self):
         """Use custom back button to go back"""
         self.main_view.get_header().click_custom_back_button()

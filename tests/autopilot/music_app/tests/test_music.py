@@ -377,12 +377,12 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
 
         # verify track queue has added all songs to initial value
-        self.assertThat(now_playing_page.get_count(),
+        self.assertThat(self.app.get_queue_count(),
                         Equals(initial_tracks_count + 3))
 
         # Assert that the song added to the list is playing
         self.assertThat(self.player.currentIndex,
-                        Eventually(NotEquals(now_playing_page.get_count())))
+                        Eventually(NotEquals(self.app.get_queue_count())))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # verify song's metadata matches the item added to the Now Playing view
@@ -519,12 +519,12 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
 
         # verify track queue has added all songs to initial value
-        self.assertThat(now_playing_page.get_count(),
+        self.assertThat(self.app.get_queue_count(),
                         Equals(initial_tracks_count + 2))
 
         # Assert that the song added to the list is playing
         self.assertThat(self.player.currentIndex,
-                        Eventually(NotEquals(now_playing_page.get_count())))
+                        Eventually(NotEquals(self.app.get_queue_count())))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
         # verify song's metadata matches the item added to the Now Playing view
@@ -544,7 +544,7 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
 
         # get initial queue count
-        initial_queue_count = now_playing_page.get_count()
+        initial_queue_count = self.app.get_queue_count()
 
         # get track row and swipe to reveal swipe to delete
         track = now_playing_page.get_track(0)
@@ -553,7 +553,7 @@ class TestMainWindow(MusicAppTestCase):
         track.confirm_removal()  # confirm delete
 
         # verify song has been deleted
-        self.assertThat(now_playing_page.get_count(),
+        self.assertThat(self.app.get_queue_count(),
                         Eventually(Equals(initial_queue_count - 1)))
 
     def test_playback_stops_when_last_song_ends_and_repeat_off(self):
@@ -567,7 +567,7 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page.set_repeat(False)
 
         # Skip through all songs in queue, stopping on last one.
-        for count in range(0, now_playing_page.get_count() - 1):
+        for count in range(0, self.app.get_queue_count() - 1):
             now_playing_page.click_forward_button()
 
         # When the last song ends, playback should stop
@@ -584,7 +584,7 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page.set_repeat(True)
 
         # Skip through all songs in queue, stopping on last one.
-        for count in range(0, now_playing_page.get_count() - 1):
+        for count in range(0, self.app.get_queue_count() - 1):
             now_playing_page.click_forward_button()
 
         # Make sure we loop back to first song after last song ends
@@ -603,7 +603,7 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page.set_repeat(True)
 
         # Skip through all songs in queue, INCLUDING last one.
-        for count in range(0, now_playing_page.get_count() - 1):
+        for count in range(0, self.app.get_queue_count() - 1):
             now_playing_page.click_forward_button()
 
         # Make sure we loop back to first song after last song ends
