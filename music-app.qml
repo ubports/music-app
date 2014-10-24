@@ -529,6 +529,9 @@ MainView {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
+        // start recent
+        Library.createRecent();
+
         // initialize playlists
         Playlists.initializePlaylist()
 

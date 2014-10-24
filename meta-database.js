@@ -126,7 +126,6 @@ function isRecentEmpty() {
     var res = 0;
 
     db.transaction( function(tx) {
-        createRecent();
         var rs = tx.executeSql("SELECT count(*) as value FROM recent")
         if (rs.rows.item(0).value > 0) {
             res = rs.rows.item(0).value;
