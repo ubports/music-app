@@ -83,7 +83,7 @@ class TestMainWindow(MusicAppTestCase):
         # wait for track to be queued
         self.app.get_queue_count().wait_for(initial_tracks_count + 1)
 
-        end_tracks_count = now_playing_page.get_count()
+        end_tracks_count = self.app.get_queue_count()
 
         # Assert that the song added to the list is not playing
         self.assertThat(self.player.currentIndex,
@@ -339,7 +339,7 @@ class TestMainWindow(MusicAppTestCase):
         track.click_add_to_queue_action()  # add track to the queue
 
         # verify track queue has added one to initial value
-        self.assertThat(now_playing_page.get_count(),
+        self.assertThat(self.app.get_queue_count(),
                         Eventually(Equals(initial_tracks_count + 1)))
 
         # Assert that the song added to the list is not playing

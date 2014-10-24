@@ -87,7 +87,7 @@ class MusicApp(object):
 
     def get_queue_count(self):
         return self.main_view.select_single("LibraryListModel",
-            objectName="trackQueue").count
+                                            objectName="trackQueue").count
 
     def get_songs_page(self):
         return self.app.wait_select_single(SongsPage, objectName="songsPage")
