@@ -760,6 +760,7 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        objectName: "trackQueue"
 
         function append(listElement)
         {
