@@ -34,8 +34,20 @@ MusicPage {
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
 
-    property string playlistTracks: ""
-    property string inPlaylist: ""
+    property bool changed: false
+
+    onVisibleChanged: {
+        if (changed) {
+            changed = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: playlistModel.filterPlaylists()
+    }
 
     head {
         actions: [
@@ -62,12 +74,23 @@ MusicPage {
 
             onClicked: {
                 albumTracksModel.filterPlaylistTracks(name)
-                songsPage.isAlbum = false
-                songsPage.line1 = i18n.tr("Playlist")
-                songsPage.line2 = model.name
-                songsPage.covers = coverSources
-                songsPage.genre = undefined
-                songsPage.title = i18n.tr("Playlist")
+
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": undefined,
+                                                      "covers": coverSources,
+                                                      "isAlbum": false,
+                                                      "genre": undefined,
+                                                      "page": playlistsPage,
+                                                      "title": i18n.tr("Playlist"),
+                                                      "line1": i18n.tr("Playlist"),
+                                                      "line2": model.name,
+                                                  });
+
+                if (songsPage === null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }

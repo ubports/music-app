@@ -48,13 +48,21 @@ MusicPage {
             secondaryText: model.artist
 
             onClicked: {
-                songsPage.album = model.title;
-                songsPage.covers = [{art: model.art}]
-                songsPage.genre = undefined
-                songsPage.isAlbum = true
-                songsPage.line1 = model.artist
-                songsPage.line2 = model.title
-                songsPage.title = i18n.tr("Album")
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": model.title,
+                                                      "covers": [{art: model.art}],
+                                                      "isAlbum": true,
+                                                      "genre": undefined,
+                                                      "title": i18n.tr("Album"),
+                                                      "line1": model.artist,
+                                                      "line2": model.title,
+                                                  });
+
+                if (songsPage === null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }
