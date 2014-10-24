@@ -52,7 +52,7 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
-        return self.app.wait_select_single(MusicAddToPlaylist,
+        return self.app.wait_select_single(MusicaddtoPlaylist,
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
