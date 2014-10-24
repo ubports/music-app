@@ -662,7 +662,9 @@ MainView {
         }
 
         // Show the Now playing page and make sure the track is visible
-        tabs.pushNowPlaying();
+        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+            tabs.pushNowPlaying();
+        }
     }
 
     function playRandomSong(shuffle)
