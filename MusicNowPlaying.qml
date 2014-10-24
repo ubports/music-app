@@ -40,11 +40,19 @@ MusicPage {
             if (queueListLoader.status === Loader.Ready) {
                 positionAt(player.currentIndex);
             } else {
-                queueListLoader.onStatusChanged = function(status) {
+                queueListLoader.onStatusChanged.connect(function(status) {
                     if (status === Loader.Ready) {
-                        positionAt(player.currentIndex);
+                        if (queueListLoader.item.count === trackQueue.model.count) {
+                            positionAt(player.currentIndex);
+                        } else {
+                            queueListLoader.item.onCountChanged.connect(function(count) {
+                                if (count === trackQueue.model.count) {
+                                    positionAt(player.currentIndex);
+                                }
+                            })
+                        }
                     }
-                }
+                })
             }
         }
     }
