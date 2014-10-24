@@ -37,7 +37,15 @@ MusicPage {
 
     onIsListViewChanged: {
         if (isListView) {
-            positionAt(player.currentIndex);
+            if (queueListLoader.status === Loader.Ready) {
+                positionAt(player.currentIndex);
+            } else {
+                queueListLoader.onStatusChanged = function(status) {
+                    if (status === Loader.Ready) {
+                        positionAt(player.currentIndex);
+                    }
+                }
+            }
         }
     }
 
