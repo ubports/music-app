@@ -536,8 +536,14 @@ MainView {
         // Load previous queue
         if (!Library.isQueueEmpty()) {
             var queue = Library.getQueue()
-            for(var i = 0; i <= queue.length; i++) {
-                trackQueue.model.append(queue[i])
+            for (var i = 0; i < queue.length; i++) {
+                trackQueue.model.append({
+                                            album:musicStore.lookup(queue[i].filename).album,
+                                            art:musicStore.lookup(queue[i].filename).art,
+                                            author:musicStore.lookup(queue[i].filename).author,
+                                            filename:queue[i].filename,
+                                            title:musicStore.lookup(queue[i].filename).title
+                                        })
             }
         }
 

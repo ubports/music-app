@@ -40,7 +40,7 @@ function createQueue() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, album TEXT, art TEXT, author TEXT, filename TEXT, title TEXT)");
+            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
       });
 }
 
@@ -49,16 +49,16 @@ function clearQueue() {
     db.transaction(
         function(tx) {
             tx.executeSql('DROP TABLE IF EXISTS queue');
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, album TEXT, art TEXT, author TEXT, filename TEXT, title TEXT)");
+            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
       });
 }
 
-function addQueueItem(ind, album, art, author, filename, title) {
+function addQueueItem(ind,filename) {
     var db = getDatabase();
     var res="";
 
     db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, album, art, author, filename, title) VALUES (?,?,?,?,?,?);', [ind, album, art, author, filename, title]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [ind, filename]);
               if (rs.rowsAffected > 0) {
                 console.log("QUEUE add OK")
                 res = "OK";
@@ -77,7 +77,7 @@ function addQueueList(model) {
     db.transaction(function(tx) {
 
         for (var i = 0; i < model.count; i++) {
-            var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, album, art, author, filename, title) VALUES (?,?,?,?,?,?);', [i, model.get(i).album, model.get(i).art, model.get(i).author, model.get(i).filename, model.get(i).title]);
+            var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, model.get(i).filename]);
             if (rs.rowsAffected > 0) {
                 res = "OK";
             } else {
@@ -149,12 +149,7 @@ function getQueue() {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             var dbItem = rs.rows.item(i);
-            res.push({album:dbItem.album,
-                         art:dbItem.art,
-                         author:dbItem.author,
-                         filename:dbItem.filename,
-                         title:dbItem.title
-                     });
+            res.push({filename:dbItem.filename});
         }
     });
     return res;
@@ -165,7 +160,7 @@ function isQueueEmpty() {
     var res = 0;
 
     db.transaction( function(tx) {
-        createRecent();
+        createQueue();
         var rs = tx.executeSql("SELECT count(*) as value FROM queue")
         res = rs.rows.item(0).value === 0
     });
