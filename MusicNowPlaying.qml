@@ -41,40 +41,6 @@ MusicPage {
         }
     }
 
-    head.backAction: Action {
-        iconName: "back";
-        objectName: "backButton"
-        onTriggered: {
-            mainPageStack.pop();
-
-            while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
-                mainPageStack.pop();
-            }
-        }
-    }
-
-    head {
-        actions: [
-            Action {
-                objectName: "clearQueue"
-                iconName: "delete"
-                visible: isListView
-                onTriggered: {
-                    head.backAction.trigger()
-                    trackQueue.model.clear()
-                    Library.clearQueue()
-                }
-            },
-            Action {
-                objectName: "toggleView"
-                iconName: "media-playlist"
-                onTriggered: {
-                    isListView = !isListView
-                }
-            }
-        ]
-    }
-
     function positionAt(index) {
         queuelist.positionViewAtIndex(index, ListView.Center);
     }

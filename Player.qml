@@ -125,6 +125,9 @@ Item {
             currentIndex = newIndex
             source = Qt.resolvedUrl(trackQueue.model.get(newIndex).filename)
         }
+
+        // Set index into queue
+        queueIndex = currentIndex
     }
 
     function nextSong(startPlaying, fromControls) {

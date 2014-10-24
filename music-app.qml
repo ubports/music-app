@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
+import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
@@ -39,6 +40,14 @@ MainView {
 
     backgroundColor: "#1e1e23"
     headerColor: "#1e1e23"
+
+    // Startup settings
+    Settings {
+        id: startupSettings
+        category: "StartupSettings"
+
+        property int queueIndex: 0
+    }
 
     // Global keyboard shortcuts
     focus: true
@@ -545,6 +554,11 @@ MainView {
                                             title:musicStore.lookup(queue[i].filename).title
                                         })
             }
+
+            if (queue.length > queueIndex) {
+                player.source = queue[queueIndex].filename
+                player.currentIndex = queueIndex
+            }
         }
 
         // initialize playlists
@@ -575,6 +589,7 @@ MainView {
     property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
+    property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
 
