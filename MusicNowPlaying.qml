@@ -24,6 +24,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
+import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 MusicPage {
@@ -95,6 +96,7 @@ MusicPage {
                     onTriggered: {
                         head.backAction.trigger()
                         trackQueue.model.clear()
+                        Library.clearQueue()
                     }
                 }
             ]
@@ -470,6 +472,8 @@ MusicPage {
         }
 
         queuelist.model.remove(index);
+        Library.removeQueueItem(index);
+        queueIndex = index;
 
         if (removedIndex < player.currentIndex) {
             // update index as the old has been removed
