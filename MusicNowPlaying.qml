@@ -572,6 +572,8 @@ MusicPage {
                     else if (from > player.currentIndex && to <= player.currentIndex) {
                         player.currentIndex += 1;
                     }
+
+                    queueIndex = player.currentIndex
                 }
 
                 Item {
