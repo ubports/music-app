@@ -54,10 +54,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Shuffle")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: shuffleModel(songArtistModel)
-                    }
+                    onClicked: shuffleModel(songArtistModel)
                 }
                 Button {
                     id: queueAllRow
@@ -71,10 +68,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Queue all")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: addQueueFromModel(songArtistModel)
-                    }
+                    onClicked: addQueueFromModel(songArtistModel)
                 }
                 Button {
                     id: playRow
@@ -82,10 +76,7 @@ MusicPage {
                     height: units.gu(4)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: trackClicked(songArtistModel, 0, true)
-                    }
+                    onClicked: trackClicked(songArtistModel, 0, true)
                 }
             }
             coverSources: albumStackPage.covers

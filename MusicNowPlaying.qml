@@ -302,16 +302,14 @@ MusicPage {
 
                     Connections {
                         target: player
-                        onDurationChanged: {
-                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
-                            progressSliderMusic.maximumValue = player.duration
-                        }
                         onPositionChanged: {
                             // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
                             if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                                progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                                progressSliderMusic.value = player.position
+                                progressSliderMusic.maximumValue = player.duration
                             }
 
                             progressSliderMusic.seeked = false;
@@ -482,6 +480,7 @@ MusicPage {
     ListView {
         id: queuelist
         anchors {
+            bottomMargin: units.gu(2)
             fill: parent
             topMargin: units.gu(2)
         }
@@ -595,9 +594,7 @@ MusicPage {
 
                     MusicRow {
                         id: musicRow
-                        covers: [{art: model.art, album: model.album, author: model.author}]
-                        showCovers: false
-                        coverSize: units.gu(6)
+                        height: parent.height
                         column: Column {
                             Label {
                                 id: trackTitle
