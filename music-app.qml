@@ -1045,8 +1045,8 @@ MainView {
         visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
-        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
         tools: ToolbarItems {
             back: null
             locked: true
