@@ -145,6 +145,7 @@ Item {
     function playSong(filepath, index) {
         player.stop();
         currentIndex = index;
+        queueIndex = index;
         player.source = Qt.resolvedUrl(filepath);
         player.play();
     }
