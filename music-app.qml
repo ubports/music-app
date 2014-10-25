@@ -556,8 +556,8 @@ MainView {
             }
 
             if (queue.length > queueIndex) {
-                player.source = queue[queueIndex].filename
                 player.currentIndex = queueIndex
+                player.source = queue[queueIndex].filename
             }
         }
 
