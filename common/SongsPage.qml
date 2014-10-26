@@ -219,12 +219,14 @@ MusicPage {
                         shuffleModel(albumtrackslist.model)  // play track
 
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            recentModel.filterRecent()
+                            Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            recentModel.filterRecent()
+                            Library.addRecent(songStackPage.line2, "playlist")
+                        } else {
+                            console.debug("Unknown type to add to recent")
                         }
+
+                        recentModel.filterRecent()
                     }
                 }
                 Button {
@@ -251,12 +253,14 @@ MusicPage {
                         trackClicked(albumtrackslist.model, 0)  // play track
 
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                            Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                            recentModel.filterRecent()
+                            Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                            Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                            recentModel.filterRecent()
+                            Library.addRecent(songStackPage.line2, "playlist")
+                        } else {
+                            console.debug("Unknown type to add to recent")
                         }
+
+                        recentModel.filterRecent()
                     }
                 }
             }
@@ -350,12 +354,14 @@ MusicPage {
                     trackClicked(albumtrackslist.model, index)  // play track
 
                     if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                        Library.addRecent(songStackPage.line2, songStackPage.line1, model.art, songStackPage.line2, "album")
-                        recentModel.filterRecent()
+                        Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                     } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                        Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                        recentModel.filterRecent()
+                        Library.addRecent(songStackPage.line2, "playlist")
+                    } else {
+                        console.debug("Unknown type to add to recent")
                     }
+
+                    recentModel.filterRecent()
                 }
                 onReorder: {
                     console.debug("Move: ", from, to);

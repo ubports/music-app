@@ -51,23 +51,30 @@ MusicPage {
         model: recentModel.model
         delegate: Card {
             id: albumCard
-            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(title) : (model.art !== undefined ? [{art: model.art}] : [{author: model.title2, album: model.title}])
+
+            SongsModel {
+                id: recentAlbumSongs
+                album: model.type === "album" ? model.data : undefined
+                store: musicStore
+            }
+
+            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(model.data) : (recentAlbumSongs.status === SongsModel.Ready ? [makeDict(recentAlbumSongs.get(0, SongsModel.RoleModelData))] : [])
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
-            secondaryText: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
+            primaryText: model.type === "playlist" ? model.data : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).album : "")
+            secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : "")
 
             onClicked: {
                 if (type === "playlist") {
-                    albumTracksModel.filterPlaylistTracks(model.key)
+                    albumTracksModel.filterPlaylistTracks(model.data)
                 } else {
-                    songsPage.album = title;
+                    songsPage.album = primaryText;
                 }
-                songsPage.genre = undefined;
 
+                songsPage.covers = coverSources
+                songsPage.genre = undefined;
+                songsPage.isAlbum = (model.type === "album")
                 songsPage.line1 = secondaryText
                 songsPage.line2 = primaryText
-                songsPage.covers = coverSources
-                songsPage.isAlbum = (type === "album")
                 songsPage.title = songsPage.isAlbum ? i18n.tr("Album") : i18n.tr("Playlist")
 
                 mainPageStack.push(songsPage)
