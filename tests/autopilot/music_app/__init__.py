@@ -52,7 +52,7 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
-        return self.app.wait_select_single(Page11,
+        return self.app.wait_select_single(MusicaddtoPlaylist,
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
@@ -215,9 +215,9 @@ class MusicaddtoPlaylist(MusicPage):
                 objectName="addToPlaylistCardItem" + str(i)))
 
 
-class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
+class Page11(MusicAlbums, MusicArtists, MusicTracks):
     """
-    FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
+    FIXME: Represents MusicTracks MusicArtists MusicAlbums
     due to bug 1341671 and bug 1337004 they all appear as Page11
     Therefore this class 'contains' all of them for now
     Once the bugs are fixed Page11 should be swapped for MusicTracks etc
@@ -226,7 +226,6 @@ class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
         super(MusicAlbums, self).__init__(*args)
         super(MusicArtists, self).__init__(*args)
         super(MusicTracks, self).__init__(*args)
-        super(MusicaddtoPlaylist, self).__init__(*args)
 
 
 class Player(UbuntuUIToolkitCustomProxyObjectBase):

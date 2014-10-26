@@ -562,7 +562,6 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
@@ -649,7 +648,7 @@ MainView {
             tabs.pushNowPlaying();
         }
         else {
-            player.source = file;
+            player.setSource(file);
         }
     }
 
@@ -998,7 +997,7 @@ MainView {
                     var comp = Qt.createComponent("MusicNowPlaying.qml")
                     var nowPlaying = comp.createObject(mainPageStack, {});
 
-                    if (nowPlaying === null) { // Error Handling
+                    if (nowPlaying == null) {  // Error Handling
                         console.log("Error creating object");
                     }
 
@@ -1025,18 +1024,6 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
-
-        SongsPage {
-            id: songsPage
-        }
-
-        AlbumsPage {
-            id: albumsPage
-        }
-
-        MusicaddtoPlaylist {
-            id: addtoPlaylist
-        }
     }
 
     Page {
