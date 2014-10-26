@@ -26,7 +26,7 @@ function createRecent() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            // Data is either the playlist name or the filepath from an album
+            // Data is either the playlist name or album name
             tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME UNIQUE, data TEXT, type TEXT)");
 
             // Check of old version of db and then clear if needed
