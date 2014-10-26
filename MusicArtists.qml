@@ -80,7 +80,7 @@ MusicPage {
                                                       "title": i18n.tr("Artist"),
                                                   });
 
-                if (albumsPage === null) {  // Error Handling
+                if (albumsPage == null) {  // Error Handling
                     console.log("Error creating object");
                 }
 

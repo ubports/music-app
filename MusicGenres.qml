@@ -94,7 +94,7 @@ MusicPage {
                                                       "line1": i18n.tr("Genre")
                                                   });
 
-                if (songsPage === null) {  // Error Handling
+                if (songsPage == null) {  // Error Handling
                     console.log("Error creating object");
                 }
 

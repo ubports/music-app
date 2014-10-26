@@ -73,7 +73,7 @@ MusicPage {
                                                       "line2": primaryText,
                                                   });
 
-                if (songsPage === null) {  // Error Handling
+                if (songsPage == null) {  // Error Handling
                     console.log("Error creating object");
                 }
 

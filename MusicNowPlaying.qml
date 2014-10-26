@@ -85,7 +85,7 @@ MusicPage {
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
-                        if (addToPlaylist === null) {  // Error Handling
+                        if (addToPlaylist == null) {  // Error Handling
                             console.log("Error creating object");
                         }
 
@@ -145,7 +145,7 @@ MusicPage {
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
-                        if (addToPlaylist === null) {  // Error Handling
+                        if (addToPlaylist == null) {  // Error Handling
                             console.log("Error creating object");
                         }
 

@@ -88,7 +88,7 @@ MusicPage {
                                                       "line2": model.name,
                                                   });
 
-                if (songsPage === null) {  // Error Handling
+                if (songsPage == null) {  // Error Handling
                     console.log("Error creating object");
                 }
 

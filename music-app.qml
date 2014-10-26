@@ -997,7 +997,7 @@ MainView {
                     var comp = Qt.createComponent("MusicNowPlaying.qml")
                     var nowPlaying = comp.createObject(mainPageStack, {});
 
-                    if (nowPlaying === null) { // Error Handling
+                    if (nowPlaying == null) {  // Error Handling
                         console.log("Error creating object");
                     }
 

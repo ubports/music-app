@@ -200,7 +200,7 @@ Item {
                         var obj = trackQueue.model.get(player.currentIndex);
                         player.currentMetaAlbum = obj.album;
 
-                        if (obj.art !== undefined) {  // FIXME: protect against not art property in playlists
+                        if (obj.art !== undefined) {  // FIXME: protect against no art property in playlists
                             player.currentMetaArt = obj.art;
                         }
 
