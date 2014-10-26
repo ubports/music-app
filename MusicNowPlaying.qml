@@ -105,8 +105,14 @@ MusicPage {
                             items.push(makeDict(trackQueue.model.get(i)));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
                     }
                 },
                 Action {
@@ -159,8 +165,14 @@ MusicPage {
                             items.push(makeDict(trackQueue.model.get(queueListLoader.item.selectedItems[i])));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         queueListLoader.item.closeSelection()
                     }
@@ -289,9 +301,9 @@ MusicPage {
                     id: progressSliderMusic
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    maximumValue: player.duration // load value at startup
+                    maximumValue: player.duration  // load value at startup
                     objectName: "progressSliderShape"
-                    value: player.position // load value at startup
+                    value: player.position  // load value at startup
 
                     function formatValue(v) {
                         if (seeking) {  // update position label while dragging

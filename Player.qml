@@ -38,14 +38,14 @@ Item {
     property string currentMetaFile: ""
     property string currentMetaTitle: ""
     property int currentIndex: -1
-    property alias duration: mediaPlayer.duration
-    property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
-    property alias playbackState: mediaPlayer.playbackState
-    property alias position: mediaPlayer.position
+    property int duration: 1
+    readonly property bool isPlaying: player.playbackState === MediaPlayer.PlayingState
+    readonly property var playbackState: mediaPlayerLoader.status == Loader.Ready ? mediaPlayerLoader.item.playbackState : MediaPlayer.StoppedState
+    property int position: 0
     property alias repeat: settings.repeat
     property alias shuffle: settings.shuffle
-    property alias source: mediaPlayer.source
-    property alias volume: mediaPlayer.volume
+    readonly property string source: mediaPlayerLoader.status == Loader.Ready ? mediaPlayerLoader.item.source : ""
+    readonly property double volume: mediaPlayerLoader.status == Loader.Ready ? mediaPlayerLoader.item.volume : 1.0
 
     signal stopped()
 
@@ -62,10 +62,10 @@ Item {
         onCountChanged: {
             if (trackQueue.model.count === 1) {
                 player.currentIndex = 0;
-                player.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
+                mediaPlayerLoader.item.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
             } else if (trackQueue.model.count === 0) {
                 player.currentMetaFile = ""
-                player.source = ""
+                mediaPlayerLoader.item.source = ""
             }
         }
     }
@@ -132,18 +132,18 @@ Item {
     }
 
     function pause() {
-        mediaPlayer.pause();
+        mediaPlayerLoader.item.pause();
     }
 
     function play() {
-        mediaPlayer.play();
+        mediaPlayerLoader.item.play();
     }
 
     function playSong(filepath, index) {
-        player.stop();
+        stop();
         currentIndex = index;
-        player.source = Qt.resolvedUrl(filepath);
-        player.play();
+        setSource(filepath);
+        play();
     }
 
     function previousSong(startPlaying) {
@@ -151,61 +151,77 @@ Item {
     }
 
     function seek(position) {
-        mediaPlayer.seek(position);
+        mediaPlayerLoader.item.seek(position);
+    }
+
+    function setSource(filepath) {
+        mediaPlayerLoader.item.source = Qt.resolvedUrl(filepath);
+    }
+
+    function setVolume(volume) {
+        mediaPlayerLoader.item.volume = volume
     }
 
     function stop() {
-        mediaPlayer.stop();
+        mediaPlayerLoader.item.stop();
     }
 
     function toggle() {
         if (player.playbackState == MediaPlayer.PlayingState) {
-            player.pause()
+            pause()
         }
         else {
-            player.play()
+            play()
         }
     }
 
-    MediaPlayer {
-        id: mediaPlayer
-        muted: false
+    Loader {
+        id: mediaPlayerLoader
+        asynchronous: true
+        sourceComponent: Component {
+            MediaPlayer {
+                muted: false
 
-        onSourceChanged: {
-            // Force invalid source to ""
-            if (source === undefined || source === false) {
-                source = ""
-                return
-            }
+                onDurationChanged: player.duration = duration
+                onPositionChanged: player.position = position
 
-            if (source === "") {
-                currentIndex = -1
-                player.stop()
-            }
-            else {
-                var obj = trackQueue.model.get(player.currentIndex);
-                currentMetaAlbum = obj.album;
+                onSourceChanged: {
+                    // Force invalid source to ""
+                    if (source === undefined || source === false) {
+                        source = ""
+                        return
+                    }
 
-                if (obj.art !== undefined) {  // FIXME: protect against not art property in playlists
-                    currentMetaArt = obj.art;
+                    if (source === "") {
+                        player.currentIndex = -1
+                        player.stop()
+                    }
+                    else {
+                        var obj = trackQueue.model.get(player.currentIndex);
+                        player.currentMetaAlbum = obj.album;
+
+                        if (obj.art !== undefined) {  // FIXME: protect against no art property in playlists
+                            player.currentMetaArt = obj.art;
+                        }
+
+                        player.currentMetaArtist = obj.author;
+                        player.currentMetaFile = obj.filename;
+                        player.currentMetaTitle = obj.title;
+                    }
+
+                    console.log("Source: " + source.toString())
+                    console.log("Index: " + player.currentIndex)
                 }
 
-                currentMetaArtist = obj.author;
-                currentMetaFile = obj.filename;
-                currentMetaTitle = obj.title;
-            }
+                onStatusChanged: {
+                    if (status == MediaPlayer.EndOfMedia) {
+                        nextSong(true, false) // next track
+                    }
+                }
 
-            console.log("Source: " + source.toString())
-            console.log("Index: " + currentIndex)
-        }
-
-        onStatusChanged: {
-            if (status == MediaPlayer.EndOfMedia) {
-                nextSong(true, false) // next track
+                onStopped: player.stopped()
             }
         }
-
-        onStopped: player.stopped()
     }
 }
 

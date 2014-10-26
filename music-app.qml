@@ -562,7 +562,6 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
@@ -649,7 +648,7 @@ MainView {
             tabs.pushNowPlaying();
         }
         else {
-            player.source = file;
+            player.setSource(file);
         }
     }
 
@@ -1000,7 +999,7 @@ MainView {
                     var comp = Qt.createComponent("MusicNowPlaying.qml")
                     var nowPlaying = comp.createObject(mainPageStack, {});
 
-                    if (nowPlaying === null) { // Error Handling
+                    if (nowPlaying == null) {  // Error Handling
                         console.log("Error creating object");
                     }
 
@@ -1027,18 +1026,6 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
-
-        SongsPage {
-            id: songsPage
-        }
-
-        AlbumsPage {
-            id: albumsPage
-        }
-
-        MusicaddtoPlaylist {
-            id: addtoPlaylist
-        }
     }
 
     Page {
@@ -1047,8 +1034,8 @@ MainView {
         visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
-        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
         tools: ToolbarItems {
             back: null
             locked: true
