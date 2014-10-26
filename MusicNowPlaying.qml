@@ -36,27 +36,34 @@ MusicPage {
     property bool isListView: false
 
     onIsListViewChanged: {
-        if (isListView) {
+        if (isListView) {  // When changing to the queue positionAt the currentIndex
+            // ensure the loader and listview is ready
             if (queueListLoader.status === Loader.Ready) {
-                positionAt(player.currentIndex);
+                ensureListViewLoaded()
             } else {
                 queueListLoader.onStatusChanged.connect(function() {
                     if (queueListLoader.status === Loader.Ready) {
-                        if (queueListLoader.item.count === trackQueue.model.count) {
-                            positionAt(player.currentIndex);
-                        } else {
-                            queueListLoader.item.onCountChanged.connect(function() {
-                                if (queueListLoader.item.count === trackQueue.model.count) {
-                                    positionAt(player.currentIndex);
-                                }
-                            })
-                        }
+                        ensureListViewLoaded()
                     }
                 })
             }
         }
     }
 
+    // Ensure that the listview has loaded before attempting to positionAt
+    function ensureListViewLoaded() {
+        if (queueListLoader.item.count === trackQueue.model.count) {
+            positionAt(player.currentIndex);
+        } else {
+            queueListLoader.item.onCountChanged.connect(function() {
+                if (queueListLoader.item.count === trackQueue.model.count) {
+                    positionAt(player.currentIndex);
+                }
+            })
+        }
+    }
+
+    // Position the view at the index
     function positionAt(index) {
         queueListLoader.item.positionViewAtIndex(index, ListView.Center);
     }
