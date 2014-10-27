@@ -60,6 +60,10 @@ WorkerScript {
          if (canLoad) {  // pause if the model is not allowed to load
              process();
          }
+
+         if (i === 1) {  // sync after the first item to prevent empty states
+             sync()
+         }
      }
 
      function clear() {
@@ -76,8 +80,8 @@ WorkerScript {
              sendMessage({'add': list[i], 'model': model});
              i++;
          } else {
-             completed = true;
              sync()
+             completed = true;
          }
      }
 
