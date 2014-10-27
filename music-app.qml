@@ -557,7 +557,7 @@ MainView {
 
             if (queue.length > queueIndex) {
                 player.currentIndex = queueIndex
-                player.source = queue[queueIndex].filename
+                player.setSource(queue[queueIndex].filename)
             }
         }
 
