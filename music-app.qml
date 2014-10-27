@@ -235,6 +235,9 @@ MainView {
         }
 
         function process(uri, play) {
+            // stop loading the queue as we will load from uriHandler
+            queueLoaderWorker.canLoad = false
+
             if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
@@ -244,7 +247,6 @@ MainView {
             else if (uri.indexOf("music://") === 0) {
                 uriHandler.processFile(uri.substring(8), play);
             }
-
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
             }
@@ -533,6 +535,23 @@ MainView {
     width: units.gu(100)
     height: units.gu(80)
 
+    WorkerModelLoader {
+        id: queueLoaderWorker
+        canLoad: false
+        list: Library.getQueue()
+        model: trackQueue.model
+        syncFactor: 10
+
+        onCompletedChanged: {
+            console.debug("COMPLETECHG", completed, queueIndex)
+
+            if (completed) {
+                player.currentIndex = queueIndex
+                player.setSource(list[queueIndex].filename)
+            }
+        }
+    }
+
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
@@ -542,27 +561,11 @@ MainView {
 
         Library.initialize();
 
-        // Load previous queue
-        if (!Library.isQueueEmpty()) {
-            var queue = Library.getQueue()
-            for (var i = 0; i < queue.length; i++) {
-                trackQueue.model.append({
-                                            album:musicStore.lookup(queue[i].filename).album,
-                                            art:musicStore.lookup(queue[i].filename).art,
-                                            author:musicStore.lookup(queue[i].filename).author,
-                                            filename:queue[i].filename,
-                                            title:musicStore.lookup(queue[i].filename).title
-                                        })
-            }
-
-            if (queue.length > queueIndex) {
-                player.currentIndex = queueIndex
-                player.setSource(queue[queueIndex].filename)
-            }
-        }
-
         // initialize playlists
         Playlists.initializePlaylist()
+
+        // allow the queue loader to start
+        queueLoaderWorker.canLoad = !Library.isQueueEmpty()
 
         // everything else
         loading.visible = true
