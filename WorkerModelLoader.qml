@@ -49,6 +49,14 @@ WorkerScript {
      }
 
      onMessage: {
+         if (messageObject.sync === true) {
+             if (i >= list.length) {  // if synced check if list now complete
+                 completed = true
+             } else {
+                 return;  // do not continue from a sync 'pong' only from a process/clear
+             }
+         }
+
          if (i === 0) {
              preLoadComplete = true;
          }
@@ -81,7 +89,6 @@ WorkerScript {
              i++;
          } else {
              sync()
-             completed = true;
          }
      }
 
