@@ -66,16 +66,23 @@ MusicPage {
             onClicked: {
                 if (type === "playlist") {
                     albumTracksModel.filterPlaylistTracks(model.data)
-                } else {
-                    songsPage.album = primaryText;
                 }
 
-                songsPage.covers = coverSources
-                songsPage.genre = undefined;
-                songsPage.isAlbum = (model.type === "album")
-                songsPage.line1 = secondaryText
-                songsPage.line2 = primaryText
-                songsPage.title = songsPage.isAlbum ? i18n.tr("Album") : i18n.tr("Playlist")
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": model.type !== "playlist" ? title : undefined,
+                                                      "covers": coverSources,
+                                                      "isAlbum": (model.type === "album"),
+                                                      "genre": undefined,
+                                                      "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
+                                                      "line1": secondaryText,
+                                                      "line2": primaryText,
+                                                  });
+
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }
