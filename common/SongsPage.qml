@@ -41,6 +41,7 @@ MusicPage {
     property string file: ""
     property string year: ""
 
+    property var page
     property alias album: songsModel.album
     property alias genre: songsModel.genre
 
@@ -113,8 +114,14 @@ MusicPage {
                             items.push(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("../MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         albumtrackslist.closeSelection()
                     }
@@ -138,13 +145,20 @@ MusicPage {
                     visible: songStackPage.line1 === i18n.tr("Playlist")
                     onTriggered: {
                         for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i] - i)
+                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i])
+
+                            // Update indexes as an index has been removed
+                            for (var j=i + 1; j < albumtrackslist.selectedItems.length; j++) {
+                                if (albumtrackslist.selectedItems[j] > albumtrackslist.selectedItems[i]) {
+                                    albumtrackslist.selectedItems[j]--;
+                                }
+                            }
                         }
 
                         albumtrackslist.closeSelection()
 
+                        songStackPage.page.changed = true
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                        playlistModel.filterPlaylists()
                     }
                 }
             ]
@@ -371,8 +385,8 @@ MusicPage {
                         onTriggered: {
                             Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
+                            songStackPage.page.changed = true
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                            playlistModel.filterPlaylists()
                         }
                     }
                 }
@@ -488,11 +502,14 @@ MusicPage {
                     // removing playlist
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
 
-                    playlistModel.filterPlaylists();
-
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
                         recentModel.filterRecent()
+                    }
+
+                    if (songStackPage.page !== undefined) {
+                        songStackPage.page.changed = true
+                        songStackPage.page = undefined
                     }
 
                     PopupUtils.close(dialogRemovePlaylist)
