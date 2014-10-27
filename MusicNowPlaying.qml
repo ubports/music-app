@@ -602,7 +602,7 @@ MusicPage {
                         console.debug("Move: ", from, to);
 
                         trackQueue.model.move(from, to, 1);
-
+                        Library.moveQueueItem(from, to);
 
                         // Maintain currentIndex with current song
                         if (from === player.currentIndex) {
@@ -614,6 +614,8 @@ MusicPage {
                         else if (from > player.currentIndex && to <= player.currentIndex) {
                             player.currentIndex += 1;
                         }
+
+                        queueIndex = player.currentIndex
                     }
 
                     Item {
