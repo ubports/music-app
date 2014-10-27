@@ -543,8 +543,6 @@ MainView {
         syncFactor: 10
 
         onCompletedChanged: {
-            console.debug("COMPLETECHG", completed, queueIndex)
-
             if (completed) {
                 player.currentIndex = queueIndex
                 player.setSource(list[queueIndex].filename)
