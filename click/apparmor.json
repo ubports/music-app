@@ -9,7 +9,8 @@
     ],
     "read_path": [
         "@{HOME}/.cache/media-art/",
-        "@{HOME}/.cache/mediascanner-2.0/"
+        "@{HOME}/.cache/mediascanner-2.0/",
+        "/media/*/*/"
     ],
     "write_path": [
         "@{HOME}/Music/Imported/"

@@ -52,7 +52,7 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
-        return self.app.wait_select_single(Page11,
+        return self.app.wait_select_single(MusicaddtoPlaylist,
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
@@ -84,6 +84,10 @@ class MusicApp(object):
 
         return self.main_view.wait_select_single(
             MusicPlaylists, objectName='playlistsPage')
+
+    def get_queue_count(self):
+        return self.main_view.select_single("LibraryListModel",
+                                            objectName="trackQueue").count
 
     def get_songs_page(self):
         return self.app.wait_select_single(SongsPage, objectName="songsPage")
@@ -211,9 +215,9 @@ class MusicaddtoPlaylist(MusicPage):
                 objectName="addToPlaylistCardItem" + str(i)))
 
 
-class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
+class Page11(MusicAlbums, MusicArtists, MusicTracks):
     """
-    FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
+    FIXME: Represents MusicTracks MusicArtists MusicAlbums
     due to bug 1341671 and bug 1337004 they all appear as Page11
     Therefore this class 'contains' all of them for now
     Once the bugs are fixed Page11 should be swapped for MusicTracks etc
@@ -222,7 +226,6 @@ class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
         super(MusicAlbums, self).__init__(*args)
         super(MusicArtists, self).__init__(*args)
         super(MusicTracks, self).__init__(*args)
-        super(MusicaddtoPlaylist, self).__init__(*args)
 
 
 class Player(UbuntuUIToolkitCustomProxyObjectBase):
@@ -236,6 +239,8 @@ class MusicNowPlaying(MusicPage):
 
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
+
+        self.visible.wait_for(True)
 
     @ensure_now_playing_full
     @click_object
@@ -264,10 +269,6 @@ class MusicNowPlaying(MusicPage):
 
     def click_toggle_view(self):
         self.main_view.get_header().click_action_button("toggleView")
-
-    def get_count(self):
-        return self.select_single("QQuickListView",
-                                  objectName="nowPlayingQueueList").count
 
     def go_back(self):
         """Use custom back button to go back"""

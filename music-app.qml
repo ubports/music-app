@@ -87,9 +87,9 @@ MainView {
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
-                nowPlaying.isListView = true;
+                mainPageStack.currentPage.isListView = true
                 break;
-            case Qt.Key_N:  //      Ctrl+N      Show now playing
+            case Qt.Key_N:  //      Ctrl+N      Show Now playing
                 tabs.pushNowPlaying()
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
@@ -561,7 +561,6 @@ MainView {
     // VARIABLES
     property string musicName: i18n.tr("Music")
     property string appVersion: '1.2'
-    property var chosenElements: []
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
 
@@ -628,10 +627,10 @@ MainView {
         clear = clear === undefined ? false : clear  // force clear and will ignore player.toggle()
 
         if (!clear) {
-            // If same track and on now playing page then toggle
-            if (musicToolbar.currentPage === nowPlaying &&
-                    trackQueue.model.get(player.currentIndex) !== undefined &&
-                    Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
+            // If same track and on Now playing page then toggle
+            if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
+                    && trackQueue.model.get(player.currentIndex) !== undefined
+                    && Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
                 player.toggle()
                 return;
             }
@@ -644,11 +643,11 @@ MainView {
         if (play) {
             player.playSong(file, index);
 
-            // Show the Now Playing page and make sure the track is visible
+            // Show the Now playing page and make sure the track is visible
             tabs.pushNowPlaying();
         }
         else {
-            player.source = file;
+            player.setSource(file);
         }
     }
 
@@ -660,8 +659,8 @@ MainView {
             player.playSong(trackQueue.model.get(index).filename, index);
         }
 
-        // Show the Now Playing page and make sure the track is visible
-        if (!nowPlaying.isListView) {
+        // Show the Now playing page and make sure the track is visible
+        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
             tabs.pushNowPlaying();
         }
     }
@@ -761,6 +760,7 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        objectName: "trackQueue"
 
         function append(listElement)
         {
@@ -841,7 +841,7 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: nowPlaying.isListView || !nowPlaying.visible
+        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing")
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
@@ -992,11 +992,22 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (mainPageStack.currentPage !== nowPlaying) {
+                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
+                        && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+
+                    var comp = Qt.createComponent("MusicNowPlaying.qml")
+                    var nowPlaying = comp.createObject(mainPageStack, {});
+
+                    if (nowPlaying == null) {  // Error Handling
+                        console.log("Error creating object");
+                    }
+
                     mainPageStack.push(nowPlaying);
                 }
 
-                nowPlaying.isListView = false;  // ensure full view
+                if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
+                    mainPageStack.currentPage.isListView = false;  // ensure full view
+                }
             }
 
             Component.onCompleted: musicToolbar.currentTab = selectedTab
@@ -1014,22 +1025,6 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
-
-        SongsPage {
-            id: songsPage
-        }
-
-        AlbumsPage {
-            id: albumsPage
-        }
-
-        MusicNowPlaying {
-            id: nowPlaying
-        }
-
-        MusicaddtoPlaylist {
-            id: addtoPlaylist
-        }
     }
 
     Page {
@@ -1038,8 +1033,8 @@ MainView {
         visible: noMusic || noPlaylists || noRecent
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
-        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
         tools: ToolbarItems {
             back: null
             locked: true

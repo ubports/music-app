@@ -72,9 +72,17 @@ MusicPage {
 
 
             onClicked: {
-                albumsPage.artist = model.artist;
-                albumsPage.covers = artistCard.coverSources
-                albumsPage.title = i18n.tr("Artist")
+                var comp = Qt.createComponent("common/AlbumsPage.qml")
+                var albumsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "artist": model.artist,
+                                                      "covers": artistCard.coverSources,
+                                                      "title": i18n.tr("Artist"),
+                                                  });
+
+                if (albumsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(albumsPage)
             }
