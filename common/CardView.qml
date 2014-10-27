@@ -32,8 +32,14 @@ Flickable {
     property alias count: flow.count
     property alias delegate: flow.delegate
     property alias header: headerLoader.sourceComponent
-    property alias model: flow.model
+    property var model: flow.model
     property real itemWidth: units.gu(15)
+
+    onVisibleChanged: {
+        if (visible) {  // only load model once CardView is visible
+            flow.model = model
+        }
+    }
 
     Loader {
         id: headerLoader
@@ -56,7 +62,6 @@ Flickable {
                 fill: parent
                 margins: units.gu(1)
             }
-
             columns: parseInt(width / itemWidth)
         }
     }
