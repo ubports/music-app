@@ -807,6 +807,7 @@ MainView {
     // create the listmodel to use for playlists
     LibraryListModel {
         id: playlistModel
+        syncFactor: 1
 
         onPreLoadCompleteChanged: {
             if (preLoadComplete)
