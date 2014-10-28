@@ -614,7 +614,7 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.append(model.get(i, model.RoleModelData));
+            trackQueue.model.append(model.get(i, model.RoleModelData));
         }
 
         // Add model to queue storage
