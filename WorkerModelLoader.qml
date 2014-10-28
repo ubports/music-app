@@ -52,9 +52,9 @@ WorkerScript {
          if (messageObject.sync === true) {
              if (i >= list.length) {  // if synced check if list now complete
                  completed = true
-             } else {
-                 return;  // do not continue from a sync 'pong' only from a process/clear
              }
+
+             return;  // do not continue from a sync 'pong' only from a process/clear
          }
 
          if (i === 0) {
