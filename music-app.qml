@@ -222,11 +222,11 @@ MainView {
 
             if (play) {
                 // clear play queue
-                trackQueue.model.clear()
+                trackQueue.clear()
             }
 
             // enqueue
-            trackQueue.model.append(makeDict(track));
+            trackQueue.append(makeDict(track));
 
             // play first URI
             if (play) {
@@ -425,12 +425,12 @@ MainView {
             else {
                 stopTimer();
 
-                trackQueue.model.clear();
+                trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(searchPaths[i])
 
-                    trackQueue.model.append(makeDict(model));
+                    trackQueue.append(makeDict(model));
                 }
 
                 trackQueueClick(0);
@@ -666,8 +666,7 @@ MainView {
             }
         }
 
-        trackQueue.model.clear();  // clear the old model
-        Library.clearQueue();  // clear the persistent queue
+        trackQueue.clear();  // clear the old model
 
         addQueueFromModel(model);
 
@@ -698,7 +697,7 @@ MainView {
 
     function playRandomSong(shuffle)
     {
-        trackQueue.model.clear();
+        trackQueue.clear();
 
         var now = new Date();
         var seed = now.getSeconds();
@@ -792,6 +791,18 @@ MainView {
     LibraryListModel {
         id: trackQueue
         objectName: "trackQueue"
+
+        function append(listElement)
+        {
+            model.append(makeDict(listElement))
+            Library.addQueueItem(trackQueue.model.count,listElement.filename)
+        }
+
+        function clear()
+        {
+            model.clear()
+            Library.clearQueue()
+        }
     }
 
     // TODO: list of playlists move to U1DB
