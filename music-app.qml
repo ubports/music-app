@@ -551,8 +551,6 @@ MainView {
         customdebug("Version "+appVersion) // print the curren version
         customdebug("Arguments on startup: Debug: "+args.values.debug)
 
-        customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
-
         Library.createRecent()  // initialize recent
 
         // initialize playlists
