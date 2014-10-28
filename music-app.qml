@@ -222,7 +222,7 @@ MainView {
 
             if (play) {
                 // clear play queue
-                trackQueue.model.clear()
+                trackQueue.clear()
             }
 
             // enqueue
@@ -423,7 +423,7 @@ MainView {
             else {
                 stopTimer();
 
-                trackQueue.model.clear();
+                trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(searchPaths[i])
@@ -665,8 +665,7 @@ MainView {
             }
         }
 
-        trackQueue.model.clear();  // clear the old model
-        Library.clearQueue();  // clear the persistent queue
+        trackQueue.clear();  // clear the old model
 
         addQueueFromModel(model);
 
@@ -697,7 +696,7 @@ MainView {
 
     function playRandomSong(shuffle)
     {
-        trackQueue.model.clear();
+        trackQueue.clear();
 
         var now = new Date();
         var seed = now.getSeconds();
@@ -796,6 +795,12 @@ MainView {
         {
             model.append(makeDict(listElement))
             Library.addQueueItem(trackQueue.model.count,listElement.filename)
+        }
+
+        function clear()
+        {
+            model.clear()
+            Library.clearQueue()
         }
     }
 
