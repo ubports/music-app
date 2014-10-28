@@ -51,24 +51,31 @@ MusicPage {
         model: recentModel.model
         delegate: Card {
             id: albumCard
-            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(title) : (model.art !== undefined ? [{art: model.art}] : [{author: model.title2, album: model.title}])
+
+            SongsModel {
+                id: recentAlbumSongs
+                album: model.type === "album" ? model.data : undefined
+                store: musicStore
+            }
+
+            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(model.data) : (recentAlbumSongs.status === SongsModel.Ready ? [makeDict(recentAlbumSongs.get(0, SongsModel.RoleModelData))] : [])
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
-            secondaryText: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
+            primaryText: model.type === "playlist" ? model.data : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).album : "")
+            secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : "")
 
             onClicked: {
                 if (type === "playlist") {
-                    albumTracksModel.filterPlaylistTracks(model.key)
+                    albumTracksModel.filterPlaylistTracks(model.data)
                 }
 
                 var comp = Qt.createComponent("common/SongsPage.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
-                                                      "album": type !== "playlist" ? title : undefined,
+                                                      "album": model.type !== "playlist" ? title : undefined,
                                                       "covers": coverSources,
-                                                      "isAlbum": (type === "album"),
+                                                      "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
-                                                      "title": (type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
+                                                      "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
                                                       "line1": secondaryText,
                                                       "line2": primaryText,
                                                   });

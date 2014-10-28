@@ -203,10 +203,6 @@ MainView {
             // Filter by artist and album
             songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
-
-            // Add album to recent list
-            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
-            recentModel.filterRecent()
         }
 
         function processFile(uri, play) {
@@ -557,7 +553,7 @@ MainView {
 
         customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
 
-        Library.initialize();
+        Library.createRecent()  // initialize recent
 
         // initialize playlists
         Playlists.initializePlaylist()
@@ -738,6 +734,10 @@ MainView {
                 // Play album it tracks exist
                 if (rowCount > 0 && selectedAlbum) {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
+
+                    // Add album to recent list
+                    Library.addRecent(songsAlbumArtistModel.model.get(0, model.RoleModelData).album, "album")
+                    recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
                 }
