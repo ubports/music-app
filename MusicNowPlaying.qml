@@ -508,11 +508,12 @@ MusicPage {
         }
 
         trackQueue.model.remove(index);
-        Library.removeQueueItem(index);
+        Library.removeQueueItem(removedIndex);
 
         if (removedIndex < player.currentIndex) {
             // update index as the old has been removed
             player.currentIndex -= 1;
+            queueIndex -= 1;
         }
     }
 
