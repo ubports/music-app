@@ -28,7 +28,6 @@ Action {
 
     onTriggered: {
         console.debug("Debug: Add track to queue: " + model)
-        trackQueue.model.append(model)
-        Library.addQueueItem(trackQueue.model.count, model.filename)
+        trackQueue.append(model)
     }
 }
