@@ -123,7 +123,7 @@ Item {
         }
         else {
             currentIndex = newIndex
-            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).filename)
+            setSource(Qt.resolvedUrl(trackQueue.model.get(newIndex).filename))
         }
 
         // Set index into queue

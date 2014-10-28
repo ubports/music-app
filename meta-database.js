@@ -148,8 +148,7 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            var dbItem = rs.rows.item(i);
-            res.push({filename:dbItem.filename});
+            res.push(makeDict(musicStore.lookup(rs.rows.item(i).filename)));
         }
     });
     return res;
