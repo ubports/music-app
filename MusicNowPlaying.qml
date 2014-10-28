@@ -124,8 +124,7 @@ MusicPage {
                     visible: isListView
                     onTriggered: {
                         head.backAction.trigger()
-                        trackQueue.model.clear()
-                        Library.clearQueue()
+                        trackQueue.clear()
                     }
                 }
             ]
