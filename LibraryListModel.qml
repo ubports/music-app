@@ -24,79 +24,28 @@ import "playlists.js" as Playlists
 
 Item {
     id: libraryListModelItem
+    property alias count: libraryModel.count
     property ListModel model : ListModel {
         id: libraryModel
         property var linkLibraryListModel: libraryListModelItem
     }
-    property alias count: libraryModel.count
-    property alias workerComplete: worker.completed
-    property var query: null
     property var param: null
-    property bool canLoad: true
-    property bool preLoadComplete: false
-
-    onCanLoadChanged: {
-        /* If canLoad has been set back to true then check if there are any
-          remaining items to load in the model */
-        if (canLoad && worker.list !== null && !worker.completed)
-        {
-            worker.process();
-        }
-    }
-
+    property var query: null
     /* Pretent to be like a mediascanner2 listmodel */
     property alias rowCount: libraryModel.count
+
+    property alias canLoad: worker.canLoad
+    property alias preLoadComplete: worker.preLoadComplete
+    property alias syncFactor: worker.syncFactor
+    property alias workerComplete: worker.completed
 
     function get(index, role) {
         return model.get(index);
     }
 
-    WorkerScript {
-         id: worker
-         source: "worker-library-loader.js"
-
-         property bool completed: false
-         property int i: 0
-         property var list: null
-
-         onListChanged: {
-             reset();
-             clear();
-         }
-
-         onMessage: {
-             if (i === 0)
-             {
-                 preLoadComplete = true;
-             }
-
-             if (canLoad)  // pause if the model is not allowed to load
-             {
-                 process();
-             }
-         }
-
-         function reset()
-         {
-             i = 0;
-             completed = false;
-         }
-
-         // Add the next item in the list to the model otherwise set complete
-         function process()
-         {
-             if (worker.i < worker.list.length)
-             {
-                 console.log(JSON.stringify(worker.list[worker.i]));
-                 worker.sendMessage({'add': worker.list[worker.i],
-                                     'model': libraryModel});
-                 worker.i++;
-             }
-             else
-             {
-                 worker.completed = true;
-             }
-         }
+    WorkerModelLoader {
+        id: worker
+        model: libraryListModelItem.model
     }
 
     function indexOf(file)
@@ -147,12 +96,5 @@ Item {
         param = null
 
         worker.list = Library.getRecent();
-    }
-
-    function clear() {
-        if (worker.list !== null)
-        {
-            worker.sendMessage({'clear': true, 'model': libraryModel})
-        }
     }
 }
