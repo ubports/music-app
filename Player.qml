@@ -123,8 +123,11 @@ Item {
         }
         else {
             currentIndex = newIndex
-            source = Qt.resolvedUrl(trackQueue.model.get(newIndex).filename)
+            setSource(Qt.resolvedUrl(trackQueue.model.get(newIndex).filename))
         }
+
+        // Set index into queue
+        queueIndex = currentIndex
     }
 
     function nextSong(startPlaying, fromControls) {
@@ -142,6 +145,7 @@ Item {
     function playSong(filepath, index) {
         stop();
         currentIndex = index;
+        queueIndex = index;
         setSource(filepath);
         play();
     }

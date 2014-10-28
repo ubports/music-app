@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
+import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
@@ -39,6 +40,14 @@ MainView {
 
     backgroundColor: "#1e1e23"
     headerColor: "#1e1e23"
+
+    // Startup settings
+    Settings {
+        id: startupSettings
+        category: "StartupSettings"
+
+        property int queueIndex: 0
+    }
 
     // Global keyboard shortcuts
     focus: true
@@ -209,7 +218,7 @@ MainView {
 
             if (play) {
                 // clear play queue
-                trackQueue.model.clear()
+                trackQueue.clear()
             }
 
             // enqueue
@@ -222,6 +231,9 @@ MainView {
         }
 
         function process(uri, play) {
+            // stop loading the queue as we will load from uriHandler
+            queueLoaderWorker.canLoad = false
+
             if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
@@ -231,7 +243,6 @@ MainView {
             else if (uri.indexOf("music://") === 0) {
                 uriHandler.processFile(uri.substring(8), play);
             }
-
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
             }
@@ -410,7 +421,7 @@ MainView {
             else {
                 stopTimer();
 
-                trackQueue.model.clear();
+                trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(searchPaths[i])
@@ -520,6 +531,21 @@ MainView {
     width: units.gu(100)
     height: units.gu(80)
 
+    WorkerModelLoader {
+        id: queueLoaderWorker
+        canLoad: false
+        list: Library.getQueue()
+        model: trackQueue.model
+        syncFactor: 10
+
+        onCompletedChanged: {
+            if (completed) {
+                player.currentIndex = queueIndex
+                player.setSource(list[queueIndex].filename)
+            }
+        }
+    }
+
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
@@ -532,6 +558,9 @@ MainView {
         // initialize playlists
         Playlists.initializePlaylist()
 
+        // allow the queue loader to start
+        queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+
         // everything else
         loading.visible = true
 
@@ -540,12 +569,8 @@ MainView {
 
         loadedUI = true;
 
-        // TODO: Switch tabs back and forth to get the background color in the
-        //       header to work properly.
-        tabs.selectedTabIndex = 1
-
         // goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = Library.isRecentEmpty() ? 2 : 0
+        tabs.selectedTabIndex = Library.isRecentEmpty() ? albumsTab.index : startTab.index
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -560,6 +585,7 @@ MainView {
     property string appVersion: '1.2'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
+    property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
 
@@ -585,8 +611,11 @@ MainView {
         }
 
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
+            trackQueue.model.append(model.get(i, model.RoleModelData));
         }
+
+        // Add model to queue storage
+        Library.addQueueList(trackQueue.model);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -633,7 +662,7 @@ MainView {
             }
         }
 
-        trackQueue.model.clear();  // clear the old model
+        trackQueue.clear();  // clear the old model
 
         addQueueFromModel(model);
 
@@ -664,7 +693,7 @@ MainView {
 
     function playRandomSong(shuffle)
     {
-        trackQueue.model.clear();
+        trackQueue.clear();
 
         var now = new Date();
         var seed = now.getSeconds();
@@ -766,7 +795,13 @@ MainView {
         function append(listElement)
         {
             model.append(makeDict(listElement))
-            console.debug(JSON.stringify(makeDict(listElement)));
+            Library.addQueueItem(trackQueue.model.count,listElement.filename)
+        }
+
+        function clear()
+        {
+            model.clear()
+            Library.clearQueue()
         }
     }
 
@@ -1080,7 +1115,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && tabs.selectedTab.index === 4
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && playlistTab.index === tabs.selectedTab.index
 
             Column {
                 anchors.centerIn: parent
@@ -1110,7 +1145,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noRecent && !emptyPage.noMusic && tabs.selectedTab.index === 0
+            visible: emptyPage.noRecent && !emptyPage.noMusic && startTab.index === tabs.selectedTab.index
 
             Column {
                 anchors.centerIn: parent

@@ -19,15 +19,14 @@
 
 
 WorkerScript.onMessage = function(msg) {
-    if (msg.clear === true)
-    {
+    if (msg.clear === true) {
         msg.model.clear();
-    }
-    else
-    {
+        WorkerScript.sendMessage({});
+    } else if (msg.sync === true) {
+        msg.model.sync();   // updates the changes to the list
+        WorkerScript.sendMessage({"sync": true});
+    } else {
         msg.model.append(msg.add);
+        WorkerScript.sendMessage({});
     }
-    msg.model.sync();   // updates the changes to the list
-
-    WorkerScript.sendMessage({});
 }
