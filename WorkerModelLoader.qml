@@ -75,7 +75,7 @@ WorkerScript {
      }
 
      function clear() {
-         if (canLoad && list !== null) {
+         if (list !== null) {
              sendMessage({'clear': true, 'model': model})
          }
      }
