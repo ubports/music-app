@@ -62,10 +62,10 @@ Item {
         onCountChanged: {
             if (trackQueue.model.count === 1) {
                 player.currentIndex = 0;
-                mediaPlayerLoader.item.source = Qt.resolvedUrl(trackQueue.model.get(0).filename)
+                setSource(Qt.resolvedUrl(trackQueue.model.get(0).filename))
             } else if (trackQueue.model.count === 0) {
-                player.currentMetaFile = ""
-                mediaPlayerLoader.item.source = ""
+                player.currentIndex = -1
+                setSource("")
             }
         }
     }
@@ -196,7 +196,7 @@ Item {
                         return
                     }
 
-                    if (source === "") {
+                    if (source.toString() === "") {
                         player.currentIndex = -1
                         player.stop()
                     }
