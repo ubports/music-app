@@ -509,7 +509,6 @@ MusicPage {
 
         trackQueue.model.remove(index);
         Library.removeQueueItem(index);
-        queueIndex = index;
 
         if (removedIndex < player.currentIndex) {
             // update index as the old has been removed
