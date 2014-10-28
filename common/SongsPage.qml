@@ -132,7 +132,7 @@ MusicPage {
                     text: i18n.tr("Add to queue")
                     onTriggered: {
                         for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            trackQueue.model.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
+                            trackQueue.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
                         albumtrackslist.closeSelection()

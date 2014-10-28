@@ -24,6 +24,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
+import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 MusicPage {
@@ -123,7 +124,7 @@ MusicPage {
                     visible: isListView
                     onTriggered: {
                         head.backAction.trigger()
-                        trackQueue.model.clear()
+                        trackQueue.clear()
                     }
                 }
             ]
@@ -507,10 +508,12 @@ MusicPage {
         }
 
         trackQueue.model.remove(index);
+        Library.removeQueueItem(removedIndex);
 
         if (removedIndex < player.currentIndex) {
             // update index as the old has been removed
             player.currentIndex -= 1;
+            queueIndex -= 1;
         }
     }
 
@@ -598,7 +601,7 @@ MusicPage {
                         console.debug("Move: ", from, to);
 
                         trackQueue.model.move(from, to, 1);
-
+                        Library.moveQueueItem(from, to);
 
                         // Maintain currentIndex with current song
                         if (from === player.currentIndex) {
@@ -610,6 +613,8 @@ MusicPage {
                         else if (from > player.currentIndex && to <= player.currentIndex) {
                             player.currentIndex += 1;
                         }
+
+                        queueIndex = player.currentIndex
                     }
 
                     Item {
