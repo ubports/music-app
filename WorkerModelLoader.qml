@@ -50,7 +50,7 @@ WorkerScript {
 
      onMessage: {
          if (messageObject.sync === true) {
-             if (i >= list.length) {  // if synced check if list now complete
+             if (list !== null && i >= list.length) {  // if synced check if list now complete
                  completed = true
              }
 
