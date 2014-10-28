@@ -21,6 +21,7 @@
 WorkerScript.onMessage = function(msg) {
     if (msg.clear === true) {
         msg.model.clear();
+        msg.model.sync();
         WorkerScript.sendMessage({});
     } else if (msg.sync === true) {
         msg.model.sync();   // updates the changes to the list

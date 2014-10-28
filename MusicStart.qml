@@ -71,7 +71,7 @@ MusicPage {
                 var comp = Qt.createComponent("common/SongsPage.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
-                                                      "album": model.type !== "playlist" ? title : undefined,
+                                                      "album": model.type !== "playlist" ? model.data : undefined,
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
