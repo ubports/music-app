@@ -1,4 +1,87 @@
-music-app (1.2ubuntu2) UNRELEASED; urgency=medium
+music-app (2.0) utopic; urgency=medium
+
+  * Fix for cover art getting out of sync on the SongsPage.qml
+  * Ensure recent/playlists pages remain in sync as items are added/removed from the playlist.
+  * Update ListItemWithActions background color and reenable dim
+  * Optimise the addQueueList transaction.
+  * Sort playlists by name.
+  * Change scrolling behaviour
+  * Performance tweaks to ListItemWithActions.qml.
+  * Change recent schemas so that it stores less and loads more from ms2 (eg art).
+  * Fix for console errors when clearing the queue.
+  * Only load model once CardView is visible.
+  * Create generic WorkerModelLoader.qml
+  * Load queue at startup via WorkerScript.
+  * Intial changes to remember the previous queue when restarting the app.
+  * Load queueList in async
+  * Fix to prevent jumping from queue->full view
+  * Defer loading of pages
+  * Async load MediaPlayer object.
+  * Correctly hide empty state when in Now Playing or Queue.
+  * Async loading of MusicNowPlaying.
+  * Add read path to Music on the SD card to extract in process thumbnail extraction.
+  * Highlight stroke buttons on press.
+  * Optimise MusicRow.qml by using Image rather than CoverGrid (as there will only ever be one image).
+  * Add a bottom margin to MusicTracks.qml and MusicNowPlaying.qml.
+  * Fix playlist art in Now Playing page.
+  * Add save to playlist action
+  * Only enable actions in now playing when trackQueue count > 0
+  * Use async for loaders and unused loaders invisible.
+  * Move to using Qt.labs.settings and remove settings.js.
+  * Remove CoverRow
+  * Remove isPressedChanged workaround
+  * Remove MusicRow isSquare specialization.
+  * Remove lastfm, search and settings.
+  * Pull upstream ListItemWithActions.qml
+  * Add support for multiselect mode
+  * Disable triggerOnRelease.
+  * Initial empty state prototype.
+  * Do not show the artist in the grid of albums.
+  * Fix so that label is correct when seeking when paused.
+  * Only show year in SongsPage.qml if year exists.
+  * Add an initial Genres tab.
+  * Disable clear recent icon when recent is empty.
+  * Make Images asynchronous.
+  * Add back apparmor confinement.
+  * Use CardView in Recent Tab
+  * Use Recent as default if >0 recent items otherwise use Albums Tab.
+  * Set sourceSize of images.
+  * Force AlbumsPage's SongsModel to filter upon startup.
+  * Fix playlist deletion and renaming in recent table.
+  * Add support for CardView in AlbumsPage.qml
+  * Add support for header property in CardView.qml
+  * Add BlurredHeader.qml
+  * Make AlbumsPage.qml and SongsPage.qml use BlurredHeader.qml.
+  * Allow for imports (from content-hub) to start when already importing.
+  * Use CardView in MusicPlaylists.qml
+  * Use header actions for edit and delete of playlists.
+  * Make SongsPage use CoverGrid.
+  * Add CoverGrid.qml component
+  * Use CoverGrid in Card.qml
+  * Initial Artists view with CardView.
+  * Add clear queue action. Fixes: https://bugs.launchpad.net/bugs/1379895.
+  * Switch to use positionAt when isListView becomes true
+  * Strip out jumpTo/ensureVisible code for the now playing queue
+  * Fix for console errors when pressing items in queue.
+  * Remove deleted item before updating currentIndex.
+  * Initial Now Playing queue list refactor
+  * Initial Songs tab redesign for remix.
+  * Ignore first value back after seeking [Workaround]. Fixes: bug 1310706.
+  * Do not switch to full view if clicking a song in the queue.
+  * Fix Ubuntu-Splash-Color to not get pulled into translations.
+  * Albums tab makes use of 'CardView'
+  * Old toolbars removed
+  * Now playing "full" view is now default
+  * Fix header disappearing in "full" view
+  * Fix for cover art in albums tab to use correct data
+  * SongsPage implemented
+  * Now Playing "full" view implemented (other than swiping and margins need review)
+  * Toolbar implemented and always shown (Now Playing "list" view shows old toolbar)
+  * Background colour of app set
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Wed, 29 Oct 2014 06:41:45 -0500
+
+music-app (1.2ubuntu2) trusty; urgency=medium
 
   [ Andrew Hayzen ]
   * Refactor media player to make it easier to change shuffle/repeat
