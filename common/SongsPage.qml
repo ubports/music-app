@@ -470,7 +470,9 @@ MusicPage {
                         console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
 
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
-                            playlistModel.filterPlaylists()
+                            if (songStackPage.page !== undefined) {
+                                songStackPage.page.changed = true
+                            }
 
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
