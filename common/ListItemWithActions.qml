@@ -280,25 +280,6 @@ Item {
         selectionMode = root.parent.parent.state === "multiselectable"
     }
 
-    /* CUSTOM Dim Component */
-    Rectangle {
-        id: listItemDim
-        anchors {
-            fill: parent
-        }
-
-        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
-        opacity: 0.1
-
-        property bool dim: false
-
-        Behavior on color {
-            ColorAnimation {
-                duration: UbuntuAnimation.SlowDuration
-            }
-        }
-    }
-
     // CUSTOM remove animation
     SequentialAnimation {
         id: removeAnimation
@@ -491,6 +472,25 @@ Item {
                 id: mainItemMoving
 
                 easing.type: Easing.OutElastic
+                duration: UbuntuAnimation.SlowDuration
+            }
+        }
+    }
+
+    /* CUSTOM Dim Component */
+    Rectangle {
+        id: listItemDim
+        anchors {
+            fill: parent
+        }
+
+        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
+        opacity: 0.1
+
+        property bool dim: false
+
+        Behavior on color {
+            ColorAnimation {
                 duration: UbuntuAnimation.SlowDuration
             }
         }
