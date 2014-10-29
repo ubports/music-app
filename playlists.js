@@ -180,7 +180,7 @@ function getPlaylists() {
 
     try {
         db.transaction(function (tx) {
-            var rs = tx.executeSql('SELECT * FROM playlist ORDER BY name;')
+            var rs = tx.executeSql('SELECT * FROM playlist ORDER BY name COLLATE NOCASE;')
 
             for (var i = 0; i < rs.rows.length; i++) {
                 var dbItem = rs.rows.item(i)
