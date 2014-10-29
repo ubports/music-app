@@ -26,7 +26,7 @@ WorkerScript {
      property bool canLoad: true
      property bool completed: false
      property int i: 0
-     property var list: null
+     property var list
      property var model
      property bool preLoadComplete: false
      property int syncFactor: 5
@@ -34,11 +34,11 @@ WorkerScript {
      onCanLoadChanged: {
          /* If canLoad has been set back to true then check if there are any
            remaining items to load in the model */
-         if (canLoad && list !== null && !completed) {
+         if (canLoad && list !== undefined && !completed) {
              process();
          }
 
-         if (!canLoad) {  // sync any pending changes when canLoad changes
+         if (!canLoad && i !== 0) {  // sync any pending changes when canLoad changes
              sync()
          }
      }
@@ -50,7 +50,7 @@ WorkerScript {
 
      onMessage: {
          if (messageObject.sync === true) {
-             if (list !== null && i >= list.length) {  // if synced check if list now complete
+             if (list !== undefined && i >= list.length) {  // if synced check if list now complete
                  completed = true
              }
 
@@ -75,7 +75,7 @@ WorkerScript {
      }
 
      function clear() {
-         if (list !== null) {
+         if (list !== undefined) {
              sendMessage({'clear': true, 'model': model})
          }
      }
