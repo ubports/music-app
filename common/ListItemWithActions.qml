@@ -30,7 +30,7 @@ Item {
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
-    property color color: Theme.palette.normal.background
+    property color color: "#1e1e23"
     property color selectedColor: "#3d3d45"  // "#E6E6E6"  // CUSTOM
     property bool selected: false
     property bool selectionMode: false
@@ -280,25 +280,6 @@ Item {
         selectionMode = root.parent.parent.state === "multiselectable"
     }
 
-    /* CUSTOM Dim Component */
-    Rectangle {
-        id: listItemDim
-        anchors {
-            fill: parent
-        }
-
-        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
-        opacity: 0.1
-
-        property bool dim: false
-
-        Behavior on color {
-            ColorAnimation {
-                duration: UbuntuAnimation.SlowDuration
-            }
-        }
-    }
-
     // CUSTOM remove animation
     SequentialAnimation {
         id: removeAnimation
@@ -491,6 +472,25 @@ Item {
                 id: mainItemMoving
 
                 easing.type: Easing.OutElastic
+                duration: UbuntuAnimation.SlowDuration
+            }
+        }
+    }
+
+    /* CUSTOM Dim Component */
+    Rectangle {
+        id: listItemDim
+        anchors {
+            fill: parent
+        }
+
+        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
+        opacity: 0.1
+
+        property bool dim: false
+
+        Behavior on color {
+            ColorAnimation {
                 duration: UbuntuAnimation.SlowDuration
             }
         }
