@@ -157,7 +157,26 @@ MusicPage {
 
                         albumtrackslist.closeSelection()
 
-                        songStackPage.page.changed = true
+                        // if parent Playlists then set changed otherwise refilter
+                        if (songStackPage.page.title === i18n.tr("Playlists")) {
+                            if (songStackPage.page !== undefined) {
+                                songStackPage.page.changed = true
+                            }
+                        } else {
+                            playlistModel.filterPlaylists()
+                        }
+
+                        if (Library.recentContainsPlaylist(songStackPage.line2)) {
+                            // if parent Recent then set changed otherwise refilter
+                            if (songStackPage.page.title === i18n.tr("Recent")) {
+                                if (songStackPage.page !== undefined) {
+                                    songStackPage.page.changed = true
+                                }
+                            } else {
+                                recentModel.filterRecent()
+                            }
+                        }
+
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
                     }
                 }
@@ -399,7 +418,26 @@ MusicPage {
                         onTriggered: {
                             Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
-                            songStackPage.page.changed = true
+                            // if parent Playlists then set changed otherwise refilter
+                            if (songStackPage.page.title === i18n.tr("Playlists")) {
+                                if (songStackPage.page !== undefined) {
+                                    songStackPage.page.changed = true
+                                }
+                            } else {
+                                playlistModel.filterPlaylists()
+                            }
+
+                            if (Library.recentContainsPlaylist(songStackPage.line2)) {
+                                // if parent Recent then set changed otherwise refilter
+                                if (songStackPage.page.title === i18n.tr("Recent")) {
+                                    if (songStackPage.page !== undefined) {
+                                        songStackPage.page.changed = true
+                                    }
+                                } else {
+                                    recentModel.filterRecent()
+                                }
+                            }
+
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
                         }
                     }
