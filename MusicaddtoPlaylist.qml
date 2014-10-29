@@ -23,6 +23,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import QtQuick.LocalStorage 2.0
+import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 
@@ -42,6 +43,7 @@ MusicPage {
     visible: false
 
     property var chosenElements: []
+    property var page
 
     head {
         actions: [
@@ -85,8 +87,26 @@ MusicPage {
                     Playlists.addToPlaylist(name, chosenElements[i])
                 }
 
-                playlistModel.filterPlaylists();
-                albumTracksModel.filterPlaylistTracks(name)
+                // Check that the parent parent page is not being refiltered
+                if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Playlists")) {
+                    page.page.changed = true
+                } else {
+                    playlistModel.filterPlaylists();
+                }
+
+                if (Library.recentContainsPlaylist(name)) {
+                    // Check that the parent parent page is not being refiltered
+                    if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Recent")) {
+                        page.page.changed = true
+                    } else {
+                        recentModel.filterRecent()
+                    }
+                }
+
+                if (page !== undefined && name === page.line2 && page.playlistChanged !== undefined) {
+                    page.playlistChanged = true
+                    page.covers = Playlists.getPlaylistCovers(name)
+                }
 
                 musicToolbar.goBack();  // go back to the previous page
             }
