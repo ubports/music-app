@@ -534,7 +534,6 @@ MainView {
     WorkerModelLoader {
         id: queueLoaderWorker
         canLoad: false
-        list: Library.getQueue()
         model: trackQueue.model
         syncFactor: 10
 
@@ -558,6 +557,7 @@ MainView {
 
         // allow the queue loader to start
         queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+        queueLoaderWorker.list = Library.getQueue()
 
         // everything else
         loading.visible = true
