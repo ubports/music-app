@@ -60,6 +60,29 @@ MusicPage {
         onTriggered: albumTracksModel.filterPlaylistTracks(line2)
     }
 
+    function playlistChangedHelper()
+    {
+        // if parent Playlists then set changed otherwise refilter
+        if (songStackPage.page.title === i18n.tr("Playlists")) {
+            if (songStackPage.page !== undefined) {
+                songStackPage.page.changed = true
+            }
+        } else {
+            playlistModel.filterPlaylists()
+        }
+
+        if (Library.recentContainsPlaylist(songStackPage.line2)) {
+            // if parent Recent then set changed otherwise refilter
+            if (songStackPage.page.title === i18n.tr("Recent")) {
+                if (songStackPage.page !== undefined) {
+                    songStackPage.page.changed = true
+                }
+            } else {
+                recentModel.filterRecent()
+            }
+        }
+    }
+
     state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album")
     states: [
         PageHeadState {
@@ -172,25 +195,7 @@ MusicPage {
 
                         albumtrackslist.closeSelection()
 
-                        // if parent Playlists then set changed otherwise refilter
-                        if (songStackPage.page.title === i18n.tr("Playlists")) {
-                            if (songStackPage.page !== undefined) {
-                                songStackPage.page.changed = true
-                            }
-                        } else {
-                            playlistModel.filterPlaylists()
-                        }
-
-                        if (Library.recentContainsPlaylist(songStackPage.line2)) {
-                            // if parent Recent then set changed otherwise refilter
-                            if (songStackPage.page.title === i18n.tr("Recent")) {
-                                if (songStackPage.page !== undefined) {
-                                    songStackPage.page.changed = true
-                                }
-                            } else {
-                                recentModel.filterRecent()
-                            }
-                        }
+                        playlistChangedHelper()  // update recent/playlist models
 
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
 
@@ -436,25 +441,7 @@ MusicPage {
                         onTriggered: {
                             Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
-                            // if parent Playlists then set changed otherwise refilter
-                            if (songStackPage.page.title === i18n.tr("Playlists")) {
-                                if (songStackPage.page !== undefined) {
-                                    songStackPage.page.changed = true
-                                }
-                            } else {
-                                playlistModel.filterPlaylists()
-                            }
-
-                            if (Library.recentContainsPlaylist(songStackPage.line2)) {
-                                // if parent Recent then set changed otherwise refilter
-                                if (songStackPage.page.title === i18n.tr("Recent")) {
-                                    if (songStackPage.page !== undefined) {
-                                        songStackPage.page.changed = true
-                                    }
-                                } else {
-                                    recentModel.filterRecent()
-                                }
-                            }
+                            playlistChangedHelper()  // update recent/playlist models
 
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
 
@@ -529,27 +516,12 @@ MusicPage {
                         console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
 
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
-                            // if parent Playlists then set changed otherwise refilter
-                            if (songStackPage.page.title === i18n.tr("Playlists")) {
-                                if (songStackPage.page !== undefined) {
-                                    songStackPage.page.changed = true
-                                }
-                            } else {
-                                playlistModel.filterPlaylists()
-                            }
 
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
-
-                                // if parent Recent then set changed otherwise refilter
-                                if (songStackPage.page.title === i18n.tr("Recent")) {
-                                    if (songStackPage.page !== undefined) {
-                                        songStackPage.page.changed = true
-                                    }
-                                } else {
-                                    recentModel.filterRecent()
-                                }
                             }
+
+                            playlistChangedHelper()  // update recent/playlist models
 
                             PopupUtils.close(dialogEditPlaylist)
 
@@ -592,25 +564,9 @@ MusicPage {
 
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-
-                        // if parent Recent then set changed otherwise refilter
-                        if (songStackPage.page.title === i18n.tr("Recent")) {
-                            if (songStackPage.page !== undefined) {
-                                songStackPage.page.changed = true
-                            }
-                        } else {
-                            recentModel.filterRecent()
-                        }
                     }
 
-                    // if parent Playlists then set changed otherwise refilter
-                    if (songStackPage.page.title === i18n.tr("Playlists")) {
-                        if (songStackPage.page !== undefined) {
-                            songStackPage.page.changed = true
-                        }
-                    } else {
-                        playlistModel.filterPlaylists()
-                    }
+                    playlistChangedHelper()  // update recent/playlist models
 
                     songStackPage.page = undefined
                     PopupUtils.close(dialogRemovePlaylist)
