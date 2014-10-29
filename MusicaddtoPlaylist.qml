@@ -43,6 +43,7 @@ MusicPage {
     visible: false
 
     property var chosenElements: []
+    property var page
 
     head {
         actions: [
@@ -86,13 +87,25 @@ MusicPage {
                     Playlists.addToPlaylist(name, chosenElements[i])
                 }
 
-                playlistModel.filterPlaylists();
-
-                if (Library.recentContainsPlaylist(name)) {
-                    recentModel.filterRecent()
+                // Check that the parent parent page is not being refiltered
+                if (page.page.title === i18n.tr("Playlists")) {
+                    page.page.changed = true
+                } else {
+                    playlistModel.filterPlaylists();
                 }
 
-                albumTracksModel.filterPlaylistTracks(name)
+                if (Library.recentContainsPlaylist(name)) {
+                    // Check that the parent parent page is not being refiltered
+                    if (page.page.title === i18n.tr("Recent")) {
+                        page.page.changed = true
+                    } else {
+                        recentModel.filterRecent()
+                    }
+                }
+
+                if (name === page.line2 && page.playlistChanged !== undefined) {
+                    page.playlistChanged = true
+                }
 
                 musicToolbar.goBack();  // go back to the previous page
             }

@@ -25,12 +25,13 @@ Action {
     text: i18n.tr("Add to playlist")
 
     property bool primed: false
+    property var page
 
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 
         var comp = Qt.createComponent("../../MusicaddtoPlaylist.qml")
-        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": [makeDict(model)]});
+        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": [makeDict(model)], "page": page});
 
         if (addToPlaylist == null) {  // Error Handling
          console.log("Error creating object");

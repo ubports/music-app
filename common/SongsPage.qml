@@ -45,6 +45,21 @@ MusicPage {
     property alias album: songsModel.album
     property alias genre: songsModel.genre
 
+    property bool playlistChanged: false
+
+    onVisibleChanged: {
+        if (playlistChanged) {
+            playlistChanged = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: albumTracksModel.filterPlaylistTracks(line2)
+    }
+
     state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album")
     states: [
         PageHeadState {
@@ -115,7 +130,7 @@ MusicPage {
                         }
 
                         var comp = Qt.createComponent("../MusicaddtoPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items, "page": songStackPage});
 
                         if (addToPlaylist == null) {  // Error Handling
                             console.log("Error creating object");
@@ -387,7 +402,7 @@ MusicPage {
 
                     },
                     AddToPlaylist {
-
+                        page: songStackPage
                     }
                 ]
 
