@@ -30,7 +30,7 @@ Item {
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
-    property color color: Theme.palette.normal.background
+    property color color: "#1e1e23"
     property color selectedColor: "#3d3d45"  // "#E6E6E6"  // CUSTOM
     property bool selected: false
     property bool selectionMode: false
