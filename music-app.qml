@@ -608,12 +608,16 @@ MainView {
             model = model.linkLibraryListModel;
         }
 
+        var items = []
+
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.model.append(model.get(i, model.RoleModelData));
+            items.push(model.get(i, model.RoleModelData))
+
+            trackQueue.model.append(items[i]);
         }
 
         // Add model to queue storage
-        Library.addQueueList(trackQueue.model);
+        Library.addQueueList(items);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")

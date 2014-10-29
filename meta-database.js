@@ -56,19 +56,12 @@ function addQueueItem(ind,filename) {
     );
 }
 
-function addQueueList(model) {
+function addQueueList(items) {
     var db = getDatabase();
-    var res="";
 
     db.transaction(function(tx) {
-
-        for (var i = 0; i < model.count; i++) {
-            var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, model.get(i).filename]);
-            if (rs.rowsAffected > 0) {
-                res = "OK";
-            } else {
-                res = "Error";
-            }
+        for (var i = 0; i < items.length; i++) {
+            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, items[i].filename]);
         }
     }
     );
