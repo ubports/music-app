@@ -193,6 +193,9 @@ MusicPage {
                         }
 
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+
+                        // refresh cover art
+                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
             ]
@@ -454,6 +457,9 @@ MusicPage {
                             }
 
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+
+                            // refresh cover art
+                            songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                         }
                     }
                 }

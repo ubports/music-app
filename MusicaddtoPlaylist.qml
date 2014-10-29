@@ -105,6 +105,7 @@ MusicPage {
 
                 if (name === page.line2 && page.playlistChanged !== undefined) {
                     page.playlistChanged = true
+                    page.covers = Playlists.getPlaylistCovers(name)
                 }
 
                 musicToolbar.goBack();  // go back to the previous page
