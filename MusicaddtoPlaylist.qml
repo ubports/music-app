@@ -88,7 +88,7 @@ MusicPage {
                 }
 
                 // Check that the parent parent page is not being refiltered
-                if (page.page.title === i18n.tr("Playlists")) {
+                if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Playlists")) {
                     page.page.changed = true
                 } else {
                     playlistModel.filterPlaylists();
@@ -96,14 +96,14 @@ MusicPage {
 
                 if (Library.recentContainsPlaylist(name)) {
                     // Check that the parent parent page is not being refiltered
-                    if (page.page.title === i18n.tr("Recent")) {
+                    if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Recent")) {
                         page.page.changed = true
                     } else {
                         recentModel.filterRecent()
                     }
                 }
 
-                if (name === page.line2 && page.playlistChanged !== undefined) {
+                if (page !== undefined && name === page.line2 && page.playlistChanged !== undefined) {
                     page.playlistChanged = true
                     page.covers = Playlists.getPlaylistCovers(name)
                 }
