@@ -470,13 +470,26 @@ MusicPage {
                         console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
 
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
-                            if (songStackPage.page !== undefined) {
-                                songStackPage.page.changed = true
+                            // if parent Playlists then set changed otherwise refilter
+                            if (songStackPage.page.title === i18n.tr("Playlists")) {
+                                if (songStackPage.page !== undefined) {
+                                    songStackPage.page.changed = true
+                                }
+                            } else {
+                                playlistModel.filterPlaylists()
                             }
 
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
-                                recentModel.filterRecent()
+
+                                // if parent Recent then set changed otherwise refilter
+                                if (songStackPage.page.title === i18n.tr("Recent")) {
+                                    if (songStackPage.page !== undefined) {
+                                        songStackPage.page.changed = true
+                                    }
+                                } else {
+                                    recentModel.filterRecent()
+                                }
                             }
 
                             PopupUtils.close(dialogEditPlaylist)
@@ -520,14 +533,27 @@ MusicPage {
 
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                        recentModel.filterRecent()
+
+                        // if parent Recent then set changed otherwise refilter
+                        if (songStackPage.page.title === i18n.tr("Recent")) {
+                            if (songStackPage.page !== undefined) {
+                                songStackPage.page.changed = true
+                            }
+                        } else {
+                            recentModel.filterRecent()
+                        }
                     }
 
-                    if (songStackPage.page !== undefined) {
-                        songStackPage.page.changed = true
-                        songStackPage.page = undefined
+                    // if parent Playlists then set changed otherwise refilter
+                    if (songStackPage.page.title === i18n.tr("Playlists")) {
+                        if (songStackPage.page !== undefined) {
+                            songStackPage.page.changed = true
+                        }
+                    } else {
+                        playlistModel.filterPlaylists()
                     }
 
+                    songStackPage.page = undefined
                     PopupUtils.close(dialogRemovePlaylist)
 
                     musicToolbar.goBack()

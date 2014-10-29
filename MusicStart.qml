@@ -33,6 +33,21 @@ MusicPage {
     id: mainpage
     title: i18n.tr("Recent")
 
+    property bool changed: false
+
+    onVisibleChanged: {
+        if (changed) {
+            changed = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: recentModel.filterRecent()
+    }
+
     head {
         actions: [
             Action {
@@ -75,6 +90,7 @@ MusicPage {
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
+                                                      "page": mainpage,
                                                       "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
                                                       "line1": secondaryText,
                                                       "line2": primaryText,

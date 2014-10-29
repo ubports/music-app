@@ -247,7 +247,7 @@ function recentRenamePlaylist(oldKey, newKey) {
     var db = getDatabase();
 
     db.transaction( function(tx) {
-        tx.executeSql("UPDATE recent SET data=?, WHERE type=? AND data=?",
+        tx.executeSql("UPDATE recent SET data=? WHERE type=? AND data=?",
                       [newKey, "playlist", oldKey]);
 
     });
