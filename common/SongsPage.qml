@@ -43,6 +43,7 @@ MusicPage {
 
     property var page
     property alias album: songsModel.album
+    property alias artist: songsModel.artist
     property alias genre: songsModel.genre
 
     property bool playlistChanged: false
