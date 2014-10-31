@@ -518,9 +518,9 @@ class TestMainWindow(MusicAppTestCase):
         # get now playing again as it has moved
         now_playing_page = self.app.get_now_playing_page()
 
-        # verify track queue has added all songs to initial value
+        # verify track queue has added the song to the initial value
         self.assertThat(self.app.get_queue_count(),
-                        Equals(initial_tracks_count + 2))
+                        Equals(initial_tracks_count + 1))
 
         # Assert that the song added to the list is playing
         self.assertThat(self.player.currentIndex,

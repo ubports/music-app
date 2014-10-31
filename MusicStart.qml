@@ -87,6 +87,7 @@ MusicPage {
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.type !== "playlist" ? model.data : undefined,
+                                                      "artist": model.type !== "playlist" ? secondaryText : undefined,
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
