@@ -47,7 +47,7 @@ MusicPage {
             id: artistCard
             coverSources: [{art: "image://artistart/artist=" + model.artist + "&album=" + artistCard.album}]
             objectName: "artistsPageGridItem" + index
-            primaryText: model.artist
+            primaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
             secondaryTextVisible: false
 
             property string album: ""
