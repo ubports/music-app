@@ -31,7 +31,7 @@ MusicPage {
     objectName: "albumsArtistPage"
     visible: false
 
-    property string artist: "Unknown Artist"
+    property string artist: ""
     property var covers: []
 
     CardView {
@@ -93,7 +93,7 @@ MusicPage {
                     fontSize: "x-large"
                     maximumLineCount: 1
                     objectName: "artistLabel"
-                    text: artist
+                    text: artist != "" ? artist : i18n.tr("Unknown Artist")
                     wrapMode: Text.NoWrap
                 }
 
@@ -132,7 +132,7 @@ MusicPage {
             id: albumCard
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
+            primaryText: model.title != "" ? model.title : i18n.tr("Unknown Album")
             secondaryTextVisible: false
 
             onClicked: {
@@ -145,8 +145,8 @@ MusicPage {
                                                       "isAlbum": true,
                                                       "genre": undefined,
                                                       "title": i18n.tr("Album"),
-                                                      "line1": model.artist,
-                                                      "line2": model.title,
+                                                      "line1": model.artist != "" ? model.artist : i18n.tr("Unknown Artist"),
+                                                      "line2": model.title != "" ? model.title : i18n.tr("Unknown Album"),
                                                   });
 
                 if (songsPage == null) {  // Error Handling

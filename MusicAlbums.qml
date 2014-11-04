@@ -44,8 +44,8 @@ MusicPage {
             id: albumCard
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
-            secondaryText: model.artist
+            primaryText: model.title != "" ? model.title : i18n.tr("Unknown Album")
+            secondaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
 
             onClicked: {
                 var comp = Qt.createComponent("common/SongsPage.qml")

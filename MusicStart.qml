@@ -75,8 +75,8 @@ MusicPage {
 
             coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(model.data) : (recentAlbumSongs.status === SongsModel.Ready ? [makeDict(recentAlbumSongs.get(0, SongsModel.RoleModelData))] : [])
             objectName: "albumsPageGridItem" + index
-            primaryText: model.type === "playlist" ? model.data : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).album : "")
-            secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : "")
+            primaryText: model.type === "playlist" ? model.data : (recentAlbumSongs.status === SongsModel.Ready && recentAlbumSongs.get(0, SongsModel.RoleModelData).album != "" ? recentAlbumSongs.get(0, SongsModel.RoleModeData).album : i18n.tr("Unknown Album"))
+            secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready && recentAlbumSongs.get(0, SongsModel.RoleModelData).author != "" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : i18n.tr("Unknown Artist"))
 
             onClicked: {
                 if (type === "playlist") {
@@ -87,7 +87,7 @@ MusicPage {
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.type !== "playlist" ? model.data : undefined,
-                                                      "artist": model.type !== "playlist" ? secondaryText : undefined,
+                                                      "artist": model.type !== "playlist" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).artist : undefined,
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,

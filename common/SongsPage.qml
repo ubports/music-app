@@ -344,7 +344,7 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "x-large"
                     maximumLineCount: 1
-                    text: line2
+                    text: line2 != "" ? line2 : i18n.tr("Unknown Album")
                     wrapMode: Text.NoWrap
                 }
 
@@ -365,7 +365,7 @@ MusicPage {
                     fontSize: "small"
                     maximumLineCount: 1
                     objectName: "songsPageHeaderAlbumArtist"
-                    text: line1
+                    text: line1 != "" ? line1 : i18n.tr("Unknown Artist")
                     visible: text !== i18n.tr("Playlist") &&
                              text !== i18n.tr("Genre")
                     wrapMode: Text.NoWrap
