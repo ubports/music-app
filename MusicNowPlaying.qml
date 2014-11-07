@@ -225,7 +225,7 @@ MusicPage {
         Item {
             id: musicToolbarFullContainer
             anchors.top: blurredBackground.bottom
-            anchors.topMargin: units.gu(4)
+            anchors.topMargin: nowPlayingWideAspectTitle.lineCount == 1 ? units.gu(4) : units.gu(1.5)
             width: blurredBackground.width
 
             /* Column for labels in wideAspect */
@@ -251,8 +251,10 @@ MusicPage {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "x-large"
+                    maximumLineCount: 2
                     objectName: "playercontroltitle"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
+                    wrapMode: Text.WordWrap
                 }
 
                 /* Artist of track */
@@ -279,7 +281,7 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(3)
                 anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: units.gu(3)
+                anchors.topMargin: nowPlayingWideAspectTitle.lineCount == 1 ? units.gu(3) : units.gu(2)
                 height: units.gu(3)
                 width: parent.width
 
