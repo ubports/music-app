@@ -102,9 +102,7 @@ MusicPage {
                     onTriggered: {
                         var items = []
 
-                        for (var i=0; i < trackQueue.model.count; i++) {
-                            items.push(makeDict(trackQueue.model.get(i)));
-                        }
+                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
