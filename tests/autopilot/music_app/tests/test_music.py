@@ -358,11 +358,11 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(current_track.get_label_text("titleLabel"),
                         Equals(tracks[0]["title"]))
 
-        # click on close button to close nowplaying and songs page
+        # click on close button to close nowplaying page
         self.app.main_view.go_back()
 
-        # check that the albums page is now visible
-        self.assertThat(albums_page.visible, Eventually(Equals(True)))
+        # check that the songs page is now visible
+        self.assertThat(songs_page.visible, Eventually(Equals(True)))
 
     def test_add_songs_to_queue_from_songs_tab_and_play(self):
         """tests navigating to the Songs tab and adding the library to the
