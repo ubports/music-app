@@ -98,7 +98,6 @@ MusicPage {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
                     text: i18n.tr("Add to playlist")
-                    visible: isListView
                     onTriggered: {
                         var items = []
 
@@ -119,7 +118,6 @@ MusicPage {
                     iconName: "delete"
                     objectName: "clearQueue"
                     text: i18n.tr("Clear queue")
-                    visible: isListView
                     onTriggered: {
                         head.backAction.trigger()
                         trackQueue.clear()
