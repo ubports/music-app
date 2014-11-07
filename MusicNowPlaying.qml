@@ -78,13 +78,7 @@ MusicPage {
             backAction: Action {
                 iconName: "back";
                 objectName: "backButton"
-                onTriggered: {
-                    mainPageStack.pop();
-
-                    while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
-                        mainPageStack.pop();
-                    }
-                }
+                onTriggered: mainPageStack.pop();
             }
             actions: [
                 Action {
