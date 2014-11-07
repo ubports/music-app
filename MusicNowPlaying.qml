@@ -75,11 +75,6 @@ MusicPage {
             id: defaultState
 
             name: "default"
-            backAction: Action {
-                iconName: "back";
-                objectName: "backButton"
-                onTriggered: mainPageStack.pop();
-            }
             actions: [
                 Action {
                     objectName: "toggleView"
@@ -117,7 +112,7 @@ MusicPage {
                     text: i18n.tr("Clear queue")
                     visible: isListView
                     onTriggered: {
-                        head.backAction.trigger()
+                        pageStack.pop()
                         trackQueue.clear()
                     }
                 }
