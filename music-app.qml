@@ -1118,7 +1118,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && playlistTab.index === tabs.selectedTab.index
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent
