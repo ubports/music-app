@@ -38,7 +38,9 @@ Item {
     property int lastIndex: 0  // the furtherest index loaded
 
     onColumnWidthChanged: {
-        if (columns != columnHeights.length) {  // number of columns has changed so reset
+        // number of columns has changed so reset
+        // only when visible so created objects from items are not destroyed
+        if (columns != columnHeights.length && visible) {
             reset()
             append()
         } else {  // column width has changed update visible items properties linked to columnWidth
@@ -57,6 +59,13 @@ Item {
         if (count === 0) {  // likely the model is been reset so reset the view
             reset()
         } else {  // likely new items in the model check if any can be shown
+            append()
+        }
+    }
+
+    onVisibleChanged: {
+        if (columns != columnHeights.length && visible) {  // number of columns has changed while invisible so reset
+            reset()
             append()
         }
     }
