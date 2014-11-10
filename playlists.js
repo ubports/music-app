@@ -261,6 +261,8 @@ function getPlaylistCovers(playlist, max) {
             for (var i = 0; i < rs.rows.length
                  && i < (max || rs.rows.length); i++) {
                 var row = {
+                    author: rs.rows.item(i).author,
+                    album: rs.rows.item(i).album,
                     art: musicStore.lookup(rs.rows.item(i).filename).art
                 }
 
@@ -280,7 +282,8 @@ function find(arraytosearch, object) {
 
     for (var i = 0; i < arraytosearch.length; i++) {
 
-        if (arraytosearch[i]["art"] == object["art"]) {
+        if (arraytosearch[i]["author"] == object["author"] &&
+            arraytosearch[i]["album"] == object["album"]) {
             return i;
         }
     }
