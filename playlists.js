@@ -261,8 +261,7 @@ function getPlaylistCovers(playlist, max) {
             for (var i = 0; i < rs.rows.length
                  && i < (max || rs.rows.length); i++) {
                 var row = {
-                    author: rs.rows.item(i).author,
-                    album: rs.rows.item(i).album
+                    art: musicStore.lookup(rs.rows.item(i).filename).art
                 }
 
                 if (find(res, row) === null) {
