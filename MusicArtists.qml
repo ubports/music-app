@@ -23,7 +23,6 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
@@ -37,6 +36,7 @@ MusicPage {
 
     CardView {
         id: artistCardView
+        getter: function (i) { return {"artist": artistsModel.get(i, ArtistsModel.RoleArtist)}; }
         itemWidth: units.gu(12)
         model: ArtistsModel {
             id: artistsModel

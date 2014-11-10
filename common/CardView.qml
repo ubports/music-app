@@ -20,20 +20,24 @@ import Ubuntu.Components 1.1
 
 
 Flickable {
+    id: cardViewFlickable
     anchors {
         fill: parent
     }
 
     // dont use flow.contentHeight as it is inaccurate due to height of labels
     // changing as they load
-    contentHeight: headerLoader.childrenRect.height + flowContainer.height
+    contentHeight: headerLoader.childrenRect.height + flow.contentHeight + flowContainer.anchors.margins * 2
     contentWidth: width
 
     property alias count: flow.count
     property alias delegate: flow.delegate
+    property var getter
     property alias header: headerLoader.sourceComponent
     property var model: flow.model
     property real itemWidth: units.gu(15)
+
+    onGetterChanged: flow.getter = getter  // cannot use alias to set a function (must be var)
 
     onVisibleChanged: {
         if (visible) {  // only load model once CardView is visible
@@ -51,18 +55,21 @@ Flickable {
     Item {
         id: flowContainer
         anchors {
+            bottom: parent.bottom
+            left: parent.left
+            margins: units.gu(1)
+            right: parent.right
             top: headerLoader.bottom
         }
-        height: flow.childrenRect.height + flow.anchors.margins * 2
         width: parent.width
 
         ColumnFlow {
             id: flow
             anchors {
                 fill: parent
-                margins: units.gu(1)
             }
-            columns: parseInt(width / itemWidth)
+            columns: parseInt(cardViewFlickable.width / itemWidth)
+            flickable: cardViewFlickable
         }
     }
 

@@ -23,6 +23,10 @@ Item {
     id: card
     height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
 
+    /* Required by ColumnFlow */
+    property int index
+    property var model
+
     property alias coverSources: coverGrid.covers
     property alias primaryText: primaryLabel.text
     property alias secondaryText: secondaryLabel.text
@@ -45,12 +49,6 @@ Item {
     }
 
     Behavior on x {
-        UbuntuNumberAnimation {
-
-        }
-    }
-
-    Behavior on y {
         UbuntuNumberAnimation {
 
         }
