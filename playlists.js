@@ -280,8 +280,7 @@ function find(arraytosearch, object) {
 
     for (var i = 0; i < arraytosearch.length; i++) {
 
-        if (arraytosearch[i]["author"] == object["author"] &&
-            arraytosearch[i]["album"] == object["album"]) {
+        if (arraytosearch[i]["art"] == object["art"]) {
             return i;
         }
     }
