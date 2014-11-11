@@ -199,6 +199,16 @@ Item {
         }
     }
 
+    // Force any incubation to finish
+    function forceIncubationCompletion()
+    {
+        for (i in incubating) {
+            if (incubating.hasOwnProperty(i)) {
+                incubating[i].forceCompletion()
+            }
+        }
+    }
+
     // Get the column index in order of height
     function getColumnsByHeight()
     {
@@ -281,12 +291,7 @@ Item {
         restoring = true;
         var i;
 
-        // Force and incubation to finish
-        for (i in incubating) {
-            if (incubating.hasOwnProperty(i)) {
-                incubating[i].forceCompletion()
-            }
-        }
+        forceIncubationCompletion()
 
         columnHeights = []
         columnHeightsMax = []
@@ -370,12 +375,7 @@ Item {
     // Reset the column flow
     function reset()
     {
-        // Force and incubation to finish
-        for (var i in incubating) {
-            if (incubating.hasOwnProperty(i)) {
-                incubating[i].forceCompletion()
-            }
-        }
+        forceIncubationCompletion()
 
         // Destroy any old items
         for (var j in items) {
