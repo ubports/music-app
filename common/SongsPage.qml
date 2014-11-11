@@ -61,8 +61,10 @@ MusicPage {
         onTriggered: albumTracksModel.filterPlaylistTracks(line2)
     }
 
-    function playlistChangedHelper()
+    function playlistChangedHelper(force)
     {
+        force = force === undefined ? false : force  // default force to false
+
         // if parent Playlists then set changed otherwise refilter
         if (songStackPage.page.title === i18n.tr("Playlists")) {
             if (songStackPage.page !== undefined) {
@@ -72,7 +74,7 @@ MusicPage {
             playlistModel.filterPlaylists()
         }
 
-        if (Library.recentContainsPlaylist(songStackPage.line2)) {
+        if (Library.recentContainsPlaylist(songStackPage.line2) || force) {
             // if parent Recent then set changed otherwise refilter
             if (songStackPage.page.title === i18n.tr("Recent")) {
                 if (songStackPage.page !== undefined) {
@@ -567,7 +569,7 @@ MusicPage {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
                     }
 
-                    playlistChangedHelper()  // update recent/playlist models
+                    playlistChangedHelper(true)  // update recent/playlist models
 
                     songStackPage.page = undefined
                     PopupUtils.close(dialogRemovePlaylist)
