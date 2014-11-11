@@ -522,11 +522,11 @@ MusicPage {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
                             }
 
+                            line2 = playlistName.text
+
                             playlistChangedHelper()  // update recent/playlist models
 
                             PopupUtils.close(dialogEditPlaylist)
-
-                            line2 = playlistName.text
                         }
                         else {
                             editplaylistoutput.text = i18n.tr("Playlist already exists")
