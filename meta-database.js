@@ -34,8 +34,7 @@ function clearQueue() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('DROP TABLE IF EXISTS queue');
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
+            tx.executeSql('DELETE FROM queue');
       });
 }
 

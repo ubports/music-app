@@ -541,9 +541,6 @@ MainView {
             if (completed) {
                 player.currentIndex = queueIndex
                 player.setSource(list[queueIndex].filename)
-
-                // Run URIHandler after queue loader is complete
-                uriHandler.process(args.values.url, true);
             }
         }
     }
@@ -558,9 +555,11 @@ MainView {
         // initialize playlists
         Playlists.initializePlaylist()
 
-        // allow the queue loader to start
-        queueLoaderWorker.canLoad = !Library.isQueueEmpty()
-        queueLoaderWorker.list = Library.getQueue()
+        if (!args.values.url) {
+            // allow the queue loader to start
+            queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+            queueLoaderWorker.list = Library.getQueue()
+        }
 
         // everything else
         loading.visible = true
@@ -576,7 +575,7 @@ MainView {
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
 
-        if (args.values.url && !queueLoaderWorker.canLoad) {
+        if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
     }
