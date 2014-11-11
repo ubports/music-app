@@ -54,6 +54,12 @@ Item {
         }
     }
 
+    Behavior on y {
+        UbuntuNumberAnimation {
+
+        }
+    }
+
     /* Background for card */
     Rectangle {
         id: bg

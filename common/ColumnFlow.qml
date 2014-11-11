@@ -36,13 +36,16 @@ Item {
     property var items: ({})
     property var itemToColumn: ({})  // cache of the columns of indexes
     property int lastIndex: 0  // the furtherest index loaded
+    property bool restoring: false  // is the view restoring?
+    property var restoreItems: ({})  // when rebuilding items are stored here temporarily
 
     onColumnWidthChanged: {
-        // number of columns has changed so reset
-        // only when visible so created objects from items are not destroyed
-        if (columns != columnHeights.length && visible) {
-            reset()
-            append()
+        if (restoring) {
+            return;
+        }
+        else if (columns != columnHeights.length && visible) {
+            // number of columns has changed so rebuild the columns
+            rebuildColumns()
         } else {  // column width has changed update visible items properties linked to columnWidth
             for (var column=0; column < columnHeights.length; column++) {
                 for (var i in columnHeights[column]) {
@@ -52,6 +55,8 @@ Item {
                     }
                 }
             }
+
+            ensureItemsVisible()
         }
     }
 
@@ -71,8 +76,9 @@ Item {
 
     onVisibleChanged: {
         if (columns != columnHeights.length && visible) {  // number of columns has changed while invisible so reset
-            reset()
-            append()
+            if (!restoring) {
+                rebuildColumns()
+            }
         } else if (lastIndex < 0 && visible) {  // restore from count change
             if (lastIndex === -1) {
                 reset()
@@ -88,12 +94,13 @@ Item {
     function append()
     {
         // Do not allow append to run if incubating
-        if (isIncubating() === true) {
+        if (isIncubating() || restoring) {
             return;
         }
 
         // get the columns in order
         var columnsByHeight = getColumnsByHeight();
+        var workDone = false;
 
         // check if a new item in each column is possible
         for (var i=0; i < columnsByHeight.length; i++) {
@@ -101,10 +108,15 @@ Item {
 
             // build new object in column if possible
             if (count > 0 && lastIndex < count && inViewport(y, 0)) {
-                incubateObject(lastIndex++, columnsByHeight[i], getMaxVisibleInColumn(columnsByHeight[i]), append);
+                incubateObject(lastIndex++, columnsByHeight[i], getMaxInColumn(columnsByHeight[i]), append);
+                workDone = true
             } else {
                 break;
             }
+        }
+
+        if (!workDone) {  // last iteration over append so visible ensure items are correct
+            ensureItemsVisible();
         }
     }
 
@@ -123,8 +135,10 @@ Item {
             columnHeightsMax.push(sum);
         }
 
-        // set the height of columnFlow to max column (for flickable contentHeight)
-        contentHeight = Math.max.apply(null, columnHeightsMax);
+        if (!restoring) {  // when not restoring otherwise user will be pushed to the top of the view
+            // set the height of columnFlow to max column (for flickable contentHeight)
+            contentHeight = Math.max.apply(null, columnHeightsMax);
+        }
     }
 
     // Recache the visible items heights (due to a change in their height)
@@ -137,6 +151,16 @@ Item {
         }
 
         cacheColumnHeights();
+    }
+
+    // Ensures that the correct items are visible
+    function ensureItemsVisible()
+    {
+        for (var i in items) {
+            if (items.hasOwnProperty(i)) {
+                items[i].visible = inViewport(items[i].y, items[i].height)
+            }
+        }
     }
 
     // Return if there are incubating objects
@@ -167,7 +191,7 @@ Item {
 
         columnHeights[itemToColumn[index]][index] = obj.height;  // ensure height is the latest
 
-        if (isIncubating() === false) {
+        if (!isIncubating()) {
             cacheColumnHeights();
 
             // Check if there is any more work to be done (append or restore)
@@ -198,48 +222,8 @@ Item {
         return columnsByHeight;
     }
 
-    // Get the min value in a column after the limit
-    function getMinIndexInColumnAfter(column, limit)
-    {
-        for (var i=limit + 1; i <= lastIndex; i++) {
-            if (columnHeights[column].hasOwnProperty(i)) {
-                return i;
-            }
-        }
-    }
-
-    // Get the lowest visible index for a column
-    function getMinVisibleInColumn(column)
-    {
-        var min;
-
-        for (var i in columnHeights[column]) {
-            if (columnHeights[column].hasOwnProperty(i)) {
-                i = parseInt(i);
-
-                if (items.hasOwnProperty(i)) {
-                    if (i < min || min === undefined) {
-                        min = i;
-                    }
-                }
-            }
-        }
-
-        return min;
-    }
-
-    // Get the max value in a column before the limit
-    function getMaxIndexInColumnBefore(column, limit)
-    {
-        for (var i=--limit; i >= 0; i--) {
-            if (columnHeights[column].hasOwnProperty(i)) {
-                return i;
-            }
-        }
-    }
-
-    // Get the highest visible index for a column
-    function getMaxVisibleInColumn(column)
+    // Get the highest index for a column
+    function getMaxInColumn(column)
     {
         var max;
 
@@ -263,19 +247,12 @@ Item {
     {
         // Load parameters to send to the object on creation
         var params = {
+            "anchors.top": anchorIndex === undefined ? parent.top : items[anchorIndex].bottom,
             index: index,
             model: getter(index),
             width: columnWidth,
             x: column * columnWidth
         };
-
-        if (anchorIndex === undefined) {
-            params["anchors.top"] = parent.top;
-        } else if (anchorIndex < 0) {
-            params["anchors.bottom"] = items[-(anchorIndex + 1)].top;
-        } else {
-            params["anchors.top"] = items[anchorIndex].bottom;
-        }
 
         // Start incubating and cache the column
         incubating[index] = delegate.incubateObject(parent, params);
@@ -292,10 +269,102 @@ Item {
         }
     }
 
-    // Detect if a loaded object is in the viewport with double buffer before and single after
+    // Detect if a loaded object is in the viewport with a buffer
     function inViewport(y, height)
     {
-        return flickable.contentY - buffer - buffer < y + height && y < flickable.contentY + flickable.height + buffer;
+        return flickable.contentY - buffer < y + height && y < flickable.contentY + flickable.height + buffer;
+    }
+
+    // Number of columns has changed rebuild with live items
+    function rebuildColumns()
+    {
+        restoring = true;
+        var i;
+
+        // Force and incubation to finish
+        for (i in incubating) {
+            if (incubating.hasOwnProperty(i)) {
+                incubating[i].forceCompletion()
+            }
+        }
+
+        columnHeights = []
+        columnHeightsMax = []
+
+        for (i=0; i < columns; i++) {
+            columnHeights.push({});
+            columnHeightsMax.push(0);
+        }
+
+        lastIndex = 0;
+
+        restoreItems = items;
+        items = {};
+
+        restoreExisting()
+
+        restoring = false;
+
+        cacheColumnHeights();  // rebuilds contentHeight
+
+        // If the columns have changed while the view was locked rerun
+        if (columns != columnHeights.length && visible) {
+            rebuildColumns()
+        } else {
+            append()  // check if any new items can be added
+        }
+    }
+
+    // Restores existing items into potentially new positions
+    function restoreExisting()
+    {
+        var i;
+
+        // get the columns in order
+        var columnsByHeight = getColumnsByHeight();
+        var workDone = false;
+
+        // check if a new item in each column is possible
+        for (i=0; i < columnsByHeight.length; i++) {
+            var column = columnsByHeight[i];
+
+            // build new object in column if possible
+            if (count > 0 && lastIndex < count) {
+                if (restoreItems.hasOwnProperty(lastIndex)) {
+                    var item = restoreItems[lastIndex];
+                    var maxInColumn = getMaxInColumn(column);  // get lowest item in column
+
+                    itemToColumn[lastIndex] = column;
+                    columnHeights[column][lastIndex] = item.height;  // ensure height is the latest
+
+                    // Rebuild item properties
+                    item.anchors.bottom = undefined
+                    item.anchors.top = maxInColumn === undefined ? parent.top : items[maxInColumn].bottom;
+                    item.x = column * columnWidth;
+                    item.visible = inViewport(item.y, item.height);
+
+                    // Migrate item from restoreItems to items
+                    items[lastIndex] = item;
+                    delete restoreItems[lastIndex];
+
+                    // set after restore as height will likely change causing cacheVisibleItemsHeights to be run
+                    item.width = columnWidth;
+
+                    cacheColumnHeights();  // ensure column heights are up to date
+
+                    lastIndex++;
+                    workDone = true;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (workDone) {
+            restoreExisting()  // if work done then check if any more is needed
+        } else {
+            restoreItems = {};  // ensure restoreItems is empty
+        }
     }
 
     // Reset the column flow
@@ -330,72 +399,12 @@ Item {
         contentHeight = 0
     }
 
-    // Restore any objects that are now in the viewport
-    function restore()
-    {
-        // Do not allow restore to run if incubating
-        if (isIncubating() === true) {
-            return;
-        }
-
-        for (var column in columnHeights) {
-            var index;
-
-            // Rebuild anything before the lowest visible index
-            var minVisible = getMinVisibleInColumn(column);
-
-            if (minVisible !== undefined) {
-                // get the next lowest index for this column to add before
-                index = getMaxIndexInColumnBefore(column, minVisible)
-
-                if (index !== undefined) {
-                    // Check that the object will be in the viewport
-                    if (inViewport(items[minVisible].y - columnHeights[column][index], columnHeights[column][index])) {
-                        incubateObject(index, column, (-minVisible) - 1, restore)  // add the new object
-                    }
-                }
-            }
-
-            // Rebuild anything after the highest visible index
-            var maxVisible = getMaxVisibleInColumn(column);
-
-            if (maxVisible !== undefined) {
-                // get the next highest index for this column to add after
-                index = getMinIndexInColumnAfter(column, maxVisible);
-
-                if (index !== undefined) {
-                    // Check that the object will be in the viewport
-                    if (inViewport(items[maxVisible].y + columnHeights[column][maxVisible], columnHeights[column][index])) {
-                        incubateObject(index, column, maxVisible, restore)  // add the new object
-                    }
-                }
-            }
-        }
-    }
-
     Connections {
         target: flickable
         onContentYChanged: {
-            restore()  // Restore old items (scrolling up/down)
-
             append()  // Append any new items (scrolling down)
 
-            // skip if at the start of end of the flickable (prevents overscroll issue)
-            if (!flickable.atYBeginning && !flickable.atYEnd) {
-                // Destroy any old items
-                for (var i in items) {
-                    if (items.hasOwnProperty(i)) {
-                        if (!inViewport(items[i].y, items[i].height)) {
-                            // Ensure height is at its latest value
-                            columnHeights[itemToColumn[i]][items[i].index] = items[i].height;
-
-                            // Destroy the object
-                            items[i].destroy()
-                            delete items[i];
-                        }
-                    }
-                }
-            }
+            ensureItemsVisible()
         }
     }
 }
