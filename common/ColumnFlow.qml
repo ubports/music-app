@@ -202,7 +202,7 @@ Item {
     // Force any incubation to finish
     function forceIncubationCompletion()
     {
-        for (i in incubating) {
+        for (var i in incubating) {
             if (incubating.hasOwnProperty(i)) {
                 incubating[i].forceCompletion()
             }
