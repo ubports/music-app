@@ -68,12 +68,12 @@ MusicPage {
         objectName: "playlistsCardView"
         delegate: Card {
             id: playlistCard
-            coverSources: Playlists.getPlaylistCovers(name)
-            primaryText: name
-            secondaryText: i18n.tr("%1 song", "%1 songs", count).arg(count)
+            coverSources: Playlists.getPlaylistCovers(model.name)
+            primaryText: model.name
+            secondaryText: i18n.tr("%1 song", "%1 songs", model.count).arg(model.count)
 
             onClicked: {
-                albumTracksModel.filterPlaylistTracks(name)
+                albumTracksModel.filterPlaylistTracks(model.name)
 
                 var comp = Qt.createComponent("common/SongsPage.qml")
                 var songsPage = comp.createObject(mainPageStack,

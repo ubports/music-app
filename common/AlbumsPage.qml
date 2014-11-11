@@ -39,6 +39,13 @@ MusicPage {
         anchors {
             fill: parent
         }
+        getter: function (i) {
+            return {
+                "art": artistsModel.get(i, AlbumsModel.RoleArt),
+                "artist": artistsModel.get(i, AlbumsModel.RoleArtist),
+                "title": artistsModel.get(i, AlbumsModel.RoleTitle),
+            };
+        }
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
