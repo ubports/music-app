@@ -741,7 +741,7 @@ MainView {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
 
                     // Add album to recent list
-                    Library.addRecent(songsAlbumArtistModel.model.get(0, songsAlbumArtistModel.model.RoleModelData).album, "album")
+                    Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")
                     recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
