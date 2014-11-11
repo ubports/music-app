@@ -56,7 +56,13 @@ Item {
     }
 
     onCountChanged: {
-        if (count === 0) {  // likely the model is been reset so reset the view
+        if (!visible) {  // store changes for when visible
+            if (count === 0 && lastIndex > -1) {
+                lastIndex = -1;
+            } else if (lastIndex > -1) {
+                lastIndex = -(lastIndex + 2);  // save the index to restore later
+            }
+        } else if (count === 0) {  // likely the model is been reset so reset the view
             reset()
         } else {  // likely new items in the model check if any can be shown
             append()
@@ -66,6 +72,14 @@ Item {
     onVisibleChanged: {
         if (columns != columnHeights.length && visible) {  // number of columns has changed while invisible so reset
             reset()
+            append()
+        } else if (lastIndex < 0 && visible) {  // restore from count change
+            if (lastIndex === -1) {
+                reset()
+            } else {
+                lastIndex = (-lastIndex) - 2
+            }
+
             append()
         }
     }
