@@ -41,11 +41,21 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         asynchronous: true
-        source: art // this has to be fixed for the default cover art to work - cant find in this dir
         fillMode: Image.PreserveAspectCrop
         height: parent.height
-        width: Math.max(parent.height, parent.width)
+        source: art // this has to be fixed for the default cover art to work - cant find in this dir
+
+        // TODO: This should be investigated once http://pad.lv/1391368
+        //       is resolved. Once it is, these can either be set to
+        //       "height" and "width" or a property exposed via the
+        //       SDK or Thumbnailer to avoid a regression caused by
+        //       these hardcoded values changing in the Thumbnailer.
+        //       512 is size of the "xlarge" thumbnails in pixels.
+        sourceSize.height: 512
+        sourceSize.width: 512
+
         visible: false
+        width: Math.max(parent.height, parent.width)
     }
 
     // the blur
