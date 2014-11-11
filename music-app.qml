@@ -541,6 +541,9 @@ MainView {
             if (completed) {
                 player.currentIndex = queueIndex
                 player.setSource(list[queueIndex].filename)
+
+                // Run URIHandler after queue loader is complete
+                uriHandler.process(args.values.url, true);
             }
         }
     }
@@ -573,7 +576,7 @@ MainView {
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
 
-        if (args.values.url) {
+        if (args.values.url && !queueLoaderWorker.canLoad) {
             uriHandler.process(args.values.url, true);
         }
     }
@@ -738,7 +741,7 @@ MainView {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
 
                     // Add album to recent list
-                    Library.addRecent(songsAlbumArtistModel.model.get(0, model.RoleModelData).album, "album")
+                    Library.addRecent(songsAlbumArtistModel.model.get(0, songsAlbumArtistModel.model.RoleModelData).album, "album")
                     recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
