@@ -522,6 +522,7 @@ MusicPage {
 
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
+                                musicStartPage.changed = true
                             }
 
                             PopupUtils.close(dialogEditPlaylist)
