@@ -519,6 +519,7 @@ MusicPage {
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
 
                             playlistChangedHelper()  // update recent/playlist models
+
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
                             }
