@@ -61,8 +61,15 @@ Item {
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
                         : ""
-                sourceSize.height: height
-                sourceSize.width: width
+
+                // TODO: This should be investigated once http://pad.lv/1391368
+                //       is resolved. Once it is, these can either be set to
+                //       "height" and "width" or a property exposed via the
+                //       SDK or Thumbnailer to avoid a regression caused by
+                //       these hardcoded values changing in the Thumbnailer.
+                //       512 is size of the "xlarge" thumbnails in pixels.
+                sourceSize.height: 512
+                sourceSize.width: 512
 
                 onStatusChanged: {
                     if (status === Image.Error) {
