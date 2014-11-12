@@ -151,21 +151,18 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-        shutil.copytree(
-            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        self._patch_mediascanner_home(mediascannerpath)
+        if self.test_type is not 'click':
+            self._patch_mediascanner_home(content_dir, mediascannerpath)
 
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
-
-    def _patch_mediascanner_home(self, mediascannerpath):
+    def _patch_mediascanner_home(self, content_dir, mediascannerpath):
         # do some inline db patching
         # patch mediaindex to proper home
         # these values are dependent upon our sampled db
+        shutil.copytree(
+            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
         logger.debug("Patching fake mediascanner database in %s" %
                      mediascannerpath)
         logger.debug(
@@ -184,6 +181,10 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         cur = con.cursor()
         cur.executescript(sql)
         con.close()
+
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _file_find_replace(self, in_filename, find, replace):
         # replace all occurences of string find with string replace
