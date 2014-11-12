@@ -231,9 +231,6 @@ MainView {
         }
 
         function process(uri, play) {
-            // stop loading the queue as we will load from uriHandler
-            queueLoaderWorker.canLoad = false
-
             if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
