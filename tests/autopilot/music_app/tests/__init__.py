@@ -117,6 +117,10 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         if self.test_type is 'click':
             # just use home for now on devices
             temp_dir = os.environ.get('HOME')
+
+            # before each test, remove the app's databases
+            local_dir = os.path.join(temp_dir, '.local/share/com.ubuntu.music/Databases')
+            shutil.rmtree(local_dir)
         else:
             temp_dir_fixture = fixtures.TempDir()
             self.useFixture(temp_dir_fixture)
