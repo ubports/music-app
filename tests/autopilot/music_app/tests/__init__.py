@@ -119,8 +119,10 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             temp_dir = os.environ.get('HOME')
 
             # before each test, remove the app's databases
-            local_dir = os.path.join(temp_dir,
-                                     '.local/share/com.ubuntu.music/Databases')
+            local_dir = os.path.join(temp_dir, '.local/share/com.ubuntu.music')
+            shutil.rmtree(local_dir)
+
+            local_dir = os.path.join(temp_dir, '.config/com.ubuntu.music')
             shutil.rmtree(local_dir)
         else:
             temp_dir_fixture = fixtures.TempDir()
