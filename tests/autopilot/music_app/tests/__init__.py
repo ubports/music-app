@@ -120,10 +120,14 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
             # before each test, remove the app's databases
             local_dir = os.path.join(temp_dir, '.local/share/com.ubuntu.music')
-            shutil.rmtree(local_dir)
+
+            if (os.path.exists(local_dir)):
+                shutil.rmtree(local_dir)
 
             local_dir = os.path.join(temp_dir, '.config/com.ubuntu.music')
-            shutil.rmtree(local_dir)
+
+            if (os.path.exists(local_dir)):
+                shutil.rmtree(local_dir)
         else:
             temp_dir_fixture = fixtures.TempDir()
             self.useFixture(temp_dir_fixture)
