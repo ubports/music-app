@@ -20,13 +20,8 @@ Using terminal:
 *  Branch the music app code, for example,
     $ bzr branch lp:music-ap
     
-*  Build the music app,
-    $ mkdir builddir && cd builddir
-    $ cmake .. && make
-    $ cd ..
-
 *  Navigate to the tests/autopilot directory.
-    $ cd tests/autopilot
+    $ cd music-app/tests/autopilot
 
 *  run all tests.
     $ autopilot3 run -vv music_app
