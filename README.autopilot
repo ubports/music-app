@@ -1,0 +1,55 @@
+# Running Autopilot tests
+
+Music App follows a test driven development where autopilot tests are run before every merge into trunk. If you are submitting your bugfix/patch to the music app, please follow the following steps below to ensure that all tests pass before proposing a merge request.
+
+If you are looking for more info about Autopilot or writing AP tests for the music app, here are some useful links to help you,
+
+- http://developer.ubuntu.com/api/devel/ubuntu-14.10/python/autopilot/
+- http://developer.ubuntu.com/api/devel/ubuntu-14.10/python/autopilot-emulator/
+
+## Prerequisites
+
+Install the following autopilot packages required to run the tests,
+$ sudo apt-get install python-autopilot libautopilot-qt ubuntu-ui-toolkit-autopilot python3-autopilot-vis
+
+
+## Running tests on the desktop
+
+Using terminal:
+
+*  Branch the music app code, for example,
+    $ bzr branch lp:music-ap
+    
+*  Build the music app,
+    $ mkdir builddir && cd builddir
+    $ cmake .. && make
+    $ cd ..
+
+*  Navigate to the tests/autopilot directory.
+    $ cd tests/autopilot
+
+*  run all tests.
+    $ autopilot3 run -vv music_app
+
+    to list all tests:
+    $ autopilot3 list music_app
+
+    To run only one test (for instance: music_app.tests.test_music.TestMainWindow.test_swipe_to_delete_song)
+    $ autopilot3 run -vv music_app.tests.test_music.TestMainWindow.test_swipe_to_delete_song
+
+    Debugging tests using autopilot vis
+    $ autopilot3 launch -i Qt qmlscene music-app.qml
+    $ autopilot3 vis
+
+
+## Running tests on device or emulator:
+
+NOTE: Prior to running the tests on the device, you will need to do the following if there is music on the system:
+
+    $ mv /home/phablet/Music /home/phablet/.Music
+    $ restart mediascanner-2.0
+
+Using autopkg:
+
+1. navigate to the directory where the music-app branch is and run:
+  $ adt-run music-app --click=com.ubuntu.music --- ssh -s adb
