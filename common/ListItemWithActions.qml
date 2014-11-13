@@ -477,23 +477,15 @@ Item {
         }
     }
 
-    /* CUSTOM Dim Component */
+    /* CUSTOM Brighten Component */
     Rectangle {
-        id: listItemDim
+        id: listItemBrighten
         anchors {
             fill: parent
         }
 
-        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
+        color: mouseArea.pressed ? styleMusic.common.white : "transparent"
         opacity: 0.1
-
-        property bool dim: false
-
-        Behavior on color {
-            ColorAnimation {
-                duration: UbuntuAnimation.SlowDuration
-            }
-        }
     }
 
     /* CUSTOM Reorder Component */

@@ -231,9 +231,6 @@ MainView {
         }
 
         function process(uri, play) {
-            // stop loading the queue as we will load from uriHandler
-            queueLoaderWorker.canLoad = false
-
             if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
@@ -555,9 +552,11 @@ MainView {
         // initialize playlists
         Playlists.initializePlaylist()
 
-        // allow the queue loader to start
-        queueLoaderWorker.canLoad = !Library.isQueueEmpty()
-        queueLoaderWorker.list = Library.getQueue()
+        if (!args.values.url) {
+            // allow the queue loader to start
+            queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+            queueLoaderWorker.list = Library.getQueue()
+        }
 
         // everything else
         loading.visible = true
@@ -738,7 +737,7 @@ MainView {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
 
                     // Add album to recent list
-                    Library.addRecent(songsAlbumArtistModel.model.get(0, model.RoleModelData).album, "album")
+                    Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")
                     recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
@@ -1118,7 +1117,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && playlistTab.index === tabs.selectedTab.index
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent
