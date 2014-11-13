@@ -118,6 +118,7 @@ MusicPage {
                     iconName: "delete"
                     objectName: "clearQueue"
                     text: i18n.tr("Clear queue")
+                    visible: isListView
                     onTriggered: {
                         head.backAction.trigger()
                         trackQueue.clear()
