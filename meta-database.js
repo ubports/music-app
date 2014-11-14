@@ -34,6 +34,7 @@ function clearQueue() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
+            createQueue();
             tx.executeSql('DELETE FROM queue');
       });
 }
