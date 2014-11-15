@@ -61,7 +61,6 @@ Item {
     signal reorder(int from, int to)  // CUSTOM
 
     onItemPressAndHold: {
-        //reordering = reorderable && !reordering  // CUSTOM
         if (multiselectable) {
             selectionMode = true
         }
@@ -481,7 +480,7 @@ Item {
     Rectangle {
         id: listItemBrighten
         anchors {
-            fill: parent
+            fill: main
         }
 
         color: mouseArea.pressed ? styleMusic.common.white : "transparent"
@@ -498,7 +497,7 @@ Item {
             top: parent.top
         }
         asynchronous: true
-        sourceComponent: reordering ? actionReorderComponent : undefined
+        sourceComponent: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0 ? actionReorderComponent : undefined
     }
 
     Component {
@@ -588,7 +587,6 @@ Item {
             }
         }
     }
-
 
     SequentialAnimation {
         id: triggerAction
