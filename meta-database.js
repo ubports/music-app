@@ -60,8 +60,8 @@ function addQueueList(ind, items) {
     var db = getDatabase();
 
     db.transaction(function(tx) {
-        for (var i = ind; i < items.length; i++) {
-            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, items[i].filename]);
+        for (var i = 0; i < items.length; i++) {
+            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
         }
     }
     );
