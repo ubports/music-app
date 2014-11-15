@@ -51,6 +51,9 @@ MusicPage {
         }
     }
 
+    onVisibleChanged: visible ? mainView.headerColor = "#000000"
+                              : mainView.headerColor = "#1e1e23"
+
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
         if (queueListLoader.item.count === trackQueue.model.count) {
@@ -519,6 +522,15 @@ MusicPage {
             player.currentIndex -= 1;
             queueIndex -= 1;
         }
+    }
+
+    Rectangle {
+        id: queueListBackground;
+        anchors {
+            fill: parent
+        }
+        color: "#1e1e23"
+        visible: isListView
     }
 
     Loader {
