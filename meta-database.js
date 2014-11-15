@@ -56,11 +56,11 @@ function addQueueItem(ind,filename) {
     );
 }
 
-function addQueueList(items) {
+function addQueueList(ind, items) {
     var db = getDatabase();
 
     db.transaction(function(tx) {
-        for (var i = 0; i < items.length; i++) {
+        for (var i = ind; i < items.length; i++) {
             tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, items[i].filename]);
         }
     }
