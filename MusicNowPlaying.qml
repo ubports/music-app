@@ -203,24 +203,44 @@ MusicPage {
             anchors.fill: parent
             art: albumImage.firstSource
 
-            CoverGrid {
-                id: albumImage
+            Item {
+                id: albumImageContainer
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     top: parent.top
-                    topMargin: (parent.height - nowPlayingWideAspectLabelsBackground.height - size) / 2
                 }
-                covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
-                size: units.gu(24)
+                height: parent.height - nowPlayingWideAspectControlsBackground.height
+                width: parent.width
+
+                CoverGrid {
+                    id: albumImage
+                    anchors {
+                        centerIn: parent
+                        //horizontalCenter: parent.horizontalCenter
+                        //top: parent.top
+                        //topMargin: (parent.height - nowPlayingWideAspectLabelsBackground.height - size) / 2
+                    }
+                    covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
+                    size: parent.width > parent.height ? parent.height : parent.width
+                }
             }
 
             Rectangle {
                 id: nowPlayingWideAspectLabelsBackground
+                anchors.bottom: nowPlayingWideAspectControlsBackground.top
+                color: styleMusic.common.black
+                //color: mainView.backgroundColor
+                height: units.gu(10)
+                opacity: 0.6
+                width: parent.width
+            }
+
+            Rectangle {
+                id: nowPlayingWideAspectControlsBackground
                 anchors.bottom: parent.bottom
                 color: styleMusic.common.black
                 //color: mainView.backgroundColor
-                height: units.gu(30)
-                opacity: 0.5
+                height: units.gu(27) - nowPlayingWideAspectLabelsBackground.height
                 width: parent.width
             }
 
@@ -274,7 +294,7 @@ MusicPage {
             Item {
                 id: musicToolbarFullContainer
                 anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: units.gu(4)
+                anchors.topMargin: units.gu(3)
                 width: blurredBackground.width
 
                 /* Progress bar component */
@@ -285,7 +305,7 @@ MusicPage {
                     anchors.right: parent.right
                     anchors.rightMargin: units.gu(3)
                     anchors.top: blurredBackground.bottom
-                    anchors.topMargin: units.gu(3)
+                    anchors.topMargin: units.gu(2)
                     height: units.gu(3)
                     width: parent.width
 
