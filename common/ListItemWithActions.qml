@@ -46,7 +46,6 @@ Item {
     readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
 
     property bool reorderable: false  // CUSTOM
-    property bool reordering: false  // CUSTOM
     property bool multiselectable: false  // CUSTOM
 
     property int previousListItemIndex: -1  // CUSTOM
@@ -264,11 +263,6 @@ Item {
         onClearSelection: selected = false
         onSelectAll: selected = true
         onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
-        onVisibleChanged: {
-            if (!visible) {
-                reordering = false
-            }
-        }
     }
 
     Component.onCompleted: {  // CUSTOM
@@ -364,7 +358,6 @@ Item {
        anchors {
            top: main.top
            left: main.right
-           leftMargin: reordering ? actionReorder.width : 0  // CUSTOM
            bottom: main.bottom
        }
        visible: _visibleRightSideActions.length > 0
@@ -641,7 +634,7 @@ Item {
     MouseArea {
         id: mouseArea
 
-        property bool locked: root.locked || ((root.leftSideAction === null) && (root._visibleRightSideActions.count === 0)) || reordering  // CUSTOM
+        property bool locked: root.locked || ((root.leftSideAction === null) && (root._visibleRightSideActions.count === 0))  // CUSTOM
         property bool manual: false
         property string direction: "None"
         property real lastX: -1
