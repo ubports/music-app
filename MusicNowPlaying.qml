@@ -51,8 +51,8 @@ MusicPage {
         }
     }
 
-    onVisibleChanged: visible ? mainView.headerColor = "#000000"
-                              : mainView.headerColor = "#1e1e23"
+//    onVisibleChanged: visible ? mainView.headerColor = "#000000"
+//                              : mainView.headerColor = "#1e1e23"
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
@@ -238,8 +238,8 @@ MusicPage {
             Rectangle {
                 id: nowPlayingWideAspectControlsBackground
                 anchors.bottom: parent.bottom
-                color: styleMusic.common.black
-                //color: mainView.backgroundColor
+                //color: styleMusic.common.black
+                color: mainView.backgroundColor
                 height: units.gu(27) - nowPlayingWideAspectLabelsBackground.height
                 width: parent.width
             }
