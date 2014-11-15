@@ -47,6 +47,7 @@ MainView {
         category: "StartupSettings"
 
         property int queueIndex: 0
+        property int tabIndex: -1
     }
 
     // Global keyboard shortcuts
@@ -564,10 +565,12 @@ MainView {
         // push the page to view
         mainPageStack.push(tabs)
 
-        loadedUI = true;
+        // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = startupSettings.tabIndex === -1
+                ? (Library.isRecentEmpty() ? albumsTab.index : startTab.index)
+                : startupSettings.tabIndex
 
-        // goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = Library.isRecentEmpty() ? albumsTab.index : startTab.index
+        loadedUI = true;
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -891,6 +894,12 @@ MainView {
             id: tabs
             anchors {
                 fill: parent
+            }
+
+            onSelectedTabIndexChanged: {
+                if (loadedUI) {  // store the tab index if changed by the user
+                    startupSettings.tabIndex = selectedTabIndex
+                }
             }
 
             // First tab is all music
