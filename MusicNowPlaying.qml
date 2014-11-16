@@ -78,7 +78,7 @@ MusicPage {
             actions: [
                 Action {
                     objectName: "toggleView"
-                    iconName: "media-playlist"
+                    iconName: "swap"
                     onTriggered: {
                         isListView = !isListView
                     }
@@ -107,7 +107,6 @@ MusicPage {
                     iconName: "delete"
                     objectName: "clearQueue"
                     text: i18n.tr("Clear queue")
-                    visible: isListView
                     onTriggered: {
                         pageStack.pop()
                         trackQueue.clear()
