@@ -307,6 +307,13 @@ MusicPage {
         }
     }
 
+    Rectangle {
+        id: queueListBackground
+        anchors.fill: parent
+        color: styleMusic.mainView.backgroundColor
+        visible: isListView
+    }
+
     Loader {
         id: queueListLoader
         anchors {
@@ -316,7 +323,7 @@ MusicPage {
         sourceComponent: ListView {
             id: queueList
             anchors {
-                bottomMargin: units.gu(2)
+                bottomMargin: musicToolbarFullContainer.height + units.gu(2)
                 fill: parent
                 topMargin: units.gu(2)
             }
