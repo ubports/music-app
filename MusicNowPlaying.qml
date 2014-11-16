@@ -570,7 +570,7 @@ MusicPage {
                 id: queueDelegate
                 ListItemWithActions {
                     id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : "transparent"
+                    color: player.currentIndex === index ? "#2c2c34" : mainView.backgroundColor
                     height: queueList.normalHeight
                     objectName: "nowPlayingListItem" + index
                     state: ""

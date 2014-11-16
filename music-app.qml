@@ -47,6 +47,7 @@ MainView {
         category: "StartupSettings"
 
         property int queueIndex: 0
+        property int tabIndex: -1
     }
 
     // Global keyboard shortcuts
@@ -564,10 +565,12 @@ MainView {
         // push the page to view
         mainPageStack.push(tabs)
 
-        loadedUI = true;
+        // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = startupSettings.tabIndex === -1 || startupSettings.tabIndex > tabs.count - 1
+                ? (Library.isRecentEmpty() ? albumsTab.index : startTab.index)
+                : startupSettings.tabIndex
 
-        // goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = Library.isRecentEmpty() ? albumsTab.index : startTab.index
+        loadedUI = true;
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -608,6 +611,7 @@ MainView {
         }
 
         var items = []
+        var previousQueueSize = trackQueue.model.count
 
         for (var i=0; i < model.rowCount; i++) {
             items.push(model.get(i, model.RoleModelData))
@@ -616,7 +620,7 @@ MainView {
         }
 
         // Add model to queue storage
-        Library.addQueueList(items);
+        Library.addQueueList(previousQueueSize, items);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -891,6 +895,12 @@ MainView {
             id: tabs
             anchors {
                 fill: parent
+            }
+
+            onSelectedTabIndexChanged: {
+                if (loadedUI) {  // store the tab index if changed by the user
+                    startupSettings.tabIndex = selectedTabIndex
+                }
             }
 
             // First tab is all music
