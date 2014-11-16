@@ -300,15 +300,6 @@ MusicPage {
         }
     }
 
-    Rectangle {
-        id: queueListBackground;
-        anchors {
-            fill: parent
-        }
-        color: "#1e1e23"
-        visible: isListView
-    }
-
     Loader {
         id: queueListLoader
         anchors {
