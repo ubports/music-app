@@ -56,8 +56,8 @@ MusicPage {
             mainView.headerColor = styleMusic.common.black
             mainView.backgroundColor = styleMusic.common.black
         } else {
-            mainView.headerColor = "#1e1e23"
-            mainView.backgroundColor = "#1e1e23"
+            mainView.headerColor = styleMusic.mainView.headerColor
+            mainView.backgroundColor = styleMusic.mainView.backgroundColor
         }
     }
 
@@ -375,7 +375,7 @@ MusicPage {
                 id: queueDelegate
                 ListItemWithActions {
                     id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : "#1e1e23"
+                    color: player.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
                     height: queueList.normalHeight
                     objectName: "nowPlayingListItem" + index
                     state: ""

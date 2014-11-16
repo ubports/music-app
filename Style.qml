@@ -61,9 +61,9 @@ QtObject {
     }
 
     property QtObject mainView: QtObject{
-        property color backgroundColor: "#A55263";
-        property color footerColor: "#D75669";
-        property color headerColor: "#57365E";
+        property color backgroundColor: "#1e1e23"
+        property color footerColor: backgroundColor
+        property color headerColor: backgroundColor
     }
 
     property QtObject nowPlaying: QtObject {
