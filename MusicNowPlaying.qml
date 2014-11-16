@@ -193,13 +193,16 @@ MusicPage {
 
     Item {
         id: fullview
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            topMargin: mainView.header.height
+        }
+        height: parent.height - mainView.header.height - units.gu(17)
         visible: !isListView
+        width: parent.width
 
         BlurredBackground {
             id: blurredBackground
-            anchors.top: parent.top
-            anchors.topMargin: mainView.header.height
             anchors.fill: parent
             art: albumImage.firstSource
 
@@ -209,17 +212,12 @@ MusicPage {
                     horizontalCenter: parent.horizontalCenter
                     top: parent.top
                 }
-                height: parent.height - nowPlayingWideAspectControlsBackground.height
+                height: parent.height
                 width: parent.width
 
                 CoverGrid {
                     id: albumImage
-                    anchors {
-                        centerIn: parent
-                        //horizontalCenter: parent.horizontalCenter
-                        //top: parent.top
-                        //topMargin: (parent.height - nowPlayingWideAspectLabelsBackground.height - size) / 2
-                    }
+                    anchors.centerIn: parent
                     covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
                     size: parent.width > parent.height ? parent.height : parent.width
                 }
@@ -227,18 +225,10 @@ MusicPage {
 
             Rectangle {
                 id: nowPlayingWideAspectLabelsBackground
-                anchors.bottom: nowPlayingWideAspectControlsBackground.top
+                anchors.bottom: parent.bottom
                 color: styleMusic.common.black
                 height: units.gu(10)
                 opacity: 0.6
-                width: parent.width
-            }
-
-            Rectangle {
-                id: nowPlayingWideAspectControlsBackground
-                anchors.bottom: parent.bottom
-                color: styleMusic.common.black
-                height: units.gu(27) - nowPlayingWideAspectLabelsBackground.height
                 width: parent.width
             }
 
@@ -284,238 +274,6 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "small"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
-                }
-            }
-
-
-            /* Full toolbar */
-            Item {
-                id: musicToolbarFullContainer
-                anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: units.gu(3)
-                width: blurredBackground.width
-
-                /* Progress bar component */
-                MouseArea {
-                    id: musicToolbarFullProgressContainer
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.gu(3)
-                    anchors.right: parent.right
-                    anchors.rightMargin: units.gu(3)
-                    anchors.top: blurredBackground.bottom
-                    anchors.topMargin: units.gu(2)
-                    height: units.gu(3)
-                    width: parent.width
-
-                    /* Position label */
-                    Label {
-                        id: musicToolbarFullPositionLabel
-                        anchors.top: progressSliderMusic.bottom
-                        anchors.topMargin: units.gu(-2)
-                        anchors.left: parent.left
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        fontSize: "small"
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        text: durationToString(player.position)
-                        verticalAlignment: Text.AlignVCenter
-                        width: units.gu(3)
-                    }
-
-                    Slider {
-                        id: progressSliderMusic
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        maximumValue: player.duration  // load value at startup
-                        objectName: "progressSliderShape"
-                        value: player.position  // load value at startup
-
-                        function formatValue(v) {
-                            if (seeking) {  // update position label while dragging
-                                musicToolbarFullPositionLabel.text = durationToString(v)
-                            }
-
-                            return durationToString(v)
-                        }
-
-                        property bool seeking: false
-                        property bool seeked: false
-
-                        onSeekingChanged: {
-                            if (seeking === false) {
-                                musicToolbarFullPositionLabel.text = durationToString(player.position)
-                            }
-                        }
-
-                        Component.onCompleted: {
-                            Theme.palette.selected.foreground = UbuntuColors.blue
-                        }
-
-                        onPressedChanged: {
-                            seeking = pressed
-
-                            if (!pressed) {
-                                seeked = true
-                                player.seek(value)
-
-                                musicToolbarFullPositionLabel.text = durationToString(value)
-                            }
-                        }
-
-                        Connections {
-                            target: player
-                            onPositionChanged: {
-                                // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
-                                if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                                    musicToolbarFullPositionLabel.text = durationToString(player.position)
-                                    musicToolbarFullDurationLabel.text = durationToString(player.duration)
-
-                                    progressSliderMusic.value = player.position
-                                    progressSliderMusic.maximumValue = player.duration
-                                }
-
-                                progressSliderMusic.seeked = false;
-                            }
-                            onStopped: {
-                                musicToolbarFullPositionLabel.text = durationToString(0);
-                                musicToolbarFullDurationLabel.text = durationToString(0);
-                            }
-                        }
-                    }
-
-                    /* Duration label */
-                    Label {
-                        id: musicToolbarFullDurationLabel
-                        anchors.top: progressSliderMusic.bottom
-                        anchors.topMargin: units.gu(-2)
-                        anchors.right: parent.right
-                        color: styleMusic.nowPlaying.labelSecondaryColor
-                        fontSize: "small"
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        text: durationToString(player.duration)
-                        verticalAlignment: Text.AlignVCenter
-                        width: units.gu(3)
-                    }
-                }
-
-                /* Repeat button */
-                MouseArea {
-                    id: nowPlayingRepeatButton
-                    anchors.right: nowPlayingPreviousButton.left
-                    anchors.rightMargin: units.gu(1)
-                    anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                    height: units.gu(6)
-                    opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
-                    width: height
-                    onClicked: player.repeat = !player.repeat
-
-                    Icon {
-                        id: repeatIcon
-                        height: units.gu(3)
-                        width: height
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: "white"
-                        name: "media-playlist-repeat"
-                        objectName: "repeatShape"
-                        opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
-                    }
-                }
-
-                /* Previous button */
-                MouseArea {
-                    id: nowPlayingPreviousButton
-                    anchors.right: nowPlayingPlayButton.left
-                    anchors.rightMargin: units.gu(1)
-                    anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                    height: units.gu(6)
-                    opacity: trackQueue.model.count === 0  ? .4 : 1
-                    width: height
-                    onClicked: player.previousSong()
-
-                    Icon {
-                        id: nowPlayingPreviousIndicator
-                        height: units.gu(3)
-                        width: height
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: "white"
-                        name: "media-skip-backward"
-                        objectName: "previousShape"
-                        opacity: 1
-                    }
-                }
-
-                /* Play/Pause button */
-                MouseArea {
-                    id: nowPlayingPlayButton
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: musicToolbarFullProgressContainer.bottom
-                    anchors.topMargin: units.gu(2)
-                    height: units.gu(12)
-                    width: height
-                    onClicked: player.toggle()
-
-                    Icon {
-                        id: nowPlayingPlayIndicator
-                        height: units.gu(6)
-                        width: height
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        opacity: emptyPage.noMusic ? .4 : 1
-                        color: "white"
-                        name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
-                        objectName: "playShape"
-                    }
-                }
-
-                /* Next button */
-                MouseArea {
-                    id: nowPlayingNextButton
-                    anchors.left: nowPlayingPlayButton.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                    height: units.gu(6)
-                    opacity: trackQueue.model.count === 0 ? .4 : 1
-                    width: height
-                    onClicked: player.nextSong()
-
-                    Icon {
-                        id: nowPlayingNextIndicator
-                        height: units.gu(3)
-                        width: height
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: "white"
-                        name: "media-skip-forward"
-                        objectName: "forwardShape"
-                        opacity: 1
-                    }
-                }
-
-                /* Shuffle button */
-                MouseArea {
-                    id: nowPlayingShuffleButton
-                    anchors.left: nowPlayingNextButton.right
-                    anchors.leftMargin: units.gu(1)
-                    anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                    height: units.gu(6)
-                    opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
-                    width: height
-                    onClicked: player.shuffle = !player.shuffle
-
-                    Icon {
-                        id: shuffleIcon
-                        height: units.gu(3)
-                        width: height
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: "white"
-                        name: "media-playlist-shuffle"
-                        objectName: "shuffleShape"
-                        opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
-                    }
                 }
             }
         }
@@ -708,5 +466,237 @@ MusicPage {
             }
         }
         visible: isListView
+    }
+
+    /* Full toolbar */
+    Rectangle {
+        id: musicToolbarFullContainer
+        anchors.bottom: parent.bottom
+        color: styleMusic.common.black
+        height: units.gu(17)
+        width: parent.width
+
+        /* Progress bar component */
+        MouseArea {
+            id: musicToolbarFullProgressContainer
+            anchors.left: parent.left
+            anchors.leftMargin: units.gu(3)
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(3)
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(2)
+            height: units.gu(3)
+            width: parent.width
+
+            /* Position label */
+            Label {
+                id: musicToolbarFullPositionLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
+                anchors.left: parent.left
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.position)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
+            }
+
+            Slider {
+                id: progressSliderMusic
+                anchors.left: parent.left
+                anchors.right: parent.right
+                maximumValue: player.duration  // load value at startup
+                objectName: "progressSliderShape"
+                value: player.position  // load value at startup
+
+                function formatValue(v) {
+                    if (seeking) {  // update position label while dragging
+                        musicToolbarFullPositionLabel.text = durationToString(v)
+                    }
+
+                    return durationToString(v)
+                }
+
+                property bool seeking: false
+                property bool seeked: false
+
+                onSeekingChanged: {
+                    if (seeking === false) {
+                        musicToolbarFullPositionLabel.text = durationToString(player.position)
+                    }
+                }
+
+                Component.onCompleted: {
+                    Theme.palette.selected.foreground = UbuntuColors.blue
+                }
+
+                onPressedChanged: {
+                    seeking = pressed
+
+                    if (!pressed) {
+                        seeked = true
+                        player.seek(value)
+
+                        musicToolbarFullPositionLabel.text = durationToString(value)
+                    }
+                }
+
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
+                        if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
+                            musicToolbarFullPositionLabel.text = durationToString(player.position)
+                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                            progressSliderMusic.value = player.position
+                            progressSliderMusic.maximumValue = player.duration
+                        }
+
+                        progressSliderMusic.seeked = false;
+                    }
+                    onStopped: {
+                        musicToolbarFullPositionLabel.text = durationToString(0);
+                        musicToolbarFullDurationLabel.text = durationToString(0);
+                    }
+                }
+            }
+
+            /* Duration label */
+            Label {
+                id: musicToolbarFullDurationLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
+                anchors.right: parent.right
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.duration)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
+            }
+        }
+
+        /* Repeat button */
+        MouseArea {
+            id: nowPlayingRepeatButton
+            anchors.right: nowPlayingPreviousButton.left
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            width: height
+            onClicked: player.repeat = !player.repeat
+
+            Icon {
+                id: repeatIcon
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-playlist-repeat"
+                objectName: "repeatShape"
+                opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            }
+        }
+
+        /* Previous button */
+        MouseArea {
+            id: nowPlayingPreviousButton
+            anchors.right: nowPlayingPlayButton.left
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: trackQueue.model.count === 0  ? .4 : 1
+            width: height
+            onClicked: player.previousSong()
+
+            Icon {
+                id: nowPlayingPreviousIndicator
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-skip-backward"
+                objectName: "previousShape"
+                opacity: 1
+            }
+        }
+
+        /* Play/Pause button */
+        MouseArea {
+            id: nowPlayingPlayButton
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: musicToolbarFullProgressContainer.bottom
+            anchors.topMargin: units.gu(2)
+            height: units.gu(12)
+            width: height
+            onClicked: player.toggle()
+
+            Icon {
+                id: nowPlayingPlayIndicator
+                height: units.gu(6)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                opacity: emptyPage.noMusic ? .4 : 1
+                color: "white"
+                name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+                objectName: "playShape"
+            }
+        }
+
+        /* Next button */
+        MouseArea {
+            id: nowPlayingNextButton
+            anchors.left: nowPlayingPlayButton.right
+            anchors.leftMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: trackQueue.model.count === 0 ? .4 : 1
+            width: height
+            onClicked: player.nextSong()
+
+            Icon {
+                id: nowPlayingNextIndicator
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-skip-forward"
+                objectName: "forwardShape"
+                opacity: 1
+            }
+        }
+
+        /* Shuffle button */
+        MouseArea {
+            id: nowPlayingShuffleButton
+            anchors.left: nowPlayingNextButton.right
+            anchors.leftMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            width: height
+            onClicked: player.shuffle = !player.shuffle
+
+            Icon {
+                id: shuffleIcon
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-playlist-shuffle"
+                objectName: "shuffleShape"
+                opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            }
+        }
     }
 }

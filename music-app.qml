@@ -879,7 +879,8 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing")
+        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
+                 mainPageStack.currentPage.title !== i18n.tr("Queue")
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
