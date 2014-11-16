@@ -51,8 +51,15 @@ MusicPage {
         }
     }
 
-    onVisibleChanged: visible ? mainView.headerColor = "#000000"
-                              : mainView.headerColor = "#1e1e23"
+    onVisibleChanged: {
+        if (visible) {
+            mainView.headerColor = styleMusic.common.black
+            mainView.backgroundColor = styleMusic.common.black
+        } else {
+            mainView.headerColor = "#1e1e23"
+            mainView.backgroundColor = "#1e1e23"
+        }
+    }
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
@@ -368,7 +375,7 @@ MusicPage {
                 id: queueDelegate
                 ListItemWithActions {
                     id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : mainView.backgroundColor
+                    color: player.currentIndex === index ? "#2c2c34" : "#1e1e23"
                     height: queueList.normalHeight
                     objectName: "nowPlayingListItem" + index
                     state: ""
