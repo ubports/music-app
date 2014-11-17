@@ -78,7 +78,7 @@ MusicPage {
             actions: [
                 Action {
                     objectName: "toggleView"
-                    iconName: "media-playlist"
+                    iconName: "swap"
                     onTriggered: {
                         isListView = !isListView
                     }
@@ -87,13 +87,10 @@ MusicPage {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
                     text: i18n.tr("Add to playlist")
-                    visible: isListView
                     onTriggered: {
                         var items = []
 
-                        for (var i=0; i < trackQueue.model.count; i++) {
-                            items.push(makeDict(trackQueue.model.get(i)));
-                        }
+                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
@@ -110,7 +107,6 @@ MusicPage {
                     iconName: "delete"
                     objectName: "clearQueue"
                     text: i18n.tr("Clear queue")
-                    visible: isListView
                     onTriggered: {
                         pageStack.pop()
                         trackQueue.clear()
