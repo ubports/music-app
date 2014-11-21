@@ -24,6 +24,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
+import "common/Themes/Ambiance"
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
@@ -289,6 +290,7 @@ MusicPage {
                     anchors.right: parent.right
                     maximumValue: player.duration  // load value at startup
                     objectName: "progressSliderShape"
+                    style: UbuntuBlueSliderStyle {}
                     value: player.position  // load value at startup
 
                     function formatValue(v) {
@@ -306,10 +308,6 @@ MusicPage {
                         if (seeking === false) {
                             musicToolbarFullPositionLabel.text = durationToString(player.position)
                         }
-                    }
-
-                    Component.onCompleted: {
-                        Theme.palette.selected.foreground = UbuntuColors.blue
                     }
 
                     onPressedChanged: {
