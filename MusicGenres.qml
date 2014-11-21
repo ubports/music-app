@@ -39,6 +39,9 @@ MusicPage {
             }
             filter.property: "genre"
             filter.pattern: /\S+/
+            sort.property: "genre"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
 
         delegate: Card {

@@ -117,6 +117,7 @@ MusicPage {
             }
             sort.property: "title"
             sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
 
         Component.onCompleted: {
