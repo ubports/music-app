@@ -53,12 +53,6 @@ MusicPage {
 
             property string album: ""
 
-            AlbumsModel {
-                id: albumGenreModel
-                genre: model.genre
-                store: musicStore
-            }
-
             Repeater {
                 id: albumGenreModelRepeater
                 model: AlbumsModel {
