@@ -725,10 +725,18 @@ MainView {
         id: musicStore
     }
 
-    SongsModel {
+    SortFilterModel {
         id: allSongsModel
         objectName: "allSongsModel"
-        store: musicStore
+        property alias rowCount: allSongsModelModel.rowCount
+        model: SongsModel {
+            id: allSongsModelModel
+            objectName: "allSongsModelModel"
+            store: musicStore
+        }
+        sort.property: "title"
+        sort.order: Qt.AscendingOrder
+        sortCaseSensitivity: Qt.CaseInsensitive
     }
 
     SongsModel {
