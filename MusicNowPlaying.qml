@@ -201,7 +201,7 @@ MusicPage {
             top: parent.top
             topMargin: mainView.header.height
         }
-        height: parent.height - mainView.header.height - units.gu(12)
+        height: parent.height - mainView.header.height - units.gu(9.5)
         visible: !isListView
         width: parent.width
 
@@ -581,7 +581,7 @@ MusicPage {
         id: musicToolbarFullContainer
         anchors.bottom: parent.bottom
         color: styleMusic.common.black
-        height: units.gu(12)
+        height: units.gu(10)
         width: parent.width
 
         /* Repeat button */
@@ -638,7 +638,7 @@ MusicPage {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: musicToolbarFullProgressContainer.bottom
             anchors.topMargin: units.gu(1)
-            height: units.gu(12)
+            height: units.gu(10)
             width: height
             onClicked: player.toggle()
 
