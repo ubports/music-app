@@ -201,15 +201,20 @@ MusicPage {
             top: parent.top
             topMargin: mainView.header.height
         }
-        height: parent.height - mainView.header.height - units.gu(17)
+        height: parent.height - mainView.header.height - units.gu(12)
         visible: !isListView
         width: parent.width
 
         BlurredBackground {
             id: blurredBackground
-            anchors.fill: parent
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
             art: albumImage.firstSource
-
+            height: parent.height - units.gu(7)
+  
             Item {
                 id: albumImageContainer
                 anchors {
@@ -279,6 +284,107 @@ MusicPage {
                     fontSize: "small"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
                 }
+            }
+        }
+
+        /* Progress bar component */
+        MouseArea {
+            id: musicToolbarFullProgressContainer
+            anchors.left: parent.left
+            anchors.leftMargin: units.gu(3)
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(3)
+            anchors.top: blurredBackground.bottom
+            anchors.topMargin: units.gu(1)
+            height: units.gu(3)
+            width: parent.width
+
+            /* Position label */
+            Label {
+                id: musicToolbarFullPositionLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
+                anchors.left: parent.left
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.position)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
+            }
+
+            Slider {
+                id: progressSliderMusic
+                anchors.left: parent.left
+                anchors.right: parent.right
+                maximumValue: player.duration  // load value at startup
+                objectName: "progressSliderShape"
+                style: UbuntuBlueSliderStyle {}
+                value: player.position  // load value at startup
+
+                function formatValue(v) {
+                    if (seeking) {  // update position label while dragging
+                        musicToolbarFullPositionLabel.text = durationToString(v)
+                    }
+
+                    return durationToString(v)
+                }
+
+                property bool seeking: false
+                property bool seeked: false
+
+                onSeekingChanged: {
+                    if (seeking === false) {
+                        musicToolbarFullPositionLabel.text = durationToString(player.position)
+                    }
+                }
+
+                onPressedChanged: {
+                    seeking = pressed
+
+                    if (!pressed) {
+                        seeked = true
+                        player.seek(value)
+
+                        musicToolbarFullPositionLabel.text = durationToString(value)
+                    }
+                }
+
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
+                        if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
+                            musicToolbarFullPositionLabel.text = durationToString(player.position)
+                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                            progressSliderMusic.value = player.position
+                            progressSliderMusic.maximumValue = player.duration
+                        }
+
+                        progressSliderMusic.seeked = false;
+                    }
+                    onStopped: {
+                        musicToolbarFullPositionLabel.text = durationToString(0);
+                        musicToolbarFullDurationLabel.text = durationToString(0);
+                    }
+                }
+            }
+
+            /* Duration label */
+            Label {
+                id: musicToolbarFullDurationLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
+                anchors.right: parent.right
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.duration)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
             }
         }
     }
@@ -475,109 +581,8 @@ MusicPage {
         id: musicToolbarFullContainer
         anchors.bottom: parent.bottom
         color: styleMusic.common.black
-        height: units.gu(17)
+        height: units.gu(12)
         width: parent.width
-
-        /* Progress bar component */
-        MouseArea {
-            id: musicToolbarFullProgressContainer
-            anchors.left: parent.left
-            anchors.leftMargin: units.gu(3)
-            anchors.right: parent.right
-            anchors.rightMargin: units.gu(3)
-            anchors.top: parent.top
-            anchors.topMargin: units.gu(1)
-            height: units.gu(3)
-            width: parent.width
-
-            /* Position label */
-            Label {
-                id: musicToolbarFullPositionLabel
-                anchors.top: progressSliderMusic.bottom
-                anchors.topMargin: units.gu(-2)
-                anchors.left: parent.left
-                color: styleMusic.nowPlaying.labelSecondaryColor
-                fontSize: "small"
-                height: parent.height
-                horizontalAlignment: Text.AlignHCenter
-                text: durationToString(player.position)
-                verticalAlignment: Text.AlignVCenter
-                width: units.gu(3)
-            }
-
-            Slider {
-                id: progressSliderMusic
-                anchors.left: parent.left
-                anchors.right: parent.right
-                maximumValue: player.duration  // load value at startup
-                objectName: "progressSliderShape"
-                style: UbuntuBlueSliderStyle {}
-                value: player.position  // load value at startup
-
-                function formatValue(v) {
-                    if (seeking) {  // update position label while dragging
-                        musicToolbarFullPositionLabel.text = durationToString(v)
-                    }
-
-                    return durationToString(v)
-                }
-
-                property bool seeking: false
-                property bool seeked: false
-
-                onSeekingChanged: {
-                    if (seeking === false) {
-                        musicToolbarFullPositionLabel.text = durationToString(player.position)
-                    }
-                }
-
-                onPressedChanged: {
-                    seeking = pressed
-
-                    if (!pressed) {
-                        seeked = true
-                        player.seek(value)
-
-                        musicToolbarFullPositionLabel.text = durationToString(value)
-                    }
-                }
-
-                Connections {
-                    target: player
-                    onPositionChanged: {
-                        // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
-                        if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                            musicToolbarFullPositionLabel.text = durationToString(player.position)
-                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
-
-                            progressSliderMusic.value = player.position
-                            progressSliderMusic.maximumValue = player.duration
-                        }
-
-                        progressSliderMusic.seeked = false;
-                    }
-                    onStopped: {
-                        musicToolbarFullPositionLabel.text = durationToString(0);
-                        musicToolbarFullDurationLabel.text = durationToString(0);
-                    }
-                }
-            }
-
-            /* Duration label */
-            Label {
-                id: musicToolbarFullDurationLabel
-                anchors.top: progressSliderMusic.bottom
-                anchors.topMargin: units.gu(-2)
-                anchors.right: parent.right
-                color: styleMusic.nowPlaying.labelSecondaryColor
-                fontSize: "small"
-                height: parent.height
-                horizontalAlignment: Text.AlignHCenter
-                text: durationToString(player.duration)
-                verticalAlignment: Text.AlignVCenter
-                width: units.gu(3)
-            }
-        }
 
         /* Repeat button */
         MouseArea {
@@ -632,7 +637,7 @@ MusicPage {
             id: nowPlayingPlayButton
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: musicToolbarFullProgressContainer.bottom
-            anchors.topMargin: units.gu(2)
+            anchors.topMargin: units.gu(1)
             height: units.gu(12)
             width: height
             onClicked: player.toggle()
@@ -695,6 +700,40 @@ MusicPage {
                 name: "media-playlist-shuffle"
                 objectName: "shuffleShape"
                 opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            }
+        }
+
+        /* Object which provides the progress bar when in the queue */
+        Rectangle {
+            id: playerControlsProgressBar
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
+            color: styleMusic.common.black
+            height: units.gu(0.25)
+            visible: isListView
+
+            Rectangle {
+                id: playerControlsProgressBarHint
+                anchors {
+                    left: parent.left
+                    bottom: parent.bottom
+                }
+                color: UbuntuColors.blue
+                height: parent.height
+                width: 0
+
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
+                    }
+                    onStopped: {
+                        playerControlsProgressBarHint.width = 0;
+                    }
+                }
             }
         }
     }
