@@ -286,7 +286,7 @@ MusicPage {
                 right: parent.right
                 top: blurredBackground.bottom
             }
-            color: styleMusic.common.black
+            color: styleMusic.mainView.backgroundColor
         }
 
         /* Progress bar component */
@@ -582,7 +582,7 @@ MusicPage {
     Rectangle {
         id: musicToolbarFullContainer
         anchors.bottom: parent.bottom
-        color: styleMusic.common.black
+        color: styleMusic.mainView.backgroundColor
         height: units.gu(10)
         width: parent.width
 
@@ -707,7 +707,7 @@ MusicPage {
         Rectangle {
             id: playerControlsProgressBar
             anchors {
-                bottom: parent.bottom
+                top: parent.top
                 left: parent.left
                 right: parent.right
             }
