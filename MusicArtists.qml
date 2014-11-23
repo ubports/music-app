@@ -36,12 +36,18 @@ MusicPage {
 
     CardView {
         id: artistCardView
-        getter: function (i) { return {"artist": artistsModel.get(i, ArtistsModel.RoleArtist)}; }
         itemWidth: units.gu(12)
-        model: ArtistsModel {
-            id: artistsModel
-            albumArtists: true
-            store: musicStore
+        model: SortFilterModel {
+            id: artistsModelFilter
+            property alias rowCount: artistsModel.rowCount
+            model: ArtistsModel {
+                id: artistsModel
+                albumArtists: true
+                store: musicStore
+            }
+            sort.property: "artist"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: artistCard
