@@ -36,7 +36,6 @@ MusicPage {
 
     CardView {
         id: artistCardView
-        getter: function (i) { return {"artist": artistsModelFilter.get(i).artist}; }
         itemWidth: units.gu(12)
         model: SortFilterModel {
             id: artistsModelFilter
