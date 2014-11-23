@@ -635,9 +635,7 @@ MusicPage {
         /* Play/Pause button */
         MouseArea {
             id: nowPlayingPlayButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: musicToolbarFullProgressContainer.bottom
-            anchors.topMargin: units.gu(1)
+            anchors.centerIn: parent
             height: units.gu(10)
             width: height
             onClicked: player.toggle()
