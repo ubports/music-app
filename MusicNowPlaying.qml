@@ -288,7 +288,7 @@ MusicPage {
         }
 
         /* Progress bar component */
-        MouseArea {
+        Item {
             id: musicToolbarFullProgressContainer
             anchors.left: parent.left
             anchors.leftMargin: units.gu(3)
