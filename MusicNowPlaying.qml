@@ -52,16 +52,6 @@ MusicPage {
         }
     }
 
-    onVisibleChanged: {
-        if (visible) {
-            mainView.headerColor = styleMusic.common.black
-            mainView.backgroundColor = styleMusic.common.black
-        } else {
-            mainView.headerColor = styleMusic.mainView.headerColor
-            mainView.backgroundColor = styleMusic.mainView.backgroundColor
-        }
-    }
-
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
         if (queueListLoader.item.count === trackQueue.model.count) {
@@ -285,6 +275,18 @@ MusicPage {
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
                 }
             }
+        }
+
+        /* Background for progress bar component */
+        Rectangle {
+            id: musicToolbarFullProgressBackground
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                top: blurredBackground.bottom
+            }
+            color: styleMusic.common.black
         }
 
         /* Progress bar component */
