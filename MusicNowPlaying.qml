@@ -232,7 +232,7 @@ MusicPage {
                 anchors.bottom: parent.bottom
                 color: styleMusic.common.black
                 height: units.gu(10)
-                opacity: 0.6
+                opacity: 0.8
                 width: parent.width
             }
 
@@ -486,7 +486,7 @@ MusicPage {
             anchors.right: parent.right
             anchors.rightMargin: units.gu(3)
             anchors.top: parent.top
-            anchors.topMargin: units.gu(2)
+            anchors.topMargin: units.gu(1)
             height: units.gu(3)
             width: parent.width
 
