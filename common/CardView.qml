@@ -67,7 +67,7 @@ Flickable {
             anchors {
                 fill: parent
             }
-            columns: parseInt(cardViewFlickable.width / itemWidth)
+            columns: parseInt(cardViewFlickable.width / itemWidth) || 1  // never drop to 0
             flickable: cardViewFlickable
         }
     }
