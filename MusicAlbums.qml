@@ -53,7 +53,7 @@ MusicPage {
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.title,
-                                                      "artist": model.albumArtist,
+                                                      "artist": model.artist,
                                                       "covers": [{art: model.art}],
                                                       "isAlbum": true,
                                                       "genre": undefined,
