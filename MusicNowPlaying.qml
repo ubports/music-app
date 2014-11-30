@@ -275,6 +275,36 @@ MusicPage {
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
                 }
             }
+
+            /* Detect cover art swipe */
+            MouseArea {
+                anchors.fill: parent
+                property string direction: "None"
+                property real lastX: -1
+
+                onMouseXChanged: {
+                    var offset = (lastX - mouseX)
+                    if (Math.abs(offset) <= units.gu(4)) {
+                        return
+                    }
+                    lastX = mouseX
+                    direction = offset > 0 ? "RTL" : "LTR";
+                }
+
+                onPressed: {
+                    lastX = mouse.x
+                }
+
+                onReleased: {
+                    lastX = -1
+                    if (direction === "RTL") {
+                        player.nextSong()
+                    } else if (direction === "LTR") {
+                        player.previousSong()
+                    }
+                    direction = "None"
+                }
+            }
         }
 
         /* Background for progress bar component */
