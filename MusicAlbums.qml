@@ -39,6 +39,7 @@ MusicPage {
             }
             sort.property: "title"
             sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: albumCard

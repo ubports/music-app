@@ -79,7 +79,7 @@ MusicPage {
             secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready && recentAlbumSongs.get(0, SongsModel.RoleModelData).author != "" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : i18n.tr("Unknown Artist"))
 
             onClicked: {
-                if (type === "playlist") {
+                if (model.type === "playlist") {
                     albumTracksModel.filterPlaylistTracks(model.data)
                 }
 

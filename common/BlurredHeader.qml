@@ -54,7 +54,6 @@ ListItem.Standard {
             left: coversImage.right
             leftMargin: units.gu(2)
         }
-        asynchronous: true
     }
 
     Loader {
@@ -66,6 +65,5 @@ ListItem.Standard {
             top: coversImage.bottom
             topMargin: units.gu(1)
         }
-        asynchronous: true
     }
 }

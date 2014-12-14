@@ -1,9 +1,18 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013, 2014 Canonical
 #
-# This program is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License version 3, as published
-# by the Free Software Foundation.
+# Copyright (C) 2013, 2014 Canonical Ltd
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """Music app autopilot tests."""
 
@@ -18,16 +27,10 @@ import fixtures
 from music_app import MusicApp
 
 from autopilot import logging as autopilot_logging
-from autopilot.input import Mouse, Touch
-from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
 import ubuntuuitoolkit
-from ubuntuuitoolkit import (
-    base,
-    fixture_setup as toolkit_fixtures
-)
-
+from ubuntuuitoolkit import base
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +41,6 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
     music-app tests.
 
     """
-    if model() == 'Desktop':
-        scenarios = [('with mouse', dict(input_device_class=Mouse))]
-    else:
-        scenarios = [('with touch', dict(input_device_class=Touch))]
 
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
@@ -62,10 +61,9 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
     def setUp(self):
         super(BaseTestCaseWithPatchedHome, self).setUp()
-        _, test_type = self.get_launcher_method_and_type()
-        self.home_dir = self._patch_home(test_type)
-
-        self._create_music_library(test_type)
+        self.launcher, self.test_type = self.get_launcher_method_and_type()
+        self.home_dir = self._patch_home()
+        self._create_music_library()
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
@@ -108,63 +106,28 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
                                    '.Xauthority')),
                 os.path.join(directory, '.Xauthority'))
 
-    def _patch_home(self, test_type):
+    def _patch_home(self):
         """ mock /home for testing purposes to preserve user data
         """
 
-        original_home = os.environ.get('HOME')
-        original_ual = os.environ.get('UBUNTU_APP_LAUNCH_LINK_FARM')
+        # if running on non-phablet device,
+        # run in temp folder to avoid mucking up home
+        # bug 1316746
+        # bug 1376423
+        if self.test_type is 'click':
+            # just use home for now on devices
+            temp_dir = os.environ.get('HOME')
 
-        # click requires apparmor profile, and writing to special dir
-        # but the desktop can write to a traditional /tmp directory
-        if test_type == 'click':
-            env_dir = os.path.join(os.environ.get('HOME'), 'autopilot',
-                                   'fakeenv')
+            # before each test, remove the app's databases
+            local_dir = os.path.join(temp_dir, '.local/share/com.ubuntu.music')
 
-            if not os.path.exists(env_dir):
-                os.makedirs(env_dir)
+            if (os.path.exists(local_dir)):
+                shutil.rmtree(local_dir)
 
-            temp_dir_fixture = fixtures.TempDir(env_dir)
-            self.useFixture(temp_dir_fixture)
+            local_dir = os.path.join(temp_dir, '.config/com.ubuntu.music')
 
-            # apparmor doesn't allow the app to create needed directories,
-            # so we create them now
-            temp_dir = temp_dir_fixture.path
-            temp_dir_cache = os.path.join(temp_dir, '.cache')
-            temp_dir_cache_font = os.path.join(temp_dir_cache, 'fontconfig')
-            temp_dir_cache_media = os.path.join(temp_dir_cache, 'media-art')
-            temp_dir_cache_write = os.path.join(temp_dir_cache,
-                                                'tncache-write-text.null')
-            temp_dir_config = os.path.join(temp_dir, '.config')
-            temp_dir_toolkit = os.path.join(temp_dir_config,
-                                            'ubuntu-ui-toolkit')
-            temp_dir_font = os.path.join(temp_dir_cache, '.fontconfig')
-            temp_dir_local = os.path.join(temp_dir, '.local', 'share')
-            temp_dir_confined = os.path.join(temp_dir, 'confined')
-
-            if not os.path.exists(temp_dir_cache):
-                os.makedirs(temp_dir_cache)
-            if not os.path.exists(temp_dir_cache_font):
-                os.makedirs(temp_dir_cache_font)
-            if not os.path.exists(temp_dir_cache_media):
-                os.makedirs(temp_dir_cache_media)
-            if not os.path.exists(temp_dir_cache_write):
-                os.makedirs(temp_dir_cache_write)
-            if not os.path.exists(temp_dir_config):
-                os.makedirs(temp_dir_config)
-            if not os.path.exists(temp_dir_toolkit):
-                os.makedirs(temp_dir_toolkit)
-            if not os.path.exists(temp_dir_font):
-                os.makedirs(temp_dir_font)
-            if not os.path.exists(temp_dir_local):
-                os.makedirs(temp_dir_local)
-            if not os.path.exists(temp_dir_confined):
-                os.makedirs(temp_dir_confined)
-
-            # before we set fixture, copy xauthority if needed
-            self._copy_xauthority_file(temp_dir)
-            self.useFixture(toolkit_fixtures.InitctlEnvironmentVariable(
-                            HOME=temp_dir))
+            if (os.path.exists(local_dir)):
+                shutil.rmtree(local_dir)
         else:
             temp_dir_fixture = fixtures.TempDir()
             self.useFixture(temp_dir_fixture)
@@ -175,29 +138,11 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             self.useFixture(fixtures.EnvironmentVariable('HOME',
                                                          newvalue=temp_dir))
 
-        def undo_patch(key, value):
-            logging.info(
-                "Resetting environment variable '%s' to '%s'",
-                key,
-                value
-            )
-
-            os.environ[key] = value
-
-        # TODO: Remove code once pad.lv/1370800 is fixed
-        os.environ["HOME"] = temp_dir
-        os.environ["UBUNTU_APP_LAUNCH_LINK_FARM"] = original_home + "/.cache" \
-            "/ubuntu-app-launch/desktop"
-
-        self.addCleanup(undo_patch, "HOME", original_home)
-        self.addCleanup(undo_patch, "UBUNTU_APP_LAUNCH_LINK_FARM",
-                        original_ual or "")
-
-        logger.debug("Patched home to fake home directory %s" % temp_dir)
+            logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
 
-    def _create_music_library(self, test_type):
-        logger.debug("Creating music library for %s test" % test_type)
+    def _create_music_library(self):
+        logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
         logger.debug("Music path set to %s" % musicpath)
@@ -217,21 +162,18 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
         shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-        shutil.copytree(
-            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
 
         logger.debug("Music copied, files " + str(os.listdir(musicpath)))
 
-        self._patch_mediascanner_home(mediascannerpath)
+        if self.test_type is not 'click':
+            self._patch_mediascanner_home(content_dir, mediascannerpath)
 
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
-
-    def _patch_mediascanner_home(self, mediascannerpath):
+    def _patch_mediascanner_home(self, content_dir, mediascannerpath):
         # do some inline db patching
         # patch mediaindex to proper home
         # these values are dependent upon our sampled db
+        shutil.copytree(
+            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
         logger.debug("Patching fake mediascanner database in %s" %
                      mediascannerpath)
         logger.debug(
@@ -250,6 +192,10 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         cur = con.cursor()
         cur.executescript(sql)
         con.close()
+
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _file_find_replace(self, in_filename, find, replace):
         # replace all occurences of string find with string replace
@@ -273,5 +219,4 @@ class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
     def setUp(self):
         super(MusicAppTestCase, self).setUp()
-        launcher_method, _ = self.get_launcher_method_and_type()
-        self.app = MusicApp(launcher_method())
+        self.app = MusicApp(self.launcher())

@@ -47,6 +47,7 @@ MainView {
         category: "StartupSettings"
 
         property int queueIndex: 0
+        property int tabIndex: -1
     }
 
     // Global keyboard shortcuts
@@ -231,9 +232,6 @@ MainView {
         }
 
         function process(uri, play) {
-            // stop loading the queue as we will load from uriHandler
-            queueLoaderWorker.canLoad = false
-
             if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
@@ -555,9 +553,11 @@ MainView {
         // initialize playlists
         Playlists.initializePlaylist()
 
-        // allow the queue loader to start
-        queueLoaderWorker.canLoad = !Library.isQueueEmpty()
-        queueLoaderWorker.list = Library.getQueue()
+        if (!args.values.url) {
+            // allow the queue loader to start
+            queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+            queueLoaderWorker.list = Library.getQueue()
+        }
 
         // everything else
         loading.visible = true
@@ -565,10 +565,12 @@ MainView {
         // push the page to view
         mainPageStack.push(tabs)
 
-        loadedUI = true;
+        // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = startupSettings.tabIndex === -1 || startupSettings.tabIndex > tabs.count - 1
+                ? (Library.isRecentEmpty() ? albumsTab.index : startTab.index)
+                : startupSettings.tabIndex
 
-        // goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = Library.isRecentEmpty() ? albumsTab.index : startTab.index
+        loadedUI = true;
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -609,6 +611,7 @@ MainView {
         }
 
         var items = []
+        var previousQueueSize = trackQueue.model.count
 
         for (var i=0; i < model.rowCount; i++) {
             items.push(model.get(i, model.RoleModelData))
@@ -617,7 +620,7 @@ MainView {
         }
 
         // Add model to queue storage
-        Library.addQueueList(items);
+        Library.addQueueList(previousQueueSize, items);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -722,10 +725,18 @@ MainView {
         id: musicStore
     }
 
-    SongsModel {
+    SortFilterModel {
         id: allSongsModel
         objectName: "allSongsModel"
-        store: musicStore
+        property alias rowCount: allSongsModelModel.rowCount
+        model: SongsModel {
+            id: allSongsModelModel
+            objectName: "allSongsModelModel"
+            store: musicStore
+        }
+        sort.property: "title"
+        sort.order: Qt.AscendingOrder
+        sortCaseSensitivity: Qt.CaseInsensitive
     }
 
     SongsModel {
@@ -738,7 +749,7 @@ MainView {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
 
                     // Add album to recent list
-                    Library.addRecent(songsAlbumArtistModel.model.get(0, model.RoleModelData).album, "album")
+                    Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")
                     recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
@@ -892,6 +903,12 @@ MainView {
             id: tabs
             anchors {
                 fill: parent
+            }
+
+            onSelectedTabIndexChanged: {
+                if (loadedUI) {  // store the tab index if changed by the user
+                    startupSettings.tabIndex = selectedTabIndex
+                }
             }
 
             // First tab is all music
@@ -1118,7 +1135,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && playlistTab.index === tabs.selectedTab.index
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent

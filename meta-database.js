@@ -34,8 +34,8 @@ function clearQueue() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('DROP TABLE IF EXISTS queue');
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
+            createQueue();
+            tx.executeSql('DELETE FROM queue');
       });
 }
 
@@ -56,12 +56,12 @@ function addQueueItem(ind,filename) {
     );
 }
 
-function addQueueList(items) {
+function addQueueList(ind, items) {
     var db = getDatabase();
 
     db.transaction(function(tx) {
         for (var i = 0; i < items.length; i++) {
-            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i, items[i].filename]);
+            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
         }
     }
     );

@@ -23,7 +23,6 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
@@ -38,10 +37,17 @@ MusicPage {
     CardView {
         id: artistCardView
         itemWidth: units.gu(12)
-        model: ArtistsModel {
-            id: artistsModel
-            albumArtists: true
-            store: musicStore
+        model: SortFilterModel {
+            id: artistsModelFilter
+            property alias rowCount: artistsModel.rowCount
+            model: ArtistsModel {
+                id: artistsModel
+                albumArtists: true
+                store: musicStore
+            }
+            sort.property: "artist"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: artistCard

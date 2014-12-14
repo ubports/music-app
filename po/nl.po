@@ -1,294 +1,168 @@
 # Dutch translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-24 17:44+0000\n"
+"POT-Creation-Date: 2014-11-03 18:04-0600\n"
+"PO-Revision-Date: 2014-11-19 20:31+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-11-20 06:44+0000\n"
+"X-Generator: Launchpad (build 17252)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Meld u aan om te kunnen scrobblen."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Aanmelden"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Bezig met aanmelden…"
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "U bent succesvol aangemeld"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Aanmelden is mislukt"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "U bent vergeten uw gebruikersnaam en/of uw wachtwoord in te stellen"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Albums"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:47 ../MusicStart.qml:78 ../common/AlbumsPage.qml:135
+#: ../common/AlbumsPage.qml:149 ../common/SongsPage.qml:347
+msgid "Unknown Album"
+msgstr "Onbekend album"
+
+#: ../MusicAlbums.qml:48 ../MusicArtists.qml:50 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:96 ../common/AlbumsPage.qml:148
+#: ../common/SongsPage.qml:368
+msgid "Unknown Artist"
+msgstr "Onbekende artiest"
+
+#: ../MusicAlbums.qml:59 ../MusicStart.qml:95 ../common/AlbumsPage.qml:147
 msgid "Album"
 msgstr "Album"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:36
 msgid "Artists"
 msgstr "Artiesten"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 album"
-msgstr[1] "%1 albums"
+#: ../MusicArtists.qml:80
+msgid "Artist"
+msgstr "Artiest"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Genres"
+
+#: ../MusicGenres.qml:92 ../MusicGenres.qml:94 ../common/SongsPage.qml:286
+#: ../common/SongsPage.qml:320 ../common/SongsPage.qml:334
+#: ../common/SongsPage.qml:370 ../common/SongsPage.qml:389
+#: ../common/SongsPage.qml:421
+msgid "Genre"
+msgstr "Genre"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:691
+#: ../music-app.qml:1035 ../music-app.qml:1047 ../music-app.qml:1075
+#: ../music-app.qml:1076
+msgid "Queue"
+msgstr "Wachtrij"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:883
+#: ../music-app.qml:1034 ../music-app.qml:1075 ../music-app.qml:1076
+msgid "Now playing"
+msgstr "Nu aan het afspelen"
+
+#: ../MusicNowPlaying.qml:100 ../MusicNowPlaying.qml:161 ../MusicTracks.qml:61
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../common/SongsPage.qml:148
+msgid "Add to playlist"
+msgstr "Aan afspeellijst toevoegen"
+
+#: ../MusicNowPlaying.qml:123
+msgid "Clear queue"
+msgstr "Wachtrij wissen"
+
+#: ../MusicNowPlaying.qml:142 ../MusicTracks.qml:42
+#: ../common/SongsPage.qml:129
+msgid "Cancel selection"
+msgstr "Selectie ongedaan maken"
+
+#: ../MusicNowPlaying.qml:148 ../MusicTracks.qml:49
+#: ../common/SongsPage.qml:136
+msgid "Select All"
+msgstr "Alles selecteren"
+
+#: ../MusicNowPlaying.qml:184 ../common/SongsPage.qml:183
+msgid "Delete"
+msgstr "Verwijderen"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:91
+#: ../common/SongsPage.qml:67
+msgid "Playlists"
+msgstr "Afspeellijsten"
+
+#: ../MusicPlaylists.qml:73 ../MusicaddtoPlaylist.qml:81
+#: ../common/SongsPage.qml:390 ../common/SongsPage.qml:391
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 nummer"
 msgstr[1] "%1 nummers"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Artiest"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Nu aan het afspelen"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Afspeellijsten"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Nieuwe afspeellijst"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Naam wijzigen"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Voer de nieuwe naam in van de afspeellijst"
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Wijzigen"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Afspeellijst bestaat al"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Voer een naam in."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:86 ../MusicPlaylists.qml:87 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:87 ../common/SongsPage.qml:184
+#: ../common/SongsPage.qml:288 ../common/SongsPage.qml:322
+#: ../common/SongsPage.qml:333 ../common/SongsPage.qml:369
+#: ../common/SongsPage.qml:405 ../common/SongsPage.qml:408
+#: ../common/SongsPage.qml:423
 msgid "Playlist"
 msgstr "Afspeellijst"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Zoeken"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Instellingen"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Equalizer"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Standaardwaarde"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Akoestisch"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Klassiek"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Elektronisch"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Vlak"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hiphop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metal"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Aangepast"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Naar huidig nummer springen \n"
-"bij openen van werkbalk"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Accounts"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Meld u aan om te kunnen scrobblen en afspeellijsten te importeren"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Muziek streamen"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Meld u aan om uw cloudmuziek te streamen"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Alleen streamen bij een Wi-Fiverbinding"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Alles wissen!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Muziek"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:99
+#: ../common/SongsPage.qml:77
 msgid "Recent"
 msgstr "Recent"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Geschiedenis wissen"
+#: ../MusicToolbar.qml:148
+msgid "Tap to shuffle music"
+msgstr "Tik om muziek willekeurig af te spelen"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Genres"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Genre"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Tik op afspelen om muziek willekeurig af te spelen"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Nummers"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Selecteer een afspeellijst"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Alles afspelen"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:84 ../common/SongsPage.qml:171
 msgid "Add to queue"
 msgstr "Toevoegen aan wachtrij"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Aan afspeellijst toevoegen"
+#: ../MusicaddtoPlaylist.qml:42
+msgid "Select playlist"
+msgstr "Selecteer een afspeellijst"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../MusicaddtoPlaylist.qml:52
+msgid "New playlist"
+msgstr "Nieuwe afspeellijst"
+
+#: ../common/AlbumsPage.qml:55 ../common/SongsPage.qml:281
+msgid "Shuffle"
+msgstr "Willekeurig"
+
+#: ../common/AlbumsPage.qml:69 ../common/SongsPage.qml:307
+msgid "Queue all"
+msgstr "Alles in wachtrij zetten"
+
+#: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:315
+msgid "Play all"
+msgstr "Alles afspelen"
+
+#: ../common/AlbumsPage.qml:115
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 album"
+msgstr[1] "%1 albums"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Toevoegen aan wachtrij"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Verwijderen"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Bewerken"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:560
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -296,141 +170,185 @@ msgstr "Verwijderen"
 msgid "Loading..."
 msgstr "Bezig met laden…"
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Wissen"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:493
+msgid "Change name"
+msgstr "Naam wijzigen"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Onbekend album"
+#: ../common/SongsPage.qml:494
+msgid "Enter the new name of the playlist."
+msgstr "Voer de nieuwe naam in van de afspeellijst"
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Onbekende artiest"
+#: ../common/SongsPage.qml:511
+msgid "Change"
+msgstr "Wijzigen"
 
-#: ../music-app.qml:142
+#: ../common/SongsPage.qml:532 ../music-app.qml:863
+msgid "Playlist already exists"
+msgstr "Afspeellijst bestaat al"
+
+#: ../common/SongsPage.qml:536 ../music-app.qml:868
+msgid "Please type in a name."
+msgstr "Voer een naam in."
+
+#: ../common/SongsPage.qml:541 ../common/SongsPage.qml:579
+#: ../music-app.qml:492 ../music-app.qml:874
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:554
+msgid "Are you sure?"
+msgstr "Weet u het zeker?"
+
+#: ../common/SongsPage.qml:555
+msgid "This will delete your playlist."
+msgstr "Hierdoor zal uw afspeellijst verwijderd worden."
+
+#: ../music-app.qml:94 ../music-app.qml:140 ../music-app.qml:146
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../music-app.qml:141
 msgid "Search Track"
 msgstr "Nummer zoeken"
 
-#: ../music-app.qml:154
+#: ../music-app.qml:153
 msgid "Next"
 msgstr "Volgende"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:154
 msgid "Next Track"
 msgstr "Volgend nummer"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Pause"
 msgstr "Pauzeren"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Play"
 msgstr "Afspelen"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Pause Playback"
 msgstr "Afspelen pauzeren"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Continue or start playback"
 msgstr "Afspelen starten of voortzetten"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:167
 msgid "Back"
 msgstr "Terug"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:168
 msgid "Go back to last page"
 msgstr "Ga terug naar vorige pagina"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:176
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:177
 msgid "Previous Track"
 msgstr "Vorig nummer"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:182
 msgid "Stop"
 msgstr "Stoppen"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:183
 msgid "Stop Playback"
 msgstr "Afspelen stoppen"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Muziekinstellingen"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:335
 msgid "Filepath must start with"
 msgstr "Het pad naar het bestand moet starten met"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:361
 msgid "Filepath must be a file"
 msgstr "Het doel moet een bestand zijn"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:367
 msgid "Failed to move file"
 msgstr "Kon bestand niet verplaatsen"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:446
 msgid "Waiting for file(s)..."
 msgstr "Wachten op bestand(en)…"
 
-#: ../music-app.qml:466
+#: ../music-app.qml:465
 msgid "OK"
 msgstr "Ok"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:478
 msgid "Imported file not found"
 msgstr "Geïmporteerd bestand niet gevonden"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:482
 msgid "Wait"
 msgstr "Wachten"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:503
 msgid "songs played today"
 msgstr "Vandaag afgespeelde nummers"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:504
 msgid "No songs played today"
 msgstr "Er zijn vandaag geen nummers afgespeeld"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:582 ../music-app.qml:1071
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Muziek"
+
+#: ../music-app.qml:600
 msgid "Debug: "
 msgstr "Foutopsporing: "
 
-#: ../music-app.qml:925
+#: ../music-app.qml:832
 msgid "New Playlist"
 msgstr "Nieuwe afspeellijst"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:833
 msgid "Name your playlist."
 msgstr "Voer een naam in voor de afspeellijst."
 
-#: ../music-app.qml:930
+#: ../music-app.qml:837
 msgid "Name"
 msgstr "Naam"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:847
 msgid "Create"
 msgstr "Aanmaken"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1101
 msgid "No music found"
 msgstr "Geen muziek gevonden"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1108
 msgid "Please import music"
 msgstr "Importeer a.u.b muziek"
+
+#: ../music-app.qml:1131
+msgid "No playlists found"
+msgstr "Geen afspeellijsten gevonden"
+
+#: ../music-app.qml:1138
+msgid "Click the + to create a playlist"
+msgstr "Klik op de + om een afspeellijst aan te maken"
+
+#: ../music-app.qml:1161
+msgid "No recent albums or playlists found"
+msgstr "Geen recente albums of afspeellijsten gevonden"
+
+#: ../music-app.qml:1168
+msgid "Play some music to see your favorites"
+msgstr "Speel muziek af om uw favorieten te zien"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -441,3 +359,112 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;muziek;nummers;afspelen;liedjes;speler;d"
 "euntjes;"
+
+#~ msgid "Login"
+#~ msgstr "Aanmelden"
+
+#~ msgid "Password"
+#~ msgstr "Wachtwoord"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "U bent vergeten uw gebruikersnaam en/of uw wachtwoord in te stellen"
+
+#~ msgid "Username"
+#~ msgstr "Gebruikersnaam"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Meld u aan om te kunnen scrobblen."
+
+#~ msgid "Settings"
+#~ msgstr "Instellingen"
+
+#~ msgid "Clear"
+#~ msgstr "Wissen"
+
+#~ msgid "Classical"
+#~ msgstr "Klassiek"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Metal"
+#~ msgstr "Metal"
+
+#~ msgid "Custom"
+#~ msgstr "Aangepast"
+
+#~ msgid "Flat"
+#~ msgstr "Vlak"
+
+#~ msgid "Electronic"
+#~ msgstr "Elektronisch"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Naar huidig nummer springen \n"
+#~ "bij openen van werkbalk"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Muziek streamen"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Accounts"
+#~ msgstr "Accounts"
+
+#~ msgid "Music Settings"
+#~ msgstr "Muziekinstellingen"
+
+#~ msgid "Now Playing"
+#~ msgstr "Nu aan het afspelen"
+
+#~ msgid "Login Successful"
+#~ msgstr "U bent succesvol aangemeld"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Bezig met aanmelden…"
+
+#~ msgid "Login Failed"
+#~ msgstr "Aanmelden is mislukt"
+
+#~ msgid "Acoustic"
+#~ msgstr "Akoestisch"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hiphop"
+
+#~ msgid "Default"
+#~ msgstr "Standaardwaarde"
+
+#~ msgid "Equaliser"
+#~ msgstr "Equalizer"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Alles wissen!"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Meld u aan om uw cloudmuziek te streamen"
+
+#~ msgid "Clear History"
+#~ msgstr "Geschiedenis wissen"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Meld u aan om te kunnen scrobblen en afspeellijsten te importeren"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Alleen streamen bij een Wi-Fiverbinding"

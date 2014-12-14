@@ -24,6 +24,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
+import "common/Themes/Ambiance"
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
@@ -75,21 +76,10 @@ MusicPage {
             id: defaultState
 
             name: "default"
-            backAction: Action {
-                iconName: "back";
-                objectName: "backButton"
-                onTriggered: {
-                    mainPageStack.pop();
-
-                    while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
-                        mainPageStack.pop();
-                    }
-                }
-            }
             actions: [
                 Action {
                     objectName: "toggleView"
-                    iconName: "media-playlist"
+                    iconName: "swap"
                     onTriggered: {
                         isListView = !isListView
                     }
@@ -98,13 +88,10 @@ MusicPage {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
                     text: i18n.tr("Add to playlist")
-                    visible: isListView
                     onTriggered: {
                         var items = []
 
-                        for (var i=0; i < trackQueue.model.count; i++) {
-                            items.push(makeDict(trackQueue.model.get(i)));
-                        }
+                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
                         var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
@@ -121,9 +108,8 @@ MusicPage {
                     iconName: "delete"
                     objectName: "clearQueue"
                     text: i18n.tr("Clear queue")
-                    visible: isListView
                     onTriggered: {
-                        head.backAction.trigger()
+                        pageStack.pop()
                         trackQueue.clear()
                     }
                 }
@@ -306,6 +292,7 @@ MusicPage {
                     anchors.right: parent.right
                     maximumValue: player.duration  // load value at startup
                     objectName: "progressSliderShape"
+                    style: UbuntuBlueSliderStyle {}
                     value: player.position  // load value at startup
 
                     function formatValue(v) {
@@ -323,10 +310,6 @@ MusicPage {
                         if (seeking === false) {
                             musicToolbarFullPositionLabel.text = durationToString(player.position)
                         }
-                    }
-
-                    Component.onCompleted: {
-                        Theme.palette.selected.foreground = UbuntuColors.blue
                     }
 
                     onPressedChanged: {
@@ -587,7 +570,7 @@ MusicPage {
                 id: queueDelegate
                 ListItemWithActions {
                     id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : "transparent"
+                    color: player.currentIndex === index ? "#2c2c34" : mainView.backgroundColor
                     height: queueList.normalHeight
                     objectName: "nowPlayingListItem" + index
                     state: ""
