@@ -225,7 +225,7 @@ MusicPage {
         Item {
             id: musicToolbarFullContainer
             anchors.top: blurredBackground.bottom
-            anchors.topMargin: nowPlayingWideAspectTitle.lineCount == 1 ? units.gu(4) : units.gu(1.5)
+            anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(4) : units.gu(2)
             width: blurredBackground.width
 
             /* Column for labels in wideAspect */
@@ -281,7 +281,7 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(3)
                 anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: nowPlayingWideAspectTitle.lineCount == 1 ? units.gu(3) : units.gu(2)
+                anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(3) : units.gu(1.5)
                 height: units.gu(3)
                 width: parent.width
 
