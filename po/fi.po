@@ -1,295 +1,168 @@
 # Finnish translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-25 07:27+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
+"POT-Creation-Date: 2014-11-03 18:04-0600\n"
+"PO-Revision-Date: 2014-11-23 13:11+0000\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@canonical.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:51+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-11-24 06:39+0000\n"
+"X-Generator: Launchpad (build 17252)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Kirjaudu sisään lähettääksesi soittotietosi."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Käyttäjätunnus"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Salasana"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Kirjaudu"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Yritetään kirjautua..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Kirjautuminen onnistui"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Kirjautuminen epäonnistui"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Et antanut käyttäjätunnusta ja/tai salasanaa"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Levyt"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:47 ../MusicStart.qml:78 ../common/AlbumsPage.qml:135
+#: ../common/AlbumsPage.qml:149 ../common/SongsPage.qml:347
+msgid "Unknown Album"
+msgstr "Tuntematon levy"
+
+#: ../MusicAlbums.qml:48 ../MusicArtists.qml:50 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:96 ../common/AlbumsPage.qml:148
+#: ../common/SongsPage.qml:368
+msgid "Unknown Artist"
+msgstr "Tuntematon esittäjä"
+
+#: ../MusicAlbums.qml:59 ../MusicStart.qml:95 ../common/AlbumsPage.qml:147
 msgid "Album"
 msgstr "Levy"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:36
 msgid "Artists"
 msgstr "Esittäjät"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 levy"
-msgstr[1] "%1 levyä"
+#: ../MusicArtists.qml:80
+msgid "Artist"
+msgstr "Esittäjä"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Tyylilajit"
+
+#: ../MusicGenres.qml:92 ../MusicGenres.qml:94 ../common/SongsPage.qml:286
+#: ../common/SongsPage.qml:320 ../common/SongsPage.qml:334
+#: ../common/SongsPage.qml:370 ../common/SongsPage.qml:389
+#: ../common/SongsPage.qml:421
+msgid "Genre"
+msgstr "Tyylilaji"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:691
+#: ../music-app.qml:1035 ../music-app.qml:1047 ../music-app.qml:1075
+#: ../music-app.qml:1076
+msgid "Queue"
+msgstr "Jono"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:883
+#: ../music-app.qml:1034 ../music-app.qml:1075 ../music-app.qml:1076
+msgid "Now playing"
+msgstr "Nyt soi"
+
+#: ../MusicNowPlaying.qml:100 ../MusicNowPlaying.qml:161 ../MusicTracks.qml:61
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../common/SongsPage.qml:148
+msgid "Add to playlist"
+msgstr "Lisää soittolistalle"
+
+#: ../MusicNowPlaying.qml:123
+msgid "Clear queue"
+msgstr "Tyhjennä jono"
+
+#: ../MusicNowPlaying.qml:142 ../MusicTracks.qml:42
+#: ../common/SongsPage.qml:129
+msgid "Cancel selection"
+msgstr "Peru valinta"
+
+#: ../MusicNowPlaying.qml:148 ../MusicTracks.qml:49
+#: ../common/SongsPage.qml:136
+msgid "Select All"
+msgstr "Valitse kaikki"
+
+#: ../MusicNowPlaying.qml:184 ../common/SongsPage.qml:183
+msgid "Delete"
+msgstr "Poista"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:91
+#: ../common/SongsPage.qml:67
+msgid "Playlists"
+msgstr "Soittolistat"
+
+#: ../MusicPlaylists.qml:73 ../MusicaddtoPlaylist.qml:81
+#: ../common/SongsPage.qml:390 ../common/SongsPage.qml:391
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 kappale"
 msgstr[1] "%1 kappaletta"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Esittäjä"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Nyt soi"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Soittolistat"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Uusi soittolista"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Nimeä uudelleen"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Anna soittolistalle uusi nimi."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Muuta"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Soittolista on jo olemassa"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Anna nimi."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Peru"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:86 ../MusicPlaylists.qml:87 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:87 ../common/SongsPage.qml:184
+#: ../common/SongsPage.qml:288 ../common/SongsPage.qml:322
+#: ../common/SongsPage.qml:333 ../common/SongsPage.qml:369
+#: ../common/SongsPage.qml:405 ../common/SongsPage.qml:408
+#: ../common/SongsPage.qml:423
 msgid "Playlist"
 msgstr "Soittolista"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Etsi"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Asetukset"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Taajuuskorjain"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Oletus"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Akustinen"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Klassinen"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Elektroninen"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Tasainen"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metalli"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Mukautettu"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Siirry nykyiseen kappaleeseen \n"
-"työpalkupalkkia avatessa"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Tilit"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr ""
-"Kirjaudu sisään lähettääksesi toistotiedot ja tuodaksesi soittolistoja"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Musiikin suoratoisto"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Kirjaudu sisään suoratoistaaksesi musiikkia"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Suoratoista ainoastaan wifi-yhteydellä"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Tyhjennä kaikki!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Musiikki"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:99
+#: ../common/SongsPage.qml:77
 msgid "Recent"
 msgstr "Viimeisimmät"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Tyhjennä historia"
+#: ../MusicToolbar.qml:148
+msgid "Tap to shuffle music"
+msgstr "Kosketa sekoittaaksesi musiikkia"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Tyylilajit"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Tyylilaji"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Napauta toistoa sekoittaaksesi musiikin"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Kappaleet"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Valitse soittolista"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Toista kaikki"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:84 ../common/SongsPage.qml:171
 msgid "Add to queue"
 msgstr "Lisää jonoon"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Lisää soittolistalle"
+#: ../MusicaddtoPlaylist.qml:42
+msgid "Select playlist"
+msgstr "Valitse soittolista"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../MusicaddtoPlaylist.qml:52
+msgid "New playlist"
+msgstr "Uusi soittolista"
+
+#: ../common/AlbumsPage.qml:55 ../common/SongsPage.qml:281
+msgid "Shuffle"
+msgstr "Sekoita"
+
+#: ../common/AlbumsPage.qml:69 ../common/SongsPage.qml:307
+msgid "Queue all"
+msgstr "Kaikki jonoon"
+
+#: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:315
+msgid "Play all"
+msgstr "Toista kaikki"
+
+#: ../common/AlbumsPage.qml:115
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 levy"
+msgstr[1] "%1 levyä"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Lisää jonoon"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Poista"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Muokkaa"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:560
 msgid "Remove"
 msgstr "Poista"
 
@@ -297,141 +170,185 @@ msgstr "Poista"
 msgid "Loading..."
 msgstr "Ladataan..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Tyhjennä"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:493
+msgid "Change name"
+msgstr "Nimeä uudelleen"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Tuntematon levy"
+#: ../common/SongsPage.qml:494
+msgid "Enter the new name of the playlist."
+msgstr "Anna soittolistalle uusi nimi."
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Tuntematon esittäjä"
+#: ../common/SongsPage.qml:511
+msgid "Change"
+msgstr "Muuta"
 
-#: ../music-app.qml:142
+#: ../common/SongsPage.qml:532 ../music-app.qml:863
+msgid "Playlist already exists"
+msgstr "Soittolista on jo olemassa"
+
+#: ../common/SongsPage.qml:536 ../music-app.qml:868
+msgid "Please type in a name."
+msgstr "Anna nimi."
+
+#: ../common/SongsPage.qml:541 ../common/SongsPage.qml:579
+#: ../music-app.qml:492 ../music-app.qml:874
+msgid "Cancel"
+msgstr "Peru"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:554
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+#: ../common/SongsPage.qml:555
+msgid "This will delete your playlist."
+msgstr "Tämä poistaa soittolistan."
+
+#: ../music-app.qml:94 ../music-app.qml:140 ../music-app.qml:146
+msgid "Search"
+msgstr "Etsi"
+
+#: ../music-app.qml:141
 msgid "Search Track"
 msgstr "Etsi kappaletta"
 
-#: ../music-app.qml:154
+#: ../music-app.qml:153
 msgid "Next"
 msgstr "Seuraava"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:154
 msgid "Next Track"
 msgstr "Seuraava kappale"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Pause"
 msgstr "Keskeytä"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Play"
 msgstr "Toista"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Pause Playback"
 msgstr "Keskeytä toisto"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Continue or start playback"
 msgstr "Jatka tai käynnistä toisto"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:167
 msgid "Back"
 msgstr "Edellinen"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:168
 msgid "Go back to last page"
 msgstr "Takaisin edelliselle sivulle"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:176
 msgid "Previous"
 msgstr "Edellinen"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:177
 msgid "Previous Track"
 msgstr "Edellinen kappale"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:182
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:183
 msgid "Stop Playback"
 msgstr "Pysäytä toisto"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Musiikin asetukset"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:335
 msgid "Filepath must start with"
 msgstr "Tiedostopolun tulee alkaa"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:361
 msgid "Filepath must be a file"
 msgstr "Tiedostopolun tulee olla tiedosto"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:367
 msgid "Failed to move file"
 msgstr "Tiedoston siirtäminen ei onnistunut"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:446
 msgid "Waiting for file(s)..."
 msgstr "Odotetaan tiedostoja..."
 
-#: ../music-app.qml:466
+#: ../music-app.qml:465
 msgid "OK"
 msgstr "OK"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:478
 msgid "Imported file not found"
 msgstr "Tuotoa tiedostoa ei löydy"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:482
 msgid "Wait"
 msgstr "Odota"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:503
 msgid "songs played today"
 msgstr "kappaletta toistettu tänään"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:504
 msgid "No songs played today"
 msgstr "Kappaleita ei ole toistettu tänään"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:582 ../music-app.qml:1071
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Musiikki"
+
+#: ../music-app.qml:600
 msgid "Debug: "
 msgstr "Vianjäljitys: "
 
-#: ../music-app.qml:925
+#: ../music-app.qml:832
 msgid "New Playlist"
 msgstr "Uusi soittolista"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:833
 msgid "Name your playlist."
 msgstr "Anna soittolistalle nimi."
 
-#: ../music-app.qml:930
+#: ../music-app.qml:837
 msgid "Name"
 msgstr "Nimi"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:847
 msgid "Create"
 msgstr "Luo"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1101
 msgid "No music found"
 msgstr "Musiikkia ei löytynyt"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1108
 msgid "Please import music"
 msgstr "Tuo musiikkia"
+
+#: ../music-app.qml:1131
+msgid "No playlists found"
+msgstr "Soittolistoja ei ole."
+
+#: ../music-app.qml:1138
+msgid "Click the + to create a playlist"
+msgstr "Napsauta +-painiketta luodaksesi soittolistan"
+
+#: ../music-app.qml:1161
+msgid "No recent albums or playlists found"
+msgstr "Ei viimeaikaisia levyjä tai soittolistoja"
+
+#: ../music-app.qml:1168
+msgid "Play some music to see your favorites"
+msgstr "Soita musiikkia nähdäksesi suosikit"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -440,3 +357,113 @@ msgstr "Musiikkisovellus Ubuntulle"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "music;songs;play;tracks;player;tunes;musiikki;kappaleet;soitin;"
+
+#~ msgid "Login Successful"
+#~ msgstr "Kirjautuminen onnistui"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Yritetään kirjautua..."
+
+#~ msgid "Login"
+#~ msgstr "Kirjaudu"
+
+#~ msgid "Password"
+#~ msgstr "Salasana"
+
+#~ msgid "Login Failed"
+#~ msgstr "Kirjautuminen epäonnistui"
+
+#~ msgid "Username"
+#~ msgstr "Käyttäjätunnus"
+
+#~ msgid "Settings"
+#~ msgstr "Asetukset"
+
+#~ msgid "Clear"
+#~ msgstr "Tyhjennä"
+
+#~ msgid "Default"
+#~ msgstr "Oletus"
+
+#~ msgid "Equaliser"
+#~ msgstr "Taajuuskorjain"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Musiikin suoratoisto"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Accounts"
+#~ msgstr "Tilit"
+
+#~ msgid "Music Settings"
+#~ msgstr "Musiikin asetukset"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Et antanut käyttäjätunnusta ja/tai salasanaa"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Kirjaudu sisään lähettääksesi soittotietosi."
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Suoratoista ainoastaan wifi-yhteydellä"
+
+#~ msgid "Custom"
+#~ msgstr "Mukautettu"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Kirjaudu sisään suoratoistaaksesi musiikkia"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Edit"
+#~ msgstr "Muokkaa"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Tyhjennä kaikki!"
+
+#~ msgid "Metal"
+#~ msgstr "Metalli"
+
+#~ msgid "Electronic"
+#~ msgstr "Elektroninen"
+
+#~ msgid "Classical"
+#~ msgstr "Klassinen"
+
+#~ msgid "Now Playing"
+#~ msgstr "Nyt soi"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Siirry nykyiseen kappaleeseen \n"
+#~ "työpalkupalkkia avatessa"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr ""
+#~ "Kirjaudu sisään lähettääksesi toistotiedot ja tuodaksesi soittolistoja"
+
+#~ msgid "Clear History"
+#~ msgstr "Tyhjennä historia"
+
+#~ msgid "Acoustic"
+#~ msgstr "Akustinen"
+
+#~ msgid "Flat"
+#~ msgstr "Tasainen"

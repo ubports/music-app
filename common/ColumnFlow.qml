@@ -42,8 +42,7 @@ Item {
     onColumnWidthChanged: {
         if (restoring) {
             return;
-        }
-        else if (columns != columnHeights.length && visible) {
+        } else if (columns != columnHeights.length && visible) {
             // number of columns has changed so rebuild the columns
             rebuildColumns()
         } else {  // column width has changed update visible items properties linked to columnWidth

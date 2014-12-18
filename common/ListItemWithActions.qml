@@ -405,7 +405,7 @@ Item {
                        width: units.gu(3)
                        height: units.gu(3)
                        name: modelData.iconName
-                       color: root.activeAction === modelData ? UbuntuColors.orange : styleMusic.common.white  // CUSTOM
+                       color: root.activeAction === modelData ? UbuntuColors.blue : styleMusic.common.white  // CUSTOM
 
                        property bool primed: false  // CUSTOM
                    }
