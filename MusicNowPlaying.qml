@@ -226,7 +226,7 @@ MusicPage {
                 id: nowPlayingWideAspectLabelsBackground
                 anchors.bottom: parent.bottom
                 color: styleMusic.common.black
-                height: units.gu(10)
+                height: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(10) : units.gu(13)
                 opacity: 0.8
                 width: parent.width
             }
@@ -241,7 +241,7 @@ MusicPage {
                     right: parent.right
                     rightMargin: units.gu(2)
                     top: nowPlayingWideAspectLabelsBackground.top
-                    topMargin: units.gu(2)
+                    topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(2) : units.gu(1.5)
                 }
 
                 /* Title of track */
@@ -256,8 +256,10 @@ MusicPage {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "x-large"
+                    maximumLineCount: 2
                     objectName: "playercontroltitle"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
+                    wrapMode: Text.WordWrap
                 }
 
                 /* Artist of track */
