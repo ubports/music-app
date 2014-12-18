@@ -147,6 +147,7 @@ Item {
                         color: styleMusic.playerControls.labelColor
                         text: i18n.tr("Tap to shuffle music")
                         fontSize: "large"
+                        visible: !emptyPage.noMusic
                         wrapMode: Text.WordWrap
                         maximumLineCount: 2
                     }
