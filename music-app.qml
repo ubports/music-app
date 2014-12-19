@@ -1109,6 +1109,7 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
                 width: parent.width
 
                 Label {
@@ -1148,6 +1149,7 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
                 width: parent.width
 
                 Label {
@@ -1187,6 +1189,7 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
                 width: parent.width
 
                 Label {
