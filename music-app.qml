@@ -1109,20 +1109,29 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No music found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Please import music")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }
@@ -1139,20 +1148,29 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No playlists found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Click the + to create a playlist")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }
@@ -1169,20 +1187,29 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No recent albums or playlists found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Play some music to see your favorites")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }
