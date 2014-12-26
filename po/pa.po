@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-11-03 18:04-0600\n"
-"PO-Revision-Date: 2014-12-16 06:07+0000\n"
+"PO-Revision-Date: 2014-12-26 06:35+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-12-17 07:31+0000\n"
+"X-Launchpad-Export-Date: 2014-12-26 07:13+0000\n"
 "X-Generator: Launchpad (build 17286)\n"
 
 #: ../MusicAlbums.qml:29
@@ -74,17 +74,17 @@ msgstr "ਗੀਤ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ"
 
 #: ../MusicNowPlaying.qml:123
 msgid "Clear queue"
-msgstr ""
+msgstr "ਕਤਾਰ ਮਿਟਾਓ"
 
 #: ../MusicNowPlaying.qml:142 ../MusicTracks.qml:42
 #: ../common/SongsPage.qml:129
 msgid "Cancel selection"
-msgstr ""
+msgstr "ਚੋਣ ਮਿਟਾਓ"
 
 #: ../MusicNowPlaying.qml:148 ../MusicTracks.qml:49
 #: ../common/SongsPage.qml:136
 msgid "Select All"
-msgstr ""
+msgstr "ਸਭ ਚੁਣੋ"
 
 #: ../MusicNowPlaying.qml:184 ../common/SongsPage.qml:183
 msgid "Delete"
@@ -121,7 +121,7 @@ msgstr "ਤਾਜ਼ਾ"
 
 #: ../MusicToolbar.qml:148
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "ਸੰਗੀਤ ਸ਼ਫ਼ੱਲ ਲਈ ਛੂਹੋ"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
@@ -141,11 +141,11 @@ msgstr "ਨਵੀਂ ਗੀਤ ਸੂਚੀ"
 
 #: ../common/AlbumsPage.qml:55 ../common/SongsPage.qml:281
 msgid "Shuffle"
-msgstr ""
+msgstr "ਸ਼ਫ਼ੱਲ"
 
 #: ../common/AlbumsPage.qml:69 ../common/SongsPage.qml:307
 msgid "Queue all"
-msgstr ""
+msgstr "ਸਾਰਿਆਂ ਦੀ ਕਤਾਰ ਬਣਾਓ"
 
 #: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:315
 msgid "Play all"
@@ -199,11 +199,11 @@ msgstr "ਰੱਦ"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:554
 msgid "Are you sure?"
-msgstr ""
+msgstr "ਕੀ ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ?"
 
 #: ../common/SongsPage.qml:555
 msgid "This will delete your playlist."
-msgstr ""
+msgstr "ਇਹ ਤੁਹਾਡੀ ਪਲੇਸੂਚੀ ਮਿਟਾ ਦਵੇਗਾ।"
 
 #: ../music-app.qml:94 ../music-app.qml:140 ../music-app.qml:146
 msgid "Search"
@@ -264,7 +264,7 @@ msgstr "ਲਗਾਤਾਰ ਚੱਲਣਾ ਰੋਕੋ"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:335
 msgid "Filepath must start with"
-msgstr ""
+msgstr "ਫ਼ਾਈਲਰਸਤਾ ਸ਼ੁਰੂ ਹੋਣਾ ਚਾਹੀਦਾ ਨਾਲ"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:361
@@ -278,7 +278,7 @@ msgstr "ਫ਼ਾਈਲ ਖਿਸਕਾਉਣ ਵਿੱਚ ਫ਼ੇਲ੍ਹ ਹੋ�
 
 #: ../music-app.qml:446
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "ਫ਼ਾਈਲ(ਾਂ) ਦੀ ਉਡੀਕ..."
 
 #: ../music-app.qml:465
 msgid "OK"
@@ -336,19 +336,19 @@ msgstr "ਕਿਰਪਾ ਕਰਕੇ ਸੰਗੀਤ ਦੀ ਆਮਦ ਕਰੋ"
 
 #: ../music-app.qml:1131
 msgid "No playlists found"
-msgstr ""
+msgstr "ਕੋਈ ਪਲੇਸੂਚੀ ਨਹੀਂ ਮਿਲੀ"
 
 #: ../music-app.qml:1138
 msgid "Click the + to create a playlist"
-msgstr ""
+msgstr "ਪਲੇਸੂਚੀ ਬਣਾਉਣ ਲਈ + ਤੇ ਕਲਿੱਕ ਕਰੋ"
 
 #: ../music-app.qml:1161
 msgid "No recent albums or playlists found"
-msgstr ""
+msgstr "ਕੋਈ ਮੌਜੂਦਾ ਐਲਬਮ ਜਾਂ ਪਲੇਸੂਚੀ ਨਹੀਂ ਮਿਲੀ"
 
 #: ../music-app.qml:1168
 msgid "Play some music to see your favorites"
-msgstr ""
+msgstr "ਆਪਣੇ ਪਸੰਦੀਦਾ ਵੇਖਣ ਲਈ ਕੁੱਝ ਸੰਗੀਤ ਚਲਾਓ"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
