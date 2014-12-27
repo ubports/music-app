@@ -7,286 +7,162 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-23 02:51+0000\n"
+"POT-Creation-Date: 2014-11-03 18:04-0600\n"
+"PO-Revision-Date: 2014-12-26 22:17+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-27 06:16+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "ላስት.ኤፌም"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "ሙዚቃ ለማጫወት ይግቡ"
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "የተጠቃሚ ስም"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "የመግቢያ ቃል"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "መግቢያ"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "ለመግባት በመሞከር ላይ..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "ተሳክቶ ገብተዋል"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "መግባቱ አልተሳካም"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "የተጠቃሚ ስም እና የመግቢያ ቃል ማዘጋጀት ረስተዋል"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "አልበሞች"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:47 ../MusicStart.qml:78 ../common/AlbumsPage.qml:135
+#: ../common/AlbumsPage.qml:149 ../common/SongsPage.qml:347
+msgid "Unknown Album"
+msgstr "ያልታወቀ አልበም"
+
+#: ../MusicAlbums.qml:48 ../MusicArtists.qml:50 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:96 ../common/AlbumsPage.qml:148
+#: ../common/SongsPage.qml:368
+msgid "Unknown Artist"
+msgstr "ያልታወቀ ድምፃዊ"
+
+#: ../MusicAlbums.qml:59 ../MusicStart.qml:95 ../common/AlbumsPage.qml:147
 msgid "Album"
 msgstr "አልበም"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:36
 msgid "Artists"
 msgstr "ተዋንያን"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 አልበም"
-msgstr[1] "%1 አልበሞች"
+#: ../MusicArtists.qml:80
+msgid "Artist"
+msgstr "ተዋናይ"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "ምድብ"
+
+#: ../MusicGenres.qml:92 ../MusicGenres.qml:94 ../common/SongsPage.qml:286
+#: ../common/SongsPage.qml:320 ../common/SongsPage.qml:334
+#: ../common/SongsPage.qml:370 ../common/SongsPage.qml:389
+#: ../common/SongsPage.qml:421
+msgid "Genre"
+msgstr "መለያ"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:691
+#: ../music-app.qml:1035 ../music-app.qml:1047 ../music-app.qml:1075
+#: ../music-app.qml:1076
+msgid "Queue"
+msgstr "ወረፋ"
+
+#: ../MusicNowPlaying.qml:34 ../music-app.qml:659 ../music-app.qml:883
+#: ../music-app.qml:1034 ../music-app.qml:1075 ../music-app.qml:1076
+msgid "Now playing"
+msgstr "አሁን የሚጫወተው"
+
+#: ../MusicNowPlaying.qml:100 ../MusicNowPlaying.qml:161 ../MusicTracks.qml:61
+#: ../common/ListItemActions/AddToPlaylist.qml:25 ../common/SongsPage.qml:148
+msgid "Add to playlist"
+msgstr "ወደ ማጫወቻ ዝርዝር መጨመሪያ"
+
+#: ../MusicNowPlaying.qml:123
+msgid "Clear queue"
+msgstr "ወረፋውን ምጽጃ"
+
+#: ../MusicNowPlaying.qml:142 ../MusicTracks.qml:42
+#: ../common/SongsPage.qml:129
+msgid "Cancel selection"
+msgstr "ምርጫውን መሰረዣ"
+
+#: ../MusicNowPlaying.qml:148 ../MusicTracks.qml:49
+#: ../common/SongsPage.qml:136
+msgid "Select All"
+msgstr "ሁሉንም መምረጫ"
+
+#: ../MusicNowPlaying.qml:184 ../common/SongsPage.qml:183
+msgid "Delete"
+msgstr "ማጥፊያ"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:91
+#: ../common/SongsPage.qml:67
+msgid "Playlists"
+msgstr "የማጫወቻ ዝርዝር"
+
+#: ../MusicPlaylists.qml:73 ../MusicaddtoPlaylist.qml:81
+#: ../common/SongsPage.qml:390 ../common/SongsPage.qml:391
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 ዘፈን"
 msgstr[1] "%1 ዘፈኖች"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "ተዋናይ"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "አሁን የሚጫወተው"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "የማጫወቻ ዝርዝር"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "አዲስ የማጫወቻ ዝርዝር"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "ስም መቀየሪያ"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "አዲስ የማጫወቻ ዝርዝር ስም ያስገቡ"
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "መቀየሪያ"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "የማጫወቻው ዝርዝር ቀደም ሲል ነበር"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "እባክዎን ስም ይጻፉ"
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "መሰረዣ"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:86 ../MusicPlaylists.qml:87 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:87 ../common/SongsPage.qml:184
+#: ../common/SongsPage.qml:288 ../common/SongsPage.qml:322
+#: ../common/SongsPage.qml:333 ../common/SongsPage.qml:369
+#: ../common/SongsPage.qml:405 ../common/SongsPage.qml:408
+#: ../common/SongsPage.qml:423
 msgid "Playlist"
 msgstr "የማጫወቻ ዝርዝር"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "መፈለጊያ"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "ማሰናጃ"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "ማስተካከያ"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "ነባር"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "አኩስቲክ"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "ክላሲካል"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "ኤሌክትሮኒክ"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "ጠፍጣፋ"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "ሂፕ ሆፕ"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "ጃዝ"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "ሜታል"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "ፖፕ"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "ሮክ"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr ""
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "መግለጫ"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "ሙዚቃ ለማጫወት እና ለማምጣት ይግቡ"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "ሙዚቃ በማስተላለፍ ላይ"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "ኡቡንቱ ዋን"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr ""
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "በ ዋይ-ፋይ ብቻ ማስተላለፊያ"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "ሁሉንም ላጽዳ!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "ሙዚቃ"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:99
+#: ../common/SongsPage.qml:77
 msgid "Recent"
 msgstr "የቅርብ ጊዜ"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "ታሪክ ማጽጃ"
+#: ../MusicToolbar.qml:148
+msgid "Tap to shuffle music"
+msgstr "መታ ያድርጉ ሙዚቃውን ለመቀላቀል"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "ምድብ"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr ""
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr ""
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "ዘፈኖች"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "የማጫወቻ ዝርዝር ይምረጡ"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "ሁሉንም ማጫወቻ"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:84 ../common/SongsPage.qml:171
 msgid "Add to queue"
 msgstr "ወደ ተረኛ መጨመሪያ"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "ወደ ማጫወቻ ዝርዝር መጨመሪያ"
+#: ../MusicaddtoPlaylist.qml:42
+msgid "Select playlist"
+msgstr "የማጫወቻ ዝርዝር ይምረጡ"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../MusicaddtoPlaylist.qml:52
+msgid "New playlist"
+msgstr "አዲስ የማጫወቻ ዝርዝር"
+
+#: ../common/AlbumsPage.qml:55 ../common/SongsPage.qml:281
+msgid "Shuffle"
+msgstr "መበወዣ"
+
+#: ../common/AlbumsPage.qml:69 ../common/SongsPage.qml:307
+msgid "Queue all"
+msgstr "ሁሉንም ወረፋ ማስጠበቂያ"
+
+#: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:315
+msgid "Play all"
+msgstr "ሁሉንም ማጫወቻ"
+
+#: ../common/AlbumsPage.qml:115
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 አልበም"
+msgstr[1] "%1 አልበሞች"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "ወደ ወረፋ መጨመሪያ"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "ማጥፊያ"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "ማረሚያ"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:560
 msgid "Remove"
 msgstr "ማስወገጃ"
 
@@ -294,141 +170,185 @@ msgstr "ማስወገጃ"
 msgid "Loading..."
 msgstr "በመጫን ላይ..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "ማጽጃ"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:493
+msgid "Change name"
+msgstr "ስም መቀየሪያ"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "ያልታወቀ አልበም"
+#: ../common/SongsPage.qml:494
+msgid "Enter the new name of the playlist."
+msgstr "አዲስ የማጫወቻ ዝርዝር ስም ያስገቡ"
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "ያልታወቀ አርቲስት"
+#: ../common/SongsPage.qml:511
+msgid "Change"
+msgstr "መቀየሪያ"
 
-#: ../music-app.qml:142
+#: ../common/SongsPage.qml:532 ../music-app.qml:863
+msgid "Playlist already exists"
+msgstr "የማጫወቻው ዝርዝር ቀደም ሲል ነበር"
+
+#: ../common/SongsPage.qml:536 ../music-app.qml:868
+msgid "Please type in a name."
+msgstr "እባክዎን ስም ይጻፉ"
+
+#: ../common/SongsPage.qml:541 ../common/SongsPage.qml:579
+#: ../music-app.qml:492 ../music-app.qml:874
+msgid "Cancel"
+msgstr "መሰረዣ"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:554
+msgid "Are you sure?"
+msgstr "እርግጠኛ ነዎት?"
+
+#: ../common/SongsPage.qml:555
+msgid "This will delete your playlist."
+msgstr "ይህ የ እርስዎን ማጫወቻ ዝርዝር ያጠፋል"
+
+#: ../music-app.qml:94 ../music-app.qml:140 ../music-app.qml:146
+msgid "Search"
+msgstr "መፈለጊያ"
+
+#: ../music-app.qml:141
 msgid "Search Track"
 msgstr "ተረኛ መፈለጊያ"
 
-#: ../music-app.qml:154
+#: ../music-app.qml:153
 msgid "Next"
 msgstr "ይቀጥሉ"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:154
 msgid "Next Track"
 msgstr "የሚቀጥለው ተረኛ"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Pause"
 msgstr "ማስቆሚያ"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:160
 msgid "Play"
 msgstr "ማጫወቻ"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Pause Playback"
 msgstr "በድጋሚ ማጫወቱን ማስቆሚያ"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:162
 msgid "Continue or start playback"
 msgstr "በድጋሚ ማጫወቱን መቀጠያ ወይንም ማስጀመሪያ"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:167
 msgid "Back"
 msgstr "ወደ ኋላ"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:168
 msgid "Go back to last page"
 msgstr "ወደ መጨረሻው ገጽ መሄጃ"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:176
 msgid "Previous"
 msgstr "ቀደም ያለው"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:177
 msgid "Previous Track"
 msgstr "ቀደም ያለው ተረኛ"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:182
 msgid "Stop"
 msgstr "ማስቆሚያ"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:183
 msgid "Stop Playback"
 msgstr "በድጋሚ ማጫወቱን ማስቆሚያ"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "ሙዚቃ ማሰናጃ"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:335
 msgid "Filepath must start with"
-msgstr ""
+msgstr "የ ፋይል መንገድ መጀመር አለበት በ"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:361
 msgid "Filepath must be a file"
 msgstr "የ ፋይል መንገድ ፋይል መሆን አለበት"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:367
 msgid "Failed to move file"
 msgstr "ፋይሉን ማንቀሳቀስ አልተቻለም"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:446
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "በመጠበቅ ላይ ፋይል(ሎች)"
 
-#: ../music-app.qml:466
+#: ../music-app.qml:465
 msgid "OK"
 msgstr "እሺ"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:478
 msgid "Imported file not found"
 msgstr "የመጣውን ፋይል ማግኘት አልተቻለም"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:482
 msgid "Wait"
-msgstr ""
+msgstr "ይጠብቁ"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:503
 msgid "songs played today"
 msgstr ""
 
-#: ../music-app.qml:505
+#: ../music-app.qml:504
 msgid "No songs played today"
 msgstr "ዛሬ ምንም ዘፈን አልተጫወተም"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:582 ../music-app.qml:1071
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "ሙዚቃ"
+
+#: ../music-app.qml:600
 msgid "Debug: "
 msgstr ""
 
-#: ../music-app.qml:925
+#: ../music-app.qml:832
 msgid "New Playlist"
 msgstr "አዲስ የማጫወቻ ዝርዝር"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:833
 msgid "Name your playlist."
 msgstr "ለማጫወቻ ዝርዝር ስም ይስጡ"
 
-#: ../music-app.qml:930
+#: ../music-app.qml:837
 msgid "Name"
 msgstr "ስም"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:847
 msgid "Create"
 msgstr "መፍጠሪያ"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1101
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1108
 msgid "Please import music"
 msgstr "እባክዎን ሙዚቃ ያምጡ"
+
+#: ../music-app.qml:1131
+msgid "No playlists found"
+msgstr ""
+
+#: ../music-app.qml:1138
+msgid "Click the + to create a playlist"
+msgstr ""
+
+#: ../music-app.qml:1161
+msgid "No recent albums or playlists found"
+msgstr ""
+
+#: ../music-app.qml:1168
+msgid "Play some music to see your favorites"
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -437,3 +357,99 @@ msgstr "ለ ኡቡንቱ የሙዚቃ መተግበሪያ"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "ሙዚቃ:ዘፈኖች:ማጫወቻ:ተረኞች:ማጫወቻው:ዜማ:"
+
+#~ msgid "Login Successful"
+#~ msgstr "ተሳክቶ ገብተዋል"
+
+#~ msgid "Trying to login..."
+#~ msgstr "ለመግባት በመሞከር ላይ..."
+
+#~ msgid "Login"
+#~ msgstr "መግቢያ"
+
+#~ msgid "Password"
+#~ msgstr "የመግቢያ ቃል"
+
+#~ msgid "Login Failed"
+#~ msgstr "መግባቱ አልተሳካም"
+
+#~ msgid "Username"
+#~ msgstr "የተጠቃሚ ስም"
+
+#~ msgid "Now Playing"
+#~ msgstr "አሁን የሚጫወተው"
+
+#~ msgid "Settings"
+#~ msgstr "ማሰናጃ"
+
+#~ msgid "Acoustic"
+#~ msgstr "አኩስቲክ"
+
+#~ msgid "Classical"
+#~ msgstr "ክላሲካል"
+
+#~ msgid "Default"
+#~ msgstr "ነባር"
+
+#~ msgid "Electronic"
+#~ msgstr "ኤሌክትሮኒክ"
+
+#~ msgid "Pop"
+#~ msgstr "ፖፕ"
+
+#~ msgid "Rock"
+#~ msgstr "ሮክ"
+
+#~ msgid "Jazz"
+#~ msgstr "ጃዝ"
+
+#~ msgid "Metal"
+#~ msgstr "ሜታል"
+
+#~ msgid "Hip Hop"
+#~ msgstr "ሂፕ ሆፕ"
+
+#~ msgid "Flat"
+#~ msgstr "ጠፍጣፋ"
+
+#~ msgid "Clean everything!"
+#~ msgstr "ሁሉንም ላጽዳ!"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "ኡቡንቱ ዋን"
+
+#~ msgid "Clear History"
+#~ msgstr "ታሪክ ማጽጃ"
+
+#~ msgid "Edit"
+#~ msgstr "ማረሚያ"
+
+#~ msgid "Clear"
+#~ msgstr "ማጽጃ"
+
+#~ msgid "Accounts"
+#~ msgstr "መግለጫ"
+
+#~ msgid "Music Streaming"
+#~ msgstr "ሙዚቃ በማስተላለፍ ላይ"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "የተጠቃሚ ስም እና የመግቢያ ቃል ማዘጋጀት ረስተዋል"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "በ ዋይ-ፋይ ብቻ ማስተላለፊያ"
+
+#~ msgid "Last.fm"
+#~ msgstr "ላስት.ኤፌም"
+
+#~ msgid "Equaliser"
+#~ msgstr "ማስተካከያ"
+
+#~ msgid "Music Settings"
+#~ msgstr "ሙዚቃ ማሰናጃ"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "ሙዚቃ ለማጫወት እና ለማምጣት ይግቡ"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "ሙዚቃ ለማጫወት ይግቡ"
