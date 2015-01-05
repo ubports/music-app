@@ -39,11 +39,13 @@ function clearQueue() {
       });
 }
 
-function addQueueItem(ind,filename) {
+function addQueueItem(filename) {
     var db = getDatabase();
     var res="";
 
     db.transaction(function(tx) {
+        var ind = getNextIndex(tx);
+
         var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [ind, filename]);
               if (rs.rowsAffected > 0) {
                 console.log("QUEUE add OK")
@@ -56,15 +58,35 @@ function addQueueItem(ind,filename) {
     );
 }
 
-function addQueueList(ind, items) {
+function addQueueList(items) {
     var db = getDatabase();
 
     db.transaction(function(tx) {
+        var ind = getNextIndex(tx);
+
         for (var i = 0; i < items.length; i++) {
             tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
         }
     }
     );
+}
+
+// Get the next index for the queue
+function getNextIndex(tx) {
+    var ind;
+
+    if (tx === undefined) {
+        var db = getDatabase();
+
+        db.transaction(function(tx) {
+            ind = getNextIndex(tx);
+        });
+    } else {
+        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
+        ind = isQueueEmpty() ? 0 : rs.rows.item(0)["MAX(ind)"] + 1
+    }
+
+    return ind;
 }
 
 function moveQueueItem(from, to) {
@@ -74,10 +96,7 @@ function moveQueueItem(from, to) {
     db.transaction(function(tx) {
 
         // Generate new index number if records exist, otherwise use 0
-        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
-
-        var nextIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
-                                                                   0)["MAX(ind)"] + 1
+        var nextIndex = getNextIndex(tx)
 
         tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                       [nextIndex, from])
@@ -109,8 +128,8 @@ function removeQueueItem(ind) {
 
         var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
 
-        var lastIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
-                                                           0)["MAX(ind)"]
+        var lastIndex = isQueueEmpty() ? 0 : rs.rows.item(0)["MAX(ind)"]
+
         for(var i = ind+1; i <= lastIndex; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                           [i-1, i])
