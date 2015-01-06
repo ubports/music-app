@@ -22,12 +22,17 @@ function getDatabase() {
      return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
 }
 
-function createQueue() {
-    var db = getDatabase();
-    db.transaction(
-        function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
-      });
+function createQueue(tx) {
+    if (tx === undefined) {
+        var db = getDatabase();
+        db.transaction(
+            function(tx) {
+                createQueue(tx)
+            }
+        )
+    } else {
+        tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
+    }
 }
 
 function clearQueue() {
@@ -83,7 +88,7 @@ function getNextIndex(tx) {
         });
     } else {
         var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
-        ind = isQueueEmpty() ? 0 : rs.rows.item(0)["MAX(ind)"] + 1
+        ind = isQueueEmpty(tx) ? 0 : rs.rows.item(0)["MAX(ind)"] + 1
     }
 
     return ind;
@@ -154,16 +159,23 @@ function getQueue() {
     return res;
 }
 
-function isQueueEmpty() {
-    var db = getDatabase();
-    var res = 0;
+function isQueueEmpty(tx) {
+    var empty = false;
 
-    db.transaction( function(tx) {
-        createQueue();
+    if (tx === undefined) {
+        var db = getDatabase();
+        var res = 0;
+
+        db.transaction( function(tx) {
+            empty = isQueueEmpty(tx)
+        });
+    } else {
+        createQueue(tx);
         var rs = tx.executeSql("SELECT count(*) as value FROM queue")
-        res = rs.rows.item(0).value === 0
-    });
-    return res
+        empty = rs.rows.item(0).value === 0
+    }
+
+    return empty
 }
 
 function createRecent() {
