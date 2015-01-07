@@ -80,7 +80,7 @@ Item {
         }
     }
 
-    ListModel {
+    ListModel {  // fakemodel for connections to link to when there is no model
         id: fakeModel
     }
 

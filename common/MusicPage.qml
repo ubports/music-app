@@ -38,7 +38,7 @@ Page {
         iconName: "search"
         onTriggered: {
             thisPage.state = "search"
-            searchField.focus = true
+            searchField.forceActiveFocus()
         }
     }
 

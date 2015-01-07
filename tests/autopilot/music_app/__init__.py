@@ -59,7 +59,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('albumsTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='albumsPage')
+            MusicAlbums, objectName='albumsPage')
 
     def get_albums_artist_page(self):
         return self.main_view.wait_select_single(
@@ -69,7 +69,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('artistsTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='artistsPage')
+            MusicArtists, objectName='artistsPage')
 
     def get_new_playlist_dialog(self):
         return self.main_view.wait_select_single(
@@ -105,7 +105,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('tracksTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='tracksPage')
+            MusicTracks, objectName='tracksPage')
 
     @property
     def loaded(self):
