@@ -97,7 +97,7 @@ Page {
     onVisibleChanged: {
         if (visible) {
             musicToolbar.setPage(thisPage);
-        } else {
+        } else if (searchablePage) {
             thisPage.state = ""
             searchField.text = ""
         }

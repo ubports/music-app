@@ -80,8 +80,12 @@ Item {
         }
     }
 
-    Connections {  // TODO: needs to support waiting when !visible
-        target: model
+    ListModel {
+        id: fakeModel
+    }
+
+    Connections {
+        target: model === undefined ? fakeModel : model
         onModelReset: {
             if (!visible) {
                 delayRebuild = 0
