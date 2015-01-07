@@ -28,7 +28,7 @@ PageHeadState {
         text: "back"
         iconName: "back"
         onTriggered: {
-            thisPage.state = ""
+            thisPage.state = "default"
             searchField.text = ""
         }
     }
