@@ -26,8 +26,22 @@ import "common"
 MusicPage {
     id: albumsPage
     objectName: "albumsPage"
-    searchablePage: true
     title: i18n.tr("Albums")
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: albumsPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: albumsPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: albumsPage
+        }
+    ]
 
     CardView {
         id: albumCardView
@@ -42,7 +56,7 @@ MusicPage {
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
             filter.property: "title"
-            filter.pattern: new RegExp(searchValue, "i")
+            filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {

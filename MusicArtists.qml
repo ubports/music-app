@@ -30,10 +30,24 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: artistsPage
     objectName: "artistsPage"
-    searchablePage: true
     title: i18n.tr("Artists")
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: artistsPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: artistsPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: artistsPage
+        }
+    ]
 
     CardView {
         id: artistCardView
@@ -50,7 +64,7 @@ MusicPage {
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
             filter.property: "artist"
-            filter.pattern: new RegExp(searchValue, "i")
+            filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {

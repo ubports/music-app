@@ -29,12 +29,19 @@ import "common/ListItemActions"
 
 
 MusicPage {
-    id: mainpage
+    id: tracksPage
     objectName: "tracksPage"
     title: i18n.tr("Songs")
-    searchablePage: true
-    state: tracklist.state === "multiselectable" ? "selection" : "default"
+    state: "default"
     states: [
+        PageHeadState {
+            name: "default"
+            head: tracksPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: tracksPage.state = "search"
+            }
+        },
         PageHeadState {
             id: selectionState
             name: "selection"
@@ -43,6 +50,7 @@ MusicPage {
                 iconName: "back"
                 onTriggered: tracklist.state = "normal"
             }
+            head: tracksPage.head
             actions: [
                 Action {
                     iconName: "select"
@@ -91,13 +99,14 @@ MusicPage {
                     }
                 }
             ]
-            PropertyChanges {
-                target: mainpage.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
-            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: tracksPage
         }
     ]
+
+    property string previousState: state
 
     ListView {
         id: tracklist
@@ -119,7 +128,7 @@ MusicPage {
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
             filter.property: "title"
-            filter.pattern: new RegExp(searchValue, "i")
+            filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
 
@@ -143,6 +152,15 @@ MusicPage {
             clearSelection()
             state = "normal"
         }
+        onStateChanged: {
+            if (state === "multiselectable") {
+                previousState = tracksPage.state
+                tracksPage.state = "selection"
+            } else {
+                tracksPage.state = previousState
+            }
+        }
+
         onSelectAll: {
             var tmp = selectedItems
 
@@ -169,7 +187,7 @@ MusicPage {
                 objectName: "tracksPageListItem" + index
                 height: units.gu(7)
 
-                multiselectable: mainpage.state !== "search"  // disable multiselect when searching as actions get in the way
+                multiselectable: true
                 rightSideActions: [
                     AddToQueue {
                     },
