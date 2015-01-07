@@ -169,7 +169,7 @@ MusicPage {
                 objectName: "tracksPageListItem" + index
                 height: units.gu(7)
 
-                multiselectable: mainpage.state !== "search"  // disable multiselect when searching as actions get it way
+                multiselectable: mainpage.state !== "search"  // disable multiselect when searching as actions get in the way
                 rightSideActions: [
                     AddToQueue {
                     },

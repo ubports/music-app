@@ -33,7 +33,6 @@ Item {
 
     // Properties storing the current page info
     property var currentPage: null
-    property var currentSheet: []
     property var currentTab: null
 
     // Properties and signals for the toolbar
@@ -45,22 +44,8 @@ Item {
     // Back button has been pressed, jump up pageStack or back to parent page
     function goBack()
     {
-        if (currentSheet.length > 0) {
-            PopupUtils.close(currentSheet[currentSheet.length - 1])
-            return;  // don't change toolbar state when going back from sheet
-        }
-        else if (mainPageStack !== null && mainPageStack.depth > 1) {
+        if (mainPageStack !== null && mainPageStack.depth > 1) {
             mainPageStack.pop(currentPage)
-        }
-    }
-
-    // Remove sheet as it has been closed
-    function removeSheet(sheet)
-    {
-        var index = currentSheet.lastIndexOf(sheet);
-
-        if (index > -1) {
-            currentSheet.splice(index, 1);
         }
     }
 
@@ -68,11 +53,6 @@ Item {
     function setPage(childPage)
     {
         currentPage = childPage;
-    }
-
-    // Set the current sheet (overrides page)
-    function setSheet(sheet) {
-        currentSheet.push(sheet)
     }
 
     Panel {

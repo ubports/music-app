@@ -32,7 +32,7 @@ Item {
     property int columnWidth: parent.width / columns
     property int contentHeight: 0
     property int count: model === undefined ? 0 : model.count
-    property int delayRebuild: -1
+    property int delayRebuildIndex: -1
     property var incubating: ({})  // incubating objects
     property var items: ({})
     property var itemToColumn: ({})  // cache of the columns of indexes
@@ -62,14 +62,14 @@ Item {
     }
 
     onVisibleChanged: {
-        if (delayRebuild !== -1 && visible) {  // restore from count change
-            if (delayRebuild === 0) {
+        if (delayRebuildIndex !== -1 && visible) {  // restore from count change
+            if (delayRebuildIndex === 0) {
                 reset()
             } else {
-                removeIndex(delayRebuild)
+                removeIndex(delayRebuildIndex)
             }
 
-            delayRebuild = -1
+            delayRebuildIndex = -1
             append(true)
         }
 
@@ -88,7 +88,7 @@ Item {
         target: model === undefined ? fakeModel : model
         onModelReset: {
             if (!visible) {
-                delayRebuild = 0
+                delayRebuildIndex = 0
             } else {
                 reset()
                 append()
@@ -96,8 +96,8 @@ Item {
         }
         onRowsInserted: {
             if (!visible) {
-                if (delayRebuild === -1 || first < lastIndex) {
-                    delayRebuild = first
+                if (delayRebuildIndex === -1 || first < lastIndex) {
+                    delayRebuildIndex = first
                 }
             } else {
                 if (first <= lastIndex) {
@@ -115,8 +115,8 @@ Item {
         }
         onRowsRemoved: {
             if (!visible) {
-                if (delayRebuild === -1 || first < lastIndex) {
-                    delayRebuild = first
+                if (delayRebuildIndex === -1 || first < lastIndex) {
+                    delayRebuildIndex = first
                 }
             } else {
                 if (first <= lastIndex) {
