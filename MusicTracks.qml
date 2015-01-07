@@ -32,7 +32,7 @@ MusicPage {
     id: mainpage
     objectName: "tracksPage"
     title: i18n.tr("Songs")
-
+    searchablePage: true
     state: tracklist.state === "multiselectable" ? "selection" : "default"
     states: [
         PageHeadState {
@@ -118,6 +118,9 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "title"
+            filter.pattern: new RegExp(searchValue, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
 
         Component.onCompleted: {

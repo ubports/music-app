@@ -32,6 +32,7 @@ import "common"
 MusicPage {
     id: mainpage
     objectName: "artistsPage"
+    searchablePage: true
     title: i18n.tr("Artists")
 
     CardView {
@@ -48,6 +49,9 @@ MusicPage {
             sort.property: "artist"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "artist"
+            filter.pattern: new RegExp(searchValue, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: artistCard

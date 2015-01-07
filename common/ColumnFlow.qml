@@ -32,10 +32,12 @@ Item {
     property int columnWidth: parent.width / columns
     property int contentHeight: 0
     property int count: model === undefined ? 0 : model.count
+    property int delayRebuild: -1
     property var incubating: ({})  // incubating objects
     property var items: ({})
     property var itemToColumn: ({})  // cache of the columns of indexes
     property int lastIndex: 0  // the furtherest index loaded
+    property bool removing: false
     property bool restoring: false  // is the view restoring?
     property var restoreItems: ({})  // when rebuilding items are stored here temporarily
 
@@ -59,41 +61,82 @@ Item {
         }
     }
 
-    onCountChanged: {
-        if (!visible) {  // store changes for when visible
-            if (count === 0 && lastIndex > -1) {
-                lastIndex = -1;
-            } else if (lastIndex > -1) {
-                lastIndex = -(lastIndex + 2);  // save the index to restore later
-            }
-        } else if (count === 0) {  // likely the model is been reset so reset the view
-            reset()
-        } else {  // likely new items in the model check if any can be shown
-            append()
-        }
-    }
-
     onVisibleChanged: {
+        if (delayRebuild !== -1 && visible) {  // restore from count change
+            if (delayRebuild === 0) {
+                reset()
+            } else {
+                removeIndex(delayRebuild)
+            }
+
+            delayRebuild = -1
+            append(true)
+        }
+
         if (columns != columnHeights.length && visible) {  // number of columns has changed while invisible so reset
             if (!restoring) {
                 rebuildColumns()
             }
-        } else if (lastIndex < 0 && visible) {  // restore from count change
-            if (lastIndex === -1) {
-                reset()
+        }
+    }
+
+    Connections {  // TODO: needs to support waiting when !visible
+        target: model
+        onModelReset: {
+            if (!visible) {
+                delayRebuild = 0
             } else {
-                lastIndex = (-lastIndex) - 2
+                reset()
+                append()
+            }
+        }
+        onRowsInserted: {
+            if (!visible) {
+                if (delayRebuild === -1 || first < lastIndex) {
+                    delayRebuild = first
+                }
+            } else {
+                if (first <= lastIndex) {
+                    if (first === 0) {
+                        reset()
+                    } else {
+                        removeIndex(first)  // remove earliest index and all items after
+                    }
+                }
+
+                // Supply last index as count is not updated until after insertion
+                append(true, last)
             }
 
-            append()
+        }
+        onRowsRemoved: {
+            if (!visible) {
+                if (delayRebuild === -1 || first < lastIndex) {
+                    delayRebuild = first
+                }
+            } else {
+                if (first <= lastIndex) {
+                    if (first === 0) {
+                        reset()
+                    } else {
+                        removeIndex(first)  // remove earliest index and all items after
+                    }
+
+                    // count is not updated until after removal, so send insertMax
+                    // insertMax is count - removal region inclusive - 1 (lastIndex is 1 infront)
+
+                    append(true, count - (1 + last - first) - 1)  // rebuild any items on screen or before
+                }
+            }
+
         }
     }
 
     // Append a new row of items if possible
-    function append()
+    function append(loadBefore, insertMax)
     {
         // Do not allow append to run if incubating
-        if (isIncubating() || restoring) {
+        if (isIncubating() || restoring || removing) {
             return;
         }
 
@@ -106,7 +149,7 @@ Item {
             var y = columnHeightsMax[columnsByHeight[i]];
 
             // build new object in column if possible
-            if (count > 0 && lastIndex < count && inViewport(y, 0)) {
+            if (((count > 0 && lastIndex < count && insertMax === undefined) || (insertMax !== undefined && lastIndex <= insertMax)) && (inViewport(y, 0) || (loadBefore === true && beforeViewport(y)))) {
                 incubateObject(lastIndex++, columnsByHeight[i], getMaxInColumn(columnsByHeight[i]), append);
                 workDone = true
             } else {
@@ -117,6 +160,12 @@ Item {
         if (!workDone) {  // last iteration over append so visible ensure items are correct
             ensureItemsVisible();
         }
+    }
+
+    // Detect if a loaded object is before the viewport with a buffer
+    function beforeViewport(y)
+    {
+        return y <= flickable.contentY - buffer;
     }
 
     // Cache the size of the columns for use later
@@ -319,6 +368,29 @@ Item {
         }
     }
 
+    // Remove an index from the model (invalidating anything after)
+    function removeIndex(index)
+    {
+        removing = true
+
+        forceIncubationCompletion()
+
+        for (var i in items) {
+            if (i >= index && items.hasOwnProperty(i)) {
+                delete columnHeights[itemToColumn[i]][i]
+                delete itemToColumn[i]
+
+                items[i].destroy()
+                delete items[i]
+            }
+        }
+
+        lastIndex = index
+        removing = false
+
+        cacheColumnHeights()
+    }
+
     // Restores existing items into potentially new positions
     function restoreExisting()
     {
@@ -385,6 +457,7 @@ Item {
 
         // Reset and rebuild the variables
         items = ({})
+        itemToColumn = ({})
         lastIndex = 0
 
         columnHeights = []

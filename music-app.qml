@@ -90,10 +90,6 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (!searchSheet.sheetVisible) {
-                    PopupUtils.open(searchSheet.sheet, mainView,
-                                    { title: i18n.tr("Search") })
-                }
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
@@ -135,20 +131,6 @@ MainView {
         }
     }
 
-    // HUD Actions
-    Action {
-        id: searchAction
-        text: i18n.tr("Search")
-        keywords: i18n.tr("Search Track")
-        onTriggered: {
-            if (!searchSheet.sheetVisible) {
-                PopupUtils.open(searchSheet.sheet, mainView,
-                     {
-                                         title: i18n.tr("Search")
-                     } )
-            }
-        }
-    }
     Action {
         id: nextAction
         text: i18n.tr("Next")
@@ -185,7 +167,7 @@ MainView {
         onTriggered: player.stop()
     }
 
-    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
     Connections {
