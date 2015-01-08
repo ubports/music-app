@@ -134,7 +134,6 @@ MusicPage {
                     albumtrackslist.clearSelection()
                     albumtrackslist.state = "normal"
                 }
-
             }
             actions: [
                 Action {
