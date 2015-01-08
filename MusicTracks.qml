@@ -106,8 +106,6 @@ MusicPage {
         }
     ]
 
-    property string previousState: state
-
     ListView {
         id: tracklist
         anchors {
@@ -154,10 +152,10 @@ MusicPage {
         }
         onStateChanged: {
             if (state === "multiselectable") {
-                previousState = tracksPage.state
                 tracksPage.state = "selection"
             } else {
-                tracksPage.state = previousState
+                searchHeader.query = ""  // force query back to default
+                tracksPage.state = "default"
             }
         }
 

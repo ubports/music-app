@@ -24,9 +24,24 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: genresPage
     objectName: "genresPage"
     title: i18n.tr("Genres")
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: genresPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: genresPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: genresPage
+        }
+    ]
 
     CardView {
         id: genreCardView
@@ -38,7 +53,7 @@ MusicPage {
                 store: musicStore
             }
             filter.property: "genre"
-            filter.pattern: /\S+/
+            filter.pattern: searchHeader.query === "" ? /\S+/ : new RegExp(searchHeader.query, "i")
             sort.property: "genre"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive

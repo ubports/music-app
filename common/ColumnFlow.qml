@@ -62,7 +62,7 @@ Item {
     }
 
     onVisibleChanged: {
-        if (delayRebuildIndex !== -1 && visible) {  // restore from count change
+        if (visible && delayRebuildIndex !== -1) {  // restore from count change
             if (delayRebuildIndex === 0) {
                 reset()
             } else {
@@ -73,7 +73,7 @@ Item {
             append(true)
         }
 
-        if (columns != columnHeights.length && visible) {  // number of columns has changed while invisible so reset
+        if (visible && columns != columnHeights.length) {  // number of columns has changed while invisible so reset
             if (!restoring) {
                 rebuildColumns()
             }

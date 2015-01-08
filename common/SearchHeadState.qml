@@ -47,6 +47,17 @@ PageHeadState {
                 forceActiveFocus()
             }
         }
+
+        // Use the page onVisible as the text field goes visible=false when switching states
+        Connections {
+            target: thisPage
+            onVisibleChanged: {
+                if (!visible) {
+                    searchField.text = ""
+                    thisPage.state = "default"
+                }
+            }
+        }
     }
 
     property Page thisPage

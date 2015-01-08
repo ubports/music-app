@@ -33,6 +33,31 @@ MusicPage {
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: playlistsPage.head
+            actions: [
+                Action {
+                    objectName: "newplaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    iconName: "search"
+                    onTriggered: playlistsPage.state = "search"
+                }
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: playlistsPage
+        }
+    ]
 
     property bool changed: false
 
@@ -49,22 +74,18 @@ MusicPage {
         onTriggered: playlistModel.filterPlaylists()
     }
 
-    head {
-        actions: [
-            Action {
-                objectName: "newplaylistButton"
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-        ]
-    }
-
     CardView {
         id: playlistslist
-        model: playlistModel.model
+        model: SortFilterModel {
+            id: playlistModelFilter
+            model: playlistModel.model
+            sort.property: "name"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "playlistsCardView"
         delegate: Card {
             id: playlistCard
