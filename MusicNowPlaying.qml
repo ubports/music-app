@@ -127,7 +127,11 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: queueListLoader.item.state = "normal"
+                onTriggered: {
+                    queueListLoader.item.clearSelection()
+                    queueListLoader.item.state = "normal"
+                }
+
             }
             actions: [
                 Action {
