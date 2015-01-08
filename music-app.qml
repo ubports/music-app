@@ -790,13 +790,15 @@ MainView {
         function append(listElement)
         {
             model.append(makeDict(listElement))
-            Library.addQueueItem(trackQueue.model.count,listElement.filename)
+            Library.addQueueItem(trackQueue.model.count, listElement.filename)
         }
 
         function clear()
         {
             model.clear()
             Library.clearQueue()
+
+            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
     }
 

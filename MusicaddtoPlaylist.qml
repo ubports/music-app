@@ -61,7 +61,7 @@ MusicPage {
 
     onVisibleChanged: {
         if (visible) {
-            tabs.ensurePopulated(playlistTab)
+            playlistModel.filterPlaylists()
         }
     }
 
