@@ -194,7 +194,15 @@ MusicPage {
                     }
                 ]
 
-                onItemClicked: trackClicked(tracklist.model, index)  // play track
+                onItemClicked: {
+                    if (tracksPage.state === "search") {  // only play single track when searching
+                        trackQueue.clear()
+                        trackQueue.append(songsModelFilter.get(index))
+                        trackQueueClick(0)
+                    } else {
+                        trackClicked(tracklist.model, index)  // play track
+                    }
+                }
 
                 MusicRow {
                     id: musicRow
