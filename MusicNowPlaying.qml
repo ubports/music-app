@@ -131,7 +131,6 @@ MusicPage {
                     queueListLoader.item.clearSelection()
                     queueListLoader.item.state = "normal"
                 }
-
             }
             actions: [
                 Action {
