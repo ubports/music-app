@@ -54,6 +54,7 @@ MusicPage {
             }
             filter.property: "genre"
             filter.pattern: searchHeader.query === "" ? /\S+/ : new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
             sort.property: "genre"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
