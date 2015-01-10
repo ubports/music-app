@@ -40,7 +40,7 @@ MusicPage {
             head: playlistsPage.head
             actions: [
                 Action {
-                    objectName: "newplaylistButton"
+                    objectName: "newPlaylistButton"
                     iconName: "add"
                     onTriggered: {
                         customdebug("New playlist.")

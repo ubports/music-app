@@ -40,7 +40,6 @@ MusicPage {
     id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
-    visible: false
     state: "default"
     states: [
         PageHeadState {
@@ -48,7 +47,7 @@ MusicPage {
             head: addToPlaylistPage.head
             actions: [
                 Action {
-                    objectName: "newplaylistButton"
+                    objectName: "newPlaylistButton"
                     iconName: "add"
                     onTriggered: {
                         customdebug("New playlist.")
