@@ -92,6 +92,7 @@ MainView {
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
                 if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "default") {
                     musicToolbar.currentPage.state = "search"
+                    header.show()
                 }
 
                 break;
