@@ -37,10 +37,12 @@ PageHeadState {
         anchors {
             left: parent ? parent.left : undefined
             right: parent ? parent.right : undefined
-            rightMargin: units.gu(1)
+            rightMargin: units.gu(2)
         }
+        color: styleMusic.common.black
         hasClearButton: true
         inputMethodHints: Qt.ImhNoPredictiveText
+        placeholderText: i18n.tr("Search music")
 
         onParentChanged: {
             if (parent === null) {

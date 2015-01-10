@@ -40,8 +40,9 @@ MusicPage {
     id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
+    visible: false
     searchable: true
-    searchResultsCount: playlistModelFilter.count
+    searchResultsCount: addToPlaylistModelFilter.count
     state: "default"
     states: [
         PageHeadState {
@@ -74,6 +75,7 @@ MusicPage {
 
     onVisibleChanged: {
         if (visible) {
+            playlistModel.canLoad = true  // ensure the model canLoad
             playlistModel.filterPlaylists()
         }
     }
@@ -82,7 +84,7 @@ MusicPage {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
         model: SortFilterModel {
-            id: playlistModelFilter
+            id: addToPlaylistModelFilter
             model: playlistModel.model
             sort.property: "name"
             sort.order: Qt.AscendingOrder

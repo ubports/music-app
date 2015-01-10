@@ -569,6 +569,10 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
+
+        // TODO: Workaround for pad.lv/1356779, force the theme's backgroundText color
+        // to work with the app's backgroundColor
+        Theme.palette.normal.backgroundText = "#81888888"
     }
 
     // VARIABLES

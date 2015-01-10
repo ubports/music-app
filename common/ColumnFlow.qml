@@ -61,6 +61,8 @@ Item {
         }
     }
 
+    onModelChanged: append(true, model.count - 1)  // load the model when it is set
+
     onVisibleChanged: {
         if (visible && delayRebuildIndex !== -1) {  // restore from count change
             if (delayRebuildIndex === 0) {
