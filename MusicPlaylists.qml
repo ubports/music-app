@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -48,6 +48,7 @@ MusicPage {
                     }
                 },
                 Action {
+                    enabled: playlistModel.model.count > 0
                     iconName: "search"
                     onTriggered: playlistsPage.state = "search"
                 }

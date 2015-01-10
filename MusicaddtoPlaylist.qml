@@ -37,27 +37,39 @@ import "common"
 
 // Page that will be used when adding tracks to playlists
 MusicPage {
-    id: addtoPlaylist
+    id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
     visible: false
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: addToPlaylistPage.head
+            actions: [
+                Action {
+                    objectName: "newplaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    enabled: playlistModel.model.count > 0
+                    iconName: "search"
+                    onTriggered: addToPlaylistPage.state = "search"
+                }
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: addToPlaylistPage
+        }
+    ]
 
     property var chosenElements: []
     property var page
-
-    head {
-        actions: [
-            Action {
-                objectName: "newPlaylistButton"
-                text: i18n.tr("New playlist")
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-        ]
-    }
 
     onVisibleChanged: {
         if (visible) {
@@ -68,7 +80,16 @@ MusicPage {
     CardView {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
-        model: playlistModel.model
+        model: SortFilterModel {
+            id: playlistModelFilter
+            model: playlistModel.model
+            sort.property: "name"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "addToPlaylistCardView"
         delegate: Card {
             id: playlist

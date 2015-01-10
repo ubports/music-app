@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014
+ * Copyright (C) 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -73,10 +73,9 @@ Item {
             append(true)
         }
 
-        if (visible && columns != columnHeights.length) {  // number of columns has changed while invisible so reset
-            if (!restoring) {
-                rebuildColumns()
-            }
+        // number of columns has changed while invisible so reset if not already restoring
+        if (visible && !restoring && columns != columnHeights.length) {
+            rebuildColumns()
         }
     }
 
@@ -96,9 +95,7 @@ Item {
         }
         onRowsInserted: {
             if (!visible) {
-                if (delayRebuildIndex === -1 || first < lastIndex) {
-                    delayRebuildIndex = first
-                }
+                setDelayRebuildIndex(first)
             } else {
                 if (first <= lastIndex) {
                     if (first === 0) {
@@ -115,9 +112,7 @@ Item {
         }
         onRowsRemoved: {
             if (!visible) {
-                if (delayRebuildIndex === -1 || first < lastIndex) {
-                    delayRebuildIndex = first
-                }
+                setDelayRebuildIndex(first)
             } else {
                 if (first <= lastIndex) {
                     if (first === 0) {
@@ -133,6 +128,16 @@ Item {
                 }
             }
 
+        }
+    }
+
+
+    Connections {
+        target: flickable
+        onContentYChanged: {
+            append()  // Append any new items (scrolling down)
+
+            ensureItemsVisible()
         }
     }
 
@@ -153,6 +158,11 @@ Item {
             var y = columnHeightsMax[columnsByHeight[i]];
 
             // build new object in column if possible
+            // if insertMax is undefined then allow if there is work todo (from the count in the model)
+            // otherwise use the insertMax as the count to compare with the lastIndex added to the columnFlow
+            // and
+            // allow if the y position is within the viewport
+            // or if loadBefore is true then allow if the y position is before the viewport
             if (((count > 0 && lastIndex < count && insertMax === undefined) || (insertMax !== undefined && lastIndex <= insertMax)) && (inViewport(y, 0) || (loadBefore === true && beforeViewport(y)))) {
                 incubateObject(lastIndex++, columnsByHeight[i], getMaxInColumn(columnsByHeight[i]), append);
                 workDone = true
@@ -475,12 +485,10 @@ Item {
         contentHeight = 0
     }
 
-    Connections {
-        target: flickable
-        onContentYChanged: {
-            append()  // Append any new items (scrolling down)
-
-            ensureItemsVisible()
+    function setDelayRebuildIndex(index)
+    {
+        if (delayRebuildIndex === -1 || index < lastIndex) {
+            delayRebuildIndex = index
         }
     }
 }

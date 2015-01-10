@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -29,7 +29,8 @@ Page {
         fill: parent
     }
 
-    // FIXME: hack as a workaround to SDK header switching issue pad.lv/1341814
+    // FIXME: hack is a workaround for SDK bug pad.lv/1341814
+    // which causes the header and contents of the page to become out of sync
     property Item __oldContents: null
 
     Connections {

@@ -35,12 +35,12 @@ PageHeadState {
     contents: TextField {
         id: searchField
         anchors {
+            left: parent ? parent.left : undefined
             right: parent ? parent.right : undefined
             rightMargin: units.gu(1)
         }
         hasClearButton: true
         inputMethodHints: Qt.ImhNoPredictiveText
-        placeholderText: i18n.tr("Search...")
 
         onVisibleChanged: {
             if (visible) {
@@ -49,6 +49,7 @@ PageHeadState {
         }
 
         // Use the page onVisible as the text field goes visible=false when switching states
+        // This is used when popping from the pageStack and returning back to a page with search
         Connections {
             target: thisPage
             onVisibleChanged: {

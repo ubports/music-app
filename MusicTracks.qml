@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -200,7 +200,7 @@ MusicPage {
                         trackQueue.append(songsModelFilter.get(index))
                         trackQueueClick(0)
                     } else {
-                        trackClicked(tracklist.model, index)  // play track
+                        trackClicked(songsModelFilter, index)  // play track
                     }
                 }
 
