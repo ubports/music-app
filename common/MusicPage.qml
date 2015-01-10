@@ -29,6 +29,17 @@ Page {
         fill: parent
     }
 
+    property bool searchable: false
+    property int searchResultsCount
+
+    Label {
+        anchors {
+            centerIn: parent
+        }
+        text: i18n.tr("No items found")
+        visible: parent.state === "search" && searchResultsCount === 0
+    }
+
     // FIXME: hack is a workaround for SDK bug pad.lv/1341814
     // which causes the header and contents of the page to become out of sync
     property Item __oldContents: null

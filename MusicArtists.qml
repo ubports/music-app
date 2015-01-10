@@ -33,6 +33,8 @@ MusicPage {
     id: artistsPage
     objectName: "artistsPage"
     title: i18n.tr("Artists")
+    searchable: true
+    searchResultsCount: artistsModelFilter.count
     state: "default"
     states: [
         PageHeadState {

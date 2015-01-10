@@ -32,6 +32,8 @@ MusicPage {
     id: tracksPage
     objectName: "tracksPage"
     title: i18n.tr("Songs")
+    searchable: true
+    searchResultsCount: songsModelFilter.count
     state: "default"
     states: [
         PageHeadState {

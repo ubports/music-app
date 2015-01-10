@@ -27,6 +27,8 @@ MusicPage {
     id: genresPage
     objectName: "genresPage"
     title: i18n.tr("Genres")
+    searchable: true
+    searchResultsCount: genresModelFilter.count
     state: "default"
     states: [
         PageHeadState {

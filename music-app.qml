@@ -90,6 +90,10 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
+                if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "default") {
+                    musicToolbar.currentPage.state = "search"
+                }
+
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()

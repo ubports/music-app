@@ -40,6 +40,8 @@ MusicPage {
     id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
+    searchable: true
+    searchResultsCount: playlistModelFilter.count
     state: "default"
     states: [
         PageHeadState {

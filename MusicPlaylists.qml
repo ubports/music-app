@@ -33,6 +33,8 @@ MusicPage {
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
+    searchable: true
+    searchResultsCount: playlistModelFilter.count
     state: "default"
     states: [
         PageHeadState {
