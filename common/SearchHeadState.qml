@@ -42,6 +42,12 @@ PageHeadState {
         hasClearButton: true
         inputMethodHints: Qt.ImhNoPredictiveText
 
+        onParentChanged: {
+            if (parent === null) {
+                text = ""
+            }
+        }
+
         onVisibleChanged: {
             if (visible) {
                 forceActiveFocus()

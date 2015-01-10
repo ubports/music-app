@@ -54,7 +54,11 @@ MainView {
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            musicToolbar.goBack();  // Esc      Go back
+            if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "search") {
+                musicToolbar.currentPage.state = "default"
+            } else {
+                musicToolbar.goBack();  // Esc      Go back
+            }
         }
         else if(event.modifiers === Qt.AltModifier) {
             var position;
