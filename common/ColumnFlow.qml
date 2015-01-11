@@ -61,11 +61,6 @@ Item {
         }
     }
 
-    onModelChanged: {  // reload the model when it is set
-        reset()
-        append(true, model.count - 1)
-    }
-
     onVisibleChanged: {
         if (visible && delayRebuildIndex !== -1) {  // restore from count change
             if (delayRebuildIndex === 0) {
