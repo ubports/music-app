@@ -99,13 +99,11 @@ function moveQueueItem(from, to) {
     var res="";
 
     db.transaction(function(tx) {
-
-        // Generate new index number if records exist, otherwise use 0
-        var nextIndex = getNextIndex(tx)
-
+        // Track to move put as -1 for now
         tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
-                      [nextIndex, from])
+                      [-1, from])
 
+        // Shuffle tracks inbetween from->to
         if (from > to) {
             for (var i = from-1; i >= to; i--) {
                 tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
@@ -118,8 +116,9 @@ function moveQueueItem(from, to) {
             }
         }
 
+        // Switch moving track to its new position
         tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
-                      [to, nextIndex])
+                      [to, -1])
 
     })
 }
@@ -159,7 +158,7 @@ function removeQueueList(list)
         }
 
         // Rebuild queue in order
-        var rs = tx.executeSql('SELECT ind FROM queue')
+        var rs = tx.executeSql('SELECT ind FROM queue ORDER BY ind ASC')
 
         for (i=0; i < rs.rows.length; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
