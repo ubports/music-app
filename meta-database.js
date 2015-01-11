@@ -149,18 +149,19 @@ function removeQueueItem(ind) {
 function removeQueueList(list)
 {
     var db = getDatabase()
+    var i;
     var res = false
 
     db.transaction(function (tx) {
         // Remove all the deleted indexes
-        for (var ind in list) {
-            tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
+        for (i=0; i < list.length; i++) {
+            tx.executeSql('DELETE FROM queue WHERE ind=?;', [list[i]])
         }
 
         // Rebuild queue in order
         var rs = tx.executeSql('SELECT ind FROM queue')
 
-        for (var i=0; i < rs.rows.length; i++) {
+        for (i=0; i < rs.rows.length; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                           [i, rs.rows.item(i).ind])
         }
