@@ -44,12 +44,6 @@ PageHeadState {
         inputMethodHints: Qt.ImhNoPredictiveText
         placeholderText: i18n.tr("Search music")
 
-        onParentChanged: {
-            if (parent === null) {
-                text = ""
-            }
-        }
-
         onVisibleChanged: {
             if (visible) {
                 forceActiveFocus()
@@ -61,7 +55,10 @@ PageHeadState {
         Connections {
             target: thisPage
             onVisibleChanged: {
-                if (!visible) {
+                // clear when the page becomes visible not invisible
+                // if invisible is used the delegates can be destroyed which
+                // have created the pushed component
+                if (visible) {
                     searchField.text = ""
                     thisPage.state = "default"
                 }

@@ -61,7 +61,10 @@ Item {
         }
     }
 
-    onModelChanged: append(true, model.count - 1)  // load the model when it is set
+    onModelChanged: {  // reload the model when it is set
+        reset()
+        append(true, model.count - 1)
+    }
 
     onVisibleChanged: {
         if (visible && delayRebuildIndex !== -1) {  // restore from count change
@@ -107,10 +110,9 @@ Item {
                     }
                 }
 
-                // Supply last index as count is not updated until after insertion
-                append(true, last)
+                // Supply last index if larger as count is not updated until after insertion
+                append(true, last > count ? last : count)
             }
-
         }
         onRowsRemoved: {
             if (!visible) {
@@ -129,7 +131,6 @@ Item {
                     append(true, count - (1 + last - first) - 1)  // rebuild any items on screen or before
                 }
             }
-
         }
     }
 

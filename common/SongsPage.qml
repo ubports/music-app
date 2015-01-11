@@ -413,7 +413,7 @@ MusicPage {
 
                     },
                     AddToPlaylist {
-                        page: songStackPage
+
                     }
                 ]
 
