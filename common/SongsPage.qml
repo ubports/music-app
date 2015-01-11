@@ -130,7 +130,10 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: albumtrackslist.state = "normal"
+                onTriggered: {
+                    albumtrackslist.clearSelection()
+                    albumtrackslist.state = "normal"
+                }
             }
             actions: [
                 Action {

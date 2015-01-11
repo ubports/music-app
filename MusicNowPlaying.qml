@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -127,7 +127,10 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: queueListLoader.item.state = "normal"
+                onTriggered: {
+                    queueListLoader.item.clearSelection()
+                    queueListLoader.item.state = "normal"
+                }
             }
             actions: [
                 Action {
@@ -169,9 +172,10 @@ MusicPage {
                     iconName: "delete"
                     text: i18n.tr("Delete")
                     onTriggered: {
-                        for (var i=0; i < queueListLoader.item.selectedItems.length; i++) {
-                            removeQueue(queueListLoader.item.selectedItems[i])
-                        }
+                        // Remove the tracks from the queue
+                        // Use slice() to copy the list
+                        // so that the indexes don't change as they are removed
+                        removeQueueList(queueListLoader.item.selectedItems.slice())
 
                         queueListLoader.item.closeSelection()
                     }
@@ -499,6 +503,60 @@ MusicPage {
             // update index as the old has been removed
             player.currentIndex -= 1;
             queueIndex -= 1;
+        }
+    }
+
+    // Optimised removeQueue for removing multiple tracks from the queue
+    function removeQueueList(items)
+    {
+        var i;
+
+        // Remove from the saved queue database
+        Library.removeQueueList(items)
+
+
+        // Remove from the listmodel
+        for (i=0; i < items.length; i++) {
+            trackQueue.model.remove(items[i] - i);
+        }
+
+        // Update the currentIndex and playing status
+
+        if (trackQueue.model.count === 0) {
+            // Nothing in the queue so stop and pop the queue
+            player.stop()
+            musicToolbar.goBack()
+        } else if (items.indexOf(player.currentIndex) > -1) {
+            // Current track was removed
+
+            // Find the first index that still exists before the currentIndex
+            for (i=player.currentIndex - 1; i > -1; i--) {
+                if (items.indexOf(i) === -1) {
+                    break;
+                }
+            }
+
+            // Set this as the current track
+            player.currentIndex = i
+            queueIndex = i
+
+            // Play the next track
+            player.nextSong(player.isPlaying);
+        } else {
+            // Current track not in removed list
+            // Check if the index needs to be shuffled down due to removals
+
+            var before = 0
+
+            for (i in items) {
+                if (i < player.currentIndex) {
+                    before++;
+                }
+            }
+
+            // Update the index
+            player.currentIndex -= before;
+            queueIndex -= before;
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -138,6 +138,31 @@ function removeQueueItem(ind) {
         for(var i = ind+1; i <= lastIndex; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                           [i-1, i])
+        }
+    })
+
+    return res
+}
+
+
+// Optimised removeQueue for removing multiple tracks from the queue
+function removeQueueList(list)
+{
+    var db = getDatabase()
+    var res = false
+
+    db.transaction(function (tx) {
+        // Remove all the deleted indexes
+        for (var ind in list) {
+            tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
+        }
+
+        // Rebuild queue in order
+        var rs = tx.executeSql('SELECT ind FROM queue')
+
+        for (var i=0; i < rs.rows.length; i++) {
+            tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
+                          [i, rs.rows.item(i).ind])
         }
     })
 
