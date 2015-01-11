@@ -84,11 +84,10 @@ MusicPage {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
         model: SortFilterModel {
+            // Sorting disabled as it is incorrect on first run (due to workers?)
+            // and SQL sorts the data correctly
             id: addToPlaylistModelFilter
             model: playlistModel.model
-            sort.property: "name"
-            sort.order: Qt.AscendingOrder
-            sortCaseSensitivity: Qt.CaseInsensitive
             filter.property: "name"
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
