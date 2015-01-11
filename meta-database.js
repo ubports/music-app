@@ -22,12 +22,17 @@ function getDatabase() {
      return LocalStorage.openDatabaseSync("music-app-metadata", "1.0", "StorageDatabase", 1000000);
 }
 
-function createQueue() {
-    var db = getDatabase();
-    db.transaction(
-        function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
-      });
+function createQueue(tx) {
+    if (tx === undefined) {
+        var db = getDatabase();
+        db.transaction(
+            function(tx) {
+                createQueue(tx)
+            }
+        )
+    } else {
+        tx.executeSql("CREATE TABLE IF NOT EXISTS queue(ind INTEGER NOT NULL, filename TEXT)");
+    }
 }
 
 function clearQueue() {
@@ -39,11 +44,13 @@ function clearQueue() {
       });
 }
 
-function addQueueItem(ind,filename) {
+function addQueueItem(filename) {
     var db = getDatabase();
     var res="";
 
     db.transaction(function(tx) {
+        var ind = getNextIndex(tx);
+
         var rs = tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [ind, filename]);
               if (rs.rowsAffected > 0) {
                 console.log("QUEUE add OK")
@@ -56,10 +63,12 @@ function addQueueItem(ind,filename) {
     );
 }
 
-function addQueueList(ind, items) {
+function addQueueList(items) {
     var db = getDatabase();
 
     db.transaction(function(tx) {
+        var ind = getNextIndex(tx);
+
         for (var i = 0; i < items.length; i++) {
             tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
         }
@@ -67,21 +76,34 @@ function addQueueList(ind, items) {
     );
 }
 
+// Get the next index for the queue
+function getNextIndex(tx) {
+    var ind;
+
+    if (tx === undefined) {
+        var db = getDatabase();
+
+        db.transaction(function(tx) {
+            ind = getNextIndex(tx);
+        });
+    } else {
+        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
+        ind = isQueueEmpty(tx) ? 0 : rs.rows.item(0)["MAX(ind)"] + 1
+    }
+
+    return ind;
+}
+
 function moveQueueItem(from, to) {
     var db = getDatabase();
     var res="";
 
     db.transaction(function(tx) {
-
-        // Generate new index number if records exist, otherwise use 0
-        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
-
-        var nextIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
-                                                                   0)["MAX(ind)"] + 1
-
+        // Track to move put as -1 for now
         tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
-                      [nextIndex, from])
+                      [-1, from])
 
+        // Shuffle tracks inbetween from->to
         if (from > to) {
             for (var i = from-1; i >= to; i--) {
                 tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
@@ -94,8 +116,9 @@ function moveQueueItem(from, to) {
             }
         }
 
+        // Switch moving track to its new position
         tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
-                      [to, nextIndex])
+                      [to, -1])
 
     })
 }
@@ -109,8 +132,8 @@ function removeQueueItem(ind) {
 
         var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
 
-        var lastIndex = isNaN(rs.rows.item(0)["MAX(ind)"]) ? 0 : rs.rows.item(
-                                                           0)["MAX(ind)"]
+        var lastIndex = isQueueEmpty() ? 0 : rs.rows.item(0)["MAX(ind)"]
+
         for(var i = ind+1; i <= lastIndex; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                           [i-1, i])
@@ -125,18 +148,19 @@ function removeQueueItem(ind) {
 function removeQueueList(list)
 {
     var db = getDatabase()
+    var i;
     var res = false
 
     db.transaction(function (tx) {
         // Remove all the deleted indexes
-        for (var ind in list) {
-            tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
+        for (i=0; i < list.length; i++) {
+            tx.executeSql('DELETE FROM queue WHERE ind=?;', [list[i]])
         }
 
         // Rebuild queue in order
-        var rs = tx.executeSql('SELECT ind FROM queue')
+        var rs = tx.executeSql('SELECT ind FROM queue ORDER BY ind ASC')
 
-        for (var i=0; i < rs.rows.length; i++) {
+        for (i=0; i < rs.rows.length; i++) {
             tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
                           [i, rs.rows.item(i).ind])
         }
@@ -160,16 +184,23 @@ function getQueue() {
     return res;
 }
 
-function isQueueEmpty() {
-    var db = getDatabase();
-    var res = 0;
+function isQueueEmpty(tx) {
+    var empty = false;
 
-    db.transaction( function(tx) {
-        createQueue();
+    if (tx === undefined) {
+        var db = getDatabase();
+        var res = 0;
+
+        db.transaction( function(tx) {
+            empty = isQueueEmpty(tx)
+        });
+    } else {
+        createQueue(tx);
         var rs = tx.executeSql("SELECT count(*) as value FROM queue")
-        res = rs.rows.item(0).value === 0
-    });
-    return res
+        empty = rs.rows.item(0).value === 0
+    }
+
+    return empty
 }
 
 function createRecent() {

@@ -606,7 +606,6 @@ MainView {
         }
 
         var items = []
-        var previousQueueSize = trackQueue.model.count
 
         for (var i=0; i < model.rowCount; i++) {
             items.push(model.get(i, model.RoleModelData))
@@ -615,7 +614,7 @@ MainView {
         }
 
         // Add model to queue storage
-        Library.addQueueList(previousQueueSize, items);
+        Library.addQueueList(items);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -803,7 +802,7 @@ MainView {
         function append(listElement)
         {
             model.append(makeDict(listElement))
-            Library.addQueueItem(trackQueue.model.count, listElement.filename)
+            Library.addQueueItem(listElement.filename)
         }
 
         function clear()
