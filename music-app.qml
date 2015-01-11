@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -54,7 +54,11 @@ MainView {
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            musicToolbar.goBack();  // Esc      Go back
+            if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "search") {
+                musicToolbar.currentPage.state = "default"
+            } else {
+                musicToolbar.goBack();  // Esc      Go back
+            }
         }
         else if(event.modifiers === Qt.AltModifier) {
             var position;
@@ -90,10 +94,11 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (!searchSheet.sheetVisible) {
-                    PopupUtils.open(searchSheet.sheet, mainView,
-                                    { title: i18n.tr("Search") })
+                if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "default") {
+                    musicToolbar.currentPage.state = "search"
+                    header.show()
                 }
+
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
@@ -135,20 +140,6 @@ MainView {
         }
     }
 
-    // HUD Actions
-    Action {
-        id: searchAction
-        text: i18n.tr("Search")
-        keywords: i18n.tr("Search Track")
-        onTriggered: {
-            if (!searchSheet.sheetVisible) {
-                PopupUtils.open(searchSheet.sheet, mainView,
-                     {
-                                         title: i18n.tr("Search")
-                     } )
-            }
-        }
-    }
     Action {
         id: nextAction
         text: i18n.tr("Next")
@@ -185,7 +176,7 @@ MainView {
         onTriggered: player.stop()
     }
 
-    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
     Connections {
@@ -578,6 +569,10 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
+
+        // TODO: Workaround for pad.lv/1356779, force the theme's backgroundText color
+        // to work with the app's backgroundColor
+        Theme.palette.normal.backgroundText = "#81888888"
     }
 
     // VARIABLES
@@ -808,13 +803,15 @@ MainView {
         function append(listElement)
         {
             model.append(makeDict(listElement))
-            Library.addQueueItem(trackQueue.model.count,listElement.filename)
+            Library.addQueueItem(trackQueue.model.count, listElement.filename)
         }
 
         function clear()
         {
             model.clear()
             Library.clearQueue()
+
+            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -29,12 +29,21 @@ import "common/ListItemActions"
 
 
 MusicPage {
-    id: mainpage
+    id: tracksPage
     objectName: "tracksPage"
     title: i18n.tr("Songs")
-
-    state: tracklist.state === "multiselectable" ? "selection" : "default"
+    searchable: true
+    searchResultsCount: songsModelFilter.count
+    state: "default"
     states: [
+        PageHeadState {
+            name: "default"
+            head: tracksPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: tracksPage.state = "search"
+            }
+        },
         PageHeadState {
             id: selectionState
             name: "selection"
@@ -46,6 +55,7 @@ MusicPage {
                     tracklist.state = "normal"
                 }
             }
+            head: tracksPage.head
             actions: [
                 Action {
                     iconName: "select"
@@ -94,11 +104,10 @@ MusicPage {
                     }
                 }
             ]
-            PropertyChanges {
-                target: mainpage.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
-            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: tracksPage
         }
     ]
 
@@ -121,6 +130,9 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "title"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
 
         Component.onCompleted: {
@@ -143,6 +155,15 @@ MusicPage {
             clearSelection()
             state = "normal"
         }
+        onStateChanged: {
+            if (state === "multiselectable") {
+                tracksPage.state = "selection"
+            } else {
+                searchHeader.query = ""  // force query back to default
+                tracksPage.state = "default"
+            }
+        }
+
         onSelectAll: {
             var tmp = selectedItems
 
@@ -178,7 +199,15 @@ MusicPage {
                     }
                 ]
 
-                onItemClicked: trackClicked(tracklist.model, index)  // play track
+                onItemClicked: {
+                    if (tracksPage.state === "search") {  // only play single track when searching
+                        trackQueue.clear()
+                        trackQueue.append(songsModelFilter.get(index))
+                        trackQueueClick(0)
+                    } else {
+                        trackClicked(songsModelFilter, index)  // play track
+                    }
+                }
 
                 MusicRow {
                     id: musicRow
