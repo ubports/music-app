@@ -54,6 +54,13 @@ PageHeadState {
         // This is used when popping from the pageStack and returning back to a page with search
         Connections {
             target: thisPage
+
+            onStateChanged: {  // ensure the search is reset (eg pressing Esc)
+                if (state === "default") {
+                    searchField.text = ""
+                }
+            }
+
             onVisibleChanged: {
                 // clear when the page becomes visible not invisible
                 // if invisible is used the delegates can be destroyed which
