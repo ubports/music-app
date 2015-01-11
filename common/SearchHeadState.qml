@@ -27,10 +27,7 @@ PageHeadState {
         id: leaveSearchAction
         text: "back"
         iconName: "back"
-        onTriggered: {
-            thisPage.state = "default"
-            searchField.text = ""
-        }
+        onTriggered: thisPage.state = "default"
     }
     contents: TextField {
         id: searchField
@@ -54,12 +51,18 @@ PageHeadState {
         // This is used when popping from the pageStack and returning back to a page with search
         Connections {
             target: thisPage
+
+            onStateChanged: {  // ensure the search is reset (eg pressing Esc)
+                if (state === "default") {
+                    searchField.text = ""
+                }
+            }
+
             onVisibleChanged: {
                 // clear when the page becomes visible not invisible
                 // if invisible is used the delegates can be destroyed which
                 // have created the pushed component
                 if (visible) {
-                    searchField.text = ""
                     thisPage.state = "default"
                 }
             }
