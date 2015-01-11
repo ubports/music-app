@@ -73,7 +73,8 @@ MusicPage {
     property var page
 
     onVisibleChanged: {
-        if (visible) {
+        // Load the playlistmodel if it hasn't loaded or is empty
+        if (visible && (!playlistModel.completed || playlistModel.model.count === 0)) {
             playlistModel.canLoad = true  // ensure the model canLoad
             playlistModel.filterPlaylists()
         }
