@@ -27,10 +27,7 @@ PageHeadState {
         id: leaveSearchAction
         text: "back"
         iconName: "back"
-        onTriggered: {
-            thisPage.state = "default"
-            searchField.text = ""
-        }
+        onTriggered: thisPage.state = "default"
     }
     contents: TextField {
         id: searchField
@@ -66,7 +63,6 @@ PageHeadState {
                 // if invisible is used the delegates can be destroyed which
                 // have created the pushed component
                 if (visible) {
-                    searchField.text = ""
                     thisPage.state = "default"
                 }
             }
