@@ -193,7 +193,7 @@ MainView {
             }
 
             // Filter by artist and album
-            songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
+            songsAlbumArtistModel.albumArtist = decodeURIComponent(split[0]);
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
         }
 
@@ -752,7 +752,7 @@ MainView {
                 selectedAlbum = false;
 
                 // Clear filter for artist and album
-                songsAlbumArtistModel.artist = ""
+                songsAlbumArtistModel.albumArtist = ""
                 songsAlbumArtistModel.album = ""
             }
         }
