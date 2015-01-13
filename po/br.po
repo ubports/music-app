@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-11 20:21+0000\n"
-"PO-Revision-Date: 2014-11-24 07:25+0000\n"
+"PO-Revision-Date: 2015-01-12 07:46+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-12 07:41+0000\n"
+"X-Launchpad-Export-Date: 2015-01-13 07:54+0000\n"
 "X-Generator: Launchpad (build 17298)\n"
 
 #: ../MusicAlbums.qml:29
@@ -168,11 +168,11 @@ msgstr "O kargañ..."
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "N'eus bet kavet elfenn ebet"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Klask sonerezh"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
