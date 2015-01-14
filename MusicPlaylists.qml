@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -33,6 +33,34 @@ MusicPage {
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
+    searchable: true
+    searchResultsCount: playlistModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: playlistsPage.head
+            actions: [
+                Action {
+                    objectName: "newPlaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    enabled: playlistModel.model.count > 0
+                    iconName: "search"
+                    onTriggered: playlistsPage.state = "search"
+                }
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: playlistsPage
+        }
+    ]
 
     property bool changed: false
 
@@ -49,22 +77,17 @@ MusicPage {
         onTriggered: playlistModel.filterPlaylists()
     }
 
-    head {
-        actions: [
-            Action {
-                objectName: "newplaylistButton"
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-        ]
-    }
-
     CardView {
         id: playlistslist
-        model: playlistModel.model
+        model: SortFilterModel {
+            // Sorting disabled as it is incorrect on first run (due to workers?)
+            // and SQL sorts the data correctly
+            id: playlistModelFilter
+            model: playlistModel.model
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "playlistsCardView"
         delegate: Card {
             id: playlistCard

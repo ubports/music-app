@@ -261,6 +261,11 @@ Item {
     Connections {  // CUSTOM
         target: root.parent.parent
         onClearSelection: selected = false
+        onFlickingChanged: {
+            if (root.parent.parent.flicking) {
+                root.resetSwipe()
+            }
+        }
         onSelectAll: selected = true
         onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
     }

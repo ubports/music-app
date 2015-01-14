@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -130,7 +130,10 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: albumtrackslist.state = "normal"
+                onTriggered: {
+                    albumtrackslist.clearSelection()
+                    albumtrackslist.state = "normal"
+                }
             }
             actions: [
                 Action {
@@ -413,7 +416,7 @@ MusicPage {
 
                     },
                     AddToPlaylist {
-                        page: songStackPage
+
                     }
                 ]
 

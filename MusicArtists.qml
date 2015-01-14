@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -30,9 +30,26 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: artistsPage
     objectName: "artistsPage"
     title: i18n.tr("Artists")
+    searchable: true
+    searchResultsCount: artistsModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: artistsPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: artistsPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: artistsPage
+        }
+    ]
 
     CardView {
         id: artistCardView
@@ -48,6 +65,9 @@ MusicPage {
             sort.property: "artist"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "artist"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: artistCard

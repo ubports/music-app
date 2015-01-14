@@ -1,295 +1,164 @@
-# translation of po_com.ubuntu.music-is to Icelandic
 # Icelandic translation for music-app
-# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the music-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
-# Sveinn í Felli <sv1@fellsnet.is>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: po_com.ubuntu.music-is\n"
+"Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-05 02:46+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"PO-Revision-Date: 2015-01-12 13:23+0000\n"
+"Last-Translator: Jóhannes Gunnar Þorsteinsson <johannesg@johannesg.com>\n"
+"Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
-"Language: is\n"
+"X-Launchpad-Export-Date: 2015-01-13 07:54+0000\n"
+"X-Generator: Launchpad (build 17298)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr ""
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Notandanafn"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Lykilorð"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Innskráning"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Reyni innskráningu..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Innskráning tókst"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Innskráning mistókst"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr ""
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
+msgstr ""
+
+#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:142
+#: ../common/AlbumsPage.qml:156 ../common/SongsPage.qml:352
+msgid "Unknown Album"
+msgstr "Óþekkt albúm"
+
+#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:103 ../common/AlbumsPage.qml:155
+#: ../common/SongsPage.qml:373
+msgid "Unknown Artist"
+msgstr "Óþekktur flytjandi"
+
+#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:154
+msgid "Album"
 msgstr "Albúm"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
-msgid "Album"
-msgstr ""
-
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Flytjendur"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 diskur"
-msgstr[1] "%1 diskar"
+#: ../MusicArtists.qml:106
+msgid "Artist"
+msgstr "Flytjandi"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Tegundir"
+
+#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:291
+#: ../common/SongsPage.qml:325 ../common/SongsPage.qml:339
+#: ../common/SongsPage.qml:375 ../common/SongsPage.qml:394
+#: ../common/SongsPage.qml:426
+msgid "Genre"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
+#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
+#: ../music-app.qml:1089
+msgid "Queue"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
+#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+msgid "Now playing"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:153
+msgid "Add to playlist"
+msgstr "Bæta við spilunarlista"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:131
+msgid "Cancel selection"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:141
+msgid "Select All"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:188
+msgid "Delete"
+msgstr "Eyða"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../common/SongsPage.qml:69
+msgid "Playlists"
+msgstr "Spilunarlisti"
+
+#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:396
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 lag"
 msgstr[1] "%1 lög"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr ""
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Núna í spilun"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Spilunarlisti"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Nýr spilunarlisti"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Breyta heiti"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr ""
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Breyta"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr ""
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr ""
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Hætta við"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:89 ../common/SongsPage.qml:189
+#: ../common/SongsPage.qml:293 ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:338 ../common/SongsPage.qml:374
+#: ../common/SongsPage.qml:410 ../common/SongsPage.qml:413
+#: ../common/SongsPage.qml:428
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Leita"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Stillingar"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr ""
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Sjálfgefið"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Órafmagnað"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Klassískt"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Raftónlist"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr ""
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Djass"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Þungarokk"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Popp"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rokk"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Sérsniðið"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Aðgangar"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr ""
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr ""
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr ""
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr ""
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr ""
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Tónlist"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../common/SongsPage.qml:79
 msgid "Recent"
 msgstr "Nýlegt"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Hreinsa feril"
-
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Tegundir"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
+#: ../MusicToolbar.qml:128
+msgid "Tap to shuffle music"
 msgstr ""
 
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr ""
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Lög"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Veldu spilunarlista"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Spila allt"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:176
 msgid "Add to queue"
 msgstr ""
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Bæta við spilunarlista"
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+msgid "Select playlist"
+msgstr "Veldu spilunarlista"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/AlbumsPage.qml:62 ../common/SongsPage.qml:286
+msgid "Shuffle"
+msgstr ""
+
+#: ../common/AlbumsPage.qml:76 ../common/SongsPage.qml:312
+msgid "Queue all"
+msgstr ""
+
+#: ../common/AlbumsPage.qml:84 ../common/SongsPage.qml:320
+msgid "Play all"
+msgstr "Spila allt"
+
+#: ../common/AlbumsPage.qml:122
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 diskur"
+msgstr[1] "%1 diskar"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr ""
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Eyða"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Breyta"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
 msgid "Remove"
 msgstr "Fjarlægja"
 
@@ -297,140 +166,184 @@ msgstr "Fjarlægja"
 msgid "Loading..."
 msgstr "Hleð..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Hreinsa"
-
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Óþekkt albúm"
-
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Óþekktur flytjandi"
-
-#: ../music-app.qml:142
-msgid "Search Track"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
 msgstr ""
 
-#: ../music-app.qml:154
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:498
+msgid "Change name"
+msgstr "Breyta heiti"
+
+#: ../common/SongsPage.qml:499
+msgid "Enter the new name of the playlist."
+msgstr ""
+
+#: ../common/SongsPage.qml:516
+msgid "Change"
+msgstr "Breyta"
+
+#: ../common/SongsPage.qml:537 ../music-app.qml:870
+msgid "Playlist already exists"
+msgstr ""
+
+#: ../common/SongsPage.qml:541 ../music-app.qml:875
+msgid "Please type in a name."
+msgstr ""
+
+#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
+#: ../music-app.qml:481 ../music-app.qml:881
+msgid "Cancel"
+msgstr "Hætta við"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:559
+msgid "Are you sure?"
+msgstr ""
+
+#: ../common/SongsPage.qml:560
+msgid "This will delete your playlist."
+msgstr ""
+
+#: ../music-app.qml:145
 msgid "Next"
 msgstr "Næsta"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:146
 msgid "Next Track"
 msgstr "Næsta lag"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Pause"
 msgstr "Í bið"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Play"
 msgstr "Afspilun"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Pause Playback"
 msgstr "Gera hlé á afspilun"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Continue or start playback"
 msgstr ""
 
-#: ../music-app.qml:168
+#: ../music-app.qml:159
 msgid "Back"
 msgstr "Til baka"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:160
 msgid "Go back to last page"
 msgstr ""
 
-#: ../music-app.qml:177
+#: ../music-app.qml:168
 msgid "Previous"
 msgstr "Fyrra"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:169
 msgid "Previous Track"
 msgstr "Fyrra lag"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:174
 msgid "Stop"
 msgstr "Stöðva"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:175
 msgid "Stop Playback"
 msgstr ""
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr ""
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:324
 msgid "Filepath must start with"
 msgstr ""
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:350
 msgid "Filepath must be a file"
 msgstr ""
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:356
 msgid "Failed to move file"
 msgstr ""
 
-#: ../music-app.qml:447
+#: ../music-app.qml:435
 msgid "Waiting for file(s)..."
 msgstr ""
 
-#: ../music-app.qml:466
+#: ../music-app.qml:454
 msgid "OK"
 msgstr ""
 
-#: ../music-app.qml:479
+#: ../music-app.qml:467
 msgid "Imported file not found"
 msgstr ""
 
-#: ../music-app.qml:483
+#: ../music-app.qml:471
 msgid "Wait"
 msgstr ""
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:492
 msgid "songs played today"
 msgstr "lög spiluð í dag"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:493
 msgid "No songs played today"
 msgstr "Engin lög spiluð í dag"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:579 ../music-app.qml:1084
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Tónlist"
+
+#: ../music-app.qml:597
 msgid "Debug: "
 msgstr "Aflúsa: "
 
-#: ../music-app.qml:925
+#: ../music-app.qml:839
 msgid "New Playlist"
 msgstr "Nýr spilunarlisti"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:840
 msgid "Name your playlist."
 msgstr ""
 
-#: ../music-app.qml:930
+#: ../music-app.qml:844
 msgid "Name"
 msgstr "Heiti"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:854
 msgid "Create"
 msgstr "Búa til"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1118
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1129
 msgid "Please import music"
+msgstr ""
+
+#: ../music-app.qml:1158
+msgid "No playlists found"
+msgstr ""
+
+#: ../music-app.qml:1169
+msgid "Click the + to create a playlist"
+msgstr ""
+
+#: ../music-app.qml:1198
+msgid "No recent albums or playlists found"
+msgstr ""
+
+#: ../music-app.qml:1209
+msgid "Play some music to see your favorites"
 msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
@@ -440,3 +353,81 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
+
+#~ msgid "Login Successful"
+#~ msgstr "Innskráning tókst"
+
+#~ msgid "Login"
+#~ msgstr "Innskráning"
+
+#~ msgid "Password"
+#~ msgstr "Lykilorð"
+
+#~ msgid "Login Failed"
+#~ msgstr "Innskráning mistókst"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Username"
+#~ msgstr "Notandanafn"
+
+#~ msgid "Now Playing"
+#~ msgstr "Núna í spilun"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Reyni innskráningu..."
+
+#~ msgid "Search"
+#~ msgstr "Leita"
+
+#~ msgid "Settings"
+#~ msgstr "Stillingar"
+
+#~ msgid "Default"
+#~ msgstr "Sjálfgefið"
+
+#~ msgid "Acoustic"
+#~ msgstr "Órafmagnað"
+
+#~ msgid "Classical"
+#~ msgstr "Klassískt"
+
+#~ msgid "Electronic"
+#~ msgstr "Raftónlist"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop"
+
+#~ msgid "Jazz"
+#~ msgstr "Djass"
+
+#~ msgid "Metal"
+#~ msgstr "Þungarokk"
+
+#~ msgid "Pop"
+#~ msgstr "Popp"
+
+#~ msgid "Rock"
+#~ msgstr "Rokk"
+
+#~ msgid "Custom"
+#~ msgstr "Sérsniðið"
+
+#~ msgid "Accounts"
+#~ msgstr "Aðgangar"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Clear History"
+#~ msgstr "Hreinsa feril"
+
+#~ msgid "New playlist"
+#~ msgstr "Nýr spilunarlisti"
+
+#~ msgid "Edit"
+#~ msgstr "Breyta"
+
+#~ msgid "Clear"
+#~ msgstr "Hreinsa"
