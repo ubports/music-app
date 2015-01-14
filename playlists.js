@@ -180,7 +180,7 @@ function getPlaylists() {
 
     try {
         db.transaction(function (tx) {
-            var rs = tx.executeSql('SELECT * FROM playlist;')
+            var rs = tx.executeSql('SELECT * FROM playlist ORDER BY name COLLATE NOCASE;')
 
             for (var i = 0; i < rs.rows.length; i++) {
                 var dbItem = rs.rows.item(i)
@@ -202,6 +202,8 @@ function getPlaylistTracks(playlist) {
     var db = getPlaylistDatabase()
     var res = []
 
+    var erroneousTracks = [];
+
     try {
         db.transaction(function (tx) {
             var rs = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
@@ -209,17 +211,35 @@ function getPlaylistTracks(playlist) {
             for (var j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
 
-                res.push({
-                             i: dbItem.i,
-                             filename: dbItem.filename,
-                             title: dbItem.title,
-                             author: dbItem.author,
-                             album: dbItem.album // FIXME: need to construct art: ?
-                         })
+                if (musicStore.lookup(dbItem.filename) === null) {
+                    erroneousTracks.push(dbItem.i);
+                } else {
+                    res.push({
+                                 i: dbItem.i,
+                                 filename: dbItem.filename,
+                                 title: dbItem.title,
+                                 author: dbItem.author,
+                                 album: dbItem.album,
+                                 art: musicStore.lookup(dbItem.filename).art
+                             })
+                }
             }
+
+            // remove bad tracks
+            for (var j=0; j < erroneousTracks.length; j++) {
+                console.debug("Remove", erroneousTracks[j], "from playlist", playlist);
+                res = tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
+                                    [playlist, erroneousTracks[j]]).rowsAffected > 0
+            }
+
+            reorder(playlist, "remove", tx)
         })
     } catch (e) {
         return []
+    }
+
+    if (erroneousTracks.length > 0) {  // reget data as indexes are out of sync
+        res = getPlaylistTracks(playlist)
     }
 
     return res
@@ -259,13 +279,16 @@ function getPlaylistCovers(playlist, max) {
 
             for (var i = 0; i < rs.rows.length
                  && i < (max || rs.rows.length); i++) {
-                var row = {
-                    author: rs.rows.item(i).author,
-                    album: rs.rows.item(i).album
-                }
+                if (musicStore.lookup(rs.rows.item(i).filename) !== null) {
+                    var row = {
+                        author: rs.rows.item(i).author,
+                        album: rs.rows.item(i).album,
+                        art: musicStore.lookup(rs.rows.item(i).filename).art
+                    }
 
-                if (find(res, row) === null) {
-                    res.push(row)
+                    if (find(res, row) === null) {
+                        res.push(row)
+                    }
                 }
             }
         })

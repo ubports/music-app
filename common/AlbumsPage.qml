@@ -31,13 +31,20 @@ MusicPage {
     objectName: "albumsArtistPage"
     visible: false
 
-    property string artist: "Unknown Artist"
+    property string artist: ""
     property var covers: []
 
     CardView {
         id: artistAlbumView
         anchors {
             fill: parent
+        }
+        getter: function (i) {
+            return {
+                "art": artistsModel.get(i, AlbumsModel.RoleArt),
+                "artist": artistsModel.get(i, AlbumsModel.RoleArtist),
+                "title": artistsModel.get(i, AlbumsModel.RoleTitle),
+            };
         }
         header: BlurredHeader {
             rightColumn: Column {
@@ -54,10 +61,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Shuffle")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: shuffleModel(songArtistModel)
-                    }
+                    onClicked: shuffleModel(songArtistModel)
                 }
                 Button {
                     id: queueAllRow
@@ -71,10 +75,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Queue all")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: addQueueFromModel(songArtistModel)
-                    }
+                    onClicked: addQueueFromModel(songArtistModel)
                 }
                 Button {
                     id: playRow
@@ -82,10 +83,7 @@ MusicPage {
                     height: units.gu(4)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: trackClicked(songArtistModel, 0, true)
-                    }
+                    onClicked: trackClicked(songArtistModel, 0, true)
                 }
             }
             coverSources: albumStackPage.covers
@@ -102,7 +100,7 @@ MusicPage {
                     fontSize: "x-large"
                     maximumLineCount: 1
                     objectName: "artistLabel"
-                    text: artist
+                    text: artist != "" ? artist : i18n.tr("Unknown Artist")
                     wrapMode: Text.NoWrap
                 }
 
@@ -141,18 +139,26 @@ MusicPage {
             id: albumCard
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
+            primaryText: model.title != "" ? model.title : i18n.tr("Unknown Album")
             secondaryTextVisible: false
 
             onClicked: {
-                songsPage.album = model.title;
+                var comp = Qt.createComponent("SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": model.title,
+                                                      "artist": model.artist,
+                                                      "covers": [{art: model.art}],
+                                                      "isAlbum": true,
+                                                      "genre": undefined,
+                                                      "title": i18n.tr("Album"),
+                                                      "line1": model.artist != "" ? model.artist : i18n.tr("Unknown Artist"),
+                                                      "line2": model.title != "" ? model.title : i18n.tr("Unknown Album"),
+                                                  });
 
-                songsPage.line1 = model.artist
-                songsPage.line2 = model.title
-                songsPage.isAlbum = true
-                songsPage.covers = [{art: model.art}]
-                songsPage.genre = undefined
-                songsPage.title = i18n.tr("Album")
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }

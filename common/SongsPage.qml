@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -41,8 +41,50 @@ MusicPage {
     property string file: ""
     property string year: ""
 
+    property var page
     property alias album: songsModel.album
+    property alias artist: songsModel.albumArtist
     property alias genre: songsModel.genre
+
+    property bool playlistChanged: false
+
+    onVisibleChanged: {
+        if (playlistChanged) {
+            playlistChanged = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: albumTracksModel.filterPlaylistTracks(line2)
+    }
+
+    function playlistChangedHelper(force)
+    {
+        force = force === undefined ? false : force  // default force to false
+
+        // if parent Playlists then set changed otherwise refilter
+        if (songStackPage.page.title === i18n.tr("Playlists")) {
+            if (songStackPage.page !== undefined) {
+                songStackPage.page.changed = true
+            }
+        } else {
+            playlistModel.filterPlaylists()
+        }
+
+        if (Library.recentContainsPlaylist(songStackPage.line2) || force) {
+            // if parent Recent then set changed otherwise refilter
+            if (songStackPage.page.title === i18n.tr("Recent")) {
+                if (songStackPage.page !== undefined) {
+                    songStackPage.page.changed = true
+                }
+            } else {
+                recentModel.filterRecent()
+            }
+        }
+    }
 
     state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album")
     states: [
@@ -88,7 +130,10 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: albumtrackslist.state = "normal"
+                onTriggered: {
+                    albumtrackslist.clearSelection()
+                    albumtrackslist.state = "normal"
+                }
             }
             actions: [
                 Action {
@@ -113,8 +158,14 @@ MusicPage {
                             items.push(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("../MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items, "page": songStackPage});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         albumtrackslist.closeSelection()
                     }
@@ -125,7 +176,7 @@ MusicPage {
                     text: i18n.tr("Add to queue")
                     onTriggered: {
                         for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            trackQueue.model.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
+                            trackQueue.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
                         albumtrackslist.closeSelection()
@@ -138,13 +189,24 @@ MusicPage {
                     visible: songStackPage.line1 === i18n.tr("Playlist")
                     onTriggered: {
                         for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i] - i)
+                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i])
+
+                            // Update indexes as an index has been removed
+                            for (var j=i + 1; j < albumtrackslist.selectedItems.length; j++) {
+                                if (albumtrackslist.selectedItems[j] > albumtrackslist.selectedItems[i]) {
+                                    albumtrackslist.selectedItems[j]--;
+                                }
+                            }
                         }
 
                         albumtrackslist.closeSelection()
 
+                        playlistChangedHelper()  // update recent/playlist models
+
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                        playlistModel.filterPlaylists()
+
+                        // refresh cover art
+                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
             ]
@@ -200,6 +262,14 @@ MusicPage {
             }
         }
 
+        Component.onCompleted: {
+            // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
+            // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
+            var scaleFactor = units.gridUnit / 8;
+            maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
+            flickDeceleration = flickDeceleration * scaleFactor;
+        }
+
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
@@ -215,19 +285,18 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Shuffle")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            shuffleModel(albumtrackslist.model)  // play track
+                    onClicked: {
+                        shuffleModel(albumtrackslist.model)  // play track
 
-                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                recentModel.filterRecent()
-                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                recentModel.filterRecent()
-                            }
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "playlist")
+                        } else {
+                            console.debug("Unknown type to add to recent")
                         }
+
+                        recentModel.filterRecent()
                     }
                 }
                 Button {
@@ -242,10 +311,7 @@ MusicPage {
                         color: "white"
                         text: i18n.tr("Queue all")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: addQueueFromModel(albumtrackslist.model)
-                    }
+                    onClicked: addQueueFromModel(albumtrackslist.model)
                 }
                 Button {
                     id: playRow
@@ -253,19 +319,18 @@ MusicPage {
                     height: units.gu(4)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            trackClicked(albumtrackslist.model, 0)  // play track
+                    onClicked: {
+                        trackClicked(albumtrackslist.model, 0)  // play track
 
-                            if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                                Library.addRecent(songStackPage.line2, songStackPage.line1, songStackPage.covers[0], songStackPage.line2, "album")
-                                recentModel.filterRecent()
-                            } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                                Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                                recentModel.filterRecent()
-                            }
+                        if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                            Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
+                        } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                            Library.addRecent(songStackPage.line2, "playlist")
+                        } else {
+                            console.debug("Unknown type to add to recent")
                         }
+
+                        recentModel.filterRecent()
                     }
                 }
             }
@@ -284,7 +349,7 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "x-large"
                     maximumLineCount: 1
-                    text: line2
+                    text: line2 != "" ? line2 : i18n.tr("Unknown Album")
                     wrapMode: Text.NoWrap
                 }
 
@@ -305,7 +370,7 @@ MusicPage {
                     fontSize: "small"
                     maximumLineCount: 1
                     objectName: "songsPageHeaderAlbumArtist"
-                    text: line1
+                    text: line1 != "" ? line1 : i18n.tr("Unknown Artist")
                     visible: text !== i18n.tr("Playlist") &&
                              text !== i18n.tr("Genre")
                     wrapMode: Text.NoWrap
@@ -359,12 +424,14 @@ MusicPage {
                     trackClicked(albumtrackslist.model, index)  // play track
 
                     if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                        Library.addRecent(songStackPage.line2, songStackPage.line1, model.art, songStackPage.line2, "album")
-                        recentModel.filterRecent()
+                        Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                     } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                        Library.addRecent(songStackPage.line2, "Playlist", songStackPage.covers[0], songStackPage.line2, "playlist")
-                        recentModel.filterRecent()
+                        Library.addRecent(songStackPage.line2, "playlist")
+                    } else {
+                        console.debug("Unknown type to add to recent")
                     }
+
+                    recentModel.filterRecent()
                 }
                 onReorder: {
                     console.debug("Move: ", from, to);
@@ -380,16 +447,19 @@ MusicPage {
                         onTriggered: {
                             Playlists.removeFromPlaylist(songStackPage.line2, model.i)
 
+                            playlistChangedHelper()  // update recent/playlist models
+
                             albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                            playlistModel.filterPlaylists()
+
+                            // refresh cover art
+                            songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                         }
                     }
                 }
 
                 MusicRow {
                     id: musicRow
-                    covers: []
-                    showCovers: false
+                    height: parent.height
                     column: Column {
                         Label {
                             id: trackTitle
@@ -452,16 +522,16 @@ MusicPage {
                         console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
 
                         if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
-                            playlistModel.filterPlaylists()
 
                             if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
                                 Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
-                                recentModel.filterRecent()
                             }
 
-                            PopupUtils.close(dialogEditPlaylist)
-
                             line2 = playlistName.text
+
+                            playlistChangedHelper()  // update recent/playlist models
+
+                            PopupUtils.close(dialogEditPlaylist)
                         }
                         else {
                             editplaylistoutput.text = i18n.tr("Playlist already exists")
@@ -498,13 +568,13 @@ MusicPage {
                     // removing playlist
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
 
-                    playlistModel.filterPlaylists();
-
                     if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
                         Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                        recentModel.filterRecent()
                     }
 
+                    playlistChangedHelper(true)  // update recent/playlist models
+
+                    songStackPage.page = undefined
                     PopupUtils.close(dialogRemovePlaylist)
 
                     musicToolbar.goBack()

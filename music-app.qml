@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -42,19 +42,25 @@ MainView {
     backgroundColor: "#1e1e23"
     headerColor: "#1e1e23"
 
-    // Startup settigns
+    // Startup settings
     Settings {
         id: startupSettings
         category: "StartupSettings"
 
         property bool firstRun: true
+        property int queueIndex: 0
+        property int tabIndex: -1
     }
 
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            musicToolbar.goBack();  // Esc      Go back
+            if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "search") {
+                musicToolbar.currentPage.state = "default"
+            } else {
+                musicToolbar.goBack();  // Esc      Go back
+            }
         }
         else if(event.modifiers === Qt.AltModifier) {
             var position;
@@ -90,16 +96,17 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (!searchSheet.sheetVisible) {
-                    PopupUtils.open(searchSheet.sheet, mainView,
-                                    { title: i18n.tr("Search") })
+                if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "default") {
+                    musicToolbar.currentPage.state = "search"
+                    header.show()
                 }
+
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
-                nowPlaying.isListView = true;
+                mainPageStack.currentPage.isListView = true
                 break;
-            case Qt.Key_N:  //      Ctrl+N      Show now playing
+            case Qt.Key_N:  //      Ctrl+N      Show Now playing
                 tabs.pushNowPlaying()
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
@@ -135,20 +142,6 @@ MainView {
         }
     }
 
-    // HUD Actions
-    Action {
-        id: searchAction
-        text: i18n.tr("Search")
-        keywords: i18n.tr("Search Track")
-        onTriggered: {
-            if (!searchSheet.sheetVisible) {
-                PopupUtils.open(searchSheet.sheet, mainView,
-                     {
-                                         title: i18n.tr("Search")
-                     } )
-            }
-        }
-    }
     Action {
         id: nextAction
         text: i18n.tr("Next")
@@ -185,7 +178,7 @@ MainView {
         onTriggered: player.stop()
     }
 
-    actions: [searchAction, nextAction, playsAction, prevAction, stopAction, backAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
     // signal to open new URIs
     Connections {
@@ -202,12 +195,8 @@ MainView {
             }
 
             // Filter by artist and album
-            songsAlbumArtistModel.artist = decodeURIComponent(split[0]);
+            songsAlbumArtistModel.albumArtist = decodeURIComponent(split[0]);
             songsAlbumArtistModel.album = decodeURIComponent(split[1]);
-
-            // Add album to recent list
-            Library.addRecent(songsAlbumArtistModel.album, songsAlbumArtistModel.artist, songsAlbumArtistModel.art, songsAlbumArtistModel.album, "album")
-            recentModel.filterRecent()
         }
 
         function processFile(uri, play) {
@@ -223,7 +212,7 @@ MainView {
 
             if (play) {
                 // clear play queue
-                trackQueue.model.clear()
+                trackQueue.clear()
             }
 
             // enqueue
@@ -245,7 +234,6 @@ MainView {
             else if (uri.indexOf("music://") === 0) {
                 uriHandler.processFile(uri.substring(8), play);
             }
-
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
             }
@@ -424,7 +412,7 @@ MainView {
             else {
                 stopTimer();
 
-                trackQueue.model.clear();
+                trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(searchPaths[i])
@@ -534,16 +522,34 @@ MainView {
     width: units.gu(100)
     height: units.gu(80)
 
+    WorkerModelLoader {
+        id: queueLoaderWorker
+        canLoad: false
+        model: trackQueue.model
+        syncFactor: 10
+
+        onCompletedChanged: {
+            if (completed) {
+                player.currentIndex = queueIndex
+                player.setSource(list[queueIndex].filename)
+            }
+        }
+    }
+
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
 
-        customdebug("Arguments on startup: Debug: "+args.values.debug+ " and file: ")
-
-        Library.initialize();
+        Library.createRecent()  // initialize recent
 
         // initialize playlists
         Playlists.initializePlaylist()
+
+        if (!args.values.url) {
+            // allow the queue loader to start
+            queueLoaderWorker.canLoad = !Library.isQueueEmpty()
+            queueLoaderWorker.list = Library.getQueue()
+        }
 
         // everything else
         loading.visible = true
@@ -551,14 +557,12 @@ MainView {
         // push the page to view
         mainPageStack.push(tabs)
 
+        // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
+        tabs.selectedTabIndex = startupSettings.tabIndex === -1 || startupSettings.tabIndex > tabs.count - 1
+                ? (Library.isRecentEmpty() ? albumsTab.index : startTab.index)
+                : startupSettings.tabIndex
+
         loadedUI = true;
-
-        // TODO: Switch tabs back and forth to get the background color in the
-        //       header to work properly.
-        tabs.selectedTabIndex = 1
-
-        // goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = Library.isRecentEmpty() ? 2 : 0
 
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
@@ -571,15 +575,19 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
+
+        // TODO: Workaround for pad.lv/1356779, force the theme's backgroundText color
+        // to work with the app's backgroundColor
+        Theme.palette.normal.backgroundText = "#81888888"
     }
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '1.2'
-    property var chosenElements: []
+    property string appVersion: '2.0'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
+    property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
 
@@ -604,9 +612,16 @@ MainView {
             model = model.linkLibraryListModel;
         }
 
+        var items = []
+
         for (var i=0; i < model.rowCount; i++) {
-            trackQueue.model.append(makeDict(model.get(i, model.RoleModelData)));
+            items.push(model.get(i, model.RoleModelData))
+
+            trackQueue.model.append(items[i]);
         }
+
+        // Add model to queue storage
+        Library.addQueueList(items);
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -644,27 +659,27 @@ MainView {
         clear = clear === undefined ? false : clear  // force clear and will ignore player.toggle()
 
         if (!clear) {
-            // If same track and on now playing page then toggle
-            if (musicToolbar.currentPage === nowPlaying &&
-                    trackQueue.model.get(player.currentIndex) !== undefined &&
-                    Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
+            // If same track and on Now playing page then toggle
+            if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
+                    && trackQueue.model.get(player.currentIndex) !== undefined
+                    && Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
                 player.toggle()
                 return;
             }
         }
 
-        trackQueue.model.clear();  // clear the old model
+        trackQueue.clear();  // clear the old model
 
         addQueueFromModel(model);
 
         if (play) {
             player.playSong(file, index);
 
-            // Show the Now Playing page and make sure the track is visible
+            // Show the Now playing page and make sure the track is visible
             tabs.pushNowPlaying();
         }
         else {
-            player.source = file;
+            player.setSource(file);
         }
     }
 
@@ -676,15 +691,15 @@ MainView {
             player.playSong(trackQueue.model.get(index).filename, index);
         }
 
-        // Show the Now Playing page and make sure the track is visible
-        if (!nowPlaying.isListView) {
+        // Show the Now playing page and make sure the track is visible
+        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
             tabs.pushNowPlaying();
         }
     }
 
     function playRandomSong(shuffle)
     {
-        trackQueue.model.clear();
+        trackQueue.clear();
 
         var now = new Date();
         var seed = now.getSeconds();
@@ -711,10 +726,18 @@ MainView {
         id: musicStore
     }
 
-    SongsModel {
+    SortFilterModel {
         id: allSongsModel
         objectName: "allSongsModel"
-        store: musicStore
+        property alias rowCount: allSongsModelModel.rowCount
+        model: SongsModel {
+            id: allSongsModelModel
+            objectName: "allSongsModelModel"
+            store: musicStore
+        }
+        sort.property: "title"
+        sort.order: Qt.AscendingOrder
+        sortCaseSensitivity: Qt.CaseInsensitive
     }
 
     SongsModel {
@@ -725,6 +748,10 @@ MainView {
                 // Play album it tracks exist
                 if (rowCount > 0 && selectedAlbum) {
                     trackClicked(songsAlbumArtistModel, 0, true, true);
+
+                    // Add album to recent list
+                    Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")
+                    recentModel.filterRecent()
                 } else if (selectedAlbum) {
                     console.debug("Unknown artist-album " + artist + "/" + album + ", skipping")
                 }
@@ -732,7 +759,7 @@ MainView {
                 selectedAlbum = false;
 
                 // Clear filter for artist and album
-                songsAlbumArtistModel.artist = ""
+                songsAlbumArtistModel.albumArtist = ""
                 songsAlbumArtistModel.album = ""
             }
         }
@@ -777,11 +804,20 @@ MainView {
     // list of tracks on startup. This is just during development
     LibraryListModel {
         id: trackQueue
+        objectName: "trackQueue"
 
         function append(listElement)
         {
             model.append(makeDict(listElement))
-            console.debug(JSON.stringify(makeDict(listElement)));
+            Library.addQueueItem(listElement.filename)
+        }
+
+        function clear()
+        {
+            model.clear()
+            Library.clearQueue()
+
+            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
     }
 
@@ -789,6 +825,7 @@ MainView {
     // create the listmodel to use for playlists
     LibraryListModel {
         id: playlistModel
+        syncFactor: 1
 
         onPreLoadCompleteChanged: {
             if (preLoadComplete)
@@ -857,7 +894,7 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: nowPlaying.isListView || !nowPlaying.visible
+        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing")
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
@@ -869,6 +906,12 @@ MainView {
             id: tabs
             anchors {
                 fill: parent
+            }
+
+            onSelectedTabIndexChanged: {
+                if (loadedUI) {  // store the tab index if changed by the user
+                    startupSettings.tabIndex = selectedTabIndex
+                }
             }
 
             // First tab is all music
@@ -1008,11 +1051,22 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (mainPageStack.currentPage !== nowPlaying) {
+                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
+                        && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+
+                    var comp = Qt.createComponent("MusicNowPlaying.qml")
+                    var nowPlaying = comp.createObject(mainPageStack, {});
+
+                    if (nowPlaying == null) {  // Error Handling
+                        console.log("Error creating object");
+                    }
+
                     mainPageStack.push(nowPlaying);
                 }
 
-                nowPlaying.isListView = false;  // ensure full view
+                if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
+                    mainPageStack.currentPage.isListView = false;  // ensure full view
+                }
             }
 
             Component.onCompleted: musicToolbar.currentTab = selectedTab
@@ -1030,22 +1084,6 @@ MainView {
                 ensurePopulated(selectedTab);
             }
         } // end of tabs
-
-        SongsPage {
-            id: songsPage
-        }
-
-        AlbumsPage {
-            id: albumsPage
-        }
-
-        MusicNowPlaying {
-            id: nowPlaying
-        }
-
-        MusicaddtoPlaylist {
-            id: addtoPlaylist
-        }
     }
 
     Page {
@@ -1053,9 +1091,9 @@ MainView {
         title: i18n.tr("Music")
         visible: noMusic || noPlaylists || noRecent
 
-        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete
-        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete
+        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
+        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
+        property bool noRecent: recentModel.model.count === 0 && recentModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
         tools: ToolbarItems {
             back: null
             locked: true
@@ -1074,20 +1112,30 @@ MainView {
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No music found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Please import music")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }
@@ -1100,24 +1148,34 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && tabs.selectedTab.index === 4
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No playlists found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Click the + to create a playlist")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }
@@ -1130,24 +1188,34 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noRecent && !emptyPage.noMusic && tabs.selectedTab.index === 0
+            visible: emptyPage.noRecent && !emptyPage.noMusic && startTab.index === tabs.selectedTab.index
 
             Column {
                 anchors.centerIn: parent
+                spacing: units.gu(2)
+                width: parent.width
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("No recent albums or playlists found")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     color: styleMusic.libraryEmpty.labelColor
+                    elide: Text.ElideRight
                     fontSize: "medium"
+                    horizontalAlignment: Text.AlignHCenter
+                    maximumLineCount: 2
                     text: i18n.tr("Play some music to see your favorites")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
                 }
             }
         }

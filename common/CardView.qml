@@ -20,42 +20,63 @@ import Ubuntu.Components 1.1
 
 
 Flickable {
+    id: cardViewFlickable
     anchors {
         fill: parent
     }
 
     // dont use flow.contentHeight as it is inaccurate due to height of labels
     // changing as they load
-    contentHeight: headerLoader.childrenRect.height + flowContainer.height
+    contentHeight: headerLoader.childrenRect.height + flow.contentHeight + flowContainer.anchors.margins * 2
     contentWidth: width
 
     property alias count: flow.count
     property alias delegate: flow.delegate
+    property var getter
     property alias header: headerLoader.sourceComponent
-    property alias model: flow.model
+    property var model: flow.model
     property real itemWidth: units.gu(15)
+
+    onGetterChanged: flow.getter = getter  // cannot use alias to set a function (must be var)
+
+    onVisibleChanged: {
+        if (visible) {  // only load model once CardView is visible
+            flow.model = model
+        }
+    }
 
     Loader {
         id: headerLoader
+        visible: sourceComponent !== undefined
         width: parent.width
     }
 
     Item {
         id: flowContainer
         anchors {
+            bottom: parent.bottom
+            left: parent.left
+            margins: units.gu(1)
+            right: parent.right
             top: headerLoader.bottom
         }
-        height: flow.childrenRect.height + flow.anchors.margins * 2
         width: parent.width
 
         ColumnFlow {
             id: flow
             anchors {
                 fill: parent
-                margins: units.gu(1)
             }
-
-            columns: parseInt(width / itemWidth)
+            columns: parseInt(cardViewFlickable.width / itemWidth) || 1  // never drop to 0
+            flickable: cardViewFlickable
         }
+    }
+
+    Component.onCompleted: {
+        // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
+        // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
+        var scaleFactor = units.gridUnit / 8;
+        maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
+        flickDeceleration = flickDeceleration * scaleFactor;
     }
 }

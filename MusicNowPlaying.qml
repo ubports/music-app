@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -24,11 +24,13 @@ import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "common"
 import "common/ListItemActions"
+import "common/Themes/Ambiance"
+import "meta-database.js" as Library
 import "playlists.js" as Playlists
 
 MusicPage {
     id: nowPlaying
-    flickable: isListView ? queuelist : null  // Ensures that the header is shown in fullview
+    flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
     title: isListView ? i18n.tr("Queue") : i18n.tr("Now playing")
     visible: false
@@ -36,47 +38,79 @@ MusicPage {
     property bool isListView: false
 
     onIsListViewChanged: {
-        if (isListView) {
-            positionAt(player.currentIndex);
+        if (isListView) {  // When changing to the queue positionAt the currentIndex
+            // ensure the loader and listview is ready
+            if (queueListLoader.status === Loader.Ready) {
+                ensureListViewLoaded()
+            } else {
+                queueListLoader.onStatusChanged.connect(function() {
+                    if (queueListLoader.status === Loader.Ready) {
+                        ensureListViewLoaded()
+                    }
+                })
+            }
         }
     }
 
-    function positionAt(index) {
-        queuelist.positionViewAtIndex(index, ListView.Center);
+    // Ensure that the listview has loaded before attempting to positionAt
+    function ensureListViewLoaded() {
+        if (queueListLoader.item.count === trackQueue.model.count) {
+            positionAt(player.currentIndex);
+        } else {
+            queueListLoader.item.onCountChanged.connect(function() {
+                if (queueListLoader.item.count === trackQueue.model.count) {
+                    positionAt(player.currentIndex);
+                }
+            })
+        }
     }
 
-    state: isListView && queuelist.state === "multiselectable" ? "selection" : "default"
+    // Position the view at the index
+    function positionAt(index) {
+        queueListLoader.item.positionViewAtIndex(index, ListView.Center);
+    }
+
+    state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
     states: [
         PageHeadState {
             id: defaultState
 
             name: "default"
-            backAction: Action {
-                iconName: "back";
-                objectName: "backButton"
-                onTriggered: {
-                    mainPageStack.pop();
-
-                    while (mainPageStack.depth > 1) {  // jump back to the tab layer if via SongsPage
-                        mainPageStack.pop();
-                    }
-                }
-            }
             actions: [
                 Action {
-                    objectName: "clearQueue"
-                    iconName: "delete"
-                    visible: isListView
+                    objectName: "toggleView"
+                    iconName: "swap"
                     onTriggered: {
-                        head.backAction.trigger()
-                        trackQueue.model.clear()
+                        isListView = !isListView
                     }
                 },
                 Action {
-                    objectName: "toggleView"
-                    iconName: "media-playlist"
+                    enabled: trackQueue.model.count > 0
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
                     onTriggered: {
-                        isListView = !isListView
+                        var items = []
+
+                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
+
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
+                    }
+                },
+                Action {
+                    enabled: trackQueue.model.count > 0
+                    iconName: "delete"
+                    objectName: "clearQueue"
+                    text: i18n.tr("Clear queue")
+                    onTriggered: {
+                        pageStack.pop()
+                        trackQueue.clear()
                     }
                 }
             ]
@@ -93,47 +127,57 @@ MusicPage {
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: queuelist.state = "normal"
+                onTriggered: {
+                    queueListLoader.item.clearSelection()
+                    queueListLoader.item.state = "normal"
+                }
             }
             actions: [
                 Action {
                     text: i18n.tr("Select All")
                     iconName: "select"
                     onTriggered: {
-                        if (queuelist.selectedItems.length === queuelist.model.count) {
-                            queuelist.clearSelection()
+                        if (queueListLoader.item.selectedItems.length === trackQueue.model.count) {
+                            queueListLoader.item.clearSelection()
                         } else {
-                            queuelist.selectAll()
+                            queueListLoader.item.selectAll()
                         }
                     }
                 },
                 Action {
-                    enabled: queuelist.selectedItems.length > 0
+                    enabled: queueListLoader.item.selectedItems.length > 0
                     iconName: "add-to-playlist"
                     text: i18n.tr("Add to playlist")
                     onTriggered: {
                         var items = []
 
-                        for (var i=0; i < queuelist.selectedItems.length; i++) {
-                            items.push(makeDict(trackQueue.model.get(queuelist.selectedItems[i])));
+                        for (var i=0; i < queueListLoader.item.selectedItems.length; i++) {
+                            items.push(makeDict(trackQueue.model.get(queueListLoader.item.selectedItems[i])));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
-                        queuelist.closeSelection()
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
+
+                        queueListLoader.item.closeSelection()
                     }
                 },
                 Action {
-                    enabled: queuelist.selectedItems.length > 0
+                    enabled: queueListLoader.item.selectedItems.length > 0
                     iconName: "delete"
                     text: i18n.tr("Delete")
                     onTriggered: {
-                        for (var i=0; i < queuelist.selectedItems.length; i++) {
-                            removeQueue(queuelist.selectedItems[i])
-                        }
+                        // Remove the tracks from the queue
+                        // Use slice() to copy the list
+                        // so that the indexes don't change as they are removed
+                        removeQueueList(queueListLoader.item.selectedItems.slice())
 
-                        queuelist.closeSelection()
+                        queueListLoader.item.closeSelection()
                     }
                 }
             ]
@@ -171,7 +215,7 @@ MusicPage {
         Item {
             id: musicToolbarFullContainer
             anchors.top: blurredBackground.bottom
-            anchors.topMargin: units.gu(4)
+            anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(4) : units.gu(2)
             width: blurredBackground.width
 
             /* Column for labels in wideAspect */
@@ -197,8 +241,10 @@ MusicPage {
                     color: styleMusic.playerControls.labelColor
                     elide: Text.ElideRight
                     fontSize: "x-large"
+                    maximumLineCount: 2
                     objectName: "playercontroltitle"
                     text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
+                    wrapMode: Text.WordWrap
                 }
 
                 /* Artist of track */
@@ -225,7 +271,7 @@ MusicPage {
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(3)
                 anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: units.gu(3)
+                anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(3) : units.gu(1.5)
                 height: units.gu(3)
                 width: parent.width
 
@@ -248,7 +294,10 @@ MusicPage {
                     id: progressSliderMusic
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    maximumValue: player.duration  // load value at startup
                     objectName: "progressSliderShape"
+                    style: UbuntuBlueSliderStyle {}
+                    value: player.position  // load value at startup
 
                     function formatValue(v) {
                         if (seeking) {  // update position label while dragging
@@ -267,10 +316,6 @@ MusicPage {
                         }
                     }
 
-                    Component.onCompleted: {
-                        Theme.palette.selected.foreground = UbuntuColors.blue
-                    }
-
                     onPressedChanged: {
                         seeking = pressed
 
@@ -284,16 +329,14 @@ MusicPage {
 
                     Connections {
                         target: player
-                        onDurationChanged: {
-                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
-                            progressSliderMusic.maximumValue = player.duration
-                        }
                         onPositionChanged: {
                             // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
                             if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                                progressSliderMusic.value = player.position
                                 musicToolbarFullPositionLabel.text = durationToString(player.position)
                                 musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                                progressSliderMusic.value = player.position
+                                progressSliderMusic.maximumValue = player.duration
                             }
 
                             progressSliderMusic.seeked = false;
@@ -446,161 +489,233 @@ MusicPage {
     {
         var removedIndex = index
 
-        if (queuelist.count === 1) {
+        if (trackQueue.model.count === 1) {
             player.stop()
             musicToolbar.goBack()
         } else if (index === player.currentIndex) {
             player.nextSong(player.isPlaying);
         }
 
-        queuelist.model.remove(index);
+        trackQueue.model.remove(index);
+        Library.removeQueueItem(removedIndex);
 
         if (removedIndex < player.currentIndex) {
             // update index as the old has been removed
             player.currentIndex -= 1;
+            queueIndex -= 1;
         }
     }
 
-    ListView {
-        id: queuelist
+    // Optimised removeQueue for removing multiple tracks from the queue
+    function removeQueueList(items)
+    {
+        var i;
+
+        // Remove from the saved queue database
+        Library.removeQueueList(items)
+
+
+        // Remove from the listmodel
+        for (i=0; i < items.length; i++) {
+            trackQueue.model.remove(items[i] - i);
+        }
+
+        // Update the currentIndex and playing status
+
+        if (trackQueue.model.count === 0) {
+            // Nothing in the queue so stop and pop the queue
+            player.stop()
+            musicToolbar.goBack()
+        } else if (items.indexOf(player.currentIndex) > -1) {
+            // Current track was removed
+
+            // Find the first index that still exists before the currentIndex
+            for (i=player.currentIndex - 1; i > -1; i--) {
+                if (items.indexOf(i) === -1) {
+                    break;
+                }
+            }
+
+            // Set this as the current track
+            player.currentIndex = i
+            queueIndex = i
+
+            // Play the next track
+            player.nextSong(player.isPlaying);
+        } else {
+            // Current track not in removed list
+            // Check if the index needs to be shuffled down due to removals
+
+            var before = 0
+
+            for (i in items) {
+                if (i < player.currentIndex) {
+                    before++;
+                }
+            }
+
+            // Update the index
+            player.currentIndex -= before;
+            queueIndex -= before;
+        }
+    }
+
+    Loader {
+        id: queueListLoader
         anchors {
             fill: parent
-            topMargin: units.gu(2)
         }
-        delegate: queueDelegate
-        footer: Item {
-            height: mainView.height - (styleMusic.common.expandHeight + queuelist.currentHeight) + units.gu(8)
-        }
-        model: trackQueue.model
-        objectName: "nowPlayingQueueList"
-        visible: isListView
+        asynchronous: true
+        sourceComponent: ListView {
+            id: queueList
+            anchors {
+                bottomMargin: units.gu(2)
+                fill: parent
+                topMargin: units.gu(2)
+            }
+            delegate: queueDelegate
+            footer: Item {
+                height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
+            }
+            model: trackQueue.model
+            objectName: "nowPlayingqueueList"
 
-        property int normalHeight: units.gu(6)
-        property int transitionDuration: 250  // transition length of animations
+            property int normalHeight: units.gu(6)
+            property int transitionDuration: 250  // transition length of animations
 
-        onCountChanged: {
-            customdebug("Queue: Now has: " + queuelist.count + " tracks")
-        }
+            onCountChanged: {
+                customdebug("Queue: Now has: " + queueList.count + " tracks")
+            }
 
-        // Requirements for ListItemWithActions
-        property var selectedItems: []
+            // Requirements for ListItemWithActions
+            property var selectedItems: []
 
-        signal clearSelection()
-        signal closeSelection()
-        signal selectAll()
+            signal clearSelection()
+            signal closeSelection()
+            signal selectAll()
 
-        onClearSelection: selectedItems = []
-        onCloseSelection: {
-            clearSelection()
-            state = "normal"
-        }
-        onSelectAll: {
-            var tmp = selectedItems
+            onClearSelection: selectedItems = []
+            onCloseSelection: {
+                clearSelection()
+                state = "normal"
+            }
+            onSelectAll: {
+                var tmp = selectedItems
 
-            for (var i=0; i < model.count; i++) {
-                if (tmp.indexOf(i) === -1) {
-                    tmp.push(i)
+                for (var i=0; i < model.count; i++) {
+                    if (tmp.indexOf(i) === -1) {
+                        tmp.push(i)
+                    }
+                }
+
+                selectedItems = tmp
+            }
+            onVisibleChanged: {
+                if (!visible) {
+                    clearSelection(true)
                 }
             }
 
-            selectedItems = tmp
-        }
-        onVisibleChanged: {
-            if (!visible) {
-                clearSelection(true)
+            Component.onCompleted: {
+                // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
+                // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
+                var scaleFactor = units.gridUnit / 8;
+                maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
+                flickDeceleration = flickDeceleration * scaleFactor;
             }
-        }
 
-        Component {
-            id: queueDelegate
-            ListItemWithActions {
-                id: queueListItem
-                color: player.currentIndex === index ? "#2c2c34" : "transparent"
-                height: queuelist.normalHeight
-                objectName: "nowPlayingListItem" + index
-                state: ""
+            Component {
+                id: queueDelegate
+                ListItemWithActions {
+                    id: queueListItem
+                    color: player.currentIndex === index ? "#2c2c34" : mainView.backgroundColor
+                    height: queueList.normalHeight
+                    objectName: "nowPlayingListItem" + index
+                    state: ""
 
-                leftSideAction: Remove {
-                    onTriggered: removeQueue(index)
-                }
-                multiselectable: true
-                reorderable: true
-                rightSideActions: [
-                    AddToPlaylist{
-
+                    leftSideAction: Remove {
+                        onTriggered: removeQueue(index)
                     }
-                ]
+                    multiselectable: true
+                    reorderable: true
+                    rightSideActions: [
+                        AddToPlaylist{
 
-                onItemClicked: {
-                    customdebug("File: " + model.filename) // debugger
-                    trackQueueClick(index);  // toggle track state
-                }
-                onReorder: {
-                    console.debug("Move: ", from, to);
+                        }
+                    ]
 
-                    queuelist.model.move(from, to, 1);
-
-
-                    // Maintain currentIndex with current song
-                    if (from === player.currentIndex) {
-                        player.currentIndex = to;
+                    onItemClicked: {
+                        customdebug("File: " + model.filename) // debugger
+                        trackQueueClick(index);  // toggle track state
                     }
-                    else if (from < player.currentIndex && to >= player.currentIndex) {
-                        player.currentIndex -= 1;
-                    }
-                    else if (from > player.currentIndex && to <= player.currentIndex) {
-                        player.currentIndex += 1;
-                    }
-                }
+                    onReorder: {
+                        console.debug("Move: ", from, to);
 
-                Item {
-                    id: trackContainer;
-                    anchors {
-                        fill: parent
+                        trackQueue.model.move(from, to, 1);
+                        Library.moveQueueItem(from, to);
+
+                        // Maintain currentIndex with current song
+                        if (from === player.currentIndex) {
+                            player.currentIndex = to;
+                        }
+                        else if (from < player.currentIndex && to >= player.currentIndex) {
+                            player.currentIndex -= 1;
+                        }
+                        else if (from > player.currentIndex && to <= player.currentIndex) {
+                            player.currentIndex += 1;
+                        }
+
+                        queueIndex = player.currentIndex
                     }
 
-                    NumberAnimation {
-                        id: trackContainerReorderAnimation
-                        target: trackContainer;
-                        property: "anchors.leftMargin";
-                        duration: queuelist.transitionDuration;
-                        to: units.gu(2)
-                    }
+                    Item {
+                        id: trackContainer;
+                        anchors {
+                            fill: parent
+                        }
 
-                    NumberAnimation {
-                        id: trackContainerResetAnimation
-                        target: trackContainer;
-                        property: "anchors.leftMargin";
-                        duration: queuelist.transitionDuration;
-                        to: units.gu(0.5)
-                    }
+                        NumberAnimation {
+                            id: trackContainerReorderAnimation
+                            target: trackContainer;
+                            property: "anchors.leftMargin";
+                            duration: queueList.transitionDuration;
+                            to: units.gu(2)
+                        }
 
-                    MusicRow {
-                        id: musicRow
-                        covers: [{art: model.art, album: model.album, author: model.author}]
-                        showCovers: false
-                        coverSize: units.gu(6)
-                        column: Column {
-                            Label {
-                                id: trackTitle
-                                color: player.currentIndex === index ? UbuntuColors.blue
-                                                                        : styleMusic.common.music
-                                fontSize: "small"
-                                objectName: "titleLabel"
-                                text: model.title
-                            }
+                        NumberAnimation {
+                            id: trackContainerResetAnimation
+                            target: trackContainer;
+                            property: "anchors.leftMargin";
+                            duration: queueList.transitionDuration;
+                            to: units.gu(0.5)
+                        }
 
-                            Label {
-                                id: trackArtist
-                                color: styleMusic.common.subtitle
-                                fontSize: "x-small"
-                                objectName: "artistLabel"
-                                text: model.author
+                        MusicRow {
+                            id: musicRow
+                            height: parent.height
+                            column: Column {
+                                Label {
+                                    id: trackTitle
+                                    color: player.currentIndex === index ? UbuntuColors.blue
+                                                                            : styleMusic.common.music
+                                    fontSize: "small"
+                                    objectName: "titleLabel"
+                                    text: model.title
+                                }
+
+                                Label {
+                                    id: trackArtist
+                                    color: styleMusic.common.subtitle
+                                    fontSize: "x-small"
+                                    objectName: "artistLabel"
+                                    text: model.author
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        visible: isListView
     }
 }

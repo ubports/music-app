@@ -33,6 +33,21 @@ MusicPage {
     id: mainpage
     title: i18n.tr("Recent")
 
+    property bool changed: false
+
+    onVisibleChanged: {
+        if (changed) {
+            changed = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: recentModel.filterRecent()
+    }
+
     head {
         actions: [
             Action {
@@ -51,24 +66,40 @@ MusicPage {
         model: recentModel.model
         delegate: Card {
             id: albumCard
-            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(title) : (model.art !== undefined ? [{art: model.art}] : [{author: model.title2, album: model.title}])
+
+            SongsModel {
+                id: recentAlbumSongs
+                album: model.type === "album" ? model.data : undefined
+                store: musicStore
+            }
+
+            coverSources: model.type === "playlist" ? Playlists.getPlaylistCovers(model.data) : (recentAlbumSongs.status === SongsModel.Ready ? [makeDict(recentAlbumSongs.get(0, SongsModel.RoleModelData))] : [])
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
-            secondaryText: model.title2  !== "Playlist" ? model.title2 : i18n.tr("Playlist")
+            primaryText: model.type === "playlist" ? model.data : (recentAlbumSongs.status === SongsModel.Ready && recentAlbumSongs.get(0, SongsModel.RoleModelData).album != "" ? recentAlbumSongs.get(0, SongsModel.RoleModeData).album : i18n.tr("Unknown Album"))
+            secondaryText: model.type === "playlist" ? i18n.tr("Playlist") : (recentAlbumSongs.status === SongsModel.Ready && recentAlbumSongs.get(0, SongsModel.RoleModelData).author != "" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).author : i18n.tr("Unknown Artist"))
 
             onClicked: {
-                if (type === "playlist") {
-                    albumTracksModel.filterPlaylistTracks(model.key)
-                } else {
-                    songsPage.album = title;
+                if (model.type === "playlist") {
+                    albumTracksModel.filterPlaylistTracks(model.data)
                 }
-                songsPage.genre = undefined;
 
-                songsPage.line1 = secondaryText
-                songsPage.line2 = primaryText
-                songsPage.covers = coverSources
-                songsPage.isAlbum = (type === "album")
-                songsPage.title = songsPage.isAlbum ? i18n.tr("Album") : i18n.tr("Playlist")
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": model.type !== "playlist" ? model.data : undefined,
+                                                      "artist": model.type !== "playlist" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).artist : undefined,
+                                                      "covers": coverSources,
+                                                      "isAlbum": (model.type === "album"),
+                                                      "genre": undefined,
+                                                      "page": mainpage,
+                                                      "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
+                                                      "line1": secondaryText,
+                                                      "line2": primaryText,
+                                                  });
+
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }

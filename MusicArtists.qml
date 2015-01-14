@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -23,7 +23,6 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
@@ -31,23 +30,50 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: artistsPage
     objectName: "artistsPage"
     title: i18n.tr("Artists")
+    searchable: true
+    searchResultsCount: artistsModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: artistsPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: artistsPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: artistsPage
+        }
+    ]
 
     CardView {
         id: artistCardView
         itemWidth: units.gu(12)
-        model: ArtistsModel {
-            id: artistsModel
-            albumArtists: true
-            store: musicStore
+        model: SortFilterModel {
+            id: artistsModelFilter
+            property alias rowCount: artistsModel.rowCount
+            model: ArtistsModel {
+                id: artistsModel
+                albumArtists: true
+                store: musicStore
+            }
+            sort.property: "artist"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "artist"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: artistCard
             coverSources: [{art: "image://artistart/artist=" + model.artist + "&album=" + artistCard.album}]
             objectName: "artistsPageGridItem" + index
-            primaryText: model.artist
+            primaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
             secondaryTextVisible: false
 
             property string album: ""
@@ -72,9 +98,17 @@ MusicPage {
 
 
             onClicked: {
-                albumsPage.artist = model.artist;
-                albumsPage.covers = artistCard.coverSources
-                albumsPage.title = i18n.tr("Artist")
+                var comp = Qt.createComponent("common/AlbumsPage.qml")
+                var albumsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "artist": model.artist,
+                                                      "covers": artistCard.coverSources,
+                                                      "title": i18n.tr("Artist"),
+                                                  });
+
+                if (albumsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(albumsPage)
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -27,6 +27,23 @@ MusicPage {
     id: albumsPage
     objectName: "albumsPage"
     title: i18n.tr("Albums")
+    searchable: true
+    searchResultsCount: albumsModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: albumsPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: albumsPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: albumsPage
+        }
+    ]
 
     CardView {
         id: albumCardView
@@ -39,22 +56,35 @@ MusicPage {
             }
             sort.property: "title"
             sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "title"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
         delegate: Card {
             id: albumCard
             coverSources: [{art: model.art}]
             objectName: "albumsPageGridItem" + index
-            primaryText: model.title
-            secondaryText: model.artist
+            primaryText: model.title != "" ? model.title : i18n.tr("Unknown Album")
+            secondaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
 
             onClicked: {
-                songsPage.album = model.title;
-                songsPage.covers = [{art: model.art}]
-                songsPage.genre = undefined
-                songsPage.isAlbum = true
-                songsPage.line1 = model.artist
-                songsPage.line2 = model.title
-                songsPage.title = i18n.tr("Album")
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": model.title,
+                                                      "artist": model.artist,
+                                                      "covers": [{art: model.art}],
+                                                      "isAlbum": true,
+                                                      "genre": undefined,
+                                                      "title": i18n.tr("Album"),
+                                                      "line1": model.artist,
+                                                      "line2": model.title,
+                                                  });
+
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }

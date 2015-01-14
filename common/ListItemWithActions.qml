@@ -30,7 +30,7 @@ Item {
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
-    property color color: Theme.palette.normal.background
+    property color color: "#1e1e23"
     property color selectedColor: "#3d3d45"  // "#E6E6E6"  // CUSTOM
     property bool selected: false
     property bool selectionMode: false
@@ -46,7 +46,6 @@ Item {
     readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
 
     property bool reorderable: false  // CUSTOM
-    property bool reordering: false  // CUSTOM
     property bool multiselectable: false  // CUSTOM
 
     property int previousListItemIndex: -1  // CUSTOM
@@ -61,7 +60,6 @@ Item {
     signal reorder(int from, int to)  // CUSTOM
 
     onItemPressAndHold: {
-        //reordering = reorderable && !reordering  // CUSTOM
         if (multiselectable) {
             selectionMode = true
         }
@@ -98,7 +96,7 @@ Item {
         }
 
         for (var j=0; j < main.children.length; j++) {
-            main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorder.width + units.gu(2) : 0
+            main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
         }
 
         parent.parent.state = selectionMode ? "multiselectable" : "normal"
@@ -151,7 +149,7 @@ Item {
         updatePosition(finalX)
 
         if (leftSideAction !== null) {  // CUSTOM
-            leftActionIcon.primed = main.x > (finalX * root.threshold)
+            leftActionViewLoader.item.primed = main.x > (finalX * root.threshold)
         }
     }
 
@@ -176,7 +174,7 @@ Item {
 
     function getActionAt(point)
     {
-        if (contains(leftActionView, point, 0)) {
+        if (leftSideAction && contains(leftActionViewLoader.item, point, 0)) {
             return leftSideAction
         } else if (contains(rightActionsView, point, 0)) {
             var newPoint = root.mapToItem(rightActionsView, point.x, point.y)
@@ -211,7 +209,7 @@ Item {
     function resetPrimed()  // CUSTOM
     {
         if (leftSideAction !== null) {
-            leftActionIcon.primed = false
+            leftActionViewLoader.item.primed = false
         }
 
         for (var j=0; j < rightSideActions.length; j++) {
@@ -263,13 +261,13 @@ Item {
     Connections {  // CUSTOM
         target: root.parent.parent
         onClearSelection: selected = false
-        onSelectAll: selected = true
-        onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
-        onVisibleChanged: {
-            if (!visible) {
-                reordering = false
+        onFlickingChanged: {
+            if (root.parent.parent.flicking) {
+                root.resetSwipe()
             }
         }
+        onSelectAll: selected = true
+        onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
     }
 
     Component.onCompleted: {  // CUSTOM
@@ -278,25 +276,6 @@ Item {
         }
 
         selectionMode = root.parent.parent.state === "multiselectable"
-    }
-
-    /* CUSTOM Dim Component */
-    Rectangle {
-        id: listItemDim
-        anchors {
-            fill: parent
-        }
-
-        color: mouseArea.pressed ? styleMusic.common.black : "transparent"
-        opacity: 0.1
-
-        property bool dim: false
-
-        Behavior on color {
-            ColorAnimation {
-                duration: UbuntuAnimation.SlowDuration
-            }
-        }
     }
 
     // CUSTOM remove animation
@@ -337,32 +316,43 @@ Item {
     ]
 
     height: defaultHeight
-    clip: height !== defaultHeight
+    //clip: height !== defaultHeight  // CUSTOM
 
-    Rectangle {
-        id: leftActionView
-
+    Loader {  // CUSTOM
+        id: leftActionViewLoader
         anchors {
             top: parent.top
             bottom: parent.bottom
             right: main.left
         }
-        width: root.leftActionWidth + actionThreshold
-        visible: leftSideAction
-        color: UbuntuColors.red
+        asynchronous: true
+        sourceComponent: leftSideAction ? leftActionViewComponent : undefined
+    }
 
-        Icon {
-            anchors {
-                centerIn: parent
-                horizontalCenterOffset: actionThreshold / 2
+    Component {  // CUSTOM
+        id: leftActionViewComponent
+
+        Rectangle {
+            id: leftActionView
+            width: root.leftActionWidth + actionThreshold
+            color: UbuntuColors.red
+
+            property alias primed: leftActionIcon.primed  // CUSTOM
+
+            Icon {
+                id: leftActionIcon
+                anchors {
+                    centerIn: parent
+                    horizontalCenterOffset: actionThreshold / 2
+                }
+                objectName: "swipeDeleteAction"  // CUSTOM
+                name: leftSideAction && _showActions ? leftSideAction.iconName : ""
+                color: Theme.palette.selected.field
+                height: units.gu(3)
+                width: units.gu(3)
+
+                property bool primed: false  // CUSTOM
             }
-            objectName: "swipeDeleteAction"  // CUSTOM
-            name: leftSideAction && _showActions ? leftSideAction.iconName : ""
-            color: Theme.palette.selected.field
-            height: units.gu(3)
-            width: units.gu(3)
-
-            property bool primed: false  // CUSTOM
         }
     }
 
@@ -373,7 +363,6 @@ Item {
        anchors {
            top: main.top
            left: main.right
-           leftMargin: reordering ? actionReorder.width : units.gu(1)  // CUSTOM
            bottom: main.bottom
        }
        visible: _visibleRightSideActions.length > 0
@@ -421,7 +410,7 @@ Item {
                        width: units.gu(3)
                        height: units.gu(3)
                        name: modelData.iconName
-                       color: root.activeAction === modelData ? UbuntuColors.orange : styleMusic.common.white  // CUSTOM
+                       color: root.activeAction === modelData ? UbuntuColors.blue : styleMusic.common.white  // CUSTOM
 
                        property bool primed: false  // CUSTOM
                    }
@@ -449,8 +438,10 @@ Item {
                 left: main.left
                 verticalCenter: main.verticalCenter
             }
+            asynchronous: true  // CUSTOM
             width: (status === Loader.Ready) ? item.implicitWidth : 0
             visible: (status === Loader.Ready) && (item.width === item.implicitWidth)
+
             Behavior on width {
                 NumberAnimation {
                     duration: UbuntuAnimation.SnapDuration
@@ -483,93 +474,113 @@ Item {
         }
     }
 
+    /* CUSTOM Brighten Component */
+    Rectangle {
+        id: listItemBrighten
+        anchors {
+            fill: main
+        }
+
+        color: mouseArea.pressed ? styleMusic.common.white : "transparent"
+        opacity: 0.1
+    }
+
     /* CUSTOM Reorder Component */
-    Item {
-        id: actionReorder
+    Loader {
+        id: actionReorderLoader
         anchors {
             bottom: parent.bottom
             right: main.right
             rightMargin: units.gu(1)
             top: parent.top
         }
-        width: units.gu(4)
-        visible: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
+        asynchronous: true
+        sourceComponent: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0 ? actionReorderComponent : undefined
+    }
 
-        Icon {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter
-            }
-            name: "navigation-menu"  // TODO: use proper image
-            height: width
-            width: units.gu(3)
-        }
+    Component {
+        id: actionReorderComponent
+        Item {
+            id: actionReorder
+            width: units.gu(4)
+            visible: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
 
-        MouseArea {
-            id: actionReorderMouseArea
-            anchors {
-                fill: parent
-            }
-            property int startY: 0
-            property int startContentY: 0
-
-            onPressed: {
-                root.parent.parent.interactive = false;  // stop scrolling of listview
-                startY = root.y;
-                startContentY = root.parent.parent.contentY;
-                root.z += 10;  // force ontop of other elements
-
-                console.debug("Reorder listitem pressed", root.y)
-            }
-            onMouseYChanged: root.y += mouse.y - (root.height / 2);
-            onReleased: {
-                console.debug("Reorder diff by position", getDiff());
-
-                var diff = getDiff();
-
-                // Remove the height of the actual item if moved down
-                if (diff > 0) {
-                    diff -= 1;
+            Icon {
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
                 }
+                name: "navigation-menu"  // TODO: use proper image
+                height: width
+                width: units.gu(3)
+            }
 
-                root.parent.parent.interactive = true;  // reenable scrolling
-
-                if (diff === 0) {
-                    // Nothing has changed so reset the item
-                    // z index is restored after animation
-                    resetListItemYAnimation.start();
+            MouseArea {
+                id: actionReorderMouseArea
+                anchors {
+                    fill: parent
                 }
-                else {
-                    var newIndex = index + diff;
+                property int startY: 0
+                property int startContentY: 0
 
-                    if (newIndex < 0) {
-                        newIndex = 0;
-                    }
-                    else if (newIndex > root.parent.parent.count - 1) {
-                        newIndex = root.parent.parent.count - 1;
+                onPressed: {
+                    root.parent.parent.interactive = false;  // stop scrolling of listview
+                    startY = root.y;
+                    startContentY = root.parent.parent.contentY;
+                    root.z += 10;  // force ontop of other elements
+
+                    console.debug("Reorder listitem pressed", root.y)
+                }
+                onMouseYChanged: root.y += mouse.y - (root.height / 2);
+                onReleased: {
+                    console.debug("Reorder diff by position", getDiff());
+
+                    var diff = getDiff();
+
+                    // Remove the height of the actual item if moved down
+                    if (diff > 0) {
+                        diff -= 1;
                     }
 
-                    root.z -= 10;  // restore z index
-                    reorder(index, newIndex)
+                    root.parent.parent.interactive = true;  // reenable scrolling
+
+                    if (diff === 0) {
+                        // Nothing has changed so reset the item
+                        // z index is restored after animation
+                        resetListItemYAnimation.start();
+                    }
+                    else {
+                        var newIndex = index + diff;
+
+                        if (newIndex < 0) {
+                            newIndex = 0;
+                        }
+                        else if (newIndex > root.parent.parent.count - 1) {
+                            newIndex = root.parent.parent.count - 1;
+                        }
+
+                        root.z -= 10;  // restore z index
+                        reorder(index, newIndex)
+                    }
+                }
+
+                function getDiff() {
+                    // Get the amount of items that have been passed over (by centre)
+                    return Math.round((((root.y - startY) + (root.parent.parent.contentY - startContentY)) / root.height) + 0.5);
                 }
             }
 
-            function getDiff() {
-                // Get the amount of items that have been passed over (by centre)
-                return Math.round((((root.y - startY) + (root.parent.parent.contentY - startContentY)) / root.height) + 0.5);
-            }
-        }
-
-        SequentialAnimation {
-            id: resetListItemYAnimation
-            UbuntuNumberAnimation {
-                target: root;
-                property: "y";
-                to: actionReorderMouseArea.startY
-            }
-            ScriptAction {
-                script: {
-                    root.z -= 10;  // restore z index
+            SequentialAnimation {
+                id: resetListItemYAnimation
+                UbuntuNumberAnimation {
+                    target: root;
+                    property: "y";
+                    to: actionReorderMouseArea.startY
+                }
+                ScriptAction {
+                    script: {
+                        root.z -= 10;  // restore z index
+                    }
                 }
             }
         }
@@ -628,7 +639,7 @@ Item {
     MouseArea {
         id: mouseArea
 
-        property bool locked: root.locked || ((root.leftSideAction === null) && (root._visibleRightSideActions.count === 0)) || reordering  // CUSTOM
+        property bool locked: root.locked || ((root.leftSideAction === null) && (root._visibleRightSideActions.count === 0))  // CUSTOM
         property bool manual: false
         property string direction: "None"
         property real lastX: -1
@@ -638,7 +649,7 @@ Item {
             target: locked ? null : main
             axis: Drag.XAxis
             minimumX: rightActionsView.visible ? -(rightActionsView.width) : 0
-            maximumX: leftActionView.visible ? leftActionView.width : 0
+            maximumX: leftSideAction ? leftActionViewLoader.item.width : 0
             threshold: root.actionThreshold
         }
 

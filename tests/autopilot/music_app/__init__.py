@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013, 2014 Canonical
+# Copyright 2013, 2014, 2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -52,14 +52,14 @@ class MusicApp(object):
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
-        return self.app.wait_select_single(Page11,
+        return self.app.wait_select_single(MusicaddtoPlaylist,
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
         self.main_view.switch_to_tab('albumsTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='albumsPage')
+            MusicPage, objectName='albumsPage')
 
     def get_albums_artist_page(self):
         return self.main_view.wait_select_single(
@@ -69,7 +69,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('artistsTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='artistsPage')
+            MusicPage, objectName='artistsPage')
 
     def get_new_playlist_dialog(self):
         return self.main_view.wait_select_single(
@@ -84,6 +84,10 @@ class MusicApp(object):
 
         return self.main_view.wait_select_single(
             MusicPlaylists, objectName='playlistsPage')
+
+    def get_queue_count(self):
+        return self.main_view.select_single("LibraryListModel",
+                                            objectName="trackQueue").count
 
     def get_songs_page(self):
         return self.app.wait_select_single(SongsPage, objectName="songsPage")
@@ -101,7 +105,7 @@ class MusicApp(object):
         self.main_view.switch_to_tab('tracksTab')
 
         return self.main_view.wait_select_single(
-            Page11, objectName='tracksPage')
+            MusicPage, objectName='tracksPage')
 
     @property
     def loaded(self):
@@ -133,16 +137,9 @@ class Page(UbuntuUIToolkitCustomProxyObjectBase):
         self.main_view = self.get_root_instance().select_single(MainView)
 
 
-class MusicPage(Page):
-    def __init__(self, *args):
-        super(Page, self).__init__(*args)
-
-
-class MusicAlbums(MusicPage):
+class MusicAlbums():
     """ Autopilot helper for the albums page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
-
         self.visible.wait_for(True)
 
     @click_object
@@ -151,11 +148,9 @@ class MusicAlbums(MusicPage):
                 objectName="albumsPageGridItem" + str(i)))
 
 
-class MusicArtists(MusicPage):
+class MusicArtists():
     """ Autopilot helper for the artists page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
-
         self.visible.wait_for(True)
 
     @click_object
@@ -164,16 +159,26 @@ class MusicArtists(MusicPage):
                 objectName="artistsPageGridItem" + str(i)))
 
 
-class MusicTracks(MusicPage):
+class MusicTracks():
     """ Autopilot helper for the tracks page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
-
         self.visible.wait_for(True)
 
     def get_track(self, i):
         return (self.wait_select_single(ListItemWithActions,
                 objectName="tracksPageListItem" + str(i)))
+
+
+class MusicPage(Page, MusicAlbums, MusicArtists, MusicTracks):
+    """
+    FIXME: Represents MusicTracks MusicArtists MusicAlbums
+    due to bug 1341671 and bug 1337004 they all appear as MusicPage
+    Therefore this class 'contains' all of them for now
+    Once the bugs are fixed MusicPage should be swapped for MusicTracks etc
+    and MusicTracks should be changed to inherit MusicPage
+    """
+    def __init__(self, *args):
+        super(MusicPage, self).__init__(*args)
 
 
 class MusicPlaylists(MusicPage):
@@ -211,20 +216,6 @@ class MusicaddtoPlaylist(MusicPage):
                 objectName="addToPlaylistCardItem" + str(i)))
 
 
-class Page11(MusicAlbums, MusicArtists, MusicTracks, MusicaddtoPlaylist):
-    """
-    FIXME: Represents MusicTracks MusicArtists MusicAlbums MusicaddtoPlaylists
-    due to bug 1341671 and bug 1337004 they all appear as Page11
-    Therefore this class 'contains' all of them for now
-    Once the bugs are fixed Page11 should be swapped for MusicTracks etc
-    """
-    def __init__(self, *args):
-        super(MusicAlbums, self).__init__(*args)
-        super(MusicArtists, self).__init__(*args)
-        super(MusicTracks, self).__init__(*args)
-        super(MusicaddtoPlaylist, self).__init__(*args)
-
-
 class Player(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Player"""
 
@@ -236,6 +227,8 @@ class MusicNowPlaying(MusicPage):
 
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
+
+        self.visible.wait_for(True)
 
     @ensure_now_playing_full
     @click_object
@@ -264,14 +257,6 @@ class MusicNowPlaying(MusicPage):
 
     def click_toggle_view(self):
         self.main_view.get_header().click_action_button("toggleView")
-
-    def get_count(self):
-        return self.select_single("QQuickListView",
-                                  objectName="nowPlayingQueueList").count
-
-    def go_back(self):
-        """Use custom back button to go back"""
-        self.main_view.get_header().click_custom_back_button()
 
     @ensure_now_playing_list
     def get_track(self, i):

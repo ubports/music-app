@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -23,6 +23,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import QtQuick.LocalStorage 2.0
+import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
 
@@ -36,35 +37,61 @@ import "common"
 
 // Page that will be used when adding tracks to playlists
 MusicPage {
-    id: addtoPlaylist
+    id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
-    visible: false
-
-    head {
-        actions: [
-            Action {
-                objectName: "newPlaylistButton"
-                text: i18n.tr("New playlist")
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
+    searchable: true
+    searchResultsCount: addToPlaylistModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: addToPlaylistPage.head
+            actions: [
+                Action {
+                    objectName: "newPlaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    enabled: playlistModel.model.count > 0
+                    iconName: "search"
+                    onTriggered: addToPlaylistPage.state = "search"
                 }
-            }
-        ]
-    }
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: addToPlaylistPage
+        }
+    ]
+
+    property var chosenElements: []
+    property var page
 
     onVisibleChanged: {
-        if (visible) {
-            tabs.ensurePopulated(playlistTab)
+        // Load the playlistmodel if it hasn't loaded or is empty
+        if (visible && (!playlistModel.completed || playlistModel.model.count === 0)) {
+            playlistModel.canLoad = true  // ensure the model canLoad
+            playlistModel.filterPlaylists()
         }
     }
 
     CardView {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
-        model: playlistModel.model
+        model: SortFilterModel {
+            // Sorting disabled as it is incorrect on first run (due to workers?)
+            // and SQL sorts the data correctly
+            id: addToPlaylistModelFilter
+            model: playlistModel.model
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "addToPlaylistCardView"
         delegate: Card {
             id: playlist
@@ -83,7 +110,26 @@ MusicPage {
                     Playlists.addToPlaylist(name, chosenElements[i])
                 }
 
-                playlistModel.filterPlaylists();
+                // Check that the parent parent page is not being refiltered
+                if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Playlists")) {
+                    page.page.changed = true
+                } else {
+                    playlistModel.filterPlaylists();
+                }
+
+                if (Library.recentContainsPlaylist(name)) {
+                    // Check that the parent parent page is not being refiltered
+                    if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Recent")) {
+                        page.page.changed = true
+                    } else {
+                        recentModel.filterRecent()
+                    }
+                }
+
+                if (page !== undefined && name === page.line2 && page.playlistChanged !== undefined) {
+                    page.playlistChanged = true
+                    page.covers = Playlists.getPlaylistCovers(name)
+                }
 
                 musicToolbar.goBack();  // go back to the previous page
             }

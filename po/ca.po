@@ -1,294 +1,164 @@
 # Catalan translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-08 05:36+0000\n"
+"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"PO-Revision-Date: 2014-10-28 09:47+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-01-12 07:41+0000\n"
+"X-Generator: Launchpad (build 17298)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Inicia una sessió per poder navegar."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Nom d'usuari"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Contrasenya"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Inicia la sessió"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "S'està intentant iniciar la sessió..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Inici de sessió correcte"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Error en l'inici de sessió"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Us heu oblidat d'establir el vostre nom d'usuari i/o la contrasenya"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Àlbums"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:142
+#: ../common/AlbumsPage.qml:156 ../common/SongsPage.qml:352
+msgid "Unknown Album"
+msgstr "Àlbum desconegut"
+
+#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:103 ../common/AlbumsPage.qml:155
+#: ../common/SongsPage.qml:373
+msgid "Unknown Artist"
+msgstr "Artista desconegut"
+
+#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:154
 msgid "Album"
 msgstr "Àlbum"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Artistes"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 àlbum"
-msgstr[1] "%1 àlbums"
+#: ../MusicArtists.qml:106
+msgid "Artist"
+msgstr "Artista"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Gèneres"
+
+#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:291
+#: ../common/SongsPage.qml:325 ../common/SongsPage.qml:339
+#: ../common/SongsPage.qml:375 ../common/SongsPage.qml:394
+#: ../common/SongsPage.qml:426
+msgid "Genre"
+msgstr "Gènere"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
+#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
+#: ../music-app.qml:1089
+msgid "Queue"
+msgstr "Cua"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
+#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+msgid "Now playing"
+msgstr "S'està reproduïnt"
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:153
+msgid "Add to playlist"
+msgstr "Afegeix a la llista de reproducció"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr "Buida la cua"
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:131
+msgid "Cancel selection"
+msgstr "Cancel·la la selecció"
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:141
+msgid "Select All"
+msgstr "Selecciona-ho tot"
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:188
+msgid "Delete"
+msgstr "Suprimeix-la"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../common/SongsPage.qml:69
+msgid "Playlists"
+msgstr "Llistes de reproducció"
+
+#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:396
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 tema"
 msgstr[1] "%1 temes"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Artista"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "S'està reproduint"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Llistes de reproducció"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Llista de reproducció nova"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Canvia el nom"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Escriviu un nom nou per a la llista de reproducció."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Canvia"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Ja existeix la llista de reproducció"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Escriviu un nom"
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Cancel·la"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:89 ../common/SongsPage.qml:189
+#: ../common/SongsPage.qml:293 ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:338 ../common/SongsPage.qml:374
+#: ../common/SongsPage.qml:410 ../common/SongsPage.qml:413
+#: ../common/SongsPage.qml:428
 msgid "Playlist"
 msgstr "Llista de reproducció"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Cerca"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Paràmetres"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Equalitzador"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Per defecte"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Acústic"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Clàssica"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Electrònica"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Pla"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metal"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Personalitzada"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Salta a la cançó actual \n"
-"quan s'estigui obrint una barra d'eines"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Comptes"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Inicieu una sessió per navegar i importar llistes de reproducció"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Transmissió de música"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Inicieu una sessió per transmetre la vostra música al núvol"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Transmet únicament amb la connexió inalàmbrica"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Neteja-ho tot"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Música"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../common/SongsPage.qml:79
 msgid "Recent"
 msgstr "Recents"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Neteja l'historial"
+#: ../MusicToolbar.qml:128
+msgid "Tap to shuffle music"
+msgstr "Feu un toc per reproduir de manera aleatòria"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Gèneres"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Gènere"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Feu un toc per reproduir música en ordre aleatori"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Temes"
 
-#: ../MusicaddtoPlaylist.qml:41
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:176
+msgid "Add to queue"
+msgstr "Afegeix-ho a la cua"
+
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
 msgid "Select playlist"
 msgstr "Seleccioneu una llista de reproducció"
 
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
+#: ../common/AlbumsPage.qml:62 ../common/SongsPage.qml:286
+msgid "Shuffle"
+msgstr "Aleatori"
+
+#: ../common/AlbumsPage.qml:76 ../common/SongsPage.qml:312
+msgid "Queue all"
+msgstr "Tot a la cua"
+
+#: ../common/AlbumsPage.qml:84 ../common/SongsPage.qml:320
 msgid "Play all"
-msgstr "Reprodueix-ho tot"
+msgstr "Reprod. tot"
 
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
-msgid "Add to queue"
-msgstr "Afegeix-lo a la cua"
+#: ../common/AlbumsPage.qml:122
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 àlbum"
+msgstr[1] "%1 àlbums"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Afegeix a la llista de reproducció"
-
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Afegeix a la cua"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Suprimeix-la"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Edita-la"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
 msgid "Remove"
 msgstr "Suprimeix-la"
 
@@ -296,147 +166,309 @@ msgstr "Suprimeix-la"
 msgid "Loading..."
 msgstr "S'està carregant..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Esborra"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr ""
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Àlbum desconegut"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Artista desconegut"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:498
+msgid "Change name"
+msgstr "Canvia el nom"
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "Cerca de temes"
+#: ../common/SongsPage.qml:499
+msgid "Enter the new name of the playlist."
+msgstr "Escriviu un nom nou per a la llista de reproducció."
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:516
+msgid "Change"
+msgstr "Canvia"
+
+#: ../common/SongsPage.qml:537 ../music-app.qml:870
+msgid "Playlist already exists"
+msgstr "Ja existeix la llista de reproducció"
+
+#: ../common/SongsPage.qml:541 ../music-app.qml:875
+msgid "Please type in a name."
+msgstr "Escriviu un nom"
+
+#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
+#: ../music-app.qml:481 ../music-app.qml:881
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:559
+msgid "Are you sure?"
+msgstr "Segur?"
+
+#: ../common/SongsPage.qml:560
+msgid "This will delete your playlist."
+msgstr "Aquesta acció suprimirà la llista de reproducció"
+
+#: ../music-app.qml:145
 msgid "Next"
 msgstr "Següent"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:146
 msgid "Next Track"
 msgstr "Tema següent"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Pause"
 msgstr "Posa en pausa"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Play"
 msgstr "Reprodueix"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Pause Playback"
 msgstr "Posa la reproducció en pausa"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Continue or start playback"
 msgstr "Continua o inicia la reproducció"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:159
 msgid "Back"
 msgstr "Enrere"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:160
 msgid "Go back to last page"
 msgstr "Torna a la pàgina anterior"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:168
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:169
 msgid "Previous Track"
 msgstr "Tema anterior"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:174
 msgid "Stop"
 msgstr "Atura"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:175
 msgid "Stop Playback"
 msgstr "Atura la reproducció"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Paràmetres de la música"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:324
 msgid "Filepath must start with"
-msgstr ""
+msgstr "El camí del fitxer ha de començar per"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:350
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "El camí del fitxer ha d'apuntar a un fitxer"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:356
 msgid "Failed to move file"
 msgstr "Ha fallat el trasllat del fitxer"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:435
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "S'estan esperant els fitxers..."
 
-#: ../music-app.qml:466
+#: ../music-app.qml:454
 msgid "OK"
 msgstr "D’acord"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:467
 msgid "Imported file not found"
 msgstr "No s'ha trobat el fitxer importat"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:471
 msgid "Wait"
 msgstr "Espereu"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:492
 msgid "songs played today"
 msgstr "temes reproduïts avui"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:493
 msgid "No songs played today"
 msgstr "Avui no s'ha reproduït cap tema"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:579 ../music-app.qml:1084
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Música"
+
+#: ../music-app.qml:597
 msgid "Debug: "
 msgstr "Depuració: "
 
-#: ../music-app.qml:925
+#: ../music-app.qml:839
 msgid "New Playlist"
 msgstr "Llista de reproducció nova"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:840
 msgid "Name your playlist."
 msgstr "Trieu un nom per a la llista de reproducció."
 
-#: ../music-app.qml:930
+#: ../music-app.qml:844
 msgid "Name"
 msgstr "Nom"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:854
 msgid "Create"
 msgstr "Crea"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1118
 msgid "No music found"
 msgstr "No s'ha trobat música al dispositiu"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1129
 msgid "Please import music"
 msgstr "Cal que importeu música"
 
+#: ../music-app.qml:1158
+msgid "No playlists found"
+msgstr "No s'ha trobat cap llista de reproducció"
+
+#: ../music-app.qml:1169
+msgid "Click the + to create a playlist"
+msgstr ""
+
+#: ../music-app.qml:1198
+msgid "No recent albums or playlists found"
+msgstr ""
+
+#: ../music-app.qml:1209
+msgid "Play some music to see your favorites"
+msgstr ""
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Una aplicació musical per Ubuntu"
+msgstr "Una aplicació de música per a l'Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "música;cançons;temes;reprodueix;reproducció;peces;àlbums;reproductor;"
+
+#~ msgid "Login"
+#~ msgstr "Inicia la sessió"
+
+#~ msgid "Password"
+#~ msgstr "Contrasenya"
+
+#~ msgid "Username"
+#~ msgstr "Nom d'usuari"
+
+#~ msgid "Settings"
+#~ msgstr "Paràmetres"
+
+#~ msgid "Classical"
+#~ msgstr "Clàssica"
+
+#~ msgid "Default"
+#~ msgstr "Per defecte"
+
+#~ msgid "Equaliser"
+#~ msgstr "Equalitzador"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop"
+
+#~ msgid "Custom"
+#~ msgstr "Personalitzada"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Metal"
+#~ msgstr "Metal"
+
+#~ msgid "Flat"
+#~ msgstr "Pla"
+
+#~ msgid "Electronic"
+#~ msgstr "Electrònica"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Accounts"
+#~ msgstr "Comptes"
+
+#~ msgid "New playlist"
+#~ msgstr "Llista de reproducció nova"
+
+#~ msgid "Music Settings"
+#~ msgstr "Paràmetres de la música"
+
+#~ msgid "Clear"
+#~ msgstr "Esborra"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Us heu oblidat d'establir el vostre nom d'usuari i/o la contrasenya"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Inicia una sessió per poder navegar."
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Salta a la cançó actual \n"
+#~ "quan s'estigui obrint una barra d'eines"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Inicieu una sessió per navegar i importar llistes de reproducció"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Transmet únicament amb la connexió inalàmbrica"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Transmissió de música"
+
+#~ msgid "Trying to login..."
+#~ msgstr "S'està intentant iniciar la sessió..."
+
+#~ msgid "Now Playing"
+#~ msgstr "S'està reproduint"
+
+#~ msgid "Acoustic"
+#~ msgstr "Acústic"
+
+#~ msgid "Search"
+#~ msgstr "Cerca"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Neteja-ho tot"
+
+#~ msgid "Clear History"
+#~ msgstr "Neteja l'historial"
+
+#~ msgid "Edit"
+#~ msgstr "Edita-la"
+
+#~ msgid "Search Track"
+#~ msgstr "Cerca de temes"
+
+#~ msgid "Login Successful"
+#~ msgstr "Inici de sessió correcte"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Inicieu una sessió per transmetre la vostra música al núvol"
+
+#~ msgid "Login Failed"
+#~ msgstr "Error en l'inici de sessió"

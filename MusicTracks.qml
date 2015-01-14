@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -29,20 +29,33 @@ import "common/ListItemActions"
 
 
 MusicPage {
-    id: mainpage
+    id: tracksPage
     objectName: "tracksPage"
     title: i18n.tr("Songs")
-
-    state: tracklist.state === "multiselectable" ? "selection" : "default"
+    searchable: true
+    searchResultsCount: songsModelFilter.count
+    state: "default"
     states: [
+        PageHeadState {
+            name: "default"
+            head: tracksPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: tracksPage.state = "search"
+            }
+        },
         PageHeadState {
             id: selectionState
             name: "selection"
             backAction: Action {
                 text: i18n.tr("Cancel selection")
                 iconName: "back"
-                onTriggered: tracklist.state = "normal"
+                onTriggered: {
+                    tracklist.clearSelection()
+                    tracklist.state = "normal"
+                }
             }
+            head: tracksPage.head
             actions: [
                 Action {
                     iconName: "select"
@@ -66,8 +79,14 @@ MusicPage {
                             items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        chosenElements = items;
-                        mainPageStack.push(addtoPlaylist)
+                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
+
+                        if (addToPlaylist == null) {  // Error Handling
+                            console.log("Error creating object");
+                        }
+
+                        mainPageStack.push(addToPlaylist)
 
                         tracklist.closeSelection()
                     }
@@ -78,24 +97,24 @@ MusicPage {
                     text: i18n.tr("Add to queue")
                     onTriggered: {
                         for (var i=0; i < tracklist.selectedItems.length; i++) {
-                            trackQueue.model.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                            trackQueue.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
                         tracklist.closeSelection()
                     }
                 }
             ]
-            PropertyChanges {
-                target: mainpage.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
-            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: tracksPage
         }
     ]
 
     ListView {
         id: tracklist
         anchors {
+            bottomMargin: units.gu(2)
             fill: parent
             topMargin: units.gu(2)
         }
@@ -110,6 +129,18 @@ MusicPage {
             }
             sort.property: "title"
             sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "title"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
+
+        Component.onCompleted: {
+            // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
+            // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
+            var scaleFactor = units.gridUnit / 8;
+            maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
+            flickDeceleration = flickDeceleration * scaleFactor;
         }
 
         // Requirements for ListItemWithActions
@@ -124,6 +155,15 @@ MusicPage {
             clearSelection()
             state = "normal"
         }
+        onStateChanged: {
+            if (state === "multiselectable") {
+                tracksPage.state = "selection"
+            } else {
+                searchHeader.query = ""  // force query back to default
+                tracksPage.state = "default"
+            }
+        }
+
         onSelectAll: {
             var tmp = selectedItems
 
@@ -159,14 +199,22 @@ MusicPage {
                     }
                 ]
 
-                onItemClicked: trackClicked(tracklist.model, index)  // play track
+                onItemClicked: {
+                    if (tracksPage.state === "search") {  // only play single track when searching
+                        trackQueue.clear()
+                        trackQueue.append(songsModelFilter.get(index))
+                        trackQueueClick(0)
+                    } else {
+                        trackClicked(songsModelFilter, index)  // play track
+                    }
+                }
 
                 MusicRow {
                     id: musicRow
-                    anchors.verticalCenter: parent.verticalCenter
-                    covers: [{art: model.art}]
-                    coverSize: units.gu(6)
-                    spacing: units.gu(2)
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                    imageSource: {"art": model.art}
                     column: Column {
                         Label {
                             id: trackTitle

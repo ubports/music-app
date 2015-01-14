@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -33,41 +33,87 @@ MusicPage {
     // TRANSLATORS: this is the name of the playlists page shown in the tab header.
     // Remember to keep the translation short to fit the screen width
     title: i18n.tr("Playlists")
-
-    property string playlistTracks: ""
-    property string inPlaylist: ""
-
-    head {
-        actions: [
-            Action {
-                objectName: "newplaylistButton"
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
+    searchable: true
+    searchResultsCount: playlistModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: playlistsPage.head
+            actions: [
+                Action {
+                    objectName: "newPlaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    enabled: playlistModel.model.count > 0
+                    iconName: "search"
+                    onTriggered: playlistsPage.state = "search"
                 }
-            }
-        ]
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: playlistsPage
+        }
+    ]
+
+    property bool changed: false
+
+    onVisibleChanged: {
+        if (changed) {
+            changed = false
+            refreshWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
+        id: refreshWaitTimer
+        interval: 250
+        onTriggered: playlistModel.filterPlaylists()
     }
 
     CardView {
         id: playlistslist
-        model: playlistModel.model
+        model: SortFilterModel {
+            // Sorting disabled as it is incorrect on first run (due to workers?)
+            // and SQL sorts the data correctly
+            id: playlistModelFilter
+            model: playlistModel.model
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "playlistsCardView"
         delegate: Card {
             id: playlistCard
-            coverSources: Playlists.getPlaylistCovers(name)
-            primaryText: name
-            secondaryText: i18n.tr("%1 song", "%1 songs", count).arg(count)
+            coverSources: Playlists.getPlaylistCovers(model.name)
+            primaryText: model.name
+            secondaryText: i18n.tr("%1 song", "%1 songs", model.count).arg(model.count)
 
             onClicked: {
-                albumTracksModel.filterPlaylistTracks(name)
-                songsPage.isAlbum = false
-                songsPage.line1 = i18n.tr("Playlist")
-                songsPage.line2 = model.name
-                songsPage.covers = coverSources
-                songsPage.genre = undefined
-                songsPage.title = i18n.tr("Playlist")
+                albumTracksModel.filterPlaylistTracks(model.name)
+
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "album": undefined,
+                                                      "covers": coverSources,
+                                                      "isAlbum": false,
+                                                      "genre": undefined,
+                                                      "page": playlistsPage,
+                                                      "title": i18n.tr("Playlist"),
+                                                      "line1": i18n.tr("Playlist"),
+                                                      "line2": model.name,
+                                                  });
+
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }

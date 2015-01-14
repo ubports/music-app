@@ -1,294 +1,164 @@
 # Hungarian translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-25 07:17+0000\n"
+"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"PO-Revision-Date: 2014-11-25 16:33+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:51+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-01-12 07:41+0000\n"
+"X-Generator: Launchpad (build 17298)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "A továbbításhoz belépés szükséges."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Felhasználónév"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Jelszó"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Bejelentkezés"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Belépési kísérlet…"
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Sikeres belépés"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Sikertelen belépés"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Elfelejtette megadni a felhasználónevét és/vagy a jelszavát"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Albumok"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:142
+#: ../common/AlbumsPage.qml:156 ../common/SongsPage.qml:352
+msgid "Unknown Album"
+msgstr "Ismeretlen album"
+
+#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:103 ../common/AlbumsPage.qml:155
+#: ../common/SongsPage.qml:373
+msgid "Unknown Artist"
+msgstr "Ismeretlen előadó"
+
+#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:154
 msgid "Album"
 msgstr "Album"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Előadók"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 album"
-msgstr[1] "%1 album"
+#: ../MusicArtists.qml:106
+msgid "Artist"
+msgstr "Előadó"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Műfajok"
+
+#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:291
+#: ../common/SongsPage.qml:325 ../common/SongsPage.qml:339
+#: ../common/SongsPage.qml:375 ../common/SongsPage.qml:394
+#: ../common/SongsPage.qml:426
+msgid "Genre"
+msgstr "Műfaj"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
+#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
+#: ../music-app.qml:1089
+msgid "Queue"
+msgstr "Lejátszási sor"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
+#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+msgid "Now playing"
+msgstr "Most játszott"
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:153
+msgid "Add to playlist"
+msgstr "Hozzáadás a lejátszólistához"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr "Lejátszási sor törlése"
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:131
+msgid "Cancel selection"
+msgstr "Kijelölés megszüntetése"
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:141
+msgid "Select All"
+msgstr "Összes kijelölése"
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:188
+msgid "Delete"
+msgstr "Törlés"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../common/SongsPage.qml:69
+msgid "Playlists"
+msgstr "Lejátszólisták"
+
+#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:396
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 szám"
 msgstr[1] "%1 szám"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Előadó"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Most játszott"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Lejátszólisták"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Új lejátszólista"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Név módosítása"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Adja meg a lejátszólista új nevét."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Módosítás"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "A lejátszólista már létezik"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Adjon meg egy nevet."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Mégse"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:89 ../common/SongsPage.qml:189
+#: ../common/SongsPage.qml:293 ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:338 ../common/SongsPage.qml:374
+#: ../common/SongsPage.qml:410 ../common/SongsPage.qml:413
+#: ../common/SongsPage.qml:428
 msgid "Playlist"
 msgstr "Lejátszólista"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Keresés"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Beállítások"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Hangszínszabályzó"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Alapértelmezett"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Akusztikus"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Klasszikus"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Elektronikus"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Sima"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metál"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Egyéni"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Illesztés a jelenlegi számhoz\n"
-"az eszköztár megnyitásakor"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Fiókok"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Belépés a továbbításhoz és a lejátszólista importálásához"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Zeneszórás"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Bejelentkezés a felhőben lévő zene szórásához"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Szórás csak Wi-Fi hálózaton"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Minden törlése!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Zene"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../common/SongsPage.qml:79
 msgid "Recent"
 msgstr "Legutóbbi"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Előzmények törlése"
+#: ../MusicToolbar.qml:128
+msgid "Tap to shuffle music"
+msgstr "Koppintson a zenelejátszáshoz"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Műfajok"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Műfaj"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Zenelejátszáshoz koppintson ide"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Számok"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Lejátszólista választása"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Összes lejátszása"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:176
 msgid "Add to queue"
 msgstr "Lejátszási sorhoz"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Hozzáadás a lejátszólistához"
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+msgid "Select playlist"
+msgstr "Lejátszólista választása"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/AlbumsPage.qml:62 ../common/SongsPage.qml:286
+msgid "Shuffle"
+msgstr "Keverés"
+
+#: ../common/AlbumsPage.qml:76 ../common/SongsPage.qml:312
+msgid "Queue all"
+msgstr "Összes hozzáadása a lejátszási sorhoz"
+
+#: ../common/AlbumsPage.qml:84 ../common/SongsPage.qml:320
+msgid "Play all"
+msgstr "Összes lejátszása"
+
+#: ../common/AlbumsPage.qml:122
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 album"
+msgstr[1] "%1 album"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Hozzáadás a lejátszási sorhoz"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Törlés"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -296,141 +166,185 @@ msgstr "Eltávolítás"
 msgid "Loading..."
 msgstr "Betöltés…"
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Törlés"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr ""
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Ismeretlen album"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Ismeretlen előadó"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:498
+msgid "Change name"
+msgstr "Név módosítása"
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "Szám keresése"
+#: ../common/SongsPage.qml:499
+msgid "Enter the new name of the playlist."
+msgstr "Adja meg a lejátszólista új nevét."
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:516
+msgid "Change"
+msgstr "Módosítás"
+
+#: ../common/SongsPage.qml:537 ../music-app.qml:870
+msgid "Playlist already exists"
+msgstr "A lejátszólista már létezik"
+
+#: ../common/SongsPage.qml:541 ../music-app.qml:875
+msgid "Please type in a name."
+msgstr "Adjon meg egy nevet."
+
+#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
+#: ../music-app.qml:481 ../music-app.qml:881
+msgid "Cancel"
+msgstr "Mégse"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:559
+msgid "Are you sure?"
+msgstr "Biztos benne?"
+
+#: ../common/SongsPage.qml:560
+msgid "This will delete your playlist."
+msgstr "Ezzel törli a lejátszási listát."
+
+#: ../music-app.qml:145
 msgid "Next"
 msgstr "Következő"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:146
 msgid "Next Track"
 msgstr "Következő szám"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Pause"
 msgstr "Szünet"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Play"
 msgstr "Lejátszás"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Pause Playback"
 msgstr "Lejátszás szüneteltetése"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Continue or start playback"
 msgstr "Folytatás vagy a lejátszás indítása"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:159
 msgid "Back"
 msgstr "Vissza"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:160
 msgid "Go back to last page"
 msgstr "Vissza az előző oldalra"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:168
 msgid "Previous"
 msgstr "Előző"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:169
 msgid "Previous Track"
 msgstr "Előző szám"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:174
 msgid "Stop"
 msgstr "Leállítás"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:175
 msgid "Stop Playback"
 msgstr "Lejátszás leállítása"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Zene beállítások"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:324
 msgid "Filepath must start with"
 msgstr "Az elérési útvonalnak ezzel kell kezdődnie:"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:350
 msgid "Filepath must be a file"
 msgstr "Az elérési útvonalon fájlnak kell lennie"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:356
 msgid "Failed to move file"
 msgstr "Sikertelen a fájl áthelyezése"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:435
 msgid "Waiting for file(s)..."
 msgstr "Várakozás a fájlokra…"
 
-#: ../music-app.qml:466
+#: ../music-app.qml:454
 msgid "OK"
 msgstr "OK"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:467
 msgid "Imported file not found"
 msgstr "Az importált fájl nem található"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:471
 msgid "Wait"
 msgstr "Várakozás"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:492
 msgid "songs played today"
 msgstr "ma lejátszott dalok"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:493
 msgid "No songs played today"
 msgstr "Nincsenek ma lejátszott dalok"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:579 ../music-app.qml:1084
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Zene"
+
+#: ../music-app.qml:597
 msgid "Debug: "
 msgstr "Hibakeresés: "
 
-#: ../music-app.qml:925
+#: ../music-app.qml:839
 msgid "New Playlist"
 msgstr "Új lejátszólista"
 
-#: ../music-app.qml:926
+#: ../music-app.qml:840
 msgid "Name your playlist."
 msgstr "Nevezze el a lejátszólistát."
 
-#: ../music-app.qml:930
+#: ../music-app.qml:844
 msgid "Name"
 msgstr "Név"
 
-#: ../music-app.qml:940
+#: ../music-app.qml:854
 msgid "Create"
 msgstr "Létrehozás"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1118
 msgid "No music found"
 msgstr "Nem található zene"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1129
 msgid "Please import music"
 msgstr "Kérjük importálja zenéit"
+
+#: ../music-app.qml:1158
+msgid "No playlists found"
+msgstr "Nem található lejátszólista"
+
+#: ../music-app.qml:1169
+msgid "Click the + to create a playlist"
+msgstr "Koppintson a + jelre új lejátszólista létrehozásához"
+
+#: ../music-app.qml:1198
+msgid "No recent albums or playlists found"
+msgstr "Nem található legutóbbi album vagy lejátszólista"
+
+#: ../music-app.qml:1209
+msgid "Play some music to see your favorites"
+msgstr "Először hallgasson zenét, hogy láthassa a kedvenceit"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -439,3 +353,121 @@ msgstr "Zenelejátszó az Ubuntuhoz"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "zene;dalok;lejátszás;számok;lejátszó;hangok;"
+
+#~ msgid "Login Successful"
+#~ msgstr "Sikeres belépés"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Belépési kísérlet…"
+
+#~ msgid "Login"
+#~ msgstr "Bejelentkezés"
+
+#~ msgid "Password"
+#~ msgstr "Jelszó"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Elfelejtette megadni a felhasználónevét és/vagy a jelszavát"
+
+#~ msgid "Login Failed"
+#~ msgstr "Sikertelen belépés"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Username"
+#~ msgstr "Felhasználónév"
+
+#~ msgid "Edit"
+#~ msgstr "Szerkesztés"
+
+#~ msgid "Settings"
+#~ msgstr "Beállítások"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Flat"
+#~ msgstr "Sima"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop"
+
+#~ msgid "Default"
+#~ msgstr "Alapértelmezett"
+
+#~ msgid "Electronic"
+#~ msgstr "Elektronikus"
+
+#~ msgid "Classical"
+#~ msgstr "Klasszikus"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Bejelentkezés a felhőben lévő zene szórásához"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Metal"
+#~ msgstr "Metál"
+
+#~ msgid "Accounts"
+#~ msgstr "Fiókok"
+
+#~ msgid "Custom"
+#~ msgstr "Egyéni"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "New playlist"
+#~ msgstr "Új lejátszólista"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Minden törlése!"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Szórás csak Wi-Fi hálózaton"
+
+#~ msgid "Music Settings"
+#~ msgstr "Zene beállítások"
+
+#~ msgid "Clear"
+#~ msgstr "Törlés"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Illesztés a jelenlegi számhoz\n"
+#~ "az eszköztár megnyitásakor"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Belépés a továbbításhoz és a lejátszólista importálásához"
+
+#~ msgid "Equaliser"
+#~ msgstr "Hangszínszabályzó"
+
+#~ msgid "Search Track"
+#~ msgstr "Szám keresése"
+
+#~ msgid "Acoustic"
+#~ msgstr "Akusztikus"
+
+#~ msgid "Search"
+#~ msgstr "Keresés"
+
+#~ msgid "Clear History"
+#~ msgstr "Előzmények törlése"
+
+#~ msgid "Now Playing"
+#~ msgstr "Most játszott"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "A továbbításhoz belépés szükséges."
+
+#~ msgid "Music Streaming"
+#~ msgstr "Zeneszórás"

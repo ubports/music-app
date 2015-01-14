@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -24,9 +24,26 @@ import "common"
 
 
 MusicPage {
-    id: mainpage
+    id: genresPage
     objectName: "genresPage"
     title: i18n.tr("Genres")
+    searchable: true
+    searchResultsCount: genresModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: genresPage.head
+            actions: Action {
+                iconName: "search"
+                onTriggered: genresPage.state = "search"
+            }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: genresPage
+        }
+    ]
 
     CardView {
         id: genreCardView
@@ -38,7 +55,11 @@ MusicPage {
                 store: musicStore
             }
             filter.property: "genre"
-            filter.pattern: /\S+/
+            filter.pattern: searchHeader.query === "" ? /\S+/ : new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+            sort.property: "genre"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
         }
 
         delegate: Card {
@@ -49,12 +70,6 @@ MusicPage {
             secondaryTextVisible: false
 
             property string album: ""
-
-            AlbumsModel {
-                id: albumGenreModel
-                genre: model.genre
-                store: musicStore
-            }
 
             Repeater {
                 id: albumGenreModelRepeater
@@ -82,14 +97,21 @@ MusicPage {
             }
 
             onClicked: {
-                songsPage.covers = genreCard.coverSources
-                songsPage.album = undefined
-                songsPage.isAlbum = true
-                songsPage.genre = model.genre;
-                songsPage.title = i18n.tr("Genre")
-                songsPage.line2 = model.genre
-                songsPage.line1 = i18n.tr("Genre")
+                var comp = Qt.createComponent("common/SongsPage.qml")
+                var songsPage = comp.createObject(mainPageStack,
+                                                  {
+                                                      "covers": genreCard.coverSources,
+                                                      "album": undefined,
+                                                      "isAlbum": true,
+                                                      "genre": model.genre,
+                                                      "title": i18n.tr("Genre"),
+                                                      "line2": model.genre,
+                                                      "line1": i18n.tr("Genre")
+                                                  });
 
+                if (songsPage == null) {  // Error Handling
+                    console.log("Error creating object");
+                }
 
                 mainPageStack.push(songsPage)
             }
