@@ -261,6 +261,11 @@ Item {
     Connections {  // CUSTOM
         target: root.parent.parent
         onClearSelection: selected = false
+        onFlickingChanged: {
+            if (root.parent.parent.flicking) {
+                root.resetSwipe()
+            }
+        }
         onSelectAll: selected = true
         onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
     }
@@ -405,7 +410,7 @@ Item {
                        width: units.gu(3)
                        height: units.gu(3)
                        name: modelData.iconName
-                       color: root.activeAction === modelData ? UbuntuColors.orange : styleMusic.common.white  // CUSTOM
+                       color: root.activeAction === modelData ? UbuntuColors.blue : styleMusic.common.white  // CUSTOM
 
                        property bool primed: false  // CUSTOM
                    }

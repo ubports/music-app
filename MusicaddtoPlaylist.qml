@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -37,38 +37,61 @@ import "common"
 
 // Page that will be used when adding tracks to playlists
 MusicPage {
-    id: addtoPlaylist
+    id: addToPlaylistPage
     objectName: "addToPlaylistPage"
     title: i18n.tr("Select playlist")
-    visible: false
+    searchable: true
+    searchResultsCount: addToPlaylistModelFilter.count
+    state: "default"
+    states: [
+        PageHeadState {
+            name: "default"
+            head: addToPlaylistPage.head
+            actions: [
+                Action {
+                    objectName: "newPlaylistButton"
+                    iconName: "add"
+                    onTriggered: {
+                        customdebug("New playlist.")
+                        PopupUtils.open(newPlaylistDialog, mainView)
+                    }
+                },
+                Action {
+                    enabled: playlistModel.model.count > 0
+                    iconName: "search"
+                    onTriggered: addToPlaylistPage.state = "search"
+                }
+            ]
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: addToPlaylistPage
+        }
+    ]
 
     property var chosenElements: []
     property var page
 
-    head {
-        actions: [
-            Action {
-                objectName: "newPlaylistButton"
-                text: i18n.tr("New playlist")
-                iconName: "add"
-                onTriggered: {
-                    customdebug("New playlist.")
-                    PopupUtils.open(newPlaylistDialog, mainView)
-                }
-            }
-        ]
-    }
-
     onVisibleChanged: {
-        if (visible) {
-            tabs.ensurePopulated(playlistTab)
+        // Load the playlistmodel if it hasn't loaded or is empty
+        if (visible && (!playlistModel.completed || playlistModel.model.count === 0)) {
+            playlistModel.canLoad = true  // ensure the model canLoad
+            playlistModel.filterPlaylists()
         }
     }
 
     CardView {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
-        model: playlistModel.model
+        model: SortFilterModel {
+            // Sorting disabled as it is incorrect on first run (due to workers?)
+            // and SQL sorts the data correctly
+            id: addToPlaylistModelFilter
+            model: playlistModel.model
+            filter.property: "name"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
+        }
         objectName: "addToPlaylistCardView"
         delegate: Card {
             id: playlist
