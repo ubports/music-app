@@ -498,13 +498,13 @@ MusicPage {
             title: i18n.tr("Change name")
             text: i18n.tr("Enter the new name of the playlist.")
 
-            property alias oldPlaylistName: playlistName.placeholderText
+            property string oldPlaylistName: ""
 
             TextField {
                 id: playlistName
                 inputMethodHints: Qt.ImhNoPredictiveText
-
-                onPlaceholderTextChanged: text = placeholderText
+                placeholderText: i18n.tr("Name")
+                text: oldPlaylistName
             }
             Label {
                 id: editplaylistoutput
@@ -519,12 +519,12 @@ MusicPage {
                     editplaylistoutput.visible = true
 
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
+                        console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
 
-                        if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
+                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
 
-                            if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
-                                Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
+                            if (Library.recentContainsPlaylist(oldPlaylistName)) {
+                                Library.recentRenamePlaylist(oldPlaylistName, playlistName.text)
                             }
 
                             line2 = playlistName.text
