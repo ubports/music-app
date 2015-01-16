@@ -731,6 +731,24 @@ MainView {
         sort.property: "title"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
+
+        // if any tracks are removed from ms2 then check they are not in the queue
+        onModelReset: {
+            var removed = []
+
+            // Find tracks that aren't in ms2 anymore
+            for (var i=0; i < trackQueue.model.count; i++) {
+                if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
+                    removed.push(i)
+                }
+            }
+
+            // If there are removed tracks then remove them from the queue and store
+            if (removed.length > 0) {
+                console.debug("Removed: ", JSON.stringify(removed))
+                trackQueue.removeQueueList(removed)
+            }
+        }
     }
 
     SongsModel {
@@ -811,6 +829,81 @@ MainView {
             Library.clearQueue()
 
             queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
+        }
+
+        function removeQueue(index)
+        {
+            var removedIndex = index
+
+            if (trackQueue.model.count === 1) {
+                player.stop()
+                musicToolbar.goBack()
+            } else if (index === player.currentIndex) {
+                player.nextSong(player.isPlaying);
+            }
+
+            trackQueue.model.remove(index);
+            Library.removeQueueItem(removedIndex);
+
+            if (removedIndex < player.currentIndex) {
+                // update index as the old has been removed
+                player.currentIndex -= 1;
+                queueIndex -= 1;
+            }
+        }
+
+        // Optimised removeQueue for removing multiple tracks from the queue
+        function removeQueueList(items)
+        {
+            var i;
+
+            // Remove from the saved queue database
+            Library.removeQueueList(items)
+
+
+            // Remove from the listmodel
+            for (i=0; i < items.length; i++) {
+                trackQueue.model.remove(items[i] - i);
+            }
+
+            // Update the currentIndex and playing status
+
+            if (trackQueue.model.count === 0) {
+                // Nothing in the queue so stop and pop the queue
+                player.stop()
+                musicToolbar.goBack()
+            } else if (items.indexOf(player.currentIndex) > -1) {
+                // Current track was removed
+
+                // Find the first index that still exists before the currentIndex
+                for (i=player.currentIndex - 1; i > -1; i--) {
+                    if (items.indexOf(i) === -1) {
+                        break;
+                    }
+                }
+
+                // Set this as the current track
+                player.currentIndex = i
+                queueIndex = i
+
+                // Play the next track
+                player.nextSong(player.isPlaying);
+            } else {
+                // Current track not in removed list
+                // Check if the index needs to be shuffled down due to removals
+
+                var before = 0
+
+                for (i in items) {
+                    if (i < player.currentIndex) {
+                        before++;
+                    }
+                }
+
+                // Update the index
+                player.currentIndex -= before;
+                queueIndex -= before;
+            }
         }
     }
 
