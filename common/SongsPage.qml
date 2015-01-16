@@ -503,7 +503,6 @@ MusicPage {
                 id: playlistName
                 inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: i18n.tr("Enter playlist name")
-                text: oldPlaylistName
             }
             Label {
                 id: editplaylistoutput
