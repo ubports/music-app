@@ -79,7 +79,7 @@ MusicPage {
             actions: [
                 Action {
                     objectName: "toggleView"
-                    iconName: "swap"
+                    iconName: isListView ? "stock_image" : "view-list-symbolic"
                     onTriggered: {
                         isListView = !isListView
                     }
