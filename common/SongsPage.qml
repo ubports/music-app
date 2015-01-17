@@ -504,16 +504,14 @@ MusicPage {
         Dialog {
             id: dialogEditPlaylist
             // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-            title: i18n.tr("Change name")
-            text: i18n.tr("Enter the new name of the playlist.")
+            title: i18n.tr("Rename playlist")
 
-            property alias oldPlaylistName: playlistName.placeholderText
+            property string oldPlaylistName: ""
 
             TextField {
                 id: playlistName
                 inputMethodHints: Qt.ImhNoPredictiveText
-
-                onPlaceholderTextChanged: text = placeholderText
+                placeholderText: i18n.tr("Enter playlist name")
             }
             Label {
                 id: editplaylistoutput
@@ -528,12 +526,12 @@ MusicPage {
                     editplaylistoutput.visible = true
 
                     if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        console.debug("Debug: User changed name from "+playlistName.placeholderText+" to "+playlistName.text)
+                        console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
 
-                        if (Playlists.renamePlaylist(playlistName.placeholderText, playlistName.text) === true) {
+                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
 
-                            if (Library.recentContainsPlaylist(playlistName.placeholderText)) {
-                                Library.recentRenamePlaylist(playlistName.placeholderText, playlistName.text)
+                            if (Library.recentContainsPlaylist(oldPlaylistName)) {
+                                Library.recentRenamePlaylist(oldPlaylistName, playlistName.text)
                             }
 
                             line2 = playlistName.text
@@ -565,14 +563,14 @@ MusicPage {
         Dialog {
             id: dialogRemovePlaylist
             // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-            title: i18n.tr("Are you sure?")
-            text: i18n.tr("This will delete your playlist.")
+            title: i18n.tr("Permanently delete playlist?")
+            text: "("+i18n.tr("This cannot be undone")+")"
 
             property string oldPlaylistName
 
             Button {
                 text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmButtonColor
+                color: styleMusic.dialog.confirmRemoveButtonColor
                 onClicked: {
                     // removing playlist
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)

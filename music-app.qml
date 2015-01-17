@@ -981,12 +981,11 @@ MainView {
         Dialog {
             id: dialogNewPlaylist
             objectName: "dialogNewPlaylist"
-            title: i18n.tr("New Playlist")
-            text: i18n.tr("Name your playlist.")
+            title: i18n.tr("New playlist")
             TextField {
                 id: playlistName
                 objectName: "playlistNameTextField"
-                placeholderText: i18n.tr("Name")
+                placeholderText: i18n.tr("Enter playlist name")
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
             Label {
