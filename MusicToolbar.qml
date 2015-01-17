@@ -39,6 +39,8 @@ Item {
     property alias currentHeight: musicToolbarPanel.height
     property alias opened: musicToolbarPanel.opened
 
+    property bool popping: false
+
     /* Helper functions */
 
     // Back button has been pressed, jump up pageStack or back to parent page
@@ -49,10 +51,33 @@ Item {
         }
     }
 
+    // Pop a specific page in the stack
+    function popPage(page)
+    {
+        var tmpPages = []
+
+        popping = true
+
+        while (mainPageStack.currentPage !== page) {
+            tmpPages.push(mainPageStack.currentPage)
+            mainPageStack.pop()
+        }
+
+        mainPageStack.pop()
+
+        for (var i=tmpPages.length - 1; i > -1; i--) {
+            mainPageStack.push(tmpPages[i])
+        }
+
+        popping = false
+    }
+
     // Set the current page, and any parent/stacks
     function setPage(childPage)
     {
-        currentPage = childPage;
+        if (!popping) {
+            currentPage = childPage;
+        }
     }
 
     Panel {

@@ -46,6 +46,8 @@ MusicPage {
     property alias artist: songsModel.albumArtist
     property alias genre: songsModel.genre
 
+    property bool loaded: false  // used to detect difference between first and further loads
+
     property bool playlistChanged: false
 
     onVisibleChanged: {
@@ -221,6 +223,11 @@ MusicPage {
     SongsModel {
         id: songsModel
         store: musicStore
+        onStatusChanged: {
+            if (songsModel.status === SongsModel.Ready && loaded && songsModel.count === 0) {
+                musicToolbar.popPage(songStackPage)
+            }
+        }
     }
 
     ListView {
@@ -488,6 +495,8 @@ MusicPage {
             }
         }
     }
+
+    Component.onCompleted: loaded = true
 
     // Edit name of playlist dialog
     Component {
