@@ -860,10 +860,15 @@ MainView {
             // Remove from the saved queue database
             Library.removeQueueList(items)
 
+            // Sort the item indexes as loops below assume *numeric* sort
+            items.sort(function(a,b) { return a - b })
 
             // Remove from the listmodel
+            var startCount = trackQueue.model.count
+
             for (i=0; i < items.length; i++) {
-                trackQueue.model.remove(items[i] - i);
+                // use diff in count as sometimes the row is removed from the model
+                trackQueue.model.remove(items[i] - (startCount - trackQueue.model.count));
             }
 
             // Update the currentIndex and playing status
@@ -875,6 +880,8 @@ MainView {
             } else if (items.indexOf(player.currentIndex) > -1) {
                 // Current track was removed
 
+                var newIndex;
+
                 // Find the first index that still exists before the currentIndex
                 for (i=player.currentIndex - 1; i > -1; i--) {
                     if (items.indexOf(i) === -1) {
@@ -882,9 +889,17 @@ MainView {
                     }
                 }
 
+                newIndex = i;
+
+                // Shuffle index down as tracks were removed before the current
+                for (i=newIndex; i > -1; i--) {
+                    if (items.indexOf(i) !== -1) {
+                        newIndex--;
+                    }
+                }
+
                 // Set this as the current track
-                player.currentIndex = i
-                queueIndex = i
+                player.currentIndex = newIndex
 
                 // Play the next track
                 player.nextSong(player.isPlaying);
@@ -894,16 +909,17 @@ MainView {
 
                 var before = 0
 
-                for (i in items) {
-                    if (i < player.currentIndex) {
+                for (i=0; i < items.length; i++) {
+                    if (items[i] < player.currentIndex) {
                         before++;
                     }
                 }
 
                 // Update the index
                 player.currentIndex -= before;
-                queueIndex -= before;
             }
+
+            queueIndex = player.currentIndex;  // ensure saved index is up to date
         }
     }
 
