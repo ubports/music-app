@@ -727,26 +727,62 @@ MainView {
             id: allSongsModelModel
             objectName: "allSongsModelModel"
             store: musicStore
+
+            // if any tracks are removed from ms2 then check they are not in the queue
+            onFilled: {
+                var removed = []
+
+                // Find tracks from the queue that aren't in ms2 anymore
+                for (var i=0; i < trackQueue.model.count; i++) {
+                    if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
+                        removed.push(i)
+                    }
+                }
+
+                // If there are removed tracks then remove them from the queue and store
+                if (removed.length > 0) {
+                    console.debug("Removed queue:", JSON.stringify(removed))
+                    trackQueue.removeQueueList(removed)
+                }
+            }
         }
         sort.property: "title"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
+    }
 
-        // if any tracks are removed from ms2 then check they are not in the queue
-        onModelReset: {
+    AlbumsModel {
+        id: allAlbumsModel
+        store: musicStore
+        // if any tracks are removed from ms2 then check they are not in recent
+        onFilled: {
+            var albums = []
+            var i
             var removed = []
 
-            // Find tracks that aren't in ms2 anymore
-            for (var i=0; i < trackQueue.model.count; i++) {
-                if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
-                    removed.push(i)
+            for (i=0; i < allAlbumsModel.count; i++) {
+                albums.push(allAlbumsModel.get(i, allAlbumsModel.RoleTitle))
+            }
+
+            // Find albums from recent that aren't in ms2 anymore
+            var recent = Library.getRecent()
+
+            for (i=0; i < recent.length; i++) {
+                if (recent[i].type === "album" && albums.indexOf(recent[i].data) === -1) {
+                    removed.push(recent[i].data)
                 }
             }
 
-            // If there are removed tracks then remove them from the queue and store
+            // If there are removed tracks then remove them from recent
             if (removed.length > 0) {
-                console.debug("Removed: ", JSON.stringify(removed))
-                trackQueue.removeQueueList(removed)
+                console.debug("Removed recent:", JSON.stringify(removed))
+                Library.recentRemoveAlbums(removed)
+
+                if (musicStartPage.visible) {
+                    recentModel.filterRecent()
+                } else {
+                    musicStartPage.changed = true
+                }
             }
         }
     }

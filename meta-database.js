@@ -280,6 +280,19 @@ function recentContainsPlaylist(key) {
     return rs.rows.item(0).value > 0;
 }
 
+// Remove albums from recent by album
+function recentRemoveAlbums(albums)
+{
+    var db = getDatabase();
+
+    db.transaction( function(tx) {
+        for (var i=0; i < albums.length; i++) {
+            tx.executeSql("DELETE FROM recent WHERE type=? AND data=?",
+                          ["album", albums[i]]);
+        }
+    })
+}
+
 function recentRemovePlaylist(key) {
     var res = false
     var db = getDatabase();

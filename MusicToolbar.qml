@@ -58,12 +58,14 @@ Item {
 
         popping = true
 
-        while (mainPageStack.currentPage !== page) {
+        while (mainPageStack.currentPage !== page && mainPageStack.depth > 0) {
             tmpPages.push(mainPageStack.currentPage)
             mainPageStack.pop()
         }
 
-        mainPageStack.pop()
+        if (mainPageStack.depth > 0) {
+            mainPageStack.pop()
+        }
 
         for (var i=tmpPages.length - 1; i > -1; i--) {
             mainPageStack.push(tmpPages[i])
