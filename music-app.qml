@@ -1267,73 +1267,74 @@ MainView {
             color: mainView.backgroundColor
             visible: emptyPage.noMusic
 
+            Row {
+                anchors {
+                    bottom: noMusicTextColumn.top
+                    bottomMargin: units.gu(6)
+                    horizontalCenter: parent.horizontalCenter
+                }
+
+                Item {
+                    height: parent.height
+                    width: imageEmptyDownload.width + units.gu(2)
+
+                    Image {
+                        id: imageEmptyDownload
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
+                        antialiasing: true
+                        fillMode: Image.PreserveAspectFit
+                        height: units.gu(10)
+                        smooth: true
+                        source: "images/music_empty_download.png"
+                    }
+                }
+
+                Item {
+                    height: parent.height
+                    width: units.gu(7)
+
+                    Image {
+                        id: imageSep
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
+                        antialiasing: true
+                        fillMode: Image.PreserveAspectFit
+                        height: units.gu(6)
+                        smooth: true
+                        source: "images/div.png"
+                    }
+                }
+
+                Image {
+                    id: imageEmptySD
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                    }
+                    antialiasing: true
+                    fillMode: Image.PreserveAspectFit
+                    height: units.gu(7)
+                    smooth: true
+                    source: "images/music_empty_SD.png"
+                }
+            }
+
             Column {
+                id: noMusicTextColumn
                 anchors {
                     centerIn: parent
                 }
                 spacing: units.gu(2)
                 width: units.gu(35)
 
-                Row {
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                    }
-                    height: units.gu(16)
-
-                    Item {
-                        height: parent.height
-                        width: imageEmptyDownload.width + units.gu(2)
-
-                        Image {
-                            id: imageEmptyDownload
-                            anchors {
-                                horizontalCenter: parent.horizontalCenter
-                                verticalCenter: parent.verticalCenter
-                            }
-                            antialiasing: true
-                            fillMode: Image.PreserveAspectFit
-                            height: units.gu(10)
-                            smooth: true
-                            source: "images/music_empty_download.png"
-                        }
-                    }
-
-                    Item {
-                        height: parent.height
-                        width: units.gu(7)
-
-                        Image {
-                            id: imageSep
-                            anchors {
-                                horizontalCenter: parent.horizontalCenter
-                                verticalCenter: parent.verticalCenter
-                            }
-                            antialiasing: true
-                            fillMode: Image.PreserveAspectFit
-                            height: units.gu(6)
-                            smooth: true
-                            source: "images/div.png"
-                        }
-                    }
-
-                    Image {
-                        id: imageEmptySD
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                        }
-                        antialiasing: true
-                        fillMode: Image.PreserveAspectFit
-                        height: units.gu(7)
-                        smooth: true
-                        source: "images/music_empty_SD.png"
-                    }
-                }
-
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
-                    fontSize: "large"
-                    font.bold: true
+                    fontSize: "x-large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 2
                     text: i18n.tr("No music found")
@@ -1372,8 +1373,7 @@ MainView {
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
-                    fontSize: "large"
-                    font.bold: true
+                    fontSize: "x-large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 2
                     text: i18n.tr("No playlists found")
