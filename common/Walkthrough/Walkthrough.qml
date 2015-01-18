@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014
+ * Copyright (C) 2014-2015
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -44,8 +44,8 @@ Page {
         anchors {
             left: parent.left
             right: parent.right
-            top: skipLabel.bottom
-            bottom: separator.top
+            top: parent.top
+            bottom: slideIndicator.top
         }
 
         model: walkthrough.model
@@ -71,17 +71,17 @@ Page {
         }
     }
 
-    // Label to skip the walkthrough. Only visible on the first slide
+    // Label to skip the walkthrough.
     Label {
         id: skipLabel
 
         color: "grey"
-        fontSize: "small"
+        fontSize: "medium"
         width: contentWidth
-        text: listView.currentIndex === 0 ? i18n.tr("Already used %1? <b>Skip the tutorial</b>").arg(appName) : i18n.tr("Skip")
+        text: i18n.tr("Skip")
 
         anchors {
-            top: parent.top
+            bottom: parent.bottom
             left: parent.left
             margins: units.gu(2)
         }
@@ -90,12 +90,6 @@ Page {
             anchors.fill: parent
             onClicked: walkthrough.finished()
         }
-    }
-
-    // Separator between walkthrough slides and slide indicator
-    ListItem.ThinDivider {
-        id: separator
-        anchors.bottom: slideIndicator.top
     }
 
     // Indicator element to represent the current slide of the walkthrough
@@ -110,19 +104,32 @@ Page {
 
         Repeater {
             model: walkthrough.model.length
-            delegate: Rectangle {
-                height: width
-                radius: width/2
-                width: units.gu(2)
-                antialiasing: true
+            delegate: Image {
                 anchors.verticalCenter: parent.verticalCenter
-                color: listView.currentIndex >= index ? "green" : "white"
-                Behavior on color {
-                    ColorAnimation {
-                        duration: UbuntuAnimation.FastDuration
-                    }
-                }
+                antialiasing: true
+                height: width
+                source: listView.currentIndex == index ?  "../../images/Ellipse@27.png" : "../../images/Ellipse_15_opacity@27.png"
+                width: units.gu(2)
             }
+        }
+    }
+
+    Icon {
+        id: nextIcon
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+            margins: units.gu(2)
+        }
+        color: "white"
+        height: units.gu(2)
+        name: "chevron"
+        visible: listView.currentIndex !== 2
+        width: height
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: listView.currentIndex++
         }
     }
 }
