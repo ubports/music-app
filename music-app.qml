@@ -1272,7 +1272,7 @@ MainView {
                     centerIn: parent
                 }
                 spacing: units.gu(2)
-                width: units.gu(37)
+                width: units.gu(35)
 
                 Row {
                     anchors {
@@ -1348,7 +1348,7 @@ MainView {
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 4
                     text: i18n.tr("Add music to your Ubuntu phone by dragging files from an Ubuntu computer or by inserting from an SD card.")
-                    width: parent.width - units.gu(3)
+                    width: parent.width
                     wrapMode: Text.WordWrap
                 }
             }
@@ -1367,7 +1367,7 @@ MainView {
             Column {
                 anchors.centerIn: parent
                 spacing: units.gu(2)
-                width: units.gu(36)
+                width: units.gu(35)
 
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
