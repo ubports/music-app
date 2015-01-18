@@ -730,10 +730,11 @@ MainView {
 
             // if any tracks are removed from ms2 then check they are not in the queue
             onFilled: {
+                var i
                 var removed = []
 
                 // Find tracks from the queue that aren't in ms2 anymore
-                for (var i=0; i < trackQueue.model.count; i++) {
+                for (i=0; i < trackQueue.model.count; i++) {
                     if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
                         removed.push(i)
                     }
@@ -743,6 +744,21 @@ MainView {
                 if (removed.length > 0) {
                     console.debug("Removed queue:", JSON.stringify(removed))
                     trackQueue.removeQueueList(removed)
+                }
+
+                // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist
+                var playlists = Playlists.getPlaylists()
+
+                for (i=0; i < playlists.length; i++) {
+                    Playlists.getPlaylistTracks(playlists[i])
+                }
+
+                // TODO: improve in refactoring to be able detect when a track is removed
+                // Update playlists page
+                if (musicPlaylistPage.visible) {
+                    playlistModel.filterPlaylists()
+                } else {
+                    musicPlaylistPage.changed = true
                 }
             }
         }

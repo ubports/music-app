@@ -57,6 +57,20 @@ MusicPage {
         }
     }
 
+    SongsModel {
+        store: musicStore
+        onFilled: {
+            // Detect any track removals and reload the playlist
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                if (songStackPage.visible) {
+                    albumTracksModel.filterPlaylistTracks(line2)
+                } else {
+                    songStackPage.playlistChanged = true
+                }
+            }
+        }
+    }
+
     Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
         id: refreshWaitTimer
         interval: 250
