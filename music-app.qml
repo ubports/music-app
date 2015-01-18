@@ -299,6 +299,9 @@ MainView {
                         contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                         contentHubWaitForFile.processId = processId;
                         contentHubWaitForFile.start();
+
+                        // Stop queue loading in bg
+                        queueLoaderWorker.canLoad = false
                     } else {
                         contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
                         contentHubWaitForFile.count = 0;
