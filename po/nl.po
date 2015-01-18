@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2015-01-13 14:51+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-14 06:53+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -57,13 +57,13 @@ msgid "Genre"
 msgstr "Genre"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "Wachtrij"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "Nu aan het afspelen"
 
@@ -131,7 +131,7 @@ msgstr "Nummers"
 msgid "Add to queue"
 msgstr "Toevoegen aan wachtrij"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "Selecteer een afspeellijst"
 
@@ -158,7 +158,7 @@ msgstr[1] "%1 albums"
 msgid "Add to Queue"
 msgstr "Toevoegen aan wachtrij"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -176,38 +176,38 @@ msgstr "Muziek zoeken"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "Naam wijzigen"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "Voer de nieuwe naam in van de afspeellijst"
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "Wijzigen"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "Afspeellijst bestaat al"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "Voer een naam in."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "Annuleren"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "Weet u het zeker?"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "Hierdoor zal uw afspeellijst verwijderd worden."
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -297,7 +297,7 @@ msgstr "Vandaag afgespeelde nummers"
 msgid "No songs played today"
 msgstr "Er zijn vandaag geen nummers afgespeeld"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Muziek"
@@ -307,42 +307,34 @@ msgid "Debug: "
 msgstr "Foutopsporing: "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
+msgid "New playlist"
 msgstr "Nieuwe afspeellijst"
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "Voer een naam in voor de afspeellijst."
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "Naam"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Aanmaken"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "Geen muziek gevonden"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Importeer a.u.b muziek"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "Geen afspeellijsten gevonden"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr "Klik op de + om een afspeellijst aan te maken"
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr "Geen recente albums of afspeellijsten gevonden"
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr "Speel muziek af om uw favorieten te zien"
 
@@ -376,6 +368,12 @@ msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Wissen"
+
+#~ msgid "Change name"
+#~ msgstr "Naam wijzigen"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Voer de nieuwe naam in van de afspeellijst"
 
 #~ msgid "Classical"
 #~ msgstr "Klassiek"
@@ -420,11 +418,14 @@ msgstr ""
 #~ msgid "Accounts"
 #~ msgstr "Accounts"
 
-#~ msgid "New playlist"
+#~ msgid "New Playlist"
 #~ msgstr "Nieuwe afspeellijst"
 
 #~ msgid "Music Settings"
 #~ msgstr "Muziekinstellingen"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
 
 #~ msgid "Now Playing"
 #~ msgstr "Nu aan het afspelen"
@@ -467,6 +468,9 @@ msgstr ""
 
 #~ msgid "Search Track"
 #~ msgstr "Nummer zoeken"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Voer een naam in voor de afspeellijst."
 
 #~ msgid "Login to scrobble and import playlists"
 #~ msgstr "Meld u aan om te kunnen scrobblen en afspeellijsten te importeren"

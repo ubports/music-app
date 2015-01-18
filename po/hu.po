@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2015-01-13 16:56+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-14 06:53+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -57,13 +57,13 @@ msgid "Genre"
 msgstr "Műfaj"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "Lejátszási sor"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "Most játszott"
 
@@ -131,7 +131,7 @@ msgstr "Dalok"
 msgid "Add to queue"
 msgstr "Lejátszási sorhoz"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "Lejátszólista választása"
 
@@ -158,7 +158,7 @@ msgstr[1] "%1 album"
 msgid "Add to Queue"
 msgstr "Hozzáadás a lejátszási sorhoz"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -176,38 +176,38 @@ msgstr "Zene keresése"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "Név módosítása"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "Adja meg a lejátszólista új nevét."
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "Módosítás"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "A lejátszólista már létezik"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "Adjon meg egy nevet."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "Mégse"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "Biztos benne?"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "Ezzel törli a lejátszási listát."
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -297,7 +297,7 @@ msgstr "ma lejátszott dalok"
 msgid "No songs played today"
 msgstr "Nincsenek ma lejátszott dalok"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Zene"
@@ -307,42 +307,34 @@ msgid "Debug: "
 msgstr "Hibakeresés: "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
+msgid "New playlist"
 msgstr "Új lejátszólista"
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "Nevezze el a lejátszólistát."
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "Név"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Létrehozás"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "Nem található zene"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Kérjük importálja zenéit"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "Nem található lejátszólista"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr "Koppintson a + jelre új lejátszólista létrehozásához"
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr "Nem található legutóbbi album vagy lejátszólista"
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr "Először hallgasson zenét, hogy láthassa a kedvenceit"
 
@@ -380,6 +372,12 @@ msgstr "zene;dalok;lejátszás;számok;lejátszó;hangok;"
 
 #~ msgid "Edit"
 #~ msgstr "Szerkesztés"
+
+#~ msgid "Change name"
+#~ msgstr "Név módosítása"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Adja meg a lejátszólista új nevét."
 
 #~ msgid "Settings"
 #~ msgstr "Beállítások"
@@ -423,14 +421,20 @@ msgstr "zene;dalok;lejátszás;számok;lejátszó;hangok;"
 #~ msgid "Ubuntu One"
 #~ msgstr "Ubuntu One"
 
-#~ msgid "New playlist"
-#~ msgstr "Új lejátszólista"
-
 #~ msgid "Clean everything!"
 #~ msgstr "Minden törlése!"
 
 #~ msgid "Stream only on Wi-Fi"
 #~ msgstr "Szórás csak Wi-Fi hálózaton"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Nevezze el a lejátszólistát."
+
+#~ msgid "New Playlist"
+#~ msgstr "Új lejátszólista"
+
+#~ msgid "Name"
+#~ msgstr "Név"
 
 #~ msgid "Music Settings"
 #~ msgstr "Zene beállítások"
