@@ -750,7 +750,7 @@ MainView {
                 var playlists = Playlists.getPlaylists()
 
                 for (i=0; i < playlists.length; i++) {
-                    Playlists.getPlaylistTracks(playlists[i])
+                    Playlists.getPlaylistTracks(playlists[i].name)
                 }
 
                 // TODO: improve in refactoring to be able detect when a track is removed
