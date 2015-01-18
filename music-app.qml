@@ -1367,7 +1367,7 @@ MainView {
             Column {
                 anchors.centerIn: parent
                 spacing: units.gu(2)
-                width: units.gu(35)
+                width: units.gu(36)
 
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
