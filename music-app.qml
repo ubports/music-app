@@ -1268,16 +1268,73 @@ MainView {
             visible: emptyPage.noMusic
 
             Column {
-                anchors.centerIn: parent
+                anchors {
+                    centerIn: parent
+                }
                 spacing: units.gu(2)
-                width: parent.width
+                width: units.gu(37)
+
+                Row {
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                    }
+                    height: units.gu(16)
+
+                    Item {
+                        height: parent.height
+                        width: imageEmptyDownload.width + units.gu(2)
+
+                        Image {
+                            id: imageEmptyDownload
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                verticalCenter: parent.verticalCenter
+                            }
+                            antialiasing: true
+                            fillMode: Image.PreserveAspectFit
+                            height: units.gu(10)
+                            smooth: true
+                            source: "images/music_empty_download.png"
+                        }
+                    }
+
+                    Item {
+                        height: parent.height
+                        width: units.gu(7)
+
+                        Image {
+                            id: imageSep
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                verticalCenter: parent.verticalCenter
+                            }
+                            antialiasing: true
+                            fillMode: Image.PreserveAspectFit
+                            height: units.gu(6)
+                            smooth: true
+                            source: "images/div.png"
+                        }
+                    }
+
+                    Image {
+                        id: imageEmptySD
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                        }
+                        antialiasing: true
+                        fillMode: Image.PreserveAspectFit
+                        height: units.gu(7)
+                        smooth: true
+                        source: "images/music_empty_SD.png"
+                    }
+                }
 
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 2
                     text: i18n.tr("No music found")
                     width: parent.width
@@ -1288,10 +1345,10 @@ MainView {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
                     fontSize: "medium"
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 2
-                    text: i18n.tr("Please import music")
-                    width: parent.width
+                    horizontalAlignment: Text.AlignLeft
+                    maximumLineCount: 4
+                    text: i18n.tr("Add music to your Ubuntu phone by dragging files from an Ubuntu computer or by inserting from an SD card.")
+                    width: parent.width - units.gu(3)
                     wrapMode: Text.WordWrap
                 }
             }
@@ -1310,14 +1367,14 @@ MainView {
             Column {
                 anchors.centerIn: parent
                 spacing: units.gu(2)
-                width: parent.width
+                width: units.gu(36)
 
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
                     fontSize: "large"
                     font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 2
                     text: i18n.tr("No playlists found")
                     width: parent.width
@@ -1328,9 +1385,10 @@ MainView {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
                     fontSize: "medium"
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 2
-                    text: i18n.tr("Click the + to create a playlist")
+                    horizontalAlignment: Text.AlignLeft
+                    maximumLineCount: 3
+                    text: i18n.tr("Get more out of Music by tapping the") + ' "+" ' +
+                          i18n.tr("icon to start making playlists for every mood and occasion.")
                     width: parent.width
                     wrapMode: Text.WordWrap
                 }
