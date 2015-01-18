@@ -176,7 +176,7 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            if (musicStore.lookup(rs.rows.item(i).filename) != undefined) {
+            if (musicStore.lookup(rs.rows.item(i).filename) != null) {
                 res.push(makeDict(musicStore.lookup(rs.rows.item(i).filename)));
             }
         }
@@ -278,6 +278,19 @@ function recentContainsPlaylist(key) {
     });
 
     return rs.rows.item(0).value > 0;
+}
+
+// Remove albums from recent by album
+function recentRemoveAlbums(albums)
+{
+    var db = getDatabase();
+
+    db.transaction( function(tx) {
+        for (var i=0; i < albums.length; i++) {
+            tx.executeSql("DELETE FROM recent WHERE type=? AND data=?",
+                          ["album", albums[i]]);
+        }
+    })
 }
 
 function recentRemovePlaylist(key) {

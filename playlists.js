@@ -200,6 +200,7 @@ function getPlaylists() {
 
 function getPlaylistTracks(playlist) {
     var db = getPlaylistDatabase()
+    var j
     var res = []
 
     var erroneousTracks = [];
@@ -208,7 +209,7 @@ function getPlaylistTracks(playlist) {
         db.transaction(function (tx) {
             var rs = tx.executeSql('SELECT * FROM track WHERE playlist=?;',
                                    [playlist])
-            for (var j = 0; j < rs.rows.length; j++) {
+            for (j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
 
                 if (musicStore.lookup(dbItem.filename) === null) {
@@ -226,10 +227,10 @@ function getPlaylistTracks(playlist) {
             }
 
             // remove bad tracks
-            for (var j=0; j < erroneousTracks.length; j++) {
+            for (j=0; j < erroneousTracks.length; j++) {
                 console.debug("Remove", erroneousTracks[j], "from playlist", playlist);
-                res = tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
-                                    [playlist, erroneousTracks[j]]).rowsAffected > 0
+                tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
+                              [playlist, erroneousTracks[j]])
             }
 
             reorder(playlist, "remove", tx)
