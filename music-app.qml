@@ -571,8 +571,7 @@ MainView {
         tabs.ensurePopulated(tabs.selectedTab);
 
         // Display walkthrough on first run, even if the user has music
-        //if (firstRun) {
-        if (true) {
+        if (firstRun) {
             musicToolbar.visible = false
             mainPageStack.push(walkthrough)
         }
