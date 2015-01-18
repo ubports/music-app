@@ -31,7 +31,7 @@ import UserMetrics 0.1
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
-import "common/walkthrough"
+import "common/Walkthrough"
 
 MainView {
     objectName: "music"

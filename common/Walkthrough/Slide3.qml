@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014
+ * Copyright (C) 2014-2015
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -31,42 +31,57 @@ Component {
         Column {
             id: mainColumn
 
-            spacing: units.gu(4)
             anchors.fill: parent
-
-            Label {
-                id: introductionText
-                fontSize: "x-large"
-                font.bold: true
-                text: i18n.tr("Discover new music")
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+            spacing: units.gu(4)
 
             Image {
                 id: smileImage
-                height: parent.height - introductionText.height - finalMessage.contentHeight - 4.5*mainColumn.spacing
+                anchors {
+                    top: parent.top
+                    topMargin: units.gu(4)
+                    horizontalCenter: parent.horizontalCenter
+                }
+                height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*mainColumn.spacing)/2
                 fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl("../../images/music-app@30.png")
-                anchors.horizontalCenter: parent.horizontalCenter
+                source: Qt.resolvedUrl("../../images/music_download_icon@27.png")
+            }
+
+            Label {
+                id: introductionText
+                anchors {
+                    bottom: finalMessage.top
+                    bottomMargin: mainColumn.spacing
+                }
+                fontSize: "x-large"
+                horizontalAlignment: Text.AlignHLeft
+                text: i18n.tr("Download new music")
             }
 
             Label {
                 id: finalMessage
-                text: i18n.tr("Or import music from the web or an online store to discover something new")
+                anchors {
+                    bottom: continueButton.top
+                    bottomMargin: mainColumn.spacing
+                }
+                fontSize: "large"
+                horizontalAlignment: Text.AlignHLeft
+                text: i18n.tr("Directly import music bought while browsing online.")
                 width: parent.width
                 wrapMode: Text.WordWrap
-                font.pixelSize: units.dp(17)
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Button {
                 id: continueButton
+                anchors {
+                    bottom: parent.bottom
+                    bottomMargin: units.gu(4)
+                    horizontalCenter: parent.horizontalCenter
+                }
                 color: UbuntuColors.green
                 height: units.gu(5)
-                width: units.gu(25)
-                text: i18n.tr("Start using Music!")
-                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr("Start")
+                width: units.gu(18)
+
                 onClicked: finished()
             }
         }

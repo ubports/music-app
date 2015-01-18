@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014
+ * Copyright (C) 2014-2015
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -30,32 +30,43 @@ Component {
 
         Column {
             id: mainColumn
-            spacing: units.gu(4)
             anchors.fill: parent
-
-            Label {
-                id: introductionText
-                text: i18n.tr("Listen to your music")
-                font.bold: true
-                fontSize: "x-large"
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+            spacing: units.gu(4)
 
             Image {
                 id: centerImage
-                height: parent.height - bodyText.contentHeight - introductionText.height - 4*mainColumn.spacing
+                anchors {
+                    top: parent.top
+                    topMargin: units.gu(6)
+                    horizontalCenter: parent.horizontalCenter
+                }
+                height: (parent.height - bodyText.contentHeight - introductionText.height - 4*mainColumn.spacing)/2
                 fillMode: Image.PreserveAspectFit
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: Qt.resolvedUrl("../../images/music-app@30.png")
+                source: Qt.resolvedUrl("../../images/sd_phone_icon@27.png")
+            }
+
+            Label {
+                id: introductionText
+                anchors {
+                    bottom: bodyText.top
+                    bottomMargin: mainColumn.spacing
+                }
+                fontSize: "x-large"
+                horizontalAlignment: Text.AlignHLeft
+                text: i18n.tr("Import your music")
             }
             
             Label {
                 id: bodyText
+                anchors {
+                    bottom: parent.bottom
+                    bottomMargin: units.gu(10)
+                }
+                fontSize: "large"
+                horizontalAlignment: Text.AlignHLeft
+                text: i18n.tr("Plug your phone into your Ubuntu computer and drag and drop files staight across.")
                 width: parent.width
                 wrapMode: Text.WordWrap
-                font.pixelSize: units.dp(17)
-                horizontalAlignment: Text.AlignHCenter
-                text: i18n.tr("Add music by connecting your device to a computer and dragging files to the Music folder")
             }
         }
     }
