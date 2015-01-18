@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2015-01-12 21:47+0000\n"
 "Last-Translator: Arsień Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-01-13 07:54+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -58,13 +58,13 @@ msgid "Genre"
 msgstr "Жанр"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "Чарга"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "Зараз грае"
 
@@ -133,7 +133,7 @@ msgstr "Кампазіцыі"
 msgid "Add to queue"
 msgstr "Дадаць у чаргу"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "Выбраць плэйліст"
 
@@ -161,7 +161,7 @@ msgstr[2] "%1 Альбомаў"
 msgid "Add to Queue"
 msgstr "Дадаць у чаргу"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Прыбраць"
 
@@ -179,38 +179,38 @@ msgstr "Пошук музыкі"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "Змяніць імя"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "Увядзіце новае імя спіса прайгравання."
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "Змяніць"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "Плэйліст ўжо існуе"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "Калі ласка, увядзіце імя."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "Скасаваць"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "Вы ўпэўненыя?"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "Гэта выдаліць ваш плэйліст."
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -300,7 +300,7 @@ msgstr "кампазіцыі граліся сёння"
 msgid "No songs played today"
 msgstr "Кампазіцыі сёння не гралі"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Музыка"
@@ -310,42 +310,34 @@ msgid "Debug: "
 msgstr "Наладка: "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
-msgstr "Новы спіс прайравання"
+msgid "New playlist"
+msgstr ""
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "Назавіце плэйліст"
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "Назоў"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Стварыць"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "Музыка не знойлзеная"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Калі ласка імпартуйце сваю музыку"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "Плэйлісты не знойдзеныя"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr ""
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr ""
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr ""
 
@@ -356,3 +348,18 @@ msgstr "Музыснае прыкладанне для Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "музыка; песні; граць; трэк; прайгравач; мелодыі;"
+
+#~ msgid "Change name"
+#~ msgstr "Змяніць імя"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Увядзіце новае імя спіса прайгравання."
+
+#~ msgid "Name your playlist."
+#~ msgstr "Назавіце плэйліст"
+
+#~ msgid "New Playlist"
+#~ msgstr "Новы спіс прайравання"
+
+#~ msgid "Name"
+#~ msgstr "Назоў"

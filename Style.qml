@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -46,7 +46,8 @@ QtObject {
     }
 
     property QtObject dialog: QtObject {
-        property color confirmButtonColor: UbuntuColors.orange;
+        property color confirmButtonColor: UbuntuColors.green;
+        property color confirmRemoveButtonColor: UbuntuColors.red;
         property color cancelButtonColor: UbuntuColors.coolGrey;
         property color normalTextFieldColor: common.white
     }
@@ -61,9 +62,9 @@ QtObject {
     }
 
     property QtObject mainView: QtObject{
-        property color backgroundColor: "#A55263";
-        property color footerColor: "#D75669";
-        property color headerColor: "#57365E";
+        property color backgroundColor: "#1e1e23"
+        property color footerColor: backgroundColor
+        property color headerColor: backgroundColor
     }
 
     property QtObject nowPlaying: QtObject {

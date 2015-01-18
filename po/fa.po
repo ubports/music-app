@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2014-11-20 22:51+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-01-12 07:41+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -57,13 +57,13 @@ msgid "Genre"
 msgstr "سبک"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "صف"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "درحال پخش"
 
@@ -130,7 +130,7 @@ msgstr "آهنگ‌ها"
 msgid "Add to queue"
 msgstr "افزودن به صف"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "انتخاب فهرست پخش"
 
@@ -156,7 +156,7 @@ msgstr[0] "%1 آلبوم"
 msgid "Add to Queue"
 msgstr "افزودن به صف"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "برداشتن"
 
@@ -174,38 +174,38 @@ msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "تغییر نام"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "نام جدید فهرست پخش را وارد کنید"
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "تغییر"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "فهرست‌پخش از پیش وجود دارد"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "لطفاُ یک نام بنویسید."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "لغو"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "مطمئنید؟"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "این کار فهرست پختان را حذف می‌کند."
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -295,7 +295,7 @@ msgstr "آهنگ امروز پخش شده"
 msgid "No songs played today"
 msgstr "امروز آهنگی پخش نشده"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "آهنگ"
@@ -305,42 +305,34 @@ msgid "Debug: "
 msgstr "رفع اشکال: "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
+msgid "New playlist"
 msgstr "فهرست پخش جدید"
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "فهرست پخش‌تان را نام‌گذاری کنید."
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "نام"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "ساختن"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "هیچ آهنگی پیدا نشد"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "لطفاً آهنگ‌ها را وارد کنید"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "هیچ فهرست پخشی یافت نشد"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr "برای ایجاد یک فهرست پخش روی + کلیک کنید"
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr "هیچ آلبوم یا فهرست پخش اخیری یافت نشد"
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr "برای دیدن محبوب‌هایتان آهنگ‌هایی پخش کنید"
 
@@ -360,6 +352,9 @@ msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;
 
 #~ msgid "Username"
 #~ msgstr "نام کاربری"
+
+#~ msgid "Change name"
+#~ msgstr "تغییر نام"
 
 #~ msgid "Hip Hop"
 #~ msgstr "هیپ‌هاپ"
@@ -396,6 +391,9 @@ msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;
 
 #~ msgid "Custom"
 #~ msgstr "سفارشی"
+
+#~ msgid "Name"
+#~ msgstr "نام"
 
 #~ msgid "Edit"
 #~ msgstr "ویرایش"
@@ -440,7 +438,10 @@ msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;
 #~ msgid "Ubuntu One"
 #~ msgstr "اوبونتو وان"
 
-#~ msgid "New playlist"
+#~ msgid "Name your playlist."
+#~ msgstr "فهرست پخش‌تان را نام‌گذاری کنید."
+
+#~ msgid "New Playlist"
 #~ msgstr "فهرست پخش جدید"
 
 #~ msgid "Clear"
@@ -460,6 +461,9 @@ msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;
 
 #~ msgid "Last.fm"
 #~ msgstr "لست.اف‌ام"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "نام جدید فهرست پخش را وارد کنید"
 
 #~ msgid "Now Playing"
 #~ msgstr "در حال پخش"

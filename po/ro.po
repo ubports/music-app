@@ -1,84 +1,105 @@
 # Romanian translation for music-app
-# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-24 13:47+0000\n"
-"Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
+"PO-Revision-Date: 2015-01-16 15:12+0000\n"
+"Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-09-25 06:47+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Autentificați-vă pentru a putea partaja preferințele."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Nume utilizator"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Parolă"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Autentificare"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Autentificare în curs..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Autentificarea a reușit"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Autentificarea a eșuat"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Ați uitat să configurați numele de utilizator și parola"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Albume"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:142
+#: ../common/AlbumsPage.qml:156 ../common/SongsPage.qml:352
+msgid "Unknown Album"
+msgstr "Album necunoscut"
+
+#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:103 ../common/AlbumsPage.qml:155
+#: ../common/SongsPage.qml:373
+msgid "Unknown Artist"
+msgstr "Artist necunoscut"
+
+#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:154
 msgid "Album"
 msgstr "Album"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Artiști"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 album"
-msgstr[1] "%1 albume"
-msgstr[2] "%1 de albume"
+#: ../MusicArtists.qml:106
+msgid "Artist"
+msgstr "Artist"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Genuri"
+
+#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:291
+#: ../common/SongsPage.qml:325 ../common/SongsPage.qml:339
+#: ../common/SongsPage.qml:375 ../common/SongsPage.qml:394
+#: ../common/SongsPage.qml:426
+msgid "Genre"
+msgstr "Gen"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
+msgid "Queue"
+msgstr "Coadă"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
+msgid "Now playing"
+msgstr "În redare"
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:153
+msgid "Add to playlist"
+msgstr "Adaugă la lista de redare"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr "Golește coada"
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:131
+msgid "Cancel selection"
+msgstr "Anulează selecția"
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:141
+msgid "Select All"
+msgstr "Selectare totală"
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:188
+msgid "Delete"
+msgstr "Șterge"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../common/SongsPage.qml:69
+msgid "Playlists"
+msgstr "Liste de redare"
+
+#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:396
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -86,214 +107,61 @@ msgstr[0] "%1 melodie"
 msgstr[1] "%1 melodii"
 msgstr[2] "%1 de melodii"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Artist"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Acum rulează"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Liste de redare"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Listă de redare nouă"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Schimbare nume"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Introduceți noul nume pentru lista de redare."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Modifică"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Lista de redare există deja"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Introduceți un nume."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Anulează"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:89 ../common/SongsPage.qml:189
+#: ../common/SongsPage.qml:293 ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:338 ../common/SongsPage.qml:374
+#: ../common/SongsPage.qml:410 ../common/SongsPage.qml:413
+#: ../common/SongsPage.qml:428
 msgid "Playlist"
 msgstr "Listă de redare"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Căutare"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Configurări"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Egalizator"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Implicit"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Acustic"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Clasic"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Electronic"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Uniform"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metal"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Personalizat"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Mergi la melodia curentă \n"
-"la deschiderea barei de unelte"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Conturi"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr ""
-"Autentificați-vă pentru a partaja preferințele și pentru a importa liste de "
-"redare"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Difuzare muzică"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Autentificați-vă pentru a difuza muzica din cloud-ul personal"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Difuzare numai prin rețeaua fără fir"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Șterge tot!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Muzică"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../common/SongsPage.qml:79
 msgid "Recent"
 msgstr "Recente"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Șterge istoricul"
+#: ../MusicToolbar.qml:128
+msgid "Tap to shuffle music"
+msgstr "Apasă pentru a amesteca muzica"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Genuri"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Gen"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Atingeți butonul de redare pentru a amesteca melodiile"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Melodii"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Selectați lista de redare"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Redă tot"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:176
 msgid "Add to queue"
 msgstr "Adaugă la selecție"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Adaugă la lista de redare"
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
+msgid "Select playlist"
+msgstr "Selectați lista de redare"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/AlbumsPage.qml:62 ../common/SongsPage.qml:286
+msgid "Shuffle"
+msgstr "Amestecat"
+
+#: ../common/AlbumsPage.qml:76 ../common/SongsPage.qml:312
+msgid "Queue all"
+msgstr "Pune in coadă tot"
+
+#: ../common/AlbumsPage.qml:84 ../common/SongsPage.qml:320
+msgid "Play all"
+msgstr "Redă tot"
+
+#: ../common/AlbumsPage.qml:122
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 album"
+msgstr[1] "%1 albume"
+msgstr[2] "%1 de albume"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Adaugă în coada de redare"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Șterge"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Editare"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Șterge"
 
@@ -301,141 +169,177 @@ msgstr "Șterge"
 msgid "Loading..."
 msgstr "Se încarcă..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Șterge"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr "Niciun element găsit"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Album necunoscut"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Căutare muzică"
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Artist necunoscut"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:498
+msgid "Rename playlist"
+msgstr ""
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "Căutare melodie"
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:515
+msgid "Change"
+msgstr "Modifică"
+
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
+msgid "Playlist already exists"
+msgstr "Lista de redare există deja"
+
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
+msgid "Please type in a name."
+msgstr "Introduceți un nume."
+
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
+msgid "Cancel"
+msgstr "Anulează"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
+
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
+
+#: ../music-app.qml:145
 msgid "Next"
 msgstr "Înainte"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:146
 msgid "Next Track"
 msgstr "Melodia următoare"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Pause"
 msgstr "Pauză"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Play"
 msgstr "Redare"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Pause Playback"
 msgstr "Pauză redare"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Continue or start playback"
 msgstr "Continuă sau pornește redarea"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:159
 msgid "Back"
 msgstr "Înapoi"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:160
 msgid "Go back to last page"
 msgstr "Mergi înapoi la ultima pagină"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:168
 msgid "Previous"
 msgstr "Precedenta"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:169
 msgid "Previous Track"
 msgstr "Piesa precedentă"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:174
 msgid "Stop"
 msgstr "Stop"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:175
 msgid "Stop Playback"
 msgstr "Oprește redarea"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Configurări muzică"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:324
 msgid "Filepath must start with"
 msgstr "Calea către fișier trebuie să înceapă cu"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:350
 msgid "Filepath must be a file"
 msgstr "Traseul trebuie să arate către un fișier"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:356
 msgid "Failed to move file"
 msgstr "Eșec la mutarea fișierului"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:435
 msgid "Waiting for file(s)..."
 msgstr "Se așteaptă fișierul (fișierele)..."
 
-#: ../music-app.qml:466
+#: ../music-app.qml:454
 msgid "OK"
 msgstr "În regulă"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:467
 msgid "Imported file not found"
 msgstr "Nu a fost găsit fișierul importat"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:471
 msgid "Wait"
 msgstr "Așteptați"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:492
 msgid "songs played today"
 msgstr "melodii redate astăzi"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:493
 msgid "No songs played today"
 msgstr "nicio melodie redată astăzi"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:579 ../music-app.qml:1083
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Muzică"
+
+#: ../music-app.qml:597
 msgid "Debug: "
 msgstr "Depanare: "
 
-#: ../music-app.qml:925
-msgid "New Playlist"
+#: ../music-app.qml:839
+msgid "New playlist"
 msgstr "Listă de redare nouă"
 
-#: ../music-app.qml:926
-msgid "Name your playlist."
-msgstr "Denumiți lista de redare."
-
-#: ../music-app.qml:930
-msgid "Name"
-msgstr "Nume"
-
-#: ../music-app.qml:940
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Creează"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "Nu a fost găsită muzică"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Importați muzică"
+
+#: ../music-app.qml:1157
+msgid "No playlists found"
+msgstr "Nu s-au găsit liste de redare"
+
+#: ../music-app.qml:1168
+msgid "Click the + to create a playlist"
+msgstr "Apăsați + pentru a crea o listă de redare"
+
+#: ../music-app.qml:1197
+msgid "No recent albums or playlists found"
+msgstr "Nu s-au găsit albume sau liste de redare recente"
+
+#: ../music-app.qml:1208
+msgid "Play some music to see your favorites"
+msgstr "Redați câteva piese pentru a vă vedea favoritele."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -444,3 +348,135 @@ msgstr "O aplicație de muzică pentru Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "muzică;melodie;redare;piste;player;cântece;"
+
+#~ msgid "Login"
+#~ msgstr "Autentificare"
+
+#~ msgid "Password"
+#~ msgstr "Parolă"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Username"
+#~ msgstr "Nume utilizator"
+
+#~ msgid "Change name"
+#~ msgstr "Schimbare nume"
+
+#~ msgid "Now Playing"
+#~ msgstr "Acum rulează"
+
+#~ msgid "Login Successful"
+#~ msgstr "Autentificarea a reușit"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Autentificare în curs..."
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Ați uitat să configurați numele de utilizator și parola"
+
+#~ msgid "Login Failed"
+#~ msgstr "Autentificarea a eșuat"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Autentificați-vă pentru a putea partaja preferințele."
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Introduceți noul nume pentru lista de redare."
+
+#~ msgid "Settings"
+#~ msgstr "Configurări"
+
+#~ msgid "Acoustic"
+#~ msgstr "Acustic"
+
+#~ msgid "Search"
+#~ msgstr "Căutare"
+
+#~ msgid "Default"
+#~ msgstr "Implicit"
+
+#~ msgid "Electronic"
+#~ msgstr "Electronic"
+
+#~ msgid "Classical"
+#~ msgstr "Clasic"
+
+#~ msgid "Equaliser"
+#~ msgstr "Egalizator"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Metal"
+#~ msgstr "Metal"
+
+#~ msgid "Accounts"
+#~ msgstr "Conturi"
+
+#~ msgid "Custom"
+#~ msgstr "Personalizat"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr ""
+#~ "Autentificați-vă pentru a partaja preferințele și pentru a importa liste de "
+#~ "redare"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop"
+
+#~ msgid "Flat"
+#~ msgstr "Uniform"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Mergi la melodia curentă \n"
+#~ "la deschiderea barei de unelte"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Șterge tot!"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Difuzare numai prin rețeaua fără fir"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Autentificați-vă pentru a difuza muzica din cloud-ul personal"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Difuzare muzică"
+
+#~ msgid "Clear History"
+#~ msgstr "Șterge istoricul"
+
+#~ msgid "Edit"
+#~ msgstr "Editare"
+
+#~ msgid "Clear"
+#~ msgstr "Șterge"
+
+#~ msgid "Search Track"
+#~ msgstr "Căutare melodie"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Denumiți lista de redare."
+
+#~ msgid "New Playlist"
+#~ msgstr "Listă de redare nouă"
+
+#~ msgid "Name"
+#~ msgstr "Nume"
+
+#~ msgid "Music Settings"
+#~ msgstr "Configurări muzică"

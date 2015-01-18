@@ -79,7 +79,7 @@ MusicPage {
             actions: [
                 Action {
                     objectName: "toggleView"
-                    iconName: "swap"
+                    iconName: isListView ? "stock_image" : "view-list-symbolic"
                     onTriggered: {
                         isListView = !isListView
                     }
@@ -175,7 +175,7 @@ MusicPage {
                         // Remove the tracks from the queue
                         // Use slice() to copy the list
                         // so that the indexes don't change as they are removed
-                        removeQueueList(queueListLoader.item.selectedItems.slice())
+                        trackQueue.removeQueueList(queueListLoader.item.selectedItems.slice())
 
                         queueListLoader.item.closeSelection()
                     }
@@ -191,32 +191,49 @@ MusicPage {
 
     Item {
         id: fullview
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            topMargin: mainView.header.height
+        }
+        height: parent.height - mainView.header.height - units.gu(9.5)
         visible: !isListView
+        width: parent.width
 
         BlurredBackground {
             id: blurredBackground
-            anchors.top: parent.top
-            anchors.topMargin: mainView.header.height
-            height: units.gu(27)
-            art: albumImage.firstSource
-
-            CoverGrid {
-                id: albumImage
-                anchors {
-                    centerIn: parent
-                }
-                covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
-                size: units.gu(18)
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
             }
-        }
+            art: albumImage.firstSource
+            height: parent.height - units.gu(7)
+  
+            Item {
+                id: albumImageContainer
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                }
+                height: parent.height
+                width: parent.width
 
-        /* Full toolbar */
-        Item {
-            id: musicToolbarFullContainer
-            anchors.top: blurredBackground.bottom
-            anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(4) : units.gu(2)
-            width: blurredBackground.width
+                CoverGrid {
+                    id: albumImage
+                    anchors.centerIn: parent
+                    covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
+                    size: parent.width > parent.height ? parent.height : parent.width
+                }
+            }
+
+            Rectangle {
+                id: nowPlayingWideAspectLabelsBackground
+                anchors.bottom: parent.bottom
+                color: styleMusic.common.black
+                height: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(10) : units.gu(13)
+                opacity: 0.8
+                width: parent.width
+            }
 
             /* Column for labels in wideAspect */
             Column {
@@ -227,6 +244,8 @@ MusicPage {
                     leftMargin: units.gu(2)
                     right: parent.right
                     rightMargin: units.gu(2)
+                    top: nowPlayingWideAspectLabelsBackground.top
+                    topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(2) : units.gu(1.5)
                 }
 
                 /* Title of track */
@@ -263,300 +282,138 @@ MusicPage {
                 }
             }
 
-            /* Progress bar component */
+            /* Detect cover art swipe */
             MouseArea {
-                id: musicToolbarFullProgressContainer
+                anchors.fill: parent
+                property string direction: "None"
+                property real lastX: -1
+
+                onPressed: lastX = mouse.x
+
+                onReleased: {
+                    var diff = mouse.x - lastX
+                    if (Math.abs(diff) < units.gu(4)) {
+                        return;
+                    } else if (diff < 0) {
+                        player.nextSong()
+                    } else if (diff > 0) {
+                        player.previousSong()
+                    }
+                }
+            }
+        }
+
+        /* Background for progress bar component */
+        Rectangle {
+            id: musicToolbarFullProgressBackground
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                top: blurredBackground.bottom
+            }
+            color: styleMusic.common.black
+        }
+
+        /* Progress bar component */
+        Item {
+            id: musicToolbarFullProgressContainer
+            anchors.left: parent.left
+            anchors.leftMargin: units.gu(3)
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(3)
+            anchors.top: blurredBackground.bottom
+            anchors.topMargin: units.gu(1)
+            height: units.gu(3)
+            width: parent.width
+
+            /* Position label */
+            Label {
+                id: musicToolbarFullPositionLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
                 anchors.left: parent.left
-                anchors.leftMargin: units.gu(3)
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.position)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
+            }
+
+            Slider {
+                id: progressSliderMusic
+                anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.rightMargin: units.gu(3)
-                anchors.top: nowPlayingWideAspectLabels.bottom
-                anchors.topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(3) : units.gu(1.5)
-                height: units.gu(3)
-                width: parent.width
+                maximumValue: player.duration  // load value at startup
+                objectName: "progressSliderShape"
+                style: UbuntuBlueSliderStyle {}
+                value: player.position  // load value at startup
 
-                /* Position label */
-                Label {
-                    id: musicToolbarFullPositionLabel
-                    anchors.top: progressSliderMusic.bottom
-                    anchors.topMargin: units.gu(-2)
-                    anchors.left: parent.left
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    fontSize: "small"
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    text: durationToString(player.position)
-                    verticalAlignment: Text.AlignVCenter
-                    width: units.gu(3)
-                }
-
-                Slider {
-                    id: progressSliderMusic
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    maximumValue: player.duration  // load value at startup
-                    objectName: "progressSliderShape"
-                    style: UbuntuBlueSliderStyle {}
-                    value: player.position  // load value at startup
-
-                    function formatValue(v) {
-                        if (seeking) {  // update position label while dragging
-                            musicToolbarFullPositionLabel.text = durationToString(v)
-                        }
-
-                        return durationToString(v)
+                function formatValue(v) {
+                    if (seeking) {  // update position label while dragging
+                        musicToolbarFullPositionLabel.text = durationToString(v)
                     }
 
-                    property bool seeking: false
-                    property bool seeked: false
+                    return durationToString(v)
+                }
 
-                    onSeekingChanged: {
-                        if (seeking === false) {
+                property bool seeking: false
+                property bool seeked: false
+
+                onSeekingChanged: {
+                    if (seeking === false) {
+                        musicToolbarFullPositionLabel.text = durationToString(player.position)
+                    }
+                }
+
+                onPressedChanged: {
+                    seeking = pressed
+
+                    if (!pressed) {
+                        seeked = true
+                        player.seek(value)
+
+                        musicToolbarFullPositionLabel.text = durationToString(value)
+                    }
+                }
+
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
+                        if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
                             musicToolbarFullPositionLabel.text = durationToString(player.position)
+                            musicToolbarFullDurationLabel.text = durationToString(player.duration)
+
+                            progressSliderMusic.value = player.position
+                            progressSliderMusic.maximumValue = player.duration
                         }
+
+                        progressSliderMusic.seeked = false;
                     }
-
-                    onPressedChanged: {
-                        seeking = pressed
-
-                        if (!pressed) {
-                            seeked = true
-                            player.seek(value)
-
-                            musicToolbarFullPositionLabel.text = durationToString(value)
-                       }
-                    }
-
-                    Connections {
-                        target: player
-                        onPositionChanged: {
-                            // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
-                            if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                                musicToolbarFullPositionLabel.text = durationToString(player.position)
-                                musicToolbarFullDurationLabel.text = durationToString(player.duration)
-
-                                progressSliderMusic.value = player.position
-                                progressSliderMusic.maximumValue = player.duration
-                            }
-
-                            progressSliderMusic.seeked = false;
-                        }
-                        onStopped: {
-                            musicToolbarFullPositionLabel.text = durationToString(0);
-                            musicToolbarFullDurationLabel.text = durationToString(0);
-                        }
+                    onStopped: {
+                        musicToolbarFullPositionLabel.text = durationToString(0);
+                        musicToolbarFullDurationLabel.text = durationToString(0);
                     }
                 }
-
-                /* Duration label */
-                Label {
-                    id: musicToolbarFullDurationLabel
-                    anchors.top: progressSliderMusic.bottom
-                    anchors.topMargin: units.gu(-2)
-                    anchors.right: parent.right
-                    color: styleMusic.nowPlaying.labelSecondaryColor
-                    fontSize: "small"
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    text: durationToString(player.duration)
-                    verticalAlignment: Text.AlignVCenter
-                    width: units.gu(3)
-                }
             }
 
-            /* Repeat button */
-            MouseArea {
-                id: nowPlayingRepeatButton
-                anchors.right: nowPlayingPreviousButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                height: units.gu(6)
-                opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
-                width: height
-                onClicked: player.repeat = !player.repeat
-
-                Icon {
-                    id: repeatIcon
-                    height: units.gu(3)
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: "white"
-                    name: "media-playlist-repeat"
-                    objectName: "repeatShape"
-                    opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
-                }
+            /* Duration label */
+            Label {
+                id: musicToolbarFullDurationLabel
+                anchors.top: progressSliderMusic.bottom
+                anchors.topMargin: units.gu(-2)
+                anchors.right: parent.right
+                color: styleMusic.nowPlaying.labelSecondaryColor
+                fontSize: "small"
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                text: durationToString(player.duration)
+                verticalAlignment: Text.AlignVCenter
+                width: units.gu(3)
             }
-
-            /* Previous button */
-            MouseArea {
-                id: nowPlayingPreviousButton
-                anchors.right: nowPlayingPlayButton.left
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                height: units.gu(6)
-                opacity: trackQueue.model.count === 0  ? .4 : 1
-                width: height
-                onClicked: player.previousSong()
-
-                Icon {
-                    id: nowPlayingPreviousIndicator
-                    height: units.gu(3)
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: "white"
-                    name: "media-skip-backward"
-                    objectName: "previousShape"
-                    opacity: 1
-                }
-            }
-
-            /* Play/Pause button */
-            MouseArea {
-                id: nowPlayingPlayButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: musicToolbarFullProgressContainer.bottom
-                anchors.topMargin: units.gu(2)
-                height: units.gu(12)
-                width: height
-                onClicked: player.toggle()
-
-                Icon {
-                    id: nowPlayingPlayIndicator
-                    height: units.gu(6)
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    opacity: emptyPage.noMusic ? .4 : 1
-                    color: "white"
-                    name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
-                    objectName: "playShape"
-                }
-            }
-
-            /* Next button */
-            MouseArea {
-                id: nowPlayingNextButton
-                anchors.left: nowPlayingPlayButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                height: units.gu(6)
-                opacity: trackQueue.model.count === 0 ? .4 : 1
-                width: height
-                onClicked: player.nextSong()
-
-                Icon {
-                    id: nowPlayingNextIndicator
-                    height: units.gu(3)
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: "white"
-                    name: "media-skip-forward"
-                    objectName: "forwardShape"
-                    opacity: 1
-                }
-            }
-
-            /* Shuffle button */
-            MouseArea {
-                id: nowPlayingShuffleButton
-                anchors.left: nowPlayingNextButton.right
-                anchors.leftMargin: units.gu(1)
-                anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-                height: units.gu(6)
-                opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
-                width: height
-                onClicked: player.shuffle = !player.shuffle
-
-                Icon {
-                    id: shuffleIcon
-                    height: units.gu(3)
-                    width: height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: "white"
-                    name: "media-playlist-shuffle"
-                    objectName: "shuffleShape"
-                    opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
-                }
-            }
-        }
-    }
-
-    function removeQueue(index)
-    {
-        var removedIndex = index
-
-        if (trackQueue.model.count === 1) {
-            player.stop()
-            musicToolbar.goBack()
-        } else if (index === player.currentIndex) {
-            player.nextSong(player.isPlaying);
-        }
-
-        trackQueue.model.remove(index);
-        Library.removeQueueItem(removedIndex);
-
-        if (removedIndex < player.currentIndex) {
-            // update index as the old has been removed
-            player.currentIndex -= 1;
-            queueIndex -= 1;
-        }
-    }
-
-    // Optimised removeQueue for removing multiple tracks from the queue
-    function removeQueueList(items)
-    {
-        var i;
-
-        // Remove from the saved queue database
-        Library.removeQueueList(items)
-
-
-        // Remove from the listmodel
-        for (i=0; i < items.length; i++) {
-            trackQueue.model.remove(items[i] - i);
-        }
-
-        // Update the currentIndex and playing status
-
-        if (trackQueue.model.count === 0) {
-            // Nothing in the queue so stop and pop the queue
-            player.stop()
-            musicToolbar.goBack()
-        } else if (items.indexOf(player.currentIndex) > -1) {
-            // Current track was removed
-
-            // Find the first index that still exists before the currentIndex
-            for (i=player.currentIndex - 1; i > -1; i--) {
-                if (items.indexOf(i) === -1) {
-                    break;
-                }
-            }
-
-            // Set this as the current track
-            player.currentIndex = i
-            queueIndex = i
-
-            // Play the next track
-            player.nextSong(player.isPlaying);
-        } else {
-            // Current track not in removed list
-            // Check if the index needs to be shuffled down due to removals
-
-            var before = 0
-
-            for (i in items) {
-                if (i < player.currentIndex) {
-                    before++;
-                }
-            }
-
-            // Update the index
-            player.currentIndex -= before;
-            queueIndex -= before;
         }
     }
 
@@ -569,7 +426,7 @@ MusicPage {
         sourceComponent: ListView {
             id: queueList
             anchors {
-                bottomMargin: units.gu(2)
+                bottomMargin: musicToolbarFullContainer.height + units.gu(2)
                 fill: parent
                 topMargin: units.gu(2)
             }
@@ -628,13 +485,13 @@ MusicPage {
                 id: queueDelegate
                 ListItemWithActions {
                     id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : mainView.backgroundColor
+                    color: player.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
                     height: queueList.normalHeight
                     objectName: "nowPlayingListItem" + index
                     state: ""
 
                     leftSideAction: Remove {
-                        onTriggered: removeQueue(index)
+                        onTriggered: trackQueue.removeQueue(index)
                     }
                     multiselectable: true
                     reorderable: true
@@ -717,5 +574,165 @@ MusicPage {
             }
         }
         visible: isListView
+    }
+
+    /* Full toolbar */
+    Rectangle {
+        id: musicToolbarFullContainer
+        anchors.bottom: parent.bottom
+        color: styleMusic.common.black
+        height: units.gu(10)
+        width: parent.width
+
+        /* Repeat button */
+        MouseArea {
+            id: nowPlayingRepeatButton
+            anchors.right: nowPlayingPreviousButton.left
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            width: height
+            onClicked: player.repeat = !player.repeat
+
+            Icon {
+                id: repeatIcon
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-playlist-repeat"
+                objectName: "repeatShape"
+                opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            }
+        }
+
+        /* Previous button */
+        MouseArea {
+            id: nowPlayingPreviousButton
+            anchors.right: nowPlayingPlayButton.left
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: trackQueue.model.count === 0  ? .4 : 1
+            width: height
+            onClicked: player.previousSong()
+
+            Icon {
+                id: nowPlayingPreviousIndicator
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-skip-backward"
+                objectName: "previousShape"
+                opacity: 1
+            }
+        }
+
+        /* Play/Pause button */
+        MouseArea {
+            id: nowPlayingPlayButton
+            anchors.centerIn: parent
+            height: units.gu(10)
+            width: height
+            onClicked: player.toggle()
+
+            Icon {
+                id: nowPlayingPlayIndicator
+                height: units.gu(6)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                opacity: emptyPage.noMusic ? .4 : 1
+                color: "white"
+                name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+                objectName: "playShape"
+            }
+        }
+
+        /* Next button */
+        MouseArea {
+            id: nowPlayingNextButton
+            anchors.left: nowPlayingPlayButton.right
+            anchors.leftMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: trackQueue.model.count === 0 ? .4 : 1
+            width: height
+            onClicked: player.nextSong()
+
+            Icon {
+                id: nowPlayingNextIndicator
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-skip-forward"
+                objectName: "forwardShape"
+                opacity: 1
+            }
+        }
+
+        /* Shuffle button */
+        MouseArea {
+            id: nowPlayingShuffleButton
+            anchors.left: nowPlayingNextButton.right
+            anchors.leftMargin: units.gu(1)
+            anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+            height: units.gu(6)
+            opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            width: height
+            onClicked: player.shuffle = !player.shuffle
+
+            Icon {
+                id: shuffleIcon
+                height: units.gu(3)
+                width: height
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                name: "media-playlist-shuffle"
+                objectName: "shuffleShape"
+                opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            }
+        }
+
+        /* Object which provides the progress bar when in the queue */
+        Rectangle {
+            id: playerControlsProgressBar
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
+            color: styleMusic.common.black
+            height: units.gu(0.25)
+            visible: isListView
+
+            Rectangle {
+                id: playerControlsProgressBarHint
+                anchors {
+                    left: parent.left
+                    bottom: parent.bottom
+                }
+                color: UbuntuColors.blue
+                height: parent.height
+                width: 0
+
+                Connections {
+                    target: player
+                    onPositionChanged: {
+                        playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
+                    }
+                    onStopped: {
+                        playerControlsProgressBarHint.width = 0;
+                    }
+                }
+            }
+        }
     }
 }

@@ -176,7 +176,7 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            if (musicStore.lookup(rs.rows.item(i).filename) != undefined) {
+            if (musicStore.lookup(rs.rows.item(i).filename) != null) {
                 res.push(makeDict(musicStore.lookup(rs.rows.item(i).filename)));
             }
         }
@@ -207,14 +207,14 @@ function createRecent() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            // Data is either the playlist name or album name
-            tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME UNIQUE, data TEXT, type TEXT)");
-
-            // Check of old version of db and then clear if needed
+            // Check of old version of db (or no db) then clear and rebuild if needed
             try {
                 tx.executeSql("SELECT data FROM recent");
             } catch (e) {
-                clearRecentHistory();
+                tx.executeSql('DROP TABLE IF EXISTS recent');
+
+                // Data is either the playlist name or album name
+                tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME UNIQUE, data TEXT, type TEXT)");
             }
       });
 }
@@ -223,8 +223,7 @@ function clearRecentHistory() {
     var db = getDatabase();
     db.transaction(
         function(tx) {
-            tx.executeSql('DROP TABLE IF EXISTS recent');
-            tx.executeSql("CREATE TABLE IF NOT EXISTS recent(time DATETIME UNIQUE, data TEXT, type TEXT)");
+            tx.executeSql('DELETE FROM recent');
       });
 }
 
@@ -279,6 +278,19 @@ function recentContainsPlaylist(key) {
     });
 
     return rs.rows.item(0).value > 0;
+}
+
+// Remove albums from recent by album
+function recentRemoveAlbums(albums)
+{
+    var db = getDatabase();
+
+    db.transaction( function(tx) {
+        for (var i=0; i < albums.length; i++) {
+            tx.executeSql("DELETE FROM recent WHERE type=? AND data=?",
+                          ["album", albums[i]]);
+        }
+    })
 }
 
 function recentRemovePlaylist(key) {

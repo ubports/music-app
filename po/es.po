@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2015-01-12 22:54+0000\n"
 "Last-Translator: Alan Pope  <alan@ubuntu.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-13 07:54+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -57,13 +57,13 @@ msgid "Genre"
 msgstr "Género"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "Cola"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "Sonando ahora"
 
@@ -131,7 +131,7 @@ msgstr "Canciones"
 msgid "Add to queue"
 msgstr "Añadir a la cola"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "Seleccionar lista de reproducción"
 
@@ -158,7 +158,7 @@ msgstr[1] "%1 álbumes"
 msgid "Add to Queue"
 msgstr "Añadir a la cola"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -176,38 +176,38 @@ msgstr "Buscar música"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "Modificar nombre"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "Escriba un nombre nuevo para la lista."
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "Cambiar"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "La lista ya existe"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "Escriba un nombre."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "¿Está seguro?"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "Se eliminará la lista de reproducción."
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -297,7 +297,7 @@ msgstr "canciones reproducidas hoy"
 msgid "No songs played today"
 msgstr "No hay canciones reproducidas hoy"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Música"
@@ -307,42 +307,34 @@ msgid "Debug: "
 msgstr "Depurar: "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
-msgstr "Lista de reproducción nueva"
+msgid "New playlist"
+msgstr "Nueva lista de reproducción"
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "Dele un nombre a la lista."
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "Nombre"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Crear"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "No se encontró música"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Importe música"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "No se encontraron listas de reproducción"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr "Toque el + para crear lista"
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr "No se encontraron álbumes ni listas"
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr "Reproduzca algunos temas para activar los favoritos"
 
@@ -365,6 +357,9 @@ msgstr "música;canciones;reproducir;pistas;reproductor;temas;"
 
 #~ msgid "Login Failed"
 #~ msgstr "Error al acceder"
+
+#~ msgid "Change name"
+#~ msgstr "Modificar nombre"
 
 #~ msgid "Default"
 #~ msgstr "Predeterminado"
@@ -405,8 +400,11 @@ msgstr "música;canciones;reproducir;pistas;reproductor;temas;"
 #~ msgid "Accounts"
 #~ msgstr "Cuentas"
 
-#~ msgid "New playlist"
-#~ msgstr "Nueva lista de reproducción"
+#~ msgid "New Playlist"
+#~ msgstr "Lista de reproducción nueva"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
 
 #~ msgid "Music Settings"
 #~ msgstr "Preferencias de música"
@@ -429,6 +427,9 @@ msgstr "música;canciones;reproducir;pistas;reproductor;temas;"
 #~ msgid "Clean everything!"
 #~ msgstr "Limpiar todo"
 
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Escriba un nombre nuevo para la lista."
+
 #~ msgid "Stream only on Wi-Fi"
 #~ msgstr "Transmitir solo con wifi"
 
@@ -437,6 +438,9 @@ msgstr "música;canciones;reproducir;pistas;reproductor;temas;"
 
 #~ msgid "Music Streaming"
 #~ msgstr "Transmisión de música"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Dele un nombre a la lista."
 
 #~ msgid "Edit"
 #~ msgstr "Editar"

@@ -39,8 +39,8 @@ MainView {
     id: mainView
     useDeprecatedToolbar: false
 
-    backgroundColor: "#1e1e23"
-    headerColor: "#1e1e23"
+    backgroundColor: styleMusic.mainView.backgroundColor
+    headerColor: styleMusic.mainView.headerColor
 
     // Startup settings
     Settings {
@@ -301,6 +301,9 @@ MainView {
                         contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                         contentHubWaitForFile.processId = processId;
                         contentHubWaitForFile.start();
+
+                        // Stop queue loading in bg
+                        queueLoaderWorker.canLoad = false
                     } else {
                         contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
                         contentHubWaitForFile.count = 0;
@@ -734,10 +737,80 @@ MainView {
             id: allSongsModelModel
             objectName: "allSongsModelModel"
             store: musicStore
+
+            // if any tracks are removed from ms2 then check they are not in the queue
+            onFilled: {
+                var i
+                var removed = []
+
+                // Find tracks from the queue that aren't in ms2 anymore
+                for (i=0; i < trackQueue.model.count; i++) {
+                    if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
+                        removed.push(i)
+                    }
+                }
+
+                // If there are removed tracks then remove them from the queue and store
+                if (removed.length > 0) {
+                    console.debug("Removed queue:", JSON.stringify(removed))
+                    trackQueue.removeQueueList(removed)
+                }
+
+                // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist
+                var playlists = Playlists.getPlaylists()
+
+                for (i=0; i < playlists.length; i++) {
+                    Playlists.getPlaylistTracks(playlists[i].name)
+                }
+
+                // TODO: improve in refactoring to be able detect when a track is removed
+                // Update playlists page
+                if (musicPlaylistPage.visible) {
+                    playlistModel.filterPlaylists()
+                } else {
+                    musicPlaylistPage.changed = true
+                }
+            }
         }
         sort.property: "title"
         sort.order: Qt.AscendingOrder
         sortCaseSensitivity: Qt.CaseInsensitive
+    }
+
+    AlbumsModel {
+        id: allAlbumsModel
+        store: musicStore
+        // if any tracks are removed from ms2 then check they are not in recent
+        onFilled: {
+            var albums = []
+            var i
+            var removed = []
+
+            for (i=0; i < allAlbumsModel.count; i++) {
+                albums.push(allAlbumsModel.get(i, allAlbumsModel.RoleTitle))
+            }
+
+            // Find albums from recent that aren't in ms2 anymore
+            var recent = Library.getRecent()
+
+            for (i=0; i < recent.length; i++) {
+                if (recent[i].type === "album" && albums.indexOf(recent[i].data) === -1) {
+                    removed.push(recent[i].data)
+                }
+            }
+
+            // If there are removed tracks then remove them from recent
+            if (removed.length > 0) {
+                console.debug("Removed recent:", JSON.stringify(removed))
+                Library.recentRemoveAlbums(removed)
+
+                if (musicStartPage.visible) {
+                    recentModel.filterRecent()
+                } else {
+                    musicStartPage.changed = true
+                }
+            }
+        }
     }
 
     SongsModel {
@@ -819,6 +892,97 @@ MainView {
 
             queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
+
+        function removeQueue(index)
+        {
+            var removedIndex = index
+
+            if (trackQueue.model.count === 1) {
+                player.stop()
+                musicToolbar.goBack()
+            } else if (index === player.currentIndex) {
+                player.nextSong(player.isPlaying);
+            }
+
+            trackQueue.model.remove(index);
+            Library.removeQueueItem(removedIndex);
+
+            if (removedIndex < player.currentIndex) {
+                // update index as the old has been removed
+                player.currentIndex -= 1;
+                queueIndex -= 1;
+            }
+        }
+
+        // Optimised removeQueue for removing multiple tracks from the queue
+        function removeQueueList(items)
+        {
+            var i;
+
+            // Remove from the saved queue database
+            Library.removeQueueList(items)
+
+            // Sort the item indexes as loops below assume *numeric* sort
+            items.sort(function(a,b) { return a - b })
+
+            // Remove from the listmodel
+            var startCount = trackQueue.model.count
+
+            for (i=0; i < items.length; i++) {
+                // use diff in count as sometimes the row is removed from the model
+                trackQueue.model.remove(items[i] - (startCount - trackQueue.model.count));
+            }
+
+            // Update the currentIndex and playing status
+
+            if (trackQueue.model.count === 0) {
+                // Nothing in the queue so stop and pop the queue
+                player.stop()
+                musicToolbar.goBack()
+            } else if (items.indexOf(player.currentIndex) > -1) {
+                // Current track was removed
+
+                var newIndex;
+
+                // Find the first index that still exists before the currentIndex
+                for (i=player.currentIndex - 1; i > -1; i--) {
+                    if (items.indexOf(i) === -1) {
+                        break;
+                    }
+                }
+
+                newIndex = i;
+
+                // Shuffle index down as tracks were removed before the current
+                for (i=newIndex; i > -1; i--) {
+                    if (items.indexOf(i) !== -1) {
+                        newIndex--;
+                    }
+                }
+
+                // Set this as the current track
+                player.currentIndex = newIndex
+
+                // Play the next track
+                player.nextSong(player.isPlaying);
+            } else {
+                // Current track not in removed list
+                // Check if the index needs to be shuffled down due to removals
+
+                var before = 0
+
+                for (i=0; i < items.length; i++) {
+                    if (items[i] < player.currentIndex) {
+                        before++;
+                    }
+                }
+
+                // Update the index
+                player.currentIndex -= before;
+            }
+
+            queueIndex = player.currentIndex;  // ensure saved index is up to date
+        }
     }
 
     // TODO: list of playlists move to U1DB
@@ -843,12 +1007,11 @@ MainView {
         Dialog {
             id: dialogNewPlaylist
             objectName: "dialogNewPlaylist"
-            title: i18n.tr("New Playlist")
-            text: i18n.tr("Name your playlist.")
+            title: i18n.tr("New playlist")
             TextField {
                 id: playlistName
                 objectName: "playlistNameTextField"
-                placeholderText: i18n.tr("Name")
+                placeholderText: i18n.tr("Enter playlist name")
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
             Label {
@@ -894,7 +1057,8 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing")
+        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
+                 mainPageStack.currentPage.title !== i18n.tr("Queue")
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }

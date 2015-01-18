@@ -33,6 +33,7 @@ MusicPage {
 
     property string artist: ""
     property var covers: []
+    property bool loaded: false  // used to detect difference between first and further loads
 
     CardView {
         id: artistAlbumView
@@ -41,9 +42,9 @@ MusicPage {
         }
         getter: function (i) {
             return {
-                "art": artistsModel.get(i, AlbumsModel.RoleArt),
-                "artist": artistsModel.get(i, AlbumsModel.RoleArtist),
-                "title": artistsModel.get(i, AlbumsModel.RoleTitle),
+                "art": albumsModel.get(i, AlbumsModel.RoleArt),
+                "artist": albumsModel.get(i, AlbumsModel.RoleArtist),
+                "title": albumsModel.get(i, AlbumsModel.RoleTitle),
             };
         }
         header: BlurredHeader {
@@ -119,7 +120,7 @@ MusicPage {
                     elide: Text.ElideRight
                     fontSize: "small"
                     maximumLineCount: 1
-                    text: i18n.tr("%1 album", "%1 albums", artistsModel.count).arg(artistsModel.count)
+                    text: i18n.tr("%1 album", "%1 albums", albumsModel.count).arg(albumsModel.count)
                 }
             }
 
@@ -131,9 +132,14 @@ MusicPage {
         }
         itemWidth: units.gu(12)
         model: AlbumsModel {
-            id: artistsModel
+            id: albumsModel
             albumArtist: albumStackPage.artist
             store: musicStore
+            onStatusChanged: {
+                if (albumsModel.status === SongsModel.Ready && loaded && albumsModel.count === 0) {
+                    musicToolbar.popPage(albumStackPage)
+                }
+            }
         }
         delegate: Card {
             id: albumCard
@@ -164,5 +170,7 @@ MusicPage {
             }
         }
     }
+
+    Component.onCompleted: loaded = true
 }
 

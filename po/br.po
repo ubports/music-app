@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-11 20:21+0000\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
 "PO-Revision-Date: 2015-01-12 07:46+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-13 07:54+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-18 05:07+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -57,13 +57,13 @@ msgid "Genre"
 msgstr "Stil"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
-#: ../music-app.qml:1048 ../music-app.qml:1060 ../music-app.qml:1088
-#: ../music-app.qml:1089
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
 msgid "Queue"
 msgstr "Lostenn"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:890
-#: ../music-app.qml:1047 ../music-app.qml:1088 ../music-app.qml:1089
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
 msgid "Now playing"
 msgstr "Lennet bremañ"
 
@@ -131,7 +131,7 @@ msgstr "Tonioù"
 msgid "Add to queue"
 msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1144
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
 msgid "Select playlist"
 msgstr "Diuzañ ur roll-tonioù"
 
@@ -158,7 +158,7 @@ msgstr[1] "%1 albom"
 msgid "Add to Queue"
 msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:565
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Dilemel"
 
@@ -176,38 +176,38 @@ msgstr "Klask sonerezh"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:498
-msgid "Change name"
-msgstr "Cheñch an anv"
+msgid "Rename playlist"
+msgstr ""
 
-#: ../common/SongsPage.qml:499
-msgid "Enter the new name of the playlist."
-msgstr "Ebarzhiñ anv nevez ar roll-tonioù."
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../common/SongsPage.qml:516
+#: ../common/SongsPage.qml:515
 msgid "Change"
 msgstr "Cheñch"
 
-#: ../common/SongsPage.qml:537 ../music-app.qml:870
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
 msgid "Playlist already exists"
 msgstr "Ar roll tonioù zo anezhañ dija"
 
-#: ../common/SongsPage.qml:541 ../music-app.qml:875
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
 msgid "Please type in a name."
 msgstr "Skrivit un anv, mar plij."
 
-#: ../common/SongsPage.qml:546 ../common/SongsPage.qml:584
-#: ../music-app.qml:481 ../music-app.qml:881
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
 msgid "Cancel"
 msgstr "Nullañ"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:559
-msgid "Are you sure?"
-msgstr "Dasout ha sur oc'h ?"
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr ""
 
-#: ../common/SongsPage.qml:560
-msgid "This will delete your playlist."
-msgstr "Gant se e vo dilamet ho roll-tonioù"
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr ""
 
 #: ../music-app.qml:145
 msgid "Next"
@@ -297,7 +297,7 @@ msgstr "tonioù bet lennet hiziv"
 msgid "No songs played today"
 msgstr "N'eus bet lennet ton ebet hiziv"
 
-#: ../music-app.qml:579 ../music-app.qml:1084
+#: ../music-app.qml:579 ../music-app.qml:1083
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Sonerezh"
@@ -307,42 +307,34 @@ msgid "Debug: "
 msgstr "Dizreinañ : "
 
 #: ../music-app.qml:839
-msgid "New Playlist"
+msgid "New playlist"
 msgstr "Roll-tonioù nevez"
 
-#: ../music-app.qml:840
-msgid "Name your playlist."
-msgstr "Roit un anv d'ho roll-tonioù."
-
-#: ../music-app.qml:844
-msgid "Name"
-msgstr "Anv"
-
-#: ../music-app.qml:854
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Krouiñ"
 
-#: ../music-app.qml:1118
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "N'eus ket bet kavet sonerezh"
 
-#: ../music-app.qml:1129
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Enporzhiit sonerezh, mar plij"
 
-#: ../music-app.qml:1158
+#: ../music-app.qml:1157
 msgid "No playlists found"
 msgstr "N'eus bet kavet roll-tonioù ebet"
 
-#: ../music-app.qml:1169
+#: ../music-app.qml:1168
 msgid "Click the + to create a playlist"
 msgstr "Klikit war + evit krouiñ ur roll-tonioù"
 
-#: ../music-app.qml:1198
+#: ../music-app.qml:1197
 msgid "No recent albums or playlists found"
 msgstr "N'eus bet kavet un albom pe ur roll-tonioù nevez"
 
-#: ../music-app.qml:1209
+#: ../music-app.qml:1208
 msgid "Play some music to see your favorites"
 msgstr "Lennit sonerezh evit gwelet ho tonioù gwellañ-deuet"
 
@@ -377,6 +369,9 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 
 #~ msgid "Edit"
 #~ msgstr "Aozañ"
+
+#~ msgid "Change name"
+#~ msgstr "Cheñch an anv"
 
 #~ msgid "Settings"
 #~ msgstr "Arventennoù"
@@ -417,6 +412,9 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 #~ msgid "Clear"
 #~ msgstr "Naetaat"
 
+#~ msgid "Name"
+#~ msgstr "Anv"
+
 #~ msgid "Login to be able to scrobble."
 #~ msgstr "Kevreañ evit gallout Skroblañ"
 
@@ -426,7 +424,7 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 #~ msgid "Login to scrobble and import playlists"
 #~ msgstr "Kevreañ evit Skroblañ hag enporzhiañ rolloù-tonioù"
 
-#~ msgid "New playlist"
+#~ msgid "New Playlist"
 #~ msgstr "Roll-tonioù nevez"
 
 #~ msgid "Custom"
@@ -437,6 +435,9 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 
 #~ msgid "Sign in to stream your cloud music"
 #~ msgstr "Kevreañ evit selaou ho sonerezh diwar ar goumoulenn"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Roit un anv d'ho roll-tonioù."
 
 #~ msgid "Music Streaming"
 #~ msgstr "Froudad sonerezh"
@@ -459,6 +460,9 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 
 #~ msgid "You forgot to set your username and/or password"
 #~ msgstr "Disoñjet ho peus lakaat hoc'h anv implijer ha/pe ho ker-tremen"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Ebarzhiñ anv nevez ar roll-tonioù."
 
 #~ msgid "Stream only on Wi-Fi"
 #~ msgstr "Selaou froudadoù gant ar Wi-Fi hepken"
