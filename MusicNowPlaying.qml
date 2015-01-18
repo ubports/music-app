@@ -295,9 +295,9 @@ MusicPage {
                     if (Math.abs(diff) < units.gu(4)) {
                         return;
                     } else if (diff < 0) {
-                        player.previousSong()
-                    } else if (diff > 0) {
                         player.nextSong()
+                    } else if (diff > 0) {
+                        player.previousSong()
                     }
                 }
             }
