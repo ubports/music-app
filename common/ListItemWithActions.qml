@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2014 Canonical, Ltd.
+ * Copyright (C) 2012-2015 Canonical, Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ Item {
     property Action activeAction: null
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
-    property color color: "#1e1e23"
+    property color color: styleMusic.mainView.backgroundColor
     property color selectedColor: "#3d3d45"  // "#E6E6E6"  // CUSTOM
     property bool selected: false
     property bool selectionMode: false

@@ -38,8 +38,8 @@ MainView {
     id: mainView
     useDeprecatedToolbar: false
 
-    backgroundColor: "#1e1e23"
-    headerColor: "#1e1e23"
+    backgroundColor: styleMusic.mainView.backgroundColor
+    headerColor: styleMusic.mainView.headerColor
 
     // Startup settings
     Settings {
@@ -886,7 +886,8 @@ MainView {
 
     MusicToolbar {
         id: musicToolbar
-        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing")
+        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
+                 mainPageStack.currentPage.title !== i18n.tr("Queue")
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
