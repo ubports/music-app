@@ -1345,7 +1345,7 @@ MainView {
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
-                    fontSize: "medium"
+                    fontSize: "large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 4
                     text: i18n.tr("Add music to your Ubuntu phone by dragging files from an Ubuntu computer or by inserting from an SD card.")
@@ -1384,9 +1384,9 @@ MainView {
                 Label {
                     color: styleMusic.libraryEmpty.labelColor
                     elide: Text.ElideRight
-                    fontSize: "medium"
+                    fontSize: "large"
                     horizontalAlignment: Text.AlignLeft
-                    maximumLineCount: 3
+                    maximumLineCount: 4
                     text: i18n.tr("Get more out of Music by tapping the") + ' "+" ' +
                           i18n.tr("icon to start making playlists for every mood and occasion.")
                     width: parent.width
