@@ -1393,6 +1393,7 @@ MainView {
 
     FirstRunWalkthrough {
         id: walkthrough
+        objectName: "walkthroughPage"
         visible: false
 
         onVisibleChanged: {

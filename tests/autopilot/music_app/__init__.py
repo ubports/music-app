@@ -107,6 +107,10 @@ class MusicApp(object):
         return self.main_view.wait_select_single(
             MusicPage, objectName='tracksPage')
 
+    def get_walkthrough_page(self):
+        return self.main_view.wait_select_single(Walkthrough,
+                                                 objectName="walkthroughPage")
+
     @property
     def loaded(self):
         return (not self.main_view.select_single("ActivityIndicator",
@@ -135,6 +139,18 @@ class Page(UbuntuUIToolkitCustomProxyObjectBase):
         # XXX we need a better way to keep reference to the main view.
         # --elopio - 2014-01-31
         self.main_view = self.get_root_instance().select_single(MainView)
+
+
+class Walkthrough(Page):
+    """ Autopilot helper for the walkthrough page """
+    def __init__(self, *args):
+        super(Walkthrough, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
+    @click_object
+    def skip(self):
+        return self.wait_select_single("Label", objectName="skipLabel")
 
 
 class MusicAlbums():

@@ -77,6 +77,7 @@ Page {
 
         color: "grey"
         fontSize: "medium"
+        objectName: "skipLabel"
         width: contentWidth
         text: i18n.tr("Skip")
 
