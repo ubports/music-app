@@ -42,7 +42,7 @@ Component {
                 }
                 height: (parent.height - bodyText.contentHeight - introductionText.height - 4*mainColumn.spacing)/2
                 fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl("../../images/sd_phone_icon@27.png")
+                source: Qt.resolvedUrl("../../images/sd_phone_icon.png")
             }
 
             Label {

@@ -43,7 +43,7 @@ Component {
                 }
                 height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*mainColumn.spacing)/2
                 fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl("../../images/music_download_icon@27.png")
+                source: Qt.resolvedUrl("../../images/music_download_icon.png")
             }
 
             Label {
