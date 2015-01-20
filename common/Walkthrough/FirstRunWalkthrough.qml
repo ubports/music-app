@@ -25,6 +25,7 @@ import Ubuntu.Components 1.1
 // Initial Walkthrough tutorial
 Walkthrough {
     id: walkthrough
+    objectName: "walkthroughPage"
 
     appName: "Music"
 
