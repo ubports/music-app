@@ -602,8 +602,7 @@ MainView {
     property string appVersion: '2.0'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
-    //property alias firstRun: startupSettings.firstRun
-    property bool firstRun: true
+    property alias firstRun: startupSettings.firstRun
     property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
