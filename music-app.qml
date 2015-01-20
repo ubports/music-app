@@ -572,10 +572,20 @@ MainView {
 
         // Display walkthrough on first run, even if the user has music
         if (firstRun) {
+            // Load parameters to send to the object on creation
+            var params = {
+                objectName: "walkthroughPage"
+            };
             var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
-            var walkthrough = comp.createObject(mainPageStack, {});
+            var walkthrough = comp.createObject(mainPageStack, params);
             musicToolbar.visible = false
             mainPageStack.push(walkthrough)
+            walkthrough.onVisibleChanged = function(visible) {
+                if (!visible) {
+                    firstRun = false
+                    musicToolbar.visible = true
+                }
+            }
         }
 
         if (args.values.url) {
@@ -592,7 +602,8 @@ MainView {
     property string appVersion: '2.0'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
-    property alias firstRun: startupSettings.firstRun
+    //property alias firstRun: startupSettings.firstRun
+    property bool firstRun: true
     property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
@@ -1392,18 +1403,4 @@ MainView {
     LoadingSpinnerComponent {
         id: loading
     }
-
-//    FirstRunWalkthrough {
-//        id: walkthrough
-//        objectName: "walkthroughPage"
-//        visible: false
-//        z: 300
-
-//        onVisibleChanged: {
-//            if (!walkthrough.visible) {
-//                firstRun = false
-//                //musicToolbar.visible = true
-//            }
-//        }
-//    }
 } // end of main view
