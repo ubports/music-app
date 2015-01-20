@@ -573,7 +573,6 @@ MainView {
         if (firstRun) {
             var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
             var walkthrough = comp.createObject(mainPageStack, {});
-            musicToolbar.visible = false
             mainPageStack.push(walkthrough)
         }
 
@@ -1060,7 +1059,8 @@ MainView {
     MusicToolbar {
         id: musicToolbar
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
-                 mainPageStack.currentPage.title !== i18n.tr("Queue")
+                 mainPageStack.currentPage.title !== i18n.tr("Queue") &&
+                 !firstRun
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }

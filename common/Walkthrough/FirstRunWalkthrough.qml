@@ -33,7 +33,6 @@ Walkthrough {
         walkthrough.visible = false
         pageStack.pop()
         firstRun = false
-        musicToolbar.visible = true
     }
 
     model: [
