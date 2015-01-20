@@ -59,7 +59,7 @@ Component {
             }
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Plug your phone into your Ubuntu computer and drag and drop files staight across.")
+            text: i18n.tr("Plug your phone into your Ubuntu computer and drag & drop files straight across.")
             width: parent.width
             wrapMode: Text.WordWrap
         }
