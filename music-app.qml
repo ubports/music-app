@@ -31,7 +31,6 @@ import UserMetrics 0.1
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
-import "common/Walkthrough"
 
 MainView {
     objectName: "music"
@@ -576,12 +575,6 @@ MainView {
             var walkthrough = comp.createObject(mainPageStack, {});
             musicToolbar.visible = false
             mainPageStack.push(walkthrough)
-            walkthrough.onVisibleChanged = function(visible) {
-                if (!visible) {
-                    firstRun = false
-                    musicToolbar.visible = true
-                }
-            }
         }
 
         if (args.values.url) {
