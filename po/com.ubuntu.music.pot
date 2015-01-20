@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 18:06+0000\n"
+"POT-Creation-Date: 2015-01-20 23:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -225,8 +225,8 @@ msgstr ""
 
 #: ../common/Walkthrough/Slide2.qml:62
 msgid ""
-"Plug your phone into your Ubuntu computer and drag & drop files straight "
-"across."
+"Connect your device to any computer and simply drag files to the Music "
+"folder."
 msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:51
