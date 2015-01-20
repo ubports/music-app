@@ -28,62 +28,55 @@ Component {
     Item {
         id: slide7Container
 
-        Column {
-            id: mainColumn
-
-            anchors.fill: parent
-            spacing: units.gu(4)
-
-            Image {
-                id: smileImage
-                anchors {
-                    top: parent.top
-                    topMargin: units.gu(4)
-                    horizontalCenter: parent.horizontalCenter
-                }
-                height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*mainColumn.spacing)/2
-                fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl("../../images/music_download_icon.png")
+        Image {
+            id: smileImage
+            anchors {
+                top: parent.top
+                topMargin: units.gu(4)
+                horizontalCenter: parent.horizontalCenter
             }
+            height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*units.gu(4))/2
+            fillMode: Image.PreserveAspectFit
+            source: Qt.resolvedUrl("../../images/music_download_icon.png")
+        }
 
-            Label {
-                id: introductionText
-                anchors {
-                    bottom: finalMessage.top
-                    bottomMargin: mainColumn.spacing
-                }
-                fontSize: "x-large"
-                horizontalAlignment: Text.AlignHLeft
-                text: i18n.tr("Download new music")
+        Label {
+            id: introductionText
+            anchors {
+                bottom: finalMessage.top
+                bottomMargin: units.gu(4)
             }
+            fontSize: "x-large"
+            horizontalAlignment: Text.AlignHLeft
+            text: i18n.tr("Download new music")
+        }
 
-            Label {
-                id: finalMessage
-                anchors {
-                    bottom: continueButton.top
-                    bottomMargin: mainColumn.spacing
-                }
-                fontSize: "large"
-                horizontalAlignment: Text.AlignHLeft
-                text: i18n.tr("Directly import music bought while browsing online.")
-                width: parent.width
-                wrapMode: Text.WordWrap
+        Label {
+            id: finalMessage
+            anchors {
+                bottom: continueButton.top
+                bottomMargin: units.gu(4)
             }
+            fontSize: "large"
+            horizontalAlignment: Text.AlignHLeft
+            text: i18n.tr("Directly import music bought while browsing online.")
+            width: parent.width
+            wrapMode: Text.WordWrap
+        }
 
-            Button {
-                id: continueButton
-                anchors {
-                    bottom: parent.bottom
-                    bottomMargin: units.gu(4)
-                    horizontalCenter: parent.horizontalCenter
-                }
-                color: UbuntuColors.green
-                height: units.gu(5)
-                text: i18n.tr("Start")
-                width: units.gu(18)
-
-                onClicked: finished()
+        Button {
+            id: continueButton
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: units.gu(4)
+                horizontalCenter: parent.horizontalCenter
             }
+            color: UbuntuColors.green
+            height: units.gu(5)
+            text: i18n.tr("Start")
+            width: units.gu(18)
+
+            onClicked: finished()
         }
     }
 }

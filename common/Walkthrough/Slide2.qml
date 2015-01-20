@@ -28,46 +28,40 @@ Component {
     Item {
         id: slide2Container
 
-        Column {
-            id: mainColumn
-            anchors.fill: parent
-            spacing: units.gu(4)
+        Image {
+            id: centerImage
+            anchors {
+                top: parent.top
+                topMargin: units.gu(6)
+                horizontalCenter: parent.horizontalCenter
+            }
+            height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
+            fillMode: Image.PreserveAspectFit
+            source: Qt.resolvedUrl("../../images/sd_phone_icon.png")
+        }
 
-            Image {
-                id: centerImage
-                anchors {
-                    top: parent.top
-                    topMargin: units.gu(6)
-                    horizontalCenter: parent.horizontalCenter
-                }
-                height: (parent.height - bodyText.contentHeight - introductionText.height - 4*mainColumn.spacing)/2
-                fillMode: Image.PreserveAspectFit
-                source: Qt.resolvedUrl("../../images/sd_phone_icon.png")
+        Label {
+            id: introductionText
+            anchors {
+                bottom: bodyText.top
+                bottomMargin: units.gu(4)
             }
+            fontSize: "x-large"
+            horizontalAlignment: Text.AlignHLeft
+            text: i18n.tr("Import your music")
+        }
 
-            Label {
-                id: introductionText
-                anchors {
-                    bottom: bodyText.top
-                    bottomMargin: mainColumn.spacing
-                }
-                fontSize: "x-large"
-                horizontalAlignment: Text.AlignHLeft
-                text: i18n.tr("Import your music")
+        Label {
+            id: bodyText
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: units.gu(10)
             }
-            
-            Label {
-                id: bodyText
-                anchors {
-                    bottom: parent.bottom
-                    bottomMargin: units.gu(10)
-                }
-                fontSize: "large"
-                horizontalAlignment: Text.AlignHLeft
-                text: i18n.tr("Plug your phone into your Ubuntu computer and drag and drop files staight across.")
-                width: parent.width
-                wrapMode: Text.WordWrap
-            }
+            fontSize: "large"
+            horizontalAlignment: Text.AlignHLeft
+            text: i18n.tr("Plug your phone into your Ubuntu computer and drag and drop files staight across.")
+            width: parent.width
+            wrapMode: Text.WordWrap
         }
     }
 }
