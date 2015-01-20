@@ -572,6 +572,8 @@ MainView {
 
         // Display walkthrough on first run, even if the user has music
         if (firstRun) {
+            var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
+            var walkthrough = comp.createObject(mainPageStack, {});
             musicToolbar.visible = false
             mainPageStack.push(walkthrough)
         }
@@ -1391,16 +1393,17 @@ MainView {
         id: loading
     }
 
-    FirstRunWalkthrough {
-        id: walkthrough
-        objectName: "walkthroughPage"
-        visible: false
+//    FirstRunWalkthrough {
+//        id: walkthrough
+//        objectName: "walkthroughPage"
+//        visible: false
+//        z: 300
 
-        onVisibleChanged: {
-            if (!walkthrough.visible) {
-                firstRun = false
-                musicToolbar.visible = true
-            }
-        }
-    }
+//        onVisibleChanged: {
+//            if (!walkthrough.visible) {
+//                firstRun = false
+//                //musicToolbar.visible = true
+//            }
+//        }
+//    }
 } // end of main view
