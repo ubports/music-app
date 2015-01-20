@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013, 2014 Canonical
+# Copyright 2013, 2014, 2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -46,6 +46,9 @@ class TestMainWindow(MusicAppTestCase):
                 "title": "TestMP3Title",
             }
         ]
+
+        # Skip the walkthrough for every test
+        self.app.get_walkthrough_page().skip()
 
     @property
     def player(self):

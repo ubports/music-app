@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-18 23:01+0000\n"
+"POT-Creation-Date: 2015-01-20 16:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,18 +22,18 @@ msgstr ""
 msgid "Albums"
 msgstr ""
 
-#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
 #: ../common/AlbumsPage.qml:162 ../common/SongsPage.qml:373
 msgid "Unknown Album"
 msgstr ""
 
-#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
 #: ../common/AlbumsPage.qml:104 ../common/AlbumsPage.qml:161
 #: ../common/SongsPage.qml:394
 msgid "Unknown Artist"
 msgstr ""
 
-#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
 msgid "Album"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Artists"
 msgstr ""
 
-#: ../MusicArtists.qml:106
+#: ../MusicArtists.qml:107
 msgid "Artist"
 msgstr ""
 
@@ -49,21 +49,21 @@ msgstr ""
 msgid "Genres"
 msgstr ""
 
-#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:312
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:312
 #: ../common/SongsPage.qml:346 ../common/SongsPage.qml:360
 #: ../common/SongsPage.qml:396 ../common/SongsPage.qml:415
 #: ../common/SongsPage.qml:447
 msgid "Genre"
 msgstr ""
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:659 ../music-app.qml:691
-#: ../music-app.qml:1054 ../music-app.qml:1212 ../music-app.qml:1224
-#: ../music-app.qml:1252 ../music-app.qml:1253
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:667 ../music-app.qml:699
+#: ../music-app.qml:1062 ../music-app.qml:1221 ../music-app.qml:1233
+#: ../music-app.qml:1261 ../music-app.qml:1262
 msgid "Queue"
 msgstr ""
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:659 ../music-app.qml:1053
-#: ../music-app.qml:1211 ../music-app.qml:1252 ../music-app.qml:1253
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:667 ../music-app.qml:1061
+#: ../music-app.qml:1220 ../music-app.qml:1261 ../music-app.qml:1262
 msgid "Now playing"
 msgstr ""
 
@@ -92,12 +92,12 @@ msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:115
 #: ../common/SongsPage.qml:85
 msgid "Playlists"
 msgstr ""
 
-#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:105
 #: ../common/SongsPage.qml:416 ../common/SongsPage.qml:417
 #, qt-format
 msgid "%1 song"
@@ -105,7 +105,7 @@ msgid_plural "%1 songs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
 #: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
 #: ../common/SongsPage.qml:205 ../common/SongsPage.qml:314
 #: ../common/SongsPage.qml:348 ../common/SongsPage.qml:359
@@ -114,7 +114,7 @@ msgstr[1] ""
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:123
 #: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr ""
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Add to queue"
 msgstr ""
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1365
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1375
 msgid "Select playlist"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Rename playlist"
 msgstr ""
 
-#: ../common/SongsPage.qml:528 ../music-app.qml:1007
+#: ../common/SongsPage.qml:528 ../music-app.qml:1015
 msgid "Enter playlist name"
 msgstr ""
 
@@ -187,16 +187,16 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: ../common/SongsPage.qml:558 ../music-app.qml:1033
+#: ../common/SongsPage.qml:558 ../music-app.qml:1041
 msgid "Playlist already exists"
 msgstr ""
 
-#: ../common/SongsPage.qml:562 ../music-app.qml:1038
+#: ../common/SongsPage.qml:562 ../music-app.qml:1046
 msgid "Please type in a name."
 msgstr ""
 
 #: ../common/SongsPage.qml:567 ../common/SongsPage.qml:605
-#: ../music-app.qml:484 ../music-app.qml:1044
+#: ../music-app.qml:485 ../music-app.qml:1052
 msgid "Cancel"
 msgstr ""
 
@@ -209,138 +209,174 @@ msgstr ""
 msgid "This cannot be undone"
 msgstr ""
 
-#: ../music-app.qml:145
-msgid "Next"
+#: ../common/Walkthrough/Slide1.qml:56
+msgid "Welcome to Music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide1.qml:68
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:51
+msgid "Import your music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:62
+msgid ""
+"Plug your phone into your Ubuntu computer and drag and drop files staight "
+"across."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:51
+msgid "Download new music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:62
+msgid "Directly import music bought while browsing online."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:76
+msgid "Start"
+msgstr ""
+
+#: ../common/Walkthrough/Walkthrough.qml:82
+msgid "Skip"
 msgstr ""
 
 #: ../music-app.qml:146
+msgid "Next"
+msgstr ""
+
+#: ../music-app.qml:147
 msgid "Next Track"
 msgstr ""
 
-#: ../music-app.qml:152
+#: ../music-app.qml:153
 msgid "Pause"
 msgstr ""
 
-#: ../music-app.qml:152
+#: ../music-app.qml:153
 msgid "Play"
 msgstr ""
 
-#: ../music-app.qml:154
+#: ../music-app.qml:155
 msgid "Pause Playback"
 msgstr ""
 
-#: ../music-app.qml:154
+#: ../music-app.qml:155
 msgid "Continue or start playback"
 msgstr ""
 
-#: ../music-app.qml:159
+#: ../music-app.qml:160
 msgid "Back"
 msgstr ""
 
-#: ../music-app.qml:160
+#: ../music-app.qml:161
 msgid "Go back to last page"
 msgstr ""
 
-#: ../music-app.qml:168
+#: ../music-app.qml:169
 msgid "Previous"
 msgstr ""
 
-#: ../music-app.qml:169
+#: ../music-app.qml:170
 msgid "Previous Track"
 msgstr ""
 
-#: ../music-app.qml:174
+#: ../music-app.qml:175
 msgid "Stop"
 msgstr ""
 
-#: ../music-app.qml:175
+#: ../music-app.qml:176
 msgid "Stop Playback"
 msgstr ""
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:327
+#: ../music-app.qml:328
 msgid "Filepath must start with"
 msgstr ""
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:353
+#: ../music-app.qml:354
 msgid "Filepath must be a file"
 msgstr ""
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:359
+#: ../music-app.qml:360
 msgid "Failed to move file"
 msgstr ""
 
-#: ../music-app.qml:438
+#: ../music-app.qml:439
 msgid "Waiting for file(s)..."
 msgstr ""
 
-#: ../music-app.qml:457
+#: ../music-app.qml:458
 msgid "OK"
 msgstr ""
 
-#: ../music-app.qml:470
+#: ../music-app.qml:471
 msgid "Imported file not found"
 msgstr ""
 
-#: ../music-app.qml:474
+#: ../music-app.qml:475
 msgid "Wait"
 msgstr ""
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:495
+#: ../music-app.qml:496
 msgid "songs played today"
 msgstr ""
 
-#: ../music-app.qml:496
+#: ../music-app.qml:497
 msgid "No songs played today"
 msgstr ""
 
-#: ../music-app.qml:582 ../music-app.qml:1248
+#: ../music-app.qml:589 ../music-app.qml:1257
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr ""
 
-#: ../music-app.qml:600
+#: ../music-app.qml:608
 msgid "Debug: "
 msgstr ""
 
-#: ../music-app.qml:1003
+#: ../music-app.qml:1011
 msgid "New playlist"
 msgstr ""
 
-#: ../music-app.qml:1017
+#: ../music-app.qml:1025
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1339
+#: ../music-app.qml:1349
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1350
+#: ../music-app.qml:1360
 msgid ""
 "Add music to your Ubuntu phone by dragging files from an Ubuntu computer or "
 "by inserting from an SD card."
 msgstr ""
 
-#: ../music-app.qml:1379
+#: ../music-app.qml:1388
 msgid "No playlists found"
 msgstr ""
 
-#: ../music-app.qml:1390
+#: ../music-app.qml:1399
 msgid "Get more out of Music by tapping the"
 msgstr ""
 
-#: ../music-app.qml:1391
+#: ../music-app.qml:1400
 msgid "icon to start making playlists for every mood and occasion."
 msgstr ""
 
-#: ../music-app.qml:1420
+#: ../music-app.qml:1429
 msgid "No recent albums or playlists found"
 msgstr ""
 
-#: ../music-app.qml:1431
+#: ../music-app.qml:1440
 msgid "Play some music to see your favorites"
 msgstr ""
 

@@ -46,6 +46,7 @@ MainView {
         id: startupSettings
         category: "StartupSettings"
 
+        property bool firstRun: true
         property int queueIndex: 0
         property int tabIndex: -1
     }
@@ -540,7 +541,6 @@ MainView {
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
-        customdebug("Arguments on startup: Debug: "+args.values.debug)
 
         Library.createRecent()  // initialize recent
 
@@ -569,6 +569,13 @@ MainView {
         // Run post load
         tabs.ensurePopulated(tabs.selectedTab);
 
+        // Display walkthrough on first run, even if the user has music
+        if (firstRun) {
+            var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
+            var walkthrough = comp.createObject(mainPageStack, {});
+            mainPageStack.push(walkthrough)
+        }
+
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
@@ -583,6 +590,7 @@ MainView {
     property string appVersion: '2.0'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
+    property alias firstRun: startupSettings.firstRun
     property alias queueIndex: startupSettings.queueIndex
 
     signal listItemSwiping(int i)
@@ -1051,7 +1059,8 @@ MainView {
     MusicToolbar {
         id: musicToolbar
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
-                 mainPageStack.currentPage.title !== i18n.tr("Queue")
+                 mainPageStack.currentPage.title !== i18n.tr("Queue") &&
+                 !firstRun
         objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
@@ -1246,7 +1255,7 @@ MainView {
     Page {
         id: emptyPage
         title: i18n.tr("Music")
-        visible: noMusic || noPlaylists || noRecent
+        visible: (noMusic || noPlaylists || noRecent) && !firstRun
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
         property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")

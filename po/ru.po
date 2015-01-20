@@ -1,84 +1,105 @@
 # Russian translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-08-26 10:21+0000\n"
-"Last-Translator: Jay ZDLin <Unknown>\n"
+"POT-Creation-Date: 2015-01-16 16:52-0600\n"
+"PO-Revision-Date: 2015-01-19 07:59+0000\n"
+"Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-01-20 07:33+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Авторизуйтесь для скробблинга."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Пароль"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Логин"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Пожалуйста, подождите..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Вход выполнен"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Ошибка входа"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Вы забыли ввести свой логин и/или пароль"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Альбомы"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:142
+#: ../common/AlbumsPage.qml:156 ../common/SongsPage.qml:352
+msgid "Unknown Album"
+msgstr "Неизвестный альбом"
+
+#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:103 ../common/AlbumsPage.qml:155
+#: ../common/SongsPage.qml:373
+msgid "Unknown Artist"
+msgstr "Неизвестный исполнитель"
+
+#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:154
 msgid "Album"
 msgstr "Альбом"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Исполнители"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 альбом"
-msgstr[1] "%1 альбома"
-msgstr[2] "%1 альбомов"
+#: ../MusicArtists.qml:106
+msgid "Artist"
+msgstr "Исполнитель"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Жанры"
+
+#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:291
+#: ../common/SongsPage.qml:325 ../common/SongsPage.qml:339
+#: ../common/SongsPage.qml:375 ../common/SongsPage.qml:394
+#: ../common/SongsPage.qml:426
+msgid "Genre"
+msgstr "Жанр"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:688
+#: ../music-app.qml:1047 ../music-app.qml:1059 ../music-app.qml:1087
+#: ../music-app.qml:1088
+msgid "Queue"
+msgstr "Очередь"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:656 ../music-app.qml:889
+#: ../music-app.qml:1046 ../music-app.qml:1087 ../music-app.qml:1088
+msgid "Now playing"
+msgstr "Воспроизводится"
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:153
+msgid "Add to playlist"
+msgstr "Добавить в плейлист"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr "Очистить очередь"
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:131
+msgid "Cancel selection"
+msgstr "Отменить выбор"
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:141
+msgid "Select All"
+msgstr "Выбрать всё"
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:188
+msgid "Delete"
+msgstr "Удалить"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../common/SongsPage.qml:69
+msgid "Playlists"
+msgstr "Плейлисты"
+
+#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:396
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -86,212 +107,61 @@ msgstr[0] "%1 композиция"
 msgstr[1] "%1 композиции"
 msgstr[2] "%1 композиций"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Исполнитель"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Сейчас играет"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Плейлисты"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Новый плейлист"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Изменить название"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Введите новое имя плейлиста."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Изменить"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Плей-лист уже существует"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Введите название."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Отменить"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:89 ../common/SongsPage.qml:189
+#: ../common/SongsPage.qml:293 ../common/SongsPage.qml:327
+#: ../common/SongsPage.qml:338 ../common/SongsPage.qml:374
+#: ../common/SongsPage.qml:410 ../common/SongsPage.qml:413
+#: ../common/SongsPage.qml:428
 msgid "Playlist"
 msgstr "Плей-лист"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Поиск"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Настройки"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Эквалайзер"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "По умолчанию"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Акустика"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Классическая музыка"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Электроника"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "В квартире"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Хип-хоп"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Джаз"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Метал"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Поп"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Рок"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Свой"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Остановиться на текущей песне \n"
-"когда открывается тулбар"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Учётные записи"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Войдите, чтобы начать скробблинг и импортировать плейлисты"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Потоковая музыка"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Авторизуйтесь для раздачи вашей \"облачной\" музыки"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Раздача только по Wi-Fi"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Очистить всё!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Музыка"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../common/SongsPage.qml:79
 msgid "Recent"
 msgstr "Последние"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Очистить историю"
+#: ../MusicToolbar.qml:128
+msgid "Tap to shuffle music"
+msgstr "Коснитесь, чтобы перемешать музыку"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Жанры"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Жанр"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Нажмите воспроизведение, чтобы перемешать список"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Композиции"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Выберите плейлист"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Слушать все"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:176
 msgid "Add to queue"
 msgstr "Добавить в очередь"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Добавить в плейлист"
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1143
+msgid "Select playlist"
+msgstr "Выберите плейлист"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/AlbumsPage.qml:62 ../common/SongsPage.qml:286
+msgid "Shuffle"
+msgstr "Перемешать"
+
+#: ../common/AlbumsPage.qml:76 ../common/SongsPage.qml:312
+msgid "Queue all"
+msgstr "Добавить всё в очередь"
+
+#: ../common/AlbumsPage.qml:84 ../common/SongsPage.qml:320
+msgid "Play all"
+msgstr "Слушать все"
+
+#: ../common/AlbumsPage.qml:122
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 альбом"
+msgstr[1] "%1 альбома"
+msgstr[2] "%1 альбомов"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Добавить в очередь"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Удалить"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Изменить"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:564
 msgid "Remove"
 msgstr "Удалить"
 
@@ -299,141 +169,177 @@ msgstr "Удалить"
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Очистить"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr "Элементы не найдены"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Неизвестный альбом"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Поиск музыки"
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Неизвестный исполнитель"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:498
+msgid "Rename playlist"
+msgstr "Переименовать список воспроизведения"
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "Поиск дорожки"
+#: ../common/SongsPage.qml:505 ../music-app.qml:843
+msgid "Enter playlist name"
+msgstr "Введите название списка воспроизведения"
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:515
+msgid "Change"
+msgstr "Изменить"
+
+#: ../common/SongsPage.qml:536 ../music-app.qml:869
+msgid "Playlist already exists"
+msgstr "Плей-лист уже существует"
+
+#: ../common/SongsPage.qml:540 ../music-app.qml:874
+msgid "Please type in a name."
+msgstr "Введите название."
+
+#: ../common/SongsPage.qml:545 ../common/SongsPage.qml:583
+#: ../music-app.qml:481 ../music-app.qml:880
+msgid "Cancel"
+msgstr "Отменить"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:558
+msgid "Permanently delete playlist?"
+msgstr "Удалить список воспроизведения?"
+
+#: ../common/SongsPage.qml:559
+msgid "This cannot be undone"
+msgstr "Данное действие не может быть отменено"
+
+#: ../music-app.qml:145
 msgid "Next"
 msgstr "Следующий"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:146
 msgid "Next Track"
 msgstr "Следующий трек"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Pause"
 msgstr "Пауза"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:152
 msgid "Play"
 msgstr "Воспроизвести"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Pause Playback"
 msgstr "Приостановить воспроизведение"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:154
 msgid "Continue or start playback"
 msgstr "Продолжить или начать воспроизведение"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:159
 msgid "Back"
 msgstr "Назад"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:160
 msgid "Go back to last page"
 msgstr "Вернуться на последнюю страницу"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:168
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:169
 msgid "Previous Track"
 msgstr "Предыдущий трек"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:174
 msgid "Stop"
 msgstr "Остановить"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:175
 msgid "Stop Playback"
 msgstr "Остановить воспроизведение"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Настройки приложения"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:324
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Путь к файлу должен начинаться с"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:350
 msgid "Filepath must be a file"
 msgstr "Путь должен указывать на файл"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:356
 msgid "Failed to move file"
 msgstr "Не удалось переместить файл"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:435
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Ожидание файла(ов)..."
 
-#: ../music-app.qml:466
+#: ../music-app.qml:454
 msgid "OK"
 msgstr "ОК"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:467
 msgid "Imported file not found"
 msgstr "Импортированный файл не найден"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:471
 msgid "Wait"
 msgstr "Подождите"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:492
 msgid "songs played today"
 msgstr "композиции воспроизведенные сегодня"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:493
 msgid "No songs played today"
 msgstr "Сегодня ни одной композиции не воспроизводилось"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:579 ../music-app.qml:1083
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Музыка"
+
+#: ../music-app.qml:597
 msgid "Debug: "
 msgstr "Отладка: "
 
-#: ../music-app.qml:925
-msgid "New Playlist"
-msgstr "Создать плейлист"
+#: ../music-app.qml:839
+msgid "New playlist"
+msgstr "Новый плейлист"
 
-#: ../music-app.qml:926
-msgid "Name your playlist."
-msgstr "Назовите ваш плейлист"
-
-#: ../music-app.qml:930
-msgid "Name"
-msgstr "Название"
-
-#: ../music-app.qml:940
+#: ../music-app.qml:853
 msgid "Create"
 msgstr "Создать"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1117
 msgid "No music found"
 msgstr "Музыкальные произведения отсутствуют"
 
-#: ../music-app.qml:1183
+#: ../music-app.qml:1128
 msgid "Please import music"
 msgstr "Импортируйте музыкальные произведения"
+
+#: ../music-app.qml:1157
+msgid "No playlists found"
+msgstr "Списки воспроизведения не найдены"
+
+#: ../music-app.qml:1168
+msgid "Click the + to create a playlist"
+msgstr "Нажмите + для создания списка воспроизведения"
+
+#: ../music-app.qml:1197
+msgid "No recent albums or playlists found"
+msgstr "Недавние альбомы или списки воспроизведения не найдены"
+
+#: ../music-app.qml:1208
+msgid "Play some music to see your favorites"
+msgstr "Воспроизвести музыку для просмотра избранного"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -442,3 +348,133 @@ msgstr "Музыкальное приложение для Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "музыка;песни;воспроизведение;композиции;плеер;мелодии;"
+
+#~ msgid "Login Successful"
+#~ msgstr "Вход выполнен"
+
+#~ msgid "Login"
+#~ msgstr "Логин"
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Вы забыли ввести свой логин и/или пароль"
+
+#~ msgid "Username"
+#~ msgstr "Имя пользователя"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Авторизуйтесь для скробблинга."
+
+#~ msgid "Settings"
+#~ msgstr "Настройки"
+
+#~ msgid "Clear"
+#~ msgstr "Очистить"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Введите новое имя плейлиста."
+
+#~ msgid "Change name"
+#~ msgstr "Изменить название"
+
+#~ msgid "Classical"
+#~ msgstr "Классическая музыка"
+
+#~ msgid "Default"
+#~ msgstr "По умолчанию"
+
+#~ msgid "Equaliser"
+#~ msgstr "Эквалайзер"
+
+#~ msgid "Rock"
+#~ msgstr "Рок"
+
+#~ msgid "Jazz"
+#~ msgstr "Джаз"
+
+#~ msgid "Metal"
+#~ msgstr "Метал"
+
+#~ msgid "Custom"
+#~ msgstr "Свой"
+
+#~ msgid "Pop"
+#~ msgstr "Поп"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Хип-хоп"
+
+#~ msgid "Electronic"
+#~ msgstr "Электроника"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Очистить всё!"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Раздача только по Wi-Fi"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Авторизуйтесь для раздачи вашей \"облачной\" музыки"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Потоковая музыка"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Accounts"
+#~ msgstr "Учётные записи"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Назовите ваш плейлист"
+
+#~ msgid "New Playlist"
+#~ msgstr "Создать плейлист"
+
+#~ msgid "Name"
+#~ msgstr "Название"
+
+#~ msgid "Music Settings"
+#~ msgstr "Настройки приложения"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Пожалуйста, подождите..."
+
+#~ msgid "Flat"
+#~ msgstr "В квартире"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Остановиться на текущей песне \n"
+#~ "когда открывается тулбар"
+
+#~ msgid "Login Failed"
+#~ msgstr "Ошибка входа"
+
+#~ msgid "Edit"
+#~ msgstr "Изменить"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Войдите, чтобы начать скробблинг и импортировать плейлисты"
+
+#~ msgid "Search"
+#~ msgstr "Поиск"
+
+#~ msgid "Now Playing"
+#~ msgstr "Сейчас играет"
+
+#~ msgid "Search Track"
+#~ msgstr "Поиск дорожки"
+
+#~ msgid "Clear History"
+#~ msgstr "Очистить историю"
+
+#~ msgid "Acoustic"
+#~ msgstr "Акустика"
