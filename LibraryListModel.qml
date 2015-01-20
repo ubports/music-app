@@ -38,6 +38,7 @@ Item {
     property alias preLoadComplete: worker.preLoadComplete
     property alias syncFactor: worker.syncFactor
     property alias workerComplete: worker.completed
+    property alias workerList: worker.list
 
     function get(index, role) {
         return model.get(index);

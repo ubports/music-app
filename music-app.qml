@@ -561,7 +561,7 @@ MainView {
 
         // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
         tabs.selectedTabIndex = startupSettings.tabIndex === -1 || startupSettings.tabIndex > tabs.count - 1
-                ? (Library.isRecentEmpty() ? albumsTab.index : startTab.index)
+                ? (Library.isRecentEmpty() ? albumsTab.index : 0)
                 : startupSettings.tabIndex
 
         loadedUI = true;
@@ -859,20 +859,16 @@ MainView {
             if (preLoadComplete)
             {
                 loading.visible = false
-                startTab.loading = false
-                startTab.populated = true
+                recentTabRepeater.loading = false
+                recentTabRepeater.populated = true
+
+                // Ensure any active tabs are insync as they use a copy of the repeater state
+                for (var i=0; i < recentTabRepeater.count; i++) {
+                    recentTabRepeater.itemAt(i).loading = false
+                    recentTabRepeater.itemAt(i).populated = true
+                }
             }
         }
-    }
-
-    // TODO: used by recent albums move to U1DB
-    LibraryListModel {
-        id: recentAlbumTracksModel
-    }
-
-    // TODO: used by recent playlists move to U1DB
-    LibraryListModel {
-        id: recentPlaylistTracksModel
     }
 
     // list of tracks on startup. This is just during development
@@ -1080,20 +1076,64 @@ MainView {
                 }
             }
 
-            // First tab is all music
-            Tab {
-                property bool populated: false
-                property var loader: [recentModel.filterRecent]
-                property bool loading: false
-                property var model: [recentModel, albumTracksModel]
-                id: startTab
-                objectName: "startTab"
-                anchors.fill: parent
-                title: page.title
+            // Use a repeater to 'hide' the recent tab when the model is empty
+            // A repeater is used because the Tabs component respects adds and
+            // removes. Whereas replacing the list tabChildren does not appear
+            // to respect removes and setting the page as active: false causes
+            // the page to be blank but the action to still in the overflow
+            Repeater {
+                id: recentTabRepeater
+                // If the model has not loaded and at startup the db was not empty
+                // then show recent or
+                // If the workerlist has been set and it has values then show recent
+                model: (!recentModel.preLoadComplete && !startupRecentEmpty) ||
+                       (recentModel.workerList !== undefined &&
+                        recentModel.workerList.length > 0) ? 1 : 0
+                delegate: Component {
+                    // First tab is all music
+                    Tab {
+                        property bool populated: recentTabRepeater.populated
+                        property var loader: [recentModel.filterRecent]
+                        property bool loading: recentTabRepeater.loading
+                        property var model: [recentModel, albumTracksModel]
+                        id: startTab
+                        objectName: "startTab"
+                        anchors.fill: parent
+                        title: page.title
 
-                // Tab content begins here
-                page: MusicStart {
-                    id: musicStartPage
+                        // Tab content begins here
+                        page: MusicStart {
+                            id: musicStartPage
+                        }
+                    }
+                }
+
+                // Store the startup state of the db separately otherwise
+                // it breaks the binding of model
+                property bool startupRecentEmpty: Library.isRecentEmpty()
+
+                // cached values of the recent model that are copied when
+                // the tab is created
+                property bool loading: false
+                property bool populated: false
+
+                onCountChanged: {
+                    if (count === 0 && loadedUI) {
+                        // Jump to the albums tab when recent is empty
+                        tabs.selectedTabIndex = albumsTab.index
+                    } else if (count > 0 && !loadedUI) {
+                        // UI is still loading and recent tab has been inserted
+                        // so move the selected index 'down' as the value is
+                        // not auto updated - this is for the case of loading
+                        // directly to the recent tab (otherwise the content
+                        // appears as the second tab but the tabs think they are
+                        // on the first tab)
+                        tabs.selectedTabIndex -= 1
+                    } else if (count > 0 && loadedUI) {
+                        // tab inserted while the app is running so move the
+                        // selected index 'up' to keep the same position
+                        tabs.selectedTabIndex += 1
+                    }
                 }
             }
 
@@ -1345,47 +1385,6 @@ MainView {
                 }
             }
         }
-
-        // Overlay to show when no recent items are on the device
-        Rectangle {
-            id: recentEmpty
-            anchors {
-                fill: parent
-                topMargin: -emptyPage.header.height
-            }
-            color: mainView.backgroundColor
-            visible: emptyPage.noRecent && !emptyPage.noMusic && startTab.index === tabs.selectedTab.index
-
-            Column {
-                anchors.centerIn: parent
-                spacing: units.gu(2)
-                width: parent.width
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "large"
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 2
-                    text: i18n.tr("No recent albums or playlists found")
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "medium"
-                    horizontalAlignment: Text.AlignHCenter
-                    maximumLineCount: 2
-                    text: i18n.tr("Play some music to see your favorites")
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
-
     }
 
     LoadingSpinnerComponent {
