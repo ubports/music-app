@@ -35,6 +35,7 @@ MusicPage {
             name: "default"
             head: albumsPage.head
             actions: Action {
+                enabled: albumsModelFilter.count > 0
                 iconName: "search"
                 onTriggered: albumsPage.state = "search"
             }

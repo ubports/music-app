@@ -49,6 +49,7 @@ MusicPage {
             head: addToPlaylistPage.head
             actions: [
                 Action {
+                    enabled: allSongsModel.count > 0
                     objectName: "newPlaylistButton"
                     iconName: "add"
                     onTriggered: {
