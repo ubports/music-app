@@ -58,7 +58,7 @@ MusicPage {
                     }
                 },
                 Action {
-                    enabled: playlistModel.model.count > 0
+                    enabled: allSongsModel.count > 0
                     iconName: "search"
                     onTriggered: addToPlaylistPage.state = "search"
                 }
