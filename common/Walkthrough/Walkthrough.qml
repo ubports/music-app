@@ -78,7 +78,7 @@ Page {
     Label {
         id: skipLabel
 
-        color: "grey"
+        color: "white"
         fontSize: "medium"
         objectName: "skipLabel"
         width: contentWidth
@@ -113,7 +113,7 @@ Page {
                 antialiasing: true
                 height: width
                 source: listView.currentIndex == index ?  "../../images/Ellipse@27.png" : "../../images/Ellipse_15_opacity@27.png"
-                width: units.gu(2)
+                width: units.gu(1.5)
             }
         }
     }
