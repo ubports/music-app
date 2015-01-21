@@ -55,7 +55,7 @@ Component {
             id: finalMessage
             anchors {
                 bottom: continueButton.top
-                bottomMargin: units.gu(4)
+                bottomMargin: units.gu(7)
             }
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
@@ -68,7 +68,7 @@ Component {
             id: continueButton
             anchors {
                 bottom: parent.bottom
-                bottomMargin: units.gu(4)
+                bottomMargin: units.gu(3)
                 horizontalCenter: parent.horizontalCenter
             }
             color: UbuntuColors.green
