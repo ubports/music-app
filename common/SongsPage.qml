@@ -239,7 +239,7 @@ MusicPage {
         store: musicStore
         onStatusChanged: {
             if (songsModel.status === SongsModel.Ready && loaded && songsModel.count === 0) {
-                musicToolbar.popPage(songStackPage)
+                mainPageStack.popPage(songStackPage)
             }
         }
     }
@@ -598,7 +598,7 @@ MusicPage {
                     songStackPage.page = undefined
                     PopupUtils.close(dialogRemovePlaylist)
 
-                    musicToolbar.goBack()
+                    mainPageStack.goBack()
                 }
             }
             Button {
