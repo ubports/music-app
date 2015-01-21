@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 16:14+0000\n"
+"POT-Creation-Date: 2015-01-21 00:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Add to queue"
 msgstr ""
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1375
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1373
 msgid "Select playlist"
 msgstr ""
 
@@ -223,10 +223,10 @@ msgstr ""
 msgid "Import your music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide2.qml:62
+#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1358
 msgid ""
-"Plug your phone into your Ubuntu computer and drag and drop files staight "
-"across."
+"Connect your device to any computer and simply drag files to the Music "
+"folder or by inserting removable media with music."
 msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:51
@@ -350,33 +350,27 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1349
+#: ../music-app.qml:1347
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1360
-msgid ""
-"Add music to your Ubuntu phone by dragging files from an Ubuntu computer or "
-"by inserting from an SD card."
-msgstr ""
-
-#: ../music-app.qml:1388
+#: ../music-app.qml:1386
 msgid "No playlists found"
 msgstr ""
 
-#: ../music-app.qml:1399
+#: ../music-app.qml:1397
 msgid "Get more out of Music by tapping the"
 msgstr ""
 
-#: ../music-app.qml:1400
+#: ../music-app.qml:1398
 msgid "icon to start making playlists for every mood and occasion."
 msgstr ""
 
-#: ../music-app.qml:1429
+#: ../music-app.qml:1427
 msgid "No recent albums or playlists found"
 msgstr ""
 
-#: ../music-app.qml:1440
+#: ../music-app.qml:1438
 msgid "Play some music to see your favorites"
 msgstr ""
 
