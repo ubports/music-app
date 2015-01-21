@@ -560,9 +560,10 @@ MainView {
         mainPageStack.push(tabs)
 
         // if a tab index exists restore it, otherwise goto Recent if there are items otherwise go to Albums
-        tabs.selectedTabIndex = startupSettings.tabIndex === -1 || startupSettings.tabIndex > tabs.count - 1
+        tabs.selectedTabIndex = startupSettings.tabIndex === -1
                 ? (Library.isRecentEmpty() ? albumsTab.index : 0)
-                : startupSettings.tabIndex
+                : (startupSettings.tabIndex > tabs.count - 1
+                   ? tabs.count - 1 : startupSettings.tabIndex)
 
         loadedUI = true;
 
