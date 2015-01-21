@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -38,6 +38,7 @@ Item {
     property alias preLoadComplete: worker.preLoadComplete
     property alias syncFactor: worker.syncFactor
     property alias workerComplete: worker.completed
+    property alias workerList: worker.list
 
     function get(index, role) {
         return model.get(index);

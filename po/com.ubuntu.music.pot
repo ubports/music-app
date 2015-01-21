@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 00:40+0000\n"
+"POT-Creation-Date: 2015-01-21 01:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,14 +56,14 @@ msgstr ""
 msgid "Genre"
 msgstr ""
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:667 ../music-app.qml:699
-#: ../music-app.qml:1062 ../music-app.qml:1221 ../music-app.qml:1233
-#: ../music-app.qml:1261 ../music-app.qml:1262
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:700
+#: ../music-app.qml:1059 ../music-app.qml:1262 ../music-app.qml:1274
+#: ../music-app.qml:1302
 msgid "Queue"
 msgstr ""
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:667 ../music-app.qml:1061
-#: ../music-app.qml:1220 ../music-app.qml:1261 ../music-app.qml:1262
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:1058
+#: ../music-app.qml:1261 ../music-app.qml:1302
 msgid "Now playing"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Add to queue"
 msgstr ""
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1373
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1414
 msgid "Select playlist"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Rename playlist"
 msgstr ""
 
-#: ../common/SongsPage.qml:528 ../music-app.qml:1015
+#: ../common/SongsPage.qml:528 ../music-app.qml:1012
 msgid "Enter playlist name"
 msgstr ""
 
@@ -187,16 +187,16 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: ../common/SongsPage.qml:558 ../music-app.qml:1041
+#: ../common/SongsPage.qml:558 ../music-app.qml:1038
 msgid "Playlist already exists"
 msgstr ""
 
-#: ../common/SongsPage.qml:562 ../music-app.qml:1046
+#: ../common/SongsPage.qml:562 ../music-app.qml:1043
 msgid "Please type in a name."
 msgstr ""
 
 #: ../common/SongsPage.qml:567 ../common/SongsPage.qml:605
-#: ../music-app.qml:485 ../music-app.qml:1052
+#: ../music-app.qml:485 ../music-app.qml:1049
 msgid "Cancel"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Import your music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1358
+#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
@@ -333,44 +333,36 @@ msgstr ""
 msgid "No songs played today"
 msgstr ""
 
-#: ../music-app.qml:589 ../music-app.qml:1257
+#: ../music-app.qml:590 ../music-app.qml:1298
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr ""
 
-#: ../music-app.qml:608
+#: ../music-app.qml:609
 msgid "Debug: "
 msgstr ""
 
-#: ../music-app.qml:1011
+#: ../music-app.qml:1008
 msgid "New playlist"
 msgstr ""
 
-#: ../music-app.qml:1025
+#: ../music-app.qml:1022
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1347
+#: ../music-app.qml:1388
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1386
+#: ../music-app.qml:1427
 msgid "No playlists found"
 msgstr ""
 
-#: ../music-app.qml:1397
+#: ../music-app.qml:1438
 #, qt-format
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
-msgstr ""
-
-#: ../music-app.qml:1426
-msgid "No recent albums or playlists found"
-msgstr ""
-
-#: ../music-app.qml:1437
-msgid "Play some music to see your favorites"
 msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2

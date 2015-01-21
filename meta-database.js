@@ -321,9 +321,15 @@ function isRecentEmpty() {
     var res = 0;
 
     db.transaction(function(tx) {
-        var rs = tx.executeSql("SELECT count(*) as value FROM recent")
+        var rs;
 
-        if (rs.rows.item(0).value > 0) {
+        try {
+            rs = tx.executeSql("SELECT count(*) as value FROM recent")
+        } catch (e) {
+            rs = null
+        }
+
+        if (rs !== null && rs.rows.item(0).value > 0) {
             res = rs.rows.item(0).value;
         } else {
             console.log("RECENT does not exist")
