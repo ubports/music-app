@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 23:05+0000\n"
+"POT-Creation-Date: 2015-01-21 00:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,18 +22,18 @@ msgstr ""
 msgid "Albums"
 msgstr ""
 
-#: ../MusicAlbums.qml:68 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
 #: ../common/AlbumsPage.qml:162 ../common/SongsPage.qml:373
 msgid "Unknown Album"
 msgstr ""
 
-#: ../MusicAlbums.qml:69 ../MusicArtists.qml:76 ../MusicStart.qml:79
+#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
 #: ../common/AlbumsPage.qml:104 ../common/AlbumsPage.qml:161
 #: ../common/SongsPage.qml:394
 msgid "Unknown Artist"
 msgstr ""
 
-#: ../MusicAlbums.qml:80 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
 msgid "Album"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Artists"
 msgstr ""
 
-#: ../MusicArtists.qml:106
+#: ../MusicArtists.qml:107
 msgid "Artist"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Genres"
 msgstr ""
 
-#: ../MusicGenres.qml:107 ../MusicGenres.qml:109 ../common/SongsPage.qml:312
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:312
 #: ../common/SongsPage.qml:346 ../common/SongsPage.qml:360
 #: ../common/SongsPage.qml:396 ../common/SongsPage.qml:415
 #: ../common/SongsPage.qml:447
@@ -92,12 +92,12 @@ msgstr ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:114
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:115
 #: ../common/SongsPage.qml:85
 msgid "Playlists"
 msgstr ""
 
-#: ../MusicPlaylists.qml:96 ../MusicaddtoPlaylist.qml:104
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:105
 #: ../common/SongsPage.qml:416 ../common/SongsPage.qml:417
 #, qt-format
 msgid "%1 song"
@@ -105,7 +105,7 @@ msgid_plural "%1 songs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../MusicPlaylists.qml:109 ../MusicPlaylists.qml:110 ../MusicStart.qml:79
+#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
 #: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
 #: ../common/SongsPage.qml:205 ../common/SongsPage.qml:314
 #: ../common/SongsPage.qml:348 ../common/SongsPage.qml:359
@@ -114,7 +114,7 @@ msgstr[1] ""
 msgid "Playlist"
 msgstr ""
 
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:122
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:123
 #: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr ""
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Add to queue"
 msgstr ""
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1317
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1373
 msgid "Select playlist"
 msgstr ""
 
@@ -223,10 +223,10 @@ msgstr ""
 msgid "Import your music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide2.qml:62
+#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1358
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
-"folder."
+"folder or insert removable media with music."
 msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:51
@@ -350,27 +350,26 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../music-app.qml:1291
+#: ../music-app.qml:1347
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1302
-msgid "Please import music"
-msgstr ""
-
-#: ../music-app.qml:1331
+#: ../music-app.qml:1386
 msgid "No playlists found"
 msgstr ""
 
-#: ../music-app.qml:1342
-msgid "Click the + to create a playlist"
+#: ../music-app.qml:1397
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
 msgstr ""
 
-#: ../music-app.qml:1371
+#: ../music-app.qml:1426
 msgid "No recent albums or playlists found"
 msgstr ""
 
-#: ../music-app.qml:1382
+#: ../music-app.qml:1437
 msgid "Play some music to see your favorites"
 msgstr ""
 

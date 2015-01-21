@@ -35,6 +35,7 @@ MusicPage {
             name: "default"
             head: genresPage.head
             actions: Action {
+                enabled: genresModelFilter.count > 0
                 iconName: "search"
                 onTriggered: genresPage.state = "search"
             }
