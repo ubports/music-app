@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -25,14 +26,18 @@ import Ubuntu.Components 1.1
 // Walkthrough - Slide 7
 Component {
     id: slide7
-    Item {
+    Column {
         id: slide7Container
+        spacing: units.gu(4)
+
+        Item {
+            height: units.gu(2)
+            width: parent.width
+        }
 
         Image {
             id: smileImage
             anchors {
-                top: parent.top
-                topMargin: units.gu(4)
                 horizontalCenter: parent.horizontalCenter
             }
             height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*units.gu(4))/2
@@ -42,10 +47,6 @@ Component {
 
         Label {
             id: introductionText
-            anchors {
-                bottom: finalMessage.top
-                bottomMargin: units.gu(4)
-            }
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Download new music")
@@ -53,10 +54,6 @@ Component {
 
         Label {
             id: finalMessage
-            anchors {
-                bottom: continueButton.top
-                bottomMargin: units.gu(4)
-            }
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Directly import music bought while browsing online.")
@@ -67,8 +64,6 @@ Component {
         Button {
             id: continueButton
             anchors {
-                bottom: parent.bottom
-                bottomMargin: units.gu(4)
                 horizontalCenter: parent.horizontalCenter
             }
             color: UbuntuColors.green

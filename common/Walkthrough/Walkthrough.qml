@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -62,11 +63,13 @@ Page {
 
             Loader {
                 anchors {
-                    fill: parent
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
                     margins: units.gu(2)
+                    top: parent.top
                 }
-
                 sourceComponent: modelData
+                width: units.gu(36)
             }
         }
     }
