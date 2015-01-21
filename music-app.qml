@@ -1355,7 +1355,7 @@ MainView {
                     fontSize: "large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 4
-                    text: i18n.tr("Add music to your Ubuntu phone by dragging files from an Ubuntu computer or by inserting from an SD card.")
+                    text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or by inserting removable media with music.")
                     width: parent.width
                     wrapMode: Text.WordWrap
                 }
