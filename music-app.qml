@@ -1355,7 +1355,7 @@ MainView {
                     fontSize: "large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 4
-                    text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or by inserting removable media with music.")
+                    text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
                     width: parent.width
                     wrapMode: Text.WordWrap
                 }
@@ -1394,8 +1394,7 @@ MainView {
                     fontSize: "large"
                     horizontalAlignment: Text.AlignLeft
                     maximumLineCount: 4
-                    text: i18n.tr("Get more out of Music by tapping the") + ' "+" ' +
-                          i18n.tr("icon to start making playlists for every mood and occasion.")
+                    text: i18n.tr("Get more out of Music by tapping the %1 icon to start making playlists for every mood and occasion.").arg('"+"')
                     width: parent.width
                     wrapMode: Text.WordWrap
                 }

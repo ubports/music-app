@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 00:11+0000\n"
+"POT-Creation-Date: 2015-01-21 00:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,7 +226,7 @@ msgstr ""
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1358
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
-"folder or by inserting removable media with music."
+"folder or insert removable media with music."
 msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:51
@@ -359,18 +359,17 @@ msgid "No playlists found"
 msgstr ""
 
 #: ../music-app.qml:1397
-msgid "Get more out of Music by tapping the"
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
 msgstr ""
 
-#: ../music-app.qml:1398
-msgid "icon to start making playlists for every mood and occasion."
-msgstr ""
-
-#: ../music-app.qml:1427
+#: ../music-app.qml:1426
 msgid "No recent albums or playlists found"
 msgstr ""
 
-#: ../music-app.qml:1438
+#: ../music-app.qml:1437
 msgid "Play some music to see your favorites"
 msgstr ""
 
