@@ -42,6 +42,7 @@ MusicPage {
             head: playlistsPage.head
             actions: [
                 Action {
+                    enabled: allSongsModel.count > 0
                     objectName: "newPlaylistButton"
                     iconName: "add"
                     onTriggered: {
@@ -50,7 +51,7 @@ MusicPage {
                     }
                 },
                 Action {
-                    enabled: playlistModel.model.count > 0
+                    enabled: playlistModel.model.count > 0 && allSongsModel.count > 0
                     iconName: "search"
                     onTriggered: playlistsPage.state = "search"
                 }

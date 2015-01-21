@@ -59,7 +59,7 @@ Component {
             }
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder.")
+            text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
             width: parent.width
             wrapMode: Text.WordWrap
         }
