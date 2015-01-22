@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -49,6 +50,7 @@ Component {
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Import your music")
+            width: units.gu(36)
         }
 
         Label {
@@ -60,7 +62,7 @@ Component {
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
-            width: parent.width
+            width: units.gu(36)
             wrapMode: Text.WordWrap
         }
     }

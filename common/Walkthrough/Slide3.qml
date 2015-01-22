@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -49,6 +50,7 @@ Component {
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Download new music")
+            width: units.gu(36)
         }
 
         Label {
@@ -60,7 +62,7 @@ Component {
             fontSize: "large"
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Directly import music bought while browsing online.")
-            width: parent.width
+            width: units.gu(36)
             wrapMode: Text.WordWrap
         }
 

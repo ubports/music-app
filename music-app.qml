@@ -1323,7 +1323,7 @@ MainView {
                     centerIn: parent
                 }
                 spacing: units.gu(4)
-                width: units.gu(35)
+                width: units.gu(36)
 
                 Row {
                     anchors {

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <nik90@ubuntu.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -54,6 +55,7 @@ Component {
             height: contentHeight
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Welcome to Music")
+            width: units.gu(36)
         }
 
         Label {
@@ -66,7 +68,7 @@ Component {
             height: contentHeight
             horizontalAlignment: Text.AlignHLeft
             text: i18n.tr("Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how to get started or press skip to start listening now.")
-            width: parent.width
+            width: units.gu(36)
             wrapMode: Text.WordWrap
         }
     }
