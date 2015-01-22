@@ -28,7 +28,7 @@ Component {
     id: slide7
     Column {
         id: slide7Container
-        spacing: units.gu(4)
+        spacing: height * 0.1
 
         Item {
             height: units.gu(2)

@@ -31,7 +31,7 @@ Component {
         anchors {
             fill: parent
         }
-        spacing: units.gu(4)
+        spacing: height * 0.1
 
         Item {
             height: units.gu(2)
