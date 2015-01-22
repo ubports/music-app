@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -505,12 +505,3 @@ msgstr "zene;dalok;lejátszás;számok;lejátszó;hangok;"
 
 #~ msgid "Please import music"
 #~ msgstr "Kérjük importálja zenéit"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Először hallgasson zenét, hogy láthassa a kedvenceit"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Koppintson a + jelre új lejátszólista létrehozásához"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Nem található legutóbbi album vagy lejátszólista"

@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -505,12 +505,3 @@ msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
 
 #~ msgid "Please import music"
 #~ msgstr "Enporzhiit sonerezh, mar plij"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Klikit war + evit krouiñ ur roll-tonioù"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Lennit sonerezh evit gwelet ho tonioù gwellañ-deuet"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "N'eus bet kavet un albom pe ur roll-tonioù nevez"

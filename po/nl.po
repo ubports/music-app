@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-18 21:27+0000\n"
+"PO-Revision-Date: 2015-01-21 10:22+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -211,27 +211,32 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Welkom bij Muziek"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Geniet van uw favoriete muziek met Ubuntu's muziekapp. Leer de "
+"grondbeginselen kennen door de korte rondleiding te nemen of druk op "
+"overslaan om meteen te beginnen met luisteren."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Uw muziek importeren"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Verbind uw apparaat met een willekeurige computer en versleep eenvoudigweg "
+"bestanden naar de muziekmap of sluit een verwijderbaar medium aan met muziek."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Nieuwe muziek downloaden"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
@@ -239,11 +244,11 @@ msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Starten"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Overslaan"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -507,12 +512,3 @@ msgstr ""
 
 #~ msgid "Please import music"
 #~ msgstr "Importeer a.u.b muziek"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Klik op de + om een afspeellijst aan te maken"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Geen recente albums of afspeellijsten gevonden"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Speel muziek af om uw favorieten te zien"

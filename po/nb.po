@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-18 21:31+0000\n"
+"PO-Revision-Date: 2015-01-21 11:41+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -211,39 +211,44 @@ msgstr "Denne handlinga kan ikke angres"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Velkommen til Musikk"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Nyt favorittmusikken din med Ubuntus musikkprogram. Her er en kort "
+"gjennomgang av hvordan du bruker programmet. Du kan hoppe over dette hvis du "
+"vil."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Importer musikk"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Koble enheten til en datamaskin og dra filer til musikkmappa, eller sett inn "
+"bærbare medier med musikk på."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Last ned ny musikk"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importer musikk som er kjøpt på nett direkte."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Hopp over"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -364,6 +369,7 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Trykk på %1-ikonet for å lage spillelister til bestemte humør og anledninger."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -505,12 +511,3 @@ msgstr "musikk;sanger;spill av;spor;spiller;låter;"
 
 #~ msgid "Please import music"
 #~ msgstr "Importer musikk"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Spill av musikk for å se favoritter"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Trykk på + for å lage en spilleliste"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Fant ingen nylige album eller spillelister"

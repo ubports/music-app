@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-20 11:46+0000\n"
+"PO-Revision-Date: 2015-01-21 07:01+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:57+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -216,39 +216,43 @@ msgstr "Tega ni mogoče razveljaviti"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Dobrodošli v Glasbo"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Uživajte v glasbi z Ubuntujevim glasbenim programom. Oglejte si, kako začeti "
+"ali pa preskočite za takojšnje poslušanje."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Uvoz glasbe"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Povežite vašo napravo z računalnikom ter preprosto povlecite datoteke v mapo "
+"Glasba ali vstavite medij z glasbo."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Prenos nove glasbe"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Neposredno uvozi glasbo, kupljeno med brskanjem po spletu."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Začni"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Preskoči"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -369,6 +373,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Dobite več od Glasbe s tapom na ikono %1 za ustvarjanje seznamov predvajanja "
+"za vsako razpoloženje in priložnost."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -510,12 +516,3 @@ msgstr "glasba;skladbe;predvajaj;sledi;predvajalnik;melodije;"
 
 #~ msgid "Please import music"
 #~ msgstr "Uvozite glasbo"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Kliknite na + za nov seznam predvajanja"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Ni najdenih nedavnih albumov ali seznamov predvajanja"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Predvajajte glasbo za ogled priljubljenih"
