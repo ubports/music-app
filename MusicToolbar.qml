@@ -28,13 +28,13 @@ Rectangle {
         left: parent.left
         right: parent.right
     }
-    color: "#000"
+    color: styleMusic.common.black
     height: units.gu(7.25)
 
     // Hack for autopilot otherwise MusicToolbar appears as QQuickRectangle
     // due to bug 1341671 it is required that there is a property so that
     // qml doesn't optimise using the parent type
-    property bool controlsEnabled: toolbarControls.state === "enabled"
+    property bool bug1341671workaround: true
 
     /* Toolbar controls */
     Item {
