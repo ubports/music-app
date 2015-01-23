@@ -199,6 +199,9 @@ MainView {
         }
 
         function processFile(uri, play) {
+            // Stop queue loading in the background
+            queueLoaderWorker.canLoad = false
+
             uri = decodeURIComponent(uri);
 
             // Lookup track in songs model
