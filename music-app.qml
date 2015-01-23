@@ -1053,9 +1053,15 @@ MainView {
         }
     }
 
-    MusicToolbar {
+    Loader {
         id: musicToolbar
-        objectName: "musicToolbarObject"
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        asynchronous: true
+        source: "MusicToolbar.qml"
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
                  mainPageStack.currentPage.title !== i18n.tr("Queue") &&
                  !firstRun

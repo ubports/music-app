@@ -30,6 +30,7 @@ Rectangle {
     }
     color: styleMusic.common.black
     height: units.gu(7.25)
+    objectName: "musicToolbarObject"
 
     // Hack for autopilot otherwise MusicToolbar appears as QQuickRectangle
     // due to bug 1341671 it is required that there is a property so that
