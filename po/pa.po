@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -505,12 +505,3 @@ msgstr "ਸੰਗੀਤ;ਗੀਤ;ਪਲੇ੍;ਗੀਤ;ਪਲੇਅਰ;ਧੁ�
 
 #~ msgid "Please import music"
 #~ msgstr "ਕਿਰਪਾ ਕਰਕੇ ਸੰਗੀਤ ਦੀ ਆਮਦ ਕਰੋ"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "ਪਲੇਸੂਚੀ ਬਣਾਉਣ ਲਈ + ਤੇ ਕਲਿੱਕ ਕਰੋ"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "ਆਪਣੇ ਪਸੰਦੀਦਾ ਵੇਖਣ ਲਈ ਕੁੱਝ ਸੰਗੀਤ ਚਲਾਓ"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "ਕੋਈ ਮੌਜੂਦਾ ਐਲਬਮ ਜਾਂ ਪਲੇਸੂਚੀ ਨਹੀਂ ਮਿਲੀ"

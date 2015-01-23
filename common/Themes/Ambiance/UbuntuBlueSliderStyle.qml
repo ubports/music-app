@@ -27,7 +27,7 @@ Item {
     id: sliderStyle
 
     property color foregroundColor: UbuntuColors.blue // CUSTOM
-    property color backgroundColor: Theme.palette.normal.base
+    property color backgroundColor: styleMusic.mainView.backgroundColor // CUSTOM
 
     property real thumbSpacing: units.gu(0)
     property Item bar: background

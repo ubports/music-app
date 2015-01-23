@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-18 21:10+0000\n"
+"PO-Revision-Date: 2015-01-21 20:37+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -239,11 +239,11 @@ msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Démarrer"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Ignorer"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -506,12 +506,3 @@ msgstr "musique;chansons;lire;morceaux;lecteur;mélodies;"
 
 #~ msgid "Please import music"
 #~ msgstr "Veuillez importer de la musique"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Lire de la musique pour voir vos favoris"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Cliquez sur + pour créer une liste de lecture"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Aucun album récent ni aucune liste de lecture récente trouvée"

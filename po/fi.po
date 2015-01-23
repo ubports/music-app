@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -506,12 +506,3 @@ msgstr "music;songs;play;tracks;player;tunes;musiikki;kappaleet;soitin;"
 
 #~ msgid "Please import music"
 #~ msgstr "Tuo musiikkia"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Napsauta +-painiketta luodaksesi soittolistan"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Soita musiikkia nähdäksesi suosikit"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Ei viimeaikaisia albumeja tai soittolistoja"

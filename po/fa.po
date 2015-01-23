@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -503,12 +503,3 @@ msgstr "موسیقی;آهنگ‌ها;پخش;قظعه‌ها;پخش‌کننده;
 
 #~ msgid "Please import music"
 #~ msgstr "لطفاً آهنگ‌ها را وارد کنید"
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "برای ایجاد یک فهرست پخش روی + کلیک کنید"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "برای دیدن محبوب‌هایتان آهنگ‌هایی پخش کنید"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "هیچ آلبوم یا فهرست پخش اخیری یافت نشد"

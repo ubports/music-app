@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-16 15:12+0000\n"
+"PO-Revision-Date: 2015-01-21 14:02+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-01-21 06:46+0000\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -180,11 +180,11 @@ msgstr "Căutare muzică"
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:521
 msgid "Rename playlist"
-msgstr ""
+msgstr "Redenumește lista"
 
 #: ../common/SongsPage.qml:528 ../music-app.qml:1012
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Introduceți numele listei"
 
 #: ../common/SongsPage.qml:537
 msgid "Change"
@@ -206,11 +206,11 @@ msgstr "Anulează"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:580
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Ștergeți lista definitiv?"
 
 #: ../common/SongsPage.qml:581
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Acest lucru nu poate fi anulat"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
@@ -221,10 +221,13 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Bucurați-vă de muzica dumneavoastră favorită cu aplicația Ubuntu Music. "
+"Faceți un tur scurt despre cum să începeți sau apăsați butonul omiteți "
+"pentru a începe să ascultați acum."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Importați muzica dumneavoastră"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
@@ -234,19 +237,19 @@ msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Descărcați muzică nouă"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importați direct muzica cumpărată în timp ce navigați online."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Se omite"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -510,12 +513,3 @@ msgstr "muzică;melodie;redare;piste;player;cântece;"
 
 #~ msgid "Please import music"
 #~ msgstr "Importați muzică"
-
-#~ msgid "Play some music to see your favorites"
-#~ msgstr "Redați câteva piese pentru a vă vedea favoritele."
-
-#~ msgid "Click the + to create a playlist"
-#~ msgstr "Apăsați + pentru a crea o listă de redare"
-
-#~ msgid "No recent albums or playlists found"
-#~ msgstr "Nu s-au găsit albume sau liste de redare recente"

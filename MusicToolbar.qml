@@ -265,7 +265,7 @@ Rectangle {
                 }
                 color: UbuntuColors.blue
                 height: parent.height
-                width: 0
+                width: player.duration > 0 ? (player.position / player.duration) * playerControlsProgressBar.width : 0
 
                 Connections {
                     target: player
