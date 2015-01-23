@@ -199,6 +199,9 @@ MainView {
         }
 
         function processFile(uri, play) {
+            // Stop queue loading in the background
+            queueLoaderWorker.canLoad = false
+
             uri = decodeURIComponent(uri);
 
             // Lookup track in songs model
@@ -653,6 +656,9 @@ MainView {
     }
 
     function trackClicked(model, index, play, clear) {
+        // Stop queue loading in the background
+        queueLoaderWorker.canLoad = false
+
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;
