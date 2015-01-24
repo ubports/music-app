@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-21 20:37+0000\n"
+"PO-Revision-Date: 2015-01-23 18:33+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
+"X-Launchpad-Export-Date: 2015-01-24 06:27+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -211,31 +211,38 @@ msgstr "Ceci ne peut être annulé"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Bienvenue dans Musique"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Profitez de votre musique préférée avec l'application Musique d'Ubuntu. "
+"Suivez une courte visite guidée pour apprendre à démarrer ou appuyez sur "
+"ignorer pour démarrer votre écoute maintenant."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Importer votre musique"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Connectez votre appareil à n'importe quel ordinateur et déplacez simplement "
+"des fichiers dans le dossier Musique ou insérez un support amovible "
+"contenant de la musique."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Télécharger de nouvelles musiques"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
 msgstr ""
+"Importer directement de la musique achetée lors de la navigation en ligne."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
@@ -364,6 +371,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Profitez pleinement de Musique en appuyant sur l'icône %1 pour commencer à "
+"créer des listes de lecture pour chaque humeur et chaque occasion."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

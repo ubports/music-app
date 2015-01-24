@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2014-12-22 08:39+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-01-23 13:58+0000\n"
+"Last-Translator: Niklas Wenzel <nikwen.developer@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
+"X-Launchpad-Export-Date: 2015-01-24 06:27+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -60,31 +60,31 @@ msgstr "Musikrichtung"
 #: ../music-app.qml:1059 ../music-app.qml:1262 ../music-app.qml:1274
 #: ../music-app.qml:1302
 msgid "Queue"
-msgstr ""
+msgstr "Warteschlange"
 
 #: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:1058
 #: ../music-app.qml:1261 ../music-app.qml:1302
 msgid "Now playing"
-msgstr ""
+msgstr "Jetzt läuft"
 
 #: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
 #: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
 msgid "Add to playlist"
-msgstr "Zur Wiedergabeliste hinzufügen"
+msgstr "Zu Wiedergabeliste hinzufügen"
 
 #: ../MusicNowPlaying.qml:110
 msgid "Clear queue"
-msgstr ""
+msgstr "Warteschlange leeren"
 
 #: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
 msgid "Cancel selection"
-msgstr ""
+msgstr "Auswahl abbrechen"
 
 #: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
 #: ../common/SongsPage.qml:157
 msgid "Select All"
-msgstr ""
+msgstr "Alle auswählen"
 
 #: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:204
 msgid "Delete"
@@ -141,7 +141,7 @@ msgstr ""
 
 #: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:333
 msgid "Queue all"
-msgstr ""
+msgstr "Alle zur Warteschlange hinzufügen"
 
 #: ../common/AlbumsPage.qml:85 ../common/SongsPage.qml:341
 msgid "Play all"
@@ -156,7 +156,7 @@ msgstr[1] "%1 Alben"
 
 #: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
-msgstr "In die Warteschlange aufnehmen"
+msgstr "Zur Warteschlange hinzufügen"
 
 #: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:586
 msgid "Remove"
@@ -168,20 +168,20 @@ msgstr "Ladevorgang …"
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "Keine Elemente gefunden"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Musik durchsuchen"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:521
 msgid "Rename playlist"
-msgstr ""
+msgstr "Wiedergabeliste umbenennen"
 
 #: ../common/SongsPage.qml:528 ../music-app.qml:1012
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Name für Wiedergabeliste eingeben"
 
 #: ../common/SongsPage.qml:537
 msgid "Change"
@@ -203,11 +203,11 @@ msgstr "Abbrechen"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:580
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Wiedergabeliste unwiederruflich löschen?"
 
 #: ../common/SongsPage.qml:581
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Dies kann nicht rückgängig gemacht werden."
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
@@ -218,20 +218,25 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Genießen Sie Ihre Lieblingsmusik mit der Musik-App von Ubuntu. Nehmen Sie "
+"sich kurz Zeit für eine Einführung oder tippen sie auf »Überspringen«, um "
+"sofort mit dem Musikhören zu beginnen."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Importieren Sie Ihre Musik"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Verbinden Sie Ihr Gerät mit einem Rechner und ziehen Sie Dateien einfach in "
+"den Musikordner oder legen Sie einen Wechseldatenträger mit Musik ein."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Neue Musik herunterladen"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
@@ -243,7 +248,7 @@ msgstr ""
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Überspringen"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -356,7 +361,7 @@ msgstr "Es konnte keine Musik gefunden werden"
 
 #: ../music-app.qml:1427
 msgid "No playlists found"
-msgstr ""
+msgstr "Keine Wiedergabelisten gefunden"
 
 #: ../music-app.qml:1438
 #, qt-format
