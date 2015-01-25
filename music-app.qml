@@ -624,12 +624,10 @@ MainView {
 
         for (var i=0; i < model.rowCount; i++) {
             items.push(model.get(i, model.RoleModelData))
-
-            trackQueue.model.append(items[i]);
         }
 
         // Add model to queue storage
-        Library.addQueueList(items);
+        trackQueue.appendList(items)
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -887,6 +885,15 @@ MainView {
         {
             model.append(makeDict(listElement))
             Library.addQueueItem(listElement.filename)
+        }
+
+        function appendList(items)
+        {
+            for (var i=0; i < items.length; i++) {
+                model.append(makeDict(items[i]))
+            }
+
+            Library.addQueueList(items)
         }
 
         function clear()
