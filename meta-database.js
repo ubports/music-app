@@ -123,26 +123,6 @@ function moveQueueItem(from, to) {
     })
 }
 
-function removeQueueItem(ind) {
-    var db = getDatabase()
-    var res = false
-
-    db.transaction(function (tx) {
-        tx.executeSql('DELETE FROM queue WHERE ind=?;', [ind])
-
-        var rs = tx.executeSql('SELECT MAX(ind) FROM queue')
-
-        var lastIndex = isQueueEmpty() ? 0 : rs.rows.item(0)["MAX(ind)"]
-
-        for(var i = ind+1; i <= lastIndex; i++) {
-            tx.executeSql('UPDATE queue SET ind=? WHERE ind=?;',
-                          [i-1, i])
-        }
-    })
-
-    return res
-}
-
 
 // Optimised removeQueue for removing multiple tracks from the queue
 function removeQueueList(list)

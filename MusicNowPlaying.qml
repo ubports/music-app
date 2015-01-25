@@ -491,7 +491,7 @@ MusicPage {
                     state: ""
 
                     leftSideAction: Remove {
-                        onTriggered: trackQueue.removeQueue(index)
+                        onTriggered: trackQueue.removeQueueList([index])
                     }
                     multiselectable: true
                     reorderable: true
