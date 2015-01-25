@@ -96,9 +96,13 @@ MusicPage {
                     iconName: "add"
                     text: i18n.tr("Add to queue")
                     onTriggered: {
+                        var items = []
+
                         for (var i=0; i < tracklist.selectedItems.length; i++) {
-                            trackQueue.append(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
+                            items.push(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData));
                         }
+
+                        trackQueue.appendList(items)
 
                         tracklist.closeSelection()
                     }

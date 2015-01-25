@@ -105,11 +105,7 @@ MusicPage {
             secondaryText: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
 
             onClicked: {
-                for (var i=0; i < chosenElements.length; i++) {
-                    console.debug("Debug: "+chosenElements[i].filename+" added to "+name)
-
-                    Playlists.addToPlaylist(name, chosenElements[i])
-                }
+                Playlists.addToPlaylistList(name, chosenElements)
 
                 // Check that the parent parent page is not being refiltered
                 if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Playlists")) {
