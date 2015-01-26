@@ -904,27 +904,6 @@ MainView {
             queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
 
-        function removeQueue(index)
-        {
-            var removedIndex = index
-
-            if (trackQueue.model.count === 1) {
-                player.stop()
-                musicToolbar.goBack()
-            } else if (index === player.currentIndex) {
-                player.nextSong(player.isPlaying);
-            }
-
-            trackQueue.model.remove(index);
-            Library.removeQueueItem(removedIndex);
-
-            if (removedIndex < player.currentIndex) {
-                // update index as the old has been removed
-                player.currentIndex -= 1;
-                queueIndex -= 1;
-            }
-        }
-
         // Optimised removeQueue for removing multiple tracks from the queue
         function removeQueueList(items)
         {
