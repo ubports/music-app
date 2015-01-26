@@ -898,8 +898,8 @@ MainView {
 
         function clear()
         {
-            model.clear()
             Library.clearQueue()
+            model.clear()
 
             queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
