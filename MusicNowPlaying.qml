@@ -469,7 +469,7 @@ MusicPage {
             }
             onVisibleChanged: {
                 if (!visible) {
-                    clearSelection(true)
+                    closeSelection()
                 }
             }
 
