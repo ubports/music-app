@@ -1,294 +1,164 @@
 # Basque translation for music-app
-# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-23 19:23+0000\n"
+"POT-Creation-Date: 2015-01-21 01:16+0000\n"
+"PO-Revision-Date: 2015-01-27 00:02+0000\n"
 "Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-01-27 07:04+0000\n"
+"X-Generator: Launchpad (build 17306)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "Hasi saioa scrobble egin ahal izateko."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "Erabiltzaile-izena"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "Pasahitza"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "Hasi saioa"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "Saioa hasten..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "Saioa behar bezala hasi da"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "Saioa hasteak huts egin du"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "Erabiltzaile-izena edota pasahitza idaztea ahaztu zaizu"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Albumak"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
+#: ../common/AlbumsPage.qml:162 ../common/SongsPage.qml:373
+msgid "Unknown Album"
+msgstr "Album ezezaguna"
+
+#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:104 ../common/AlbumsPage.qml:161
+#: ../common/SongsPage.qml:394
+msgid "Unknown Artist"
+msgstr "Artista ezezaguna"
+
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
 msgid "Album"
 msgstr "Albuma"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "Artistak"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "Album %1"
-msgstr[1] "%1 album"
+#: ../MusicArtists.qml:107
+msgid "Artist"
+msgstr "Artista"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "Generoak"
+
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:312
+#: ../common/SongsPage.qml:346 ../common/SongsPage.qml:360
+#: ../common/SongsPage.qml:396 ../common/SongsPage.qml:415
+#: ../common/SongsPage.qml:447
+msgid "Genre"
+msgstr "Generoa"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:700
+#: ../music-app.qml:1059 ../music-app.qml:1262 ../music-app.qml:1274
+#: ../music-app.qml:1302
+msgid "Queue"
+msgstr "Jarri ilaran"
+
+#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:1058
+#: ../music-app.qml:1261 ../music-app.qml:1302
+msgid "Now playing"
+msgstr "Orain erreproduzitzen"
+
+#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
+msgid "Add to playlist"
+msgstr "Gehitu erreprodukzio-zerrendara"
+
+#: ../MusicNowPlaying.qml:110
+msgid "Clear queue"
+msgstr "Garbitu ilara"
+
+#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:147
+msgid "Cancel selection"
+msgstr "Desegin hautaketa"
+
+#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:157
+msgid "Select All"
+msgstr "Hautatu dena"
+
+#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:204
+msgid "Delete"
+msgstr "Ezabatu"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:115
+#: ../common/SongsPage.qml:85
+msgid "Playlists"
+msgstr "Zerrendak"
+
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:105
+#: ../common/SongsPage.qml:416 ../common/SongsPage.qml:417
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "Abesti %1"
 msgstr[1] "%1 abesti"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "Artista"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "Orain erreproduzitzen"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "Zerrendak"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "Erreprodukzio-zerrenda berria"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "Aldatu izena"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "Idatzi erreprodukzio-zerrendaren izen berria."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "Aldatu"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "Dagoeneko existitzen da erreprodukzio-zerrenda"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "Idatzi izen bat."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "Utzi"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
+#: ../common/SongsPage.qml:205 ../common/SongsPage.qml:314
+#: ../common/SongsPage.qml:348 ../common/SongsPage.qml:359
+#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:431
+#: ../common/SongsPage.qml:434 ../common/SongsPage.qml:449
 msgid "Playlist"
 msgstr "Erreprodukzio-zerrenda"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "Bilatu"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "Ezarpenak"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "Ekualizadorea"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "Lehenetsia"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "Akustikoa"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "Klasikoa"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "Elektronikoa"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "Motela"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "Hip Hop-a"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "Jazz-a"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "Metal-a"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "Pop-a"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "Rock-a"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "Pertsonalizatua"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"Tresna-barra irekitzean \n"
-"doitu uneko abestira"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "Kontuak"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Hasi saioa scrobble egin eta erreprodukzio-zerrenda inportatzeko"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "Musika-korrontea"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "Hasi saioa lainoko zure musika-korrontea erreproduzitzeko"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Erabili korrontea WiFi-arekin soilik"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "Garbitu dena!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Musika"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:123
+#: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr "Azkenak"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "Garbitu historia"
+#: ../MusicToolbar.qml:155
+msgid "Tap to shuffle music"
+msgstr "Ukitu musika nahasteko"
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "Generoak"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "Generoa"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "Sakatu Erreproduzitu musika nahasteko"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "Abestiak"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "Hautatu erreproduzio-zerrenda"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "Erreproduzitu dena"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
 msgid "Add to queue"
 msgstr "Gehitu ilarara"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "Gehitu erreprodukzio-zerrendara"
+#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1414
+msgid "Select playlist"
+msgstr "Hautatu erreproduzio-zerrenda"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#: ../common/AlbumsPage.qml:63 ../common/SongsPage.qml:307
+msgid "Shuffle"
+msgstr "Nahastu"
+
+#: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:333
+msgid "Queue all"
+msgstr "Jarri dena ilaran"
+
+#: ../common/AlbumsPage.qml:85 ../common/SongsPage.qml:341
+msgid "Play all"
+msgstr "Erreproduzitu dena"
+
+#: ../common/AlbumsPage.qml:123
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "Album %1"
+msgstr[1] "%1 album"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "Gehitu ilarari"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "Ezabatu"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "Editatu"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:586
 msgid "Remove"
 msgstr "Ezabatu"
 
@@ -296,141 +166,210 @@ msgstr "Ezabatu"
 msgid "Loading..."
 msgstr "Kargatzen..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "Garbitu"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr "Ez da elementurik aurkitu"
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "Album ezezaguna"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Bilatu musika"
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "Artista ezezaguna"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:521
+msgid "Rename playlist"
+msgstr "Berrizendatu erreprodukzio-zerrenda"
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "Bilatu pista"
+#: ../common/SongsPage.qml:528 ../music-app.qml:1012
+msgid "Enter playlist name"
+msgstr "Idatzi erreprodukzio-zerrendaren izena"
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:537
+msgid "Change"
+msgstr "Aldatu"
+
+#: ../common/SongsPage.qml:558 ../music-app.qml:1038
+msgid "Playlist already exists"
+msgstr "Dagoeneko existitzen da erreprodukzio-zerrenda"
+
+#: ../common/SongsPage.qml:562 ../music-app.qml:1043
+msgid "Please type in a name."
+msgstr "Idatzi izen bat."
+
+#: ../common/SongsPage.qml:567 ../common/SongsPage.qml:605
+#: ../music-app.qml:485 ../music-app.qml:1049
+msgid "Cancel"
+msgstr "Utzi"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:580
+msgid "Permanently delete playlist?"
+msgstr "Erreprodukzio-zerrenda behin betiko ezabatu?"
+
+#: ../common/SongsPage.qml:581
+msgid "This cannot be undone"
+msgstr "Hau ezin da desegin"
+
+#: ../common/Walkthrough/Slide1.qml:56
+msgid "Welcome to Music"
+msgstr "Ongi etorri Musikara"
+
+#: ../common/Walkthrough/Slide1.qml:68
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+"Gozatu musika gogokoenaz Ubunturen musika-aplikazioarekin. Ekin hasierako "
+"ibilaldiari edo sakatu Saltatu musika entzuten hasteko."
+
+#: ../common/Walkthrough/Slide2.qml:51
+msgid "Import your music"
+msgstr "Inportatu musika"
+
+#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+"Konektatu zure gailua edozein ordenagailutara eta arrastatu fitxategiak "
+"Musika karpetara edo sartu musikadun euskarri aldagarri bat."
+
+#: ../common/Walkthrough/Slide3.qml:51
+msgid "Download new music"
+msgstr "Deskargatu musika berria"
+
+#: ../common/Walkthrough/Slide3.qml:62
+msgid "Directly import music bought while browsing online."
+msgstr "Inportatu online erositako musika zuzenean."
+
+#: ../common/Walkthrough/Slide3.qml:76
+msgid "Start"
+msgstr "Hasi"
+
+#: ../common/Walkthrough/Walkthrough.qml:82
+msgid "Skip"
+msgstr "Saltatu"
+
+#: ../music-app.qml:146
 msgid "Next"
 msgstr "Hurrengoa"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:147
 msgid "Next Track"
 msgstr "Hurrengo pista"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Pause"
 msgstr "Pausatu"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Play"
 msgstr "Erreproduzitu"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Pause Playback"
 msgstr "Pausatu erreprodukzioa"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Continue or start playback"
 msgstr "Jarraitu edo hasi erreprodukzioa"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:160
 msgid "Back"
 msgstr "Itzuli"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:161
 msgid "Go back to last page"
 msgstr "Itzuli azken orrira"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:169
 msgid "Previous"
 msgstr "Aurrekoa"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:170
 msgid "Previous Track"
 msgstr "Aurreko pista"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:175
 msgid "Stop"
 msgstr "Gelditu"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:176
 msgid "Stop Playback"
 msgstr "Gelditu erreprodukzioa"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "Musikaren ezarpenak"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:328
 msgid "Filepath must start with"
 msgstr "Fitxategiaren bide-izena honela hasi behar da:"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:354
 msgid "Filepath must be a file"
 msgstr "Bide-izena fitxategi bat izan behar da"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:360
 msgid "Failed to move file"
 msgstr "Huts egin du fitxategia lekuz aldatzeak"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:439
 msgid "Waiting for file(s)..."
 msgstr "Fitxategi(ar)en zain..."
 
-#: ../music-app.qml:466
+#: ../music-app.qml:458
 msgid "OK"
 msgstr "Ados"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:471
 msgid "Imported file not found"
 msgstr "Inportatutako fitxategia ez da aurkitu"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:475
 msgid "Wait"
 msgstr "Itxaron"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:496
 msgid "songs played today"
 msgstr "gaur erreproduzitutako abestiak"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:497
 msgid "No songs played today"
 msgstr "Gaur ez da abestirik erreproduzitu"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:590 ../music-app.qml:1298
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Musika"
+
+#: ../music-app.qml:609
 msgid "Debug: "
 msgstr "Arazketa: "
 
-#: ../music-app.qml:925
-msgid "New Playlist"
+#: ../music-app.qml:1008
+msgid "New playlist"
 msgstr "Erreprodukzio-zerrenda berria"
 
-#: ../music-app.qml:926
-msgid "Name your playlist."
-msgstr "Izendatu erreproduzkio-zerrenda."
-
-#: ../music-app.qml:930
-msgid "Name"
-msgstr "Izena"
-
-#: ../music-app.qml:940
+#: ../music-app.qml:1022
 msgid "Create"
 msgstr "Sortu"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1388
 msgid "No music found"
 msgstr "Ez da musikarik aurkitu"
 
-#: ../music-app.qml:1183
-msgid "Please import music"
-msgstr "Inportatu musika"
+#: ../music-app.qml:1427
+msgid "No playlists found"
+msgstr "Ez da erreprodukzio-zerrendarik aurkitu"
+
+#: ../music-app.qml:1438
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
+"Atera zukua Musikari, ukitu %1 ikonoa aldarte eta une desberdinetarako "
+"erreprodukzio-zerrendak sortzen hasteko."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -440,3 +379,136 @@ msgstr "Ubunturako musika-aplikazioa"
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "musika;abestiak;kantak;kantuak;erreproduzitu;erreproduzitzailea;tonuak;"
+
+#~ msgid "Login Successful"
+#~ msgstr "Saioa behar bezala hasi da"
+
+#~ msgid "Trying to login..."
+#~ msgstr "Saioa hasten..."
+
+#~ msgid "Login"
+#~ msgstr "Hasi saioa"
+
+#~ msgid "Password"
+#~ msgstr "Pasahitza"
+
+#~ msgid "Login Failed"
+#~ msgstr "Saioa hasteak huts egin du"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Username"
+#~ msgstr "Erabiltzaile-izena"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Erabiltzaile-izena edota pasahitza idaztea ahaztu zaizu"
+
+#~ msgid "Change name"
+#~ msgstr "Aldatu izena"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "Idatzi erreprodukzio-zerrendaren izen berria."
+
+#~ msgid "Settings"
+#~ msgstr "Ezarpenak"
+
+#~ msgid "Edit"
+#~ msgstr "Editatu"
+
+#~ msgid "Electronic"
+#~ msgstr "Elektronikoa"
+
+#~ msgid "Flat"
+#~ msgstr "Motela"
+
+#~ msgid "Default"
+#~ msgstr "Lehenetsia"
+
+#~ msgid "Classical"
+#~ msgstr "Klasikoa"
+
+#~ msgid "Equaliser"
+#~ msgstr "Ekualizadorea"
+
+#~ msgid "Pop"
+#~ msgstr "Pop-a"
+
+#~ msgid "Rock"
+#~ msgstr "Rock-a"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz-a"
+
+#~ msgid "Metal"
+#~ msgstr "Metal-a"
+
+#~ msgid "Accounts"
+#~ msgstr "Kontuak"
+
+#~ msgid "Custom"
+#~ msgstr "Pertsonalizatua"
+
+#~ msgid "Hip Hop"
+#~ msgstr "Hip Hop-a"
+
+#~ msgid "Clean everything!"
+#~ msgstr "Garbitu dena!"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Search"
+#~ msgstr "Bilatu"
+
+#~ msgid "Search Track"
+#~ msgstr "Bilatu pista"
+
+#~ msgid "Music Settings"
+#~ msgstr "Musikaren ezarpenak"
+
+#~ msgid "New Playlist"
+#~ msgstr "Erreprodukzio-zerrenda berria"
+
+#~ msgid "Name your playlist."
+#~ msgstr "Izendatu erreproduzkio-zerrenda."
+
+#~ msgid "Name"
+#~ msgstr "Izena"
+
+#~ msgid "Clear"
+#~ msgstr "Garbitu"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Erabili korrontea WiFi-arekin soilik"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "Hasi saioa lainoko zure musika-korrontea erreproduzitzeko"
+
+#~ msgid "Music Streaming"
+#~ msgstr "Musika-korrontea"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Hasi saioa scrobble egin eta erreprodukzio-zerrenda inportatzeko"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Tresna-barra irekitzean \n"
+#~ "doitu uneko abestira"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "Hasi saioa scrobble egin ahal izateko."
+
+#~ msgid "Acoustic"
+#~ msgstr "Akustikoa"
+
+#~ msgid "Clear History"
+#~ msgstr "Garbitu historia"
+
+#~ msgid "Now Playing"
+#~ msgstr "Orain erreproduzitzen"
+
+#~ msgid "Please import music"
+#~ msgstr "Inportatu musika"

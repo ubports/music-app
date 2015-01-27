@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-13 14:57+0000\n"
+"PO-Revision-Date: 2015-01-26 12:32+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-01-22 08:57+0000\n"
+"X-Launchpad-Export-Date: 2015-01-27 07:04+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -180,11 +180,11 @@ msgstr "Пошук музики"
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:521
 msgid "Rename playlist"
-msgstr ""
+msgstr "Перейменувати список композицій"
 
 #: ../common/SongsPage.qml:528 ../music-app.qml:1012
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Введіть назву списку композицій"
 
 #: ../common/SongsPage.qml:537
 msgid "Change"
@@ -206,47 +206,54 @@ msgstr "Скасувати"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:580
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Остаточно вилучити список композицій?"
 
 #: ../common/SongsPage.qml:581
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Наслідки дії не можна буде скасувати"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Вітаємо у «Музиці»"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Отримуйте задоволення від улюбленої музики за допомогою програми «Музика» "
+"Ubuntu. Ознайомтеся з початковими довідковими даними або натисніть кнопку "
+"«Пропустити», щоб перейти до прослуховування."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Імпортувати вашу музику"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"З’єднайте ваш пристрій із будь-яким комп’ютером і просто перетягніть файли "
+"до теки музики або вставте портативний носій із музичними записами."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Отримати нову музику"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
 msgstr ""
+"Безпосередньо імпортувати музичні твори, придбані під час подорожей у "
+"інтернеті."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Почати"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Пропустити"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -367,6 +374,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Отримайте якнайбільше від «Музики»: натисніть піктограму %1, щоб розпочати "
+"створення списків композицій для будь-якого настрою і приводу."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

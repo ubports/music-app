@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-19 07:59+0000\n"
+"PO-Revision-Date: 2015-01-26 12:20+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
+"X-Launchpad-Export-Date: 2015-01-27 07:04+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -214,39 +214,44 @@ msgstr "Данное действие не может быть отменено"
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Рады представить вам Music"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Наслаждайтесь любимой музыкой с приложением Ubuntu Music. Ознакомьтесь с "
+"основными возможностями приложения или нажмите Пропустить, чтобы перейти к "
+"прослушиванию музыки."
 
 #: ../common/Walkthrough/Slide2.qml:51
 msgid "Import your music"
-msgstr ""
+msgstr "Импортируйте музыку"
 
 #: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Подключите ваше устройство к любому компьютеру и просто перетащите файлы в "
+"папку Music или вставьте съёмный носитель с музыкой."
 
 #: ../common/Walkthrough/Slide3.qml:51
 msgid "Download new music"
-msgstr ""
+msgstr "Загружайте новую музыку"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Загружайте только что купленные композиции прямо из сети."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Начать"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
-msgstr ""
+msgstr "Пропустить"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -367,6 +372,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Используйте Music по полной: коснитесь значка %1 и начните создавать списки "
+"произведения для любого настроения и случая."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

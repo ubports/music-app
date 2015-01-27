@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 01:16+0000\n"
-"PO-Revision-Date: 2015-01-23 13:58+0000\n"
-"Last-Translator: Niklas Wenzel <nikwen.developer@gmail.com>\n"
+"PO-Revision-Date: 2015-01-26 14:39+0000\n"
+"Last-Translator: Phillip Sz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-24 06:27+0000\n"
+"X-Launchpad-Export-Date: 2015-01-27 07:04+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -137,7 +137,7 @@ msgstr "Wiedergabeliste auswählen"
 
 #: ../common/AlbumsPage.qml:63 ../common/SongsPage.qml:307
 msgid "Shuffle"
-msgstr ""
+msgstr "Zufällig"
 
 #: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:333
 msgid "Queue all"
@@ -211,7 +211,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden."
 
 #: ../common/Walkthrough/Slide1.qml:56
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Willkommen bei »Musik«"
 
 #: ../common/Walkthrough/Slide1.qml:68
 msgid ""
@@ -240,11 +240,11 @@ msgstr "Neue Musik herunterladen"
 
 #: ../common/Walkthrough/Slide3.qml:62
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importieren Sie Musik, die Sie online gekauft haben, direkt."
 
 #: ../common/Walkthrough/Slide3.qml:76
 msgid "Start"
-msgstr ""
+msgstr "Los gehts"
 
 #: ../common/Walkthrough/Walkthrough.qml:82
 msgid "Skip"
@@ -369,6 +369,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Holen Sie mehr aus dieser Anwendung heraus, indem Sie auf »%1« tippen, um "
+"Wiedergabelisten für jede Stimmung und Gelegenheit zu erstellen."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
