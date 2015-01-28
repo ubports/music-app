@@ -44,7 +44,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
-    local_location = local_location_dir + "/music-app.qml"
+    local_location = local_location_dir + "/app/music-app.qml"
     installed_location = "/usr/share/music-app/music-app.qml"
 
     def get_launcher_method_and_type(self):
