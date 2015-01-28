@@ -92,7 +92,6 @@ MusicPage {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-
                     text: i18n.tr("Add to playlist")
                     onTriggered: {
                         var items = []
