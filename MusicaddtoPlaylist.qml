@@ -39,6 +39,7 @@ import "common"
 MusicPage {
     id: addToPlaylistPage
     objectName: "addToPlaylistPage"
+    // TRANSLATORS: this appears in the header with limited space (around 20 characters)
     title: i18n.tr("Select playlist")
     searchable: true
     searchResultsCount: addToPlaylistModelFilter.count

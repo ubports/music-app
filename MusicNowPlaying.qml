@@ -32,10 +32,14 @@ MusicPage {
     id: nowPlaying
     flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
-    title: isListView ? i18n.tr("Queue") : i18n.tr("Now playing")
+    title: isListView ? queueTitle : nowPlayingTitle
     visible: false
 
     property bool isListView: false
+    // TRANSLATORS: this appears in the header with limited space (around 20 characters)
+    property string nowPlayingTitle: i18n.tr("Now playing") 
+    // TRANSLATORS: this appears in the header with limited space (around 20 characters)
+    property string queueTitle: i18n.tr("Queue") 
 
     onIsListViewChanged: {
         if (isListView) {  // When changing to the queue positionAt the currentIndex
@@ -87,6 +91,7 @@ MusicPage {
                 Action {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
+                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Add to playlist")
                     onTriggered: {
                         var items = []
@@ -107,6 +112,7 @@ MusicPage {
                     enabled: trackQueue.model.count > 0
                     iconName: "delete"
                     objectName: "clearQueue"
+                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
                     onTriggered: {
                         pageStack.pop()

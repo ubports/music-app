@@ -60,6 +60,7 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Shuffle")
                     }
                     onClicked: shuffleModel(songArtistModel)
@@ -74,6 +75,7 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Queue all")
                     }
                     onClicked: addQueueFromModel(songArtistModel)
@@ -82,6 +84,7 @@ MusicPage {
                     id: playRow
                     color: UbuntuColors.green
                     height: units.gu(4)
+                    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
                     onClicked: trackClicked(songArtistModel, 0, true)
