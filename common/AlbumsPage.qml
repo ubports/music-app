@@ -55,7 +55,6 @@ MusicPage {
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
                     width: units.gu(15)
-
                     Text {
                         anchors {
                             centerIn: parent
