@@ -13,10 +13,10 @@ set(APP_NAME music)
 set(DESKTOP_FILE "${PROJECT_NAME}_${APP_NAME}.desktop")
 set(URLS_FILE "${PROJECT_NAME}_${APP_NAME}.url-dispatcher")
 set(APP_HARDCODE music-app)
-set(MAIN_QML music-app.qml)
-set(ICON_FILE images/music-app@30.png)
+set(MAIN_QML app/music-app.qml)
+set(ICON_FILE app/images/music-app@30.png)
 set(AUTOPILOT_DIR music_app)
-set(UBUNTU_MANIFEST_PATH "click/manifest.json.in" CACHE INTERNAL "Tell QtCreator location and name of the manifest file")
+set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tell QtCreator location and name of the manifest file")
 
 if(CLICK_MODE)
     if(NOT DEFINED BZR_SOURCE)
@@ -30,6 +30,14 @@ if(CLICK_MODE)
     set(EXEC "qmlscene -qt5 ${MAIN_QML} --url=%u -I ./plugins")
     set(DESKTOP_DIR ${DATA_DIR})
     set(URLS_DIR ${DATA_DIR})
+    
+    if(NOT BZR_REVNO)
+        set(BZR_REVNO "latest")
+    endif(NOT BZR_REVNO)
+    
+    configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json apparmor.json
+            music-app-content.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 else(CLICK_MODE)
     set(DATA_DIR ${CMAKE_INSTALL_DATADIR}/${APP_HARDCODE})
     set(EXEC ${APP_HARDCODE})
@@ -53,7 +61,7 @@ message("Found ${I18N_SRC_FILES}")
 file(GLOB SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
      *.qml *.js *.png *.js *.json)
-install(DIRECTORY common images DESTINATION ${DATA_DIR})
+install(DIRECTORY app DESTINATION ${DATA_DIR})
 install(FILES ${SRC_FILES} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in)
@@ -71,9 +79,7 @@ install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 # Tests
 enable_testing()
 
-add_subdirectory(click)
-add_subdirectory(common)
-add_subdirectory(images)
+add_subdirectory(app)
 add_subdirectory(po)
 add_subdirectory(tests)
 
