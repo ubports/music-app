@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-01-24 09:13+0000\n"
+"PO-Revision-Date: 2015-01-29 21:41+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:05+0000\n"
+"X-Launchpad-Export-Date: 2015-01-30 07:30+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -248,7 +248,7 @@ msgstr "Új zenék letöltése"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr "Importálja közvetlen a böngészés közben megvásárolt zenéit."
+msgstr "Böngészés közben vásárolt zenéit közvetlenül importálhatja."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
