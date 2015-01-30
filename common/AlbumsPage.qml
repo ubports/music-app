@@ -60,8 +60,13 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        elide: Text.ElideRight
+                        height: parent.height
+                        horizontalAlignment: Text.AlignHCenter
                         // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Shuffle")
+                        verticalAlignment: Text.AlignVCenter
+                        width: parent.width - units.gu(2)
                     }
                     onClicked: shuffleModel(songArtistModel)
                 }
@@ -75,8 +80,13 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        elide: Text.ElideRight
+                        height: parent.height
+                        horizontalAlignment: Text.AlignHCenter
                         // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Queue all")
+                        verticalAlignment: Text.AlignVCenter
+                        width: parent.width - units.gu(2)
                     }
                     onClicked: addQueueFromModel(songArtistModel)
                 }
