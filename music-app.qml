@@ -654,6 +654,9 @@ MainView {
     }
 
     function trackClicked(model, index, play, clear) {
+        // Stop queue loading in the background
+        queueLoaderWorker.canLoad = false
+
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;

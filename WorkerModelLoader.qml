@@ -37,10 +37,6 @@ WorkerScript {
          if (canLoad && list !== undefined && !completed) {
              process();
          }
-
-         if (!canLoad && i !== 0) {  // sync any pending changes when canLoad changes
-             sync()
-         }
      }
 
      onListChanged: {
