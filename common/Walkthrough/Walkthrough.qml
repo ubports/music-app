@@ -81,8 +81,9 @@ Page {
         color: "white"
         fontSize: "medium"
         objectName: "skipLabel"
-        width: contentWidth
         text: i18n.tr("Skip")
+        visible: listView.currentIndex !== 2
+        width: contentWidth
 
         anchors {
             bottom: parent.bottom
@@ -97,6 +98,7 @@ Page {
             horizontalCenter: skipLabel.horizontalCenter
         }
         height: units.gu(6)
+        visible: listView.currentIndex !== 2
         width: skipLabel.width + skipLabel.anchors.margins*2
 
         onClicked: walkthrough.finished()
@@ -158,6 +160,7 @@ Page {
             horizontalCenter: nextIcon.horizontalCenter
         }
         height: units.gu(6)
+        visible: listView.currentIndex !== 2
         width: height
 
         onClicked: listView.currentIndex++
