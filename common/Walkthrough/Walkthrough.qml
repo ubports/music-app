@@ -81,18 +81,40 @@ Page {
         color: "white"
         fontSize: "medium"
         objectName: "skipLabel"
-        width: contentWidth
         text: i18n.tr("Skip")
+        visible: listView.currentIndex !== 2
+        width: contentWidth
 
         anchors {
             bottom: parent.bottom
             left: parent.left
             margins: units.gu(2)
         }
+    }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: walkthrough.finished()
+    MouseArea {
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: skipLabel.horizontalCenter
+        }
+        height: units.gu(6)
+        visible: listView.currentIndex !== 2
+        width: skipLabel.width + skipLabel.anchors.margins*2
+
+        onClicked: walkthrough.finished()
+
+        Rectangle {
+            anchors {
+                fill: parent
+            }
+            color: "#FFF"
+            opacity: parent.pressed ? 0.1 : 0
+
+            Behavior on opacity {
+                UbuntuNumberAnimation {
+                    duration: UbuntuAnimation.FastDuration
+                }
+            }
         }
     }
 
@@ -130,10 +152,31 @@ Page {
         name: "chevron"
         visible: listView.currentIndex !== 2
         width: height
+    }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: listView.currentIndex++
+    MouseArea {
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: nextIcon.horizontalCenter
+        }
+        height: units.gu(6)
+        visible: listView.currentIndex !== 2
+        width: height
+
+        onClicked: listView.currentIndex++
+
+        Rectangle {
+            anchors {
+                fill: parent
+            }
+            color: "#FFF"
+            opacity: parent.pressed ? 0.1 : 0
+
+            Behavior on opacity {
+                UbuntuNumberAnimation {
+                    duration: UbuntuAnimation.FastDuration
+                }
+            }
         }
     }
 }
