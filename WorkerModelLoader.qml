@@ -40,7 +40,7 @@ WorkerScript {
          }
 
          if (!canLoad && i !== 0) {  // sync any pending changes when canLoad changes
-            sync()
+             sync()
          }
      }
 
