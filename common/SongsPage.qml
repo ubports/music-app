@@ -191,9 +191,13 @@ MusicPage {
                     iconName: "add"
                     text: i18n.tr("Add to queue")
                     onTriggered: {
+                        var items = []
+
                         for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            trackQueue.append(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
+                            items.push(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData));
                         }
+
+                        trackQueue.appendList(items)
 
                         albumtrackslist.closeSelection()
                     }
@@ -279,7 +283,7 @@ MusicPage {
         }
         onVisibleChanged: {
             if (!visible) {
-                clearSelection(true)
+                closeSelection()
             }
         }
 
@@ -304,7 +308,13 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        elide: Text.ElideRight
+                        height: parent.height
+                        horizontalAlignment: Text.AlignHCenter
+                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Shuffle")
+                        verticalAlignment: Text.AlignVCenter
+                        width: parent.width - units.gu(2)
                     }
                     onClicked: {
                         shuffleModel(albumtrackslist.model)  // play track
@@ -330,7 +340,13 @@ MusicPage {
                             centerIn: parent
                         }
                         color: "white"
+                        elide: Text.ElideRight
+                        height: parent.height
+                        horizontalAlignment: Text.AlignHCenter
+                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                         text: i18n.tr("Queue all")
+                        verticalAlignment: Text.AlignVCenter
+                        width: parent.width - units.gu(2)
                     }
                     onClicked: addQueueFromModel(albumtrackslist.model)
                 }
@@ -338,6 +354,7 @@ MusicPage {
                     id: playRow
                     color: UbuntuColors.green
                     height: units.gu(4)
+                    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                     text: i18n.tr("Play all")
                     width: units.gu(15)
                     onClicked: {

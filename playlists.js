@@ -173,6 +173,24 @@ function addToPlaylist(playlist, model, tx) {
     return rs
 }
 
+// Method to add multiple tracks to a playlist in 1 transaction
+function addToPlaylistList(playlist, items, tx)
+{
+    if (tx === undefined) {
+        var db = getPlaylistDatabase()
+
+        db.transaction(function (tx) {
+            addToPlaylistList(playlist, items, tx)
+        });
+    }
+    else {
+        for (var i=0; i < items.length; i++) {
+            addToPlaylist(playlist, items[i], tx)
+            console.debug("Debug: " + items[i].filename + " added to " + playlist)
+        }
+    }
+}
+
 function getPlaylists() {
     // returns playlists with count and 4 covers
     var db = getPlaylistDatabase()

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-21 01:16+0000\n"
+"POT-Creation-Date: 2015-01-27 20:23-0600\n"
 "PO-Revision-Date: 2015-01-12 07:46+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,25 +15,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-22 08:56+0000\n"
+"X-Launchpad-Export-Date: 2015-01-29 06:05+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "Albomoù"
 
-#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:148
-#: ../common/AlbumsPage.qml:162 ../common/SongsPage.qml:373
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
+#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
 msgid "Unknown Album"
 msgstr "Albom dianav"
 
 #: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
-#: ../common/AlbumsPage.qml:104 ../common/AlbumsPage.qml:161
-#: ../common/SongsPage.qml:394
+#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
+#: ../common/SongsPage.qml:401
 msgid "Unknown Artist"
 msgstr "Arzour dianav"
 
-#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:160
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
 msgid "Album"
 msgstr "Albom"
 
@@ -49,56 +49,60 @@ msgstr "Arzour"
 msgid "Genres"
 msgstr "Stiloù"
 
-#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:312
-#: ../common/SongsPage.qml:346 ../common/SongsPage.qml:360
-#: ../common/SongsPage.qml:396 ../common/SongsPage.qml:415
-#: ../common/SongsPage.qml:447
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
+#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
+#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
+#: ../common/SongsPage.qml:454
 msgid "Genre"
 msgstr "Stil"
 
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:700
-#: ../music-app.qml:1059 ../music-app.qml:1262 ../music-app.qml:1274
-#: ../music-app.qml:1302
-msgid "Queue"
-msgstr "Lostenn"
-
-#: ../MusicNowPlaying.qml:35 ../music-app.qml:668 ../music-app.qml:1058
-#: ../music-app.qml:1261 ../music-app.qml:1302
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
+#: ../music-app.qml:1253 ../music-app.qml:1294
 msgid "Now playing"
 msgstr "Lennet bremañ"
 
-#: ../MusicNowPlaying.qml:90 ../MusicNowPlaying.qml:150 ../MusicTracks.qml:74
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
+#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
+#: ../music-app.qml:1294
+msgid "Queue"
+msgstr "Lostenn"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
 #: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
 msgid "Add to playlist"
 msgstr "Ouzhpennañ d'ar roll-tonioù"
 
-#: ../MusicNowPlaying.qml:110
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:117
 msgid "Clear queue"
 msgstr "Goulloiñ al lostenn"
 
-#: ../MusicNowPlaying.qml:128 ../MusicTracks.qml:51
+#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
 msgid "Cancel selection"
 msgstr "Nullañ an diuzadur"
 
-#: ../MusicNowPlaying.qml:137 ../MusicTracks.qml:62
+#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
 #: ../common/SongsPage.qml:157
 msgid "Select All"
 msgstr "Diuzañ pep tra"
 
-#: ../MusicNowPlaying.qml:173 ../common/SongsPage.qml:204
+#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
 msgid "Delete"
 msgstr "Diverkañ"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:115
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
 #: ../common/SongsPage.qml:85
 msgid "Playlists"
 msgstr "Rolloù-tonioù"
 
-#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:105
-#: ../common/SongsPage.qml:416 ../common/SongsPage.qml:417
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
+#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -107,14 +111,14 @@ msgstr[1] "%1 a donioù"
 
 #: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
 #: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
-#: ../common/SongsPage.qml:205 ../common/SongsPage.qml:314
-#: ../common/SongsPage.qml:348 ../common/SongsPage.qml:359
-#: ../common/SongsPage.qml:395 ../common/SongsPage.qml:431
-#: ../common/SongsPage.qml:434 ../common/SongsPage.qml:449
+#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
+#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
+#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
+#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
 msgid "Playlist"
 msgstr "Roll tonioù"
 
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:123
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
 #: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr "Nevez zo"
@@ -131,23 +135,27 @@ msgstr "Tonioù"
 msgid "Add to queue"
 msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../MusicaddtoPlaylist.qml:42 ../music-app.qml:1414
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
 msgid "Select playlist"
 msgstr "Diuzañ ur roll-tonioù"
 
-#: ../common/AlbumsPage.qml:63 ../common/SongsPage.qml:307
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
 msgid "Shuffle"
 msgstr "Sonerezh mesk-ha-mesk"
 
-#: ../common/AlbumsPage.qml:77 ../common/SongsPage.qml:333
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
 msgid "Queue all"
 msgstr "Lakaat pep tra el lostenn"
 
-#: ../common/AlbumsPage.qml:85 ../common/SongsPage.qml:341
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
 msgid "Play all"
 msgstr "Lenn pep tra"
 
-#: ../common/AlbumsPage.qml:123
+#: ../common/AlbumsPage.qml:127
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -158,7 +166,7 @@ msgstr[1] "%1 albom"
 msgid "Add to Queue"
 msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:586
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
 msgid "Remove"
 msgstr "Dilemel"
 
@@ -175,73 +183,73 @@ msgid "Search music"
 msgstr "Klask sonerezh"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:521
+#: ../common/SongsPage.qml:528
 msgid "Rename playlist"
 msgstr ""
 
-#: ../common/SongsPage.qml:528 ../music-app.qml:1012
+#: ../common/SongsPage.qml:535 ../music-app.qml:1004
 msgid "Enter playlist name"
 msgstr ""
 
-#: ../common/SongsPage.qml:537
+#: ../common/SongsPage.qml:544
 msgid "Change"
 msgstr "Cheñch"
 
-#: ../common/SongsPage.qml:558 ../music-app.qml:1038
+#: ../common/SongsPage.qml:565 ../music-app.qml:1030
 msgid "Playlist already exists"
 msgstr "Ar roll tonioù zo anezhañ dija"
 
-#: ../common/SongsPage.qml:562 ../music-app.qml:1043
+#: ../common/SongsPage.qml:569 ../music-app.qml:1035
 msgid "Please type in a name."
 msgstr "Skrivit un anv, mar plij."
 
-#: ../common/SongsPage.qml:567 ../common/SongsPage.qml:605
-#: ../music-app.qml:485 ../music-app.qml:1049
+#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
+#: ../music-app.qml:488 ../music-app.qml:1041
 msgid "Cancel"
 msgstr "Nullañ"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:580
+#: ../common/SongsPage.qml:587
 msgid "Permanently delete playlist?"
 msgstr ""
 
-#: ../common/SongsPage.qml:581
+#: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
 msgstr ""
 
-#: ../common/Walkthrough/Slide1.qml:56
+#: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide1.qml:68
+#: ../common/Walkthrough/Slide1.qml:70
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
 
-#: ../common/Walkthrough/Slide2.qml:51
+#: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide2.qml:62 ../music-app.qml:1399
+#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
 
-#: ../common/Walkthrough/Slide3.qml:51
+#: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
 msgstr ""
 
-#: ../common/Walkthrough/Slide3.qml:62
+#: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
 msgstr ""
 
-#: ../common/Walkthrough/Slide3.qml:76
+#: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
 msgstr ""
 
-#: ../common/Walkthrough/Walkthrough.qml:82
+#: ../common/Walkthrough/Walkthrough.qml:85
 msgid "Skip"
 msgstr ""
 
@@ -294,71 +302,71 @@ msgid "Stop Playback"
 msgstr "Paouez da lenn"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:328
+#: ../music-app.qml:331
 msgid "Filepath must start with"
 msgstr "Ret eo da hent ar restr kregiñ gant"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:354
+#: ../music-app.qml:357
 msgid "Filepath must be a file"
 msgstr "Hent ar restroù a rank bezañ ur restr"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:360
+#: ../music-app.qml:363
 msgid "Failed to move file"
 msgstr "N'eus ket bet gallet dilec'hiañ ar restr"
 
-#: ../music-app.qml:439
+#: ../music-app.qml:442
 msgid "Waiting for file(s)..."
 msgstr "O c'hortoz ur restr pe restroù..."
 
-#: ../music-app.qml:458
+#: ../music-app.qml:461
 msgid "OK"
 msgstr "Mat eo"
 
-#: ../music-app.qml:471
+#: ../music-app.qml:474
 msgid "Imported file not found"
 msgstr "N'eo ket bet kavet ar restr enporzhiet"
 
-#: ../music-app.qml:475
+#: ../music-app.qml:478
 msgid "Wait"
 msgstr "Gortoz"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:496
+#: ../music-app.qml:499
 msgid "songs played today"
 msgstr "tonioù bet lennet hiziv"
 
-#: ../music-app.qml:497
+#: ../music-app.qml:500
 msgid "No songs played today"
 msgstr "N'eus bet lennet ton ebet hiziv"
 
-#: ../music-app.qml:590 ../music-app.qml:1298
+#: ../music-app.qml:593 ../music-app.qml:1290
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Sonerezh"
 
-#: ../music-app.qml:609
+#: ../music-app.qml:612
 msgid "Debug: "
 msgstr "Dizreinañ : "
 
-#: ../music-app.qml:1008
+#: ../music-app.qml:1000
 msgid "New playlist"
 msgstr "Roll-tonioù nevez"
 
-#: ../music-app.qml:1022
+#: ../music-app.qml:1014
 msgid "Create"
 msgstr "Krouiñ"
 
-#: ../music-app.qml:1388
+#: ../music-app.qml:1380
 msgid "No music found"
 msgstr "N'eus ket bet kavet sonerezh"
 
-#: ../music-app.qml:1427
+#: ../music-app.qml:1419
 msgid "No playlists found"
 msgstr "N'eus bet kavet roll-tonioù ebet"
 
-#: ../music-app.qml:1438
+#: ../music-app.qml:1430
 #, qt-format
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "

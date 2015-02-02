@@ -199,6 +199,9 @@ MainView {
         }
 
         function processFile(uri, play) {
+            // Stop queue loading in the background
+            queueLoaderWorker.canLoad = false
+
             uri = decodeURIComponent(uri);
 
             // Lookup track in songs model
@@ -621,12 +624,10 @@ MainView {
 
         for (var i=0; i < model.rowCount; i++) {
             items.push(model.get(i, model.RoleModelData))
-
-            trackQueue.model.append(items[i]);
         }
 
         // Add model to queue storage
-        Library.addQueueList(items);
+        trackQueue.appendList(items)
     }
 
     // Converts an duration in ms to a formated string ("minutes:seconds")
@@ -883,33 +884,21 @@ MainView {
             Library.addQueueItem(listElement.filename)
         }
 
-        function clear()
+        function appendList(items)
         {
-            model.clear()
-            Library.clearQueue()
+            for (var i=0; i < items.length; i++) {
+                model.append(makeDict(items[i]))
+            }
 
-            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
+            Library.addQueueList(items)
         }
 
-        function removeQueue(index)
+        function clear()
         {
-            var removedIndex = index
+            Library.clearQueue()
+            model.clear()
 
-            if (trackQueue.model.count === 1) {
-                player.stop()
-                mainPageStack.goBack()
-            } else if (index === player.currentIndex) {
-                player.nextSong(player.isPlaying);
-            }
-
-            trackQueue.model.remove(index);
-            Library.removeQueueItem(removedIndex);
-
-            if (removedIndex < player.currentIndex) {
-                // update index as the old has been removed
-                player.currentIndex -= 1;
-                queueIndex -= 1;
-            }
+            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
         }
 
         // Optimised removeQueue for removing multiple tracks from the queue
