@@ -574,6 +574,7 @@ MainView {
         tabs.ensurePopulated(tabs.selectedTab);
 
         // Display walkthrough on first run, even if the user has music
+        firstRun = true
         if (firstRun) {
             var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
             var walkthrough = comp.createObject(mainPageStack, {});
