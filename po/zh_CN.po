@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2014-12-17 17:57+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-02-02 06:29+0000\n"
+"Last-Translator: Luo Lei <luolei@ubuntukylin.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:06+0000\n"
+"X-Launchpad-Export-Date: 2015-02-02 06:58+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: ../MusicAlbums.qml:29
@@ -35,7 +35,7 @@ msgstr "未知表演者"
 
 #: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
 msgid "Album"
-msgstr ""
+msgstr "专辑"
 
 #: ../MusicArtists.qml:35
 msgid "Artists"
@@ -43,7 +43,7 @@ msgstr "表演者"
 
 #: ../MusicArtists.qml:107
 msgid "Artist"
-msgstr ""
+msgstr "歌手"
 
 #: ../MusicGenres.qml:29
 msgid "Genres"
@@ -54,20 +54,20 @@ msgstr "类型"
 #: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
 #: ../common/SongsPage.qml:454
 msgid "Genre"
-msgstr ""
+msgstr "流派"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
 #: ../music-app.qml:1253 ../music-app.qml:1294
 msgid "Now playing"
-msgstr ""
+msgstr "正在播放"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
 #: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
 #: ../music-app.qml:1294
 msgid "Queue"
-msgstr ""
+msgstr "队列"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
@@ -78,17 +78,17 @@ msgstr "添加到播放列表"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:117
 msgid "Clear queue"
-msgstr ""
+msgstr "清空队列"
 
 #: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
 msgid "Cancel selection"
-msgstr ""
+msgstr "取消选择"
 
 #: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
 #: ../common/SongsPage.qml:157
 msgid "Select All"
-msgstr ""
+msgstr "全选"
 
 #: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
 msgid "Delete"
@@ -115,7 +115,7 @@ msgstr[0] "%1 首歌曲"
 #: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
 #: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
 msgid "Playlist"
-msgstr ""
+msgstr "播放列表"
 
 #: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
 #: ../common/SongsPage.qml:95
@@ -124,7 +124,7 @@ msgstr "最近使用过的"
 
 #: ../MusicToolbar.qml:155
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "随机播放"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
@@ -142,12 +142,12 @@ msgstr "选择播放列表"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
 msgid "Shuffle"
-msgstr ""
+msgstr "随机"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
 msgid "Queue all"
-msgstr ""
+msgstr "全部加入队列"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
@@ -162,7 +162,7 @@ msgstr[0] "%1 个专辑"
 
 #: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
-msgstr ""
+msgstr "添加到播放队列"
 
 #: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
 msgid "Remove"
@@ -174,20 +174,20 @@ msgstr "读取中..."
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "未找到项目"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "搜索音乐"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:528
 msgid "Rename playlist"
-msgstr ""
+msgstr "重命名播放列表"
 
 #: ../common/SongsPage.qml:535 ../music-app.qml:1004
 msgid "Enter playlist name"
-msgstr ""
+msgstr "输入播放列表名称"
 
 #: ../common/SongsPage.qml:544
 msgid "Change"
@@ -195,11 +195,11 @@ msgstr "更改"
 
 #: ../common/SongsPage.qml:565 ../music-app.qml:1030
 msgid "Playlist already exists"
-msgstr ""
+msgstr "播放列表已经存在"
 
 #: ../common/SongsPage.qml:569 ../music-app.qml:1035
 msgid "Please type in a name."
-msgstr ""
+msgstr "请输入一个名称。"
 
 #: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
 #: ../music-app.qml:488 ../music-app.qml:1041
@@ -209,47 +209,47 @@ msgstr "取消"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:587
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "永久删除播放列表？"
 
 #: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
-msgstr ""
+msgstr "此操作无法撤消"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr ""
+msgstr "欢迎来到音乐世界"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
-msgstr ""
+msgstr "使用 Ubuntu 的音乐应用享受您最喜爱的音乐。您可以花几分钟了解本应用或点击“跳过”开始欣赏音乐。"
 
 #: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
-msgstr ""
+msgstr "导入音乐"
 
 #: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
-msgstr ""
+msgstr "将设备连接到任何一台电脑，将文件拖动到音乐文件夹或插入移动音乐媒体。"
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
-msgstr ""
+msgstr "下载新的音乐"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "直接导入在线购买的音乐。"
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
-msgstr ""
+msgstr "开始"
 
 #: ../common/Walkthrough/Walkthrough.qml:85
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -302,33 +302,33 @@ msgstr "停止播放"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:331
 msgid "Filepath must start with"
-msgstr ""
+msgstr "文件必须包含着在以下路径"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:357
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "路径必须指向一个文件"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../music-app.qml:363
 msgid "Failed to move file"
-msgstr ""
+msgstr "移动文件失败"
 
 #: ../music-app.qml:442
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "等待文件..."
 
 #: ../music-app.qml:461
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../music-app.qml:474
 msgid "Imported file not found"
-msgstr ""
+msgstr "没有找到导入的文件"
 
 #: ../music-app.qml:478
 msgid "Wait"
-msgstr ""
+msgstr "等待"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:499
@@ -358,18 +358,18 @@ msgstr "创建"
 
 #: ../music-app.qml:1380
 msgid "No music found"
-msgstr ""
+msgstr "没有找到音乐"
 
 #: ../music-app.qml:1419
 msgid "No playlists found"
-msgstr ""
+msgstr "没有找到播放列表"
 
 #: ../music-app.qml:1430
 #, qt-format
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
-msgstr ""
+msgstr "通过点击%1图标开始制作播放列表以享受更加完美的音乐。"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
