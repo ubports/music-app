@@ -53,7 +53,6 @@ Component {
             }
             elide: Text.ElideRight
             fontSize: "x-large"
-            height: contentHeight
             horizontalAlignment: Text.AlignHLeft
             maximumLineCount: 2
             text: i18n.tr("Welcome to Music")
