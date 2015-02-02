@@ -47,10 +47,13 @@ Component {
                 bottom: bodyText.top
                 bottomMargin: units.gu(4)
             }
+            elide: Text.ElideRight
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
+            maximumLineCount: 2
             text: i18n.tr("Import your music")
             width: units.gu(36)
+            wrapMode: Text.WordWrap
         }
 
         Label {
