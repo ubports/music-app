@@ -14,7 +14,7 @@ set(DESKTOP_FILE "${PROJECT_NAME}_${APP_NAME}.desktop")
 set(URLS_FILE "${PROJECT_NAME}_${APP_NAME}.url-dispatcher")
 set(APP_HARDCODE music-app)
 set(MAIN_QML app/music-app.qml)
-set(ICON_FILE app/images/music-app@30.png)
+set(ICON_FILE app/graphics/music-app@30.png)
 set(AUTOPILOT_DIR music_app)
 set(UBUNTU_MANIFEST_PATH "manifest.json.in" CACHE INTERNAL "Tell QtCreator location and name of the manifest file")
 
