@@ -21,7 +21,7 @@ import QtQuick 2.3
 
 WorkerScript {
      id: worker
-     source: "worker-library-loader.js"
+     source: "../logic/worker-library-loader.js"
 
      property bool canLoad: true
      property bool completed: false

@@ -22,11 +22,11 @@ import QtQuick 2.3
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
-import "common"
-import "common/ListItemActions"
-import "common/Themes/Ambiance"
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
+import "components"
+import "components/ListItemActions"
+import "components/Themes/Ambiance"
+import "logic/meta-database.js" as Library
+import "logic/playlists.js" as Playlists
 
 MusicPage {
     id: nowPlaying

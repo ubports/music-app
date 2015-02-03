@@ -22,7 +22,6 @@ import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
-import "common"
 
 Item {
     anchors {

@@ -24,8 +24,8 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
-import "../meta-database.js" as Library
-import "../playlists.js" as Playlists
+import "../logic/meta-database.js" as Library
+import "../logic/playlists.js" as Playlists
 import "ListItemActions"
 
 MusicPage {

@@ -23,8 +23,8 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "playlists.js" as Playlists
-import "common"
+import "logic/playlists.js" as Playlists
+import "components"
 
 // page for the playlists
 MusicPage {
@@ -99,7 +99,7 @@ MusicPage {
             onClicked: {
                 albumTracksModel.filterPlaylistTracks(model.name)
 
-                var comp = Qt.createComponent("common/SongsPage.qml")
+                var comp = Qt.createComponent("components/SongsPage.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": undefined,
