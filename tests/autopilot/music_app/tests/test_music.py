@@ -500,7 +500,7 @@ class TestMainWindow(MusicAppTestCase):
         tracks.sort(key=lambda track: track["artist"])
 
         # get albums (by an artist) page
-        albums_page = self.app.get_albums_artist_page()
+        albums_page = self.app.get_artist_albums_page()
 
         # check album artist label is correct
         self.assertThat(albums_page.get_artist(), Equals(tracks[0]["artist"]))

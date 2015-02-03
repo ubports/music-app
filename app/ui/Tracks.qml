@@ -115,6 +115,11 @@ MusicPage {
         }
     ]
 
+    // Hack for autopilot otherwise Albums appears as MusicPage
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
+
     ListView {
         id: tracklist
         anchors {

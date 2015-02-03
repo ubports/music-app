@@ -28,7 +28,7 @@ import "../meta-database.js" as Library
 
 MusicPage {
     id: albumStackPage
-    objectName: "albumsArtistPage"
+    objectName: "artistAlbumsPage"
     visible: false
 
     property string artist: ""

@@ -52,6 +52,11 @@ MusicPage {
         }
     ]
 
+    // Hack for autopilot otherwise Artists appears as MusicPage
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
+
     CardView {
         id: artistCardView
         itemWidth: units.gu(12)

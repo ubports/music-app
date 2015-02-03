@@ -30,7 +30,8 @@ import "../playlists.js" as Playlists
 import "../common"
 
 MusicPage {
-    id: mainpage
+    id: recentPage
+    objectName: "recentPage"
     title: i18n.tr("Recent")
 
     property bool changed: false
@@ -91,7 +92,7 @@ MusicPage {
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
-                                                      "page": mainpage,
+                                                      "page": recentPage,
                                                       "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
                                                       "line1": secondaryText,
                                                       "line2": primaryText,
