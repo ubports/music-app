@@ -23,9 +23,9 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "playlists.js" as Playlists
-import "common"
-import "common/ListItemActions"
+import "../playlists.js" as Playlists
+import "../common"
+import "../common/ListItemActions"
 
 
 MusicPage {
@@ -79,7 +79,7 @@ MusicPage {
                             items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var comp = Qt.createComponent("AddToPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist == null) {  // Error Handling

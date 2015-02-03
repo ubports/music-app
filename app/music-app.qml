@@ -31,6 +31,7 @@ import UserMetrics 0.1
 import "meta-database.js" as Library
 import "playlists.js" as Playlists
 import "common"
+import "ui"
 
 MainView {
     objectName: "music"
@@ -808,10 +809,10 @@ MainView {
 
                 // TODO: improve in refactoring to be able detect when a track is removed
                 // Update playlists page
-                if (musicPlaylistPage.visible) {
+                if (musicPlaylistsPage.visible) {
                     playlistModel.filterPlaylists()
                 } else {
-                    musicPlaylistPage.changed = true
+                    musicPlaylistsPage.changed = true
                 }
             }
         }
@@ -847,10 +848,10 @@ MainView {
                 console.debug("Removed recent:", JSON.stringify(removed))
                 Library.recentRemoveAlbums(removed)
 
-                if (musicStartPage.visible) {
+                if (musicRecentPage.visible) {
                     recentModel.filterRecent()
                 } else {
-                    musicStartPage.changed = true
+                    musicRecentPage.changed = true
                 }
             }
         }
@@ -1132,8 +1133,8 @@ MainView {
                         title: page.title
 
                         // Tab content begins here
-                        page: MusicStart {
-                            id: musicStartPage
+                        page: Recent {
+                            id: musicRecentPage
                         }
                     }
                 }
@@ -1179,7 +1180,7 @@ MainView {
                 title: page.title
 
                 // tab content
-                page: MusicArtists {
+                page: Artists {
                     id: musicArtistsPage
                 }
             }
@@ -1196,7 +1197,7 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicAlbums {
+                page: Albums {
                     id: musicAlbumsPage
                 }
             }
@@ -1213,7 +1214,7 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicGenres {
+                page: Genres {
                     id: musicGenresPage
                 }
             }
@@ -1230,7 +1231,7 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicTracks {
+                page: Tracks {
                     id: musicTracksPage
                 }
             }
@@ -1248,8 +1249,8 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicPlaylists {
-                    id: musicPlaylistPage
+                page: Playlists {
+                    id: musicPlaylistsPage
                 }
             }
 
@@ -1290,7 +1291,7 @@ MainView {
                 if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
                         && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
 
-                    var comp = Qt.createComponent("MusicNowPlaying.qml")
+                    var comp = Qt.createComponent("ui/NowPlaying.qml")
                     var nowPlaying = comp.createObject(mainPageStack, {});
 
                     if (nowPlaying == null) {  // Error Handling
@@ -1373,7 +1374,7 @@ MainView {
                             fillMode: Image.PreserveAspectFit
                             height: units.gu(10)
                             smooth: true
-                            source: "images/music_empty_download.png"
+                            source: "graphics/music_empty_download.png"
                         }
                     }
 
@@ -1391,7 +1392,7 @@ MainView {
                             fillMode: Image.PreserveAspectFit
                             height: units.gu(6)
                             smooth: true
-                            source: "images/div.png"
+                            source: "graphics/div.png"
                         }
                     }
 
@@ -1404,7 +1405,7 @@ MainView {
                         fillMode: Image.PreserveAspectFit
                         height: units.gu(7)
                         smooth: true
-                        source: "images/music_empty_SD.png"
+                        source: "graphics/music_empty_SD.png"
                     }
                 }
 

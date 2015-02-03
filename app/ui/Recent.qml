@@ -25,9 +25,9 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
-import "common"
+import "../meta-database.js" as Library
+import "../playlists.js" as Playlists
+import "../common"
 
 MusicPage {
     id: mainpage
@@ -83,7 +83,7 @@ MusicPage {
                     albumTracksModel.filterPlaylistTracks(model.data)
                 }
 
-                var comp = Qt.createComponent("common/SongsPage.qml")
+                var comp = Qt.createComponent("Songs.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.type !== "playlist" ? model.data : undefined,

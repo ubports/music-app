@@ -20,7 +20,7 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
-import "common"
+import "../common"
 
 
 MusicPage {
@@ -98,7 +98,7 @@ MusicPage {
             }
 
             onClicked: {
-                var comp = Qt.createComponent("common/SongsPage.qml")
+                var comp = Qt.createComponent("Songs.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "covers": genreCard.coverSources,

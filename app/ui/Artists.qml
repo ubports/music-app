@@ -24,9 +24,9 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
-import "common"
+import "../meta-database.js" as Library
+import "../playlists.js" as Playlists
+import "../common"
 
 
 MusicPage {
@@ -99,7 +99,7 @@ MusicPage {
 
 
             onClicked: {
-                var comp = Qt.createComponent("common/AlbumsPage.qml")
+                var comp = Qt.createComponent("ArtistAlbums.qml")
                 var albumsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "artist": model.artist,

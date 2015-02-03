@@ -22,11 +22,11 @@ import QtQuick 2.3
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
-import "common"
-import "common/ListItemActions"
-import "common/Themes/Ambiance"
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
+import "../common"
+import "../common/ListItemActions"
+import "../common/Themes/Ambiance"
+import "../meta-database.js" as Library
+import "../playlists.js" as Playlists
 
 MusicPage {
     id: nowPlaying
@@ -98,7 +98,7 @@ MusicPage {
 
                         items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
-                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var comp = Qt.createComponent("AddToPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist == null) {  // Error Handling
@@ -161,7 +161,7 @@ MusicPage {
                             items.push(makeDict(trackQueue.model.get(queueListLoader.item.selectedItems[i])));
                         }
 
-                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var comp = Qt.createComponent("AddToPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist == null) {  // Error Handling

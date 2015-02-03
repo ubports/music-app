@@ -162,7 +162,7 @@ MusicPage {
             secondaryTextVisible: false
 
             onClicked: {
-                var comp = Qt.createComponent("SongsPage.qml")
+                var comp = Qt.createComponent("Songs.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.title,
