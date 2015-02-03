@@ -169,7 +169,7 @@ class Albums(MusicPage):
 class Artists(MusicPage):
     """ Autopilot helper for the artists page """
     def __init__(self, *args):
-        super(Albums, self).__init__(*args)
+        super(Artists, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -194,7 +194,7 @@ class Tracks(MusicPage):
 class Playlists(MusicPage):
     """ Autopilot helper for the playlists page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
+        super(Playlists, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -206,7 +206,7 @@ class Playlists(MusicPage):
 class AddToPlaylist(MusicPage):
     """ Autopilot helper for add to playlist page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
+        super(AddToPlaylist, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -233,7 +233,7 @@ class Player(UbuntuUIToolkitCustomProxyObjectBase):
 class NowPlaying(MusicPage):
     """ Autopilot helper for now playing page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
+        super(NowPlaying, self).__init__(*args)
 
         root = self.get_root_instance()
         self.player = root.select_single(Player, objectName="player")
@@ -301,7 +301,7 @@ class NowPlaying(MusicPage):
 class ArtistAlbums(MusicPage):
     """ Autopilot helper for the albums page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
+        super(ArtistAlbums, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -318,7 +318,7 @@ class ArtistAlbums(MusicPage):
 class Songs(MusicPage):
     """ Autopilot helper for the songs page """
     def __init__(self, *args):
-        super(MusicPage, self).__init__(*args)
+        super(Songs, self).__init__(*args)
 
         self.visible.wait_for(True)
 

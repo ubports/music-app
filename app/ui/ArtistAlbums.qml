@@ -25,6 +25,7 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
+import "../common"
 
 MusicPage {
     id: albumStackPage
