@@ -23,22 +23,26 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 
-// Walkthrough - Slide 2
+// Slide 1
 Component {
-    id: slide2
-    Item {
-        id: slide2Container
+    id: slide1
 
-        Image {
-            id: centerImage
+    Item {
+        id: slide1Container
+
+        UbuntuShape {
             anchors {
                 top: parent.top
                 topMargin: units.gu(6)
                 horizontalCenter: parent.horizontalCenter
             }
             height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
-            fillMode: Image.PreserveAspectFit
-            source: Qt.resolvedUrl("../../images/sd_phone_icon.png")
+            image: Image {
+                id: centerImage
+                source: Qt.resolvedUrl("../../images/music-app@30.png")
+            }
+            radius: "medium"
+            width: height
         }
 
         Label {
@@ -47,10 +51,13 @@ Component {
                 bottom: bodyText.top
                 bottomMargin: units.gu(4)
             }
+            elide: Text.ElideRight
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Import your music")
+            maximumLineCount: 2
+            text: i18n.tr("Welcome to Music")
             width: units.gu(36)
+            wrapMode: Text.WordWrap
         }
 
         Label {
@@ -60,8 +67,9 @@ Component {
                 bottomMargin: units.gu(10)
             }
             fontSize: "large"
+            height: contentHeight
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
+            text: i18n.tr("Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how to get started or press skip to start listening now.")
             width: units.gu(36)
             wrapMode: Text.WordWrap
         }

@@ -23,62 +23,50 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 
-// Walkthrough - Slide 7
+// Walkthrough - Slide 2
 Component {
-    id: slide7
+    id: slide2
     Item {
-        id: slide7Container
+        id: slide2Container
 
         Image {
-            id: smileImage
+            id: centerImage
             anchors {
                 top: parent.top
-                topMargin: units.gu(4)
+                topMargin: units.gu(6)
                 horizontalCenter: parent.horizontalCenter
             }
-            height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*units.gu(4))/2
+            height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
             fillMode: Image.PreserveAspectFit
-            source: Qt.resolvedUrl("../../images/music_download_icon.png")
+            source: Qt.resolvedUrl("../../images/sd_phone_icon.png")
         }
 
         Label {
             id: introductionText
             anchors {
-                bottom: finalMessage.top
+                bottom: bodyText.top
                 bottomMargin: units.gu(4)
             }
+            elide: Text.ElideRight
             fontSize: "x-large"
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Download new music")
-            width: units.gu(36)
-        }
-
-        Label {
-            id: finalMessage
-            anchors {
-                bottom: continueButton.top
-                bottomMargin: units.gu(7)
-            }
-            fontSize: "large"
-            horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Directly import music bought while browsing online.")
+            maximumLineCount: 2
+            text: i18n.tr("Import your music")
             width: units.gu(36)
             wrapMode: Text.WordWrap
         }
 
-        Button {
-            id: continueButton
+        Label {
+            id: bodyText
             anchors {
                 bottom: parent.bottom
-                bottomMargin: units.gu(3)
-                horizontalCenter: parent.horizontalCenter
+                bottomMargin: units.gu(10)
             }
-            color: UbuntuColors.green
-            height: units.gu(5)
-            text: i18n.tr("Start")
-            width: units.gu(18)
-
-            onClicked: finished()
+            fontSize: "large"
+            horizontalAlignment: Text.AlignHLeft
+            text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
+            width: units.gu(36)
+            wrapMode: Text.WordWrap
         }
     }
 }

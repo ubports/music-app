@@ -23,53 +23,65 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 
-// Slide 1
+// Walkthrough - Slide 7
 Component {
-    id: slide1
-
+    id: slide7
     Item {
-        id: slide1Container
+        id: slide7Container
 
-        UbuntuShape {
+        Image {
+            id: smileImage
             anchors {
                 top: parent.top
-                topMargin: units.gu(6)
+                topMargin: units.gu(4)
                 horizontalCenter: parent.horizontalCenter
             }
-            height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
-            image: Image {
-                id: centerImage
-                source: Qt.resolvedUrl("../../images/music-app@30.png")
-            }
-            radius: "medium"
-            width: height
+            height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*units.gu(4))/2
+            fillMode: Image.PreserveAspectFit
+            source: Qt.resolvedUrl("../../images/music_download_icon.png")
         }
 
         Label {
             id: introductionText
             anchors {
-                bottom: bodyText.top
+                bottom: finalMessage.top
                 bottomMargin: units.gu(4)
             }
+            elide: Text.ElideRight
             fontSize: "x-large"
-            height: contentHeight
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Welcome to Music")
+            maximumLineCount: 2
+            text: i18n.tr("Download new music")
             width: units.gu(36)
+            wrapMode: Text.WordWrap
         }
 
         Label {
-            id: bodyText
+            id: finalMessage
             anchors {
-                bottom: parent.bottom
-                bottomMargin: units.gu(10)
+                bottom: continueButton.top
+                bottomMargin: units.gu(7)
             }
             fontSize: "large"
-            height: contentHeight
             horizontalAlignment: Text.AlignHLeft
-            text: i18n.tr("Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how to get started or press skip to start listening now.")
+            text: i18n.tr("Directly import music bought while browsing online.")
             width: units.gu(36)
             wrapMode: Text.WordWrap
+        }
+
+        Button {
+            id: continueButton
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: units.gu(3)
+                horizontalCenter: parent.horizontalCenter
+            }
+            color: UbuntuColors.green
+            height: units.gu(5)
+            text: i18n.tr("Start")
+            width: units.gu(18)
+
+            onClicked: finished()
         }
     }
 }

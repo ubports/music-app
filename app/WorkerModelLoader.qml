@@ -29,6 +29,7 @@ WorkerScript {
      property var list
      property var model
      property bool preLoadComplete: false
+     property int processing: 0
      property int syncFactor: 5
 
      onCanLoadChanged: {
@@ -54,6 +55,8 @@ WorkerScript {
                  completed = true
              }
 
+             processing--;
+
              return;  // do not continue from a sync 'pong' only from a process/clear
          }
 
@@ -72,10 +75,13 @@ WorkerScript {
          if (i === 1) {  // sync after the first item to prevent empty states
              sync()
          }
+
+         processing--;  // minus at end to cause count to go 1->2->1 not 1->0->1
      }
 
      function clear() {
          if (list !== undefined) {
+             processing++
              sendMessage({'clear': true, 'model': model})
          }
      }
@@ -85,6 +91,7 @@ WorkerScript {
      {
          if (i < list.length) {
              console.log(JSON.stringify(list[i]));
+             processing++;
              sendMessage({'add': list[i], 'model': model});
              i++;
          } else {
@@ -100,6 +107,7 @@ WorkerScript {
 
      function sync()
      {
+         processing++;
          sendMessage({'sync': true, 'model': model});
      }
 }
