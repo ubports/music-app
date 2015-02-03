@@ -202,6 +202,11 @@ MainView {
             // Stop queue loading in the background
             queueLoaderWorker.canLoad = false
 
+            if (queueLoaderWorker.processing > 0) {
+                waitForWorker.workerStop(queueLoaderWorker, processFile, [uri, play])
+                return;
+            }
+
             uri = decodeURIComponent(uri);
 
             // Lookup track in songs model
@@ -541,6 +546,33 @@ MainView {
         }
     }
 
+    // A timer to wait for a worker to stop
+    Timer {
+        id: waitForWorker
+        interval: 16
+        repeat: true
+
+        property var func
+        property var params  // don't use args/arguments as they are already defined/internal
+        property WorkerScript worker
+
+        onTriggered: {
+            if (worker.processing === 0) {
+                stop()
+                func.apply(this, params)
+            }
+        }
+
+        // Waits until the worker has stopped and then calls the func(*params)
+        function workerStop(worker, func, params)
+        {
+            waitForWorker.func = func
+            waitForWorker.params = params
+            waitForWorker.worker = worker
+            start()
+        }
+    }
+
     // Run on startup
     Component.onCompleted: {
         customdebug("Version "+appVersion) // print the curren version
@@ -654,6 +686,14 @@ MainView {
     }
 
     function trackClicked(model, index, play, clear) {
+        // Stop queue loading in the background
+        queueLoaderWorker.canLoad = false
+
+        if (queueLoaderWorker.processing > 0) {
+            waitForWorker.workerStop(queueLoaderWorker, trackClicked, [model, index, play, clear])
+            return;
+        }
+
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;
