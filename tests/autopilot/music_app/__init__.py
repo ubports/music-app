@@ -352,7 +352,7 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         self.click_jump_to_now_playing()
 
         root = self.get_root_instance()
-        now_playing_page = root.wait_select_single(MusicNowPlaying,
+        now_playing_page = root.wait_select_single(NowPlaying,
                                                    objectName="nowPlayingPage")
 
         now_playing_page.visible.wait_for(True)
