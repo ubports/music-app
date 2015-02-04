@@ -47,7 +47,7 @@ MusicPage {
                     iconName: "add"
                     onTriggered: {
                         customdebug("New playlist.")
-                        PopupUtils.open(newPlaylistDialog, mainView)
+                        PopupUtils.open(Qt.resolvedUrl("../components/Dialogs/NewPlaylistDialog.qml"), mainView)
                     }
                 },
                 Action {

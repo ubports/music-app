@@ -1,3 +1,4 @@
+add_subdirectory(Dialogs)
 add_subdirectory(ListItemActions)
 add_subdirectory(Walkthrough)
 
