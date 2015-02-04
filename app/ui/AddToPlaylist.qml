@@ -129,7 +129,7 @@ MusicPage {
                     page.covers = Playlists.getPlaylistCovers(name)
                 }
 
-                musicToolbar.goBack();  // go back to the previous page
+                mainPageStack.goBack();  // go back to the previous page
             }
         }
     }

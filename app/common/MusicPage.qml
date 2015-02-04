@@ -25,7 +25,7 @@ import Ubuntu.Components 1.1
 Page {
     id: thisPage
     anchors {
-        bottomMargin: musicToolbar.visible ? musicToolbar.currentHeight : 0
+        bottomMargin: musicToolbar.visible ? musicToolbar.height : 0
         fill: parent
     }
 
@@ -56,7 +56,7 @@ Page {
 
     onVisibleChanged: {
         if (visible) {
-            musicToolbar.setPage(thisPage);
+            mainPageStack.setPage(thisPage);
         }
     }
 }
