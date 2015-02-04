@@ -1,5 +1,6 @@
-add_subdirectory(common)
+add_subdirectory(components)
 add_subdirectory(graphics)
+add_subdirectory(logic)
 add_subdirectory(ui)
 
 # make the qml files visible on qtcreator

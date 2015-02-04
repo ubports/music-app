@@ -19,8 +19,8 @@
 
 import QtQuick 2.3
 import QtQuick.LocalStorage 2.0
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
+import "../logic/meta-database.js" as Library
+import "../logic/playlists.js" as Playlists
 
 Item {
     id: libraryListModelItem

@@ -28,9 +28,9 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
 import UserMetrics 0.1
-import "meta-database.js" as Library
-import "playlists.js" as Playlists
-import "common"
+import "logic/meta-database.js" as Library
+import "logic/playlists.js" as Playlists
+import "components"
 import "ui"
 
 MainView {
@@ -608,7 +608,7 @@ MainView {
 
         // Display walkthrough on first run, even if the user has music
         if (firstRun) {
-            var comp = Qt.createComponent("common/Walkthrough/FirstRunWalkthrough.qml")
+            var comp = Qt.createComponent("components/Walkthrough/FirstRunWalkthrough.qml")
             var walkthrough = comp.createObject(mainPageStack, {});
             mainPageStack.push(walkthrough)
         }
@@ -1091,7 +1091,7 @@ MainView {
             right: parent.right
         }
         asynchronous: true
-        source: "MusicToolbar.qml"
+        source: "components/MusicToolbar.qml"
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
                  mainPageStack.currentPage.title !== i18n.tr("Queue") &&
                  mainPageStack.currentPage.title !== i18n.tr("Select playlist") &&

@@ -24,8 +24,8 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
-import "../meta-database.js" as Library
-import "../common"
+import "../logic/meta-database.js" as Library
+import "../components"
 
 MusicPage {
     id: artistViewPage

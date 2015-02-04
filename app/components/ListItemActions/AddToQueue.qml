@@ -19,7 +19,7 @@
 import QtQuick 2.3
 import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
-import "../../meta-database.js" as Library
+import "../../logic/meta-database.js" as Library
 
 Action {
     iconName: "add"

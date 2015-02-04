@@ -23,9 +23,9 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import QtQuick.LocalStorage 2.0
-import "../meta-database.js" as Library
-import "../playlists.js" as Playlists
-import "../common"
+import "../logic/meta-database.js" as Library
+import "../logic/playlists.js" as Playlists
+import "../components"
 
 
 /* NOTE:
