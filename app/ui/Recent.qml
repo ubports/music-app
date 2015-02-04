@@ -84,25 +84,18 @@ MusicPage {
                     albumTracksModel.filterPlaylistTracks(model.data)
                 }
 
-                var comp = Qt.createComponent("SongsView.qml")
-                var songsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "album": model.type !== "playlist" ? model.data : undefined,
-                                                      "artist": model.type !== "playlist" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).artist : undefined,
-                                                      "covers": coverSources,
-                                                      "isAlbum": (model.type === "album"),
-                                                      "genre": undefined,
-                                                      "page": recentPage,
-                                                      "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
-                                                      "line1": secondaryText,
-                                                      "line2": primaryText,
-                                                  });
-
-                if (songsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(songsPage)
+                mainPageStack.push(Qt.resolvedUrl("SongsView.qml"),
+                                   {
+                                       "album": model.type !== "playlist" ? model.data : undefined,
+                                       "artist": model.type !== "playlist" ? recentAlbumSongs.get(0, SongsModel.RoleModelData).artist : undefined,
+                                       "covers": coverSources,
+                                       "isAlbum": (model.type === "album"),
+                                       "genre": undefined,
+                                       "page": recentPage,
+                                       "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
+                                       "line1": secondaryText,
+                                       "line2": primaryText,
+                                   })
             }
         }
     }

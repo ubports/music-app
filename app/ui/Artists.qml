@@ -102,21 +102,13 @@ MusicPage {
                 }
             }
 
-
             onClicked: {
-                var comp = Qt.createComponent("ArtistView.qml")
-                var albumsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "artist": model.artist,
-                                                      "covers": artistCard.coverSources,
-                                                      "title": i18n.tr("Artist"),
-                                                  });
-
-                if (albumsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(albumsPage)
+                mainPageStack.push(Qt.resolvedUrl("ArtistView.qml"),
+                                   {
+                                       "artist": model.artist,
+                                       "covers": artistCard.coverSources,
+                                       "title": i18n.tr("Artist")
+                                   })
             }
         }
     }
