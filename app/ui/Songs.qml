@@ -23,14 +23,14 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "logic/playlists.js" as Playlists
-import "components"
-import "components/ListItemActions"
+import "../logic/playlists.js" as Playlists
+import "../components"
+import "../components/ListItemActions"
 
 
 MusicPage {
-    id: tracksPage
-    objectName: "tracksPage"
+    id: songsPage
+    objectName: "songsPage"
     title: i18n.tr("Songs")
     searchable: true
     searchResultsCount: songsModelFilter.count
@@ -38,10 +38,10 @@ MusicPage {
     states: [
         PageHeadState {
             name: "default"
-            head: tracksPage.head
+            head: songsPage.head
             actions: Action {
                 iconName: "search"
-                onTriggered: tracksPage.state = "search"
+                onTriggered: songsPage.state = "search"
             }
         },
         PageHeadState {
@@ -55,7 +55,7 @@ MusicPage {
                     tracklist.state = "normal"
                 }
             }
-            head: tracksPage.head
+            head: songsPage.head
             actions: [
                 Action {
                     iconName: "select"
@@ -79,7 +79,7 @@ MusicPage {
                             items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        var comp = Qt.createComponent("MusicaddtoPlaylist.qml")
+                        var comp = Qt.createComponent("AddToPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
 
                         if (addToPlaylist == null) {  // Error Handling
@@ -111,9 +111,14 @@ MusicPage {
         },
         SearchHeadState {
             id: searchHeader
-            thisPage: tracksPage
+            thisPage: songsPage
         }
     ]
+
+    // Hack for autopilot otherwise Albums appears as MusicPage
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
 
     ListView {
         id: tracklist
@@ -161,10 +166,10 @@ MusicPage {
         }
         onStateChanged: {
             if (state === "multiselectable") {
-                tracksPage.state = "selection"
+                songsPage.state = "selection"
             } else {
                 searchHeader.query = ""  // force query back to default
-                tracksPage.state = "default"
+                songsPage.state = "default"
             }
         }
 
@@ -204,7 +209,7 @@ MusicPage {
                 ]
 
                 onItemClicked: {
-                    if (tracksPage.state === "search") {  // only play single track when searching
+                    if (songsPage.state === "search") {  // only play single track when searching
                         trackQueue.clear()
                         trackQueue.append(songsModelFilter.get(index))
                         trackQueueClick(0)

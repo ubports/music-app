@@ -1,6 +1,7 @@
 add_subdirectory(components)
-add_subdirectory(images)
+add_subdirectory(graphics)
 add_subdirectory(logic)
+add_subdirectory(ui)
 
 # make the qml files visible on qtcreator
 file(GLOB APP_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}

@@ -25,12 +25,13 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
-import "logic/meta-database.js" as Library
-import "logic/playlists.js" as Playlists
-import "components"
+import "../logic/meta-database.js" as Library
+import "../logic/playlists.js" as Playlists
+import "../components"
 
 MusicPage {
-    id: mainpage
+    id: recentPage
+    objectName: "recentPage"
     title: i18n.tr("Recent")
 
     property bool changed: false
@@ -83,7 +84,7 @@ MusicPage {
                     albumTracksModel.filterPlaylistTracks(model.data)
                 }
 
-                var comp = Qt.createComponent("components/SongsPage.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.type !== "playlist" ? model.data : undefined,
@@ -91,7 +92,7 @@ MusicPage {
                                                       "covers": coverSources,
                                                       "isAlbum": (model.type === "album"),
                                                       "genre": undefined,
-                                                      "page": mainpage,
+                                                      "page": recentPage,
                                                       "title": (model.type === "album") ? i18n.tr("Album") : i18n.tr("Playlist"),
                                                       "line1": secondaryText,
                                                       "line2": primaryText,

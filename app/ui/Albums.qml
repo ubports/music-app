@@ -20,7 +20,7 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
-import "components"
+import "../components"
 
 
 MusicPage {
@@ -46,6 +46,11 @@ MusicPage {
         }
     ]
 
+    // Hack for autopilot otherwise Albums appears as MusicPage
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
+
     CardView {
         id: albumCardView
         model: SortFilterModel {
@@ -70,7 +75,7 @@ MusicPage {
             secondaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
 
             onClicked: {
-                var comp = Qt.createComponent("components/SongsPage.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.title,

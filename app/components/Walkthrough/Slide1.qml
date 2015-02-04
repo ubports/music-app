@@ -39,7 +39,7 @@ Component {
             height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
             image: Image {
                 id: centerImage
-                source: Qt.resolvedUrl("../../images/music-app@30.png")
+                source: Qt.resolvedUrl("../../graphics/music-app@30.png")
             }
             radius: "medium"
             width: height

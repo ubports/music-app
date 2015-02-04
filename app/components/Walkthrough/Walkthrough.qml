@@ -134,7 +134,7 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 antialiasing: true
                 height: width
-                source: listView.currentIndex == index ?  "../../images/Ellipse@27.png" : "../../images/Ellipse_15_opacity@27.png"
+                source: listView.currentIndex == index ?  "../../graphics/Ellipse@27.png" : "../../graphics/Ellipse_15_opacity@27.png"
                 width: units.gu(1.5)
             }
         }

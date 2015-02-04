@@ -30,7 +30,7 @@ Action {
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 
-        var comp = Qt.createComponent("../../MusicaddtoPlaylist.qml")
+        var comp = Qt.createComponent("../../ui/AddToPlaylist.qml")
         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": [makeDict(model)]});
 
         if (addToPlaylist == null) {  // Error Handling

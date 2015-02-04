@@ -31,6 +31,7 @@ import UserMetrics 0.1
 import "logic/meta-database.js" as Library
 import "logic/playlists.js" as Playlists
 import "components"
+import "ui"
 
 MainView {
     objectName: "music"
@@ -808,10 +809,10 @@ MainView {
 
                 // TODO: improve in refactoring to be able detect when a track is removed
                 // Update playlists page
-                if (musicPlaylistPage.visible) {
+                if (playlistsPage.visible) {
                     playlistModel.filterPlaylists()
                 } else {
-                    musicPlaylistPage.changed = true
+                    playlistsPage.changed = true
                 }
             }
         }
@@ -847,10 +848,10 @@ MainView {
                 console.debug("Removed recent:", JSON.stringify(removed))
                 Library.recentRemoveAlbums(removed)
 
-                if (musicStartPage.visible) {
+                if (recentPage.visible) {
                     recentModel.filterRecent()
                 } else {
-                    musicStartPage.changed = true
+                    recentPage.changed = true
                 }
             }
         }
@@ -1022,8 +1023,8 @@ MainView {
             if (preLoadComplete)
             {
                 loading.visible = false
-                playlistTab.loading = false
-                playlistTab.populated = true
+                playlistsTab.loading = false
+                playlistsTab.populated = true
             }
         }
     }
@@ -1188,14 +1189,14 @@ MainView {
                         property var loader: [recentModel.filterRecent]
                         property bool loading: recentTabRepeater.loading
                         property var model: [recentModel, albumTracksModel]
-                        id: startTab
-                        objectName: "startTab"
+                        id: recentTab
+                        objectName: "recentTab"
                         anchors.fill: parent
                         title: page.title
 
                         // Tab content begins here
-                        page: MusicStart {
-                            id: musicStartPage
+                        page: Recent {
+                            id: recentPage
                         }
                     }
                 }
@@ -1241,8 +1242,8 @@ MainView {
                 title: page.title
 
                 // tab content
-                page: MusicArtists {
-                    id: musicArtistsPage
+                page: Artists {
+                    id: artistsPage
                 }
             }
 
@@ -1258,8 +1259,8 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicAlbums {
-                    id: musicAlbumsPage
+                page: Albums {
+                    id: albumsPage
                 }
             }
 
@@ -1275,8 +1276,8 @@ MainView {
                 title: page.title
 
                 // Tab content begins here
-                page: MusicGenres {
-                    id: musicGenresPage
+                page: Genres {
+                    id: genresPage
                 }
             }
 
@@ -1286,14 +1287,14 @@ MainView {
                 property var loader: []
                 property bool loading: false
                 property var model: []
-                id: tracksTab
-                objectName: "tracksTab"
+                id: songsTab
+                objectName: "songsTab"
                 anchors.fill: parent
                 title: page.title
 
                 // Tab content begins here
-                page: MusicTracks {
-                    id: musicTracksPage
+                page: Songs {
+                    id: tracksPage
                 }
             }
 
@@ -1304,14 +1305,14 @@ MainView {
                 property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
                 property var model: [playlistModel, albumTracksModel]
-                id: playlistTab
+                id: playlistsTab
                 objectName: "playlistsTab"
                 anchors.fill: parent
                 title: page.title
 
                 // Tab content begins here
-                page: MusicPlaylists {
-                    id: musicPlaylistPage
+                page: Playlists {
+                    id: playlistsPage
                 }
             }
 
@@ -1352,7 +1353,7 @@ MainView {
                 if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
                         && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
 
-                    var comp = Qt.createComponent("MusicNowPlaying.qml")
+                    var comp = Qt.createComponent("ui/NowPlaying.qml")
                     var nowPlaying = comp.createObject(mainPageStack, {});
 
                     if (nowPlaying == null) {  // Error Handling
@@ -1420,7 +1421,7 @@ MainView {
                             fillMode: Image.PreserveAspectFit
                             height: units.gu(10)
                             smooth: true
-                            source: "images/music_empty_download.png"
+                            source: "graphics/music_empty_download.png"
                         }
                     }
 
@@ -1438,7 +1439,7 @@ MainView {
                             fillMode: Image.PreserveAspectFit
                             height: units.gu(6)
                             smooth: true
-                            source: "images/div.png"
+                            source: "graphics/div.png"
                         }
                     }
 
@@ -1451,7 +1452,7 @@ MainView {
                         fillMode: Image.PreserveAspectFit
                         height: units.gu(7)
                         smooth: true
-                        source: "images/music_empty_SD.png"
+                        source: "graphics/music_empty_SD.png"
                     }
                 }
 
@@ -1487,7 +1488,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistsTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent

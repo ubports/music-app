@@ -24,9 +24,9 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
-import "logic/meta-database.js" as Library
-import "logic/playlists.js" as Playlists
-import "components"
+import "../logic/meta-database.js" as Library
+import "../logic/playlists.js" as Playlists
+import "../components"
 
 
 MusicPage {
@@ -51,6 +51,11 @@ MusicPage {
             thisPage: artistsPage
         }
     ]
+
+    // Hack for autopilot otherwise Artists appears as MusicPage
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
 
     CardView {
         id: artistCardView
@@ -99,7 +104,7 @@ MusicPage {
 
 
             onClicked: {
-                var comp = Qt.createComponent("components/AlbumsPage.qml")
+                var comp = Qt.createComponent("ArtistView.qml")
                 var albumsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "artist": model.artist,
