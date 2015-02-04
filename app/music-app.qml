@@ -809,10 +809,10 @@ MainView {
 
                 // TODO: improve in refactoring to be able detect when a track is removed
                 // Update playlists page
-                if (musicPlaylistsPage.visible) {
+                if (playlistsPage.visible) {
                     playlistModel.filterPlaylists()
                 } else {
-                    musicPlaylistsPage.changed = true
+                    playlistsPage.changed = true
                 }
             }
         }
@@ -848,10 +848,10 @@ MainView {
                 console.debug("Removed recent:", JSON.stringify(removed))
                 Library.recentRemoveAlbums(removed)
 
-                if (musicRecentPage.visible) {
+                if (recentPage.visible) {
                     recentModel.filterRecent()
                 } else {
-                    musicRecentPage.changed = true
+                    recentPage.changed = true
                 }
             }
         }
@@ -1023,8 +1023,8 @@ MainView {
             if (preLoadComplete)
             {
                 loading.visible = false
-                playlistTab.loading = false
-                playlistTab.populated = true
+                playlistsTab.loading = false
+                playlistsTab.populated = true
             }
         }
     }
@@ -1189,14 +1189,14 @@ MainView {
                         property var loader: [recentModel.filterRecent]
                         property bool loading: recentTabRepeater.loading
                         property var model: [recentModel, albumTracksModel]
-                        id: startTab
-                        objectName: "startTab"
+                        id: recentTab
+                        objectName: "recentTab"
                         anchors.fill: parent
                         title: page.title
 
                         // Tab content begins here
                         page: Recent {
-                            id: musicRecentPage
+                            id: recentPage
                         }
                     }
                 }
@@ -1243,7 +1243,7 @@ MainView {
 
                 // tab content
                 page: Artists {
-                    id: musicArtistsPage
+                    id: artistsPage
                 }
             }
 
@@ -1260,7 +1260,7 @@ MainView {
 
                 // Tab content begins here
                 page: Albums {
-                    id: musicAlbumsPage
+                    id: albumsPage
                 }
             }
 
@@ -1277,7 +1277,7 @@ MainView {
 
                 // Tab content begins here
                 page: Genres {
-                    id: musicGenresPage
+                    id: genresPage
                 }
             }
 
@@ -1287,14 +1287,14 @@ MainView {
                 property var loader: []
                 property bool loading: false
                 property var model: []
-                id: tracksTab
-                objectName: "tracksTab"
+                id: songsTab
+                objectName: "songsTab"
                 anchors.fill: parent
                 title: page.title
 
                 // Tab content begins here
-                page: Tracks {
-                    id: musicTracksPage
+                page: Songs {
+                    id: tracksPage
                 }
             }
 
@@ -1305,14 +1305,14 @@ MainView {
                 property var loader: [playlistModel.filterPlaylists]
                 property bool loading: false
                 property var model: [playlistModel, albumTracksModel]
-                id: playlistTab
+                id: playlistsTab
                 objectName: "playlistsTab"
                 anchors.fill: parent
                 title: page.title
 
                 // Tab content begins here
                 page: Playlists {
-                    id: musicPlaylistsPage
+                    id: playlistsPage
                 }
             }
 
@@ -1488,7 +1488,7 @@ MainView {
                 topMargin: -emptyPage.header.height
             }
             color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
+            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistsTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
 
             Column {
                 anchors.centerIn: parent

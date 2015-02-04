@@ -99,7 +99,7 @@ MusicPage {
             onClicked: {
                 albumTracksModel.filterPlaylistTracks(model.name)
 
-                var comp = Qt.createComponent("Songs.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": undefined,

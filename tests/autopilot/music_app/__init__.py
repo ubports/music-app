@@ -61,9 +61,9 @@ class MusicApp(object):
         return self.main_view.wait_select_single(
             Albums, objectName='albumsPage')
 
-    def get_artist_albums_page(self):
+    def get_artist_view_page(self):
         return self.main_view.wait_select_single(
-            ArtistAlbums, objectName='artistAlbumsPage')
+            ArtistView, objectName='artistViewPage')
 
     def get_artists_page(self):
         self.main_view.switch_to_tab('artistsTab')
@@ -89,18 +89,18 @@ class MusicApp(object):
         return self.main_view.select_single("LibraryListModel",
                                             objectName="trackQueue").count
 
-    def get_songs_page(self):
-        return self.app.wait_select_single(Songs, objectName="songsPage")
+    def get_songs_view(self):
+        return self.app.wait_select_single(SongsView, objectName="songsPage")
 
     def get_toolbar(self):
         return self.app.wait_select_single(MusicToolbar,
                                            objectName="musicToolbarObject")
 
-    def get_tracks_page(self):
-        self.main_view.switch_to_tab('tracksTab')
+    def get_songs_page(self):
+        self.main_view.switch_to_tab('songsTab')
 
         return self.main_view.wait_select_single(
-            Tracks, objectName='tracksPage')
+            Songs, objectName='songsPage')
 
     def get_walkthrough_page(self):
         return self.main_view.wait_select_single(Walkthrough,
@@ -113,7 +113,7 @@ class MusicApp(object):
                 self.main_view.select_single("*", "allSongsModel").populated)
 
     def populate_queue(self):
-        tracksPage = self.get_tracks_page()  # switch to track tab
+        tracksPage = self.get_songs_page()  # switch to track tab
 
         # get and click to play first track
         track = tracksPage.get_track(0)
@@ -179,10 +179,10 @@ class Artists(MusicPage):
                 objectName="artistsPageGridItem" + str(i)))
 
 
-class Tracks(MusicPage):
+class Songs(MusicPage):
     """ Autopilot helper for the tracks page """
     def __init__(self, *args):
-        super(Tracks, self).__init__(*args)
+        super(Songs, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -298,10 +298,10 @@ class NowPlaying(MusicPage):
         self.player.shuffle.wait_for(state)
 
 
-class ArtistAlbums(MusicPage):
+class ArtistView(MusicPage):
     """ Autopilot helper for the albums page """
     def __init__(self, *args):
-        super(ArtistAlbums, self).__init__(*args)
+        super(ArtistView, self).__init__(*args)
 
         self.visible.wait_for(True)
 
@@ -315,10 +315,10 @@ class ArtistAlbums(MusicPage):
         return self.wait_select_single("Label", objectName="artistLabel").text
 
 
-class Songs(MusicPage):
+class SongsView(MusicPage):
     """ Autopilot helper for the songs page """
     def __init__(self, *args):
-        super(Songs, self).__init__(*args)
+        super(SongsView, self).__init__(*args)
 
         self.visible.wait_for(True)
 

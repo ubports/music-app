@@ -103,7 +103,7 @@ MusicPage {
             }
 
             onClicked: {
-                var comp = Qt.createComponent("Songs.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "covers": genreCard.coverSources,

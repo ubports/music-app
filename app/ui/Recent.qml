@@ -84,7 +84,7 @@ MusicPage {
                     albumTracksModel.filterPlaylistTracks(model.data)
                 }
 
-                var comp = Qt.createComponent("Songs.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.type !== "playlist" ? model.data : undefined,

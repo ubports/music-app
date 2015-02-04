@@ -104,7 +104,7 @@ MusicPage {
 
 
             onClicked: {
-                var comp = Qt.createComponent("ArtistAlbums.qml")
+                var comp = Qt.createComponent("ArtistView.qml")
                 var albumsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "artist": model.artist,
