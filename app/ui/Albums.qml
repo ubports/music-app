@@ -21,6 +21,7 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
 import "../components"
+import "../components/HeadState"
 
 
 MusicPage {
@@ -31,14 +32,9 @@ MusicPage {
     searchResultsCount: albumsModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: albumsPage.head
-            actions: Action {
-                enabled: albumsModelFilter.count > 0
-                iconName: "search"
-                onTriggered: albumsPage.state = "search"
-            }
+        SearchablePageHeadState {
+            thisPage: albumsPage
+            searchEnabled: albumsModelFilter.count > 0
         },
         SearchHeadState {
             id: searchHeader

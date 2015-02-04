@@ -27,6 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 
 
 MusicPage {
@@ -37,14 +38,9 @@ MusicPage {
     searchResultsCount: artistsModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: artistsPage.head
-            actions: Action {
-                enabled: artistsModelFilter.count > 0
-                iconName: "search"
-                onTriggered: artistsPage.state = "search"
-            }
+        SearchablePageHeadState {
+            thisPage: artistsPage
+            searchEnabled: artistsModelFilter.count > 0
         },
         SearchHeadState {
             id: searchHeader

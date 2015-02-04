@@ -25,6 +25,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 import "../components/ListItemActions"
 
 
@@ -36,78 +37,13 @@ MusicPage {
     searchResultsCount: songsModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: songsPage.head
-            actions: Action {
-                iconName: "search"
-                onTriggered: songsPage.state = "search"
-            }
+        SearchablePageHeadState {
+            thisPage: songsPage
+            searchEnabled: songsModelFilter.count > 0
         },
-        PageHeadState {
-            id: selectionState
-            name: "selection"
-            backAction: Action {
-                text: i18n.tr("Cancel selection")
-                iconName: "back"
-                onTriggered: {
-                    tracklist.clearSelection()
-                    tracklist.state = "normal"
-                }
-            }
-            head: songsPage.head
-            actions: [
-                Action {
-                    iconName: "select"
-                    text: i18n.tr("Select All")
-                    onTriggered: {
-                        if (tracklist.selectedItems.length === tracklist.model.count) {
-                            tracklist.clearSelection()
-                        } else {
-                            tracklist.selectAll()
-                        }
-                    }
-                },
-                Action {
-                    enabled: tracklist.selectedItems.length !== 0
-                    iconName: "add-to-playlist"
-                    text: i18n.tr("Add to playlist")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < tracklist.selectedItems.length; i++) {
-                            items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
-                        }
-
-                        var comp = Qt.createComponent("AddToPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                        if (addToPlaylist == null) {  // Error Handling
-                            console.log("Error creating object");
-                        }
-
-                        mainPageStack.push(addToPlaylist)
-
-                        tracklist.closeSelection()
-                    }
-                },
-                Action {
-                    enabled: tracklist.selectedItems.length > 0
-                    iconName: "add"
-                    text: i18n.tr("Add to queue")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < tracklist.selectedItems.length; i++) {
-                            items.push(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData));
-                        }
-
-                        trackQueue.appendList(items)
-
-                        tracklist.closeSelection()
-                    }
-                }
-            ]
+        MultiSelectHeadState {
+            listview: tracklist
+            thisPage: songsPage
         },
         SearchHeadState {
             id: searchHeader
