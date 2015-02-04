@@ -55,10 +55,10 @@ MainView {
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "search") {
-                musicToolbar.currentPage.state = "default"
+            if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "search") {
+                mainPageStack.currentMusicPage.state = "default"
             } else {
-                musicToolbar.goBack();  // Esc      Go back
+                mainPageStack.goBack();  // Esc      Go back
             }
         }
         else if(event.modifiers === Qt.AltModifier) {
@@ -95,8 +95,8 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (musicToolbar.currentPage.searchable && musicToolbar.currentPage.state === "default") {
-                    musicToolbar.currentPage.state = "search"
+                if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "default") {
+                    mainPageStack.currentMusicPage.state = "search"
                     header.show()
                 }
 
@@ -159,7 +159,7 @@ MainView {
         id: backAction
         text: i18n.tr("Back")
         keywords: i18n.tr("Go back to last page")
-        onTriggered: musicToolbar.goBack();
+        onTriggered: mainPageStack.goBack();
     }
 
     // With a default Quit action only the first 4 actions are displayed
@@ -965,7 +965,7 @@ MainView {
             if (trackQueue.model.count === 0) {
                 // Nothing in the queue so stop and pop the queue
                 player.stop()
-                musicToolbar.goBack()
+                mainPageStack.goBack()
             } else if (items.indexOf(player.currentIndex) > -1) {
                 // Current track was removed
 
@@ -1082,22 +1082,84 @@ MainView {
         }
     }
 
-    MusicToolbar {
+    Loader {
         id: musicToolbar
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        asynchronous: true
+        source: "components/MusicToolbar.qml"
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
                  mainPageStack.currentPage.title !== i18n.tr("Queue") &&
+                 mainPageStack.currentPage.title !== i18n.tr("Select playlist") &&
                  !firstRun
-        objectName: "musicToolbarObject"
         z: 200  // put on top of everything else
     }
 
     PageStack {
         id: mainPageStack
 
+        // Properties storing the current page info
+        property Page currentMusicPage: null  // currentPage can be Tabs
+        property bool popping: false
+
+        /* Helper functions */
+
+        // Go back up the stack if possible
+        function goBack() {
+            if (depth > 1) {
+                pop()
+            }
+        }
+
+        // Pop a specific page in the stack
+        function popPage(page) {
+            var tmpPages = []
+
+            popping = true
+
+            while (currentPage !== page && depth > 0) {
+                tmpPages.push(currentPage)
+                pop()
+            }
+
+            if (depth > 0) {
+                pop()
+            }
+
+            for (var i=tmpPages.length - 1; i > -1; i--) {
+                push(tmpPages[i])
+            }
+
+            popping = false
+        }
+
+        // Set the current page, and any parent/stacks
+        function setPage(childPage) {
+            if (!popping) {
+                currentMusicPage = childPage;
+            }
+        }
+
         Tabs {
             id: tabs
             anchors {
                 fill: parent
+            }
+
+            property Tab lastTab: selectedTab
+
+            onSelectedTabChanged: {
+                // pause loading of the models in the old tab
+                if (lastTab !== null && lastTab !== selectedTab) {
+                    allowLoading(lastTab, false);
+                }
+
+                lastTab = selectedTab;
+
+                ensurePopulated(selectedTab);
             }
 
             onSelectedTabIndexChanged: {
@@ -1303,21 +1365,6 @@ MainView {
                 if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
                     mainPageStack.currentPage.isListView = false;  // ensure full view
                 }
-            }
-
-            Component.onCompleted: musicToolbar.currentTab = selectedTab
-
-            onSelectedTabChanged: {
-                // pause loading of the models in the old tab
-                if (musicToolbar.currentTab !== selectedTab &&
-                        musicToolbar.currentTab !== null)
-                {
-                    allowLoading(musicToolbar.currentTab, false);
-                }
-
-                musicToolbar.currentTab = selectedTab;
-
-                ensurePopulated(selectedTab);
             }
         } // end of tabs
     }

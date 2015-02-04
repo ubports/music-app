@@ -150,7 +150,7 @@ MusicPage {
             store: musicStore
             onStatusChanged: {
                 if (albumsModel.status === SongsModel.Ready && loaded && albumsModel.count === 0) {
-                    musicToolbar.popPage(albumStackPage)
+                    mainPageStack.popPage(albumStackPage)
                 }
             }
         }
