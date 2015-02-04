@@ -55,8 +55,8 @@ MainView {
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            if (mainPageStack.actualCurrentPage.searchable && mainPageStack.actualCurrentPage.state === "search") {
-                mainPageStack.actualCurrentPage.state = "default"
+            if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "search") {
+                mainPageStack.currentMusicPage.state = "default"
             } else {
                 mainPageStack.goBack();  // Esc      Go back
             }
@@ -95,8 +95,8 @@ MainView {
                 player.repeat = !player.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
-                if (mainPageStack.actualCurrentPage.searchable && mainPageStack.actualCurrentPage.state === "default") {
-                    mainPageStack.actualCurrentPage.state = "search"
+                if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "default") {
+                    mainPageStack.currentMusicPage.state = "search"
                     header.show()
                 }
 
@@ -1101,7 +1101,7 @@ MainView {
         id: mainPageStack
 
         // Properties storing the current page info
-        property Page actualCurrentPage: null
+        property Page currentMusicPage: null  // currentPage can be Tabs
         property bool popping: false
 
         /* Helper functions */
@@ -1138,7 +1138,7 @@ MainView {
         // Set the current page, and any parent/stacks
         function setPage(childPage) {
             if (!popping) {
-                actualCurrentPage = childPage;
+                currentMusicPage = childPage;
             }
         }
 
