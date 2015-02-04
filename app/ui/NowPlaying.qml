@@ -597,7 +597,7 @@ MusicPage {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
             height: units.gu(6)
-            opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
             width: height
             onClicked: player.repeat = !player.repeat
 
@@ -610,7 +610,7 @@ MusicPage {
                 color: "white"
                 name: "media-playlist-repeat"
                 objectName: "repeatShape"
-                opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+                opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
             }
         }
 
@@ -652,7 +652,7 @@ MusicPage {
                 width: height
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                opacity: emptyPage.noMusic ? .4 : 1
+                opacity: emptyPageLoader.noMusic ? .4 : 1
                 color: "white"
                 name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
@@ -690,7 +690,7 @@ MusicPage {
             anchors.leftMargin: units.gu(1)
             anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
             height: units.gu(6)
-            opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
             width: height
             onClicked: player.shuffle = !player.shuffle
 
@@ -703,7 +703,7 @@ MusicPage {
                 color: "white"
                 name: "media-playlist-shuffle"
                 objectName: "shuffleShape"
-                opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+                opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
             }
         }
 
