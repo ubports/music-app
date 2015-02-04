@@ -60,7 +60,7 @@ Item {
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
-                        : Qt.resolvedUrl("../images/music-app-cover@30.png")
+                        : Qt.resolvedUrl("../graphics/music-app-cover@30.png")
 
                 // TODO: This should be investigated once http://pad.lv/1391368
                 //       is resolved. Once it is, these can either be set to
@@ -73,7 +73,7 @@ Item {
 
                 onStatusChanged: {
                     if (status === Image.Error) {
-                        source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                        source = Qt.resolvedUrl("../graphics/music-app-cover@30.png")
                     } else if (status === Image.Ready && index === 0) {
                         firstSource = source
                     }

@@ -25,10 +25,11 @@ import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
+import "../common"
 
 MusicPage {
-    id: albumStackPage
-    objectName: "albumsArtistPage"
+    id: artistViewPage
+    objectName: "artistViewPage"
     visible: false
 
     property string artist: ""
@@ -100,7 +101,7 @@ MusicPage {
                     onClicked: trackClicked(songArtistModel, 0, true)
                 }
             }
-            coverSources: albumStackPage.covers
+            coverSources: artistViewPage.covers
             height: units.gu(30)
             bottomColumn: Column {
                 Label {
@@ -139,18 +140,18 @@ MusicPage {
 
             SongsModel {
                 id: songArtistModel
-                albumArtist: albumStackPage.artist
+                albumArtist: artistViewPage.artist
                 store: musicStore
             }
         }
         itemWidth: units.gu(12)
         model: AlbumsModel {
             id: albumsModel
-            albumArtist: albumStackPage.artist
+            albumArtist: artistViewPage.artist
             store: musicStore
             onStatusChanged: {
                 if (albumsModel.status === SongsModel.Ready && loaded && albumsModel.count === 0) {
-                    mainPageStack.popPage(albumStackPage)
+                    mainPageStack.popPage(artistViewPage)
                 }
             }
         }
@@ -162,7 +163,7 @@ MusicPage {
             secondaryTextVisible: false
 
             onClicked: {
-                var comp = Qt.createComponent("SongsPage.qml")
+                var comp = Qt.createComponent("SongsView.qml")
                 var songsPage = comp.createObject(mainPageStack,
                                                   {
                                                       "album": model.title,

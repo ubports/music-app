@@ -55,7 +55,7 @@ Row {
 
         onStatusChanged: {
             if (status === Image.Error) {
-                source = Qt.resolvedUrl("../images/music-app-cover@30.png")
+                source = Qt.resolvedUrl("../graphics/music-app-cover@30.png")
             }
         }
         visible: imageSource !== undefined

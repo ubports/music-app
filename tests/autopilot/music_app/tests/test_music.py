@@ -78,7 +78,7 @@ class TestMainWindow(MusicAppTestCase):
         self.app.get_albums_page().click_album(0)
 
         # get track item to swipe and queue
-        track = self.app.get_songs_page().get_track(0)
+        track = self.app.get_songs_view().get_track(0)
         track.swipe_reveal_actions()
 
         track.click_add_to_queue_action()  # add track to the queue
@@ -199,7 +199,7 @@ class TestMainWindow(MusicAppTestCase):
              if track["source"].endswith("mp3")][0]
 
         # switch to tracks page
-        tracks_page = self.app.get_tracks_page()
+        tracks_page = self.app.get_songs_page()
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(i)
@@ -300,7 +300,7 @@ class TestMainWindow(MusicAppTestCase):
         albums_page.click_album(0)  # select album
 
         # get songs page album artist
-        songs_page = self.app.get_songs_page()
+        songs_page = self.app.get_songs_view()
         artist_label = songs_page.get_header_artist_label()
 
         # build list of tracks sorted by album
@@ -334,7 +334,7 @@ class TestMainWindow(MusicAppTestCase):
         tracks.sort(key=lambda track: track["album"])
 
         # get track item to swipe and queue
-        songs_page = self.app.get_songs_page()
+        songs_page = self.app.get_songs_view()
 
         track = songs_page.get_track(0)
         track.swipe_reveal_actions()
@@ -406,7 +406,7 @@ class TestMainWindow(MusicAppTestCase):
         initial_tracks_count = self.app.get_queue_count()
 
         # switch to tracks page
-        tracks_page = self.app.get_tracks_page()
+        tracks_page = self.app.get_songs_page()
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(0)
@@ -441,7 +441,7 @@ class TestMainWindow(MusicAppTestCase):
            selecting a song to add it to a new playlist. """
 
         # switch to tracks page
-        tracks_page = self.app.get_tracks_page()
+        tracks_page = self.app.get_songs_page()
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(0)
@@ -500,7 +500,7 @@ class TestMainWindow(MusicAppTestCase):
         tracks.sort(key=lambda track: track["artist"])
 
         # get albums (by an artist) page
-        albums_page = self.app.get_albums_artist_page()
+        albums_page = self.app.get_artist_view_page()
 
         # check album artist label is correct
         self.assertThat(albums_page.get_artist(), Equals(tracks[0]["artist"]))
@@ -509,7 +509,7 @@ class TestMainWindow(MusicAppTestCase):
         albums_page.click_artist(0)
 
         # get song page album artist
-        songs_page = self.app.get_songs_page()
+        songs_page = self.app.get_songs_view()
 
         # check the artist label
         artist_label = songs_page.get_header_artist_label()

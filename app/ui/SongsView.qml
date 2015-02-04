@@ -26,7 +26,8 @@ import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../meta-database.js" as Library
 import "../playlists.js" as Playlists
-import "ListItemActions"
+import "../common"
+import "../common/ListItemActions"
 
 MusicPage {
     id: songStackPage
@@ -174,7 +175,7 @@ MusicPage {
                             items.push(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
                         }
 
-                        var comp = Qt.createComponent("../MusicaddtoPlaylist.qml")
+                        var comp = Qt.createComponent("AddToPlaylist.qml")
                         var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items, "page": songStackPage});
 
                         if (addToPlaylist == null) {  // Error Handling
