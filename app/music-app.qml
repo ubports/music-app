@@ -1376,7 +1376,7 @@ MainView {
         anchors {
             fill: parent
         }
-        source: "ui/EmptyState.qml"
+        source: "ui/LibraryEmptyState.qml"
         visible: active
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI

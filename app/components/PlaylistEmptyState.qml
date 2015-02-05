@@ -22,7 +22,7 @@ import Ubuntu.Components 1.1
 
 
 Rectangle {
-    id: playlistsEmpty
+    id: playlistsEmptyState
     anchors {
         fill: parent
     }

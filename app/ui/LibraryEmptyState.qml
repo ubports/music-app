@@ -21,7 +21,7 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 
 Page {
-    id: emptyPage
+    id: libraryEmptyPage
     anchors {
         fill: parent
     }
@@ -31,7 +31,7 @@ Page {
         id: libraryEmpty
         anchors {
             fill: parent
-            topMargin: -emptyPage.header.height
+            topMargin: -libraryEmptyPage.header.height
         }
         color: mainView.backgroundColor
 
