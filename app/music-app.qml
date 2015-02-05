@@ -608,9 +608,7 @@ MainView {
 
         // Display walkthrough on first run, even if the user has music
         if (firstRun) {
-            var comp = Qt.createComponent("components/Walkthrough/FirstRunWalkthrough.qml")
-            var walkthrough = comp.createObject(mainPageStack, {});
-            mainPageStack.push(walkthrough)
+            mainPageStack.push(Qt.resolvedUrl("components/Walkthrough/FirstRunWalkthrough.qml"), {})
         }
 
         if (args.values.url) {
@@ -1352,15 +1350,7 @@ MainView {
                 // only push if on a different page
                 if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
                         && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
-
-                    var comp = Qt.createComponent("ui/NowPlaying.qml")
-                    var nowPlaying = comp.createObject(mainPageStack, {});
-
-                    if (nowPlaying == null) {  // Error Handling
-                        console.log("Error creating object");
-                    }
-
-                    mainPageStack.push(nowPlaying);
+                    mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
                 }
 
                 if (mainPageStack.currentPage.title === i18n.tr("Queue")) {

@@ -25,6 +25,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 
 // page for the playlists
 MusicPage {
@@ -37,25 +38,10 @@ MusicPage {
     searchResultsCount: playlistModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: playlistsPage.head
-            actions: [
-                Action {
-                    enabled: allSongsModel.count > 0
-                    objectName: "newPlaylistButton"
-                    iconName: "add"
-                    onTriggered: {
-                        customdebug("New playlist.")
-                        PopupUtils.open(newPlaylistDialog, mainView)
-                    }
-                },
-                Action {
-                    enabled: playlistModel.model.count > 0 && allSongsModel.count > 0
-                    iconName: "search"
-                    onTriggered: playlistsPage.state = "search"
-                }
-            ]
+        PlaylistsHeadState {
+            newPlaylistEnabled: allSongsModel.count > 0
+            searchEnabled: playlistModel.model.count > 0 && allSongsModel.count > 0
+            thisPage: playlistsPage
         },
         SearchHeadState {
             id: searchHeader
@@ -99,24 +85,17 @@ MusicPage {
             onClicked: {
                 albumTracksModel.filterPlaylistTracks(model.name)
 
-                var comp = Qt.createComponent("SongsView.qml")
-                var songsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "album": undefined,
-                                                      "covers": coverSources,
-                                                      "isAlbum": false,
-                                                      "genre": undefined,
-                                                      "page": playlistsPage,
-                                                      "title": i18n.tr("Playlist"),
-                                                      "line1": i18n.tr("Playlist"),
-                                                      "line2": model.name,
-                                                  });
-
-                if (songsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(songsPage)
+                mainPageStack.push(Qt.resolvedUrl("SongsView.qml"),
+                                   {
+                                       "album": undefined,
+                                       "covers": coverSources,
+                                       "isAlbum": false,
+                                       "genre": undefined,
+                                       "page": playlistsPage,
+                                       "title": i18n.tr("Playlist"),
+                                       "line1": i18n.tr("Playlist"),
+                                       "line2": model.name,
+                                   })
             }
         }
     }
