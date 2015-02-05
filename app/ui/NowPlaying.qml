@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "../components"
+import "../components/HeadState"
 import "../components/ListItemActions"
 import "../components/Themes/Ambiance"
 import "../logic/meta-database.js" as Library
@@ -120,65 +121,17 @@ MusicPage {
                 actions: defaultState.actions
             }
         },
-        PageHeadState {
-            id: selectionState
+        MultiSelectHeadState {
+            addToQueue: false
+            listview: queueListLoader.item
+            removable: true
+            thisPage: nowPlaying
 
-            name: "selection"
-            backAction: Action {
-                text: i18n.tr("Cancel selection")
-                iconName: "back"
-                onTriggered: {
-                    queueListLoader.item.clearSelection()
-                    queueListLoader.item.state = "normal"
-                }
-            }
-            actions: [
-                Action {
-                    text: i18n.tr("Select All")
-                    iconName: "select"
-                    onTriggered: {
-                        if (queueListLoader.item.selectedItems.length === trackQueue.model.count) {
-                            queueListLoader.item.clearSelection()
-                        } else {
-                            queueListLoader.item.selectAll()
-                        }
-                    }
-                },
-                Action {
-                    enabled: queueListLoader.item.selectedItems.length > 0
-                    iconName: "add-to-playlist"
-                    text: i18n.tr("Add to playlist")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < queueListLoader.item.selectedItems.length; i++) {
-                            items.push(makeDict(trackQueue.model.get(queueListLoader.item.selectedItems[i])));
-                        }
-
-                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
-                                           {"chosenElements": items})
-
-                        queueListLoader.item.closeSelection()
-                    }
-                },
-                Action {
-                    enabled: queueListLoader.item.selectedItems.length > 0
-                    iconName: "delete"
-                    text: i18n.tr("Delete")
-                    onTriggered: {
-                        // Remove the tracks from the queue
-                        // Use slice() to copy the list
-                        // so that the indexes don't change as they are removed
-                        trackQueue.removeQueueList(queueListLoader.item.selectedItems.slice())
-
-                        queueListLoader.item.closeSelection()
-                    }
-                }
-            ]
-            PropertyChanges {
-                target: nowPlaying.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
+            onRemoved: {
+                // Remove the tracks from the queue
+                // Use slice() to copy the list
+                // so that the indexes don't change as they are removed
+                trackQueue.removeQueueList(selectedItems.slice())
             }
         }
     ]

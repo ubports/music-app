@@ -27,6 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 import "../components/ListItemActions"
 
 MusicPage {
@@ -141,94 +142,29 @@ MusicPage {
                 actions: playlistState.actions
             }
         },
-        PageHeadState {
-            id: selectionState
-            name: "selection"
-            backAction: Action {
-                text: i18n.tr("Cancel selection")
-                iconName: "back"
-                onTriggered: {
-                    albumtrackslist.clearSelection()
-                    albumtrackslist.state = "normal"
-                }
-            }
-            actions: [
-                Action {
-                    iconName: "select"
-                    text: i18n.tr("Select All")
-                    onTriggered: {
-                        if (albumtrackslist.selectedItems.length === albumtrackslist.model.count) {
-                            albumtrackslist.clearSelection()
-                        } else {
-                            albumtrackslist.selectAll()
+        MultiSelectHeadState {
+            listview: albumtrackslist
+            removable: songStackPage.line1 === i18n.tr("Playlist")
+            thisPage: songStackPage
+
+            onRemoved: {
+                for (var i=0; i < selectedItems.length; i++) {
+                    Playlists.removeFromPlaylist(songStackPage.line2, selectedItems[i])
+
+                    // Update indexes as an index has been removed
+                    for (var j=i + 1; j < selectedItems.length; j++) {
+                        if (selectedItems[j] > selectedItems[i]) {
+                            selectedItems[j]--;
                         }
-                    }
-                },
-                Action {
-                    enabled: albumtrackslist.selectedItems.length > 0
-                    iconName: "add-to-playlist"
-                    text: i18n.tr("Add to playlist")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            items.push(makeDict(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData)));
-                        }
-
-                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
-                                           {"chosenElements": items, "page": songStackPage})
-
-                        albumtrackslist.closeSelection()
-                    }
-                },
-                Action {
-                    enabled: albumtrackslist.selectedItems.length > 0
-                    iconName: "add"
-                    text: i18n.tr("Add to queue")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            items.push(albumtrackslist.model.get(albumtrackslist.selectedItems[i], albumtrackslist.model.RoleModelData));
-                        }
-
-                        trackQueue.appendList(items)
-
-                        albumtrackslist.closeSelection()
-                    }
-                },
-                Action {
-                    enabled: albumtrackslist.selectedItems.length > 0
-                    iconName: "delete"
-                    text: i18n.tr("Delete")
-                    visible: songStackPage.line1 === i18n.tr("Playlist")
-                    onTriggered: {
-                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i])
-
-                            // Update indexes as an index has been removed
-                            for (var j=i + 1; j < albumtrackslist.selectedItems.length; j++) {
-                                if (albumtrackslist.selectedItems[j] > albumtrackslist.selectedItems[i]) {
-                                    albumtrackslist.selectedItems[j]--;
-                                }
-                            }
-                        }
-
-                        albumtrackslist.closeSelection()
-
-                        playlistChangedHelper()  // update recent/playlist models
-
-                        albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                        // refresh cover art
-                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
-            ]
-            PropertyChanges {
-                target: songStackPage.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
+
+                playlistChangedHelper()  // update recent/playlist models
+
+                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+
+                // refresh cover art
+                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
             }
         }
     ]
