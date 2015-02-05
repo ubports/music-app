@@ -27,6 +27,8 @@ Dialog {
 
     LoadingSpinnerComponent {
         anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: undefined
             margins: units.gu(0)
         }
         loadingText: i18n.tr("Waiting for file(s)...")
