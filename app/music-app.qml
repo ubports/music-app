@@ -547,9 +547,7 @@ MainView {
 
         // Display walkthrough on first run, even if the user has music
         if (firstRun) {
-            var comp = Qt.createComponent("components/Walkthrough/FirstRunWalkthrough.qml")
-            var walkthrough = comp.createObject(mainPageStack, {});
-            mainPageStack.push(walkthrough)
+            mainPageStack.push(Qt.resolvedUrl("components/Walkthrough/FirstRunWalkthrough.qml"), {})
         }
 
         if (args.values.url) {
@@ -1237,15 +1235,7 @@ MainView {
                 // only push if on a different page
                 if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
                         && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
-
-                    var comp = Qt.createComponent("ui/NowPlaying.qml")
-                    var nowPlaying = comp.createObject(mainPageStack, {});
-
-                    if (nowPlaying == null) {  // Error Handling
-                        console.log("Error creating object");
-                    }
-
-                    mainPageStack.push(nowPlaying);
+                    mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
                 }
 
                 if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
@@ -1255,154 +1245,16 @@ MainView {
         } // end of tabs
     }
 
-    Page {
-        id: emptyPage
-        title: i18n.tr("Music")
-        visible: (noMusic || noPlaylists) && !firstRun
+    Loader {
+        id: emptyPageLoader
+        active: noMusic && !firstRun
+        anchors {
+            fill: parent
+        }
+        source: "ui/LibraryEmptyState.qml"
+        visible: active
 
         property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
-        property bool noPlaylists: playlistModel.model.count === 0 && playlistModel.workerComplete && mainPageStack.currentPage.title !== i18n.tr("Now playing") && mainPageStack.currentPage.title !== i18n.tr("Queue")
-
-        tools: ToolbarItems {
-            back: null
-            locked: true
-            opened: false
-        }
-
-        // Overlay to show when no tracks detected on the device
-        Rectangle {
-            id: libraryEmpty
-            anchors {
-                fill: parent
-                topMargin: -emptyPage.header.height
-            }
-            color: mainView.backgroundColor
-            visible: emptyPage.noMusic
-
-            Column {
-                id: noMusicTextColumn
-                anchors {
-                    centerIn: parent
-                }
-                spacing: units.gu(4)
-                width: units.gu(36)
-
-                Row {
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                    }
-
-                    Item {
-                        height: parent.height
-                        width: imageEmptyDownload.width + units.gu(2)
-
-                        Image {
-                            id: imageEmptyDownload
-                            anchors {
-                                horizontalCenter: parent.horizontalCenter
-                                verticalCenter: parent.verticalCenter
-                            }
-                            antialiasing: true
-                            fillMode: Image.PreserveAspectFit
-                            height: units.gu(10)
-                            smooth: true
-                            source: "graphics/music_empty_download.png"
-                        }
-                    }
-
-                    Item {
-                        height: parent.height
-                        width: units.gu(7)
-
-                        Image {
-                            id: imageSep
-                            anchors {
-                                horizontalCenter: parent.horizontalCenter
-                                verticalCenter: parent.verticalCenter
-                            }
-                            antialiasing: true
-                            fillMode: Image.PreserveAspectFit
-                            height: units.gu(6)
-                            smooth: true
-                            source: "graphics/div.png"
-                        }
-                    }
-
-                    Image {
-                        id: imageEmptySD
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                        }
-                        antialiasing: true
-                        fillMode: Image.PreserveAspectFit
-                        height: units.gu(7)
-                        smooth: true
-                        source: "graphics/music_empty_SD.png"
-                    }
-                }
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "x-large"
-                    horizontalAlignment: Text.AlignLeft
-                    maximumLineCount: 2
-                    text: i18n.tr("No music found")
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "large"
-                    horizontalAlignment: Text.AlignLeft
-                    maximumLineCount: 4
-                    text: i18n.tr("Connect your device to any computer and simply drag files to the Music folder or insert removable media with music.")
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
-
-        // Overlay to show when no playlists are on the device
-        Rectangle {
-            id: playlistsEmpty
-            anchors {
-                fill: parent
-                topMargin: -emptyPage.header.height
-            }
-            color: mainView.backgroundColor
-            visible: emptyPage.noPlaylists && !emptyPage.noMusic && (playlistsTab.index === tabs.selectedTab.index || mainPageStack.currentPage.title === i18n.tr("Select playlist"))
-
-            Column {
-                anchors.centerIn: parent
-                spacing: units.gu(4)
-                width: units.gu(36)
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "x-large"
-                    horizontalAlignment: Text.AlignLeft
-                    maximumLineCount: 2
-                    text: i18n.tr("No playlists found")
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-
-                Label {
-                    color: styleMusic.libraryEmpty.labelColor
-                    elide: Text.ElideRight
-                    fontSize: "large"
-                    horizontalAlignment: Text.AlignLeft
-                    maximumLineCount: 4
-                    text: i18n.tr("Get more out of Music by tapping the %1 icon to start making playlists for every mood and occasion.").arg('"+"')
-                    width: parent.width
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
     }
 
     LoadingSpinnerComponent {

@@ -1,7 +1,6 @@
 /*
- * Copyright (C) 2014, 2015
+ * Copyright (C) 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
- *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,18 +18,30 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 
-Action {
-    iconName: "add-to-playlist"
-    objectName: "addToPlaylistAction"
-    text: i18n.tr("Add to playlist")
 
-    property bool primed: false
+PageHeadState {
+    name: "default"
+    head: thisPage.head
+    actions: [
+        Action {
+            id: newPlaylistAction
+            objectName: "newPlaylistButton"
+            iconName: "add"
+            onTriggered: {
+                customdebug("New playlist.")
+                PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
+            }
+        },
+        Action {
+            id: searchAction
+            iconName: "search"
+            onTriggered: thisPage.state = "search"
+        }
+    ]
 
-    onTriggered: {
-        console.debug("Debug: Add track to playlist");
-
-        mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                           {"chosenElements": [makeDict(model)]})
-    }
+    property alias newPlaylistEnabled: newPlaylistAction.enabled
+    property alias searchEnabled: searchAction.enabled
+    property Page thisPage
 }

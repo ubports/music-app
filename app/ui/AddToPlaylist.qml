@@ -26,6 +26,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 
 
 /* NOTE:
@@ -45,25 +46,10 @@ MusicPage {
     searchResultsCount: addToPlaylistModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: addToPlaylistPage.head
-            actions: [
-                Action {
-                    enabled: allSongsModel.count > 0
-                    objectName: "newPlaylistButton"
-                    iconName: "add"
-                    onTriggered: {
-                        customdebug("New playlist.")
-                        PopupUtils.open(Qt.resolvedUrl("../components/Dialog/NewPlaylistDialog.qml"), mainView)
-                    }
-                },
-                Action {
-                    enabled: playlistModel.model.count > 0 && allSongsModel.count > 0
-                    iconName: "search"
-                    onTriggered: addToPlaylistPage.state = "search"
-                }
-            ]
+        PlaylistsHeadState {
+            newPlaylistEnabled: allSongsModel.count > 0
+            searchEnabled: playlistModel.model.count > 0 && allSongsModel.count > 0
+            thisPage: addToPlaylistPage
         },
         SearchHeadState {
             id: searchHeader
@@ -132,5 +118,17 @@ MusicPage {
                 mainPageStack.goBack();  // go back to the previous page
             }
         }
+    }
+
+    // Overlay to show when no playlists are on the device
+    Loader {
+        anchors {
+            fill: parent
+            topMargin: -playlistsPage.header.height
+        }
+        active: playlistModel.model.count === 0 && playlistModel.workerComplete
+        asynchronous: true
+        source: "../components/PlaylistsEmptyState.qml"
+        visible: active
     }
 }

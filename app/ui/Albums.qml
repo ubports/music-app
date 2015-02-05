@@ -21,6 +21,7 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
 import "../components"
+import "../components/HeadState"
 
 
 MusicPage {
@@ -31,14 +32,9 @@ MusicPage {
     searchResultsCount: albumsModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: albumsPage.head
-            actions: Action {
-                enabled: albumsModelFilter.count > 0
-                iconName: "search"
-                onTriggered: albumsPage.state = "search"
-            }
+        SearchableHeadState {
+            thisPage: albumsPage
+            searchEnabled: albumsModelFilter.count > 0
         },
         SearchHeadState {
             id: searchHeader
@@ -75,24 +71,17 @@ MusicPage {
             secondaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
 
             onClicked: {
-                var comp = Qt.createComponent("SongsView.qml")
-                var songsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "album": model.title,
-                                                      "artist": model.artist,
-                                                      "covers": [{art: model.art}],
-                                                      "isAlbum": true,
-                                                      "genre": undefined,
-                                                      "title": i18n.tr("Album"),
-                                                      "line1": model.artist,
-                                                      "line2": model.title,
-                                                  });
-
-                if (songsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(songsPage)
+                mainPageStack.push(Qt.resolvedUrl("SongsView.qml"),
+                                   {
+                                       "album": model.title,
+                                       "artist": model.artist,
+                                       "covers": [{art: model.art}],
+                                       "isAlbum": true,
+                                       "genre": undefined,
+                                       "title": i18n.tr("Album"),
+                                       "line1": model.artist,
+                                       "line2": model.title
+                                   })
             }
         }
     }

@@ -27,6 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/HeadState"
 
 
 MusicPage {
@@ -37,14 +38,9 @@ MusicPage {
     searchResultsCount: artistsModelFilter.count
     state: "default"
     states: [
-        PageHeadState {
-            name: "default"
-            head: artistsPage.head
-            actions: Action {
-                enabled: artistsModelFilter.count > 0
-                iconName: "search"
-                onTriggered: artistsPage.state = "search"
-            }
+        SearchableHeadState {
+            thisPage: artistsPage
+            searchEnabled: artistsModelFilter.count > 0
         },
         SearchHeadState {
             id: searchHeader
@@ -102,21 +98,13 @@ MusicPage {
                 }
             }
 
-
             onClicked: {
-                var comp = Qt.createComponent("ArtistView.qml")
-                var albumsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "artist": model.artist,
-                                                      "covers": artistCard.coverSources,
-                                                      "title": i18n.tr("Artist"),
-                                                  });
-
-                if (albumsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(albumsPage)
+                mainPageStack.push(Qt.resolvedUrl("ArtistView.qml"),
+                                   {
+                                       "artist": model.artist,
+                                       "covers": artistCard.coverSources,
+                                       "title": i18n.tr("Artist")
+                                   })
             }
         }
     }

@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "../components"
+import "../components/HeadState"
 import "../components/ListItemActions"
 import "../components/Themes/Ambiance"
 import "../logic/meta-database.js" as Library
@@ -98,14 +99,8 @@ MusicPage {
 
                         items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
-                        var comp = Qt.createComponent("AddToPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                        if (addToPlaylist == null) {  // Error Handling
-                            console.log("Error creating object");
-                        }
-
-                        mainPageStack.push(addToPlaylist)
+                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
+                                           {"chosenElements": items})
                     }
                 },
                 Action {
@@ -126,71 +121,17 @@ MusicPage {
                 actions: defaultState.actions
             }
         },
-        PageHeadState {
-            id: selectionState
+        MultiSelectHeadState {
+            addToQueue: false
+            listview: queueListLoader.item
+            removable: true
+            thisPage: nowPlaying
 
-            name: "selection"
-            backAction: Action {
-                text: i18n.tr("Cancel selection")
-                iconName: "back"
-                onTriggered: {
-                    queueListLoader.item.clearSelection()
-                    queueListLoader.item.state = "normal"
-                }
-            }
-            actions: [
-                Action {
-                    text: i18n.tr("Select All")
-                    iconName: "select"
-                    onTriggered: {
-                        if (queueListLoader.item.selectedItems.length === trackQueue.model.count) {
-                            queueListLoader.item.clearSelection()
-                        } else {
-                            queueListLoader.item.selectAll()
-                        }
-                    }
-                },
-                Action {
-                    enabled: queueListLoader.item.selectedItems.length > 0
-                    iconName: "add-to-playlist"
-                    text: i18n.tr("Add to playlist")
-                    onTriggered: {
-                        var items = []
-
-                        for (var i=0; i < queueListLoader.item.selectedItems.length; i++) {
-                            items.push(makeDict(trackQueue.model.get(queueListLoader.item.selectedItems[i])));
-                        }
-
-                        var comp = Qt.createComponent("AddToPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                        if (addToPlaylist == null) {  // Error Handling
-                            console.log("Error creating object");
-                        }
-
-                        mainPageStack.push(addToPlaylist)
-
-                        queueListLoader.item.closeSelection()
-                    }
-                },
-                Action {
-                    enabled: queueListLoader.item.selectedItems.length > 0
-                    iconName: "delete"
-                    text: i18n.tr("Delete")
-                    onTriggered: {
-                        // Remove the tracks from the queue
-                        // Use slice() to copy the list
-                        // so that the indexes don't change as they are removed
-                        trackQueue.removeQueueList(queueListLoader.item.selectedItems.slice())
-
-                        queueListLoader.item.closeSelection()
-                    }
-                }
-            ]
-            PropertyChanges {
-                target: nowPlaying.head
-                backAction: selectionState.backAction
-                actions: selectionState.actions
+            onRemoved: {
+                // Remove the tracks from the queue
+                // Use slice() to copy the list
+                // so that the indexes don't change as they are removed
+                trackQueue.removeQueueList(selectedItems.slice())
             }
         }
     ]
@@ -597,7 +538,7 @@ MusicPage {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
             height: units.gu(6)
-            opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+            opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
             width: height
             onClicked: player.repeat = !player.repeat
 
@@ -610,7 +551,7 @@ MusicPage {
                 color: "white"
                 name: "media-playlist-repeat"
                 objectName: "repeatShape"
-                opacity: player.repeat && !emptyPage.noMusic ? 1 : .4
+                opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
             }
         }
 
@@ -652,7 +593,7 @@ MusicPage {
                 width: height
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                opacity: emptyPage.noMusic ? .4 : 1
+                opacity: emptyPageLoader.noMusic ? .4 : 1
                 color: "white"
                 name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
@@ -690,7 +631,7 @@ MusicPage {
             anchors.leftMargin: units.gu(1)
             anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
             height: units.gu(6)
-            opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+            opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
             width: height
             onClicked: player.shuffle = !player.shuffle
 
@@ -703,7 +644,7 @@ MusicPage {
                 color: "white"
                 name: "media-playlist-shuffle"
                 objectName: "shuffleShape"
-                opacity: player.shuffle && !emptyPage.noMusic ? 1 : .4
+                opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
             }
         }
 
