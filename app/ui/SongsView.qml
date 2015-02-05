@@ -144,7 +144,7 @@ MusicPage {
         },
         MultiSelectHeadState {
             listview: albumtrackslist
-            removable: true
+            removable: songStackPage.line1 === i18n.tr("Playlist")
             thisPage: songStackPage
 
             onRemoved: {

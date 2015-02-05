@@ -37,7 +37,7 @@ MusicPage {
     searchResultsCount: songsModelFilter.count
     state: "default"
     states: [
-        SearchablePageHeadState {
+        SearchableHeadState {
             thisPage: songsPage
             searchEnabled: songsModelFilter.count > 0
         },

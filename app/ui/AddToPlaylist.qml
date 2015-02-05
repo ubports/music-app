@@ -46,7 +46,7 @@ MusicPage {
     searchResultsCount: addToPlaylistModelFilter.count
     state: "default"
     states: [
-        SearchablePagePlaylistHeadState {
+        PlaylistsHeadState {
             newPlaylistEnabled: allSongsModel.count > 0
             searchEnabled: playlistModel.model.count > 0 && allSongsModel.count > 0
             thisPage: addToPlaylistPage

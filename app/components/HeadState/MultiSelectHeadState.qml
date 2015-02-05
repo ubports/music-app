@@ -79,7 +79,7 @@ PageHeadState {
             visible: removable
 
             onTriggered: {
-                remove(listview.selectedItems)
+                removed(listview.selectedItems)
 
                 listview.closeSelection()
             }
