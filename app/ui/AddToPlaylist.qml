@@ -119,4 +119,16 @@ MusicPage {
             }
         }
     }
+
+    // Overlay to show when no playlists are on the device
+    Loader {
+        anchors {
+            fill: parent
+            topMargin: -playlistsPage.header.height
+        }
+        active: playlistModel.model.count === 0 && playlistModel.workerComplete
+        asynchronous: true
+        source: "../components/PlaylistsEmptyState.qml"
+        visible: active
+    }
 }

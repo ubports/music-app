@@ -90,7 +90,7 @@ Rectangle {
                 color: styleMusic.playerControls.labelColor
                 text: i18n.tr("Tap to shuffle music")
                 fontSize: "large"
-                visible: !emptyPage.noMusic
+                visible: !emptyPageLoader.noMusic
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
             }
@@ -117,7 +117,7 @@ Rectangle {
                     fill: parent
                 }
                 onClicked: {
-                    if (emptyPage.noMusic) {
+                    if (emptyPageLoader.noMusic) {
                         return;
                     }
 
