@@ -122,6 +122,7 @@ MusicPage {
             }
         },
         MultiSelectHeadState {
+            addToQueue: false
             listview: queueListLoader.item
             removable: true
             thisPage: nowPlaying

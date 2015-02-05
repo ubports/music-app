@@ -54,6 +54,8 @@ PageHeadState {
             enabled: listview.selectedItems.length > 0
             iconName: "add"
             text: i18n.tr("Add to queue")
+            visible: addToQueue
+
             onTriggered: {
                 var items = []
 
@@ -97,6 +99,7 @@ PageHeadState {
         actions: selectionState.actions
     }
 
+    property bool addToQueue: true
     property ListView listview
     property bool removable: false
     property Page thisPage
