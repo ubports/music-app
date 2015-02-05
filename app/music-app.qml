@@ -305,7 +305,7 @@ MainView {
 
                 if (success === true) {
                     if (contentHubWaitForFile.processId === -1) {
-                        contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("components/Dialogs/ContentHubWaitDialog.qml"), mainView)
+                        contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubWaitDialog.qml"), mainView)
                         contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                         contentHubWaitForFile.processId = processId;
                         contentHubWaitForFile.start();
@@ -319,7 +319,7 @@ MainView {
                     }
                 }
                 else {
-                    var errordialog = PopupUtils.open(Qt.resolvedUrl("components/Dialogs/ContentHubErrorDialog.qml"), mainView)
+                    var errordialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubErrorDialog.qml"), mainView)
                     errordialog.errorText = err.join("\n")
                 }
             }
@@ -417,7 +417,7 @@ MainView {
                     stopTimer();
 
                     console.debug("File(s) were not found", JSON.stringify(searchPaths))
-                    PopupUtils.open(Qt.resolvedUrl("components/Dialogs/ContentHubNotFoundDialog.qml"), mainView)
+                    PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubNotFoundDialog.qml"), mainView)
                 }
             }
             else {

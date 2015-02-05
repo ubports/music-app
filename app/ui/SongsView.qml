@@ -122,7 +122,7 @@ MusicPage {
                     objectName: "editPlaylist"
                     iconName: "edit"
                     onTriggered: {
-                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialogs/EditPlaylistDialog.qml"), mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 },
@@ -130,7 +130,7 @@ MusicPage {
                     objectName: "deletePlaylist"
                     iconName: "delete"
                     onTriggered: {
-                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialogs/RemovePlaylistDialog.qml"), mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 }
