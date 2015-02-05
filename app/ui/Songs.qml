@@ -79,14 +79,8 @@ MusicPage {
                             items.push(makeDict(tracklist.model.get(tracklist.selectedItems[i], tracklist.model.RoleModelData)));
                         }
 
-                        var comp = Qt.createComponent("AddToPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                        if (addToPlaylist == null) {  // Error Handling
-                            console.log("Error creating object");
-                        }
-
-                        mainPageStack.push(addToPlaylist)
+                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
+                                           {"chosenElements": items})
 
                         tracklist.closeSelection()
                     }

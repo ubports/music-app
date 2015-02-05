@@ -75,24 +75,17 @@ MusicPage {
             secondaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
 
             onClicked: {
-                var comp = Qt.createComponent("SongsView.qml")
-                var songsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "album": model.title,
-                                                      "artist": model.artist,
-                                                      "covers": [{art: model.art}],
-                                                      "isAlbum": true,
-                                                      "genre": undefined,
-                                                      "title": i18n.tr("Album"),
-                                                      "line1": model.artist,
-                                                      "line2": model.title,
-                                                  });
-
-                if (songsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(songsPage)
+                mainPageStack.push(Qt.resolvedUrl("SongsView.qml"),
+                                   {
+                                       "album": model.title,
+                                       "artist": model.artist,
+                                       "covers": [{art: model.art}],
+                                       "isAlbum": true,
+                                       "genre": undefined,
+                                       "title": i18n.tr("Album"),
+                                       "line1": model.artist,
+                                       "line2": model.title
+                                   })
             }
         }
     }
