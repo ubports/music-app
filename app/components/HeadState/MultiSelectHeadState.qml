@@ -44,14 +44,8 @@ PageHeadState {
                     items.push(makeDict(tracklist.model.get(listview.selectedItems[i], listview.model.RoleModelData)));
                 }
 
-                var comp = Qt.createComponent("AddToPlaylist.qml")
-                var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                if (addToPlaylist == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(addToPlaylist)
+                mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
+                                   {"chosenElements": items})
 
                 listview.closeSelection()
             }

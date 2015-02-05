@@ -99,23 +99,16 @@ MusicPage {
             }
 
             onClicked: {
-                var comp = Qt.createComponent("SongsView.qml")
-                var songsPage = comp.createObject(mainPageStack,
-                                                  {
-                                                      "covers": genreCard.coverSources,
-                                                      "album": undefined,
-                                                      "isAlbum": true,
-                                                      "genre": model.genre,
-                                                      "title": i18n.tr("Genre"),
-                                                      "line2": model.genre,
-                                                      "line1": i18n.tr("Genre")
-                                                  });
-
-                if (songsPage == null) {  // Error Handling
-                    console.log("Error creating object");
-                }
-
-                mainPageStack.push(songsPage)
+                mainPageStack.push(Qt.resolvedUrl("SongsView.qml"),
+                                   {
+                                       "covers": genreCard.coverSources,
+                                       "album": undefined,
+                                       "isAlbum": true,
+                                       "genre": model.genre,
+                                       "title": i18n.tr("Genre"),
+                                       "line2": model.genre,
+                                       "line1": i18n.tr("Genre")
+                                   })
             }
         }
     }

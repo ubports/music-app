@@ -99,14 +99,8 @@ MusicPage {
 
                         items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
-                        var comp = Qt.createComponent("AddToPlaylist.qml")
-                        var addToPlaylist = comp.createObject(mainPageStack, {"chosenElements": items});
-
-                        if (addToPlaylist == null) {  // Error Handling
-                            console.log("Error creating object");
-                        }
-
-                        mainPageStack.push(addToPlaylist)
+                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
+                                           {"chosenElements": items})
                     }
                 },
                 Action {
