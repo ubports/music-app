@@ -41,10 +41,10 @@ PageHeadState {
                 var items = []
 
                 for (var i=0; i < listview.selectedItems.length; i++) {
-                    items.push(makeDict(tracklist.model.get(listview.selectedItems[i], listview.model.RoleModelData)));
+                    items.push(makeDict(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData)));
                 }
 
-                mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
+                mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
                                    {"chosenElements": items})
 
                 listview.closeSelection()
