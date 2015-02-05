@@ -142,7 +142,7 @@ MusicPage {
         }
         active: playlistModel.model.count === 0 && playlistModel.workerComplete
         asynchronous: true
-        source: "../components/PlaylistEmptyState.qml"
+        source: "../components/PlaylistsEmptyState.qml"
         visible: active
     }
 }
