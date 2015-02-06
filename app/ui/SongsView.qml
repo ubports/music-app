@@ -179,7 +179,7 @@ MusicPage {
         }
     }
 
-    ListView {
+    MultiSelectListView {
         id: albumtrackslist
         anchors {
             fill: parent
@@ -188,43 +188,6 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
-
-        // Requirements for ListItemWithActions
-        property var selectedItems: []
-
-        signal clearSelection()
-        signal closeSelection()
-        signal selectAll()
-
-        onClearSelection: selectedItems = []
-        onCloseSelection: {
-            clearSelection()
-            state = "normal"
-        }
-        onSelectAll: {
-            var tmp = selectedItems
-
-            for (var i=0; i < model.count; i++) {
-                if (tmp.indexOf(i) === -1) {
-                    tmp.push(i)
-                }
-            }
-
-            selectedItems = tmp
-        }
-        onVisibleChanged: {
-            if (!visible) {
-                closeSelection()
-            }
-        }
-
-        Component.onCompleted: {
-            // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
-            // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
-            var scaleFactor = units.gridUnit / 8;
-            maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
-            flickDeceleration = flickDeceleration * scaleFactor;
-        }
 
         header: BlurredHeader {
             rightColumn: Column {
