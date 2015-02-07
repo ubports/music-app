@@ -29,6 +29,7 @@ import "../logic/playlists.js" as Playlists
 import "../components"
 import "../components/HeadState"
 import "../components/ListItemActions"
+import "../components/ViewButton"
 
 MusicPage {
     id: songStackPage
@@ -229,27 +230,9 @@ MusicPage {
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
-                Button {
-                    id: shuffleRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Shuffle")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
+                ShuffleButton {
+                    model: albumtrackslist.model
                     onClicked: {
-                        shuffleModel(albumtrackslist.model)  // play track
-
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
@@ -261,36 +244,12 @@ MusicPage {
                         recentModel.filterRecent()
                     }
                 }
-                Button {
-                    id: queueAllRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Queue all")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
-                    onClicked: addQueueFromModel(albumtrackslist.model)
+                QueueAllButton {
+                    model: albumtrackslist.model
                 }
-                Button {
-                    id: playRow
-                    color: UbuntuColors.green
-                    height: units.gu(4)
-                    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                    text: i18n.tr("Play all")
-                    width: units.gu(15)
+                PlayAllButton {
+                    model: albumtrackslist.model
                     onClicked: {
-                        trackClicked(albumtrackslist.model, 0)  // play track
-
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
