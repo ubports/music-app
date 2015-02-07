@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,28 +21,26 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 
+Dialog {
+    id: dialogContentHubNotFound
 
-PageHeadState {
-    name: "default"
-    head: thisPage.head
-    actions: [
-        Action {
-            id: newPlaylistAction
-            objectName: "newPlaylistButton"
-            iconName: "add"
-            onTriggered: {
-                customdebug("New playlist.")
-                PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
-            }
-        },
-        Action {
-            id: searchAction
-            iconName: "search"
-            onTriggered: thisPage.state = "search"
+    Label {
+        color: styleMusic.common.black
+        text: i18n.tr("Imported file not found")
+    }
+
+    Button {
+        text: i18n.tr("Wait")
+        onClicked: {
+            PopupUtils.close(dialogContentHubNotFound)
+
+            contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("ContentHubWaitDialog.qml"), mainView)
+            contentHubWaitForFile.start();
         }
-    ]
+    }
 
-    property alias newPlaylistEnabled: newPlaylistAction.enabled
-    property alias searchEnabled: searchAction.enabled
-    property Page thisPage
+    Button {
+        text: i18n.tr("Cancel")
+        onClicked: PopupUtils.close(dialogContentHubNotFound)
+    }
 }

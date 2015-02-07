@@ -124,7 +124,7 @@ MusicPage {
                     objectName: "editPlaylist"
                     iconName: "edit"
                     onTriggered: {
-                        var dialog = PopupUtils.open(editPlaylistDialog, mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 },
@@ -132,7 +132,7 @@ MusicPage {
                     objectName: "deletePlaylist"
                     iconName: "delete"
                     onTriggered: {
-                        var dialog = PopupUtils.open(removePlaylistDialog, mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 }
@@ -418,101 +418,4 @@ MusicPage {
     }
 
     Component.onCompleted: loaded = true
-
-    // Edit name of playlist dialog
-    Component {
-        id: editPlaylistDialog
-        Dialog {
-            id: dialogEditPlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-            title: i18n.tr("Rename playlist")
-
-            property string oldPlaylistName: ""
-
-            TextField {
-                id: playlistName
-                inputMethodHints: Qt.ImhNoPredictiveText
-                placeholderText: i18n.tr("Enter playlist name")
-            }
-            Label {
-                id: editplaylistoutput
-                color: "red"
-                visible: false
-            }
-
-            Button {
-                text: i18n.tr("Change")
-                color: styleMusic.dialog.confirmButtonColor
-                onClicked: {
-                    editplaylistoutput.visible = true
-
-                    if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-
-                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
-
-                            if (Library.recentContainsPlaylist(oldPlaylistName)) {
-                                Library.recentRenamePlaylist(oldPlaylistName, playlistName.text)
-                            }
-
-                            line2 = playlistName.text
-
-                            playlistChangedHelper()  // update recent/playlist models
-
-                            PopupUtils.close(dialogEditPlaylist)
-                        }
-                        else {
-                            editplaylistoutput.text = i18n.tr("Playlist already exists")
-                        }
-                    }
-                    else {
-                        editplaylistoutput.text = i18n.tr("Please type in a name.")
-                    }
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogEditPlaylist)
-            }
-        }
-    }
-
-    // Remove playlist dialog
-    Component {
-        id: removePlaylistDialog
-        Dialog {
-            id: dialogRemovePlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-            title: i18n.tr("Permanently delete playlist?")
-            text: "("+i18n.tr("This cannot be undone")+")"
-
-            property string oldPlaylistName
-
-            Button {
-                text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmRemoveButtonColor
-                onClicked: {
-                    // removing playlist
-                    Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
-
-                    if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
-                        Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                    }
-
-                    playlistChangedHelper(true)  // update recent/playlist models
-
-                    songStackPage.page = undefined
-                    PopupUtils.close(dialogRemovePlaylist)
-
-                    mainPageStack.goBack()
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogRemovePlaylist)
-            }
-        }
-    }
 }
