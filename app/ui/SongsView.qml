@@ -29,6 +29,7 @@ import "../logic/playlists.js" as Playlists
 import "../components"
 import "../components/HeadState"
 import "../components/ListItemActions"
+import "../components/ViewButton"
 
 MusicPage {
     id: songStackPage
@@ -123,7 +124,7 @@ MusicPage {
                     objectName: "editPlaylist"
                     iconName: "edit"
                     onTriggered: {
-                        var dialog = PopupUtils.open(editPlaylistDialog, mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 },
@@ -131,7 +132,7 @@ MusicPage {
                     objectName: "deletePlaylist"
                     iconName: "delete"
                     onTriggered: {
-                        var dialog = PopupUtils.open(removePlaylistDialog, mainView)
+                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
                         dialog.oldPlaylistName = line2
                     }
                 }
@@ -192,27 +193,9 @@ MusicPage {
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
-                Button {
-                    id: shuffleRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Shuffle")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
+                ShuffleButton {
+                    model: albumtrackslist.model
                     onClicked: {
-                        shuffleModel(albumtrackslist.model)  // play track
-
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
@@ -224,36 +207,12 @@ MusicPage {
                         recentModel.filterRecent()
                     }
                 }
-                Button {
-                    id: queueAllRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Queue all")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
-                    onClicked: addQueueFromModel(albumtrackslist.model)
+                QueueAllButton {
+                    model: albumtrackslist.model
                 }
-                Button {
-                    id: playRow
-                    color: UbuntuColors.green
-                    height: units.gu(4)
-                    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                    text: i18n.tr("Play all")
-                    width: units.gu(15)
+                PlayAllButton {
+                    model: albumtrackslist.model
                     onClicked: {
-                        trackClicked(albumtrackslist.model, 0)  // play track
-
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
                         } else if (songStackPage.line1 === i18n.tr("Playlist")) {
@@ -422,101 +381,4 @@ MusicPage {
     }
 
     Component.onCompleted: loaded = true
-
-    // Edit name of playlist dialog
-    Component {
-        id: editPlaylistDialog
-        Dialog {
-            id: dialogEditPlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-            title: i18n.tr("Rename playlist")
-
-            property string oldPlaylistName: ""
-
-            TextField {
-                id: playlistName
-                inputMethodHints: Qt.ImhNoPredictiveText
-                placeholderText: i18n.tr("Enter playlist name")
-            }
-            Label {
-                id: editplaylistoutput
-                color: "red"
-                visible: false
-            }
-
-            Button {
-                text: i18n.tr("Change")
-                color: styleMusic.dialog.confirmButtonColor
-                onClicked: {
-                    editplaylistoutput.visible = true
-
-                    if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        console.debug("Debug: User changed name from "+oldPlaylistName+" to "+playlistName.text)
-
-                        if (Playlists.renamePlaylist(oldPlaylistName, playlistName.text) === true) {
-
-                            if (Library.recentContainsPlaylist(oldPlaylistName)) {
-                                Library.recentRenamePlaylist(oldPlaylistName, playlistName.text)
-                            }
-
-                            line2 = playlistName.text
-
-                            playlistChangedHelper()  // update recent/playlist models
-
-                            PopupUtils.close(dialogEditPlaylist)
-                        }
-                        else {
-                            editplaylistoutput.text = i18n.tr("Playlist already exists")
-                        }
-                    }
-                    else {
-                        editplaylistoutput.text = i18n.tr("Please type in a name.")
-                    }
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogEditPlaylist)
-            }
-        }
-    }
-
-    // Remove playlist dialog
-    Component {
-        id: removePlaylistDialog
-        Dialog {
-            id: dialogRemovePlaylist
-            // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-            title: i18n.tr("Permanently delete playlist?")
-            text: "("+i18n.tr("This cannot be undone")+")"
-
-            property string oldPlaylistName
-
-            Button {
-                text: i18n.tr("Remove")
-                color: styleMusic.dialog.confirmRemoveButtonColor
-                onClicked: {
-                    // removing playlist
-                    Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
-
-                    if (Library.recentContainsPlaylist(dialogRemovePlaylist.oldPlaylistName)) {
-                        Library.recentRemovePlaylist(dialogRemovePlaylist.oldPlaylistName)
-                    }
-
-                    playlistChangedHelper(true)  // update recent/playlist models
-
-                    songStackPage.page = undefined
-                    PopupUtils.close(dialogRemovePlaylist)
-
-                    mainPageStack.goBack()
-                }
-            }
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogRemovePlaylist)
-            }
-        }
-    }
 }

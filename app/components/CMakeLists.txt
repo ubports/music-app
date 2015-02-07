@@ -1,5 +1,7 @@
+add_subdirectory(Dialog)
 add_subdirectory(HeadState)
 add_subdirectory(ListItemActions)
+add_subdirectory(ViewButton)
 add_subdirectory(Walkthrough)
 
 # make the qml files visible on qtcreator

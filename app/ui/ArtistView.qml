@@ -26,6 +26,7 @@ import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../components"
+import "../components/ViewButton"
 
 MusicPage {
     id: artistViewPage
@@ -51,54 +52,14 @@ MusicPage {
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
-                Button {
-                    id: shuffleRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Shuffle")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
-                    onClicked: shuffleModel(songArtistModel)
+                ShuffleButton {
+                    model: songArtistModel
                 }
-                Button {
-                    id: queueAllRow
-                    height: units.gu(4)
-                    strokeColor: UbuntuColors.green
-                    width: units.gu(15)
-                    Text {
-                        anchors {
-                            centerIn: parent
-                        }
-                        color: "white"
-                        elide: Text.ElideRight
-                        height: parent.height
-                        horizontalAlignment: Text.AlignHCenter
-                        // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                        text: i18n.tr("Queue all")
-                        verticalAlignment: Text.AlignVCenter
-                        width: parent.width - units.gu(2)
-                    }
-                    onClicked: addQueueFromModel(songArtistModel)
+                QueueAllButton {
+                    model: songArtistModel
                 }
-                Button {
-                    id: playRow
-                    color: UbuntuColors.green
-                    height: units.gu(4)
-                    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
-                    text: i18n.tr("Play all")
-                    width: units.gu(15)
-                    onClicked: trackClicked(songArtistModel, 0, true)
+                PlayAllButton {
+                    model: songArtistModel
                 }
             }
             coverSources: artistViewPage.covers

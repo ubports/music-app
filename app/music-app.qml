@@ -305,7 +305,7 @@ MainView {
 
                 if (success === true) {
                     if (contentHubWaitForFile.processId === -1) {
-                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
+                        contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubWaitDialog.qml"), mainView)
                         contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                         contentHubWaitForFile.processId = processId;
                         contentHubWaitForFile.start();
@@ -319,7 +319,7 @@ MainView {
                     }
                 }
                 else {
-                    var errordialog = PopupUtils.open(contentHubError, mainView)
+                    var errordialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubErrorDialog.qml"), mainView)
                     errordialog.errorText = err.join("\n")
                 }
             }
@@ -417,7 +417,7 @@ MainView {
                     stopTimer();
 
                     console.debug("File(s) were not found", JSON.stringify(searchPaths))
-                    PopupUtils.open(contentHubNotFound, mainView)
+                    PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubNotFoundDialog.qml"), mainView)
                 }
             }
             else {
@@ -432,67 +432,6 @@ MainView {
                 }
 
                 trackQueueClick(0);
-            }
-        }
-    }
-
-    Component {
-        id: contentHubWait
-        Dialog {
-            id: dialogContentHubWait
-
-            LoadingSpinnerComponent {
-                anchors {
-                    margins: units.gu(0)
-                }
-                loadingText: i18n.tr("Waiting for file(s)...")
-                visible: true
-            }
-        }
-    }
-
-    Component {
-        id: contentHubError
-        Dialog {
-            id: dialogContentHubError
-
-            property alias errorText: errorLabel.text
-
-            Label {
-                id: errorLabel
-                color: styleMusic.common.black
-            }
-
-            Button {
-                text: i18n.tr("OK")
-                onClicked: PopupUtils.close(dialogContentHubError)
-            }
-        }
-    }
-
-    Component {
-        id: contentHubNotFound
-        Dialog {
-            id: dialogContentHubNotFound
-
-            Label {
-                color: styleMusic.common.black
-                text: i18n.tr("Imported file not found")
-            }
-
-            Button {
-                text: i18n.tr("Wait")
-                onClicked: {
-                    PopupUtils.close(dialogContentHubNotFound)
-
-                    contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                    contentHubWaitForFile.start();
-                }
-            }
-
-            Button {
-                text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogContentHubNotFound)
             }
         }
     }
@@ -1023,60 +962,6 @@ MainView {
                 loading.visible = false
                 playlistsTab.loading = false
                 playlistsTab.populated = true
-            }
-        }
-    }
-
-    // New playlist dialog
-    Component {
-        id: newPlaylistDialog
-        Dialog {
-            id: dialogNewPlaylist
-            objectName: "dialogNewPlaylist"
-            title: i18n.tr("New playlist")
-            TextField {
-                id: playlistName
-                objectName: "playlistNameTextField"
-                placeholderText: i18n.tr("Enter playlist name")
-                inputMethodHints: Qt.ImhNoPredictiveText
-            }
-            Label {
-                id: newplaylistoutput
-                color: "red"
-                visible: false // should only be visible when an error is made.
-            }
-
-            Button {
-                text: i18n.tr("Create")
-                color: styleMusic.dialog.confirmButtonColor
-                objectName: "newPlaylistDialogCreateButton"
-                onClicked: {
-                    newplaylistoutput.visible = false // make sure its hidden now if there was an error last time
-                    if (playlistName.text.length > 0) { // make sure something is acually inputed
-                        if (Playlists.addPlaylist(playlistName.text) === true) {
-                            console.debug("Debug: User created a new playlist named: ", playlistName.text)
-
-                            playlistModel.filterPlaylists();  // reload model
-
-                            PopupUtils.close(dialogNewPlaylist)
-                        }
-                        else {
-                            console.debug("Debug: Playlist already exists")
-                            newplaylistoutput.visible = true
-                            newplaylistoutput.text = i18n.tr("Playlist already exists")
-                        }
-                    }
-                    else {
-                        newplaylistoutput.visible = true
-                        newplaylistoutput.text = i18n.tr("Please type in a name.")
-                    }
-                }
-            }
-
-            Button {
-                text: i18n.tr("Cancel")
-                color: styleMusic.dialog.cancelButtonColor
-                onClicked: PopupUtils.close(dialogNewPlaylist)
             }
         }
     }

@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2013, 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,30 +19,16 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
 
 
-PageHeadState {
-    name: "default"
-    head: thisPage.head
-    actions: [
-        Action {
-            id: newPlaylistAction
-            objectName: "newPlaylistButton"
-            iconName: "add"
-            onTriggered: {
-                customdebug("New playlist.")
-                PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
-            }
-        },
-        Action {
-            id: searchAction
-            iconName: "search"
-            onTriggered: thisPage.state = "search"
-        }
-    ]
+Button {
+    color: UbuntuColors.green
+    height: units.gu(4)
+    // TRANSLATORS: this appears in a button with limited space (around 14 characters)
+    text: i18n.tr("Play all")
+    width: units.gu(15)
 
-    property alias newPlaylistEnabled: newPlaylistAction.enabled
-    property alias searchEnabled: searchAction.enabled
-    property Page thisPage
+    property var model
+
+    onClicked: trackClicked(model, 0)  // play track
 }
