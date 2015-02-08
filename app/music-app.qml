@@ -1362,7 +1362,9 @@ MainView {
 
     Loader {
         id: emptyPageLoader
-        active: noMusic && !firstRun
+        // Do not be active if content-hub is importing due to the models resetting
+        // this then causes the empty page loader to partially run then showing a blank header
+        active: noMusic && !firstRun && contentHubWaitForFile.processId === -1
         anchors {
             fill: parent
         }
