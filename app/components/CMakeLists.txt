@@ -1,5 +1,6 @@
 add_subdirectory(Dialog)
 add_subdirectory(HeadState)
+add_subdirectory(Flickables)
 add_subdirectory(ListItemActions)
 add_subdirectory(ViewButton)
 add_subdirectory(Walkthrough)

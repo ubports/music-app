@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "../components"
+import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
 import "../components/Themes/Ambiance"
