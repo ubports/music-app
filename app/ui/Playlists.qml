@@ -25,6 +25,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/Flickables"
 import "../components/HeadState"
 
 // page for the playlists

@@ -25,6 +25,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
 
@@ -56,7 +57,7 @@ MusicPage {
     // qml doesn't optimise using the parent type
     property bool bug1341671workaround: true
 
-    ListView {
+    MultiSelectListView {
         id: tracklist
         anchors {
             bottomMargin: units.gu(2)
@@ -80,49 +81,12 @@ MusicPage {
             filterCaseSensitivity: Qt.CaseInsensitive
         }
 
-        Component.onCompleted: {
-            // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
-            // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
-            var scaleFactor = units.gridUnit / 8;
-            maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
-            flickDeceleration = flickDeceleration * scaleFactor;
-        }
-
-        // Requirements for ListItemWithActions
-        property var selectedItems: []
-
-        signal clearSelection()
-        signal closeSelection()
-        signal selectAll()
-
-        onClearSelection: selectedItems = []
-        onCloseSelection: {
-            clearSelection()
-            state = "normal"
-        }
         onStateChanged: {
             if (state === "multiselectable") {
                 songsPage.state = "selection"
             } else {
                 searchHeader.query = ""  // force query back to default
                 songsPage.state = "default"
-            }
-        }
-
-        onSelectAll: {
-            var tmp = selectedItems
-
-            for (var i=0; i < model.count; i++) {
-                if (tmp.indexOf(i) === -1) {
-                    tmp.push(i)
-                }
-            }
-
-            selectedItems = tmp
-        }
-        onVisibleChanged: {
-            if (!visible) {
-                closeSelection()
             }
         }
 

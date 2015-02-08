@@ -27,6 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/Flickables"
 import "../components/HeadState"
 
 

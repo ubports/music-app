@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "../components"
+import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
 import "../components/Themes/Ambiance"
@@ -370,7 +371,7 @@ MusicPage {
             fill: parent
         }
         asynchronous: true
-        sourceComponent: ListView {
+        sourceComponent: MultiSelectListView {
             id: queueList
             anchors {
                 bottomMargin: musicToolbarFullContainer.height + units.gu(2)
@@ -387,46 +388,7 @@ MusicPage {
             property int normalHeight: units.gu(6)
             property int transitionDuration: 250  // transition length of animations
 
-            onCountChanged: {
-                customdebug("Queue: Now has: " + queueList.count + " tracks")
-            }
-
-            // Requirements for ListItemWithActions
-            property var selectedItems: []
-
-            signal clearSelection()
-            signal closeSelection()
-            signal selectAll()
-
-            onClearSelection: selectedItems = []
-            onCloseSelection: {
-                clearSelection()
-                state = "normal"
-            }
-            onSelectAll: {
-                var tmp = selectedItems
-
-                for (var i=0; i < model.count; i++) {
-                    if (tmp.indexOf(i) === -1) {
-                        tmp.push(i)
-                    }
-                }
-
-                selectedItems = tmp
-            }
-            onVisibleChanged: {
-                if (!visible) {
-                    closeSelection()
-                }
-            }
-
-            Component.onCompleted: {
-                // FIXME: workaround for qtubuntu not returning values depending on the grid unit definition
-                // for Flickable.maximumFlickVelocity and Flickable.flickDeceleration
-                var scaleFactor = units.gridUnit / 8;
-                maximumFlickVelocity = maximumFlickVelocity * scaleFactor;
-                flickDeceleration = flickDeceleration * scaleFactor;
-            }
+            onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
             Component {
                 id: queueDelegate
