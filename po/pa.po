@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2014-12-26 06:35+0000\n"
+"PO-Revision-Date: 2015-02-09 05:32+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:05+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-09 06:25+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -176,20 +176,20 @@ msgstr "ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "ਕੋਈ ਚੀਜ਼ ਨਹੀਂ ਮਿਲੀ"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "ਖੋਜੋ ਸੰਗੀਤ"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:528
 msgid "Rename playlist"
-msgstr ""
+msgstr "ਪਲੇਸੂਚੀ ਨੂੰ ਮੁੜ-ਨਾਂ ਦਿਓ"
 
 #: ../common/SongsPage.qml:535 ../music-app.qml:1004
 msgid "Enter playlist name"
-msgstr ""
+msgstr "ਪਲੇਸੂਚੀ ਦਾ ਨਾਂ ਦਾਖਲ ਕਰੋ"
 
 #: ../common/SongsPage.qml:544
 msgid "Change"
@@ -211,47 +211,51 @@ msgstr "ਰੱਦ"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:587
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "ਪਲੇਸੂਚੀ ਨੂੰ ਪੱਕੇ ਤੌਰ ਤੇ ਹਟਾਓ?"
 
 #: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
-msgstr ""
+msgstr "ਇਹ ਵਾਪਸ ਨਹੀਂ ਹੋ ਸਕਦਾ"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr ""
+msgstr "ਸੰਗੀਤ ਵਿੱਚ ਸੁਆਗਤ"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"ਉਬੰਤੂ ਦੇ ਸੰਗੀਤ ਐਪ ਦੇ ਨਾਲ ਆਪਣੇ ਪਸੰਦੀਦਾ ਸੰਗੀਤ ਦਾ ਆਨੰਦ ਲਵੋ। ਸ਼ੁਰੂ ਕਿਵੇ ਕਰੀਏ ਲਈ "
+"ਇੱਕ ਛੋਟਾ ਦੌਰਾ ਕਰੋ ਜਾਂ ਹੁਣੇ ਸੁਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਸਕਿੱਪ ਨੂੰ ਦਬਾਓ।"
 
 #: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
-msgstr ""
+msgstr "ਸੰਗੀਤ ਦੀ ਆਮਦ ਕਰੋ"
 
 #: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"ਆਪਣੇ ਜੰਤਰ ਨੂੰ ਕਿਸੇ ਵੀ ਕੰਪਿਊਟਰ ਨਾਲ ਜੋੜੋ ਅਤੇ ਫ਼ਾਈਲਾਂ ਨੂੰ ਅਸਾਨੀ ਨਾਲ ਸੰਗੀਤ ਫ਼ੋਲਡਰ "
+"ਵਿੱਚ ਖਿੱਚੋ ਜਾਂ ਸੰਗੀਤ ਨਾਲ ਹਟਾਉਣਯੋਗ ਮੀਡੀਆ ਪਾਵੋ।"
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
-msgstr ""
+msgstr "ਨਵਾਂ ਸੰਗੀਤ ਡਾਊਨਲੋਡ ਕਰੋ"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "ਆਨਲਾਈਨ ਬਰਾਊਜ਼ਿੰਗ ਕਰਦੇ ਸਮੇਂ ਖਰੀਦੇ ਸੰਗੀਤ ਦੀ ਸਿੱਧੇ ਤੌਰ ਤੇ ਆਮਦ ਕਰੋ।"
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
-msgstr ""
+msgstr "ਸ਼ੁਰੂ"
 
 #: ../common/Walkthrough/Walkthrough.qml:85
 msgid "Skip"
-msgstr ""
+msgstr "ਛੱਡੋ"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -372,6 +376,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"ਸੰਗੀਤ ਤੋਂ ਜਿਆਦਾ ਹਰੇਕ ਮਿਜ਼ਾਜ ਅਤੇ ਮੌਕੇ ਲਈ ਪਲੇਸੂਚੀਆਂ ਬਣਾਉਣਾ ਸ਼ੁਰੂ ਕਰਨ ਲਈ %1 "
+"ਆਈਕਾਨ ਨੂੰ ਛੂਹੋ।"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
