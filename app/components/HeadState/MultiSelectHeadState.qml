@@ -34,7 +34,7 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview.selectedItems.length !== 0
+            enabled: listview !== null ? listview.selectedItems.length > 0 : false
             iconName: "add-to-playlist"
             text: i18n.tr("Add to playlist")
             onTriggered: {
@@ -51,7 +51,7 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview.selectedItems.length > 0
+            enabled: listview !== null ? listview.selectedItems.length > 0 : false
             iconName: "add"
             text: i18n.tr("Add to queue")
             visible: addToQueue
@@ -69,7 +69,7 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview.selectedItems.length > 0
+            enabled: listview !== null ? listview.selectedItems.length > 0 : false
             iconName: "delete"
             text: i18n.tr("Delete")
             visible: removable
