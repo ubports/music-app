@@ -23,6 +23,7 @@ import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Thumbnailer 0.1
 import "../components"
+import "../components/Delegates"
 import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
@@ -378,7 +379,6 @@ MusicPage {
                 fill: parent
                 topMargin: units.gu(2)
             }
-            delegate: queueDelegate
             footer: Item {
                 height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
             }
@@ -390,95 +390,62 @@ MusicPage {
 
             onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
-            Component {
-                id: queueDelegate
-                ListItemWithActions {
-                    id: queueListItem
-                    color: player.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
-                    height: queueList.normalHeight
-                    objectName: "nowPlayingListItem" + index
-                    state: ""
-
-                    leftSideAction: Remove {
-                        onTriggered: trackQueue.removeQueueList([index])
-                    }
-                    multiselectable: true
-                    reorderable: true
-                    rightSideActions: [
-                        AddToPlaylist{
-
-                        }
-                    ]
-
-                    onItemClicked: {
-                        customdebug("File: " + model.filename) // debugger
-                        trackQueueClick(index);  // toggle track state
-                    }
-                    onReorder: {
-                        console.debug("Move: ", from, to);
-
-                        trackQueue.model.move(from, to, 1);
-                        Library.moveQueueItem(from, to);
-
-                        // Maintain currentIndex with current song
-                        if (from === player.currentIndex) {
-                            player.currentIndex = to;
-                        }
-                        else if (from < player.currentIndex && to >= player.currentIndex) {
-                            player.currentIndex -= 1;
-                        }
-                        else if (from > player.currentIndex && to <= player.currentIndex) {
-                            player.currentIndex += 1;
-                        }
-
-                        queueIndex = player.currentIndex
+            delegate: MusicListItem {
+                id: queueListItem
+                color: player.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
+                column: Column {
+                    Label {
+                        id: trackTitle
+                        color: player.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
+                        fontSize: "small"
+                        objectName: "titleLabel"
+                        text: model.title
                     }
 
-                    Item {
-                        id: trackContainer;
-                        anchors {
-                            fill: parent
-                        }
-
-                        NumberAnimation {
-                            id: trackContainerReorderAnimation
-                            target: trackContainer;
-                            property: "anchors.leftMargin";
-                            duration: queueList.transitionDuration;
-                            to: units.gu(2)
-                        }
-
-                        NumberAnimation {
-                            id: trackContainerResetAnimation
-                            target: trackContainer;
-                            property: "anchors.leftMargin";
-                            duration: queueList.transitionDuration;
-                            to: units.gu(0.5)
-                        }
-
-                        MusicRow {
-                            id: musicRow
-                            height: parent.height
-                            column: Column {
-                                Label {
-                                    id: trackTitle
-                                    color: player.currentIndex === index ? UbuntuColors.blue
-                                                                            : styleMusic.common.music
-                                    fontSize: "small"
-                                    objectName: "titleLabel"
-                                    text: model.title
-                                }
-
-                                Label {
-                                    id: trackArtist
-                                    color: styleMusic.common.subtitle
-                                    fontSize: "x-small"
-                                    objectName: "artistLabel"
-                                    text: model.author
-                                }
-                            }
-                        }
+                    Label {
+                        id: trackArtist
+                        color: styleMusic.common.subtitle
+                        fontSize: "x-small"
+                        objectName: "artistLabel"
+                        text: model.author
                     }
+                }
+                height: queueList.normalHeight
+                objectName: "nowPlayingListItem" + index
+                state: ""
+                leftSideAction: Remove {
+                    onTriggered: trackQueue.removeQueueList([index])
+                }
+                multiselectable: true
+                reorderable: true
+                rightSideActions: [
+                    AddToPlaylist{
+
+                    }
+                ]
+
+                onItemClicked: {
+                    customdebug("File: " + model.filename) // debugger
+                    trackQueueClick(index);  // toggle track state
+                }
+                onReorder: {
+                    console.debug("Move: ", from, to);
+
+                    trackQueue.model.move(from, to, 1);
+                    Library.moveQueueItem(from, to);
+
+                    // Maintain currentIndex with current song
+                    if (from === player.currentIndex) {
+                        player.currentIndex = to;
+                    }
+                    else if (from < player.currentIndex && to >= player.currentIndex) {
+                        player.currentIndex -= 1;
+                    }
+                    else if (from > player.currentIndex && to <= player.currentIndex) {
+                        player.currentIndex += 1;
+                    }
+
+                    queueIndex = player.currentIndex
                 }
             }
         }

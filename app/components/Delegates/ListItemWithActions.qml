@@ -301,7 +301,7 @@ Item {
             when: selectionMode || selected
             PropertyChanges {
                 target: selectionIcon
-                source: Qt.resolvedUrl("ListItemActions/CheckBox.qml")
+                source: Qt.resolvedUrl("../ListItemActions/CheckBox.qml")
                 anchors.leftMargin: units.gu(2)
             }
             PropertyChanges {
@@ -709,7 +709,8 @@ Item {
                 }
             } else {
                 var actionIndex = getActionAt(Qt.point(mouse.x, mouse.y))
-                if (actionIndex !== -1) {
+
+                if (actionIndex !== -1 && actionIndex !== leftSideAction) {  // CUSTOM - can be leftAction
                     root.activeItem = rightActionsRepeater.itemAt(actionIndex)
                     root.activeAction = root.rightSideActions[actionIndex]
                     triggerAction.start()
