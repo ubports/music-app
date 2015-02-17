@@ -139,7 +139,6 @@ MusicPage {
             top: parent.top
             topMargin: mainView.header.height
         }
-        asynchronous: true
         height: parent.height - mainView.header.height - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
@@ -164,7 +163,6 @@ MusicPage {
             left: parent.left
             right: parent.right
         }
-        asynchronous: true
         height: units.gu(10)
         source: "../components/NowPlayingToolbar.qml"
     }
