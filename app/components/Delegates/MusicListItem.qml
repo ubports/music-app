@@ -28,8 +28,10 @@ ListItemWithActions {
     property alias column: musicRow.column
     property alias imageSource: musicRow.imageSource
 
-    property bool reorderable: false
+    property int listItemIndex: index
     property bool multiselectable: false
+    property int previousListItemIndex: -1
+    property bool reorderable: false
 
     signal reorder(int from, int to)
 
@@ -39,13 +41,41 @@ ListItemWithActions {
         }
     }
 
+    onListItemIndexChanged: {
+        var i = parent.parent.selectedItems.lastIndexOf(previousListItemIndex)
+
+        if (i !== -1) {
+            parent.parent.selectedItems[i] = listItemIndex
+        }
+
+        previousListItemIndex = listItemIndex
+    }
+
+    onSelectedChanged: {
+        if (selectionMode) {
+            var tmp = parent.parent.selectedItems
+
+            if (selected) {
+                if (parent.parent.selectedItems.indexOf(listItemIndex) === -1) {
+                    tmp.push(listItemIndex)
+                    parent.parent.selectedItems = tmp
+                }
+            } else {
+                tmp.splice(parent.parent.selectedItems.indexOf(listItemIndex), 1)
+                parent.parent.selectedItems = tmp
+            }
+        }
+    }
+
     onSelectionModeChanged: {
         if (reorderable && selectionMode) {
             resetSwipe()
         }
 
         for (var j=0; j < _main.children.length; j++) {
-            _main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
+            if (_main.children[j] !== actionReorderLoader) {
+                _main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
+            }
         }
 
         parent.parent.state = selectionMode ? "multiselectable" : "normal"
@@ -58,12 +88,11 @@ ListItemWithActions {
     /* Highlight the listitem on press */
     Rectangle {
         id: listItemBrighten
-        anchors {
-            fill: parent
-        }
-
         color: root.pressed ? styleMusic.common.white : "transparent"
         opacity: 0.1
+        height: root.height
+        x: root.x - parent.x  // -parent.x due to selectionIcon in ListItemWithActions
+        width: root.width
     }
 
     /* Reorder Component */
@@ -80,11 +109,43 @@ ListItemWithActions {
         source: "../ListItemReorderComponent.qml"
     }
 
+    Item {
+        Connections {  // Only allow one ListItem to be swiping at any time
+            target: mainView
+            onListItemSwiping: {
+                if (i !== index) {
+                    root.resetSwipe();
+                }
+            }
+        }
+
+        Connections {  // Connections from signals in the ListView
+            target: root.parent.parent
+            onClearSelection: selected = false
+            onFlickingChanged: {
+                if (root.parent.parent.flicking) {
+                    root.resetSwipe()
+                }
+            }
+            onSelectAll: selected = true
+            onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
+        }
+    }
+
+
     MusicRow {
         id: musicRow
         anchors {
             verticalCenter: parent.verticalCenter
         }
         height: parent.height
+    }
+
+    Component.onCompleted: {  // reload settings as delegates are destroyed
+        if (parent.parent.selectedItems.indexOf(index) !== -1) {
+            selected = true
+        }
+
+        selectionMode = root.parent.parent.state === "multiselectable"
     }
 }
