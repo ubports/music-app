@@ -23,8 +23,62 @@ import "../"
 
 
 ListItemWithActions {
+    id: root
+
     property alias column: musicRow.column
     property alias imageSource: musicRow.imageSource
+
+    property bool reorderable: false
+    property bool multiselectable: false
+
+    signal reorder(int from, int to)
+
+    onItemPressAndHold: {
+        if (multiselectable) {
+            selectionMode = true
+        }
+    }
+
+    onSelectionModeChanged: {
+        if (reorderable && selectionMode) {
+            resetSwipe()
+        }
+
+        for (var j=0; j < _main.children.length; j++) {
+            _main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
+        }
+
+        parent.parent.state = selectionMode ? "multiselectable" : "normal"
+
+        if (!selectionMode) {
+            selected = false
+        }
+    }
+
+    /* Highlight the listitem on press */
+    Rectangle {
+        id: listItemBrighten
+        anchors {
+            fill: parent
+        }
+
+        color: root.pressed ? styleMusic.common.white : "transparent"
+        opacity: 0.1
+    }
+
+    /* Reorder Component */
+    Loader {
+        id: actionReorderLoader
+        active: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+            rightMargin: units.gu(1)
+            top: parent.top
+        }
+        asynchronous: true
+        source: "../ListItemReorderComponent.qml"
+    }
 
     MusicRow {
         id: musicRow

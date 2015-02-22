@@ -45,11 +45,11 @@ Item {
     readonly property alias swipping: mainItemMoving.running
     readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
 
-    property bool reorderable: false  // CUSTOM
-    property bool multiselectable: false  // CUSTOM
-
     property int previousListItemIndex: -1  // CUSTOM
     property int listItemIndex: index  // CUSTOM
+
+    property alias _main: main  // CUSTOM
+    property alias pressed: mouseArea.pressed  // CUSTOM
 
     /* internal */
     property var _visibleRightSideActions: filterVisibleActions(rightSideActions)
@@ -57,13 +57,6 @@ Item {
     signal itemClicked(var mouse)
     signal itemPressAndHold(var mouse)
 
-    signal reorder(int from, int to)  // CUSTOM
-
-    onItemPressAndHold: {
-        if (multiselectable) {
-            selectionMode = true
-        }
-    }
     onListItemIndexChanged: {
         var i = parent.parent.selectedItems.lastIndexOf(previousListItemIndex)
 
@@ -87,22 +80,6 @@ Item {
                 tmp.splice(parent.parent.selectedItems.indexOf(listItemIndex), 1)
                 parent.parent.selectedItems = tmp
             }
-        }
-    }
-
-    onSelectionModeChanged: {  // CUSTOM
-        if (reorderable && selectionMode) {
-            resetSwipe()
-        }
-
-        for (var j=0; j < main.children.length; j++) {
-            main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
-        }
-
-        parent.parent.state = selectionMode ? "multiselectable" : "normal"
-
-        if (!selectionMode) {
-            selected = false
         }
     }
 
@@ -470,118 +447,6 @@ Item {
 
                 easing.type: Easing.OutElastic
                 duration: UbuntuAnimation.SlowDuration
-            }
-        }
-    }
-
-    /* CUSTOM Brighten Component */
-    Rectangle {
-        id: listItemBrighten
-        anchors {
-            fill: main
-        }
-
-        color: mouseArea.pressed ? styleMusic.common.white : "transparent"
-        opacity: 0.1
-    }
-
-    /* CUSTOM Reorder Component */
-    Loader {
-        id: actionReorderLoader
-        anchors {
-            bottom: parent.bottom
-            right: main.right
-            rightMargin: units.gu(1)
-            top: parent.top
-        }
-        asynchronous: true
-        sourceComponent: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0 ? actionReorderComponent : undefined
-    }
-
-    Component {
-        id: actionReorderComponent
-        Item {
-            id: actionReorder
-            width: units.gu(4)
-            visible: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
-
-            Icon {
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    verticalCenter: parent.verticalCenter
-                }
-                name: "navigation-menu"  // TODO: use proper image
-                height: width
-                width: units.gu(3)
-            }
-
-            MouseArea {
-                id: actionReorderMouseArea
-                anchors {
-                    fill: parent
-                }
-                property int startY: 0
-                property int startContentY: 0
-
-                onPressed: {
-                    root.parent.parent.interactive = false;  // stop scrolling of listview
-                    startY = root.y;
-                    startContentY = root.parent.parent.contentY;
-                    root.z += 10;  // force ontop of other elements
-
-                    console.debug("Reorder listitem pressed", root.y)
-                }
-                onMouseYChanged: root.y += mouse.y - (root.height / 2);
-                onReleased: {
-                    console.debug("Reorder diff by position", getDiff());
-
-                    var diff = getDiff();
-
-                    // Remove the height of the actual item if moved down
-                    if (diff > 0) {
-                        diff -= 1;
-                    }
-
-                    root.parent.parent.interactive = true;  // reenable scrolling
-
-                    if (diff === 0) {
-                        // Nothing has changed so reset the item
-                        // z index is restored after animation
-                        resetListItemYAnimation.start();
-                    }
-                    else {
-                        var newIndex = index + diff;
-
-                        if (newIndex < 0) {
-                            newIndex = 0;
-                        }
-                        else if (newIndex > root.parent.parent.count - 1) {
-                            newIndex = root.parent.parent.count - 1;
-                        }
-
-                        root.z -= 10;  // restore z index
-                        reorder(index, newIndex)
-                    }
-                }
-
-                function getDiff() {
-                    // Get the amount of items that have been passed over (by centre)
-                    return Math.round((((root.y - startY) + (root.parent.parent.contentY - startContentY)) / root.height) + 0.5);
-                }
-            }
-
-            SequentialAnimation {
-                id: resetListItemYAnimation
-                UbuntuNumberAnimation {
-                    target: root;
-                    property: "y";
-                    to: actionReorderMouseArea.startY
-                }
-                ScriptAction {
-                    script: {
-                        root.z -= 10;  // restore z index
-                    }
-                }
             }
         }
     }
