@@ -25,6 +25,7 @@ import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/Delegates"
 import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
@@ -90,61 +91,43 @@ MusicPage {
             }
         }
 
-        delegate: trackDelegate
-        Component {
-            id: trackDelegate
-
-            ListItemWithActions {
-                id: track
-                objectName: "tracksPageListItem" + index
-                height: units.gu(7)
-
-                multiselectable: true
-                rightSideActions: [
-                    AddToQueue {
-                    },
-                    AddToPlaylist {
-
-                    }
-                ]
-
-                onItemClicked: {
-                    if (songsPage.state === "search") {  // only play single track when searching
-                        trackQueue.clear()
-                        trackQueue.append(songsModelFilter.get(index))
-                        trackQueueClick(0)
-                    } else {
-                        trackClicked(songsModelFilter, index)  // play track
-                    }
+        delegate: MusicListItem {
+            id: track
+            objectName: "tracksPageListItem" + index
+            column: Column {
+                Label {
+                    id: trackTitle
+                    color: styleMusic.common.music
+                    fontSize: "small"
+                    objectName: "tracktitle"
+                    text: model.title
                 }
 
-                MusicRow {
-                    id: musicRow
-                    anchors {
-                        verticalCenter: parent.verticalCenter
-                    }
-                    imageSource: {"art": model.art}
-                    column: Column {
-                        Label {
-                            id: trackTitle
-                            color: styleMusic.common.music
-                            fontSize: "small"
-                            objectName: "tracktitle"
-                            text: model.title
-                        }
-
-                        Label {
-                            id: trackArtist
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: model.author
-                        }
-                    }
+                Label {
+                    id: trackArtist
+                    color: styleMusic.common.subtitle
+                    fontSize: "x-small"
+                    text: model.author
                 }
+            }
+            height: units.gu(7)
+            imageSource: {"art": model.art}
+            multiselectable: true
+            rightSideActions: [
+                AddToQueue {
+                },
+                AddToPlaylist {
 
-                states: State {
-                    name: "Current"
-                    when: track.ListView.isCurrentItem
+                }
+            ]
+
+            onItemClicked: {
+                if (songsPage.state === "search") {  // only play single track when searching
+                    trackQueue.clear()
+                    trackQueue.append(songsModelFilter.get(index))
+                    trackQueueClick(0)
+                } else {
+                    trackClicked(songsModelFilter, index)  // play track
                 }
             }
         }

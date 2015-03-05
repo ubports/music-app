@@ -187,7 +187,7 @@ class Songs(MusicPage):
         self.visible.wait_for(True)
 
     def get_track(self, i):
-        return (self.wait_select_single(ListItemWithActions,
+        return (self.wait_select_single(MusicListItem,
                 objectName="tracksPageListItem" + str(i)))
 
 
@@ -270,7 +270,7 @@ class NowPlaying(MusicPage):
 
     @ensure_now_playing_list
     def get_track(self, i):
-        return (self.wait_select_single(ListItemWithActions,
+        return (self.wait_select_single(MusicListItem,
                 objectName="nowPlayingListItem" + str(i)))
 
     @ensure_now_playing_full
@@ -331,7 +331,7 @@ class SongsView(MusicPage):
                                        objectName="songsPageHeaderAlbumArtist")
 
     def get_track(self, i):
-        return (self.wait_select_single(ListItemWithActions,
+        return (self.wait_select_single(MusicListItem,
                 objectName="songsPageListItem" + str(i)))
 
 
@@ -358,7 +358,7 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         now_playing_page.visible.wait_for(True)
 
 
-class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
+class MusicListItem(UbuntuUIToolkitCustomProxyObjectBase):
     @click_object
     def click_add_to_playlist_action(self):
         return self.wait_select_single(objectName="addToPlaylistAction")
