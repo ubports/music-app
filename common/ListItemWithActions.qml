@@ -543,6 +543,7 @@ Item {
                     }
 
                     root.parent.parent.interactive = true;  // reenable scrolling
+
                     var newIndex = index + diff;
 
                     if (newIndex < 0) {
