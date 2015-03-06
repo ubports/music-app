@@ -1,4 +1,4 @@
-# Catalan (Valencian) translation for music-app
+# Catalan translation for music-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the music-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2014-10-17 05:37+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Catalan (Valencian) <ca@valencia@li.org>\n"
+"PO-Revision-Date: 2015-02-22 15:22+0000\n"
+"Last-Translator: David Planella <david.planella@ubuntu.com>\n"
+"Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:06+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-23 05:40+0000\n"
+"X-Generator: Launchpad (build 17355)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -60,14 +60,14 @@ msgstr "Gènere"
 #: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
 #: ../music-app.qml:1253 ../music-app.qml:1294
 msgid "Now playing"
-msgstr ""
+msgstr "S'està reproduïnt"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
 #: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
 #: ../music-app.qml:1294
 msgid "Queue"
-msgstr ""
+msgstr "Cua"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
@@ -78,17 +78,17 @@ msgstr "Afig a la llista de reproducció"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:117
 msgid "Clear queue"
-msgstr ""
+msgstr "Buida la cua"
 
 #: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
 msgid "Cancel selection"
-msgstr ""
+msgstr "Cancel·la la selecció"
 
 #: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
 #: ../common/SongsPage.qml:157
 msgid "Select All"
-msgstr ""
+msgstr "Selecciona-ho tot"
 
 #: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
 msgid "Delete"
@@ -125,7 +125,7 @@ msgstr "Recents"
 
 #: ../MusicToolbar.qml:155
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Feu un toc per reproduir de manera aleatòria"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
@@ -133,7 +133,7 @@ msgstr "Temes"
 
 #: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
 msgid "Add to queue"
-msgstr "Afig-lo a la cua"
+msgstr "Afig-ho a la cua"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
@@ -143,17 +143,17 @@ msgstr "Seleccioneu una llista de reproducció"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
 msgid "Shuffle"
-msgstr ""
+msgstr "Aleatori"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
 msgid "Queue all"
-msgstr ""
+msgstr "Tot a la cua"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
 msgid "Play all"
-msgstr "Reprodueix-ho tot"
+msgstr "Reprod. tot"
 
 #: ../common/AlbumsPage.qml:127
 #, qt-format
@@ -176,20 +176,20 @@ msgstr "S'està carregant..."
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "No s'ha trobat cap element"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Cerca música"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:528
 msgid "Rename playlist"
-msgstr ""
+msgstr "Canvia el nom de la llista de reproducció"
 
 #: ../common/SongsPage.qml:535 ../music-app.qml:1004
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Escriviu el nom de la llista de reproducció"
 
 #: ../common/SongsPage.qml:544
 msgid "Change"
@@ -211,47 +211,53 @@ msgstr "Cancel·la"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:587
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Voleu suprimir la llista de reproducció permanentment?"
 
 #: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Esta acció no es pot desfer"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Vos donem la benvinguda a Música"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Gaudiu de la vostra música preferida amb l'aplicació de Música de l'Ubuntu. "
+"Feu una breu visita guiada per començar, o bé feu un toc a Omet per escoltar "
+"música directament."
 
 #: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
-msgstr ""
+msgstr "Importeu la vostra música"
 
 #: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Connecteu el dispositiu a qualsevol ordinador i arrossegueu i deixeu anar "
+"els fitxers de música a la carpeta Music. També podeu inserir targetes de "
+"memòria que continguen música."
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
-msgstr ""
+msgstr "Baixa música nova"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importeu la música que compreu directament mentre navegueu."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
-msgstr ""
+msgstr "Inicia"
 
 #: ../common/Walkthrough/Walkthrough.qml:85
 msgid "Skip"
-msgstr ""
+msgstr "Omet"
 
 #: ../music-app.qml:146
 msgid "Next"
@@ -364,7 +370,7 @@ msgstr "No s'ha trobat música al dispositiu"
 
 #: ../music-app.qml:1419
 msgid "No playlists found"
-msgstr ""
+msgstr "No s'ha trobat cap llista de reproducció"
 
 #: ../music-app.qml:1430
 #, qt-format
@@ -372,10 +378,12 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Feu servir tot el potencial de l'aplicació Música i feu un toc a la icona %1 "
+"per començar a crear llistes de reproducció per cada ocasió i estat d'ànim."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Una aplicació musical per Ubuntu"
+msgstr "Una aplicació de música per a l'Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
@@ -405,9 +413,6 @@ msgstr ""
 
 #~ msgid "Login Failed"
 #~ msgstr "Error en l'inici de sessió"
-
-#~ msgid "You forgot to set your username and/or password"
-#~ msgstr "Vos heu oblidat d'establir el vostre nom d'usuari i/o la contrasenya"
 
 #~ msgid "Now Playing"
 #~ msgstr "S'està reproduint"
@@ -460,13 +465,6 @@ msgstr ""
 #~ msgid "Custom"
 #~ msgstr "Personalitzada"
 
-#~ msgid ""
-#~ "Snap to current song \n"
-#~ "when opening toolbar"
-#~ msgstr ""
-#~ "Salta a la cançó actual \n"
-#~ "quan s'estiga obrint una barra d'eines"
-
 #~ msgid "Accounts"
 #~ msgstr "Comptes"
 
@@ -514,3 +512,13 @@ msgstr ""
 
 #~ msgid "Please import music"
 #~ msgstr "Cal que importeu música"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "Us heu oblidat d'establir el vostre nom d'usuari i/o la contrasenya"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "Salta a la cançó actual \n"
+#~ "quan s'estigui obrint una barra d'eines"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-01-26 19:10+0000\n"
-"Last-Translator: Tiago Carrondo <tc@ddr.pt>\n"
+"PO-Revision-Date: 2015-02-09 16:31+0000\n"
+"Last-Translator: António Miranda <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:05+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-10 07:11+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -125,7 +125,7 @@ msgstr "Recente"
 
 #: ../MusicToolbar.qml:155
 msgid "Tap to shuffle music"
-msgstr "Toque para misturar a música"
+msgstr "Misturar a música"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
@@ -215,11 +215,11 @@ msgstr "Eliminar permanentemente a lista de reprodução?"
 
 #: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
-msgstr "Estão acção não pode ser anulada"
+msgstr "Esta ação não pode ser anulada"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr "Bem vindo à aplicação Música"
+msgstr "Bem vindo à Música"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
@@ -240,7 +240,7 @@ msgid ""
 "folder or insert removable media with music."
 msgstr ""
 "Ligue o seu dispositivo a um computador e arraste as suas músicas para a "
-"pasta Música ou insira um suporte amovível com música."
+"pasta Música ou insira um suporte amovível."
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
@@ -248,7 +248,7 @@ msgstr "Transferir nova música"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr "Importe directamente a música comprada enquanto navega online."
+msgstr "Importe diretamente a música comprada enquanto navega online."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
@@ -296,7 +296,7 @@ msgstr "Anterior"
 
 #: ../music-app.qml:170
 msgid "Previous Track"
-msgstr "Faixa Anterior"
+msgstr "Faixa anterior"
 
 #: ../music-app.qml:175
 msgid "Stop"
@@ -377,8 +377,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
-"Aproveite melhor a aplicação Música tocando no ícone %1 para começar a criar "
-"listas de reprodução para cada estado de espírito e ocasião."
+"Aproveite melhor a Música tocando no ícone %1 para começar a criar listas de "
+"reprodução para cada estado de espírito e ocasião."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

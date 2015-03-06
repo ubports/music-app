@@ -1202,7 +1202,7 @@ MainView {
             // Set the models in the tab to allow/disallow loading
             function allowLoading(tabToLoad, state)
             {
-                if (tabToLoad !== undefined && tabToLoad.model !== undefined)
+                if (tabToLoad && tabToLoad.model !== undefined)
                 {
                     for (var i=0; i < tabToLoad.model.length; i++)
                     {
@@ -1213,21 +1213,24 @@ MainView {
 
             function ensurePopulated(selectedTab)
             {
-                allowLoading(selectedTab, true);  // allow loading of the models
+                if (selectedTab) {  // check not null or undefined
+                    allowLoading(selectedTab, true);  // allow loading of the models
 
-                if (!selectedTab.populated && !selectedTab.loading && loadedUI) {
-                    loading.visible = true
-                    selectedTab.loading = true
+                    if (!selectedTab.populated && !selectedTab.loading && loadedUI) {
+                        loading.visible = true
+                        selectedTab.loading = true
 
-                    if (selectedTab.loader !== undefined)
-                    {
-                        for (var i=0; i < selectedTab.loader.length; i++)
+                        if (selectedTab.loader !== undefined)
                         {
-                            selectedTab.loader[i]();
+                            for (var i=0; i < selectedTab.loader.length; i++)
+                            {
+                                selectedTab.loader[i]();
+                            }
                         }
                     }
+
+                    loading.visible = selectedTab.loading || !selectedTab.populated
                 }
-                loading.visible = selectedTab.loading || !selectedTab.populated
             }
 
             function pushNowPlaying()

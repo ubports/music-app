@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-01-21 14:02+0000\n"
+"PO-Revision-Date: 2015-02-08 11:45+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-01-29 06:05+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-09 06:25+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -222,7 +222,7 @@ msgstr "Acest lucru nu poate fi anulat"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Bine ați venit la Music"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
@@ -242,6 +242,8 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Conectați dispozitivul dumneavoastră la orice calculator și trageți simplu "
+"fișierele în dosarul Music sau introduceți un mediu detașabil cu muzică."
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
@@ -378,6 +380,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Obțineți mai mult de la Music apăsând pictograma %1 pentru a începe să "
+"faceți liste de redare pentru orice stare de spirit și ocazie."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
