@@ -572,7 +572,6 @@ Item {
                 UbuntuNumberAnimation {
                     target: root;
                     property: "y";
-                    from: root.y
                     to: actionReorderMouseArea.startY
                 }
                 ScriptAction {
