@@ -45,66 +45,14 @@ Item {
     readonly property alias swipping: mainItemMoving.running
     readonly property bool _showActions: mouseArea.pressed || swipeState != "Normal" || swipping
 
-    property bool reorderable: false  // CUSTOM
-    property bool multiselectable: false  // CUSTOM
-
-    property int previousListItemIndex: -1  // CUSTOM
-    property int listItemIndex: index  // CUSTOM
+    property alias _main: main  // CUSTOM
+    property alias pressed: mouseArea.pressed  // CUSTOM
 
     /* internal */
     property var _visibleRightSideActions: filterVisibleActions(rightSideActions)
 
     signal itemClicked(var mouse)
     signal itemPressAndHold(var mouse)
-
-    signal reorder(int from, int to)  // CUSTOM
-
-    onItemPressAndHold: {
-        if (multiselectable) {
-            selectionMode = true
-        }
-    }
-    onListItemIndexChanged: {
-        var i = parent.parent.selectedItems.lastIndexOf(previousListItemIndex)
-
-        if (i !== -1) {
-            parent.parent.selectedItems[i] = listItemIndex
-        }
-
-        previousListItemIndex = listItemIndex
-    }
-
-    onSelectedChanged: {
-        if (selectionMode) {
-            var tmp = parent.parent.selectedItems
-
-            if (selected) {
-                if (parent.parent.selectedItems.indexOf(listItemIndex) === -1) {
-                    tmp.push(listItemIndex)
-                    parent.parent.selectedItems = tmp
-                }
-            } else {
-                tmp.splice(parent.parent.selectedItems.indexOf(listItemIndex), 1)
-                parent.parent.selectedItems = tmp
-            }
-        }
-    }
-
-    onSelectionModeChanged: {  // CUSTOM
-        if (reorderable && selectionMode) {
-            resetSwipe()
-        }
-
-        for (var j=0; j < main.children.length; j++) {
-            main.children[j].anchors.rightMargin = reorderable && selectionMode ? actionReorderLoader.width + units.gu(2) : 0
-        }
-
-        parent.parent.state = selectionMode ? "multiselectable" : "normal"
-
-        if (!selectionMode) {
-            selected = false
-        }
-    }
 
     function returnToBoundsRTL(direction)
     {
@@ -122,20 +70,11 @@ Item {
         var xOffset = Math.abs(main.x)
         var index = Math.min(Math.floor(xOffset / actionFullWidth), _visibleRightSideActions.length)
         var newX = 0
-        var j  // CUSTOM
 
         if (index === _visibleRightSideActions.length) {
             newX = -(rightActionsView.width - units.gu(2))
-
-            for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
-                rightActionsRepeater.itemAt(j).primed = true
-            }
         } else if (index >= 1) {
             newX = -(actionFullWidth * index)
-
-            for (j=0; j < rightSideActions.length; j++) {  // CUSTOM
-                rightActionsRepeater.itemAt(j).primed = j === index
-            }
         }
 
         updatePosition(newX)
@@ -147,10 +86,6 @@ Item {
         if ((direction === "RTL") || (main.x <= (finalX * root.threshold)))
             finalX = 0
         updatePosition(finalX)
-
-        if (leftSideAction !== null) {  // CUSTOM
-            leftActionViewLoader.item.primed = main.x > (finalX * root.threshold)
-        }
     }
 
     function returnToBounds(direction)
@@ -206,18 +141,6 @@ Item {
         }
     }
 
-    function resetPrimed()  // CUSTOM
-    {
-        if (leftSideAction !== null) {
-            leftActionViewLoader.item.primed = false
-        }
-
-        for (var j=0; j < rightSideActions.length; j++) {
-            console.debug(rightActionsRepeater.itemAt(j));
-            rightActionsRepeater.itemAt(j).primed = false
-        }
-    }
-
     function resetSwipe()
     {
         updatePosition(0)
@@ -243,39 +166,6 @@ Item {
             mouseArea.state = ""
         }
         main.x = pos
-
-        if (pos === 0) {  // CUSTOM
-            //resetPrimed()
-        }
-    }
-
-    Connections {  // CUSTOM
-        target: mainView
-        onListItemSwiping: {
-            if (i !== index) {
-                root.resetSwipe();
-            }
-        }
-    }
-
-    Connections {  // CUSTOM
-        target: root.parent.parent
-        onClearSelection: selected = false
-        onFlickingChanged: {
-            if (root.parent.parent.flicking) {
-                root.resetSwipe()
-            }
-        }
-        onSelectAll: selected = true
-        onStateChanged: selectionMode = root.parent.parent.state === "multiselectable"
-    }
-
-    Component.onCompleted: {  // CUSTOM
-        if (parent.parent.selectedItems.indexOf(index) !== -1) {  // FIXME:
-            selected = true
-        }
-
-        selectionMode = root.parent.parent.state === "multiselectable"
     }
 
     // CUSTOM remove animation
@@ -301,7 +191,7 @@ Item {
             when: selectionMode || selected
             PropertyChanges {
                 target: selectionIcon
-                source: Qt.resolvedUrl("ListItemActions/CheckBox.qml")
+                source: Qt.resolvedUrl("../ListItemActions/CheckBox.qml")
                 anchors.leftMargin: units.gu(2)
             }
             PropertyChanges {
@@ -337,8 +227,6 @@ Item {
             width: root.leftActionWidth + actionThreshold
             color: UbuntuColors.red
 
-            property alias primed: leftActionIcon.primed  // CUSTOM
-
             Icon {
                 id: leftActionIcon
                 anchors {
@@ -350,8 +238,6 @@ Item {
                 color: Theme.palette.selected.field
                 height: units.gu(3)
                 width: units.gu(3)
-
-                property bool primed: false  // CUSTOM
             }
         }
     }
@@ -400,8 +286,6 @@ Item {
                    height: rightActionsView.height
                    width: root.actionWidth
 
-                   property alias primed: img.primed  // CUSTOM
-
                    Icon {
                        id: img
 
@@ -411,8 +295,6 @@ Item {
                        height: units.gu(3)
                        name: modelData.iconName
                        color: root.activeAction === modelData ? UbuntuColors.blue : styleMusic.common.white  // CUSTOM
-
-                       property bool primed: false  // CUSTOM
                    }
                }
            }
@@ -470,118 +352,6 @@ Item {
 
                 easing.type: Easing.OutElastic
                 duration: UbuntuAnimation.SlowDuration
-            }
-        }
-    }
-
-    /* CUSTOM Brighten Component */
-    Rectangle {
-        id: listItemBrighten
-        anchors {
-            fill: main
-        }
-
-        color: mouseArea.pressed ? styleMusic.common.white : "transparent"
-        opacity: 0.1
-    }
-
-    /* CUSTOM Reorder Component */
-    Loader {
-        id: actionReorderLoader
-        anchors {
-            bottom: parent.bottom
-            right: main.right
-            rightMargin: units.gu(1)
-            top: parent.top
-        }
-        asynchronous: true
-        sourceComponent: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0 ? actionReorderComponent : undefined
-    }
-
-    Component {
-        id: actionReorderComponent
-        Item {
-            id: actionReorder
-            width: units.gu(4)
-            visible: reorderable && selectionMode && root.parent.parent.selectedItems.length === 0
-
-            Icon {
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    verticalCenter: parent.verticalCenter
-                }
-                name: "navigation-menu"  // TODO: use proper image
-                height: width
-                width: units.gu(3)
-            }
-
-            MouseArea {
-                id: actionReorderMouseArea
-                anchors {
-                    fill: parent
-                }
-                property int startY: 0
-                property int startContentY: 0
-
-                onPressed: {
-                    root.parent.parent.interactive = false;  // stop scrolling of listview
-                    startY = root.y;
-                    startContentY = root.parent.parent.contentY;
-                    root.z += 10;  // force ontop of other elements
-
-                    console.debug("Reorder listitem pressed", root.y)
-                }
-                onMouseYChanged: root.y += mouse.y - (root.height / 2);
-                onReleased: {
-                    console.debug("Reorder diff by position", getDiff());
-
-                    var diff = getDiff();
-
-                    // Remove the height of the actual item if moved down
-                    if (diff > 0) {
-                        diff -= 1;
-                    }
-
-                    root.parent.parent.interactive = true;  // reenable scrolling
-
-                    if (diff === 0) {
-                        // Nothing has changed so reset the item
-                        // z index is restored after animation
-                        resetListItemYAnimation.start();
-                    }
-                    else {
-                        var newIndex = index + diff;
-
-                        if (newIndex < 0) {
-                            newIndex = 0;
-                        }
-                        else if (newIndex > root.parent.parent.count - 1) {
-                            newIndex = root.parent.parent.count - 1;
-                        }
-
-                        root.z -= 10;  // restore z index
-                        reorder(index, newIndex)
-                    }
-                }
-
-                function getDiff() {
-                    // Get the amount of items that have been passed over (by centre)
-                    return Math.round((((root.y - startY) + (root.parent.parent.contentY - startContentY)) / root.height) + 0.5);
-                }
-            }
-
-            SequentialAnimation {
-                id: resetListItemYAnimation
-                UbuntuNumberAnimation {
-                    target: root;
-                    property: "y";
-                    to: actionReorderMouseArea.startY
-                }
-                ScriptAction {
-                    script: {
-                        root.z -= 10;  // restore z index
-                    }
-                }
             }
         }
     }
@@ -694,22 +464,22 @@ Item {
             direction = "None"
         }
         onClicked: {
-            if (selectionMode) {  // CUSTOM
+            if (selectionMode) {  // CUSTOM - selecting a listitem should toggle selection if in selectionMode
                 selected = !selected
                 return
-            }
-            else if (main.x === 0) {
+            } else if (main.x === 0) {
                 root.itemClicked(mouse)
             } else if (main.x > 0) {
                 var action = getActionAt(Qt.point(mouse.x, mouse.y))
                 if (action && action !== -1) {
                     //action.triggered(root)
-                    removeAnimation.action = action  // CUSTOM
+                    removeAnimation.action = action  // CUSTOM - use our animation instead
                     removeAnimation.start()  // CUSTOM
                 }
             } else {
                 var actionIndex = getActionAt(Qt.point(mouse.x, mouse.y))
-                if (actionIndex !== -1) {
+
+                if (actionIndex !== -1 && actionIndex !== leftSideAction) {  // CUSTOM - can be leftAction
                     root.activeItem = rightActionsRepeater.itemAt(actionIndex)
                     root.activeAction = root.rightSideActions[actionIndex]
                     triggerAction.start()
@@ -723,7 +493,7 @@ Item {
             if (mouseArea.pressed) {
                 updateActiveAction()
 
-                listItemSwiping(index)  // CUSTOM
+                listItemSwiping(index)  // CUSTOM - tells other listitems to dismiss any swipe
             }
         }
         onPressAndHold: {

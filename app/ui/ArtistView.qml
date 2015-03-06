@@ -26,6 +26,7 @@ import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../components"
+import "../components/Delegates"
 import "../components/Flickables"
 import "../components/ViewButton"
 
