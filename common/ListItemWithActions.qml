@@ -544,21 +544,19 @@ Item {
 
                     root.parent.parent.interactive = true;  // reenable scrolling
 
-                    if (diff === 0) {
+                    var newIndex = index + diff;
+
+                    if (newIndex < 0) {
+                        newIndex = 0;
+                    } else if (newIndex > root.parent.parent.count - 1) {
+                        newIndex = root.parent.parent.count - 1;
+                    }
+
+                    if (index === newIndex) {
                         // Nothing has changed so reset the item
                         // z index is restored after animation
                         resetListItemYAnimation.start();
-                    }
-                    else {
-                        var newIndex = index + diff;
-
-                        if (newIndex < 0) {
-                            newIndex = 0;
-                        }
-                        else if (newIndex > root.parent.parent.count - 1) {
-                            newIndex = root.parent.parent.count - 1;
-                        }
-
+                    } else {
                         root.z -= 10;  // restore z index
                         reorder(index, newIndex)
                     }
