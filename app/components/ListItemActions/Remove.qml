@@ -25,6 +25,4 @@ Action {
     iconName: "delete"
     objectName: "swipeDeleteAction"
     text: i18n.tr("Remove")
-
-    property bool primed: false
 }

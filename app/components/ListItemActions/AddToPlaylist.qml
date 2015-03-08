@@ -25,8 +25,6 @@ Action {
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
 
-    property bool primed: false
-
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 

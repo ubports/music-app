@@ -48,6 +48,9 @@ Dialog {
             songStackPage.page = undefined
             PopupUtils.close(dialogRemovePlaylist)
 
+            // need to destroy the dialog before popping fixes pad.lv/1428450
+            dialogRemovePlaylist.destroy()
+
             mainPageStack.goBack()
         }
     }

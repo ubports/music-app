@@ -27,6 +27,7 @@ import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
 import "../components"
+import "../components/Delegates"
 import "../components/Flickables"
 import "../components/HeadState"
 import "../components/ListItemActions"
@@ -186,11 +187,9 @@ MusicPage {
         anchors {
             fill: parent
         }
-        delegate: albumTracksDelegate
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
-
         header: BlurredHeader {
             rightColumn: Column {
                 spacing: units.gu(2)
@@ -290,92 +289,82 @@ MusicPage {
                 }
             }
         }
-
-        Component {
-            id: albumTracksDelegate
-
-            ListItemWithActions {
-                id: track
-                objectName: "songsPageListItem" + index
-                height: units.gu(6)
-
-                leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
-                                ? playlistRemoveAction.item : null
-                multiselectable: true
-                reorderable: songStackPage.line1 === i18n.tr("Playlist")
-                rightSideActions: [
-                    AddToQueue {
-
-                    },
-                    AddToPlaylist {
-
-                    }
-                ]
-
-                onItemClicked: {
-                    trackClicked(albumtrackslist.model, index)  // play track
-
-                    if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
-                        Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
-                    } else if (songStackPage.line1 === i18n.tr("Playlist")) {
-                        Library.addRecent(songStackPage.line2, "playlist")
-                    } else {
-                        console.debug("Unknown type to add to recent")
-                    }
-
-                    recentModel.filterRecent()
-                }
-                onReorder: {
-                    console.debug("Move: ", from, to);
-
-                    Playlists.move(songStackPage.line2, from, to)
-
-                    albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+        delegate: MusicListItem {
+            id: track
+            objectName: "songsPageListItem" + index
+            column: Column {
+                Label {
+                    id: trackTitle
+                    color: styleMusic.common.music
+                    fontSize: "small"
+                    objectName: "songspage-tracktitle"
+                    text: model.title
                 }
 
-                Loader {
-                    id: playlistRemoveAction
-                    sourceComponent: Remove {
-                        onTriggered: {
-                            Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+                Label {
+                    id: trackArtist
+                    color: styleMusic.common.subtitle
+                    fontSize: "x-small"
+                    text: model.author
+                }
+            }
+            height: units.gu(6)
 
-                            playlistChangedHelper()  // update recent/playlist models
+            leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
+                            ? playlistRemoveAction.item : null
+            multiselectable: true
+            reorderable: songStackPage.line1 === i18n.tr("Playlist")
+            rightSideActions: [
+                AddToQueue {
 
-                            albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                },
+                AddToPlaylist {
 
-                            // refresh cover art
-                            songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
-                        }
-                    }
+                }
+            ]
+
+            onItemClicked: {
+                trackClicked(albumtrackslist.model, index)  // play track
+
+                if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
+                    Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
+                } else if (songStackPage.line1 === i18n.tr("Playlist")) {
+                    Library.addRecent(songStackPage.line2, "playlist")
+                } else {
+                    console.debug("Unknown type to add to recent")
                 }
 
-                MusicRow {
-                    id: musicRow
-                    height: parent.height
-                    column: Column {
-                        Label {
-                            id: trackTitle
-                            color: styleMusic.common.music
-                            fontSize: "small"
-                            objectName: "songspage-tracktitle"
-                            text: model.title
-                        }
+                recentModel.filterRecent()
+            }
+            onReorder: {
+                console.debug("Move: ", from, to);
 
-                        Label {
-                            id: trackArtist
-                            color: styleMusic.common.subtitle
-                            fontSize: "x-small"
-                            text: model.author
-                        }
+                Playlists.move(songStackPage.line2, from, to)
+
+                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+            }
+
+            Loader {
+                id: playlistRemoveAction
+                sourceComponent: Remove {
+                    onTriggered: {
+                        Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+
+                        playlistChangedHelper()  // update recent/playlist models
+
+                        albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+
+                        // refresh cover art
+                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
+            }
 
-                Component.onCompleted: {
-                    if (model.date !== undefined)
-                    {
-                        songStackPage.file = model.filename;
-                        songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
-                    }
+            Component.onCompleted: {
+                if (model.date !== undefined)
+                {
+                    songStackPage.file = model.filename;
+                    songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                 }
             }
         }

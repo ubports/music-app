@@ -21,6 +21,7 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.MediaScanner 0.1
 import "../components"
+import "../components/Delegates"
 import "../components/Flickables"
 import "../components/HeadState"
 
