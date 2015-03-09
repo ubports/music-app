@@ -185,8 +185,8 @@ MainView {
         id: contentHub
     }
 
-    MetricHelper {
-        id: metrics
+    UserMetricsHelper {
+        id: userMetrics
     }
 
     // Design stuff
