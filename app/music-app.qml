@@ -19,18 +19,15 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
-import Ubuntu.Content 0.1
 import Ubuntu.MediaScanner 0.1
 import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
-import UserMetrics 0.1
 import "logic/meta-database.js" as Library
 import "logic/playlists.js" as Playlists
 import "components"
+import "components/Helpers"
 import "ui"
 
 MainView {
@@ -180,291 +177,16 @@ MainView {
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
-    // signal to open new URIs
-    Connections {
+    UriHandlerHelper {
         id: uriHandler
-        target: UriHandler
-
-        function processAlbum(uri) {
-            selectedAlbum = true;
-            var split = uri.split("/");
-
-            if (split.length < 2) {
-                console.debug("Unknown artist-album " + uri + ", skipping")
-                return;
-            }
-
-            // Filter by artist and album
-            songsAlbumArtistModel.albumArtist = decodeURIComponent(split[0]);
-            songsAlbumArtistModel.album = decodeURIComponent(split[1]);
-        }
-
-        function processFile(uri, play) {
-            // Stop queue loading in the background
-            queueLoaderWorker.canLoad = false
-
-            if (queueLoaderWorker.processing > 0) {
-                waitForWorker.workerStop(queueLoaderWorker, processFile, [uri, play])
-                return;
-            }
-
-            uri = decodeURIComponent(uri);
-
-            // Lookup track in songs model
-            var track = musicStore.lookup(decodeURIComponent(uri));
-
-            if (!track) {
-                console.debug("Unknown file " + uri + ", skipping")
-                return;
-            }
-
-            if (play) {
-                // clear play queue
-                trackQueue.clear()
-            }
-
-            // enqueue
-            trackQueue.append(makeDict(track));
-
-            // play first URI
-            if (play) {
-                trackQueueClick(trackQueue.model.count - 1);
-            }
-        }
-
-        function process(uri, play) {
-            if (uri.indexOf("album:///") === 0) {
-                uriHandler.processAlbum(uri.substring(9));
-            }
-            else if (uri.indexOf("file://") === 0) {
-                uriHandler.processFile(uri.substring(7), play);
-            }
-            else if (uri.indexOf("music://") === 0) {
-                uriHandler.processFile(uri.substring(8), play);
-            }
-            else {
-                console.debug("Unsupported URI " + uri + ", skipping")
-            }
-        }
-
-        onOpened: {
-            for (var i=0; i < uris.length; i++) {
-                console.debug("URI=" + uris[i])
-
-                uriHandler.process(uris[i], i === 0);
-            }
-        }
     }
 
-    // Content hub support
-    property list<ContentItem> importItems
-    property var activeTransfer
-    property int importId: 0
-
-    ContentTransferHint {
-        anchors {
-            fill: parent
-        }
-        activeTransfer: parent.activeTransfer
-    }
-
-    Connections {
+    ContentHubHelper {
         id: contentHub
-        target: ContentHub
-        onImportRequested: {
-            activeTransfer = transfer;
-            if (activeTransfer.state === ContentTransfer.Charged) {
-                importItems = activeTransfer.items;
-
-                var processId = importId++;
-
-                console.debug("Triggering content-hub import ID", processId);
-
-                searchPaths = [];
-
-                var err = [];
-                var path;
-                var res;
-                var success = true;
-                var url;
-
-                for (var i=0; i < importItems.length; i++) {
-                    url = importItems[i].url.toString()
-                    console.debug("Triggered content-hub import for item", url)
-
-                    // fixed path allows for apparmor protection
-                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
-                    res = contentHub.importFile(importItems[i], path)
-
-                    if (res !== true) {
-                        success = false;
-                        err.push(url.split("/").pop() + " " + res)
-                    }
-                }
-
-
-                if (success === true) {
-                    if (contentHubWaitForFile.processId === -1) {
-                        contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubWaitDialog.qml"), mainView)
-                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
-                        contentHubWaitForFile.processId = processId;
-                        contentHubWaitForFile.start();
-
-                        // Stop queue loading in bg
-                        queueLoaderWorker.canLoad = false
-                    } else {
-                        contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
-                        contentHubWaitForFile.count = 0;
-                        contentHubWaitForFile.restart();
-                    }
-                }
-                else {
-                    var errordialog = PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubErrorDialog.qml"), mainView)
-                    errordialog.errorText = err.join("\n")
-                }
-            }
-        }
-
-        property var searchPaths: []
-
-        function importFile(contentItem, path) {
-            var contentUrl = contentItem.url.toString()
-
-            if (path.indexOf("~/Music/Imported/") !== 0) {
-                console.debug("Invalid dest (not in ~/Music/Imported/)")
-
-                // TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-                return i18n.tr("Filepath must start with") + " ~/Music/Imported/"
-            }
-            else {
-                // extract /home/$USER (or $HOME) from contentitem url
-                var homepath = contentUrl.substring(7).split("/");
-
-                if (homepath[1] === "home") {
-                    homepath.splice(3, homepath.length - 3)
-                    homepath = homepath.join("/")
-                }
-                else {
-                    console.debug("/home/$USER not detecting in contentItem assuming /home/phablet/")
-                    homepath = "/home/phablet"
-                }
-
-                console.debug("Move:", contentUrl, "to", path)
-
-                // Extract filename from path and replace ~ with $HOME
-                var dir = path.split("/")
-                var filename = dir.pop()
-                dir = dir.join("/").replace("~/", homepath + "/")
-
-                if (filename === "") {
-                    console.debug("Invalid dest (filename blank)")
-
-                    // TRANSLATORS: This string represents that a blank filepath destination has been used
-                    return i18n.tr("Filepath must be a file")
-                }
-                else if (!contentItem.move(dir, filename)) {
-                    console.debug("Move failed! DIR:", dir, "FILE:", filename)
-
-                    // TRANSLATORS: This string represents that there was failure moving the file to the target destination
-                    return i18n.tr("Failed to move file")
-                }
-                else {
-                    contentHub.searchPaths.push(dir + "/" + filename)
-                    return true
-                }
-            }
-        }
     }
 
-    Timer {
-        id: contentHubWaitForFile
-        interval: 1000
-        triggeredOnStart: false
-        repeat: true
-
-        property var dialog: null
-        property var searchPaths
-        property int count: 0
-        property int processId: -1
-
-        function stopTimer() {
-            processId = -1;
-            count = 0;
-            stop();
-
-            PopupUtils.close(dialog)
-        }
-
-        onTriggered: {
-            var found = true
-            var i;
-            var model;
-
-            for (i=0; i < searchPaths.length; i++) {
-                model = musicStore.lookup(searchPaths[i])
-
-                console.debug("MusicStore model from lookup", JSON.stringify(model))
-
-                if (!model) {
-                    found = false
-                }
-            }
-
-            if (!found) {
-                count++;
-
-                if (count >= 10) {  // wait for 10s
-                    stopTimer();
-
-                    console.debug("File(s) were not found", JSON.stringify(searchPaths))
-                    PopupUtils.open(Qt.resolvedUrl("components/Dialog/ContentHubNotFoundDialog.qml"), mainView)
-                }
-            }
-            else {
-                stopTimer();
-
-                trackQueue.clear();
-
-                for (i=0; i < searchPaths.length; i++) {
-                    model = musicStore.lookup(searchPaths[i])
-
-                    trackQueue.append(makeDict(model));
-                }
-
-                trackQueueClick(0);
-            }
-        }
-    }
-
-    // UserMetrics to show Music stuff on welcome screen
-    Metric {
-        id: songsMetric
-        name: "music-metrics"
-        // TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-        format: "<b>%1</b> " + i18n.tr("songs played today")
-        emptyFormat: i18n.tr("No songs played today")
-        domain: "com.ubuntu.music"
-    }
-
-    // Connections for usermetrics
-    Connections {
-        id: userMetricPlayerConnection
-        target: player
-        property bool songCounted: false
-
-        onSourceChanged: {
-            songCounted = false
-        }
-
-        onPositionChanged: {
-            // Increment song count on Welcome screen if song has been
-            // playing for over 10 seconds.
-            if (player.position > 10000 && !songCounted) {
-                songCounted = true
-                songsMetric.increment()
-                console.debug("Increment UserMetrics")
-            }
-        }
+    UserMetricsHelper {
+        id: userMetrics
     }
 
     // Design stuff
@@ -486,31 +208,8 @@ MainView {
         }
     }
 
-    // A timer to wait for a worker to stop
-    Timer {
+    WorkerWaiter {
         id: waitForWorker
-        interval: 16
-        repeat: true
-
-        property var func
-        property var params  // don't use args/arguments as they are already defined/internal
-        property WorkerScript worker
-
-        onTriggered: {
-            if (worker.processing === 0) {
-                stop()
-                func.apply(this, params)
-            }
-        }
-
-        // Waits until the worker has stopped and then calls the func(*params)
-        function workerStop(worker, func, params)
-        {
-            waitForWorker.func = func
-            waitForWorker.params = params
-            waitForWorker.worker = worker
-            start()
-        }
     }
 
     // Run on startup
@@ -1252,7 +951,7 @@ MainView {
         id: emptyPageLoader
         // Do not be active if content-hub is importing due to the models resetting
         // this then causes the empty page loader to partially run then showing a blank header
-        active: noMusic && !firstRun && contentHubWaitForFile.processId === -1
+        active: noMusic && !firstRun && !contentHub.processing
         anchors {
             fill: parent
         }
