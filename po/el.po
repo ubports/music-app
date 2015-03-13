@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-02-15 23:45+0000\n"
-"Last-Translator: Constantinos Koniaris <kostas291@yahoo.com>\n"
+"PO-Revision-Date: 2015-03-12 18:00+0000\n"
+"Last-Translator: Simos Xenitellis <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-16 06:55+0000\n"
-"X-Generator: Launchpad (build 17341)\n"
+"X-Launchpad-Export-Date: 2015-03-13 05:37+0000\n"
+"X-Generator: Launchpad (build 17389)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -67,7 +67,7 @@ msgstr "Αναπαράγεται τώρα"
 #: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
 #: ../music-app.qml:1294
 msgid "Queue"
-msgstr ""
+msgstr "Σειρά αναμονής"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
@@ -78,7 +78,7 @@ msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:117
 msgid "Clear queue"
-msgstr ""
+msgstr "Εκκαθάριση λίστας"
 
 #: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
@@ -125,7 +125,7 @@ msgstr "Πρόσφατα"
 
 #: ../MusicToolbar.qml:155
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Αγγίξτε για ανακάτεμα της μουσικής"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
@@ -143,12 +143,12 @@ msgstr "Επιλογή λίστας αναπαραγωγής"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
 msgid "Shuffle"
-msgstr ""
+msgstr "Ανακάτεμα"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
 msgid "Queue all"
-msgstr ""
+msgstr "Όλα σε αναμονή"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
@@ -176,7 +176,7 @@ msgstr "Φόρτωση..."
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "Δε βρέθηκαν αντικείμενα"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
@@ -226,6 +226,9 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Απολαύστε την αγαπημένη σας μουσική με την εφαρμογή Μουσικής του Ubuntu. "
+"Ξεναγηθείτε και μάθετε για το πως να ξεκινήσετε ή πατήστε παράβλεψη για να "
+"ξεκινήστε να ακούτε μουσική τώρα."
 
 #: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
@@ -241,11 +244,11 @@ msgstr ""
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
-msgstr ""
+msgstr "Λήψη νέων μουσικών κομματιών"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Άμεση εισαγωγή μουσικής που αγοράζετε κατά την περιήγηση."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
@@ -320,7 +323,7 @@ msgstr "Αποτυχία μετακίνησης του αρχείου"
 
 #: ../music-app.qml:442
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Αναμονή για αρχείο(α)..."
 
 #: ../music-app.qml:461
 msgid "OK"
@@ -328,7 +331,7 @@ msgstr "Εντάξει"
 
 #: ../music-app.qml:474
 msgid "Imported file not found"
-msgstr ""
+msgstr "Το αρχείο προς εισαγωγή δε βρέθηκε"
 
 #: ../music-app.qml:478
 msgid "Wait"
@@ -374,6 +377,9 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Εκμεταλευτείτε περισσότερο την εφαρμογή Μουσική με το να αγγίξτε το "
+"εικονίδιο %1 για να αρχίσετε να φτιάχνετε λίστες αναπαραγωγής για κάθε "
+"διάθεση και περίσταση."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -381,7 +387,7 @@ msgstr "Μια εφαρμογή αναπαραγωγής μουσικής για
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "μουσική;τραγούδια;αναπαραγωγή;κομμάτια;παίξιμο;μελωδίες;"
 
 #~ msgid "Login Successful"
 #~ msgstr "Επιτυχής σύνδεση"
