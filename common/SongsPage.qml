@@ -593,6 +593,7 @@ MusicPage {
         id: removePlaylistDialog
         Dialog {
             id: dialogRemovePlaylist
+	    objectName: "dialogRemovePlaylist"
             // TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
             title: i18n.tr("Permanently delete playlist?")
             text: "("+i18n.tr("This cannot be undone")+")"
@@ -602,6 +603,7 @@ MusicPage {
             Button {
                 text: i18n.tr("Remove")
                 color: styleMusic.dialog.confirmRemoveButtonColor
+		objectName: "removePlaylistDialogRemoveButton"
                 onClicked: {
                     // removing playlist
                     Playlists.removePlaylist(dialogRemovePlaylist.oldPlaylistName)
