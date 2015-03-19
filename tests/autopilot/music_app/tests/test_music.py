@@ -26,26 +26,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # metadata for test tracks sorted by title
         # tests should sort themselves if they require by artist/album
-        self.tracks = [
-            {
-                "album": "",
-                "artist": u"Francisco Tárrega",
-                "source": "1.ogg",
-                "title": u"Gran Vals"
-            },
-            {
-                "album": "",
-                "artist": "Josh Woodward",
-                "source": "2.ogg",
-                "title": "Swansong"
-            },
-            {
-                "album": "TestMP3Album",
-                "artist": "TestMP3Artist",
-                "source": "3.mp3",
-                "title": "TestMP3Title",
-            }
-        ]
+
 
         # Skip the walkthrough for every test
         self.app.get_walkthrough_page().skip()
@@ -81,7 +62,8 @@ class TestMainWindow(MusicAppTestCase):
         track = self.app.get_songs_page().get_track(0)
         track.swipe_reveal_actions()
 
-        track.click_add_to_queue_action()  # add track to the queue
+        # add track to the queue
+        track.click_add_to_queue_action()  
 
         # wait for track to be queued
         self.app.get_queue_count().wait_for(initial_tracks_count + 1)
@@ -449,13 +431,13 @@ class TestMainWindow(MusicAppTestCase):
 
         track.click_add_to_playlist_action()  # add track to queue
 
-        add_to_playlists_page = self.app.get_add_to_playlists_page()
+        add_to_playlist_page = self.app.get_add_to_playlists_page()
 
         # get initial list view playlist count
-        playlist_count = add_to_playlists_page.get_count()
+        playlist_count = add_to_playlist_page.get_count()
 
         # click on New playlist button in header
-        add_to_playlists_page.click_new_playlist_action()
+        add_to_playlist_page.click_new_playlist_action()
 
         # get dialog
         new_dialog = self.app.get_new_playlist_dialog()
@@ -467,17 +449,17 @@ class TestMainWindow(MusicAppTestCase):
         new_dialog.click_new_playlist_dialog_create_button()
 
         # verify playlist has been sucessfully created
-        self.assertThat(add_to_playlists_page.get_count(),
+        self.assertThat(add_to_playlist_page.get_count(),
                         Eventually(Equals(playlist_count + 1)))
 
-        self.assertThat(add_to_playlists_page.get_playlist(0).name,
+        self.assertThat(add_to_playlist_page.get_playlist(0).name,
                         Equals("myPlaylist"))
 
         # select playlist to add song to
-        add_to_playlists_page.click_playlist(0)
+        add_to_playlist_page.click_playlist(0)
 
         # wait for add to playlist page to close
-        add_to_playlists_page.visible.wait_for(False)
+        add_to_playlist_page.visible.wait_for(False)
 
         # open playlists page
         playlists_page = self.app.get_playlists_page()
@@ -486,7 +468,6 @@ class TestMainWindow(MusicAppTestCase):
         self.assertThat(playlists_page.get_count(), Equals(1))
 
         
-
     def test_select_and_delete_playlist(self):
         """tests deleting a playlist by creating a playlist, 
             selecting it, and then deleting it. """

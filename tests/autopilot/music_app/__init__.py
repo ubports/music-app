@@ -226,9 +226,6 @@ class MusicPlaylists(MusicPage):
     def click_delete_playlist_action(self):
             self.main_view.get_header().click_action_button("deletePlaylist")
 
-    
-
-
 
 class MusicaddtoPlaylist(MusicPage):
     """ Autopilot helper for add to playlist page """
