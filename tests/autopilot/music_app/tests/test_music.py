@@ -26,7 +26,26 @@ class TestMainWindow(MusicAppTestCase):
 
         # metadata for test tracks sorted by title
         # tests should sort themselves if they require by artist/album
-
+        self.tracks = [
+            {
+                "album": "",
+                "artist": u"Francisco Tárrega",
+                "source": "1.ogg",
+                "title": u"Gran Vals"
+            },
+            {
+                "album": "",
+                "artist": "Josh Woodward",
+                "source": "2.ogg",
+                "title": "Swansong"
+            },
+            {
+                "album": "TestMP3Album",
+                "artist": "TestMP3Artist",
+                "source": "3.mp3",
+                "title": "TestMP3Title",
+            }
+        ]
 
         # Skip the walkthrough for every test
         self.app.get_walkthrough_page().skip()
