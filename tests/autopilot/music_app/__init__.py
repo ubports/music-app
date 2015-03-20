@@ -418,9 +418,6 @@ class ListItemWithActions(UbuntuUIToolkitCustomProxyObjectBase):
 
         self.swipping.wait_for(False)
 
-    
-    
-
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
     @click_object

@@ -485,7 +485,6 @@ class TestMainWindow(MusicAppTestCase):
 
         # verify song has been added to playlist
         self.assertThat(playlists_page.get_count(), Equals(1))
-
         
     def test_select_and_delete_playlist(self):
         """tests deleting a playlist by creating a playlist, 
@@ -533,15 +532,7 @@ class TestMainWindow(MusicAppTestCase):
         # verify that the playlist has been removed
         self.assertThat(playlists_page.get_count(), Equals(playlist_count))
 
-
-        
-
-        
-
-
-        
-
-    def test_artists_tab_album(self):
+ def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
 
         # get number of tracks in queue before queuing a track
