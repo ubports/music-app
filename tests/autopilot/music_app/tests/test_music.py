@@ -82,7 +82,7 @@ class TestMainWindow(MusicAppTestCase):
         track.swipe_reveal_actions()
 
         # add track to the queue
-        track.click_add_to_queue_action()  
+        track.click_add_to_queue_action()
 
         # wait for track to be queued
         self.app.get_queue_count().wait_for(initial_tracks_count + 1)
@@ -450,7 +450,7 @@ class TestMainWindow(MusicAppTestCase):
 
         track.click_add_to_playlist_action()  # add track to queue
 
-        add_to_playlist_page = self.app.get_add_to_playlists_page()
+        add_to_playlist_page = self.app.get_add_to_playlist_page()
 
         # get initial list view playlist count
         playlist_count = add_to_playlist_page.get_count()
@@ -485,9 +485,9 @@ class TestMainWindow(MusicAppTestCase):
 
         # verify song has been added to playlist
         self.assertThat(playlists_page.get_count(), Equals(1))
-        
+
     def test_select_and_delete_playlist(self):
-        """tests deleting a playlist by creating a playlist, 
+        """tests deleting a playlist by creating a playlist,
             selecting it, and then deleting it. """
 
         # switch to playlist page
@@ -532,7 +532,7 @@ class TestMainWindow(MusicAppTestCase):
         # verify that the playlist has been removed
         self.assertThat(playlists_page.get_count(), Equals(playlist_count))
 
- def test_artists_tab_album(self):
+    def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
 
         # get number of tracks in queue before queuing a track

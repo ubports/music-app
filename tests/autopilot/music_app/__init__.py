@@ -213,7 +213,8 @@ class MusicPlaylists(MusicPage):
             "CardView", objectName="playlistsCardView").count
 
     def click_new_playlist_action(self):
-            self.main_view.get_header().click_action_button("newPlaylistButton")
+            self.main_view.get_header(
+                ).click_action_button("newPlaylistButton")
 
     @click_object
     def click_playlist(self, i):
