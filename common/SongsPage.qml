@@ -585,6 +585,8 @@ MusicPage {
                 color: styleMusic.dialog.cancelButtonColor
                 onClicked: PopupUtils.close(dialogEditPlaylist)
             }
+
+            Component.onCompleted: playlistName.forceActiveFocus()
         }
     }
 
