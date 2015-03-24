@@ -1079,6 +1079,8 @@ MainView {
                 color: styleMusic.dialog.cancelButtonColor
                 onClicked: PopupUtils.close(dialogNewPlaylist)
             }
+
+            Component.onCompleted: playlistName.forceActiveFocus()
         }
     }
 
