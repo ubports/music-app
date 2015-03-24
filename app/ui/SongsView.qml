@@ -126,16 +126,16 @@ MusicPage {
                     objectName: "editPlaylist"
                     iconName: "edit"
                     onTriggered: {
-                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
-                        dialog.oldPlaylistName = line2
+                        currentDialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
+                        currentDialog.oldPlaylistName = line2
                     }
                 },
                 Action {
                     objectName: "deletePlaylist"
                     iconName: "delete"
                     onTriggered: {
-                        var dialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
-                        dialog.oldPlaylistName = line2
+                        currentDialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
+                        currentDialog.oldPlaylistName = line2
                     }
                 }
             ]

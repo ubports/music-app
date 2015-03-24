@@ -19,6 +19,7 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 
 
 // generic page for music, could be useful for bottomedge implementation
@@ -29,6 +30,7 @@ Page {
         fill: parent
     }
 
+    property Dialog currentDialog
     property bool searchable: false
     property int searchResultsCount
 
