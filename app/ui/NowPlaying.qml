@@ -106,7 +106,7 @@ MusicPage {
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
                     onTriggered: {
-                        pageStack.pop()
+                        mainPageStack.goBack()
                         trackQueue.clear()
                     }
                 }

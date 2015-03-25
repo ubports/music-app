@@ -31,7 +31,7 @@ Walkthrough {
 
     onFinished: {
         walkthrough.visible = false
-        pageStack.pop()
+        mainPageStack.goBack()
         firstRun = false
     }
 
