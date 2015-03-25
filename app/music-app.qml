@@ -19,6 +19,7 @@
 
 import QtQuick 2.3
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
 import Qt.labs.settings 1.0
 import QtMultimedia 5.0
@@ -53,7 +54,9 @@ MainView {
     focus: true
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
-            if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "search") {
+            if (mainPageStack.currentMusicPage.currentDialog !== null) {
+                PopupUtils.close(mainPageStack.currentMusicPage.currentDialog)
+            } else if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "search") {
                 mainPageStack.currentMusicPage.state = "default"
             } else {
                 mainPageStack.goBack();  // Esc      Go back
@@ -692,6 +695,11 @@ MainView {
 
         // Go back up the stack if possible
         function goBack() {
+            // Ensure in the case that goBack is called programmatically that any dialogs are closed
+            if (mainPageStack.currentMusicPage.currentDialog !== null) {
+                PopupUtils.close(mainPageStack.currentMusicPage.currentDialog)
+            }
+
             if (depth > 1) {
                 pop()
             }
@@ -700,6 +708,11 @@ MainView {
         // Pop a specific page in the stack
         function popPage(page) {
             var tmpPages = []
+
+            // Ensure in the case that popPage is called programmatically that any dialogs are closed
+            if (page.currentDialog !== undefined && page.currentDialog !== null) {
+                PopupUtils.close(page.currentDialog)
+            }
 
             popping = true
 

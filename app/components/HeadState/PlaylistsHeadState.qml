@@ -31,7 +31,7 @@ PageHeadState {
             iconName: "add"
             onTriggered: {
                 customdebug("New playlist.")
-                PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
+                thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
             }
         },
         Action {
