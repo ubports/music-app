@@ -303,7 +303,7 @@ MusicPage {
                     id: shuffleRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -335,7 +335,7 @@ MusicPage {
                     id: queueAllRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -357,7 +357,7 @@ MusicPage {
                     height: units.gu(4)
                     // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                     text: i18n.tr("Play all")
-                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     onClicked: {
                         trackClicked(albumtrackslist.model, 0)  // play track
 
@@ -373,7 +373,7 @@ MusicPage {
                     }
                 }
             }
-            property int baseHeight: header.width > units.gu(60) ? units.gu(37.5) : ((header.width - units.gu(9)) / 2) + units.gu(12)
+            property int baseHeight: header.width > units.gu(60) ? units.gu(39.5) : ((header.width - units.gu(5)) / 2) + units.gu(12)
             coverSources: songStackPage.covers
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
                     songStackPage.line1 !== i18n.tr("Genre") ?

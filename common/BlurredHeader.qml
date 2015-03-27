@@ -43,7 +43,7 @@ ListItem.Standard {
             top: parent.top
             topMargin: units.gu(3)
         }
-        size: parent.width > units.gu(60) ? units.gu(25.5) : (parent.width - units.gu(9)) / 2
+        size: parent.width > units.gu(60) ? units.gu(27.5) : (parent.width - units.gu(5)) / 2
     }
 
     Loader {
