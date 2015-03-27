@@ -296,13 +296,14 @@ MusicPage {
         }
 
         header: BlurredHeader {
+            id: blurredHeader
             rightColumn: Column {
                 spacing: units.gu(2)
                 Button {
                     id: shuffleRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -334,7 +335,7 @@ MusicPage {
                     id: queueAllRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -356,7 +357,7 @@ MusicPage {
                     height: units.gu(4)
                     // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                     text: i18n.tr("Play all")
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(25.5) : (blurredHeader.width - units.gu(9)) / 2
                     onClicked: {
                         trackClicked(albumtrackslist.model, 0)  // play track
 
@@ -372,10 +373,11 @@ MusicPage {
                     }
                 }
             }
+            property int baseHeight: header.width > units.gu(60) ? units.gu(37.5) : ((header.width - units.gu(9)) / 2) + units.gu(12)
             coverSources: songStackPage.covers
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
                     songStackPage.line1 !== i18n.tr("Genre") ?
-                        units.gu(33) : units.gu(30)
+                        baseHeight + units.gu(3) : baseHeight
             bottomColumn: Column {
                 Label {
                     id: albumLabel
