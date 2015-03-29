@@ -191,10 +191,12 @@ MusicPage {
         objectName: "songspage-listview"
         width: parent.width
         header: BlurredHeader {
+            id: blurredHeader
             rightColumn: Column {
                 spacing: units.gu(2)
                 ShuffleButton {
                     model: albumtrackslist.model
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     onClicked: {
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
@@ -209,9 +211,11 @@ MusicPage {
                 }
                 QueueAllButton {
                     model: albumtrackslist.model
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                 }
                 PlayAllButton {
                     model: albumtrackslist.model
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     onClicked: {
                         if (isAlbum && songStackPage.line1 !== i18n.tr("Genre")) {
                             Library.addRecent(albumtrackslist.model.get(0, albumtrackslist.model.RoleModelData).album, "album")
@@ -225,10 +229,12 @@ MusicPage {
                     }
                 }
             }
+            property int baseHeight: header.width > units.gu(60) ? units.gu(33.5) : ((header.width - units.gu(5)) / 2) + units.gu(12)
             coverSources: songStackPage.covers
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
-                    songStackPage.line1 !== i18n.tr("Genre") ?
-                        units.gu(33) : units.gu(30)
+                    songStackPage.line1 !== i18n.tr("Genre") &&
+                    header.width <= units.gu(60) ?
+                        baseHeight + units.gu(3) : baseHeight
             bottomColumn: Column {
                 Label {
                     id: albumLabel

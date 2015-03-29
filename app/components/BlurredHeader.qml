@@ -21,7 +21,6 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 ListItem.Standard {
-    id: albumInfo
     width: parent.width
 
     property alias bottomColumn: bottomColumnLoader.sourceComponent
@@ -44,7 +43,7 @@ ListItem.Standard {
             top: parent.top
             topMargin: units.gu(3)
         }
-        size: units.gu(18)
+        size: parent.width > units.gu(60) ? units.gu(27.5) : (parent.width - units.gu(5)) / 2
     }
 
     Loader {
@@ -59,11 +58,12 @@ ListItem.Standard {
     Loader {
         id: bottomColumnLoader
         anchors {
-            left: coversImage.left
+            left: parent.width > units.gu(60) ? coversImage.right : coversImage.left
+            leftMargin: parent.width > units.gu(60) ? units.gu(2) : units.gu(0)
             right: parent.right
-            rightMargin: units.gu(2)
-            top: coversImage.bottom
-            topMargin: units.gu(1)
+            rightMargin: parent.width > units.gu(60) ? units.gu(0) : units.gu(2)
+            top: parent.width > units.gu(60) ? coversImage.top : coversImage.bottom
+            topMargin: parent.width > units.gu(60) ? units.gu(0) : units.gu(1)
         }
     }
 }
