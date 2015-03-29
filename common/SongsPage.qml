@@ -373,10 +373,11 @@ MusicPage {
                     }
                 }
             }
-            property int baseHeight: header.width > units.gu(60) ? units.gu(39.5) : ((header.width - units.gu(5)) / 2) + units.gu(12)
+            property int baseHeight: header.width > units.gu(60) ? units.gu(33.5) : ((header.width - units.gu(5)) / 2) + units.gu(12)
             coverSources: songStackPage.covers
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
-                    songStackPage.line1 !== i18n.tr("Genre") ?
+                    songStackPage.line1 !== i18n.tr("Genre") &&
+                    header.width <= units.gu(60) ?
                         baseHeight + units.gu(3) : baseHeight
             bottomColumn: Column {
                 Label {

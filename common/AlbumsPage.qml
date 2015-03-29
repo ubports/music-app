@@ -102,7 +102,7 @@ MusicPage {
                 }
             }
             coverSources: albumStackPage.covers
-            height: blurredHeader.width > units.gu(60) ? units.gu(39.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
+            height: blurredHeader.width > units.gu(60) ? units.gu(33.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
             bottomColumn: Column {
                 Label {
                     id: artistLabel
