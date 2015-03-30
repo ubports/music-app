@@ -52,20 +52,24 @@ MusicPage {
             };
         }
         header: BlurredHeader {
+            id: blurredHeader
             rightColumn: Column {
                 spacing: units.gu(2)
                 ShuffleButton {
                     model: songArtistModel
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                 }
                 QueueAllButton {
                     model: songArtistModel
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                 }
                 PlayAllButton {
                     model: songArtistModel
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                 }
             }
             coverSources: artistViewPage.covers
-            height: units.gu(30)
+            height: blurredHeader.width > units.gu(60) ? units.gu(33.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
             bottomColumn: Column {
                 Label {
                     id: artistLabel
