@@ -48,13 +48,14 @@ MusicPage {
             };
         }
         header: BlurredHeader {
+            id: blurredHeader
             rightColumn: Column {
                 spacing: units.gu(2)
                 Button {
                     id: shuffleRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -74,7 +75,7 @@ MusicPage {
                     id: queueAllRow
                     height: units.gu(4)
                     strokeColor: UbuntuColors.green
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     Text {
                         anchors {
                             centerIn: parent
@@ -96,12 +97,12 @@ MusicPage {
                     height: units.gu(4)
                     // TRANSLATORS: this appears in a button with limited space (around 14 characters)
                     text: i18n.tr("Play all")
-                    width: units.gu(15)
+                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
                     onClicked: trackClicked(songArtistModel, 0, true)
                 }
             }
             coverSources: albumStackPage.covers
-            height: units.gu(30)
+            height: blurredHeader.width > units.gu(60) ? units.gu(33.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
             bottomColumn: Column {
                 Label {
                     id: artistLabel
