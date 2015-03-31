@@ -48,6 +48,13 @@ MainView {
         property bool firstRun: true
         property int queueIndex: 0
         property int tabIndex: -1
+
+        onFirstRunChanged: {
+            if (!firstRun) {
+                uriHandler.runDelayed()
+                contentHub.runDelayed()
+            }
+        }
     }
 
     // Global keyboard shortcuts

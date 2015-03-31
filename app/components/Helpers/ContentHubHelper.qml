@@ -25,6 +25,7 @@ import Ubuntu.Content 0.1
 
 Item {
     property var activeTransfer
+    property var delayed: []
     property int importId: 0
     property list<ContentItem> importItems
     property bool processing: contentHubWaitForFile !== -1
@@ -48,51 +49,11 @@ Item {
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
-                var processId = importId++;
-
-                console.debug("Triggering content-hub import ID", processId);
-
-                searchPaths = [];
-
-                var err = [];
-                var path;
-                var res;
-                var success = true;
-                var url;
-
-                for (var i=0; i < importItems.length; i++) {
-                    url = importItems[i].url.toString()
-                    console.debug("Triggered content-hub import for item", url)
-
-                    // fixed path allows for apparmor protection
-                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
-                    res = contentHub.importFile(importItems[i], path)
-
-                    if (res !== true) {
-                        success = false;
-                        err.push(url.split("/").pop() + " " + res)
-                    }
-                }
-
-
-                if (success === true) {
-                    if (contentHubWaitForFile.processId === -1) {
-                        contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubWaitDialog.qml"), mainView)
-                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
-                        contentHubWaitForFile.processId = processId;
-                        contentHubWaitForFile.start();
-
-                        // Stop queue loading in bg
-                        queueLoaderWorker.canLoad = false
-                    } else {
-                        contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
-                        contentHubWaitForFile.count = 0;
-                        contentHubWaitForFile.restart();
-                    }
-                }
-                else {
-                    var errordialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubErrorDialog.qml"), mainView)
-                    errordialog.errorText = err.join("\n")
+                if (firstRun) {
+                    console.debug("Delaying content-hub import")
+                    delayed.push(importItems)
+                } else {
+                    contentHub.importRequested(importItems)
                 }
             }
         }
@@ -143,6 +104,62 @@ Item {
                     return true
                 }
             }
+        }
+
+        function importRequested(importItems) {
+            var processId = importId++;
+
+            console.debug("Triggering content-hub import ID", processId);
+
+            searchPaths = [];
+
+            var err = [];
+            var path;
+            var res;
+            var success = true;
+            var url;
+
+            for (var i=0; i < importItems.length; i++) {
+                url = importItems[i].url.toString()
+                console.debug("Triggered content-hub import for item", url)
+
+                // fixed path allows for apparmor protection
+                path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
+                res = contentHub.importFile(importItems[i], path)
+
+                if (res !== true) {
+                    success = false;
+                    err.push(url.split("/").pop() + " " + res)
+                }
+            }
+
+
+            if (success === true) {
+                if (contentHubWaitForFile.processId === -1) {
+                    contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubWaitDialog.qml"), mainView)
+                    contentHubWaitForFile.searchPaths = contentHub.searchPaths;
+                    contentHubWaitForFile.processId = processId;
+                    contentHubWaitForFile.start();
+
+                    // Stop queue loading in bg
+                    queueLoaderWorker.canLoad = false
+                } else {
+                    contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
+                    contentHubWaitForFile.count = 0;
+                    contentHubWaitForFile.restart();
+                }
+            }
+            else {
+                var errordialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubErrorDialog.qml"), mainView)
+                errordialog.errorText = err.join("\n")
+            }
+        }
+    }
+
+    function runDelayed() {
+        for (var i=0; i < delayed.length; i++) {
+            console.debug("Running delayed content-hub import")
+            contentHub.importRequested(delayed[i])
         }
     }
 
