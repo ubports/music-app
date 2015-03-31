@@ -49,6 +49,13 @@ MainView {
         property bool firstRun: true
         property int queueIndex: 0
         property int tabIndex: -1
+
+        onFirstRunChanged: {
+            if (!firstRun) {
+                uriHandler.runDelayed()
+                contentHub.runDelayed()
+            }
+        }
     }
 
     // Global keyboard shortcuts
@@ -184,6 +191,8 @@ MainView {
         id: uriHandler
         target: UriHandler
 
+        property var delayed: []
+
         function processAlbum(uri) {
             selectedAlbum = true;
             var split = uri.split("/");
@@ -232,7 +241,10 @@ MainView {
         }
 
         function process(uri, play) {
-            if (uri.indexOf("album:///") === 0) {
+            if (firstRun) {
+                uriHandler.delayed.push([uri, play])
+                console.debug("Delaying uri call", uri)
+            } else if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
             }
             else if (uri.indexOf("file://") === 0) {
@@ -243,6 +255,13 @@ MainView {
             }
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
+            }
+        }
+
+        function runDelayed() {
+            for (var i=0; i < uriHandler.delayed.length; i++) {
+                console.debug("Running delayed uri call", uriHandler.delayed[i][0])
+                uriHandler.process(uriHandler.delayed[i][0], uriHandler.delayed[i][1])
             }
         }
 
@@ -270,61 +289,23 @@ MainView {
     Connections {
         id: contentHub
         target: ContentHub
+
+        property var delayed: []
+        property var searchPaths: []
+
         onImportRequested: {
             activeTransfer = transfer;
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
-                var processId = importId++;
-
-                console.debug("Triggering content-hub import ID", processId);
-
-                searchPaths = [];
-
-                var err = [];
-                var path;
-                var res;
-                var success = true;
-                var url;
-
-                for (var i=0; i < importItems.length; i++) {
-                    url = importItems[i].url.toString()
-                    console.debug("Triggered content-hub import for item", url)
-
-                    // fixed path allows for apparmor protection
-                    path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
-                    res = contentHub.importFile(importItems[i], path)
-
-                    if (res !== true) {
-                        success = false;
-                        err.push(url.split("/").pop() + " " + res)
-                    }
-                }
-
-
-                if (success === true) {
-                    if (contentHubWaitForFile.processId === -1) {
-                        contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
-                        contentHubWaitForFile.searchPaths = contentHub.searchPaths;
-                        contentHubWaitForFile.processId = processId;
-                        contentHubWaitForFile.start();
-
-                        // Stop queue loading in bg
-                        queueLoaderWorker.canLoad = false
-                    } else {
-                        contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
-                        contentHubWaitForFile.count = 0;
-                        contentHubWaitForFile.restart();
-                    }
-                }
-                else {
-                    var errordialog = PopupUtils.open(contentHubError, mainView)
-                    errordialog.errorText = err.join("\n")
+                if (firstRun) {
+                    console.debug("Delaying content-hub import")
+                    contentHub.delayed.push(importItems)
+                } else {
+                    contentHub.importRequested(importItems)
                 }
             }
         }
-
-        property var searchPaths: []
 
         function importFile(contentItem, path) {
             var contentUrl = contentItem.url.toString()
@@ -371,6 +352,62 @@ MainView {
                     contentHub.searchPaths.push(dir + "/" + filename)
                     return true
                 }
+            }
+        }
+
+        function importRequested(importItems) {
+            var processId = importId++;
+
+            console.debug("Triggering content-hub import ID", processId);
+
+            searchPaths = [];
+
+            var err = [];
+            var path;
+            var res;
+            var success = true;
+            var url;
+
+            for (var i=0; i < importItems.length; i++) {
+                url = importItems[i].url.toString()
+                console.debug("Triggered content-hub import for item", url)
+
+                // fixed path allows for apparmor protection
+                path = "~/Music/Imported/" + Qt.formatDateTime(new Date(), "yyyy/MM/dd/hhmmss") + "-" + url.split("/").pop()
+                res = contentHub.importFile(importItems[i], path)
+
+                if (res !== true) {
+                    success = false;
+                    err.push(url.split("/").pop() + " " + res)
+                }
+            }
+
+
+            if (success === true) {
+                if (contentHubWaitForFile.processId === -1) {
+                    contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
+                    contentHubWaitForFile.searchPaths = contentHub.searchPaths;
+                    contentHubWaitForFile.processId = processId;
+                    contentHubWaitForFile.start();
+
+                    // Stop queue loading in bg
+                    queueLoaderWorker.canLoad = false
+                } else {
+                    contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
+                    contentHubWaitForFile.count = 0;
+                    contentHubWaitForFile.restart();
+                }
+            }
+            else {
+                var errordialog = PopupUtils.open(contentHubError, mainView)
+                errordialog.errorText = err.join("\n")
+            }
+        }
+
+        function runDelayed() {
+            for (var i=0; i < contentHub.delayed.length; i++) {
+                console.debug("Running delayed content-hub import")
+                contentHub.importRequested(contentHub.delayed[i])
             }
         }
     }
