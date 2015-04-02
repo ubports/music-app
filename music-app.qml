@@ -186,12 +186,29 @@ MainView {
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
+    property var delayedExternalRequest: null
+
+    function runDelayedExternalRequest() {
+        if (delayedExternalRequest !== null) {
+            if (delayedExternalRequest.uri !== undefined) {
+                console.debug("Running delayed uriHandler request")
+                uriHandler.process(delayedExternalRequest.uri, delayedExternalRequest.play)
+            } else if (delayedExternalRequest.contentHub !== undefined) {
+                console.debug("Running delayed content-hub import")
+                contentHub.importRequested(delayedExternalRequest.contentHub)
+            } else {
+                console.debug("Unknown delayed external request, ignoring.", delayedExternalRequest);
+            }
+
+            delayedExternalRequest = null;
+        }
+    }
+
+
     // signal to open new URIs
     Connections {
         id: uriHandler
         target: UriHandler
-
-        property var delayed: []
 
         function processAlbum(uri) {
             selectedAlbum = true;
@@ -242,7 +259,7 @@ MainView {
 
         function process(uri, play) {
             if (firstRun) {
-                uriHandler.delayed.push([uri, play])
+                delayedExternalRequest = {"uri": uri, "play": play}
                 console.debug("Delaying uri call", uri)
             } else if (uri.indexOf("album:///") === 0) {
                 uriHandler.processAlbum(uri.substring(9));
@@ -255,13 +272,6 @@ MainView {
             }
             else {
                 console.debug("Unsupported URI " + uri + ", skipping")
-            }
-        }
-
-        function runDelayed() {
-            for (var i=0; i < uriHandler.delayed.length; i++) {
-                console.debug("Running delayed uri call", uriHandler.delayed[i][0])
-                uriHandler.process(uriHandler.delayed[i][0], uriHandler.delayed[i][1])
             }
         }
 
@@ -290,17 +300,17 @@ MainView {
         id: contentHub
         target: ContentHub
 
-        property var delayed: []
         property var searchPaths: []
 
         onImportRequested: {
             activeTransfer = transfer;
+
             if (activeTransfer.state === ContentTransfer.Charged) {
                 importItems = activeTransfer.items;
 
                 if (firstRun) {
                     console.debug("Delaying content-hub import")
-                    contentHub.delayed.push(importItems)
+                    delayedExternalRequest = {"contentHub": importItems}
                 } else {
                     contentHub.importRequested(importItems)
                 }
@@ -382,7 +392,6 @@ MainView {
                 }
             }
 
-
             if (success === true) {
                 if (contentHubWaitForFile.processId === -1) {
                     contentHubWaitForFile.dialog = PopupUtils.open(contentHubWait, mainView)
@@ -397,17 +406,9 @@ MainView {
                     contentHubWaitForFile.count = 0;
                     contentHubWaitForFile.restart();
                 }
-            }
-            else {
+            } else {
                 var errordialog = PopupUtils.open(contentHubError, mainView)
                 errordialog.errorText = err.join("\n")
-            }
-        }
-
-        function runDelayed() {
-            for (var i=0; i < contentHub.delayed.length; i++) {
-                console.debug("Running delayed content-hub import")
-                contentHub.importRequested(contentHub.delayed[i])
             }
         }
     }
