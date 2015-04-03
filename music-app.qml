@@ -52,8 +52,7 @@ MainView {
 
         onFirstRunChanged: {
             if (!firstRun) {
-                uriHandler.runDelayed()
-                contentHub.runDelayed()
+                runDelayedExternalRequest()
             }
         }
     }
