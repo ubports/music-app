@@ -25,7 +25,6 @@ import Ubuntu.Content 0.1
 
 Item {
     property var activeTransfer
-    property var delayed: []
     property int importId: 0
     property list<ContentItem> importItems
     property bool processing: contentHubWaitForFile !== -1

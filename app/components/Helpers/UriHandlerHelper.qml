@@ -25,8 +25,6 @@ import "../"
 Item {
     id: uriHandler
 
-    property var delayed: []
-
     Connections {
         target: UriHandler
 
