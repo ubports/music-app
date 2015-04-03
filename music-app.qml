@@ -210,6 +210,14 @@ MainView {
         target: UriHandler
 
         function processAlbum(uri) {
+            // Stop queue loading in the background
+            queueLoaderWorker.canLoad = false
+
+            if (queueLoaderWorker.processing > 0) {
+                waitForWorker.workerStop(queueLoaderWorker, processAlbum, [uri])
+                return;
+            }
+
             selectedAlbum = true;
             var split = uri.split("/");
 
