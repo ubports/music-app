@@ -51,7 +51,7 @@ Item {
 
                 if (firstRun) {
                     console.debug("Delaying content-hub import")
-                    delayed.push(importItems)
+                    externalRequest.delayRequest(function() { return contentHub.importRequested(importItems); })
                 } else {
                     contentHub.importRequested(importItems)
                 }
@@ -153,13 +153,6 @@ Item {
                 var errordialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubErrorDialog.qml"), mainView)
                 errordialog.errorText = err.join("\n")
             }
-        }
-    }
-
-    function runDelayed() {
-        for (var i=0; i < delayed.length; i++) {
-            console.debug("Running delayed content-hub import")
-            contentHub.importRequested(delayed[i])
         }
     }
 

@@ -87,8 +87,8 @@ Item {
 
     function process(uri, play) {
         if (firstRun) {
-            delayed.push([uri, play])
             console.debug("Delaying uri call", uri)
+            externalRequest.delayRequest(function() { return process(uri, play); })
         } else if (uri.indexOf("album:///") === 0) {
             processAlbum(uri.substring(9));
         } else if (uri.indexOf("file://") === 0) {
@@ -97,13 +97,6 @@ Item {
             processFile(uri.substring(8), play);
         } else {
             console.debug("Unsupported URI " + uri + ", skipping")
-        }
-    }
-
-    function runDelayed() {
-        for (var i=0; i < delayed.length; i++) {
-            console.debug("Running delayed uri call", delayed[i][0])
-            process(delayed[i][0], delayed[i][1])
         }
     }
 }

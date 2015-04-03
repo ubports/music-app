@@ -51,8 +51,7 @@ MainView {
 
         onFirstRunChanged: {
             if (!firstRun) {
-                uriHandler.runDelayed()
-                contentHub.runDelayed()
+                externalRequest.runDelayed()
             }
         }
     }
@@ -186,6 +185,10 @@ MainView {
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
+
+    ExternalRequest {
+        id: externalRequest
+    }
 
     UriHandlerHelper {
         id: uriHandler
