@@ -21,6 +21,7 @@ import QtQuick 2.3
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Content 0.1
+import "../../logic/delay-request.js" as DelayRequest
 
 
 Item {
@@ -50,7 +51,7 @@ Item {
 
                 if (firstRun) {
                     console.debug("Delaying content-hub import")
-                    externalRequest.delayRequest(function() { return contentHub.importRequested(importItems); })
+                    DelayRequest.delayRequest(function() { return contentHub.importRequested(importItems); })
                 } else {
                     contentHub.importRequested(importItems)
                 }

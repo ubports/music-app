@@ -15,22 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+.pragma library
 
+var delayedRequest = null
 
-Item {
-    property var delayedExternalRequest: null
+function delayRequest(func) {
+    delayedRequest = func
+}
 
-    function delayRequest(func) {
-        delayedExternalRequest = func
-    }
+function runDelayed() {
+    if (delayedRequest !== null) {
+        console.debug("Running delayed request")
+        delayedRequest()
 
-    function runDelayed() {
-        if (delayedExternalRequest !== null) {
-            console.debug("Running delayed request")
-            delayedExternalRequest()
-
-            delayedExternalRequest = null;
-        }
+        delayedRequest = null;
     }
 }

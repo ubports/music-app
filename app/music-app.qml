@@ -25,6 +25,7 @@ import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
+import "logic/delay-request.js" as DelayRequest
 import "logic/meta-database.js" as Library
 import "logic/playlists.js" as Playlists
 import "components"
@@ -51,7 +52,7 @@ MainView {
 
         onFirstRunChanged: {
             if (!firstRun) {
-                externalRequest.runDelayed()
+                DelayRequest.runDelayed()
             }
         }
     }
@@ -185,10 +186,6 @@ MainView {
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
-
-    ExternalRequest {
-        id: externalRequest
-    }
 
     UriHandlerHelper {
         id: uriHandler
