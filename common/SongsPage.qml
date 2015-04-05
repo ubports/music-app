@@ -208,7 +208,7 @@ MusicPage {
                     text: i18n.tr("Delete")
                     visible: songStackPage.line1 === i18n.tr("Playlist")
                     onTriggered: {
-                        Playlists.removeListFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems)
+                        Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems)
 
                         albumtrackslist.closeSelection()
 
@@ -477,7 +477,7 @@ MusicPage {
                     id: playlistRemoveAction
                     sourceComponent: Remove {
                         onTriggered: {
-                            Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+                            Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
 
                             playlistChangedHelper()  // update recent/playlist models
 
