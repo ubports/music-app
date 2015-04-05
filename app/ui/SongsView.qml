@@ -151,17 +151,7 @@ MusicPage {
             thisPage: songStackPage
 
             onRemoved: {
-                for (var i=0; i < selectedItems.length; i++) {
-                    Playlists.removeFromPlaylist(songStackPage.line2, selectedItems[i])
-
-                    // Update indexes as an index has been removed
-                    for (var j=i + 1; j < selectedItems.length; j++) {
-                        if (selectedItems[j] > selectedItems[i]) {
-                            selectedItems[j]--;
-                        }
-                    }
-                }
-
+                Playlists.removeFromPlaylist(songStackPage.line2, selectedItems)
                 playlistChangedHelper()  // update recent/playlist models
 
                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
@@ -354,7 +344,7 @@ MusicPage {
                 id: playlistRemoveAction
                 sourceComponent: Remove {
                     onTriggered: {
-                        Playlists.removeFromPlaylist(songStackPage.line2, model.i)
+                        Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
 
                         playlistChangedHelper()  // update recent/playlist models
 
