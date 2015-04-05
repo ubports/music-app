@@ -367,18 +367,17 @@ function removePlaylist(playlist) {
     return res
 }
 
-function removeFromPlaylist(playlist, index) {
+function removeFromPlaylist(playlist, indexes) {
     var db = getPlaylistDatabase()
-    var res = false
 
     db.transaction(function (tx) {
-        res = tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
-                            [playlist, index]).rowsAffected > 0
+        for (var i = 0; i < indexes.length; i++) {
+            tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
+                          [playlist, indexes[i]]).rowsAffected > 0
+        }
 
         reorder(playlist, "remove", tx)
     })
-
-    return res
 }
 
 function reorder(playlist, type, tx) {
