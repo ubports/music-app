@@ -152,6 +152,7 @@ MusicPage {
 
             onRemoved: {
                 Playlists.removeFromPlaylist(songStackPage.line2, selectedItems)
+
                 playlistChangedHelper()  // update recent/playlist models
 
                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
