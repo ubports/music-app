@@ -369,7 +369,6 @@ function removePlaylist(playlist) {
 
 function removeListFromPlaylist(playlist, indexes) {
     var db = getPlaylistDatabase()
-    var res = false
 
     for (var i = 0; i < indexes.length; i++) {
         db.transaction(function (tx) {
@@ -379,13 +378,10 @@ function removeListFromPlaylist(playlist, indexes) {
     }
 
     reorder(playlist, "remove")
-
-    return res
 }
 
 function removeFromPlaylist(playlist, index) {
     var db = getPlaylistDatabase()
-    var res = false
 
     db.transaction(function (tx) {
         res = tx.executeSql('DELETE FROM track WHERE playlist=? AND i=?;',
@@ -393,8 +389,6 @@ function removeFromPlaylist(playlist, index) {
 
         reorder(playlist, "remove", tx)
     })
-
-    return res
 }
 
 function reorder(playlist, type, tx) {
