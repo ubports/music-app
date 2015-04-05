@@ -208,16 +208,7 @@ MusicPage {
                     text: i18n.tr("Delete")
                     visible: songStackPage.line1 === i18n.tr("Playlist")
                     onTriggered: {
-                        for (var i=0; i < albumtrackslist.selectedItems.length; i++) {
-                            Playlists.removeFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems[i])
-
-                            // Update indexes as an index has been removed
-                            for (var j=i + 1; j < albumtrackslist.selectedItems.length; j++) {
-                                if (albumtrackslist.selectedItems[j] > albumtrackslist.selectedItems[i]) {
-                                    albumtrackslist.selectedItems[j]--;
-                                }
-                            }
-                        }
+                        Playlists.removeListFromPlaylist(songStackPage.line2, albumtrackslist.selectedItems)
 
                         albumtrackslist.closeSelection()
 
