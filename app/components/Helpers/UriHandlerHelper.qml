@@ -20,6 +20,7 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 import "../"
+import "../../logic/stored-request.js" as StoredRequest
 
 
 Item {
@@ -37,6 +38,14 @@ Item {
     }
 
     function processAlbum(uri) {
+        // Stop queue loading in the background
+        queueLoaderWorker.canLoad = false
+
+        if (queueLoaderWorker.processing > 0) {
+            waitForWorker.workerStop(queueLoaderWorker, processAlbum, [uri])
+            return;
+        }
+
         selectedAlbum = true;
         var split = uri.split("/");
 
@@ -84,7 +93,10 @@ Item {
     }
 
     function process(uri, play) {
-        if (uri.indexOf("album:///") === 0) {
+        if (firstRun) {
+            console.debug("Delaying uri call", uri)
+            StoredRequest.store(function() { return process(uri, play); })
+        } else if (uri.indexOf("album:///") === 0) {
             processAlbum(uri.substring(9));
         } else if (uri.indexOf("file://") === 0) {
             processFile(uri.substring(7), play);

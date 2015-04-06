@@ -25,6 +25,7 @@ import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
+import "logic/stored-request.js" as StoredRequest
 import "logic/meta-database.js" as Library
 import "logic/playlists.js" as Playlists
 import "components"
@@ -48,6 +49,12 @@ MainView {
         property bool firstRun: true
         property int queueIndex: 0
         property int tabIndex: -1
+
+        onFirstRunChanged: {
+            if (!firstRun) {
+                StoredRequest.run()
+            }
+        }
     }
 
     // Global keyboard shortcuts
