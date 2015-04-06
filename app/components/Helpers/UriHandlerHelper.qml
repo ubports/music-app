@@ -20,7 +20,7 @@
 import QtQuick 2.3
 import Ubuntu.Components 1.1
 import "../"
-import "../../logic/delay-request.js" as DelayRequest
+import "../../logic/stored-request.js" as StoredRequest
 
 
 Item {
@@ -95,7 +95,7 @@ Item {
     function process(uri, play) {
         if (firstRun) {
             console.debug("Delaying uri call", uri)
-            DelayRequest.delayRequest(function() { return process(uri, play); })
+            StoredRequest.store(function() { return process(uri, play); })
         } else if (uri.indexOf("album:///") === 0) {
             processAlbum(uri.substring(9));
         } else if (uri.indexOf("file://") === 0) {

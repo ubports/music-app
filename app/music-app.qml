@@ -25,7 +25,7 @@ import Qt.labs.settings 1.0
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
-import "logic/delay-request.js" as DelayRequest
+import "logic/stored-request.js" as StoredRequest
 import "logic/meta-database.js" as Library
 import "logic/playlists.js" as Playlists
 import "components"
@@ -52,7 +52,7 @@ MainView {
 
         onFirstRunChanged: {
             if (!firstRun) {
-                DelayRequest.runDelayed()
+                StoredRequest.run()
             }
         }
     }

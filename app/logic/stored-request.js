@@ -17,17 +17,17 @@
 
 .pragma library
 
-var delayedRequest = null
+var storedRequest = null
 
-function delayRequest(func) {
-    delayedRequest = func
+function store(func) {
+    storedRequest = func
 }
 
-function runDelayed() {
-    if (delayedRequest !== null) {
-        console.debug("Running delayed request")
-        delayedRequest()
+function run() {
+    if (storedRequest !== null) {
+        console.debug("Running stored request")
+        storedRequest()
 
-        delayedRequest = null;
+        storedRequest = null;
     }
 }
