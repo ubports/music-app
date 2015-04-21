@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-04-17 00:26+0000\n"
+"PO-Revision-Date: 2015-04-20 23:22+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-04-18 06:16+0000\n"
+"X-Launchpad-Export-Date: 2015-04-21 05:54+0000\n"
 "X-Generator: Launchpad (build 17430)\n"
 
 #: ../MusicAlbums.qml:29
@@ -303,7 +303,7 @@ msgstr "Parar"
 
 #: ../music-app.qml:176
 msgid "Stop Playback"
-msgstr "Parar a reprodución"
+msgstr "Parar reprodución"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:331
