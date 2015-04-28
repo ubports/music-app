@@ -201,7 +201,14 @@ Item {
                         player.stop()
                     }
                     else {
-                        var obj = trackQueue.model.get(player.currentIndex);
+                        var obj;
+
+                        if (source.toString().indexOf("file://") === 0) {
+                            obj = musicStore.lookup(source.toString().substring(7))
+                        } else {
+                            obj = musicStore.lookup(source.toString())
+                        }
+
                         player.currentMetaAlbum = obj.album;
 
                         if (obj.art !== undefined) {  // FIXME: protect against no art property in playlists
