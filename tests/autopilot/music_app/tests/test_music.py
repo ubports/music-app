@@ -212,7 +212,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # Ensure the current track is mp3
         self.assertThat(self.player.source.endswith("mp3"),
-                        Equals(True))
+                        Eventually(Equals(True)))
 
         # Start playing the track (click from toolbar)
         toolbar.click_play_button()
