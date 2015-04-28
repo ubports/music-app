@@ -77,7 +77,7 @@ class MusicApp(object):
 
     def get_delete_playlist_dialog(self):
         return self.main_view.wait_select_single(
-            Dialog, objectName="dialogRemovePlaylist")
+            RemovePlaylistDialog, objectName="dialogRemovePlaylist")
 
     def get_now_playing_page(self):
         return self.app.wait_select_single(NowPlaying,
@@ -424,6 +424,8 @@ class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
         self.wait_select_single(
             "TextField", objectName="playlistNameTextField").write(text)
 
+
+class RemovePlaylistDialog(UbuntuUIToolkitCustomProxyObjectBase):
     @click_object
     def click_remove_playlist_dialog_remove_button(self):
         return self.wait_select_single(
