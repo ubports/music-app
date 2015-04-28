@@ -75,6 +75,10 @@ class MusicApp(object):
         return self.main_view.wait_select_single(
             Dialog, objectName="dialogNewPlaylist")
 
+    def get_delete_playlist_dialog(self):
+        return self.main_view.wait_select_single(
+            Dialog, objectName="dialogRemovePlaylist")
+
     def get_now_playing_page(self):
         return self.app.wait_select_single(NowPlaying,
                                            objectName="nowPlayingPage")
@@ -201,6 +205,21 @@ class Playlists(MusicPage):
     def get_count(self):
         return self.wait_select_single(
             "CardView", objectName="playlistsCardView").count
+
+    def click_new_playlist_action(self):
+            self.main_view.get_header(
+                ).click_action_button("newPlaylistButton")
+
+    @click_object
+    def click_playlist(self, i):
+        return self.get_playlist(i)
+
+    def get_playlist(self, i):
+        return (self.wait_select_single("Card",
+                objectName="playlistCardItem" + str(i)))
+
+    def click_delete_playlist_action(self):
+            self.main_view.get_header().click_action_button("deletePlaylist")
 
 
 class AddToPlaylist(MusicPage):
@@ -404,6 +423,11 @@ class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
     def type_new_playlist_dialog_name(self, text):
         self.wait_select_single(
             "TextField", objectName="playlistNameTextField").write(text)
+
+    @click_object
+    def click_remove_playlist_dialog_remove_button(self):
+        return self.wait_select_single(
+            "Button", objectName="removePlaylistDialogRemoveButton")
 
 
 class MainView(MainView):
