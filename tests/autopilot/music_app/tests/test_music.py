@@ -198,6 +198,8 @@ class TestMainWindow(MusicAppTestCase):
         i = [i for i, track in enumerate(self.tracks)
              if track["source"].endswith("mp3")][0]
 
+        initial_tracks_count = self.app.get_queue_count()
+
         # switch to tracks page
         tracks_page = self.app.get_songs_page()
 
@@ -210,9 +212,13 @@ class TestMainWindow(MusicAppTestCase):
         # wait for the player index to change
         self.player.currentIndex.wait_for(0)
 
+        # ensure that the queue count has increased
+        self.assertThat(self.app.get_queue_count(),
+                        Eventually(Equals(initial_tracks_count + 1)))
+
         # Ensure the current track is mp3
         self.assertThat(self.player.source.endswith("mp3"),
-                        Eventually(Equals(True)))
+                        Equals(True))
 
         # Start playing the track (click from toolbar)
         toolbar.click_play_button()
