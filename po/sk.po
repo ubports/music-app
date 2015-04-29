@@ -8,42 +8,42 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-02-22 10:36+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-03-05 09:19+0000\n"
+"Last-Translator: Peter Mráz <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2015-02-23 05:40+0000\n"
-"X-Generator: Launchpad (build 17355)\n"
+"X-Launchpad-Export-Date: 2015-03-06 06:08+0000\n"
+"X-Generator: Launchpad (build 17374)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
-msgstr ""
+msgstr "Albumy"
 
 #: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
 #: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
 msgid "Unknown Album"
-msgstr ""
+msgstr "Neznámy album"
 
 #: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
 #: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
 #: ../common/SongsPage.qml:401
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Neznámy interpret"
 
 #: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../MusicArtists.qml:35
 msgid "Artists"
-msgstr ""
+msgstr "Interpreti"
 
 #: ../MusicArtists.qml:107
 msgid "Artist"
-msgstr ""
+msgstr "Interpret"
 
 #: ../MusicGenres.qml:29
 msgid "Genres"
@@ -54,36 +54,36 @@ msgstr ""
 #: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
 #: ../common/SongsPage.qml:454
 msgid "Genre"
-msgstr ""
+msgstr "Žáner"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
 #: ../music-app.qml:1253 ../music-app.qml:1294
 msgid "Now playing"
-msgstr ""
+msgstr "Práve hrá"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
 #: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
 #: ../music-app.qml:1294
 msgid "Queue"
-msgstr ""
+msgstr "Poradie prehrávania"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
 #: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
 msgid "Add to playlist"
-msgstr ""
+msgstr "Pridať do zoznamu"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../MusicNowPlaying.qml:117
 msgid "Clear queue"
-msgstr ""
+msgstr "Vyčistiť poradie"
 
 #: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
 #: ../common/SongsPage.qml:147
 msgid "Cancel selection"
-msgstr ""
+msgstr "Zrušiť výber"
 
 #: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
 #: ../common/SongsPage.qml:157
@@ -92,22 +92,23 @@ msgstr ""
 
 #: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
 msgid "Delete"
-msgstr ""
+msgstr "Odstrániť"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
 #: ../common/SongsPage.qml:85
 msgid "Playlists"
-msgstr ""
+msgstr "Zoznamy"
 
 #: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
 #: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 skladieb"
+msgstr[1] "%1 skladba"
+msgstr[2] "%1 skladby"
 
 #: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
 #: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
@@ -116,76 +117,77 @@ msgstr[1] ""
 #: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
 #: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
 msgid "Playlist"
-msgstr ""
+msgstr "Zoznam"
 
 #: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
 #: ../common/SongsPage.qml:95
 msgid "Recent"
-msgstr ""
+msgstr "Nedávne"
 
 #: ../MusicToolbar.qml:155
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Klepnutím hudbu premiešate"
 
 #: ../MusicTracks.qml:34
 msgid "Songs"
-msgstr ""
+msgstr "Skladby"
 
 #: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
 msgid "Add to queue"
-msgstr ""
+msgstr "Pridať do poradia"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
 msgid "Select playlist"
-msgstr ""
+msgstr "Vybrať zoznam"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
 msgid "Shuffle"
-msgstr ""
+msgstr "Premiešať"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
 msgid "Queue all"
-msgstr ""
+msgstr "Zaradiť všetko"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
 msgid "Play all"
-msgstr ""
+msgstr "Prehrať všetko"
 
 #: ../common/AlbumsPage.qml:127
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 albumov"
+msgstr[1] "%1 album"
+msgstr[2] "%1 albumy"
 
 #: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
-msgstr ""
+msgstr "Pridať do poradia"
 
 #: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
 msgid "Remove"
-msgstr ""
+msgstr "Odobrať"
 
 #: ../common/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr ""
+msgstr "Načítava sa…"
 
 #: ../common/MusicPage.qml:39
 msgid "No items found"
-msgstr ""
+msgstr "Nenájdené žiadne položky"
 
 #: ../common/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Hľadať hudbu"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../common/SongsPage.qml:528
 msgid "Rename playlist"
-msgstr ""
+msgstr "Premenovať zoznam"
 
 #: ../common/SongsPage.qml:535 ../music-app.qml:1004
 msgid "Enter playlist name"
@@ -193,85 +195,90 @@ msgstr ""
 
 #: ../common/SongsPage.qml:544
 msgid "Change"
-msgstr ""
+msgstr "Zmeniť"
 
 #: ../common/SongsPage.qml:565 ../music-app.qml:1030
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Zoznam už existuje"
 
 #: ../common/SongsPage.qml:569 ../music-app.qml:1035
 msgid "Please type in a name."
-msgstr ""
+msgstr "Zadajte názov"
 
 #: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
 #: ../music-app.qml:488 ../music-app.qml:1041
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušiť"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../common/SongsPage.qml:587
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Odstrániť zoznam natrvalo?"
 
 #: ../common/SongsPage.qml:588
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Toto sa nedá vrátiť"
 
 #: ../common/Walkthrough/Slide1.qml:57
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Vitajte v Hudbe"
 
 #: ../common/Walkthrough/Slide1.qml:70
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Vychutnajte si vaše obľúbené skladby v aplikácii Hudba od Ubuntu. Zobrazte "
+"si krátku prehliadku o tom, ako začať alebo stlačte Preskočiť a začnite hneď "
+"počúvať."
 
 #: ../common/Walkthrough/Slide2.qml:52
 msgid "Import your music"
-msgstr ""
+msgstr "Import vašej hudby"
 
 #: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Pripojte vaše zariadenie k hocijakému počítaču a skopírujte súbory do "
+"priečinka Hudba  alebo vložte vymeniteľný nosič s hudbou"
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
-msgstr ""
+msgstr "Prevzatie novej hudby"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Rovno naimportujte hudbu zakúpenú počas prehladania internetu."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
-msgstr ""
+msgstr "Štart"
 
 #: ../common/Walkthrough/Walkthrough.qml:85
 msgid "Skip"
-msgstr ""
+msgstr "Preskočiť"
 
 #: ../music-app.qml:146
 msgid "Next"
-msgstr ""
+msgstr "Ďalej"
 
 #: ../music-app.qml:147
 msgid "Next Track"
-msgstr ""
+msgstr "Ďalšia skladba"
 
 #: ../music-app.qml:153
 msgid "Pause"
-msgstr ""
+msgstr "Pozastaviť"
 
 #: ../music-app.qml:153
 msgid "Play"
-msgstr ""
+msgstr "Prehrať"
 
 #: ../music-app.qml:155
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pozastaviť prehrávanie"
 
 #: ../music-app.qml:155
 msgid "Continue or start playback"
@@ -279,92 +286,92 @@ msgstr ""
 
 #: ../music-app.qml:160
 msgid "Back"
-msgstr ""
+msgstr "Návrat"
 
 #: ../music-app.qml:161
 msgid "Go back to last page"
-msgstr ""
+msgstr "Návrat na poslednú stranu"
 
 #: ../music-app.qml:169
 msgid "Previous"
-msgstr ""
+msgstr "Späť"
 
 #: ../music-app.qml:170
 msgid "Previous Track"
-msgstr ""
+msgstr "Predchádzajúca skladba"
 
 #: ../music-app.qml:175
 msgid "Stop"
-msgstr ""
+msgstr "Zastaviť"
 
 #: ../music-app.qml:176
 msgid "Stop Playback"
-msgstr ""
+msgstr "Zastaviť prehrávanie"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../music-app.qml:331
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Cesta musí začínať"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../music-app.qml:357
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Cesta musí viesť k súboru"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../music-app.qml:363
 msgid "Failed to move file"
-msgstr ""
+msgstr "Nepodarilo sa presunúť súbor"
 
 #: ../music-app.qml:442
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Čaká sa na súbor/-y..."
 
 #: ../music-app.qml:461
 msgid "OK"
-msgstr ""
+msgstr "Ok"
 
 #: ../music-app.qml:474
 msgid "Imported file not found"
-msgstr ""
+msgstr "Importovaný súbor sa nenašiel"
 
 #: ../music-app.qml:478
 msgid "Wait"
-msgstr ""
+msgstr "Čakať"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../music-app.qml:499
 msgid "songs played today"
-msgstr ""
+msgstr "skladieb bolo dnes prehraných"
 
 #: ../music-app.qml:500
 msgid "No songs played today"
-msgstr ""
+msgstr "Žiadne skladby dnes neboli prehrané"
 
 #: ../music-app.qml:593 ../music-app.qml:1290
 #: com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Hudba"
 
 #: ../music-app.qml:612
 msgid "Debug: "
-msgstr ""
+msgstr "Ladenie: "
 
 #: ../music-app.qml:1000
 msgid "New playlist"
-msgstr ""
+msgstr "Nový zoznam"
 
 #: ../music-app.qml:1014
 msgid "Create"
-msgstr ""
+msgstr "Vytvoriť"
 
 #: ../music-app.qml:1380
 msgid "No music found"
-msgstr ""
+msgstr "Žiadna hudba sa nenašla"
 
 #: ../music-app.qml:1419
 msgid "No playlists found"
-msgstr ""
+msgstr "Žiadny zoznam sa nenašiel"
 
 #: ../music-app.qml:1430
 #, qt-format
@@ -372,11 +379,13 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Viac z hudby získate klepnutím na ikonu %1 a začnite si robiť zoznamy pre "
+"každú náladu a príležitosť"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Hudobná aplikácia pre Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "hudba;skladby;piesne;prehrávanie;stopy;prehrávač;melódie;pesničky;"

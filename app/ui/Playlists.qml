@@ -81,6 +81,7 @@ MusicPage {
         delegate: Card {
             id: playlistCard
             coverSources: Playlists.getPlaylistCovers(model.name)
+            objectName: "playlistCardItem" + index
             primaryText: model.name
             secondaryText: i18n.tr("%1 song", "%1 songs", model.count).arg(model.count)
 

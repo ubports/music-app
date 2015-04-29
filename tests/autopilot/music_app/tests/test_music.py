@@ -81,7 +81,8 @@ class TestMainWindow(MusicAppTestCase):
         track = self.app.get_songs_view().get_track(0)
         track.swipe_reveal_actions()
 
-        track.click_add_to_queue_action()  # add track to the queue
+        # add track to the queue
+        track.click_add_to_queue_action()
 
         # wait for track to be queued
         self.app.get_queue_count().wait_for(initial_tracks_count + 1)
@@ -487,6 +488,52 @@ class TestMainWindow(MusicAppTestCase):
 
         # verify song has been added to playlist
         self.assertThat(playlists_page.get_count(), Equals(1))
+
+    def test_select_and_delete_playlist(self):
+        """tests deleting a playlist by creating a playlist,
+            selecting it, and then deleting it. """
+
+        # switch to playlist page
+        playlists_page = self.app.get_playlists_page()
+
+        # get initial list view playlist count
+        playlist_count = playlists_page.get_count()
+
+        # click on New playlist button in header
+        playlists_page.click_new_playlist_action()
+
+        # get dialog
+        new_dialog = self.app.get_new_playlist_dialog()
+
+        # input playlist name
+        new_dialog.type_new_playlist_dialog_name("testDeletePlaylist")
+
+        # click on the create Button
+        new_dialog.click_new_playlist_dialog_create_button()
+
+        # verify playlist has been sucessfully created
+        self.assertThat(playlists_page.get_count(),
+                        Eventually(Equals(playlist_count + 1)))
+
+        self.assertThat(playlists_page.get_playlist(0).primaryText,
+                        Equals("testDeletePlaylist"))
+
+        # select the playlist that was just created
+        playlists_page.click_playlist(0)
+
+        # click the delete icon
+        playlists_page.click_delete_playlist_action()
+
+        # get dialog
+        delete_dialog = self.app.get_delete_playlist_dialog()
+
+        # click on the remove Button
+        delete_dialog.click_remove_playlist_dialog_remove_button()
+
+        playlists_page = self.app.get_playlists_page()
+
+        # verify that the playlist has been removed
+        self.assertThat(playlists_page.get_count(), Equals(playlist_count))
 
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
