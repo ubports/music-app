@@ -60,10 +60,10 @@ Item {
     Connections {
         target: trackQueue.model
         onCountChanged: {
-            if (trackQueue.model.count === 1) {
+            if (trackQueue.model.count === 1 && queueLoaderWorker.completed) {
                 player.currentIndex = 0;
                 setSource(Qt.resolvedUrl(trackQueue.model.get(0).filename))
-            } else if (trackQueue.model.count === 0) {
+            } else if (trackQueue.model.count === 0 && queueLoaderWorker.completed) {
                 player.currentIndex = -1
                 setSource("")
             }
