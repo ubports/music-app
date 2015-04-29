@@ -210,10 +210,13 @@ MainView {
         model: trackQueue.model
         syncFactor: 10
 
-        onCompletedChanged: {
-            if (completed) {
+        onPreLoadCompleteChanged: {
+            if (preLoadComplete) {
                 player.currentIndex = queueIndex
-                player.setSource(list[queueIndex].filename)
+
+                if (list[queueIndex] !== undefined) {
+                    player.setSource(list[queueIndex].filename)
+                }
             }
         }
     }
