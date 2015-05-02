@@ -40,6 +40,8 @@ Item {
     property bool removing: false
     property bool restoring: false  // is the view restoring?
     property var restoreItems: ({})  // when rebuilding items are stored here temporarily
+    // Disable preloading for now until async loading of pages is implemented
+    property bool preloading: true  // when visible has only been false allow loading (as no child objects [eg pages] can have been created on the fly)
 
     onColumnWidthChanged: {
         if (restoring) {
@@ -62,6 +64,10 @@ Item {
     }
 
     onVisibleChanged: {
+        if (visible) {
+            preloading = false;
+        }
+
         if (visible && delayRebuildIndex !== -1) {  // restore from count change
             if (delayRebuildIndex === 0) {
                 reset()
@@ -86,7 +92,7 @@ Item {
     Connections {
         target: model === undefined ? fakeModel : model
         onModelReset: {
-            if (!visible) {
+            if (!visible && lastIndex > 0 && !preloading) {
                 delayRebuildIndex = 0
             } else {
                 reset()
@@ -94,7 +100,7 @@ Item {
             }
         }
         onRowsInserted: {
-            if (!visible) {
+            if (!visible && lastIndex > 0 && !preloading) {
                 setDelayRebuildIndex(first)
             } else {
                 if (first <= lastIndex) {
@@ -161,7 +167,8 @@ Item {
             // and
             // allow if the y position is within the viewport
             // or if loadBefore is true then allow if the y position is before the viewport
-            if (((count > 0 && lastIndex < count && insertMax === undefined) || (insertMax !== undefined && lastIndex <= insertMax)) && (inViewport(y, 0) || (loadBefore === true && beforeViewport(y)))) {
+            if (((count > 0 && lastIndex < count && insertMax === undefined) || (insertMax !== undefined && lastIndex <= insertMax))
+                    && (inViewport(y, 0) || (loadBefore === true && beforeViewport(y)))) {
                 incubateObject(lastIndex++, columnsByHeight[i], getMaxInColumn(columnsByHeight[i]), append);
                 workDone = true
             } else {
@@ -488,5 +495,16 @@ Item {
         if (delayRebuildIndex === -1 || index < lastIndex) {
             delayRebuildIndex = index
         }
+    }
+
+    Component.onCompleted: {
+        // Ensure that initial column vars are set
+        for (var j=0; j < columns; j++) {
+            columnHeights.push({})
+        }
+
+        cacheColumnHeights()
+
+        append(true)
     }
 }
