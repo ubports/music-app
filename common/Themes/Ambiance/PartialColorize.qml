@@ -35,17 +35,17 @@ ShaderEffect {
     property bool mirror: false
     property string texCoord: mirror ? "1.0 - qt_TexCoord0.x" : "qt_TexCoord0.x"
 
-    fragmentShader: "
-            varying highp vec2 qt_TexCoord0;
-            uniform sampler2D source;
-            uniform lowp vec4 leftColor;
-            uniform lowp vec4 rightColor;
-            uniform lowp float progress;
-            uniform lowp float qt_Opacity;
+    fragmentShader: "" +
+            "varying highp vec2 qt_TexCoord0;" +
+            "uniform sampler2D source;" +
+            "uniform lowp vec4 leftColor;" +
+            "uniform lowp vec4 rightColor;" +
+            "uniform lowp float progress;" +
+            "uniform lowp float qt_Opacity;" +
 
-            void main() {
-                lowp vec4 sourceColor = texture2D(source, qt_TexCoord0);
-                lowp vec4 newColor = mix(leftColor, rightColor, step(progress, " + texCoord + "));
-                gl_FragColor = newColor * sourceColor.a * qt_Opacity;
-            }"
+            "void main() {" +
+            "    lowp vec4 sourceColor = texture2D(source, qt_TexCoord0);" +
+            "    lowp vec4 newColor = mix(leftColor, rightColor, step(progress, " + texCoord + "));" +
+            "    gl_FragColor = newColor * sourceColor.a * qt_Opacity;" +
+            "}"
 }
