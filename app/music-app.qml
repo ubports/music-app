@@ -40,6 +40,8 @@ MainView {
     backgroundColor: styleMusic.mainView.backgroundColor
     headerColor: styleMusic.mainView.headerColor
 
+    property bool useDeprecatedToolbar: false  // FIXME: keep SDK autopilot helpers happy
+
     // Startup settings
     Settings {
         id: startupSettings
