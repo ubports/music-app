@@ -36,7 +36,6 @@ MainView {
     objectName: "music"
     applicationName: "com.ubuntu.music"
     id: mainView
-    useDeprecatedToolbar: false
 
     backgroundColor: styleMusic.mainView.backgroundColor
     headerColor: styleMusic.mainView.headerColor
