@@ -19,7 +19,7 @@
  * https://github.com/krnekhelesh/flashback
  */
 
-import QtQuick 2.4
+import QtQuick 2.3
 import Ubuntu.Components 1.2
 
 // Initial Walkthrough tutorial

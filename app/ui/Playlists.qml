@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.3
 import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.0
 import QtMultimedia 5.0
