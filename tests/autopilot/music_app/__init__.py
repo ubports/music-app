@@ -48,7 +48,8 @@ class MusicApp(object):
 
     def __init__(self, app_proxy):
         self.app = app_proxy
-        self.main_view = self.app.wait_select_single(MainView12)
+        self.main_view = self.app.wait_select_single(MainView12,
+                                                     objectName="music")
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
@@ -444,3 +445,7 @@ class MainView12(MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
+
+    @classmethod
+    def validate_dbus_object(cls, path, state):
+        return False
