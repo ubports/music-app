@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.4
 import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import Qt.labs.settings 1.0
