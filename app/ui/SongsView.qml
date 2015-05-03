@@ -306,19 +306,13 @@ MusicPage {
                 }
             }
             height: units.gu(6)
-
-            leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
+            leadingActions: songStackPage.line1 === i18n.tr("Playlist")
                             ? playlistRemoveAction.item : null
             multiselectable: true
             reorderable: songStackPage.line1 === i18n.tr("Playlist")
-            rightSideActions: [
-                AddToQueue {
+            trailingActions: AddToQueueAndPlaylist {
 
-                },
-                AddToPlaylist {
-
-                }
-            ]
+            }
 
             onItemClicked: {
                 trackClicked(albumtrackslist.model, index)  // play track
@@ -333,27 +327,24 @@ MusicPage {
 
                 recentModel.filterRecent()
             }
-            onReorder: {
-                console.debug("Move: ", from, to);
-
-                Playlists.move(songStackPage.line2, from, to)
-
-                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-            }
 
             Loader {
                 id: playlistRemoveAction
-                sourceComponent: Remove {
-                    onTriggered: {
-                        Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
+                sourceComponent: ListItemActions {
+                    actions: [
+                        Remove {
+                            onTriggered: {
+                                Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
 
-                        playlistChangedHelper()  // update recent/playlist models
+                                playlistChangedHelper()  // update recent/playlist models
 
-                        albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
 
-                        // refresh cover art
-                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
-                    }
+                                // refresh cover art
+                                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
+                            }
+                        }
+                    ]
                 }
             }
 
@@ -364,6 +355,14 @@ MusicPage {
                     songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                 }
             }
+        }
+
+        onReorder: {
+            console.debug("Move: ", from, to);
+
+            Playlists.move(songStackPage.line2, from, to)
+
+            albumTracksModel.filterPlaylistTracks(songStackPage.line2)
         }
     }
 

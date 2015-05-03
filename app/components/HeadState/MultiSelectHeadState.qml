@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.2
+import "../Flickables"
 
 PageHeadState {
     id: selectionState
@@ -26,7 +27,7 @@ PageHeadState {
             iconName: "select"
             text: i18n.tr("Select All")
             onTriggered: {
-                if (listview.selectedItems.length === listview.model.count) {
+                if (listview.getSelectedIndices().length === listview.model.count) {
                     listview.clearSelection()
                 } else {
                     listview.selectAll()
@@ -34,14 +35,14 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "add-to-playlist"
             text: i18n.tr("Add to playlist")
             onTriggered: {
                 var items = []
 
-                for (var i=0; i < listview.selectedItems.length; i++) {
-                    items.push(makeDict(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData)));
+                for (var i=0; i < listview.getSelectedIndices().length; i++) {
+                    items.push(makeDict(listview.model.get(listview.getSelectedIndices()[i], listview.model.RoleModelData)));
                 }
 
                 mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
@@ -51,7 +52,7 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "add"
             text: i18n.tr("Add to queue")
             visible: addToQueue
@@ -59,8 +60,8 @@ PageHeadState {
             onTriggered: {
                 var items = []
 
-                for (var i=0; i < listview.selectedItems.length; i++) {
-                    items.push(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData));
+                for (var i=0; i < listview.getSelectedIndices().length; i++) {
+                    items.push(listview.model.get(listview.getSelectedIndices()[i], listview.model.RoleModelData));
                 }
 
                 trackQueue.appendList(items)
@@ -69,13 +70,13 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "delete"
             text: i18n.tr("Delete")
             visible: removable
 
             onTriggered: {
-                removed(listview.selectedItems)
+                removed(listview.getSelectedIndices())
 
                 listview.closeSelection()
             }
@@ -85,10 +86,7 @@ PageHeadState {
     backAction: Action {
         text: i18n.tr("Cancel selection")
         iconName: "back"
-        onTriggered: {
-            listview.clearSelection()
-            listview.state = "normal"
-        }
+        onTriggered: listview.closeSelection()
     }
     head: thisPage.head
     name: "selection"
@@ -100,9 +98,9 @@ PageHeadState {
     }
 
     property bool addToQueue: true
-    property ListView listview
+    property MultiSelectListView listview
     property bool removable: false
     property Page thisPage
 
-    signal removed(var selectedItems)
+    signal removed(var selectedIndices)
 }

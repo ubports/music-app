@@ -65,7 +65,6 @@ MusicPage {
             fill: parent
             topMargin: units.gu(2)
         }
-        highlightFollowsCurrentItem: false
         objectName: "trackstab-listview"
         model: SortFilterModel {
             id: songsModelFilter
@@ -113,13 +112,9 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
-            rightSideActions: [
-                AddToQueue {
-                },
-                AddToPlaylist {
+            trailingActions: AddToQueueAndPlaylist {
 
-                }
-            ]
+            }
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
