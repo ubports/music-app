@@ -48,8 +48,10 @@ class MusicApp(object):
 
     def __init__(self, app_proxy):
         self.app = app_proxy
-        self.main_view = self.app.wait_select_single(MainView12,
-                                                     objectName="music")
+
+        # Use only objectName due to bug 1350532 as it is MainView12
+        self.main_view = self.app.wait_select_single(
+            objectName="musicMainView")
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
@@ -138,7 +140,10 @@ class Page(UbuntuUIToolkitCustomProxyObjectBase):
         super(Page, self).__init__(*args)
         # XXX we need a better way to keep reference to the main view.
         # --elopio - 2014-01-31
-        self.main_view = self.get_root_instance().select_single(MainView12)
+
+        # Use only objectName due to bug 1350532 as it is MainView12
+        self.main_view = self.get_root_instance().select_single(
+            objectName="musicMainView")
 
 
 class MusicPage(Page):
@@ -433,19 +438,15 @@ class RemovePlaylistDialog(UbuntuUIToolkitCustomProxyObjectBase):
             "Button", objectName="removePlaylistDialogRemoveButton")
 
 
-class MainView12(MainView):
+class MainView(MainView):
     """Autopilot custom proxy object for the MainView."""
     retry_delay = 0.2
 
     def __init__(self, *args):
-        super(MainView12, self).__init__(*args)
+        super(MainView, self).__init__(*args)
         self.visible.wait_for(True)
 
         # wait for activity indicator to stop spinning
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
-
-    @classmethod
-    def validate_dbus_object(cls, path, state):
-        return False

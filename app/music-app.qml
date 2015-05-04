@@ -33,7 +33,7 @@ import "components/Helpers"
 import "ui"
 
 MainView {
-    objectName: "music"
+    objectName: "musicMainView"
     applicationName: "com.ubuntu.music"
     id: mainView
 
