@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-27 20:23-0600\n"
-"PO-Revision-Date: 2015-05-06 19:38+0000\n"
-"Last-Translator: Ondra Kadlec <o.kadlec@seznam.cz>\n"
+"PO-Revision-Date: 2015-05-11 08:18+0000\n"
+"Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-07 05:38+0000\n"
-"X-Generator: Launchpad (build 17474)\n"
+"X-Launchpad-Export-Date: 2015-05-12 05:37+0000\n"
+"X-Generator: Launchpad (build 17487)\n"
 
 #: ../MusicAlbums.qml:29
 msgid "Albums"
@@ -240,6 +240,8 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Připojte své zařízení k počítači a jednoduše přetáhněte soubory do složky "
+"Music nebo vložte vyměnitelné médium s hudbou."
 
 #: ../common/Walkthrough/Slide3.qml:52
 msgid "Download new music"
@@ -247,7 +249,7 @@ msgstr "Stáhnout novou hudbu"
 
 #: ../common/Walkthrough/Slide3.qml:64
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importujte zakoupenou hudbu při surfování online."
 
 #: ../common/Walkthrough/Slide3.qml:78
 msgid "Start"
@@ -376,6 +378,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Kliknutím na %1 ikonu můžete získat z hudby mnohem více. Vytvořte si seznamy "
+"skladeb pro každou náladu a příležitost."
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
