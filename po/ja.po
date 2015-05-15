@@ -7,286 +7,164 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-18 09:39+0000\n"
+"POT-Creation-Date: 2015-01-27 20:23-0600\n"
+"PO-Revision-Date: 2015-05-14 23:45+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:39+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-05-15 05:48+0000\n"
+"X-Generator: Launchpad (build 17493)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "scrobbleできるようにログイン。"
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "ユーザー名"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "パスワード"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "ログイン"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "ログインしています..."
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "ログインに成功"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "ログインに失敗"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "ユーザー名またはパスワードが入力されていないようです"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "アルバム"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
+#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
+msgid "Unknown Album"
+msgstr "不明なアルバム"
+
+#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
+#: ../common/SongsPage.qml:401
+msgid "Unknown Artist"
+msgstr "不明なアーティスト"
+
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
 msgid "Album"
 msgstr "アルバム"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "アーティスト"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 アルバム"
+#: ../MusicArtists.qml:107
+msgid "Artist"
+msgstr "アーティスト"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "ジャンル"
+
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
+#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
+#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
+#: ../common/SongsPage.qml:454
+msgid "Genre"
+msgstr "ジャンル"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
+#: ../music-app.qml:1253 ../music-app.qml:1294
+msgid "Now playing"
+msgstr ""
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
+#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
+#: ../music-app.qml:1294
+msgid "Queue"
+msgstr ""
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
+msgid "Add to playlist"
+msgstr "プレイリストに追加"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:117
+msgid "Clear queue"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:147
+msgid "Cancel selection"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:157
+msgid "Select All"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
+msgid "Delete"
+msgstr "削除"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
+#: ../common/SongsPage.qml:85
+msgid "Playlists"
+msgstr "プレイリスト"
+
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
+#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 曲"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "アーティスト"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "再生中"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "プレイリスト"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "新しいプレイリスト"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "名前を変更"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "プレイリストの新しい名前を入力してください。"
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "変更"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "プレイリストは既に存在しています"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "名前を入力してください。"
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
+#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
+#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
+#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
+#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
 msgid "Playlist"
 msgstr "プレイリスト"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "検索"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "設定"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "イコライザー"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "デフォルト"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "アコースティック"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "クラシック"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "エレクトロニック"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "フラット"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "ヒップホップ"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "ジャズ"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "メタル"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "ポップス"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "ロック"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "カスタム"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"ツールバーを開いた時に\n"
-"現在の音楽を一時停止する"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "アカウント"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "Scrobbleしプレイリストをインポートするためにログインします"
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "音楽ストリーミング"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "Ubuntu One"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "クラウドミュージックをストリーミングするためサインインする"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Wi-Fiでのみストリーミングする"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "全てを削除します！"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "音楽"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
+#: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr "最近再生したファイル"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "履歴をクリア"
+#: ../MusicToolbar.qml:155
+msgid "Tap to shuffle music"
+msgstr ""
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "ジャンル"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "ジャンル"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "シャッフルして再生するにはタップしてください"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "曲"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "プレイリストを選択"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "すべて再生"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
 msgid "Add to queue"
 msgstr "再生リストに追加"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "プレイリストに追加"
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
+msgid "Select playlist"
+msgstr "プレイリストを選択"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
+msgid "Shuffle"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
+msgid "Queue all"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
+msgid "Play all"
+msgstr "すべて再生"
+
+#: ../common/AlbumsPage.qml:127
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 アルバム"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "再生リストに追加する"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "削除"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "編集"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
 msgid "Remove"
 msgstr "削除"
 
@@ -294,141 +172,204 @@ msgstr "削除"
 msgid "Loading..."
 msgstr "読み込み中..."
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "消去"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr ""
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "不明なアルバム"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "不明なアーティスト"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:528
+msgid "Rename playlist"
+msgstr ""
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "トラックを検索"
+#: ../common/SongsPage.qml:535 ../music-app.qml:1004
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:544
+msgid "Change"
+msgstr "変更"
+
+#: ../common/SongsPage.qml:565 ../music-app.qml:1030
+msgid "Playlist already exists"
+msgstr "プレイリストは既に存在しています"
+
+#: ../common/SongsPage.qml:569 ../music-app.qml:1035
+msgid "Please type in a name."
+msgstr "名前を入力してください。"
+
+#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
+#: ../music-app.qml:488 ../music-app.qml:1041
+msgid "Cancel"
+msgstr "キャンセル"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:587
+msgid "Permanently delete playlist?"
+msgstr ""
+
+#: ../common/SongsPage.qml:588
+msgid "This cannot be undone"
+msgstr ""
+
+#: ../common/Walkthrough/Slide1.qml:57
+msgid "Welcome to Music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide1.qml:70
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:52
+msgid "Import your music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:52
+msgid "Download new music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:64
+msgid "Directly import music bought while browsing online."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:78
+msgid "Start"
+msgstr ""
+
+#: ../common/Walkthrough/Walkthrough.qml:85
+msgid "Skip"
+msgstr ""
+
+#: ../music-app.qml:146
 msgid "Next"
 msgstr "次へ"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:147
 msgid "Next Track"
 msgstr "次のトラック"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Pause"
 msgstr "一時停止"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Play"
 msgstr "再生"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Pause Playback"
 msgstr "再生を一時停止"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Continue or start playback"
 msgstr "再生する"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:160
 msgid "Back"
 msgstr "戻る"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:161
 msgid "Go back to last page"
 msgstr "最後のページに戻る"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:169
 msgid "Previous"
 msgstr "前へ"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:170
 msgid "Previous Track"
 msgstr "前のトラック"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:175
 msgid "Stop"
 msgstr "停止"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:176
 msgid "Stop Playback"
 msgstr "再生を停止"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "音楽の設定"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:331
 msgid "Filepath must start with"
 msgstr ""
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:357
 msgid "Filepath must be a file"
 msgstr "ファイルパスはファイルを指定してください"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:363
 msgid "Failed to move file"
 msgstr "ファイルの移動に失敗"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:442
 msgid "Waiting for file(s)..."
 msgstr ""
 
-#: ../music-app.qml:466
+#: ../music-app.qml:461
 msgid "OK"
 msgstr "OK"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:474
 msgid "Imported file not found"
 msgstr "インポートされたファイルはありません"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:478
 msgid "Wait"
 msgstr "待機"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:499
 msgid "songs played today"
 msgstr "今日再生した曲"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:500
 msgid "No songs played today"
 msgstr "今日再生した曲はありません"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:593 ../music-app.qml:1290
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "音楽"
+
+#: ../music-app.qml:612
 msgid "Debug: "
 msgstr "デバッグ: "
 
-#: ../music-app.qml:925
-msgid "New Playlist"
+#: ../music-app.qml:1000
+msgid "New playlist"
 msgstr "新しいプレイリスト"
 
-#: ../music-app.qml:926
-msgid "Name your playlist."
-msgstr "プレイリストの名前を入力してください。"
-
-#: ../music-app.qml:930
-msgid "Name"
-msgstr "名前"
-
-#: ../music-app.qml:940
+#: ../music-app.qml:1014
 msgid "Create"
 msgstr "作成"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1380
 msgid "No music found"
 msgstr "曲が見つかりません"
 
-#: ../music-app.qml:1183
-msgid "Please import music"
-msgstr "音楽ファイルをインポートしてください"
+#: ../music-app.qml:1419
+msgid "No playlists found"
+msgstr ""
+
+#: ../music-app.qml:1430
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -437,3 +378,139 @@ msgstr "Ubuntuのミュージックアプリ"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "music;songs;play;tracks;player;tunes;ミュージック;音楽;楽曲;再生;トラック;プレーヤー;"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "scrobbleできるようにログイン。"
+
+#~ msgid "Username"
+#~ msgstr "ユーザー名"
+
+#~ msgid "Password"
+#~ msgstr "パスワード"
+
+#~ msgid "Login"
+#~ msgstr "ログイン"
+
+#~ msgid "Trying to login..."
+#~ msgstr "ログインしています..."
+
+#~ msgid "Login Successful"
+#~ msgstr "ログインに成功"
+
+#~ msgid "Login Failed"
+#~ msgstr "ログインに失敗"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "ユーザー名またはパスワードが入力されていないようです"
+
+#~ msgid "Now Playing"
+#~ msgstr "再生中"
+
+#~ msgid "Change name"
+#~ msgstr "名前を変更"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "プレイリストの新しい名前を入力してください。"
+
+#~ msgid "Search"
+#~ msgstr "検索"
+
+#~ msgid "Settings"
+#~ msgstr "設定"
+
+#~ msgid "Equaliser"
+#~ msgstr "イコライザー"
+
+#~ msgid "Default"
+#~ msgstr "デフォルト"
+
+#~ msgid "Acoustic"
+#~ msgstr "アコースティック"
+
+#~ msgid "Classical"
+#~ msgstr "クラシック"
+
+#~ msgid "Electronic"
+#~ msgstr "エレクトロニック"
+
+#~ msgid "Flat"
+#~ msgstr "フラット"
+
+#~ msgid "Hip Hop"
+#~ msgstr "ヒップホップ"
+
+#~ msgid "Jazz"
+#~ msgstr "ジャズ"
+
+#~ msgid "Metal"
+#~ msgstr "メタル"
+
+#~ msgid "Pop"
+#~ msgstr "ポップス"
+
+#~ msgid "Rock"
+#~ msgstr "ロック"
+
+#~ msgid "Custom"
+#~ msgstr "カスタム"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "ツールバーを開いた時に\n"
+#~ "現在の音楽を一時停止する"
+
+#~ msgid "Accounts"
+#~ msgstr "アカウント"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "Scrobbleしプレイリストをインポートするためにログインします"
+
+#~ msgid "Music Streaming"
+#~ msgstr "音楽ストリーミング"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "Ubuntu One"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "クラウドミュージックをストリーミングするためサインインする"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Wi-Fiでのみストリーミングする"
+
+#~ msgid "Clean everything!"
+#~ msgstr "全てを削除します！"
+
+#~ msgid "Clear History"
+#~ msgstr "履歴をクリア"
+
+#~ msgid "Tap play to shuffle music"
+#~ msgstr "シャッフルして再生するにはタップしてください"
+
+#~ msgid "Edit"
+#~ msgstr "編集"
+
+#~ msgid "Clear"
+#~ msgstr "消去"
+
+#~ msgid "Search Track"
+#~ msgstr "トラックを検索"
+
+#~ msgid "Music Settings"
+#~ msgstr "音楽の設定"
+
+#~ msgid "New Playlist"
+#~ msgstr "新しいプレイリスト"
+
+#~ msgid "Name your playlist."
+#~ msgstr "プレイリストの名前を入力してください。"
+
+#~ msgid "Name"
+#~ msgstr "名前"
+
+#~ msgid "Please import music"
+#~ msgstr "音楽ファイルをインポートしてください"

@@ -7,286 +7,164 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-23 13:43+0100\n"
-"PO-Revision-Date: 2014-09-24 01:07+0000\n"
-"Last-Translator: Gheyret T.Kenji <Unknown>\n"
+"POT-Creation-Date: 2015-01-27 20:23-0600\n"
+"PO-Revision-Date: 2015-05-14 23:47+0000\n"
+"Last-Translator: Victor Thompson <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-24 07:40+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2015-05-15 05:48+0000\n"
+"X-Generator: Launchpad (build 17493)\n"
 
-#: ../LoginLastFM.qml:48 ../MusicSettings.qml:145 ../MusicSettings.qml:153
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#: ../LoginLastFM.qml:54
-msgid "Login to be able to scrobble."
-msgstr "كىرگەندىلا ئاندىن scrobble قىلغىلى بولىدۇ."
-
-#: ../LoginLastFM.qml:62
-msgid "Username"
-msgstr "ئىشلەتكۈچى ئاتى"
-
-#: ../LoginLastFM.qml:72
-msgid "Password"
-msgstr "ئىم"
-
-#: ../LoginLastFM.qml:94
-msgid "Login"
-msgstr "كىرىش"
-
-#: ../LoginLastFM.qml:101
-msgid "Trying to login..."
-msgstr "كىرىشكە تىرىشىۋاتىدۇ…"
-
-#: ../LoginLastFM.qml:115
-msgid "Login Successful"
-msgstr "كىرىش مۇۋەپپەقىيەتلىك بولدى"
-
-#: ../LoginLastFM.qml:121
-msgid "Login Failed"
-msgstr "كىرىش مەغلۇپ بولدى"
-
-#: ../LoginLastFM.qml:127
-msgid "You forgot to set your username and/or password"
-msgstr "ئىشلەتكۈچى ئاتى ياكى ئىمنى ئۇنتۇپسىزمۇ"
-
-#: ../MusicAlbums.qml:35 ../MusicStart.qml:392
+#: ../MusicAlbums.qml:29
 msgid "Albums"
 msgstr "ئالبوملار"
 
-#: ../MusicAlbums.qml:152 ../MusicStart.qml:200 ../MusicStart.qml:454
-#: ../common/AlbumsPage.qml:264
+#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
+#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
+msgid "Unknown Album"
+msgstr "نامەلۇم ئالبوم"
+
+#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
+#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
+#: ../common/SongsPage.qml:401
+msgid "Unknown Artist"
+msgstr "ناتونۇش ئورۇنلىغۇچى"
+
+#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
 msgid "Album"
 msgstr "ئالبوم"
 
-#: ../MusicArtists.qml:37
+#: ../MusicArtists.qml:35
 msgid "Artists"
 msgstr "سەنئەتكار"
 
-#: ../MusicArtists.qml:107 ../common/AlbumsPage.qml:112
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 ئالبوم"
+#: ../MusicArtists.qml:107
+msgid "Artist"
+msgstr "ئورۇنلىغۇچى"
 
-#: ../MusicArtists.qml:113 ../MusicPlaylists.qml:180 ../MusicStart.qml:371
-#: ../MusicaddtoPlaylist.qml:106 ../common/AlbumsPage.qml:331
-#: ../common/SongsPage.qml:123 ../common/SongsPage.qml:124
+#: ../MusicGenres.qml:29
+msgid "Genres"
+msgstr "ئېقىم"
+
+#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
+#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
+#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
+#: ../common/SongsPage.qml:454
+msgid "Genre"
+msgstr "ئېقىم"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
+#: ../music-app.qml:1253 ../music-app.qml:1294
+msgid "Now playing"
+msgstr ""
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
+#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
+#: ../music-app.qml:1294
+msgid "Queue"
+msgstr ""
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
+#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
+msgid "Add to playlist"
+msgstr "قويۇش تىزىمىغا قوش"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../MusicNowPlaying.qml:117
+msgid "Clear queue"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
+#: ../common/SongsPage.qml:147
+msgid "Cancel selection"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
+#: ../common/SongsPage.qml:157
+msgid "Select All"
+msgstr ""
+
+#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
+#: ../common/SongsPage.qml:85
+msgid "Playlists"
+msgstr "قويۇش تىزىمى"
+
+#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
+#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 ناخشا"
 
-#: ../MusicArtists.qml:123
-msgid "Artist"
-msgstr "ئورۇنلىغۇچى"
-
-#: ../MusicNowPlaying.qml:33
-msgid "Now Playing"
-msgstr "قويۇۋاتىدۇ"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:38
-msgid "Playlists"
-msgstr "قويۇش تىزىمى"
-
-#: ../MusicPlaylists.qml:48 ../MusicaddtoPlaylist.qml:48
-msgid "New playlist"
-msgstr "يېڭى قويۇش تىزىمى"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../MusicPlaylists.qml:64
-msgid "Change name"
-msgstr "ئاتىنى ئۆزگەرتىش"
-
-#: ../MusicPlaylists.qml:65
-msgid "Enter the new name of the playlist."
-msgstr "قويۇش تىزىمىنىڭ يېڭى ئاتىنى كىرگۈزۈڭ."
-
-#: ../MusicPlaylists.qml:78
-msgid "Change"
-msgstr "ئۆزگەرت"
-
-#: ../MusicPlaylists.qml:96 ../music-app.qml:956
-msgid "Playlist already exists"
-msgstr "قويۇش تىزىمى مەۋجۇت"
-
-#: ../MusicPlaylists.qml:100 ../music-app.qml:961
-msgid "Please type in a name."
-msgstr "ئاتىنى كىرگۈزۈڭ."
-
-#: ../MusicPlaylists.qml:105 ../music-app.qml:493 ../music-app.qml:967
-msgid "Cancel"
-msgstr "ئەمەلدىن قالدۇر"
-
-#: ../MusicPlaylists.qml:159 ../MusicPlaylists.qml:163 ../MusicStart.qml:118
-#: ../MusicStart.qml:200 ../common/SongsPage.qml:166
-#: ../common/SongsPage.qml:224 ../common/SongsPage.qml:226
-#: ../common/SongsPage.qml:244
+#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
+#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
+#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
+#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
+#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
+#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
 msgid "Playlist"
 msgstr "قويۇش تىزىمى"
 
-#: ../MusicSearch.qml:44 ../MusicSearch.qml:75 ../MusicToolbar.qml:519
-#: ../music-app.qml:93 ../music-app.qml:141 ../music-app.qml:147
-msgid "Search"
-msgstr "ئىزدە"
-
-#: ../MusicSettings.qml:30 ../music-app.qml:191
-msgid "Settings"
-msgstr "تەڭشەكلەر"
-
-#: ../MusicSettings.qml:81
-msgid "Equaliser"
-msgstr "تەڭپۇڭلاشتۇرغۇچ"
-
-#: ../MusicSettings.qml:82
-msgid "Default"
-msgstr "كۆڭۈلدىكى"
-
-#: ../MusicSettings.qml:83
-msgid "Acoustic"
-msgstr "توكسىز مۇزىكا"
-
-#: ../MusicSettings.qml:84
-msgid "Classical"
-msgstr "كلاسسىك"
-
-#: ../MusicSettings.qml:85
-msgid "Electronic"
-msgstr "ئېلېكترونلۇق مۇزىكا"
-
-#: ../MusicSettings.qml:86
-msgid "Flat"
-msgstr "تەكشى"
-
-#: ../MusicSettings.qml:87
-msgid "Hip Hop"
-msgstr "خىپ خوپ"
-
-#: ../MusicSettings.qml:88
-msgid "Jazz"
-msgstr "جاز"
-
-#: ../MusicSettings.qml:89
-msgid "Metal"
-msgstr "مېتال"
-
-#: ../MusicSettings.qml:90
-msgid "Pop"
-msgstr "پوپ"
-
-#: ../MusicSettings.qml:91
-msgid "Rock"
-msgstr "روك"
-
-#: ../MusicSettings.qml:92
-msgid "Custom"
-msgstr "ئىختىيارى"
-
-#: ../MusicSettings.qml:112
-msgid ""
-"Snap to current song \n"
-"when opening toolbar"
-msgstr ""
-"قورال بالداقنى ئاچقاندا\n"
-"نۆۋەتتىكى مۇزىكا ئۈزۈلسۇن"
-
-#: ../MusicSettings.qml:132
-msgid "Accounts"
-msgstr "ھېساباتلار"
-
-#: ../MusicSettings.qml:146
-msgid "Login to scrobble and import playlists"
-msgstr "قويۇش تىزىمىنى ئىمپورت قىلىش ۋە scrobble قىلىش ئۈچۈن كىرىڭ."
-
-#: ../MusicSettings.qml:169
-msgid "Music Streaming"
-msgstr "مۇزىكا ئېقىمى"
-
-#: ../MusicSettings.qml:179
-msgid "Ubuntu One"
-msgstr "ئۇبۇنتۇ بىر"
-
-#: ../MusicSettings.qml:180
-msgid "Sign in to stream your cloud music"
-msgstr "بۇلۇتتىكى مۇزىكىلارنى ئېقىم قىلىپ تارقىتىش ئۈچۈن كىرىڭ"
-
-#: ../MusicSettings.qml:196
-msgid "Stream only on Wi-Fi"
-msgstr "Wi-Fi دىلا ئېقىم قىلىپ تارقاتسۇن"
-
-#: ../MusicSettings.qml:230
-msgid "Clean everything!"
-msgstr "ھەممىنى تازىلا!"
-
-#: ../MusicStart.qml:35 ../music-app.qml:589 ../music-app.qml:1150
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "مۇزىكا"
-
-#: ../MusicStart.qml:75
+#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
+#: ../common/SongsPage.qml:95
 msgid "Recent"
 msgstr "يېقىنقى"
 
-#: ../MusicStart.qml:103
-msgid "Clear History"
-msgstr "ئىزنى تازىلا"
+#: ../MusicToolbar.qml:155
+msgid "Tap to shuffle music"
+msgstr ""
 
-#: ../MusicStart.qml:227
-msgid "Genres"
-msgstr "ئېقىم"
-
-#: ../MusicStart.qml:316 ../MusicStart.qml:318 ../common/SongsPage.qml:123
-#: ../common/SongsPage.qml:162 ../common/SongsPage.qml:240
-msgid "Genre"
-msgstr "ئېقىم"
-
-#: ../MusicToolbar.qml:760
-msgid "Tap play to shuffle music"
-msgstr "تەرتىپسىز قويۇش ئۈچۈن چېكىڭ"
-
-#: ../MusicTracks.qml:35
+#: ../MusicTracks.qml:34
 msgid "Songs"
 msgstr "ناخشىلار"
 
-#: ../MusicaddtoPlaylist.qml:41
-msgid "Select playlist"
-msgstr "قويۇش تىزىمىنى تاللا"
-
-#: ../common/AlbumsPage.qml:167 ../common/AlbumsPage.qml:360
-#: ../common/SongsPage.qml:153
-msgid "Play all"
-msgstr "ھەممىنى قوي"
-
-#: ../common/AlbumsPage.qml:211 ../common/AlbumsPage.qml:400
-#: ../common/SongsPage.qml:200 ../music-app.qml:888
+#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
 msgid "Add to queue"
 msgstr "قاتارغا قوش"
 
-#: ../common/ListItemActions/AddToPlaylist.qml:25 ../music-app.qml:902
-msgid "Add to playlist"
-msgstr "قويۇش تىزىمىغا قوش"
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
+msgid "Select playlist"
+msgstr "قويۇش تىزىمىنى تاللا"
 
-#: ../common/ListItemActions/AddToQueue.qml:25
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
+msgid "Shuffle"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
+msgid "Queue all"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
+msgid "Play all"
+msgstr "ھەممىنى قوي"
+
+#: ../common/AlbumsPage.qml:127
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 ئالبوم"
+
+#: ../common/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
 msgstr "قاتارغا قوش"
 
-#. TRANSLATORS: this refers to deleting a playlist
-#: ../common/ListItemActions/DeletePlaylist.qml:26
-msgid "Delete"
-msgstr "ئۆچۈر"
-
-#. TRANSLATORS: this refers to editing a playlist
-#: ../common/ListItemActions/EditPlaylist.qml:26
-msgid "Edit"
-msgstr "تەھرىرلەش"
-
-#: ../common/ListItemActions/Remove.qml:27
+#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
 msgid "Remove"
 msgstr "چىقىرىۋەت"
 
@@ -294,141 +172,204 @@ msgstr "چىقىرىۋەت"
 msgid "Loading..."
 msgstr "ئوقۇۋاتىدۇ…"
 
-#: ../common/SwipeDelete.qml:52 ../common/SwipeDelete.qml:88
-msgid "Clear"
-msgstr "تازىلا"
+#: ../common/MusicPage.qml:39
+msgid "No items found"
+msgstr ""
 
-#: ../meta-database.js:90 ../meta-database.js:92
-msgid "Unknown Album"
-msgstr "نامەلۇم ئالبوم"
+#: ../common/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
 
-#: ../meta-database.js:91
-msgid "Unknown Artist"
-msgstr "ناتونۇش ئورۇنلىغۇچى"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../common/SongsPage.qml:528
+msgid "Rename playlist"
+msgstr ""
 
-#: ../music-app.qml:142
-msgid "Search Track"
-msgstr "نەغمە ئىزدە"
+#: ../common/SongsPage.qml:535 ../music-app.qml:1004
+msgid "Enter playlist name"
+msgstr ""
 
-#: ../music-app.qml:154
+#: ../common/SongsPage.qml:544
+msgid "Change"
+msgstr "ئۆزگەرت"
+
+#: ../common/SongsPage.qml:565 ../music-app.qml:1030
+msgid "Playlist already exists"
+msgstr "قويۇش تىزىمى مەۋجۇت"
+
+#: ../common/SongsPage.qml:569 ../music-app.qml:1035
+msgid "Please type in a name."
+msgstr "ئاتىنى كىرگۈزۈڭ."
+
+#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
+#: ../music-app.qml:488 ../music-app.qml:1041
+msgid "Cancel"
+msgstr "ئەمەلدىن قالدۇر"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../common/SongsPage.qml:587
+msgid "Permanently delete playlist?"
+msgstr ""
+
+#: ../common/SongsPage.qml:588
+msgid "This cannot be undone"
+msgstr ""
+
+#: ../common/Walkthrough/Slide1.qml:57
+msgid "Welcome to Music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide1.qml:70
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:52
+msgid "Import your music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:52
+msgid "Download new music"
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:64
+msgid "Directly import music bought while browsing online."
+msgstr ""
+
+#: ../common/Walkthrough/Slide3.qml:78
+msgid "Start"
+msgstr ""
+
+#: ../common/Walkthrough/Walkthrough.qml:85
+msgid "Skip"
+msgstr ""
+
+#: ../music-app.qml:146
 msgid "Next"
 msgstr "كېيىنكى"
 
-#: ../music-app.qml:155
+#: ../music-app.qml:147
 msgid "Next Track"
 msgstr "كېيىنكى نەغمە"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Pause"
 msgstr "ۋاقىتلىق توختا"
 
-#: ../music-app.qml:161
+#: ../music-app.qml:153
 msgid "Play"
 msgstr "قوي"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Pause Playback"
 msgstr "قويۇشنى ۋاقىتلىق توختات"
 
-#: ../music-app.qml:163
+#: ../music-app.qml:155
 msgid "Continue or start playback"
 msgstr "داۋاملاشتۇر ياكى قويۇشنى باشلا"
 
-#: ../music-app.qml:168
+#: ../music-app.qml:160
 msgid "Back"
 msgstr "كەينى"
 
-#: ../music-app.qml:169
+#: ../music-app.qml:161
 msgid "Go back to last page"
 msgstr "ئاخىرقى بەتكە قايتىش"
 
-#: ../music-app.qml:177
+#: ../music-app.qml:169
 msgid "Previous"
 msgstr "ئالدىنقى"
 
-#: ../music-app.qml:178
+#: ../music-app.qml:170
 msgid "Previous Track"
 msgstr "ئالدىنقى Track"
 
-#: ../music-app.qml:183
+#: ../music-app.qml:175
 msgid "Stop"
 msgstr "توختا"
 
-#: ../music-app.qml:184
+#: ../music-app.qml:176
 msgid "Stop Playback"
 msgstr "توختات"
 
-#: ../music-app.qml:192
-msgid "Music Settings"
-msgstr "مۇزىكا تەڭشەكلىرى"
-
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:338
+#: ../music-app.qml:331
 msgid "Filepath must start with"
 msgstr "ھۆججەت ئاتى چوقۇم بۇنىڭ بىلەن باشلانسۇن"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:364
+#: ../music-app.qml:357
 msgid "Filepath must be a file"
 msgstr "ھۆججەت يولى چوقۇم ھۆججەت بولسۇن"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:370
+#: ../music-app.qml:363
 msgid "Failed to move file"
 msgstr "ھۆججەت يۆتكەش مەغلۇپ بولدى"
 
-#: ../music-app.qml:447
+#: ../music-app.qml:442
 msgid "Waiting for file(s)..."
 msgstr "ھۆججەت(لەر) نى كۈتۈۋاتىدۇ…"
 
-#: ../music-app.qml:466
+#: ../music-app.qml:461
 msgid "OK"
 msgstr "تامام"
 
-#: ../music-app.qml:479
+#: ../music-app.qml:474
 msgid "Imported file not found"
 msgstr "ئىمپورت قىلىنغان ھۆججەت تېپىلمىدى"
 
-#: ../music-app.qml:483
+#: ../music-app.qml:478
 msgid "Wait"
 msgstr "كۈت"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:504
+#: ../music-app.qml:499
 msgid "songs played today"
 msgstr "بۈگۈن قويۇلغان ناخشىلار"
 
-#: ../music-app.qml:505
+#: ../music-app.qml:500
 msgid "No songs played today"
 msgstr "بۇ ناخشا قويۇلۇپ باقمىدى"
 
-#: ../music-app.qml:613
+#: ../music-app.qml:593 ../music-app.qml:1290
+#: com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "مۇزىكا"
+
+#: ../music-app.qml:612
 msgid "Debug: "
 msgstr "سازلاش: "
 
-#: ../music-app.qml:925
-msgid "New Playlist"
+#: ../music-app.qml:1000
+msgid "New playlist"
 msgstr "يېڭى قويۇش تىزىمى"
 
-#: ../music-app.qml:926
-msgid "Name your playlist."
-msgstr "قويۇش تىزىمىغا ئىسىم قويۇڭ."
-
-#: ../music-app.qml:930
-msgid "Name"
-msgstr "ئاتى"
-
-#: ../music-app.qml:940
+#: ../music-app.qml:1014
 msgid "Create"
 msgstr "ياسا"
 
-#: ../music-app.qml:1176
+#: ../music-app.qml:1380
 msgid "No music found"
 msgstr "مۇزىكا تېپىلمىدى"
 
-#: ../music-app.qml:1183
-msgid "Please import music"
-msgstr "مۇزىكا ئىمپورت قىلىڭ"
+#: ../music-app.qml:1419
+msgid "No playlists found"
+msgstr ""
+
+#: ../music-app.qml:1430
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -437,3 +378,139 @@ msgstr "ئۇبۇنتۇنىڭ مۇزىكا پروگراممىسى"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "مۇزىكا;ناخشا;قويۇش;نەغمە;قويغۇ;tunes;"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Login to be able to scrobble."
+#~ msgstr "كىرگەندىلا ئاندىن scrobble قىلغىلى بولىدۇ."
+
+#~ msgid "Username"
+#~ msgstr "ئىشلەتكۈچى ئاتى"
+
+#~ msgid "Password"
+#~ msgstr "ئىم"
+
+#~ msgid "Login"
+#~ msgstr "كىرىش"
+
+#~ msgid "Trying to login..."
+#~ msgstr "كىرىشكە تىرىشىۋاتىدۇ…"
+
+#~ msgid "Login Successful"
+#~ msgstr "كىرىش مۇۋەپپەقىيەتلىك بولدى"
+
+#~ msgid "Login Failed"
+#~ msgstr "كىرىش مەغلۇپ بولدى"
+
+#~ msgid "You forgot to set your username and/or password"
+#~ msgstr "ئىشلەتكۈچى ئاتى ياكى ئىمنى ئۇنتۇپسىزمۇ"
+
+#~ msgid "Now Playing"
+#~ msgstr "قويۇۋاتىدۇ"
+
+#~ msgid "Change name"
+#~ msgstr "ئاتىنى ئۆزگەرتىش"
+
+#~ msgid "Enter the new name of the playlist."
+#~ msgstr "قويۇش تىزىمىنىڭ يېڭى ئاتىنى كىرگۈزۈڭ."
+
+#~ msgid "Search"
+#~ msgstr "ئىزدە"
+
+#~ msgid "Settings"
+#~ msgstr "تەڭشەكلەر"
+
+#~ msgid "Equaliser"
+#~ msgstr "تەڭپۇڭلاشتۇرغۇچ"
+
+#~ msgid "Default"
+#~ msgstr "كۆڭۈلدىكى"
+
+#~ msgid "Acoustic"
+#~ msgstr "توكسىز مۇزىكا"
+
+#~ msgid "Classical"
+#~ msgstr "كلاسسىك"
+
+#~ msgid "Electronic"
+#~ msgstr "ئېلېكترونلۇق مۇزىكا"
+
+#~ msgid "Flat"
+#~ msgstr "تەكشى"
+
+#~ msgid "Hip Hop"
+#~ msgstr "خىپ خوپ"
+
+#~ msgid "Jazz"
+#~ msgstr "جاز"
+
+#~ msgid "Metal"
+#~ msgstr "مېتال"
+
+#~ msgid "Pop"
+#~ msgstr "پوپ"
+
+#~ msgid "Rock"
+#~ msgstr "روك"
+
+#~ msgid "Custom"
+#~ msgstr "ئىختىيارى"
+
+#~ msgid ""
+#~ "Snap to current song \n"
+#~ "when opening toolbar"
+#~ msgstr ""
+#~ "قورال بالداقنى ئاچقاندا\n"
+#~ "نۆۋەتتىكى مۇزىكا ئۈزۈلسۇن"
+
+#~ msgid "Accounts"
+#~ msgstr "ھېساباتلار"
+
+#~ msgid "Login to scrobble and import playlists"
+#~ msgstr "قويۇش تىزىمىنى ئىمپورت قىلىش ۋە scrobble قىلىش ئۈچۈن كىرىڭ."
+
+#~ msgid "Music Streaming"
+#~ msgstr "مۇزىكا ئېقىمى"
+
+#~ msgid "Ubuntu One"
+#~ msgstr "ئۇبۇنتۇ بىر"
+
+#~ msgid "Sign in to stream your cloud music"
+#~ msgstr "بۇلۇتتىكى مۇزىكىلارنى ئېقىم قىلىپ تارقىتىش ئۈچۈن كىرىڭ"
+
+#~ msgid "Stream only on Wi-Fi"
+#~ msgstr "Wi-Fi دىلا ئېقىم قىلىپ تارقاتسۇن"
+
+#~ msgid "Clean everything!"
+#~ msgstr "ھەممىنى تازىلا!"
+
+#~ msgid "Clear History"
+#~ msgstr "ئىزنى تازىلا"
+
+#~ msgid "Tap play to shuffle music"
+#~ msgstr "تەرتىپسىز قويۇش ئۈچۈن چېكىڭ"
+
+#~ msgid "Edit"
+#~ msgstr "تەھرىرلەش"
+
+#~ msgid "Clear"
+#~ msgstr "تازىلا"
+
+#~ msgid "Search Track"
+#~ msgstr "نەغمە ئىزدە"
+
+#~ msgid "Music Settings"
+#~ msgstr "مۇزىكا تەڭشەكلىرى"
+
+#~ msgid "New Playlist"
+#~ msgstr "يېڭى قويۇش تىزىمى"
+
+#~ msgid "Name your playlist."
+#~ msgstr "قويۇش تىزىمىغا ئىسىم قويۇڭ."
+
+#~ msgid "Name"
+#~ msgstr "ئاتى"
+
+#~ msgid "Please import music"
+#~ msgstr "مۇزىكا ئىمپورت قىلىڭ"
