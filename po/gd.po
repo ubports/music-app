@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-27 20:23-0600\n"
+"POT-Creation-Date: 2015-05-14 19:15-0500\n"
 "PO-Revision-Date: 2015-05-14 23:44+0000\n"
 "Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Akerbeltz\n"
@@ -16,218 +16,179 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-05-15 05:48+0000\n"
-"X-Generator: Launchpad (build 17493)\n"
+"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
+"X-Generator: Launchpad (build 17508)\n"
 "Language: gd\n"
 
-#: ../MusicAlbums.qml:29
-msgid "Albums"
-msgstr "Albaman"
+#: ../app/components/Dialog/ContentHubErrorDialog.qml:35
+msgid "OK"
+msgstr "Ceart ma-thà"
 
-#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
-#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
-msgid "Unknown Album"
-msgstr "Albam nach aithne dhuinn"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
+msgid "Imported file not found"
+msgstr "Cha deach faidhle air ion-phortachadh a lorg"
 
-#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
-#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
-#: ../common/SongsPage.qml:401
-msgid "Unknown Artist"
-msgstr "Neach-ciùil nach aithne dhuinn"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
+msgid "Wait"
+msgstr "Fuirich"
 
-#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
-msgid "Album"
-msgstr "Albam"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
+#: ../app/components/Dialog/EditPlaylistDialog.qml:76
+#: ../app/components/Dialog/NewPlaylistDialog.qml:71
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:60
+msgid "Cancel"
+msgstr "Sguir dheth"
 
-#: ../MusicArtists.qml:35
-msgid "Artists"
-msgstr "Luchd-ciùil"
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+msgid "Waiting for file(s)..."
+msgstr "A' feitheamh air faidhle no dhà..."
 
-#: ../MusicArtists.qml:107
-msgid "Artist"
-msgstr "Neach-ciùil"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../app/components/Dialog/EditPlaylistDialog.qml:30
+msgid "Rename playlist"
+msgstr "Thoir ainm ùr air an liosta-chluich"
 
-#: ../MusicGenres.qml:29
-msgid "Genres"
-msgstr "Gnèithean"
+#: ../app/components/Dialog/EditPlaylistDialog.qml:37
+#: ../app/components/Dialog/NewPlaylistDialog.qml:34
+msgid "Enter playlist name"
+msgstr "Cuir a-steach ainm dhan liosta"
 
-#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
-#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
-#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
-#: ../common/SongsPage.qml:454
-msgid "Genre"
-msgstr "Gnè"
+#: ../app/components/Dialog/EditPlaylistDialog.qml:46
+msgid "Change"
+msgstr "Atharraich"
 
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
-#: ../music-app.qml:1253 ../music-app.qml:1294
-msgid "Now playing"
-msgstr "'Ga chluich an-dràsta"
+#: ../app/components/Dialog/EditPlaylistDialog.qml:67
+#: ../app/components/Dialog/NewPlaylistDialog.qml:60
+msgid "Playlist already exists"
+msgstr "Tha an liosta-chluich seo ann mu thràth"
 
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
-#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
-#: ../music-app.qml:1294
-msgid "Queue"
-msgstr "Ciutha"
+#: ../app/components/Dialog/EditPlaylistDialog.qml:71
+#: ../app/components/Dialog/NewPlaylistDialog.qml:65
+msgid "Please type in a name."
+msgstr "Cuir a-steach ainm."
 
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
-#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
-msgid "Add to playlist"
-msgstr "Cuir ris an liosta-chluiche"
+#: ../app/components/Dialog/NewPlaylistDialog.qml:30
+msgid "New playlist"
+msgstr "Liosta-chluiche ùr"
 
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:117
-msgid "Clear queue"
-msgstr "Falamhaich an ciutha"
+#: ../app/components/Dialog/NewPlaylistDialog.qml:44
+msgid "Create"
+msgstr "Cruthaich"
 
-#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
-#: ../common/SongsPage.qml:147
-msgid "Cancel selection"
-msgstr "Sguir dhen taghadh"
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:31
+msgid "Permanently delete playlist?"
+msgstr "A bheil thu airson an liosta a sguabadh às gu buan?"
 
-#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
-#: ../common/SongsPage.qml:157
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:32
+msgid "This cannot be undone"
+msgstr "Chan urrainn dhut seo a neo-dhèanamh"
+
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:37
+#: ../app/components/ListItemActions/Remove.qml:27
+msgid "Remove"
+msgstr "Thoir air falbh"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:27
 msgid "Select All"
 msgstr "Tagh na h-uile"
 
-#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
-msgid "Delete"
-msgstr "Sguab às"
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/components/HeadState/MultiSelectHeadState.qml:39
+#: ../app/components/ListItemActions/AddToPlaylist.qml:26
+#: ../app/ui/NowPlaying.qml:92
+msgid "Add to playlist"
+msgstr "Cuir ris an liosta-chluiche"
 
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
-#: ../common/SongsPage.qml:85
-msgid "Playlists"
-msgstr "Liostaichean-cluiche"
-
-#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
-#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
-#, qt-format
-msgid "%1 song"
-msgid_plural "%1 songs"
-msgstr[0] "%1 òran"
-msgstr[1] "%1 òran"
-msgstr[2] "%1 òrain"
-msgstr[3] "%1 òran"
-
-#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
-#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
-#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
-#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
-#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
-#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
-msgid "Playlist"
-msgstr "Liosta-chluiche"
-
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
-#: ../common/SongsPage.qml:95
-msgid "Recent"
-msgstr "O chionn goirid"
-
-#: ../MusicToolbar.qml:155
-msgid "Tap to shuffle music"
-msgstr "Thoir gnogag gus an ceòl a chur air thuaiream"
-
-#: ../MusicTracks.qml:34
-msgid "Songs"
-msgstr "Òrain"
-
-#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
+#: ../app/components/HeadState/MultiSelectHeadState.qml:56
 msgid "Add to queue"
 msgstr "Cuir ris a' chiutha"
 
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
-msgid "Select playlist"
-msgstr "Tagh liosta-chluiche"
+#: ../app/components/HeadState/MultiSelectHeadState.qml:74
+msgid "Delete"
+msgstr "Sguab às"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:86
+msgid "Cancel selection"
+msgstr "Sguir dhen taghadh"
+
+#: ../app/components/HeadState/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Lorg ceòl"
+
+#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
+#: ../app/components/Helpers/ContentHubHelper.qml:68
+msgid "Filepath must start with"
+msgstr "Feumaidh slighe an fhaidhle tòiseachadh le"
+
+#. TRANSLATORS: This string represents that a blank filepath destination has been used
+#: ../app/components/Helpers/ContentHubHelper.qml:94
+msgid "Filepath must be a file"
+msgstr "Feumaidh slighe an fhaidhle a bhith 'na fhaidhle"
+
+#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
+#: ../app/components/Helpers/ContentHubHelper.qml:100
+msgid "Failed to move file"
+msgstr "Dh'fhàillig le gluasad an fhaidhle"
+
+#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
+#: ../app/components/Helpers/UserMetricsHelper.qml:31
+msgid "songs played today"
+msgstr "òrain air an cluich an-dhiugh"
+
+#: ../app/components/Helpers/UserMetricsHelper.qml:32
+msgid "No songs played today"
+msgstr "Cha deach òran a chluich an-diugh"
+
+#: ../app/components/ListItemActions/AddToQueue.qml:27
+msgid "Add to Queue"
+msgstr "Cuir ris a' chiutha"
+
+#: ../app/components/LoadingSpinnerComponent.qml:47
+msgid "Loading..."
+msgstr "'Ga luchdadh..."
+
+#: ../app/components/MusicPage.qml:41
+msgid "No items found"
+msgstr "Cha deach nì a lorg"
+
+#: ../app/components/MusicToolbar.qml:91
+msgid "Tap to shuffle music"
+msgstr "Thoir gnogag gus an ceòl a chur air thuaiream"
+
+#: ../app/components/PlaylistsEmptyState.qml:42
+msgid "No playlists found"
+msgstr "Cha deach liosta-chluich a lorg"
+
+#: ../app/components/PlaylistsEmptyState.qml:53
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
+"Cuir aplacaid a' chiùil gu làn-fheum 's tu a' briogadh air %1 gus "
+"liostaichean-lcuich a chruthachadh airson fonn no tachartas sam bith."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
-msgid "Shuffle"
-msgstr "Air thuaiream"
+#: ../app/components/ViewButton/PlayAllButton.qml:28
+msgid "Play all"
+msgstr "Cluich na h-uile"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
+#: ../app/components/ViewButton/QueueAllButton.qml:42
 msgid "Queue all"
 msgstr "Cuir na h-uile sa chiutha"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
-msgid "Play all"
-msgstr "Cluich na h-uile"
+#: ../app/components/ViewButton/ShuffleButton.qml:42
+msgid "Shuffle"
+msgstr "Air thuaiream"
 
-#: ../common/AlbumsPage.qml:127
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 albam"
-msgstr[1] "%1 albam"
-msgstr[2] "%1 albaman"
-msgstr[3] "%1 albam"
-
-#: ../common/ListItemActions/AddToQueue.qml:27
-msgid "Add to Queue"
-msgstr "Cuir ris a' chiutha"
-
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
-msgid "Remove"
-msgstr "Thoir air falbh"
-
-#: ../common/LoadingSpinnerComponent.qml:47
-msgid "Loading..."
-msgstr "'Ga luchdadh..."
-
-#: ../common/MusicPage.qml:39
-msgid "No items found"
-msgstr "Cha deach nì a lorg"
-
-#: ../common/SearchHeadState.qml:42
-msgid "Search music"
-msgstr "Lorg ceòl"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:528
-msgid "Rename playlist"
-msgstr "Thoir ainm ùr air an liosta-chluich"
-
-#: ../common/SongsPage.qml:535 ../music-app.qml:1004
-msgid "Enter playlist name"
-msgstr "Cuir a-steach ainm dhan liosta"
-
-#: ../common/SongsPage.qml:544
-msgid "Change"
-msgstr "Atharraich"
-
-#: ../common/SongsPage.qml:565 ../music-app.qml:1030
-msgid "Playlist already exists"
-msgstr "Tha an liosta-chluich seo ann mu thràth"
-
-#: ../common/SongsPage.qml:569 ../music-app.qml:1035
-msgid "Please type in a name."
-msgstr "Cuir a-steach ainm."
-
-#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
-#: ../music-app.qml:488 ../music-app.qml:1041
-msgid "Cancel"
-msgstr "Sguir dheth"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:587
-msgid "Permanently delete playlist?"
-msgstr "A bheil thu airson an liosta a sguabadh às gu buan?"
-
-#: ../common/SongsPage.qml:588
-msgid "This cannot be undone"
-msgstr "Chan urrainn dhut seo a neo-dhèanamh"
-
-#: ../common/Walkthrough/Slide1.qml:57
+#: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
 msgstr "Fàilte gun aplacaid chiùil"
 
-#: ../common/Walkthrough/Slide1.qml:70
+#: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
@@ -236,11 +197,12 @@ msgstr ""
 "a sheallas dhut beagan fiosrachaidh air no brùth \"Leum thairis air\" gus "
 "èisteachd ri rudeigin an-dràsta."
 
-#: ../common/Walkthrough/Slide2.qml:52
+#: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
 msgstr "Ion-phortaich an ceòl agad"
 
-#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
+#: ../app/components/Walkthrough/Slide2.qml:67
+#: ../app/ui/LibraryEmptyState.qml:117
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
@@ -249,143 +211,189 @@ msgstr ""
 "ach faidhlichean a shlaodadh dhan phasgan chiùil no ceangail meadhan so-"
 "giùlain air a bheil ceòl ris."
 
-#: ../common/Walkthrough/Slide3.qml:52
+#: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
 msgstr "Luchdaich a-nuas ceòl ùr"
 
-#: ../common/Walkthrough/Slide3.qml:64
+#: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
 msgstr "Ion-phortaich ceòl a cheannaich thu air loidhne."
 
-#: ../common/Walkthrough/Slide3.qml:78
+#: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
 msgstr "Tòisich"
 
-#: ../common/Walkthrough/Walkthrough.qml:85
+#: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
 msgstr "Thoir leum thairis air"
 
-#: ../music-app.qml:146
+#: ../app/music-app.qml:154
 msgid "Next"
 msgstr "Air adhart"
 
-#: ../music-app.qml:147
+#: ../app/music-app.qml:155
 msgid "Next Track"
 msgstr "An ath-thraca"
 
-#: ../music-app.qml:153
+#: ../app/music-app.qml:161
 msgid "Pause"
 msgstr "Cuir 'na stad"
 
-#: ../music-app.qml:153
+#: ../app/music-app.qml:161
 msgid "Play"
 msgstr "Cluich"
 
-#: ../music-app.qml:155
+#: ../app/music-app.qml:163
 msgid "Pause Playback"
 msgstr "Cuir a chluich 'na stad"
 
-#: ../music-app.qml:155
+#: ../app/music-app.qml:163
 msgid "Continue or start playback"
 msgstr "Lean no tòisich air a chluich"
 
-#: ../music-app.qml:160
+#: ../app/music-app.qml:168
 msgid "Back"
 msgstr "Air ais"
 
-#: ../music-app.qml:161
+#: ../app/music-app.qml:169
 msgid "Go back to last page"
 msgstr "Air ais gun duilleag mu dheireadh"
 
-#: ../music-app.qml:169
+#: ../app/music-app.qml:177
 msgid "Previous"
 msgstr "Air ais"
 
-#: ../music-app.qml:170
+#: ../app/music-app.qml:178
 msgid "Previous Track"
 msgstr "An traca roimhe"
 
-#: ../music-app.qml:175
+#: ../app/music-app.qml:183
 msgid "Stop"
 msgstr "Cuir stad air"
 
-#: ../music-app.qml:176
+#: ../app/music-app.qml:184
 msgid "Stop Playback"
 msgstr "Sguir dhen chluich"
 
-#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:331
-msgid "Filepath must start with"
-msgstr "Feumaidh slighe an fhaidhle tòiseachadh le"
-
-#. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:357
-msgid "Filepath must be a file"
-msgstr "Feumaidh slighe an fhaidhle a bhith 'na fhaidhle"
-
-#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:363
-msgid "Failed to move file"
-msgstr "Dh'fhàillig le gluasad an fhaidhle"
-
-#: ../music-app.qml:442
-msgid "Waiting for file(s)..."
-msgstr "A' feitheamh air faidhle no dhà..."
-
-#: ../music-app.qml:461
-msgid "OK"
-msgstr "Ceart ma-thà"
-
-#: ../music-app.qml:474
-msgid "Imported file not found"
-msgstr "Cha deach faidhle air ion-phortachadh a lorg"
-
-#: ../music-app.qml:478
-msgid "Wait"
-msgstr "Fuirich"
-
-#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:499
-msgid "songs played today"
-msgstr "òrain air an cluich an-dhiugh"
-
-#: ../music-app.qml:500
-msgid "No songs played today"
-msgstr "Cha deach òran a chluich an-diugh"
-
-#: ../music-app.qml:593 ../music-app.qml:1290
-#: com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:275 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Ceòl"
 
-#: ../music-app.qml:612
+#: ../app/music-app.qml:294
 msgid "Debug: "
 msgstr "Dì-bhugachadh: "
 
-#: ../music-app.qml:1000
-msgid "New playlist"
-msgstr "Liosta-chluiche ùr"
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:359 ../app/music-app.qml:690 ../app/music-app.qml:961
+#: ../app/ui/NowPlaying.qml:37
+msgid "Now playing"
+msgstr "'Ga chluich an-dràsta"
 
-#: ../music-app.qml:1014
-msgid "Create"
-msgstr "Cruthaich"
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:359 ../app/music-app.qml:391 ../app/music-app.qml:691
+#: ../app/music-app.qml:962 ../app/music-app.qml:966
+#: ../app/ui/NowPlaying.qml:39
+msgid "Queue"
+msgstr "Ciutha"
 
-#: ../music-app.qml:1380
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
+msgid "Select playlist"
+msgstr "Tagh liosta-chluiche"
+
+#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
+#: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
+#, qt-format
+msgid "%1 song"
+msgid_plural "%1 songs"
+msgstr[0] "%1 òran"
+msgstr[1] "%1 òran"
+msgstr[2] "%1 òrain"
+msgstr[3] "%1 òran"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../app/ui/AddToPlaylist.qml:100 ../app/ui/Playlists.qml:38
+#: ../app/ui/SongsView.qml:90
+msgid "Playlists"
+msgstr "Liostaichean-cluiche"
+
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
+#: ../app/ui/SongsView.qml:100
+msgid "Recent"
+msgstr "O chionn goirid"
+
+#: ../app/ui/Albums.qml:32
+msgid "Albums"
+msgstr "Albaman"
+
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
+#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:81
+#: ../app/ui/SongsView.qml:240
+msgid "Unknown Album"
+msgstr "Albam nach aithne dhuinn"
+
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:261
+msgid "Unknown Artist"
+msgstr "Neach-ciùil nach aithne dhuinn"
+
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
+#: ../app/ui/Recent.qml:97
+msgid "Album"
+msgstr "Albam"
+
+#: ../app/ui/ArtistView.qml:104
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 albam"
+msgstr[1] "%1 albam"
+msgstr[2] "%1 albaman"
+msgstr[3] "%1 albam"
+
+#: ../app/ui/Artists.qml:38
+msgid "Artists"
+msgstr "Luchd-ciùil"
+
+#: ../app/ui/Artists.qml:108
+msgid "Artist"
+msgstr "Neach-ciùil"
+
+#: ../app/ui/Genres.qml:32
+msgid "Genres"
+msgstr "Gnèithean"
+
+#: ../app/ui/Genres.qml:110 ../app/ui/Genres.qml:112
+#: ../app/ui/SongsView.qml:192 ../app/ui/SongsView.qml:211
+#: ../app/ui/SongsView.qml:226 ../app/ui/SongsView.qml:263
+#: ../app/ui/SongsView.qml:282 ../app/ui/SongsView.qml:326
+msgid "Genre"
+msgstr "Gnè"
+
+#: ../app/ui/LibraryEmptyState.qml:106
 msgid "No music found"
 msgstr "Cha deach ceòl a lorg"
 
-#: ../music-app.qml:1419
-msgid "No playlists found"
-msgstr "Cha deach liosta-chluich a lorg"
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/ui/NowPlaying.qml:107
+msgid "Clear queue"
+msgstr "Falamhaich an ciutha"
 
-#: ../music-app.qml:1430
-#, qt-format
-msgid ""
-"Get more out of Music by tapping the %1 icon to start making playlists for "
-"every mood and occasion."
-msgstr ""
-"Cuir aplacaid a' chiùil gu làn-fheum 's tu a' briogadh air %1 gus "
-"liostaichean-lcuich a chruthachadh airson fonn no tachartas sam bith."
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:69
+#: ../app/ui/SongsView.qml:110 ../app/ui/SongsView.qml:150
+#: ../app/ui/SongsView.qml:194 ../app/ui/SongsView.qml:213
+#: ../app/ui/SongsView.qml:225 ../app/ui/SongsView.qml:262
+#: ../app/ui/SongsView.qml:310 ../app/ui/SongsView.qml:313
+#: ../app/ui/SongsView.qml:328
+msgid "Playlist"
+msgstr "Liosta-chluiche"
+
+#: ../app/ui/Songs.qml:37
+msgid "Songs"
+msgstr "Òrain"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -396,140 +404,3 @@ msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
 "music;songs;play;tracks;player;tunes;ceòl;ciùil;òran;òrain;cluich;cluiche;tra"
 "ca;tracaichean;cluicheadair;fonn;fuinn;port;puirt;audio;fuaim;"
-
-#~ msgid "Login Successful"
-#~ msgstr "Chaidh do chlàradh a-steach"
-
-#~ msgid "Trying to login..."
-#~ msgstr "A' feuchainn ri clàradh a-steach"
-
-#~ msgid "Login"
-#~ msgstr "Clàraich a-steach"
-
-#~ msgid "Password"
-#~ msgstr "Facal-faire"
-
-#~ msgid "You forgot to set your username and/or password"
-#~ msgstr ""
-#~ "Dhìochuimhnich thu an t-ainm-cleachdaiche agus/no am facal-faire agad a "
-#~ "shuidheachadh"
-
-#~ msgid "Login Failed"
-#~ msgstr "Dh'fhàillig an clàradh a-steach"
-
-#~ msgid "Username"
-#~ msgstr "Ainm-cleachdaiche"
-
-#~ msgid "Login to be able to scrobble."
-#~ msgstr "Clàraich a-steach airson scrobble a dhèanamh."
-
-#~ msgid "Settings"
-#~ msgstr "Roghainnean"
-
-#~ msgid "Clear"
-#~ msgstr "Falamhaich"
-
-#~ msgid "Change name"
-#~ msgstr "Atharraich an t-ainm"
-
-#~ msgid "Enter the new name of the playlist."
-#~ msgstr "Cuir a-steach ainm ùr na liosta-chluich."
-
-#~ msgid "Default"
-#~ msgstr "Bun-roghainn"
-
-#~ msgid "Equaliser"
-#~ msgstr "Cothromaiche"
-
-#~ msgid "Classical"
-#~ msgstr "Clasaigeach"
-
-#~ msgid "Pop"
-#~ msgstr "Pop"
-
-#~ msgid "Rock"
-#~ msgstr "Roc"
-
-#~ msgid "Jazz"
-#~ msgstr "Jazz"
-
-#~ msgid "Metal"
-#~ msgstr "Meatailt"
-
-#~ msgid "Custom"
-#~ msgstr "Gnàthaichte"
-
-#~ msgid ""
-#~ "Snap to current song \n"
-#~ "when opening toolbar"
-#~ msgstr ""
-#~ "Greimich ris an òran làithreach \n"
-#~ "nuair a dh'fhosglar am bàr-inneal"
-
-#~ msgid "Hip Hop"
-#~ msgstr "Hip Hop"
-
-#~ msgid "Flat"
-#~ msgstr "Rèidh"
-
-#~ msgid "Electronic"
-#~ msgstr "Leactronach"
-
-#~ msgid "Clean everything!"
-#~ msgstr "Glan na h-uile"
-
-#~ msgid "Stream only on Wi-Fi"
-#~ msgstr "Na sruthaich ach air WiFi"
-
-#~ msgid "Sign in to stream your cloud music"
-#~ msgstr "Clàraich a-steach gus an ceòl agad san neul a shruthadh"
-
-#~ msgid "Ubuntu One"
-#~ msgstr "Ubuntu One"
-
-#~ msgid "Music Streaming"
-#~ msgstr "Sruthadh ciùil"
-
-#~ msgid "Last.fm"
-#~ msgstr "Last.fm"
-
-#~ msgid "Accounts"
-#~ msgstr "Cunntasan"
-
-#~ msgid "Name your playlist."
-#~ msgstr "Thoir ainm air an liosta-chluiche agad."
-
-#~ msgid "New Playlist"
-#~ msgstr "Liosta-chluiche ùr"
-
-#~ msgid "Name"
-#~ msgstr "Ainm"
-
-#~ msgid "Music Settings"
-#~ msgstr "Roghainnean a' chiùil"
-
-#~ msgid "Edit"
-#~ msgstr "Deasaich"
-
-#~ msgid "Search"
-#~ msgstr "Lorg"
-
-#~ msgid "Search Track"
-#~ msgstr "Lorg traca"
-
-#~ msgid "Login to scrobble and import playlists"
-#~ msgstr ""
-#~ "Clàraich a-steach airson scrobble a dhèanamh is liostaichean-cluich ion-"
-#~ "phortadh"
-
-#~ msgid "Now Playing"
-#~ msgstr "'Ga chluich an-dràsta"
-
-#~ msgid "Acoustic"
-#~ msgstr "Neo-leactronach"
-
-#~ msgid "Clear History"
-#~ msgstr "Falamhaich an eachdraidh"
-
-#~ msgid "Please import music"
-#~ msgstr "Feuch an ion-phortaich thu ceòl"

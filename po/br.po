@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-27 20:23-0600\n"
+"POT-Creation-Date: 2015-05-14 19:15-0500\n"
 "PO-Revision-Date: 2015-05-14 23:42+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,363 +15,150 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-05-15 05:48+0000\n"
-"X-Generator: Launchpad (build 17493)\n"
+"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
+"X-Generator: Launchpad (build 17508)\n"
 
-#: ../MusicAlbums.qml:29
-msgid "Albums"
-msgstr "Albomoù"
+#: ../app/components/Dialog/ContentHubErrorDialog.qml:35
+msgid "OK"
+msgstr "Mat eo"
 
-#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
-#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
-msgid "Unknown Album"
-msgstr "Albom dianav"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
+msgid "Imported file not found"
+msgstr "N'eo ket bet kavet ar restr enporzhiet"
 
-#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
-#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
-#: ../common/SongsPage.qml:401
-msgid "Unknown Artist"
-msgstr "Arzour dianav"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
+msgid "Wait"
+msgstr "Gortoz"
 
-#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
-msgid "Album"
-msgstr "Albom"
-
-#: ../MusicArtists.qml:35
-msgid "Artists"
-msgstr "Arzourien"
-
-#: ../MusicArtists.qml:107
-msgid "Artist"
-msgstr "Arzour"
-
-#: ../MusicGenres.qml:29
-msgid "Genres"
-msgstr "Stiloù"
-
-#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
-#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
-#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
-#: ../common/SongsPage.qml:454
-msgid "Genre"
-msgstr "Stil"
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
-#: ../music-app.qml:1253 ../music-app.qml:1294
-msgid "Now playing"
-msgstr "Lennet bremañ"
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
-#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
-#: ../music-app.qml:1294
-msgid "Queue"
-msgstr "Lostenn"
-
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
-#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
-msgid "Add to playlist"
-msgstr "Ouzhpennañ d'ar roll-tonioù"
-
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:117
-msgid "Clear queue"
-msgstr "Goulloiñ al lostenn"
-
-#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
-#: ../common/SongsPage.qml:147
-msgid "Cancel selection"
-msgstr "Nullañ an diuzadur"
-
-#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
-#: ../common/SongsPage.qml:157
-msgid "Select All"
-msgstr "Diuzañ pep tra"
-
-#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
-msgid "Delete"
-msgstr "Diverkañ"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
-#: ../common/SongsPage.qml:85
-msgid "Playlists"
-msgstr "Rolloù-tonioù"
-
-#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
-#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
-#, qt-format
-msgid "%1 song"
-msgid_plural "%1 songs"
-msgstr[0] "%1 ton"
-msgstr[1] "%1 a donioù"
-
-#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
-#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
-#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
-#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
-#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
-#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
-msgid "Playlist"
-msgstr "Roll tonioù"
-
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
-#: ../common/SongsPage.qml:95
-msgid "Recent"
-msgstr "Nevez zo"
-
-#: ../MusicToolbar.qml:155
-msgid "Tap to shuffle music"
-msgstr "Touch evit sonerezh mesk-ha-mesk"
-
-#: ../MusicTracks.qml:34
-msgid "Songs"
-msgstr "Tonioù"
-
-#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
-msgid "Add to queue"
-msgstr "Ouzhpennañ d'al lostennad"
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
-msgid "Select playlist"
-msgstr "Diuzañ ur roll-tonioù"
-
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
-msgid "Shuffle"
-msgstr "Sonerezh mesk-ha-mesk"
-
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
-msgid "Queue all"
-msgstr "Lakaat pep tra el lostenn"
-
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
-msgid "Play all"
-msgstr "Lenn pep tra"
-
-#: ../common/AlbumsPage.qml:127
-#, qt-format
-msgid "%1 album"
-msgid_plural "%1 albums"
-msgstr[0] "%1 albom"
-msgstr[1] "%1 albom"
-
-#: ../common/ListItemActions/AddToQueue.qml:27
-msgid "Add to Queue"
-msgstr "Ouzhpennañ d'al lostennad"
-
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
-msgid "Remove"
-msgstr "Dilemel"
-
-#: ../common/LoadingSpinnerComponent.qml:47
-msgid "Loading..."
-msgstr "O kargañ..."
-
-#: ../common/MusicPage.qml:39
-msgid "No items found"
-msgstr "N'eus bet kavet elfenn ebet"
-
-#: ../common/SearchHeadState.qml:42
-msgid "Search music"
-msgstr "Klask sonerezh"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:528
-msgid "Rename playlist"
-msgstr "Adenvel ar roll-tonioù"
-
-#: ../common/SongsPage.qml:535 ../music-app.qml:1004
-msgid "Enter playlist name"
-msgstr "Merkañ anv ar roll-tonioù"
-
-#: ../common/SongsPage.qml:544
-msgid "Change"
-msgstr "Cheñch"
-
-#: ../common/SongsPage.qml:565 ../music-app.qml:1030
-msgid "Playlist already exists"
-msgstr "Ar roll tonioù zo anezhañ dija"
-
-#: ../common/SongsPage.qml:569 ../music-app.qml:1035
-msgid "Please type in a name."
-msgstr "Skrivit un anv, mar plij."
-
-#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
-#: ../music-app.qml:488 ../music-app.qml:1041
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
+#: ../app/components/Dialog/EditPlaylistDialog.qml:76
+#: ../app/components/Dialog/NewPlaylistDialog.qml:71
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
 msgstr "Nullañ"
 
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+msgid "Waiting for file(s)..."
+msgstr "O c'hortoz ur restr pe restroù..."
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../app/components/Dialog/EditPlaylistDialog.qml:30
+msgid "Rename playlist"
+msgstr "Adenvel ar roll-tonioù"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:37
+#: ../app/components/Dialog/NewPlaylistDialog.qml:34
+msgid "Enter playlist name"
+msgstr "Merkañ anv ar roll-tonioù"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:46
+msgid "Change"
+msgstr "Cheñch"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:67
+#: ../app/components/Dialog/NewPlaylistDialog.qml:60
+msgid "Playlist already exists"
+msgstr "Ar roll tonioù zo anezhañ dija"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:71
+#: ../app/components/Dialog/NewPlaylistDialog.qml:65
+msgid "Please type in a name."
+msgstr "Skrivit un anv, mar plij."
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:30
+msgid "New playlist"
+msgstr "Roll-tonioù nevez"
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:44
+msgid "Create"
+msgstr "Krouiñ"
+
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:587
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
 msgstr "Dilemel ar roll-tonioù da viken ?"
 
-#: ../common/SongsPage.qml:588
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
 msgstr "Ne c'hall ket bezañ nullet"
 
-#: ../common/Walkthrough/Slide1.qml:57
-msgid "Welcome to Music"
-msgstr "Deuet-mat oc'h e Sonerezh"
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:37
+#: ../app/components/ListItemActions/Remove.qml:27
+msgid "Remove"
+msgstr "Dilemel"
 
-#: ../common/Walkthrough/Slide1.qml:70
-msgid ""
-"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
-"to get started or press skip to start listening now."
-msgstr ""
-"Ho pet plijadur gant ho sonerezh gwellañ-deuet en arload Sonerezh Ubuntu. "
-"Grit un dro buan-ha-buan evit deskiñ penaos kregiñ ganti pe pouzit war "
-"lammat evit kregiñ da selaou bremañ."
+#: ../app/components/HeadState/MultiSelectHeadState.qml:27
+msgid "Select All"
+msgstr "Diuzañ pep tra"
 
-#: ../common/Walkthrough/Slide2.qml:52
-msgid "Import your music"
-msgstr "Enporzhiañ ho sonerezh"
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/components/HeadState/MultiSelectHeadState.qml:39
+#: ../app/components/ListItemActions/AddToPlaylist.qml:26
+#: ../app/ui/NowPlaying.qml:92
+msgid "Add to playlist"
+msgstr "Ouzhpennañ d'ar roll-tonioù"
 
-#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
-msgid ""
-"Connect your device to any computer and simply drag files to the Music "
-"folder or insert removable media with music."
-msgstr ""
-"Kevreit ho penveg ouzh un urzhiataer bennak ha riklit restroù er renkell "
-"Sonerezh pe ensoc'hit ur media lem-laka gant sonerezh ennañ."
+#: ../app/components/HeadState/MultiSelectHeadState.qml:56
+msgid "Add to queue"
+msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../common/Walkthrough/Slide3.qml:52
-msgid "Download new music"
-msgstr "Pellgargañ sonerezh nevez"
+#: ../app/components/HeadState/MultiSelectHeadState.qml:74
+msgid "Delete"
+msgstr "Diverkañ"
 
-#: ../common/Walkthrough/Slide3.qml:64
-msgid "Directly import music bought while browsing online."
-msgstr "Enporzhiañ war-eeun sonerezh prenet enlinenn."
+#: ../app/components/HeadState/MultiSelectHeadState.qml:86
+msgid "Cancel selection"
+msgstr "Nullañ an diuzadur"
 
-#: ../common/Walkthrough/Slide3.qml:78
-msgid "Start"
-msgstr "Loc'hañ"
-
-#: ../common/Walkthrough/Walkthrough.qml:85
-msgid "Skip"
-msgstr "Lammat"
-
-#: ../music-app.qml:146
-msgid "Next"
-msgstr "War-lerc'h"
-
-#: ../music-app.qml:147
-msgid "Next Track"
-msgstr "Ton da-heul"
-
-#: ../music-app.qml:153
-msgid "Pause"
-msgstr "Ehan"
-
-#: ../music-app.qml:153
-msgid "Play"
-msgstr "Lenn"
-
-#: ../music-app.qml:155
-msgid "Pause Playback"
-msgstr "Ehanañ"
-
-#: ../music-app.qml:155
-msgid "Continue or start playback"
-msgstr "Derc'hel da lenn pe kregiñ da lenn"
-
-#: ../music-app.qml:160
-msgid "Back"
-msgstr "Distreiñ"
-
-#: ../music-app.qml:161
-msgid "Go back to last page"
-msgstr "Distro d'ar bajenn diwezhañ"
-
-#: ../music-app.qml:169
-msgid "Previous"
-msgstr "Diaraok"
-
-#: ../music-app.qml:170
-msgid "Previous Track"
-msgstr "Ton diaraok"
-
-#: ../music-app.qml:175
-msgid "Stop"
-msgstr "Paouez"
-
-#: ../music-app.qml:176
-msgid "Stop Playback"
-msgstr "Paouez da lenn"
+#: ../app/components/HeadState/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Klask sonerezh"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:331
+#: ../app/components/Helpers/ContentHubHelper.qml:68
 msgid "Filepath must start with"
 msgstr "Ret eo da hent ar restr kregiñ gant"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:357
+#: ../app/components/Helpers/ContentHubHelper.qml:94
 msgid "Filepath must be a file"
 msgstr "Hent ar restroù a rank bezañ ur restr"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:363
+#: ../app/components/Helpers/ContentHubHelper.qml:100
 msgid "Failed to move file"
 msgstr "N'eus ket bet gallet dilec'hiañ ar restr"
 
-#: ../music-app.qml:442
-msgid "Waiting for file(s)..."
-msgstr "O c'hortoz ur restr pe restroù..."
-
-#: ../music-app.qml:461
-msgid "OK"
-msgstr "Mat eo"
-
-#: ../music-app.qml:474
-msgid "Imported file not found"
-msgstr "N'eo ket bet kavet ar restr enporzhiet"
-
-#: ../music-app.qml:478
-msgid "Wait"
-msgstr "Gortoz"
-
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:499
+#: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "songs played today"
 msgstr "tonioù bet lennet hiziv"
 
-#: ../music-app.qml:500
+#: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No songs played today"
 msgstr "N'eus bet lennet ton ebet hiziv"
 
-#: ../music-app.qml:593 ../music-app.qml:1290
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "Sonerezh"
+#: ../app/components/ListItemActions/AddToQueue.qml:27
+msgid "Add to Queue"
+msgstr "Ouzhpennañ d'al lostennad"
 
-#: ../music-app.qml:612
-msgid "Debug: "
-msgstr "Dizreinañ : "
+#: ../app/components/LoadingSpinnerComponent.qml:47
+msgid "Loading..."
+msgstr "O kargañ..."
 
-#: ../music-app.qml:1000
-msgid "New playlist"
-msgstr "Roll-tonioù nevez"
+#: ../app/components/MusicPage.qml:41
+msgid "No items found"
+msgstr "N'eus bet kavet elfenn ebet"
 
-#: ../music-app.qml:1014
-msgid "Create"
-msgstr "Krouiñ"
+#: ../app/components/MusicToolbar.qml:91
+msgid "Tap to shuffle music"
+msgstr "Touch evit sonerezh mesk-ha-mesk"
 
-#: ../music-app.qml:1380
-msgid "No music found"
-msgstr "N'eus ket bet kavet sonerezh"
-
-#: ../music-app.qml:1419
+#: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
 msgstr "N'eus bet kavet roll-tonioù ebet"
 
-#: ../music-app.qml:1430
+#: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
@@ -380,6 +167,227 @@ msgstr ""
 "Tapit muioc'h a sonerezh o pouezañ war an arlun %1 evit kregiñ da grouiñ "
 "rolloù-tonioù diouzh hoc'h imor hag an degouezhioù."
 
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/PlayAllButton.qml:28
+msgid "Play all"
+msgstr "Lenn pep tra"
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/QueueAllButton.qml:42
+msgid "Queue all"
+msgstr "Lakaat pep tra el lostenn"
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/ShuffleButton.qml:42
+msgid "Shuffle"
+msgstr "Sonerezh mesk-ha-mesk"
+
+#: ../app/components/Walkthrough/Slide1.qml:58
+msgid "Welcome to Music"
+msgstr "Deuet-mat oc'h e Sonerezh"
+
+#: ../app/components/Walkthrough/Slide1.qml:72
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+"Ho pet plijadur gant ho sonerezh gwellañ-deuet en arload Sonerezh Ubuntu. "
+"Grit un dro buan-ha-buan evit deskiñ penaos kregiñ ganti pe pouzit war "
+"lammat evit kregiñ da selaou bremañ."
+
+#: ../app/components/Walkthrough/Slide2.qml:54
+msgid "Import your music"
+msgstr "Enporzhiañ ho sonerezh"
+
+#: ../app/components/Walkthrough/Slide2.qml:67
+#: ../app/ui/LibraryEmptyState.qml:117
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+"Kevreit ho penveg ouzh un urzhiataer bennak ha riklit restroù er renkell "
+"Sonerezh pe ensoc'hit ur media lem-laka gant sonerezh ennañ."
+
+#: ../app/components/Walkthrough/Slide3.qml:54
+msgid "Download new music"
+msgstr "Pellgargañ sonerezh nevez"
+
+#: ../app/components/Walkthrough/Slide3.qml:67
+msgid "Directly import music bought while browsing online."
+msgstr "Enporzhiañ war-eeun sonerezh prenet enlinenn."
+
+#: ../app/components/Walkthrough/Slide3.qml:81
+msgid "Start"
+msgstr "Loc'hañ"
+
+#: ../app/components/Walkthrough/Walkthrough.qml:84
+msgid "Skip"
+msgstr "Lammat"
+
+#: ../app/music-app.qml:154
+msgid "Next"
+msgstr "War-lerc'h"
+
+#: ../app/music-app.qml:155
+msgid "Next Track"
+msgstr "Ton da-heul"
+
+#: ../app/music-app.qml:161
+msgid "Pause"
+msgstr "Ehan"
+
+#: ../app/music-app.qml:161
+msgid "Play"
+msgstr "Lenn"
+
+#: ../app/music-app.qml:163
+msgid "Pause Playback"
+msgstr "Ehanañ"
+
+#: ../app/music-app.qml:163
+msgid "Continue or start playback"
+msgstr "Derc'hel da lenn pe kregiñ da lenn"
+
+#: ../app/music-app.qml:168
+msgid "Back"
+msgstr "Distreiñ"
+
+#: ../app/music-app.qml:169
+msgid "Go back to last page"
+msgstr "Distro d'ar bajenn diwezhañ"
+
+#: ../app/music-app.qml:177
+msgid "Previous"
+msgstr "Diaraok"
+
+#: ../app/music-app.qml:178
+msgid "Previous Track"
+msgstr "Ton diaraok"
+
+#: ../app/music-app.qml:183
+msgid "Stop"
+msgstr "Paouez"
+
+#: ../app/music-app.qml:184
+msgid "Stop Playback"
+msgstr "Paouez da lenn"
+
+#: ../app/music-app.qml:275 com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Sonerezh"
+
+#: ../app/music-app.qml:294
+msgid "Debug: "
+msgstr "Dizreinañ : "
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:359 ../app/music-app.qml:690 ../app/music-app.qml:961
+#: ../app/ui/NowPlaying.qml:37
+msgid "Now playing"
+msgstr "Lennet bremañ"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:359 ../app/music-app.qml:391 ../app/music-app.qml:691
+#: ../app/music-app.qml:962 ../app/music-app.qml:966
+#: ../app/ui/NowPlaying.qml:39
+msgid "Queue"
+msgstr "Lostenn"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
+msgid "Select playlist"
+msgstr "Diuzañ ur roll-tonioù"
+
+#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
+#: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
+#, qt-format
+msgid "%1 song"
+msgid_plural "%1 songs"
+msgstr[0] "%1 ton"
+msgstr[1] "%1 a donioù"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../app/ui/AddToPlaylist.qml:100 ../app/ui/Playlists.qml:38
+#: ../app/ui/SongsView.qml:90
+msgid "Playlists"
+msgstr "Rolloù-tonioù"
+
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
+#: ../app/ui/SongsView.qml:100
+msgid "Recent"
+msgstr "Nevez zo"
+
+#: ../app/ui/Albums.qml:32
+msgid "Albums"
+msgstr "Albomoù"
+
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
+#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:81
+#: ../app/ui/SongsView.qml:240
+msgid "Unknown Album"
+msgstr "Albom dianav"
+
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:261
+msgid "Unknown Artist"
+msgstr "Arzour dianav"
+
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
+#: ../app/ui/Recent.qml:97
+msgid "Album"
+msgstr "Albom"
+
+#: ../app/ui/ArtistView.qml:104
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 albom"
+msgstr[1] "%1 albom"
+
+#: ../app/ui/Artists.qml:38
+msgid "Artists"
+msgstr "Arzourien"
+
+#: ../app/ui/Artists.qml:108
+msgid "Artist"
+msgstr "Arzour"
+
+#: ../app/ui/Genres.qml:32
+msgid "Genres"
+msgstr "Stiloù"
+
+#: ../app/ui/Genres.qml:110 ../app/ui/Genres.qml:112
+#: ../app/ui/SongsView.qml:192 ../app/ui/SongsView.qml:211
+#: ../app/ui/SongsView.qml:226 ../app/ui/SongsView.qml:263
+#: ../app/ui/SongsView.qml:282 ../app/ui/SongsView.qml:326
+msgid "Genre"
+msgstr "Stil"
+
+#: ../app/ui/LibraryEmptyState.qml:106
+msgid "No music found"
+msgstr "N'eus ket bet kavet sonerezh"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/ui/NowPlaying.qml:107
+msgid "Clear queue"
+msgstr "Goulloiñ al lostenn"
+
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:69
+#: ../app/ui/SongsView.qml:110 ../app/ui/SongsView.qml:150
+#: ../app/ui/SongsView.qml:194 ../app/ui/SongsView.qml:213
+#: ../app/ui/SongsView.qml:225 ../app/ui/SongsView.qml:262
+#: ../app/ui/SongsView.qml:310 ../app/ui/SongsView.qml:313
+#: ../app/ui/SongsView.qml:328
+msgid "Playlist"
+msgstr "Roll tonioù"
+
+#: ../app/ui/Songs.qml:37
+msgid "Songs"
+msgstr "Tonioù"
+
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
 msgstr "Ul lenner sonerezh evit Ubuntu"
@@ -387,136 +395,3 @@ msgstr "Ul lenner sonerezh evit Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr "sonerezh;tonioù;lenn;tonioù;lennet;tonioù;"
-
-#~ msgid "Login Successful"
-#~ msgstr "Kevreadur deuet da benn vat"
-
-#~ msgid "Login"
-#~ msgstr "Kevreañ"
-
-#~ msgid "Password"
-#~ msgstr "Ger-tremen"
-
-#~ msgid "Login Failed"
-#~ msgstr "Kevreadur c'hwitet"
-
-#~ msgid "Last.fm"
-#~ msgstr "Last.fm"
-
-#~ msgid "Username"
-#~ msgstr "Anv implijer"
-
-#~ msgid "Trying to login..."
-#~ msgstr "O klask kevreañ..."
-
-#~ msgid "Edit"
-#~ msgstr "Aozañ"
-
-#~ msgid "Change name"
-#~ msgstr "Cheñch an anv"
-
-#~ msgid "Settings"
-#~ msgstr "Arventennoù"
-
-#~ msgid "Hip Hop"
-#~ msgstr "Hip Hop"
-
-#~ msgid "Flat"
-#~ msgstr "Plaen"
-
-#~ msgid "Default"
-#~ msgstr "Dre ziouer"
-
-#~ msgid "Electronic"
-#~ msgstr "Elektronek"
-
-#~ msgid "Classical"
-#~ msgstr "Klasel"
-
-#~ msgid "Ubuntu One"
-#~ msgstr "Ubuntu One"
-
-#~ msgid "Pop"
-#~ msgstr "Pop"
-
-#~ msgid "Rock"
-#~ msgstr "Rock"
-
-#~ msgid "Jazz"
-#~ msgstr "Jazz"
-
-#~ msgid "Metal"
-#~ msgstr "Metal"
-
-#~ msgid "Accounts"
-#~ msgstr "Kontoù"
-
-#~ msgid "Clear"
-#~ msgstr "Naetaat"
-
-#~ msgid "Name"
-#~ msgstr "Anv"
-
-#~ msgid "Login to be able to scrobble."
-#~ msgstr "Kevreañ evit gallout Skroblañ"
-
-#~ msgid "Equaliser"
-#~ msgstr "Ingaler"
-
-#~ msgid "Login to scrobble and import playlists"
-#~ msgstr "Kevreañ evit Skroblañ hag enporzhiañ rolloù-tonioù"
-
-#~ msgid "New Playlist"
-#~ msgstr "Roll-tonioù nevez"
-
-#~ msgid "Custom"
-#~ msgstr "Personelaet"
-
-#~ msgid "Clean everything!"
-#~ msgstr "Naetaat pep tra !"
-
-#~ msgid "Sign in to stream your cloud music"
-#~ msgstr "Kevreañ evit selaou ho sonerezh diwar ar goumoulenn"
-
-#~ msgid "Name your playlist."
-#~ msgstr "Roit un anv d'ho roll-tonioù."
-
-#~ msgid "Music Streaming"
-#~ msgstr "Froudad sonerezh"
-
-#~ msgid "Music Settings"
-#~ msgstr "Arventennoù sonerezh"
-
-#~ msgid "Search"
-#~ msgstr "Klask"
-
-#~ msgid "Search Track"
-#~ msgstr "Klask un ton"
-
-#~ msgid ""
-#~ "Snap to current song \n"
-#~ "when opening toolbar"
-#~ msgstr ""
-#~ "Lammat d'an ton a vremañ \n"
-#~ "pa zigorer ar varrenn ostilhoù"
-
-#~ msgid "You forgot to set your username and/or password"
-#~ msgstr "Disoñjet ho peus lakaat hoc'h anv implijer ha/pe ho ker-tremen"
-
-#~ msgid "Enter the new name of the playlist."
-#~ msgstr "Ebarzhiñ anv nevez ar roll-tonioù."
-
-#~ msgid "Stream only on Wi-Fi"
-#~ msgstr "Selaou froudadoù gant ar Wi-Fi hepken"
-
-#~ msgid "Now Playing"
-#~ msgstr "O seniñ bremañ"
-
-#~ msgid "Clear History"
-#~ msgstr "Diverkañ an istor"
-
-#~ msgid "Acoustic"
-#~ msgstr "Akoustek"
-
-#~ msgid "Please import music"
-#~ msgstr "Enporzhiit sonerezh, mar plij"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-27 20:23-0600\n"
+"POT-Creation-Date: 2015-05-14 19:15-0500\n"
 "PO-Revision-Date: 2015-05-14 23:47+0000\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <te@li.org>\n"
@@ -15,363 +15,371 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-15 05:48+0000\n"
-"X-Generator: Launchpad (build 17493)\n"
+"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
+"X-Generator: Launchpad (build 17508)\n"
 
-#: ../MusicAlbums.qml:29
-msgid "Albums"
-msgstr "ఆల్బమ్లు"
-
-#: ../MusicAlbums.qml:69 ../MusicStart.qml:78 ../common/AlbumsPage.qml:152
-#: ../common/AlbumsPage.qml:166 ../common/SongsPage.qml:380
-msgid "Unknown Album"
+#: ../app/components/Dialog/ContentHubErrorDialog.qml:35
+msgid "OK"
 msgstr ""
 
-#: ../MusicAlbums.qml:70 ../MusicArtists.qml:77 ../MusicStart.qml:79
-#: ../common/AlbumsPage.qml:108 ../common/AlbumsPage.qml:165
-#: ../common/SongsPage.qml:401
-msgid "Unknown Artist"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
+msgid "Imported file not found"
 msgstr ""
 
-#: ../MusicAlbums.qml:81 ../MusicStart.qml:95 ../common/AlbumsPage.qml:164
-msgid "Album"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
+msgid "Wait"
 msgstr ""
 
-#: ../MusicArtists.qml:35
-msgid "Artists"
-msgstr "గాయకులు"
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
+#: ../app/components/Dialog/EditPlaylistDialog.qml:76
+#: ../app/components/Dialog/NewPlaylistDialog.qml:71
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:60
+msgid "Cancel"
+msgstr "రద్దుచేయి"
 
-#: ../MusicArtists.qml:107
-msgid "Artist"
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+msgid "Waiting for file(s)..."
 msgstr ""
 
-#: ../MusicGenres.qml:29
-msgid "Genres"
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../app/components/Dialog/EditPlaylistDialog.qml:30
+msgid "Rename playlist"
 msgstr ""
 
-#: ../MusicGenres.qml:108 ../MusicGenres.qml:110 ../common/SongsPage.qml:317
-#: ../common/SongsPage.qml:353 ../common/SongsPage.qml:367
-#: ../common/SongsPage.qml:403 ../common/SongsPage.qml:422
-#: ../common/SongsPage.qml:454
-msgid "Genre"
+#: ../app/components/Dialog/EditPlaylistDialog.qml:37
+#: ../app/components/Dialog/NewPlaylistDialog.qml:34
+msgid "Enter playlist name"
+msgstr ""
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:46
+msgid "Change"
+msgstr "మార్చు"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:67
+#: ../app/components/Dialog/NewPlaylistDialog.qml:60
+msgid "Playlist already exists"
+msgstr ""
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:71
+#: ../app/components/Dialog/NewPlaylistDialog.qml:65
+msgid "Please type in a name."
+msgstr ""
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:30
+msgid "New playlist"
+msgstr "కొత్త పాటలజాబితా"
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:44
+msgid "Create"
+msgstr ""
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:31
+msgid "Permanently delete playlist?"
+msgstr ""
+
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:32
+msgid "This cannot be undone"
+msgstr ""
+
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:37
+#: ../app/components/ListItemActions/Remove.qml:27
+msgid "Remove"
+msgstr "తొలగించు"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:27
+msgid "Select All"
+msgstr ""
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/components/HeadState/MultiSelectHeadState.qml:39
+#: ../app/components/ListItemActions/AddToPlaylist.qml:26
+#: ../app/ui/NowPlaying.qml:92
+msgid "Add to playlist"
+msgstr ""
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:56
+msgid "Add to queue"
+msgstr ""
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:74
+msgid "Delete"
+msgstr "తొలగించు"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:86
+msgid "Cancel selection"
+msgstr ""
+
+#: ../app/components/HeadState/SearchHeadState.qml:42
+msgid "Search music"
+msgstr ""
+
+#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
+#: ../app/components/Helpers/ContentHubHelper.qml:68
+msgid "Filepath must start with"
+msgstr ""
+
+#. TRANSLATORS: This string represents that a blank filepath destination has been used
+#: ../app/components/Helpers/ContentHubHelper.qml:94
+msgid "Filepath must be a file"
+msgstr ""
+
+#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
+#: ../app/components/Helpers/ContentHubHelper.qml:100
+msgid "Failed to move file"
+msgstr ""
+
+#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
+#: ../app/components/Helpers/UserMetricsHelper.qml:31
+msgid "songs played today"
+msgstr ""
+
+#: ../app/components/Helpers/UserMetricsHelper.qml:32
+msgid "No songs played today"
+msgstr ""
+
+#: ../app/components/ListItemActions/AddToQueue.qml:27
+msgid "Add to Queue"
+msgstr ""
+
+#: ../app/components/LoadingSpinnerComponent.qml:47
+msgid "Loading..."
+msgstr ""
+
+#: ../app/components/MusicPage.qml:41
+msgid "No items found"
+msgstr ""
+
+#: ../app/components/MusicToolbar.qml:91
+msgid "Tap to shuffle music"
+msgstr ""
+
+#: ../app/components/PlaylistsEmptyState.qml:42
+msgid "No playlists found"
+msgstr ""
+
+#: ../app/components/PlaylistsEmptyState.qml:53
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/PlayAllButton.qml:28
+msgid "Play all"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/QueueAllButton.qml:42
+msgid "Queue all"
+msgstr ""
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/ShuffleButton.qml:42
+msgid "Shuffle"
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide1.qml:58
+msgid "Welcome to Music"
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide1.qml:72
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide2.qml:54
+msgid "Import your music"
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide2.qml:67
+#: ../app/ui/LibraryEmptyState.qml:117
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide3.qml:54
+msgid "Download new music"
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide3.qml:67
+msgid "Directly import music bought while browsing online."
+msgstr ""
+
+#: ../app/components/Walkthrough/Slide3.qml:81
+msgid "Start"
+msgstr ""
+
+#: ../app/components/Walkthrough/Walkthrough.qml:84
+msgid "Skip"
+msgstr ""
+
+#: ../app/music-app.qml:154
+msgid "Next"
+msgstr ""
+
+#: ../app/music-app.qml:155
+msgid "Next Track"
+msgstr ""
+
+#: ../app/music-app.qml:161
+msgid "Pause"
+msgstr ""
+
+#: ../app/music-app.qml:161
+msgid "Play"
+msgstr ""
+
+#: ../app/music-app.qml:163
+msgid "Pause Playback"
+msgstr ""
+
+#: ../app/music-app.qml:163
+msgid "Continue or start playback"
+msgstr ""
+
+#: ../app/music-app.qml:168
+msgid "Back"
+msgstr ""
+
+#: ../app/music-app.qml:169
+msgid "Go back to last page"
+msgstr ""
+
+#: ../app/music-app.qml:177
+msgid "Previous"
+msgstr ""
+
+#: ../app/music-app.qml:178
+msgid "Previous Track"
+msgstr ""
+
+#: ../app/music-app.qml:183
+msgid "Stop"
+msgstr ""
+
+#: ../app/music-app.qml:184
+msgid "Stop Playback"
+msgstr ""
+
+#: ../app/music-app.qml:275 com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "సంగీతం"
+
+#: ../app/music-app.qml:294
+msgid "Debug: "
 msgstr ""
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:40 ../music-app.qml:672 ../music-app.qml:1050
-#: ../music-app.qml:1253 ../music-app.qml:1294
+#: ../app/music-app.qml:359 ../app/music-app.qml:690 ../app/music-app.qml:961
+#: ../app/ui/NowPlaying.qml:37
 msgid "Now playing"
 msgstr ""
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicNowPlaying.qml:42 ../music-app.qml:672 ../music-app.qml:704
-#: ../music-app.qml:1051 ../music-app.qml:1254 ../music-app.qml:1266
-#: ../music-app.qml:1294
+#: ../app/music-app.qml:359 ../app/music-app.qml:391 ../app/music-app.qml:691
+#: ../app/music-app.qml:962 ../app/music-app.qml:966
+#: ../app/ui/NowPlaying.qml:39
 msgid "Queue"
 msgstr ""
 
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:96 ../MusicNowPlaying.qml:157 ../MusicTracks.qml:74
-#: ../common/ListItemActions/AddToPlaylist.qml:26 ../common/SongsPage.qml:169
-msgid "Add to playlist"
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
+msgid "Select playlist"
 msgstr ""
 
-#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../MusicNowPlaying.qml:117
-msgid "Clear queue"
-msgstr ""
-
-#: ../MusicNowPlaying.qml:135 ../MusicTracks.qml:51
-#: ../common/SongsPage.qml:147
-msgid "Cancel selection"
-msgstr ""
-
-#: ../MusicNowPlaying.qml:144 ../MusicTracks.qml:62
-#: ../common/SongsPage.qml:157
-msgid "Select All"
-msgstr ""
-
-#: ../MusicNowPlaying.qml:180 ../common/SongsPage.qml:208
-msgid "Delete"
-msgstr "తొలగించు"
-
-#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
-#. Remember to keep the translation short to fit the screen width
-#: ../MusicPlaylists.qml:35 ../MusicaddtoPlaylist.qml:112
-#: ../common/SongsPage.qml:85
-msgid "Playlists"
-msgstr "పాటలజాబితాలు"
-
-#: ../MusicPlaylists.qml:97 ../MusicaddtoPlaylist.qml:106
-#: ../common/SongsPage.qml:423 ../common/SongsPage.qml:424
+#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
+#: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
 msgstr[0] "%1 పాట"
 msgstr[1] "%1 పాటలు"
 
-#: ../MusicPlaylists.qml:110 ../MusicPlaylists.qml:111 ../MusicStart.qml:79
-#: ../MusicStart.qml:95 ../common/SongsPage.qml:64 ../common/SongsPage.qml:105
-#: ../common/SongsPage.qml:209 ../common/SongsPage.qml:319
-#: ../common/SongsPage.qml:355 ../common/SongsPage.qml:366
-#: ../common/SongsPage.qml:402 ../common/SongsPage.qml:438
-#: ../common/SongsPage.qml:441 ../common/SongsPage.qml:456
-msgid "Playlist"
-msgstr ""
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../app/ui/AddToPlaylist.qml:100 ../app/ui/Playlists.qml:38
+#: ../app/ui/SongsView.qml:90
+msgid "Playlists"
+msgstr "పాటలజాబితాలు"
 
-#: ../MusicStart.qml:34 ../MusicaddtoPlaylist.qml:120
-#: ../common/SongsPage.qml:95
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
+#: ../app/ui/SongsView.qml:100
 msgid "Recent"
 msgstr "ఇటీవలివి"
 
-#: ../MusicToolbar.qml:155
-msgid "Tap to shuffle music"
+#: ../app/ui/Albums.qml:32
+msgid "Albums"
+msgstr "ఆల్బమ్లు"
+
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
+#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:81
+#: ../app/ui/SongsView.qml:240
+msgid "Unknown Album"
 msgstr ""
 
-#: ../MusicTracks.qml:34
-msgid "Songs"
-msgstr "పాటలు"
-
-#: ../MusicTracks.qml:97 ../common/SongsPage.qml:192
-msgid "Add to queue"
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:261
+msgid "Unknown Artist"
 msgstr ""
 
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../MusicaddtoPlaylist.qml:43 ../music-app.qml:1406
-msgid "Select playlist"
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
+#: ../app/ui/Recent.qml:97
+msgid "Album"
 msgstr ""
 
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:65 ../common/SongsPage.qml:312
-msgid "Shuffle"
-msgstr ""
-
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:80 ../common/SongsPage.qml:339
-msgid "Queue all"
-msgstr ""
-
-#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../common/AlbumsPage.qml:89 ../common/SongsPage.qml:348
-msgid "Play all"
-msgstr ""
-
-#: ../common/AlbumsPage.qml:127
+#: ../app/ui/ArtistView.qml:104
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 ఆల్బమ్"
 msgstr[1] "%1 ఆల్బమ్లు"
 
-#: ../common/ListItemActions/AddToQueue.qml:27
-msgid "Add to Queue"
+#: ../app/ui/Artists.qml:38
+msgid "Artists"
+msgstr "గాయకులు"
+
+#: ../app/ui/Artists.qml:108
+msgid "Artist"
 msgstr ""
 
-#: ../common/ListItemActions/Remove.qml:27 ../common/SongsPage.qml:593
-msgid "Remove"
-msgstr "తొలగించు"
-
-#: ../common/LoadingSpinnerComponent.qml:47
-msgid "Loading..."
+#: ../app/ui/Genres.qml:32
+msgid "Genres"
 msgstr ""
 
-#: ../common/MusicPage.qml:39
-msgid "No items found"
+#: ../app/ui/Genres.qml:110 ../app/ui/Genres.qml:112
+#: ../app/ui/SongsView.qml:192 ../app/ui/SongsView.qml:211
+#: ../app/ui/SongsView.qml:226 ../app/ui/SongsView.qml:263
+#: ../app/ui/SongsView.qml:282 ../app/ui/SongsView.qml:326
+msgid "Genre"
 msgstr ""
 
-#: ../common/SearchHeadState.qml:42
-msgid "Search music"
-msgstr ""
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
-#: ../common/SongsPage.qml:528
-msgid "Rename playlist"
-msgstr ""
-
-#: ../common/SongsPage.qml:535 ../music-app.qml:1004
-msgid "Enter playlist name"
-msgstr ""
-
-#: ../common/SongsPage.qml:544
-msgid "Change"
-msgstr "మార్చు"
-
-#: ../common/SongsPage.qml:565 ../music-app.qml:1030
-msgid "Playlist already exists"
-msgstr ""
-
-#: ../common/SongsPage.qml:569 ../music-app.qml:1035
-msgid "Please type in a name."
-msgstr ""
-
-#: ../common/SongsPage.qml:574 ../common/SongsPage.qml:612
-#: ../music-app.qml:488 ../music-app.qml:1041
-msgid "Cancel"
-msgstr "రద్దుచేయి"
-
-#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
-#: ../common/SongsPage.qml:587
-msgid "Permanently delete playlist?"
-msgstr ""
-
-#: ../common/SongsPage.qml:588
-msgid "This cannot be undone"
-msgstr ""
-
-#: ../common/Walkthrough/Slide1.qml:57
-msgid "Welcome to Music"
-msgstr ""
-
-#: ../common/Walkthrough/Slide1.qml:70
-msgid ""
-"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
-"to get started or press skip to start listening now."
-msgstr ""
-
-#: ../common/Walkthrough/Slide2.qml:52
-msgid "Import your music"
-msgstr ""
-
-#: ../common/Walkthrough/Slide2.qml:64 ../music-app.qml:1391
-msgid ""
-"Connect your device to any computer and simply drag files to the Music "
-"folder or insert removable media with music."
-msgstr ""
-
-#: ../common/Walkthrough/Slide3.qml:52
-msgid "Download new music"
-msgstr ""
-
-#: ../common/Walkthrough/Slide3.qml:64
-msgid "Directly import music bought while browsing online."
-msgstr ""
-
-#: ../common/Walkthrough/Slide3.qml:78
-msgid "Start"
-msgstr ""
-
-#: ../common/Walkthrough/Walkthrough.qml:85
-msgid "Skip"
-msgstr ""
-
-#: ../music-app.qml:146
-msgid "Next"
-msgstr ""
-
-#: ../music-app.qml:147
-msgid "Next Track"
-msgstr ""
-
-#: ../music-app.qml:153
-msgid "Pause"
-msgstr ""
-
-#: ../music-app.qml:153
-msgid "Play"
-msgstr ""
-
-#: ../music-app.qml:155
-msgid "Pause Playback"
-msgstr ""
-
-#: ../music-app.qml:155
-msgid "Continue or start playback"
-msgstr ""
-
-#: ../music-app.qml:160
-msgid "Back"
-msgstr ""
-
-#: ../music-app.qml:161
-msgid "Go back to last page"
-msgstr ""
-
-#: ../music-app.qml:169
-msgid "Previous"
-msgstr ""
-
-#: ../music-app.qml:170
-msgid "Previous Track"
-msgstr ""
-
-#: ../music-app.qml:175
-msgid "Stop"
-msgstr ""
-
-#: ../music-app.qml:176
-msgid "Stop Playback"
-msgstr ""
-
-#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../music-app.qml:331
-msgid "Filepath must start with"
-msgstr ""
-
-#. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../music-app.qml:357
-msgid "Filepath must be a file"
-msgstr ""
-
-#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../music-app.qml:363
-msgid "Failed to move file"
-msgstr ""
-
-#: ../music-app.qml:442
-msgid "Waiting for file(s)..."
-msgstr ""
-
-#: ../music-app.qml:461
-msgid "OK"
-msgstr ""
-
-#: ../music-app.qml:474
-msgid "Imported file not found"
-msgstr ""
-
-#: ../music-app.qml:478
-msgid "Wait"
-msgstr ""
-
-#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
-#: ../music-app.qml:499
-msgid "songs played today"
-msgstr ""
-
-#: ../music-app.qml:500
-msgid "No songs played today"
-msgstr ""
-
-#: ../music-app.qml:593 ../music-app.qml:1290
-#: com.ubuntu.music_music.desktop.in.in.h:1
-msgid "Music"
-msgstr "సంగీతం"
-
-#: ../music-app.qml:612
-msgid "Debug: "
-msgstr ""
-
-#: ../music-app.qml:1000
-msgid "New playlist"
-msgstr "కొత్త పాటలజాబితా"
-
-#: ../music-app.qml:1014
-msgid "Create"
-msgstr ""
-
-#: ../music-app.qml:1380
+#: ../app/ui/LibraryEmptyState.qml:106
 msgid "No music found"
 msgstr ""
 
-#: ../music-app.qml:1419
-msgid "No playlists found"
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/ui/NowPlaying.qml:107
+msgid "Clear queue"
 msgstr ""
 
-#: ../music-app.qml:1430
-#, qt-format
-msgid ""
-"Get more out of Music by tapping the %1 icon to start making playlists for "
-"every mood and occasion."
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:69
+#: ../app/ui/SongsView.qml:110 ../app/ui/SongsView.qml:150
+#: ../app/ui/SongsView.qml:194 ../app/ui/SongsView.qml:213
+#: ../app/ui/SongsView.qml:225 ../app/ui/SongsView.qml:262
+#: ../app/ui/SongsView.qml:310 ../app/ui/SongsView.qml:313
+#: ../app/ui/SongsView.qml:328
+msgid "Playlist"
 msgstr ""
+
+#: ../app/ui/Songs.qml:37
+msgid "Songs"
+msgstr "పాటలు"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -380,72 +388,3 @@ msgstr ""
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-
-#~ msgid "Last.fm"
-#~ msgstr "Last.fm"
-
-#~ msgid "Username"
-#~ msgstr "వాడుకరి పేరు"
-
-#~ msgid "Password"
-#~ msgstr "సంకేతపదం"
-
-#~ msgid "Login"
-#~ msgstr "ప్రవేశించండి"
-
-#~ msgid "Login Successful"
-#~ msgstr "ప్రవేశం విజయవంతం"
-
-#~ msgid "Login Failed"
-#~ msgstr "ప్రవేశం విఫలం"
-
-#~ msgid "Now Playing"
-#~ msgstr "ఇప్పుడు ఆడిస్తున్నది"
-
-#~ msgid "Change name"
-#~ msgstr "పేరు మార్చు"
-
-#~ msgid "Enter the new name of the playlist."
-#~ msgstr "పాటలజాబితా యొక్క కొత్త పేరు ఇవ్వండి."
-
-#~ msgid "Search"
-#~ msgstr "వెతుకు"
-
-#~ msgid "Settings"
-#~ msgstr "అమరికలు"
-
-#~ msgid "Default"
-#~ msgstr "అప్రమేయం"
-
-#~ msgid "Classical"
-#~ msgstr "సాంప్రదాయికం"
-
-#~ msgid "Electronic"
-#~ msgstr "ఎలక్ట్రానిక్"
-
-#~ msgid "Jazz"
-#~ msgstr "జాజ్"
-
-#~ msgid "Metal"
-#~ msgstr "మెటల్"
-
-#~ msgid "Pop"
-#~ msgstr "పాప్"
-
-#~ msgid "Rock"
-#~ msgstr "రాక్"
-
-#~ msgid "Custom"
-#~ msgstr "అనురూపితం"
-
-#~ msgid "Accounts"
-#~ msgstr "ఖాతాలు"
-
-#~ msgid "Ubuntu One"
-#~ msgstr "ఉబుంటు వన్"
-
-#~ msgid "Clear History"
-#~ msgstr "చరిత్రను తుడిచివేయి"
-
-#~ msgid "Edit"
-#~ msgstr "సవరించు"
