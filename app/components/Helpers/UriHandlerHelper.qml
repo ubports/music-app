@@ -68,8 +68,6 @@ Item {
             return;
         }
 
-        uri = decodeURIComponent(uri);
-
         // Lookup track in songs model
         var track = musicStore.lookup(decodeURIComponent(uri));
 
