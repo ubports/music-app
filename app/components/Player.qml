@@ -209,15 +209,19 @@ Item {
                             obj = musicStore.lookup(source.toString())
                         }
 
-                        player.currentMetaAlbum = obj.album;
+                        // protect against null reponse from the lookup
+                        if (obj !== null) {
+                            var album = undefined
 
-                        if (obj.art !== undefined) {  // FIXME: protect against no art property in playlists
-                            player.currentMetaArt = obj.art;
+                            // protect against undefined properties
+                            player.currentMetaAlbum = album || "";
+                            player.currentMetaArt = obj.art || "";
+                            player.currentMetaArtist = obj.author || "";
+                            player.currentMetaFile = obj.filename || "";
+                            player.currentMetaTitle = obj.title || "";
+                        } else {
+                            console.debug("Mediascanner lookup resulted in null object", source.toString())
                         }
-
-                        player.currentMetaArtist = obj.author;
-                        player.currentMetaFile = obj.filename;
-                        player.currentMetaTitle = obj.title;
                     }
 
                     console.log("Source: " + source.toString())
