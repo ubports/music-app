@@ -211,11 +211,9 @@ Item {
 
                         // protect against null reponse from the lookup
                         if (obj !== null) {
-                            var album = undefined
-
                             // protect against undefined properties
-                            player.currentMetaAlbum = album || "";
-                            player.currentMetaArt = obj.art || "";
+                            player.currentMetaAlbum = obj.album || "";
+                            player.currentMetaArt = obj.art || "";  // note playlists don't have art property
                             player.currentMetaArtist = obj.author || "";
                             player.currentMetaFile = obj.filename || "";
                             player.currentMetaTitle = obj.title || "";
