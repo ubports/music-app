@@ -213,7 +213,7 @@ Item {
                         if (obj !== null) {
                             // protect against undefined properties
                             player.currentMetaAlbum = obj.album || "";
-                            player.currentMetaArt = obj.art || "";  // note playlists don't have art property
+                            player.currentMetaArt = obj.art || "";
                             player.currentMetaArtist = obj.author || "";
                             player.currentMetaFile = obj.filename || "";
                             player.currentMetaTitle = obj.title || "";
