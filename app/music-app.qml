@@ -438,7 +438,7 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < trackQueue.model.count; i++) {
-                    if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
+                    if (musicStore.lookup(decodeURIComponent(trackQueue.model.get(i).filename)) === null) {
                         removed.push(i)
                     }
                 }
