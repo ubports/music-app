@@ -33,7 +33,7 @@ Using terminal:
     $ autopilot3 run -vv music_app.tests.test_music.TestMainWindow.test_swipe_to_delete_song
 
     Debugging tests using autopilot vis
-    $ autopilot3 launch -i Qt qmlscene music-app.qml
+    $ autopilot3 launch -i Qt qmlscene app/music-app.qml
     $ autopilot3 vis
 
 

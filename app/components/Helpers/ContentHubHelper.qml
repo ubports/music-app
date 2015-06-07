@@ -181,7 +181,7 @@ Item {
             var model;
 
             for (i=0; i < searchPaths.length; i++) {
-                model = musicStore.lookup(searchPaths[i])
+                model = musicStore.lookup(decodeURIComponent(searchPaths[i]))
 
                 console.debug("MusicStore model from lookup", JSON.stringify(model))
 
@@ -206,7 +206,7 @@ Item {
                 trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
-                    model = musicStore.lookup(searchPaths[i])
+                    model = musicStore.lookup(decodeURIComponent(searchPaths[i]))
 
                     trackQueue.append(makeDict(model));
                 }
