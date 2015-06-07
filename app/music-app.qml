@@ -274,7 +274,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.0'
+    property string appVersion: '2.1'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
@@ -439,7 +439,7 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < trackQueue.model.count; i++) {
-                    if (musicStore.lookup(trackQueue.model.get(i).filename) === null) {
+                    if (musicStore.lookup(decodeURIComponent(trackQueue.model.get(i).filename)) === null) {
                         removed.push(i)
                     }
                 }

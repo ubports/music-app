@@ -204,20 +204,22 @@ Item {
                         var obj;
 
                         if (source.toString().indexOf("file://") === 0) {
-                            obj = musicStore.lookup(source.toString().substring(7))
+                            obj = musicStore.lookup(decodeURIComponent(source.toString().substring(7)))
                         } else {
-                            obj = musicStore.lookup(source.toString())
+                            obj = musicStore.lookup(decodeURIComponent(source.toString()))
                         }
 
-                        player.currentMetaAlbum = obj.album;
-
-                        if (obj.art !== undefined) {  // FIXME: protect against no art property in playlists
-                            player.currentMetaArt = obj.art;
+                        // protect against null reponse from the lookup
+                        if (obj !== null) {
+                            // protect against undefined properties
+                            player.currentMetaAlbum = obj.album || "";
+                            player.currentMetaArt = obj.art || "";
+                            player.currentMetaArtist = obj.author || "";
+                            player.currentMetaFile = obj.filename || "";
+                            player.currentMetaTitle = obj.title || "";
+                        } else {
+                            console.debug("Mediascanner lookup resulted in null object", source.toString())
                         }
-
-                        player.currentMetaArtist = obj.author;
-                        player.currentMetaFile = obj.filename;
-                        player.currentMetaTitle = obj.title;
                     }
 
                     console.log("Source: " + source.toString())

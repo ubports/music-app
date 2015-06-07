@@ -1,3 +1,41 @@
+music-app (2.1) vivid; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Fixes and add preloading compatibility to ColumnFlow.qml.
+  * Only autoset the source due to queue count changes when the queue worker has completed.
+  * Improve the way the currentIndex is restored so that there is less/no delay.
+  * Delay urlhandler/content-hub calls until after walkthrough is complete. Fixes: https://bugs.launchpad.net/bugs/1438317.
+  * Make SongsView and ArtistView adaptive. Fixes: https://bugs.launchpad.net/bugs/1436771.
+  * Ensure dialogs are closed before popping a page. Fixes: https://bugs.launchpad.net/bugs/1435658.
+  * Split content-hub, uri-handler and metrics into Helpers.
+  * Split the NowPlaying page into NowPlaying, Queue and NowPlayingToolbar
+  * Destroy dialog before popping page. Fixes: https://bugs.launchpad.net/bugs/1428450.
+  * Move delegates into their own folder in components
+  * Create generic MultiSelectListView.qml for handling multiselect
+  * Do not allow LibraryEmptyState loader to be active if content-hub is running. Fixes: https://bugs.launchpad.net/bugs/1418366.
+  * Move all Dialog components into their own files in components/Dialog.
+  * Create common components for Play All, Queue All and Shuffle buttons within 'Views'.
+  * Split EmptyStates into a page (for noMusic) and a component (for noPlaylists) and load in async.
+  * Move existing head states into HeadState folder
+  * Make use of SDK PageStack.push(url, properties) instead of creating the component, object and pushing ourselves.
+  * Rename common to components
+  * Move pages into separate /ui folder
+  * Fix for autopilot launcher detection for debian mode.
+  * Move applications files into app folder. Fixes: https://bugs.launchpad.net/bugs/1357319.
+
+  [ Darran Kelinske ]
+  * Added a test case for deleting a playlist. Fixes: https://bugs.launchpad.net/bugs/1428454.
+
+  [ Victor Thompson ]
+  * Prevent click build warnings for unterminated string literals
+  * Improve multiselect delete for playlist items. Fixes: https://bugs.launchpad.net/bugs/1439185.
+  * Force active focus to dialogs. Fixes: https://bugs.launchpad.net/bugs/1435260.
+  * Merge from trunk to refactor to pull in trunk revision 832 and updated translations.
+  * Trigger list reset animation when the index did not change. Fixes: https://bugs.launchpad.net/bugs/1428913.
+  * Do not show toolbar in the 'Select playlist' view. Fixes: https://bugs.launchpad.net/bugs/1417823.
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Sun, 09 May 2015 19:31:23 -0500
+
 music-app (2.0) utopic; urgency=medium
 
   * Fix for cover art getting out of sync on the SongsPage.qml
