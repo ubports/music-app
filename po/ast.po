@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-14 19:15-0500\n"
-"PO-Revision-Date: 2015-05-14 23:42+0000\n"
-"Last-Translator: ivarela <ivarela@ubuntu.com>\n"
+"PO-Revision-Date: 2015-06-12 00:00+0000\n"
+"Last-Translator: enolp <enolp@softastur.org>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
-"X-Generator: Launchpad (build 17508)\n"
+"X-Launchpad-Export-Date: 2015-06-12 05:41+0000\n"
+"X-Generator: Launchpad (build 17557)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -39,17 +39,17 @@ msgstr "Encaboxar"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Esperando por ficheru(os)..."
+msgstr "Esperando ficheru(os)..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr "Renomar la llista de reproducción"
+msgstr "Renomar llista de reproducción"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr "Introduz nome de llista de reproducción"
+msgstr "Introduz el nome de llista de reproducción"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -63,7 +63,7 @@ msgstr "La llista de reproducción yá esiste"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "Escribi un nome."
+msgstr "Por favor, teclexa un nome."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -80,7 +80,7 @@ msgstr "¿Desaniciar llista de reproducción dafechu?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr "Esta aición nun pue desfacese"
+msgstr "Esto nun pue desfacese"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
@@ -89,7 +89,7 @@ msgstr "Desaniciar"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:27
 msgid "Select All"
-msgstr "Esbillalo too"
+msgstr "Esbillar too"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
@@ -108,7 +108,7 @@ msgstr "Desaniciar"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:86
 msgid "Cancel selection"
-msgstr "Encaboxar seleición"
+msgstr "Encaboxar esbilla"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -117,12 +117,12 @@ msgstr "Guetar música"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:68
 msgid "Filepath must start with"
-msgstr "El camín a los ficheros tien d'entamar con"
+msgstr "El camín de ficheru tien d'entamar con"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:94
 msgid "Filepath must be a file"
-msgstr "El camín tien de ser un ficheru"
+msgstr "El camín de ficheru tien de ser un ficheru"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:100
@@ -152,7 +152,7 @@ msgstr "Nun s'alcontró dengún elementu"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr "Toca pa orde al debalu"
+msgstr "Toca pa música al debalu"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -164,13 +164,13 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
-"Obtener más de Música tocando nel iconu %1 pa empezar a crear llistes pa "
-"cada estáu y ocasión."
+"Consigui más música calcando l'iconu %1 pa entamar a facer llistes de "
+"reproducción pa cada ocasión y estáu d'ánimu."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
 msgid "Play all"
-msgstr "Reproducilo too"
+msgstr "Reproducir too"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:42
@@ -184,19 +184,19 @@ msgstr "Al debalu"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
-msgstr "Bienllegáu a Music"
+msgstr "Bienllegáu/ada a Music"
 
 #: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
-"Esfruta la to música favorita cola app Ubuntu Music. Fai un pequeñu "
-"percorríu o primi Omitir pa empezar a sentir música."
+"Esfruta la to música favorita cola aplicación Ubuntu Music. Fai un pequeñu "
+"percorríu o primi Saltar pa entamar a sentir música agora."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr "Importar música"
+msgstr "Importar la to música"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:117
@@ -204,12 +204,12 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
-"Coneuta'l preséu a cualquier equipu y cenciellamente arrastra ficheros a la "
-"carpeta Música o introduz un mediu estrayible con música."
+"Coneuta'l to preséu a cualesquier ordenador y cenciellamente arrastra los "
+"ficheros a la carpeta Música o inxerta un mediu estrayible con música."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr "Descargar música nueva"
+msgstr "Baxar música nueva"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
@@ -221,7 +221,7 @@ msgstr "Aniciar"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
-msgstr "Omitir"
+msgstr "Saltar"
 
 #: ../app/music-app.qml:154
 msgid "Next"
@@ -253,7 +253,7 @@ msgstr "Atrás"
 
 #: ../app/music-app.qml:169
 msgid "Go back to last page"
-msgstr "Volver a la páxina anterior"
+msgstr "Tornar a la páxina anterior"
 
 #: ../app/music-app.qml:177
 msgid "Previous"
@@ -283,7 +283,7 @@ msgstr "Depurar: "
 #: ../app/music-app.qml:359 ../app/music-app.qml:690 ../app/music-app.qml:961
 #: ../app/ui/NowPlaying.qml:37
 msgid "Now playing"
-msgstr "Reproduciendo agora"
+msgstr "Agora reproduciendo"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:359 ../app/music-app.qml:391 ../app/music-app.qml:691
@@ -295,7 +295,7 @@ msgstr "Cola"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
 msgid "Select playlist"
-msgstr "Seleicionar llista de reproducción"
+msgstr "Esbillar llista de reproducción"
 
 #: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
 #: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
@@ -315,11 +315,11 @@ msgstr "Llistes de reproducción"
 #: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
 #: ../app/ui/SongsView.qml:100
 msgid "Recent"
-msgstr "Recientes"
+msgstr "Reciente"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr "Álbums"
+msgstr "Álbumes"
 
 #: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
 #: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:81
@@ -389,7 +389,7 @@ msgstr "Canciones"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Aplicación de música pa Ubuntu"
+msgstr "Una aplicación de música pa Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
