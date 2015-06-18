@@ -151,20 +151,21 @@ function removeQueueList(list)
 
 
 function getQueue() {
-    var res = [];
     var db = getDatabase();
+    var res = [];
+    var filename = "";
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             try {
-                if (musicStore.lookup(decodeURIComponent(rs.rows.item(i).filename)) != null) {
-                    res.push(makeDict(musicStore.lookup(decodeURIComponent(rs.rows.item(i).filename))));
-                }
+                filename = decodeURIComponent(rs.rows.item(i).filename);
             } catch (e) {
-                console.log("Unicode Error: ", rs.rows.item(i).filename, e.message)
-                if (musicStore.lookup(rs.rows.item(i).filename) != null) {
-                    res.push(makeDict(musicStore.lookup(rs.rows.item(i).filename)));
-                }
+                filename = rs.rows.item(i).filename;
+                console.log("Unicode decoding error:", filename, e.message)
+            }
+
+            if (musicStore.lookup(filename) != null) {
+                res.push(makeDict(musicStore.lookup(filename)));
             }
         }
     });
