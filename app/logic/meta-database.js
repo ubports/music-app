@@ -152,8 +152,8 @@ function removeQueueList(list)
 
 function getQueue() {
     var db = getDatabase();
-    var res = [];
     var filename = "";
+    var res = [];
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
