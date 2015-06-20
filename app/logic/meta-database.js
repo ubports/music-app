@@ -156,8 +156,8 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            if (musicStore.lookup(decodeFileURI(filename)) != null) {
-                res.push(makeDict(musicStore.lookup(decodeFileURI(filename))));
+            if (musicStore.lookup(decodeFileURI(rs.rows.item(i).filename)) != null) {
+                res.push(makeDict(musicStore.lookup(decodeFileURI(rs.rows.item(i).filename))));
             }
         }
     });
