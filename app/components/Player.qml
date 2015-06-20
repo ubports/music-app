@@ -204,9 +204,9 @@ Item {
                         var obj;
 
                         if (source.toString().indexOf("file://") === 0) {
-                            obj = musicStore.lookup(decodeURIComponent(source.toString().substring(7)))
+                            obj = musicStore.lookup(decodeFileURI(source.toString().substring(7)))
                         } else {
-                            obj = musicStore.lookup(decodeURIComponent(source.toString()))
+                            obj = musicStore.lookup(decodeFileURI(source.toString()))
                         }
 
                         // protect against null reponse from the lookup

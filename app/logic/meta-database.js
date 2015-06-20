@@ -158,7 +158,7 @@ function getQueue() {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
             try {
-                filename = decodeURIComponent(rs.rows.item(i).filename);
+                filename = decodeFileURI(rs.rows.item(i).filename);
             } catch (e) {
                 filename = rs.rows.item(i).filename;
                 console.log("Unicode decoding error:", filename, e.message)
