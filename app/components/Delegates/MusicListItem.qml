@@ -45,6 +45,8 @@ ListItem {
     }
 
     onPressAndHold: {
+        // FIXME: drag a listitem with no leadingActions to right, then press and hold causes no signal
+
         if (reorderable) {
             ListView.view.ViewItems.dragMode = !ListView.view.ViewItems.dragMode
         }
@@ -61,8 +63,21 @@ ListItem {
     MusicRow {
         id: musicRow
         anchors {
-            verticalCenter: parent.verticalCenter
+            fill: parent
+            leftMargin: selectMode ? 0 : units.gu(2)
+            rightMargin: selectMode ? 0 : units.gu(2)
         }
-        height: parent.height
+
+        Behavior on anchors.leftMargin {
+            NumberAnimation {
+
+            }
+        }
+
+        Behavior on anchors.rightMargin {
+            NumberAnimation {
+
+            }
+        }
     }
 }

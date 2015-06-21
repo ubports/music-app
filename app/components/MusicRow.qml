@@ -22,12 +22,6 @@ import Ubuntu.Components 1.2
 
 
 Row {
-    anchors {
-        left: parent.left
-        leftMargin: units.gu(2)
-        right: parent.right
-        rightMargin: units.gu(2)
-    }
     height: units.gu(7)
 
     property alias column: columnComponent.sourceComponent
