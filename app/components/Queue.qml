@@ -18,10 +18,12 @@
  */
 
 import QtQuick 2.4
+import QtQuick.LocalStorage 2.0
 import Ubuntu.Components 1.2
 import "Delegates"
 import "Flickables"
 import "ListItemActions"
+import "../logic/meta-database.js" as Library
 
 
 MultiSelectListView {
