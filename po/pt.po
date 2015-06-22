@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-14 19:15-0500\n"
-"PO-Revision-Date: 2015-05-14 23:46+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"PO-Revision-Date: 2015-06-21 19:04+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
-"X-Generator: Launchpad (build 17508)\n"
+"X-Launchpad-Export-Date: 2015-06-22 05:32+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -112,7 +112,7 @@ msgstr "Cancelar seleção"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr "Pesquisar música"
+msgstr "Procurar música"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:68
@@ -136,7 +136,7 @@ msgstr "músicas reproduzidas hoje"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No songs played today"
-msgstr "Nenhuma música reproduzida hoje"
+msgstr "Sem músicas reproduzidas hoje"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
