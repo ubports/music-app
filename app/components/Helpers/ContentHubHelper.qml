@@ -203,12 +203,12 @@ Item {
             else {
                 stopTimer();
 
-                trackQueue.clear();
+                newPlayer.mediaPlayer.playlist.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(decodeURIComponent(searchPaths[i]))
 
-                    trackQueue.append(makeDict(model));
+                    newPlayer.mediaPlayer.playlist.addSource(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])));
                 }
 
                 trackQueueClick(0);

@@ -51,7 +51,7 @@ Item {
             CoverGrid {
                 id: albumImage
                 anchors.centerIn: parent
-                covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
+                covers: [newPlayer.currentMeta]
                 size: parent.width > parent.height ? parent.height : parent.width
             }
         }
@@ -92,7 +92,15 @@ Item {
                 fontSize: "x-large"
                 maximumLineCount: 2
                 objectName: "playercontroltitle"
-                text: trackQueue.model.count === 0 ? "" : player.currentMetaTitle === "" ? player.currentMetaFile : player.currentMetaTitle
+                text: {
+                    if (newPlayer.mediaPlayer.playlist.empty) {
+                        ""
+                    } else if (newPlayer.currentMeta.title === "") {
+                        newPlayer.mediaPlayer.playlist.currentSource
+                    } else {
+                        newPlayer.currentMeta.title
+                    }
+                }
                 wrapMode: Text.WordWrap
             }
 
@@ -108,7 +116,7 @@ Item {
                 color: styleMusic.nowPlaying.labelSecondaryColor
                 elide: Text.ElideRight
                 fontSize: "small"
-                text: trackQueue.model.count === 0 ? "" : player.currentMetaArtist
+                text: newPlayer.mediaPlayer.playlist.empty ? "" : newPlayer.currentMeta.author
             }
         }
 
@@ -122,12 +130,13 @@ Item {
 
             onReleased: {
                 var diff = mouse.x - lastX
+
                 if (Math.abs(diff) < units.gu(4)) {
                     return;
                 } else if (diff < 0) {
-                    player.nextSong()
+                    newPlayer.mediaPlayer.playlist.next()
                 } else if (diff > 0) {
-                    player.previousSong()
+                    newPlayer.mediaPlayer.playlist.previous()
                 }
             }
         }
@@ -167,7 +176,7 @@ Item {
             fontSize: "small"
             height: parent.height
             horizontalAlignment: Text.AlignHCenter
-            text: durationToString(player.position)
+            text: durationToString(newPlayer.mediaPlayer.position)
             verticalAlignment: Text.AlignVCenter
             width: units.gu(3)
         }
@@ -176,10 +185,10 @@ Item {
             id: progressSliderMusic
             anchors.left: parent.left
             anchors.right: parent.right
-            maximumValue: player.duration  // load value at startup
+            maximumValue: newPlayer.mediaPlayer.duration  // load value at startup
             objectName: "progressSliderShape"
             style: UbuntuBlueSliderStyle {}
-            value: player.position  // load value at startup
+            value: newPlayer.mediaPlayer.position  // load value at startup
 
             function formatValue(v) {
                 if (seeking) {  // update position label while dragging
@@ -194,7 +203,7 @@ Item {
 
             onSeekingChanged: {
                 if (seeking === false) {
-                    musicToolbarFullPositionLabel.text = durationToString(player.position)
+                    musicToolbarFullPositionLabel.text = durationToString(newPlayer.mediaPlayer.position)
                 }
             }
 
@@ -203,22 +212,22 @@ Item {
 
                 if (!pressed) {
                     seeked = true
-                    player.seek(value)
+                    newPlayer.mediaPlayer.seek(value)
 
                     musicToolbarFullPositionLabel.text = durationToString(value)
                 }
             }
 
             Connections {
-                target: player
+                target: newPlayer.mediaPlayer
                 onPositionChanged: {
                     // seeked is a workaround for bug 1310706 as the first position after a seek is sometimes invalid (0)
                     if (progressSliderMusic.seeking === false && !progressSliderMusic.seeked) {
-                        musicToolbarFullPositionLabel.text = durationToString(player.position)
-                        musicToolbarFullDurationLabel.text = durationToString(player.duration)
+                        musicToolbarFullPositionLabel.text = durationToString(newPlayer.mediaPlayer.position)
+                        musicToolbarFullDurationLabel.text = durationToString(newPlayer.mediaPlayer.duration)
 
-                        progressSliderMusic.value = player.position
-                        progressSliderMusic.maximumValue = player.duration
+                        progressSliderMusic.value = newPlayer.mediaPlayer.position
+                        progressSliderMusic.maximumValue = newPlayer.mediaPlayer.duration
                     }
 
                     progressSliderMusic.seeked = false;
@@ -240,7 +249,7 @@ Item {
             fontSize: "small"
             height: parent.height
             horizontalAlignment: Text.AlignHCenter
-            text: durationToString(player.duration)
+            text: durationToString(newPlayer.mediaPlayer.duration)
             verticalAlignment: Text.AlignVCenter
             width: units.gu(3)
         }

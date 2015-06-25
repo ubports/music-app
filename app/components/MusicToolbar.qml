@@ -42,7 +42,7 @@ Rectangle {
         anchors {
             fill: parent
         }
-        state: trackQueue.model.count === 0 ? "disabled" : "enabled"
+        state: newPlayer.mediaPlayer.playlist.empty ? "disabled" : "enabled"
         states: [
             State {
                 name: "disabled"
@@ -105,8 +105,8 @@ Rectangle {
                 }
                 color: "#FFF"
                 height: units.gu(2.5)
-                name: player.playbackState === MediaPlayer.PlayingState ?
-                          "media-playback-pause" : "media-playback-start"
+                name: newPlayer.playbackState === MediaPlayer.PlayingState
+                      ? "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
                 width: height
             }
@@ -121,11 +121,10 @@ Rectangle {
                         return;
                     }
 
-                    if (trackQueue.model.count === 0) {
+                    if (newPlayer.mediaPlayer.playlist.empty) {
                         playRandomSong();
-                    }
-                    else {
-                        player.toggle();
+                    } else {
+                        newPlayer.mediaPlayer.toggle();
                     }
                 }
             }
@@ -149,7 +148,7 @@ Rectangle {
                      left: parent.left
                      top: parent.top
                  }
-                 covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaArt}]
+                 covers: [newPlayer.currentMeta]
                  size: parent.height
             }
 
@@ -175,8 +174,9 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     font.weight: Font.DemiBold
-                    text: player.currentMetaTitle === ""
-                          ? player.source : player.currentMetaTitle
+                    text: newPlayer.currentMeta.title === ""
+                          ? newPlayer.mediaPlayer.playlist.currentSource
+                          : newPlayer.currentMeta.title
                 }
 
                 /* Artist of track */
@@ -190,7 +190,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     opacity: 0.4
-                    text: player.currentMetaArtist
+                    text: newPlayer.currentMeta.author
                 }
             }
 
@@ -204,8 +204,8 @@ Rectangle {
                 }
                 color: "#FFF"
                 height: units.gu(2.5)
-                name: player.playbackState === MediaPlayer.PlayingState ?
-                          "media-playback-pause" : "media-playback-start"
+                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState
+                      ? "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
                 width: height
             }
@@ -227,7 +227,7 @@ Rectangle {
                     horizontalCenter: playerControlsPlayButton.horizontalCenter
                     top: parent.top
                 }
-                onClicked: player.toggle()
+                onClicked: newPlayer.mediaPlayer.toggle()
                 width: units.gu(8)
 
                 Rectangle {
@@ -265,17 +265,17 @@ Rectangle {
                 }
                 color: UbuntuColors.blue
                 height: parent.height
-                width: player.duration > 0 ? (player.position / player.duration) * playerControlsProgressBar.width : 0
+                width: newPlayer.mediaPlayer.progress * playerControlsProgressBar.width
+
+                /*
+                  FIXME: needed?
 
                 Connections {
-                    target: player
-                    onPositionChanged: {
-                        playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
-                    }
-                    onStopped: {
-                        playerControlsProgressBarHint.width = 0;
-                    }
+                    target: newPlayer.mediaPlayer
+                    onPositionChanged: playerControlsProgressBarHint.width = (newPlayer.mediaPlayer.position / newPlayer.mediaPlayer.duration) * playerControlsProgressBar.width
+                    onStopped: playerControlsProgressBarHint.width = 0;
                 }
+                */
             }
         }
     }

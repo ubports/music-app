@@ -28,7 +28,7 @@ Button {
 
     property var model
 
-    onClicked: addQueueFromModel(model)
+    onClicked: newPlayer.mediaPlayer.playlist.addSourcesFromModel(model)
 
     Text {
         anchors {

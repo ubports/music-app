@@ -123,8 +123,8 @@ MusicPage {
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
-                    trackQueue.clear()
-                    trackQueue.append(songsModelFilter.get(index))
+                    newPlayer.mediaPlayer.playlist.clear();
+                    newPlayer.mediaPlayer.playlist.addSource(Qt.resolvedUrl(songsModelFilter.get(index).filename));
                     trackQueueClick(0)
                 } else {
                     trackClicked(songsModelFilter, index)  // play track

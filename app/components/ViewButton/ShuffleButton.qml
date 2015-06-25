@@ -28,7 +28,7 @@ Button {
 
     property var model
 
-    onClicked: shuffleModel(model)
+    onClicked: playRandomSong(model)
 
     Text {
         anchors {

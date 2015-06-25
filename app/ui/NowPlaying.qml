@@ -55,12 +55,12 @@ MusicPage {
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
-        if (queueListLoader.item.count === trackQueue.model.count) {
-            positionAt(player.currentIndex);
+        if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.mediaCount) {
+            positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
         } else {
             queueListLoader.item.onCountChanged.connect(function() {
-                if (queueListLoader.item.count === trackQueue.model.count) {
-                    positionAt(player.currentIndex);
+                if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.mediaCount) {
+                    positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
                 }
             })
         }
@@ -86,28 +86,30 @@ MusicPage {
                     }
                 },
                 Action {
-                    enabled: trackQueue.model.count > 0
+                    enabled: !newPlayer.mediaPlayer.playlist.empty
                     iconName: "add-to-playlist"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Add to playlist")
                     onTriggered: {
                         var items = []
 
-                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
+                        items.push(makeDict(newPlayer.metaForSource(newPlayer.mediaPlayer.playlist.currentSource)));
 
                         mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
                                            {"chosenElements": items})
                     }
                 },
                 Action {
-                    enabled: trackQueue.model.count > 0
+                    enabled: !newPlayer.mediaPlayer.playlist.empty
                     iconName: "delete"
                     objectName: "clearQueue"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
                     onTriggered: {
                         mainPageStack.goBack()
-                        trackQueue.clear()
+                        newPlayer.mediaPlayer.playlist.clear()
+
+                        // FIXME: stop audio?
                     }
                 }
             ]
@@ -127,7 +129,9 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                trackQueue.removeQueueList(selectedItems.slice())
+
+                // TODO: test!
+                newPlayer.mediaPlayer.playlist.removeSources(selectedItems.slice());
             }
         }
     ]

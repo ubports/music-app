@@ -25,7 +25,7 @@ import QtGraphicalEffects 1.0
 Item {
     width: parent.width
 
-    property string art  // : player.currentMetaFile === "" ? Qt.resolvedUrl("../graphics/music-app-cover@30.png") : player.currentMetaArt
+    property string art
 
     // dark layer
     Rectangle {

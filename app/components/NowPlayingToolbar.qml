@@ -37,9 +37,9 @@ Rectangle {
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
+        opacity: newPlayer.repeat && !emptyPageLoader.noMusic ? 1 : .4
         width: height
-        onClicked: player.repeat = !player.repeat
+        onClicked: newPlayer.repeat = !newPlayer.repeat
 
         Icon {
             id: repeatIcon
@@ -50,7 +50,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-repeat"
             objectName: "repeatShape"
-            opacity: player.repeat && !emptyPageLoader.noMusic ? 1 : .4
+            opacity: newPlayer.repeat && !emptyPageLoader.noMusic ? 1 : .4
         }
     }
 
@@ -61,9 +61,9 @@ Rectangle {
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: trackQueue.model.count === 0  ? .4 : 1
+        opacity: newPlayer.mediaPlayer.playlist.empty ? .4 : 1
         width: height
-        onClicked: player.previousSong()
+        onClicked: newPlayer.mediaPlayer.playlist.previous()  // FIXME:
 
         Icon {
             id: nowPlayingPreviousIndicator
@@ -84,7 +84,7 @@ Rectangle {
         anchors.centerIn: parent
         height: units.gu(10)
         width: height
-        onClicked: player.toggle()
+        onClicked: newPlayer.mediaPlayer.toggle()
 
         Icon {
             id: nowPlayingPlayIndicator
@@ -94,7 +94,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             opacity: emptyPageLoader.noMusic ? .4 : 1
             color: "white"
-            name: player.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+            name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
             objectName: "playShape"
         }
     }
@@ -106,9 +106,9 @@ Rectangle {
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: trackQueue.model.count === 0 ? .4 : 1
+        opacity: newPlayer.mediaPlayer.playlist.empty ? .4 : 1
         width: height
-        onClicked: player.nextSong()
+        onClicked: newPlayer.mediaPlayer.playlist.next()  // FIXME:
 
         Icon {
             id: nowPlayingNextIndicator
@@ -130,9 +130,9 @@ Rectangle {
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
+        opacity: newPlayer.shuffle && !emptyPageLoader.noMusic ? 1 : .4
         width: height
-        onClicked: player.shuffle = !player.shuffle
+        onClicked: newPlayer.shuffle = !newPlayer.shuffle
 
         Icon {
             id: shuffleIcon
@@ -143,7 +143,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
-            opacity: player.shuffle && !emptyPageLoader.noMusic ? 1 : .4
+            opacity: newPlayer.shuffle && !emptyPageLoader.noMusic ? 1 : .4
         }
     }
 
@@ -167,17 +167,7 @@ Rectangle {
             }
             color: UbuntuColors.blue
             height: parent.height
-            width: player.duration > 0 ? (player.position / player.duration) * playerControlsProgressBar.width : 0
-
-            Connections {
-                target: player
-                onPositionChanged: {
-                    playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
-                }
-                onStopped: {
-                    playerControlsProgressBarHint.width = 0;
-                }
-            }
+            width: newPlayer.mediaPlayer.progress * playerControlsProgressBar.width
         }
     }
 }
