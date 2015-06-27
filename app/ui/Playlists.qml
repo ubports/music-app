@@ -52,6 +52,7 @@ MusicPage {
     ]
 
     property bool changed: false
+    property bool childrenChanged: false
 
     onVisibleChanged: {
         if (changed) {

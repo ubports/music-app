@@ -37,6 +37,7 @@ MusicPage {
     title: i18n.tr("Recent")
 
     property bool changed: false
+    property bool childrenChanged: false
 
     onVisibleChanged: {
         if (changed) {
