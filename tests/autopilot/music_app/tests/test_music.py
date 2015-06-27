@@ -79,7 +79,6 @@ class TestMainWindow(MusicAppTestCase):
 
         # get track item to swipe and queue
         track = self.app.get_songs_view().get_track(0)
-        track.swipe_reveal_actions()
 
         # add track to the queue
         track.click_add_to_queue_action()
@@ -206,8 +205,6 @@ class TestMainWindow(MusicAppTestCase):
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(i)
-        track.swipe_reveal_actions()
-
         track.click_add_to_queue_action()  # add track to queue
 
         # wait for the player index to change
@@ -344,8 +341,6 @@ class TestMainWindow(MusicAppTestCase):
         songs_page = self.app.get_songs_view()
 
         track = songs_page.get_track(0)
-        track.swipe_reveal_actions()
-
         track.click_add_to_queue_action()  # add track to the queue
 
         # verify track queue has added one to initial value
@@ -417,8 +412,6 @@ class TestMainWindow(MusicAppTestCase):
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(0)
-        track.swipe_reveal_actions()
-
         track.click_add_to_queue_action()  # add track to queue
 
         # verify track queue has added all songs to initial value
@@ -452,8 +445,6 @@ class TestMainWindow(MusicAppTestCase):
 
         # get track row and swipe to reveal actions
         track = tracks_page.get_track(0)
-        track.swipe_reveal_actions()
-
         track.click_add_to_playlist_action()  # add track to queue
 
         add_to_playlist_page = self.app.get_add_to_playlist_page()
@@ -601,9 +592,7 @@ class TestMainWindow(MusicAppTestCase):
 
         # get track row and swipe to reveal swipe to delete
         track = now_playing_page.get_track(0)
-        track.swipe_to_delete()
-
-        track.confirm_removal()  # confirm delete
+        track.click_remove_action()
 
         # verify song has been deleted
         self.assertThat(self.app.get_queue_count(),

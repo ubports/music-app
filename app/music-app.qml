@@ -904,7 +904,6 @@ MainView {
                 }
             }
 
-
             // fifth tab is the playlists
             Tab {
                 property bool populated: false

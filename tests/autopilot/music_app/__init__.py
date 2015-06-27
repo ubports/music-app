@@ -6,7 +6,9 @@
 # by the Free Software Foundation.
 
 """music-app tests and emulators - top level package."""
-from ubuntuuitoolkit import MainView, UbuntuUIToolkitCustomProxyObjectBase
+from ubuntuuitoolkit import (
+    MainView, UbuntuUIToolkitCustomProxyObjectBase, UCListItem
+)
 
 
 class MusicAppException(Exception):
@@ -383,41 +385,18 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         now_playing_page.visible.wait_for(True)
 
 
-class MusicListItem(UbuntuUIToolkitCustomProxyObjectBase):
-    @click_object
+class MusicListItem(UCListItem):
     def click_add_to_playlist_action(self):
-        return self.wait_select_single(objectName="addToPlaylistAction")
+        return self.trigger_trailing_action("addToPlaylistAction")
 
-    @click_object
     def click_add_to_queue_action(self):
-        return self.wait_select_single(objectName="addToQueueAction")
+        return self.trigger_trailing_action("addToQueueAction")
 
-    @click_object
-    def confirm_removal(self):
-        return self.wait_select_single(objectName="swipeDeleteAction")
+    def click_remove_action(self):
+        return self.trigger_leading_action("swipeDeleteAction")
 
     def get_label_text(self, name):
         return self.wait_select_single(objectName=name).text
-
-    def swipe_reveal_actions(self):
-        x, y, width, height = self.globalRect
-        start_x = x + (width * 0.8)
-        stop_x = x + (width * 0.2)
-        start_y = stop_y = y + (height // 2)
-
-        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
-
-        self.swipping.wait_for(False)
-
-    def swipe_to_delete(self):
-        x, y, width, height = self.globalRect
-        start_x = x + (width * 0.2)
-        stop_x = x + (width * 0.8)
-        start_y = stop_y = y + (height // 2)
-
-        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
-
-        self.swipping.wait_for(False)
 
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):

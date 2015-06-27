@@ -113,7 +113,7 @@ MusicPage {
             imageSource: {"art": model.art}
             multiselectable: true
             trailingActions: AddToQueueAndPlaylist {
-
+                page: songsPage
             }
 
             onItemClicked: {
