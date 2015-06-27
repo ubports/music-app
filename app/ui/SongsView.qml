@@ -78,7 +78,11 @@ MusicPage {
     Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
         id: refreshWaitTimer
         interval: 250
-        onTriggered: albumTracksModel.filterPlaylistTracks(line2)
+        onTriggered: {
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                albumTracksModel.filterPlaylistTracks(line2)
+            }
+        }
     }
 
     function recentChangedHelper()
