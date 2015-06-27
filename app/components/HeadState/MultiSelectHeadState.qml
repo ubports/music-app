@@ -45,7 +45,7 @@ PageHeadState {
                 }
 
                 mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                                   {"chosenElements": items})
+                                   {"chosenElements": items, "page": thisPage})
 
                 listview.closeSelection()
             }

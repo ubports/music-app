@@ -53,11 +53,9 @@ MusicPage {
 
     property bool loaded: false  // used to detect difference between first and further loads
 
-    property bool playlistChanged: false
-
     onVisibleChanged: {
-        if (playlistChanged) {
-            playlistChanged = false
+        if (page.childrenChanged) {
+            page.childrenChanged = false
             refreshWaitTimer.start()
         }
     }
@@ -69,8 +67,9 @@ MusicPage {
             if (songStackPage.line1 === i18n.tr("Playlist")) {
                 if (songStackPage.visible) {
                     albumTracksModel.filterPlaylistTracks(line2)
+                    covers = Playlists.getPlaylistCovers(line2)
                 } else {
-                    songStackPage.playlistChanged = true
+                    songStackPage.page.childrenChanged = true;
                 }
             }
         }
@@ -80,6 +79,18 @@ MusicPage {
         id: refreshWaitTimer
         interval: 250
         onTriggered: albumTracksModel.filterPlaylistTracks(line2)
+    }
+
+    function recentChangedHelper()
+    {
+        // if parent Recent then set changed otherwise refilter
+        if (songStackPage.page.title === i18n.tr("Recent")) {
+            if (songStackPage.page !== undefined) {
+                songStackPage.page.changed = true
+            }
+        } else {
+            recentModel.filterRecent()
+        }
     }
 
     function playlistChangedHelper(force)
@@ -96,14 +107,7 @@ MusicPage {
         }
 
         if (Library.recentContainsPlaylist(songStackPage.line2) || force) {
-            // if parent Recent then set changed otherwise refilter
-            if (songStackPage.page.title === i18n.tr("Recent")) {
-                if (songStackPage.page !== undefined) {
-                    songStackPage.page.changed = true
-                }
-            } else {
-                recentModel.filterRecent()
-            }
+            recentChangedHelper();
         }
     }
 
@@ -197,7 +201,7 @@ MusicPage {
                             console.debug("Unknown type to add to recent")
                         }
 
-                        recentModel.filterRecent()
+                        recentChangedHelper();
                     }
                 }
                 QueueAllButton {
@@ -216,7 +220,7 @@ MusicPage {
                             console.debug("Unknown type to add to recent")
                         }
 
-                        recentModel.filterRecent()
+                        recentChangedHelper();
                     }
                 }
             }
@@ -316,7 +320,9 @@ MusicPage {
 
                 },
                 AddToPlaylist {
-
+                    // page needs to be given here so AddToPlaylist knows if we are on a playlist page
+                    // if we are then it can then refresh the model
+                    page: songStackPage
                 }
             ]
 
@@ -331,7 +337,7 @@ MusicPage {
                     console.debug("Unknown type to add to recent")
                 }
 
-                recentModel.filterRecent()
+                recentChangedHelper();
             }
             onReorder: {
                 console.debug("Move: ", from, to);
