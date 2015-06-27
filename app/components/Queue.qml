@@ -72,7 +72,6 @@ MultiSelectListView {
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
-                    page: nowPlaying
                 }
             ]
             delegate: ActionDelegate {

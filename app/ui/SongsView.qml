@@ -315,9 +315,6 @@ MusicPage {
             multiselectable: true
             reorderable: songStackPage.line1 === i18n.tr("Playlist")
             trailingActions: AddToQueueAndPlaylist {
-                // page needs to be given here so AddToPlaylist knows if we are on a playlist page
-                // if we are then it can then refresh the model
-                page: songStackPage
             }
 
             onItemClicked: {

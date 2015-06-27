@@ -25,12 +25,10 @@ Action {
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
 
-    property Page page
-
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 
         mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                           {"chosenElements": [makeDict(model)], "page": page})
+                           {"chosenElements": [makeDict(model)]})
     }
 }

@@ -96,7 +96,7 @@ MusicPage {
                         items.push(makeDict(trackQueue.model.get(player.currentIndex)));
 
                         mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
-                                           {"chosenElements": items, "page": nowPlaying})
+                                           {"chosenElements": items})
                     }
                 },
                 Action {
