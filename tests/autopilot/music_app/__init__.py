@@ -393,7 +393,8 @@ class MusicListItem(UCListItem):
         return self.trigger_trailing_action("addToQueueAction")
 
     def click_remove_action(self):
-        return self.trigger_leading_action("swipeDeleteAction")
+        return self.trigger_leading_action("swipeDeleteAction",
+                                           self.wait_until_destroyed)
 
     def get_label_text(self, name):
         return self.wait_select_single(objectName=name).text
