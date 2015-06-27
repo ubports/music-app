@@ -40,9 +40,10 @@ PageHeadState {
             text: i18n.tr("Add to playlist")
             onTriggered: {
                 var items = []
+                var indicies = listview.getSelectedIndices();
 
-                for (var i=0; i < listview.getSelectedIndices().length; i++) {
-                    items.push(makeDict(listview.model.get(listview.getSelectedIndices()[i], listview.model.RoleModelData)));
+                for (var i=0; i < indicies.length; i++) {
+                    items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
                 }
 
                 mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
@@ -59,9 +60,10 @@ PageHeadState {
 
             onTriggered: {
                 var items = []
+                var indicies = listview.getSelectedIndices();
 
-                for (var i=0; i < listview.getSelectedIndices().length; i++) {
-                    items.push(listview.model.get(listview.getSelectedIndices()[i], listview.model.RoleModelData));
+                for (var i=0; i < indicies.length; i++) {
+                    items.push(listview.model.get(indicies[i], listview.model.RoleModelData));
                 }
 
                 trackQueue.appendList(items)

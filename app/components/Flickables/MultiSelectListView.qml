@@ -49,7 +49,11 @@ MusicListView {
     // Can't access ViewItems externally
     // so for the header actions we need to expose the selectedIndices
     function getSelectedIndices() {
-        return ViewItems.selectedIndices
+        var indicies = ViewItems.selectedIndices.slice();
+
+        indicies.sort();  // ensure indicies are in-order
+
+        return indicies;
     }
 
     ViewItems.selectMode: false

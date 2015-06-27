@@ -151,7 +151,7 @@ MusicPage {
             thisPage: songStackPage
 
             onRemoved: {
-                Playlists.removeFromPlaylist(songStackPage.line2, selectedItems)
+                Playlists.removeFromPlaylist(songStackPage.line2, selectedIndices)
 
                 playlistChangedHelper()  // update recent/playlist models
 
