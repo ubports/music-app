@@ -320,9 +320,6 @@ MusicPage {
 
                 },
                 AddToPlaylist {
-                    // page needs to be given here so AddToPlaylist knows if we are on a playlist page
-                    // if we are then it can then refresh the model
-                    page: songStackPage
                 }
             ]
 

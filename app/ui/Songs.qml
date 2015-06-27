@@ -117,7 +117,6 @@ MusicPage {
                 AddToQueue {
                 },
                 AddToPlaylist {
-                    page: songsPage
                 }
             ]
 

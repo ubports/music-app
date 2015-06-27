@@ -72,7 +72,6 @@ MultiSelectListView {
         reorderable: true
         rightSideActions: [
             AddToPlaylist{
-                    page: nowPlaying
             }
         ]
 

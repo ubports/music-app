@@ -60,7 +60,6 @@ MusicPage {
     ]
 
     property var chosenElements: []
-    property var page
 
     onVisibleChanged: {
         // Load the playlistmodel if it hasn't loaded or is empty
@@ -96,7 +95,7 @@ MusicPage {
             onClicked: {
                 Playlists.addToPlaylistList(name, chosenElements)
 
-                if (tabs.selectedTab.title === i18n.tr("Playlists") && page) {
+                if (tabs.selectedTab.title === i18n.tr("Playlists")) {
                     // If we are on a page above playlists then set changed
                     tabs.selectedTab.page.changed = true;
                     tabs.selectedTab.page.childrenChanged = true;
@@ -106,7 +105,7 @@ MusicPage {
                 }
 
                 if (Library.recentContainsPlaylist(name)) {
-                    if (tabs.selectedTab.title === i18n.tr("Recent") && page) {
+                    if (tabs.selectedTab.title === i18n.tr("Recent")) {
                         // If we are on a page above recent then set changed
                         tabs.selectedTab.page.changed = true;
                         tabs.selectedTab.page.childrenChanged = true;
