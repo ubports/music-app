@@ -21,12 +21,14 @@ import Ubuntu.Components 1.2
 import "../Delegates"
 
 ListItemActions {
+    property alias page: addToPlaylist.page
+
     actions: [
         AddToQueue {
 
         },
         AddToPlaylist {
-
+            id: addToPlaylist
         }
     ]
     delegate: ActionDelegate {
