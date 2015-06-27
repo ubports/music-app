@@ -48,7 +48,10 @@ class MusicApp(object):
 
     def __init__(self, app_proxy):
         self.app = app_proxy
-        self.main_view = self.app.wait_select_single(MainView)
+
+        # Use only objectName due to bug 1350532 as it is MainView12
+        self.main_view = self.app.wait_select_single(
+            objectName="musicMainView")
         self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
@@ -137,7 +140,10 @@ class Page(UbuntuUIToolkitCustomProxyObjectBase):
         super(Page, self).__init__(*args)
         # XXX we need a better way to keep reference to the main view.
         # --elopio - 2014-01-31
-        self.main_view = self.get_root_instance().select_single(MainView)
+
+        # Use only objectName due to bug 1350532 as it is MainView12
+        self.main_view = self.get_root_instance().select_single(
+            objectName="musicMainView")
 
 
 class MusicPage(Page):
