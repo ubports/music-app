@@ -45,7 +45,7 @@ ListItem {
     }
 
     onPressAndHold: {
-        // FIXME: drag a listitem with no leadingActions to right, then press and hold causes no signal
+        // FIXME: pad.lv/1468100 drag a listitem with no leadingActions to right, then press and hold causes no signal
 
         if (reorderable) {
             ListView.view.ViewItems.dragMode = !ListView.view.ViewItems.dragMode
@@ -64,10 +64,13 @@ ListItem {
         id: musicRow
         anchors {
             fill: parent
+            // When not in selectMode we want a margin between the Image and the left edge
+            // when in selectMode the checkbox has its own margin so we don't want a double margin
             leftMargin: selectMode ? 0 : units.gu(2)
             rightMargin: selectMode ? 0 : units.gu(2)
         }
 
+        // Animate margin changes so it isn't noticible
         Behavior on anchors.leftMargin {
             NumberAnimation {
 
