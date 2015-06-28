@@ -1,3 +1,9 @@
+music-app (2.2) vivid; urgency=medium
+  [ Andrew Hayzen ]
+  * Bump framework to 15.04
+  
+ -- Andrew Hayzen <ahayzen@gmail.com>  Sat, 27 Jun 2015 21:30:23 +0100
+
 music-app (2.1) vivid; urgency=medium
 
   [ Andrew Hayzen ]

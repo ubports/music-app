@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-14 19:15-0500\n"
-"PO-Revision-Date: 2015-05-14 23:46+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"PO-Revision-Date: 2015-06-26 17:26+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
-"X-Generator: Launchpad (build 17508)\n"
+"X-Launchpad-Export-Date: 2015-06-27 05:40+0000\n"
+"X-Generator: Launchpad (build 17578)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -112,7 +112,7 @@ msgstr "Cancelar seleção"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr "Pesquisar música"
+msgstr "Procurar música"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:68
@@ -136,7 +136,7 @@ msgstr "músicas reproduzidas hoje"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No songs played today"
-msgstr "Nenhuma música reproduzida hoje"
+msgstr "Sem músicas reproduzidas hoje"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
@@ -156,7 +156,7 @@ msgstr "Misturar a música"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr "Não foram encontradas playlists"
+msgstr "Sem playlists"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -191,8 +191,8 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
-"Desfrute das suas músicas favoritas com a aplicação Música do Ubuntu. Faça "
-"uma visita guiada sobre como dar os primeiros passos ou escolha saltar para "
+"Desfrute das suas músicas favoritas com a app Música do Ubuntu. Faça uma "
+"visita guiada sobre como dar os primeiros passos ou escolha saltar para "
 "começar já a ouvir."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
@@ -367,7 +367,7 @@ msgstr "Género"
 
 #: ../app/ui/LibraryEmptyState.qml:106
 msgid "No music found"
-msgstr "Nenhuma música encontrada"
+msgstr "Sem músicas encontradas"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:107
@@ -390,7 +390,7 @@ msgstr "Músicas"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Uma aplicação de música para Ubuntu"
+msgstr "Uma app de música para Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
