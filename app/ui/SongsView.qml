@@ -54,7 +54,7 @@ MusicPage {
     property bool loaded: false  // used to detect difference between first and further loads
 
     onVisibleChanged: {
-        if (page.childrenChanged) {
+        if (page && page.childrenChanged) {
             page.childrenChanged = false
             refreshWaitTimer.start()
         }
