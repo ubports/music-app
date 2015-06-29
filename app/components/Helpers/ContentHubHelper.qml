@@ -155,7 +155,7 @@ Item {
             }
 
             // tell content-hub we are finished with the files
-            activeTransfer.state = ContentTransfer.Finalized;
+            activeTransfer.finalize();
         }
     }
 
