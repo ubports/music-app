@@ -153,6 +153,9 @@ Item {
                 var errordialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubErrorDialog.qml"), mainView)
                 errordialog.errorText = err.join("\n")
             }
+
+            // tell content-hub we are finished with the files
+            activeTransfer.state = ContentTransfer.Finalized;
         }
     }
 
