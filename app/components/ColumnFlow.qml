@@ -492,7 +492,12 @@ Item {
 
     function setDelayRebuildIndex(index)
     {
-        if (delayRebuildIndex === -1 || index < lastIndex) {
+        // Only update the delay index if it isn't set (-1) or
+        //
+        // is within the size of the model (lastIndex)
+        // and is lower than the current delayed index
+        if (delayRebuildIndex === -1 ||
+                (index < delayRebuildIndex && index < lastIndex)) {
             delayRebuildIndex = index
         }
     }
