@@ -104,7 +104,7 @@ Rectangle {
                     verticalCenter: parent.verticalCenter
                 }
                 color: "#FFF"
-                height: units.gu(2.5)
+                height: units.gu(4)
                 name: player.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
@@ -203,7 +203,7 @@ Rectangle {
                     verticalCenter: parent.verticalCenter
                 }
                 color: "#FFF"
-                height: units.gu(2.5)
+                height: units.gu(4)
                 name: player.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
