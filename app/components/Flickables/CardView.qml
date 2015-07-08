@@ -35,16 +35,10 @@ Flickable {
     property alias delegate: flow.delegate
     property var getter
     property alias header: headerLoader.sourceComponent
-    property var model: flow.model
+    property alias model: flow.model
     property real itemWidth: units.gu(15)
 
     onGetterChanged: flow.getter = getter  // cannot use alias to set a function (must be var)
-
-    onVisibleChanged: {
-        if (visible) {  // only load model once CardView is visible
-            flow.model = model
-        }
-    }
 
     Loader {
         id: headerLoader
