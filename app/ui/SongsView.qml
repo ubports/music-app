@@ -164,9 +164,6 @@ MusicPage {
                 playlistChangedHelper()  // update recent/playlist models
 
                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                // refresh cover art
-                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
             }
         }
     ]
@@ -189,6 +186,9 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
+
+        onCountChanged: songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
+
         header: BlurredHeader {
             id: blurredHeader
             rightColumn: Column {
@@ -357,9 +357,6 @@ MusicPage {
                         playlistChangedHelper()  // update recent/playlist models
 
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                        // refresh cover art
-                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
             }
