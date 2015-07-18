@@ -1,3 +1,9 @@
+music-app (2.2ubuntu1) UNRELEASED; urgency=medium
+
+  * Switch to using the new listitems within the SDK
+
+ -- Andrew Hayzen <andy@andy-Pangolin-Performance>  Sat, 18 Jul 2015 22:02:01 +0100
+
 music-app (2.2) vivid; urgency=medium
   [ Andrew Hayzen ]
   * Bump framework to 15.04
