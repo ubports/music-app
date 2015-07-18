@@ -55,8 +55,8 @@ Item {
         }
 
         // Filter by artist and album
-        songsAlbumArtistModel.albumArtist = decodeURIComponent(split[0]);
-        songsAlbumArtistModel.album = decodeURIComponent(split[1]);
+        songsAlbumArtistModel.albumArtist = decodeFileURI(split[0]);
+        songsAlbumArtistModel.album = decodeFileURI(split[1]);
     }
 
     function processFile(uri, play) {
@@ -69,7 +69,7 @@ Item {
         }
 
         // Lookup track in songs model
-        var track = musicStore.lookup(decodeURIComponent(uri));
+        var track = musicStore.lookup(decodeFileURI(uri));
 
         if (!track) {
             console.debug("Unknown file " + uri + ", skipping")

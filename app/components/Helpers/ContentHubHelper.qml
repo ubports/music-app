@@ -20,7 +20,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.0
-import Ubuntu.Content 0.1
+import Ubuntu.Content 1.1
 import "../../logic/stored-request.js" as StoredRequest
 
 
@@ -153,6 +153,9 @@ Item {
                 var errordialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/ContentHubErrorDialog.qml"), mainView)
                 errordialog.errorText = err.join("\n")
             }
+
+            // tell content-hub we are finished with the files
+            activeTransfer.finalize();
         }
     }
 
@@ -181,7 +184,7 @@ Item {
             var model;
 
             for (i=0; i < searchPaths.length; i++) {
-                model = musicStore.lookup(decodeURIComponent(searchPaths[i]))
+                model = musicStore.lookup(decodeFileURI(searchPaths[i]))
 
                 console.debug("MusicStore model from lookup", JSON.stringify(model))
 
@@ -206,7 +209,7 @@ Item {
                 trackQueue.clear();
 
                 for (i=0; i < searchPaths.length; i++) {
-                    model = musicStore.lookup(decodeURIComponent(searchPaths[i]))
+                    model = musicStore.lookup(decodeFileURI(searchPaths[i]))
 
                     trackQueue.append(makeDict(model));
                 }

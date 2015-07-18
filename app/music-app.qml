@@ -418,6 +418,21 @@ MainView {
         trackClicked(model, index, true)
     }
 
+    // Wrapper function around decodeURIComponent() to prevent exceptions
+    // from bubbling up to the app.
+    function decodeFileURI(filename)
+    {
+        var newFilename = "";
+        try {
+            newFilename = decodeURIComponent(filename);
+        } catch (e) {
+            newFilename = filename;
+            console.log("Unicode decoding error:", filename, e.message)
+        }
+
+        return newFilename;
+    }
+
     // Load mediascanner store
     MediaStore {
         id: musicStore
@@ -439,7 +454,7 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < trackQueue.model.count; i++) {
-                    if (musicStore.lookup(decodeURIComponent(trackQueue.model.get(i).filename)) === null) {
+                    if (musicStore.lookup(decodeFileURI(trackQueue.model.get(i).filename)) === null) {
                         removed.push(i)
                     }
                 }
