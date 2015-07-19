@@ -47,4 +47,4 @@ NOTE: Prior to running the tests on the device, you will need to do the followin
 Using autopkg:
 
 1. navigate to the directory where the music-app branch is and run:
-  $ adt-run music-app --click=com.ubuntu.music --- ssh -s adb
+  $ adt-run music-app --click=com.ubuntu.music --- ssh -s adb -p YOURPASSWORD
