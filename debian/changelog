@@ -1,3 +1,10 @@
+music-app (2.2ubuntu1) UNRELEASED; urgency=medium
+
+  [ Victor Thompson ]
+  * Fix typo in README.autopilot
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Sun, 19 Jul 2015 12:07:00 -0500
+
 music-app (2.2) vivid; urgency=medium
   [ Andrew Hayzen ]
   * Bump framework to 15.04

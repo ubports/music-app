@@ -18,7 +18,7 @@ $ sudo apt-get install python-autopilot libautopilot-qt ubuntu-ui-toolkit-autopi
 Using terminal:
 
 *  Branch the music app code, for example,
-    $ bzr branch lp:music-ap
+    $ bzr branch lp:music-app
     
 *  Navigate to the tests/autopilot directory.
     $ cd music-app/tests/autopilot
