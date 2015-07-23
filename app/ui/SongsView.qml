@@ -187,7 +187,11 @@ MusicPage {
         objectName: "songspage-listview"
         width: parent.width
 
-        onCountChanged: songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
+        onCountChanged: {
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2) 
+            }
+        }
 
         header: BlurredHeader {
             id: blurredHeader
