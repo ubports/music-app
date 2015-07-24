@@ -188,6 +188,7 @@ MusicPage {
         width: parent.width
 
         onCountChanged: {
+            // If the number of songs in this playlist has changed, refresh the cover art
             if (songStackPage.line1 === i18n.tr("Playlist")) {
                 songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2) 
             }
