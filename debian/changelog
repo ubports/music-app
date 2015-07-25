@@ -2,6 +2,7 @@ music-app (2.2ubuntu1) UNRELEASED; urgency=medium
 
   [ Victor Thompson ]
   * Fix SongsView album art for albums and genres
+  * Fix to allow the LibraryEmptyState to work again 
 
  -- Victor Thompson <victor.thompson@gmail.com>  Thu, 23 Jul 2015 21:08:38 -0500
 
