@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-14 19:15-0500\n"
-"PO-Revision-Date: 2015-05-14 23:46+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"PO-Revision-Date: 2015-06-24 22:28+0000\n"
+"Last-Translator: Bartosz Kosiorek <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-19 05:47+0000\n"
-"X-Generator: Launchpad (build 17508)\n"
+"X-Launchpad-Export-Date: 2015-07-26 05:40+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -40,7 +40,7 @@ msgstr "Anuluj"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Czekam na piliki..."
+msgstr "Czekam na pliki..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -50,7 +50,7 @@ msgstr "Zmień nazwę listy odtwarzania"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr "Podaj nazwę playlisty"
+msgstr "Podaj nazwę listy odtwarzania"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -59,7 +59,7 @@ msgstr "Zmień"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr "Taka lista utworów już istnieje"
+msgstr "Taka lista odtwarzania już istnieje"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
@@ -68,7 +68,7 @@ msgstr "Proszę podać nazwę."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr "Nowa playlista"
+msgstr "Nowa lista odtwarzania"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
@@ -97,7 +97,7 @@ msgstr "Zaznacz wszystko"
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:92
 msgid "Add to playlist"
-msgstr "Dodaj do playlisty"
+msgstr "Dodaj do listy odtwarzania"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:56
 msgid "Add to queue"
@@ -133,11 +133,11 @@ msgstr "Nie udało się przenieść pliku"
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "songs played today"
-msgstr "Utwory odtworzone dzisiaj"
+msgstr "utworów odtworzonych dzisiaj"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No songs played today"
-msgstr "Brak utworów odtworzonych dzisiaj"
+msgstr "Nie odtwarzano dzisiaj utworów"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:27
 msgid "Add to Queue"
@@ -145,7 +145,7 @@ msgstr "Dodaj do kolejki"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "Ładowanie..."
+msgstr "Wczytywanie..."
 
 #: ../app/components/MusicPage.qml:41
 msgid "No items found"
@@ -176,7 +176,7 @@ msgstr "Odtwórz wszystko"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:42
 msgid "Queue all"
-msgstr "Wszystko do kolejki odtwarzania"
+msgstr "Wszystko do kolejki"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:42
@@ -185,21 +185,20 @@ msgstr "Odtwarzaj losowo"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
-msgstr "Witamy w programie Music!"
+msgstr "Witamy w programie Muzyka!"
 
 #: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
-"Ta aplikacja Ubuntu pozwoli cieszyć się słuchaniem muzyki na tym urządzeniu. "
-"Zapraszamy na krótką prezentację obsługi i możliwości programu. Jeśli nie "
-"chcesz jej teraz poświęcać czasu, kliknij „Pomiń” i zacznij słuchać "
-"natychmiast!"
+"Ciesz się słuchaniem muzyki z aplikacją Ubuntu Muzyka. Zapraszamy na krótką "
+"prezentację obsługi i możliwości programu. Jeśli nie chcesz jej teraz "
+"poświęcać czasu, kliknij „Pomiń” i zacznij słuchać natychmiast."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr "Importowanie muzyki"
+msgstr "Importuj muzykę"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:117
@@ -298,7 +297,7 @@ msgstr "Kolejka"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
 msgid "Select playlist"
-msgstr "Proszę wybrać listę odtwarzania"
+msgstr "Wybór listy odtwarzania"
 
 #: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
 #: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
@@ -314,7 +313,7 @@ msgstr[2] "%1 utworów"
 #: ../app/ui/AddToPlaylist.qml:100 ../app/ui/Playlists.qml:38
 #: ../app/ui/SongsView.qml:90
 msgid "Playlists"
-msgstr "Playlisty"
+msgstr "Listy odtwarzania"
 
 #: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
 #: ../app/ui/SongsView.qml:100
@@ -398,4 +397,4 @@ msgstr "Odtwarzacz muzyki dla Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "muzyka;piosenki;odtwórz;nagarnia;odtwarzacz;dźwięki"
+msgstr "muzyka;piosenki;odtwórz;nagrania;odtwarzacz;dźwięki;"

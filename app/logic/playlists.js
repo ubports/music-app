@@ -230,7 +230,7 @@ function getPlaylistTracks(playlist) {
             for (j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
 
-                if (musicStore.lookup(decodeURIComponent(dbItem.filename)) === null) {
+                if (musicStore.lookup(decodeFileURI(dbItem.filename)) === null) {
                     erroneousTracks.push(dbItem.i);
                 } else {
                     res.push({
@@ -239,7 +239,7 @@ function getPlaylistTracks(playlist) {
                                  title: dbItem.title,
                                  author: dbItem.author,
                                  album: dbItem.album,
-                                 art: musicStore.lookup(decodeURIComponent(dbItem.filename)).art
+                                 art: musicStore.lookup(decodeFileURI(dbItem.filename)).art
                              })
                 }
             }
@@ -298,11 +298,11 @@ function getPlaylistCovers(playlist, max) {
 
             for (var i = 0; i < rs.rows.length
                  && i < (max || rs.rows.length); i++) {
-                if (musicStore.lookup(decodeURIComponent(rs.rows.item(i).filename)) !== null) {
+                if (musicStore.lookup(decodeFileURI(rs.rows.item(i).filename)) !== null) {
                     var row = {
                         author: rs.rows.item(i).author,
                         album: rs.rows.item(i).album,
-                        art: musicStore.lookup(decodeURIComponent(rs.rows.item(i).filename)).art
+                        art: musicStore.lookup(decodeFileURI(rs.rows.item(i).filename)).art
                     }
 
                     if (find(res, row) === null) {

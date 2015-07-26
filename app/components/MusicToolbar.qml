@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.4
 import QtMultimedia 5.0
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.2
 
 Rectangle {
     anchors {
@@ -104,9 +104,9 @@ Rectangle {
                     verticalCenter: parent.verticalCenter
                 }
                 color: "#FFF"
-                height: units.gu(2.5)
-                name: newPlayer.playbackState === MediaPlayer.PlayingState
-                      ? "media-playback-pause" : "media-playback-start"
+                height: units.gu(4)
+                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
+                          "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
                 width: height
             }
@@ -203,9 +203,9 @@ Rectangle {
                     verticalCenter: parent.verticalCenter
                 }
                 color: "#FFF"
-                height: units.gu(2.5)
-                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState
-                      ? "media-playback-pause" : "media-playback-start"
+                height: units.gu(4)
+                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
+                          "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
                 width: height
             }

@@ -1,3 +1,17 @@
+music-app (2.2ubuntu1) UNRELEASED; urgency=medium
+
+  [ Victor Thompson ]
+  * Fix SongsView album art for albums and genres (LP: #1477366)
+  * Fix to allow the LibraryEmptyState to work again (LP: #1478162)
+
+ -- Victor Thompson <victor.thompson@gmail.com>  Thu, 23 Jul 2015 21:08:38 -0500
+
+music-app (2.2) vivid; urgency=medium
+  [ Andrew Hayzen ]
+  * Bump framework to 15.04
+  
+ -- Andrew Hayzen <ahayzen@gmail.com>  Sat, 27 Jun 2015 21:30:23 +0100
+
 music-app (2.1) vivid; urgency=medium
 
   [ Andrew Hayzen ]

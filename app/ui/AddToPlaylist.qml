@@ -18,8 +18,8 @@
  */
 
 import QtMultimedia 5.0
-import QtQuick 2.3
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import QtQuick.LocalStorage 2.0
@@ -60,7 +60,6 @@ MusicPage {
     ]
 
     property var chosenElements: []
-    property var page
 
     onVisibleChanged: {
         // Load the playlistmodel if it hasn't loaded or is empty
@@ -96,25 +95,24 @@ MusicPage {
             onClicked: {
                 Playlists.addToPlaylistList(name, chosenElements)
 
-                // Check that the parent parent page is not being refiltered
-                if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Playlists")) {
-                    page.page.changed = true
+                if (tabs.selectedTab.title === i18n.tr("Playlists")) {
+                    // If we are on a page above playlists then set changed
+                    tabs.selectedTab.page.changed = true;
+                    tabs.selectedTab.page.childrenChanged = true;
                 } else {
+                    // Otherwise just reload the playlists
                     playlistModel.filterPlaylists();
                 }
 
                 if (Library.recentContainsPlaylist(name)) {
-                    // Check that the parent parent page is not being refiltered
-                    if (page !== undefined && page.page !== undefined && page.page.title === i18n.tr("Recent")) {
-                        page.page.changed = true
+                    if (tabs.selectedTab.title === i18n.tr("Recent")) {
+                        // If we are on a page above recent then set changed
+                        tabs.selectedTab.page.changed = true;
+                        tabs.selectedTab.page.childrenChanged = true;
                     } else {
-                        recentModel.filterRecent()
+                        // Otherwise just reload recent
+                        recentModel.filterRecent();
                     }
-                }
-
-                if (page !== undefined && name === page.line2 && page.playlistChanged !== undefined) {
-                    page.playlistChanged = true
-                    page.covers = Playlists.getPlaylistCovers(name)
                 }
 
                 mainPageStack.goBack();  // go back to the previous page

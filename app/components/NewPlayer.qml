@@ -17,7 +17,7 @@
  */
 
 import QtMultimedia 5.5
-import QtQuick 2.3
+import QtQuick 2.4
 import Qt.labs.settings 1.0
 
 
@@ -44,8 +44,7 @@ Item {
             source = source.substring(7);
         }
 
-        // FIXME: use new decode thing
-        return musicStore.lookup(decodeURIComponent(source)) || blankMeta;
+        return musicStore.lookup(decodeFileURI(source)) || blankMeta;
     }
 
     Settings {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014
+ * Copyright (C) 2014, 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import "../"
 
 
@@ -35,16 +35,10 @@ Flickable {
     property alias delegate: flow.delegate
     property var getter
     property alias header: headerLoader.sourceComponent
-    property var model: flow.model
+    property alias model: flow.model
     property real itemWidth: units.gu(15)
 
     onGetterChanged: flow.getter = getter  // cannot use alias to set a function (must be var)
-
-    onVisibleChanged: {
-        if (visible) {  // only load model once CardView is visible
-            flow.model = model
-        }
-    }
 
     Loader {
         id: headerLoader

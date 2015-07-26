@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
@@ -53,11 +53,9 @@ MusicPage {
 
     property bool loaded: false  // used to detect difference between first and further loads
 
-    property bool playlistChanged: false
-
     onVisibleChanged: {
-        if (playlistChanged) {
-            playlistChanged = false
+        if (page !== undefined && page.childrenChanged) {
+            page.childrenChanged = false
             refreshWaitTimer.start()
         }
     }
@@ -69,8 +67,9 @@ MusicPage {
             if (songStackPage.line1 === i18n.tr("Playlist")) {
                 if (songStackPage.visible) {
                     albumTracksModel.filterPlaylistTracks(line2)
+                    covers = Playlists.getPlaylistCovers(line2)
                 } else {
-                    songStackPage.playlistChanged = true
+                    songStackPage.page.childrenChanged = true;
                 }
             }
         }
@@ -79,7 +78,23 @@ MusicPage {
     Timer {  // FIXME: workaround for when the playlist is deleted and the delegate being deleting causes freezing
         id: refreshWaitTimer
         interval: 250
-        onTriggered: albumTracksModel.filterPlaylistTracks(line2)
+        onTriggered: {
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                albumTracksModel.filterPlaylistTracks(line2)
+            }
+        }
+    }
+
+    function recentChangedHelper()
+    {
+        // if parent Recent then set changed otherwise refilter
+        if (songStackPage.page.title === i18n.tr("Recent")) {
+            if (songStackPage.page !== undefined) {
+                songStackPage.page.changed = true
+            }
+        } else {
+            recentModel.filterRecent()
+        }
     }
 
     function playlistChangedHelper(force)
@@ -96,14 +111,7 @@ MusicPage {
         }
 
         if (Library.recentContainsPlaylist(songStackPage.line2) || force) {
-            // if parent Recent then set changed otherwise refilter
-            if (songStackPage.page.title === i18n.tr("Recent")) {
-                if (songStackPage.page !== undefined) {
-                    songStackPage.page.changed = true
-                }
-            } else {
-                recentModel.filterRecent()
-            }
+            recentChangedHelper();
         }
     }
 
@@ -156,9 +164,6 @@ MusicPage {
                 playlistChangedHelper()  // update recent/playlist models
 
                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                // refresh cover art
-                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
             }
         }
     ]
@@ -181,6 +186,14 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
+
+        onCountChanged: {
+            // If the number of songs in this playlist has changed, refresh the cover art
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2) 
+            }
+        }
+
         header: BlurredHeader {
             id: blurredHeader
             rightColumn: Column {
@@ -197,7 +210,7 @@ MusicPage {
                             console.debug("Unknown type to add to recent")
                         }
 
-                        recentModel.filterRecent()
+                        recentChangedHelper();
                     }
                 }
                 QueueAllButton {
@@ -216,7 +229,7 @@ MusicPage {
                             console.debug("Unknown type to add to recent")
                         }
 
-                        recentModel.filterRecent()
+                        recentChangedHelper();
                     }
                 }
             }
@@ -316,7 +329,6 @@ MusicPage {
 
                 },
                 AddToPlaylist {
-
                 }
             ]
 
@@ -331,7 +343,7 @@ MusicPage {
                     console.debug("Unknown type to add to recent")
                 }
 
-                recentModel.filterRecent()
+                recentChangedHelper();
             }
             onReorder: {
                 console.debug("Move: ", from, to);
@@ -350,9 +362,6 @@ MusicPage {
                         playlistChangedHelper()  // update recent/playlist models
 
                         albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                        // refresh cover art
-                        songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                     }
                 }
             }

@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import "../"
 import "../../logic/stored-request.js" as StoredRequest
 
@@ -47,13 +47,13 @@ Item {
         }
 
         // Filter by artist and album
-        songsAlbumArtistModel.albumArtist = decodeURIComponent(split[0]);
-        songsAlbumArtistModel.album = decodeURIComponent(split[1]);
+        songsAlbumArtistModel.albumArtist = decodeFileURI(split[0]);
+        songsAlbumArtistModel.album = decodeFileURI(split[1]);
     }
 
     function processFile(uri, play) {
         // Lookup track in songs model
-        var track = musicStore.lookup(decodeURIComponent(uri));
+        var track = musicStore.lookup(decodeFileURI(uri));
 
         if (!track) {
             console.debug("Unknown file " + uri + ", skipping")

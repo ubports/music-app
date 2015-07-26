@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.MediaScanner 0.1
 import Qt.labs.settings 1.0
@@ -33,13 +33,14 @@ import "components/Helpers"
 import "ui"
 
 MainView {
-    objectName: "music"
+    objectName: "musicMainView"
     applicationName: "com.ubuntu.music"
     id: mainView
-    useDeprecatedToolbar: false
 
     backgroundColor: styleMusic.mainView.backgroundColor
     headerColor: styleMusic.mainView.headerColor
+
+    property bool useDeprecatedToolbar: false  // FIXME: keep SDK autopilot helpers happy
 
     // Startup settings
     Settings {
@@ -262,7 +263,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.1'
+    property string appVersion: '2.2'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
@@ -366,6 +367,21 @@ MainView {
         newPlayer.mediaPlayer.play();
     }
 
+    // Wrapper function around decodeURIComponent() to prevent exceptions
+    // from bubbling up to the app.
+    function decodeFileURI(filename)
+    {
+        var newFilename = "";
+        try {
+            newFilename = decodeURIComponent(filename);
+        } catch (e) {
+            newFilename = filename;
+            console.log("Unicode decoding error:", filename, e.message)
+        }
+
+        return newFilename;
+    }
+
     // Load mediascanner store
     MediaStore {
         id: musicStore
@@ -389,7 +405,7 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < newPlayer.mediaPlayer.playlist.count; i++) {
-                    if (musicStore.lookup(decodeURIComponent(newPlayer.mediaPlayer.playlist.get(i).filename)) === null) {
+                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.get(i).filename)) === null) {
                         removed.push(i)
                     }
                 }
@@ -754,7 +770,6 @@ MainView {
                     id: tracksPage
                 }
             }
-
 
             // fifth tab is the playlists
             Tab {
