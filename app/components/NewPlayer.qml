@@ -71,7 +71,14 @@ Item {
             }
 
             onCurrentSourceChanged: currentMeta = metaForSource(currentSource)
-            onMediaChanged: saveQueue()
+            onMediaChanged: {
+                saveQueue()
+
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                if (start === currentIndex) {
+                    currentMeta = metaForSource(currentSource)
+                }
+            }
             onMediaInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
                 if (start === 0 && currentIndex === -1) {
@@ -79,8 +86,20 @@ Item {
                 }
 
                 saveQueue()
+
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                if (start === currentIndex) {
+                    currentMeta = metaForSource(currentSource)
+                }
             }
-            onMediaRemoved: saveQueue()
+            onMediaRemoved: {
+                saveQueue()
+
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                if (start === currentIndex) {
+                    currentMeta = metaForSource(currentSource)
+                }
+            }
 
             // TODO: AP needs queue length
 
