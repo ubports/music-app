@@ -717,7 +717,8 @@ MainView {
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
                  mainPageStack.currentPage.title !== i18n.tr("Queue") &&
                  mainPageStack.currentPage.title !== i18n.tr("Select playlist") &&
-                 !firstRun
+                 !firstRun &&
+                 !noMusic
         z: 200  // put on top of everything else
     }
 

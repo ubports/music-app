@@ -29,7 +29,6 @@ Rectangle {
         fill: parent
     }
     color: styleMusic.common.black
-    visible: !noMusic
 
     /* Repeat button */
     MouseArea {
