@@ -30,6 +30,7 @@ Rectangle {
     color: styleMusic.common.black
     height: units.gu(7.25)
     objectName: "musicToolbarObject"
+    visible: !noMusic
 
     // Hack for autopilot otherwise MusicToolbar appears as QQuickRectangle
     // due to bug 1341671 it is required that there is a property so that
@@ -90,7 +91,6 @@ Rectangle {
                 color: styleMusic.playerControls.labelColor
                 text: i18n.tr("Tap to shuffle music")
                 fontSize: "large"
-                visible: !emptyPageLoader.noMusic
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
             }
@@ -117,10 +117,6 @@ Rectangle {
                     fill: parent
                 }
                 onClicked: {
-                    if (emptyPageLoader.noMusic) {
-                        return;
-                    }
-
                     if (trackQueue.model.count === 0) {
                         playRandomSong();
                     }
