@@ -28,7 +28,7 @@ Item {
     property var activeTransfer
     property int importId: 0
     property list<ContentItem> importItems
-    property bool processing: contentHubWaitForFile !== -1
+    property bool processing: contentHubWaitForFile.processId !== -1
 
     ContentTransferHint {
         anchors {

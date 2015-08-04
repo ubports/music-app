@@ -279,6 +279,9 @@ MainView {
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
     property alias queueIndex: startupSettings.queueIndex
+    property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
+    property bool emptyState: noMusic && !firstRun && !contentHub.processing
+    property Page emptyPage: undefined
 
     signal listItemSwiping(int i)
 
@@ -286,6 +289,14 @@ MainView {
     property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS
+
+    onEmptyStateChanged: {
+        if (emptyState) {
+            emptyPage = mainPageStack.push(Qt.resolvedUrl("ui/LibraryEmptyState.qml"), {})
+        } else {
+            mainPageStack.popPage(emptyPage)
+        }
+    }
 
     // Custom debug funtion that's easier to shut off
     function customdebug(text) {
@@ -706,7 +717,8 @@ MainView {
         visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
                  mainPageStack.currentPage.title !== i18n.tr("Queue") &&
                  mainPageStack.currentPage.title !== i18n.tr("Select playlist") &&
-                 !firstRun
+                 !firstRun &&
+                 !noMusic
         z: 200  // put on top of everything else
     }
 
@@ -983,20 +995,6 @@ MainView {
                 }
             }
         } // end of tabs
-    }
-
-    Loader {
-        id: emptyPageLoader
-        // Do not be active if content-hub is importing due to the models resetting
-        // this then causes the empty page loader to partially run then showing a blank header
-        active: noMusic && !firstRun && !contentHub.processing
-        anchors {
-            fill: parent
-        }
-        source: "ui/LibraryEmptyState.qml"
-        visible: active
-
-        property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
     }
 
     LoadingSpinnerComponent {
