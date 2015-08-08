@@ -39,6 +39,20 @@ Page {
     // Property to signal walkthrough completion
     signal finished
 
+    // Go to next slide, if possible
+    function nextSlide() {
+        if (listView.currentIndex < 2) {
+            listView.currentIndex++
+        }
+    }
+
+    // Go to previous slide, if possible
+    function previousSlide() {
+        if (listView.currentIndex > 0) {
+            listView.currentIndex--
+        }
+    }
+
     // ListView to show the slides
     ListView {
         id: listView
@@ -163,7 +177,7 @@ Page {
         visible: listView.currentIndex !== 2
         width: height
 
-        onClicked: listView.currentIndex++
+        onClicked: nextSlide()
 
         Rectangle {
             anchors {
