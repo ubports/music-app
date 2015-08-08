@@ -4,6 +4,7 @@ music-app (2.2ubuntu1) UNRELEASED; urgency=medium
   * Fix SongsView album art for albums and genres (LP: #1477366)
   * Fix to allow the LibraryEmptyState to work again (LP: #1478162)
   * Fix typo in README.autopilot and clarify the instructions
+  * Show all README files in QtCreator
 
   [ Andrew Hayzen ]
   * Fix for console errors when using the parent changed helpers
