@@ -59,7 +59,7 @@ MainView {
     }
 
     // Global keyboard shortcuts
-    focus: true
+    focus: mainPageStack.currentPage.isFirstRun === undefined
     Keys.onPressed: {
         if(event.key === Qt.Key_Escape) {
             if (mainPageStack.currentMusicPage.currentDialog !== null) {
