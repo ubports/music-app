@@ -39,6 +39,19 @@ Page {
     // Property to signal walkthrough completion
     signal finished
 
+    // Global keyboard shortcuts
+    focus: true
+    Keys.onPressed: {
+        switch (event.key) {
+        case Qt.Key_Left:   //  Left   Previous slide
+            previousSlide()
+            break;
+        case Qt.Key_Right:  //  Right  Next slide
+            nextSlide()
+            break;
+        }
+    }
+
     // Go to next slide, if possible
     function nextSlide() {
         if (listView.currentIndex < 2) {
@@ -193,4 +206,6 @@ Page {
             }
         }
     }
+
+    Component.onCompleted: forceActiveFocus()
 }

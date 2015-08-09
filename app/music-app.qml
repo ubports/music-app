@@ -70,16 +70,6 @@ MainView {
                 mainPageStack.goBack();  // Esc      Go back
             }
         }
-        else if (mainPageStack.currentPage.isFirstRun !== undefined) {
-            switch (event.key) {
-            case Qt.Key_Left:   //  Left   Previous slide
-                mainPageStack.currentPage.previousSlide()
-                break;
-            case Qt.Key_Right:  //  Right  Next slide
-                mainPageStack.currentPage.nextSlide()
-                break;
-            }
-        }
         else if(event.modifiers === Qt.AltModifier) {
             var position;
 
