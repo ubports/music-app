@@ -25,12 +25,13 @@ import Ubuntu.Thumbnailer 0.1
 import "../components"
 import "../components/Delegates"
 import "../components/Flickables"
+import "../components/HeadState"
 
 
 MusicPage {
     id: contentHubExportPage
     title: i18n.tr("Export Song")
-
+    searchResultsCount: songsModelFilter.count
     state: "default"
     states: [
         PageHeadState {
@@ -51,8 +52,13 @@ MusicPage {
 
                         mainPageStack.pop()
                     }
+                },
+                Action {
+                    id: searchAction
+                    enabled: songsModelFilter.count > 0
+                    iconName: "search"
+                    onTriggered: contentHubExportPage.state = "search"
                 }
-
             ]
             backAction: Action {
                 iconName: "close"
@@ -69,6 +75,10 @@ MusicPage {
                 backAction: defaultState.backAction
                 actions: defaultState.actions
             }
+        },
+        SearchHeadState {
+            id: searchHeader
+            thisPage: contentHubExportPage
         }
     ]
 
@@ -93,6 +103,9 @@ MusicPage {
             sort.property: "title"
             sort.order: Qt.AscendingOrder
             sortCaseSensitivity: Qt.CaseInsensitive
+            filter.property: "title"
+            filter.pattern: new RegExp(searchHeader.query, "i")
+            filterCaseSensitivity: Qt.CaseInsensitive
         }
 
         property int singularCache: -1
