@@ -32,6 +32,7 @@ MusicPage {
     id: contentHubExportPage
     title: i18n.tr("Export Song")
     searchResultsCount: songsModelFilter.count
+    showToolbar: false
     state: "default"
     states: [
         PageHeadState {
