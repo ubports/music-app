@@ -90,7 +90,6 @@ Rectangle {
                 color: styleMusic.playerControls.labelColor
                 text: i18n.tr("Tap to shuffle music")
                 fontSize: "large"
-                visible: !emptyPageLoader.noMusic
                 wrapMode: Text.WordWrap
                 maximumLineCount: 2
             }
@@ -117,10 +116,6 @@ Rectangle {
                     fill: parent
                 }
                 onClicked: {
-                    if (emptyPageLoader.noMusic) {
-                        return;
-                    }
-
                     if (newPlayer.mediaPlayer.playlist.empty) {
                         playRandomSong();
                     } else {

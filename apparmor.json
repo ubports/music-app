@@ -3,6 +3,7 @@
     "policy_groups": [
         "audio",
         "content_exchange",
+        "content_exchange_source",
         "music_files_read",
         "networking",
         "usermetrics"

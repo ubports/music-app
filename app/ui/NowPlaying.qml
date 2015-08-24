@@ -29,6 +29,7 @@ MusicPage {
     id: nowPlaying
     flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
+    showToolbar: false
     title: isListView ? queueTitle : nowPlayingTitle
     visible: false
 

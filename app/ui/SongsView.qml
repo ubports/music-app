@@ -54,7 +54,7 @@ MusicPage {
     property bool loaded: false  // used to detect difference between first and further loads
 
     onVisibleChanged: {
-        if (page !== undefined && page.childrenChanged) {
+        if (page && page.childrenChanged) {
             page.childrenChanged = false
             refreshWaitTimer.start()
         }
@@ -68,7 +68,7 @@ MusicPage {
                 if (songStackPage.visible) {
                     albumTracksModel.filterPlaylistTracks(line2)
                     covers = Playlists.getPlaylistCovers(line2)
-                } else {
+                } else if (songStackPage.page) {
                     songStackPage.page.childrenChanged = true;
                 }
             }
@@ -88,10 +88,8 @@ MusicPage {
     function recentChangedHelper()
     {
         // if parent Recent then set changed otherwise refilter
-        if (songStackPage.page.title === i18n.tr("Recent")) {
-            if (songStackPage.page !== undefined) {
-                songStackPage.page.changed = true
-            }
+        if (songStackPage.page && songStackPage.page.title === i18n.tr("Recent")) {
+            songStackPage.page.changed = true
         } else {
             recentModel.filterRecent()
         }
@@ -102,10 +100,8 @@ MusicPage {
         force = force === undefined ? false : force  // default force to false
 
         // if parent Playlists then set changed otherwise refilter
-        if (songStackPage.page.title === i18n.tr("Playlists")) {
-            if (songStackPage.page !== undefined) {
-                songStackPage.page.changed = true
-            }
+        if (songStackPage.page && songStackPage.page.title === i18n.tr("Playlists")) {
+            songStackPage.page.changed = true
         } else {
             playlistModel.filterPlaylists()
         }

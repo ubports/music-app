@@ -37,7 +37,7 @@ Rectangle {
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: newPlayer.repeat && !emptyPageLoader.noMusic ? 1 : .4
+        opacity: newPlayer.repeat ? 1 : .4
         width: height
         onClicked: newPlayer.repeat = !newPlayer.repeat
 
@@ -50,7 +50,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-repeat"
             objectName: "repeatShape"
-            opacity: newPlayer.repeat && !emptyPageLoader.noMusic ? 1 : .4
+            opacity: newPlayer.repeat ? 1 : .4
         }
     }
 
@@ -92,7 +92,6 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            opacity: emptyPageLoader.noMusic ? .4 : 1
             color: "white"
             name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
             objectName: "playShape"
@@ -130,7 +129,7 @@ Rectangle {
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: newPlayer.shuffle && !emptyPageLoader.noMusic ? 1 : .4
+        opacity: newPlayer.shuffle ? 1 : .4
         width: height
         onClicked: newPlayer.shuffle = !newPlayer.shuffle
 
@@ -143,7 +142,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
-            opacity: newPlayer.shuffle && !emptyPageLoader.noMusic ? 1 : .4
+            opacity: newPlayer.shuffle ? 1 : .4
         }
     }
 

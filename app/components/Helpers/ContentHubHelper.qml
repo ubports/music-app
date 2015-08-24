@@ -25,16 +25,24 @@ import "../../logic/stored-request.js" as StoredRequest
 
 
 Item {
-    property var activeTransfer
+    property var activeImportTransfer
+    property var activeExportTransfer
+
     property int importId: 0
     property list<ContentItem> importItems
+    property list<ContentItem> exportItems
     property bool processing: contentHubWaitForFile.processId !== -1
 
     ContentTransferHint {
         anchors {
             fill: parent
         }
-        activeTransfer: parent.activeTransfer
+        activeTransfer: parent.activeImportTransfer
+    }
+
+    Component {
+        id: resultComponent
+        ContentItem {}
     }
 
     Connections {
@@ -43,11 +51,17 @@ Item {
 
         property var searchPaths: []
 
-        onImportRequested: {
-            activeTransfer = transfer;
+        onExportRequested: {
+            activeExportTransfer = transfer;
 
-            if (activeTransfer.state === ContentTransfer.Charged) {
-                importItems = activeTransfer.items;
+            mainPageStack.push(Qt.resolvedUrl("../../ui/ContentHubExport.qml"), {contentItemComponent: resultComponent, transfer: activeExportTransfer});
+        }
+
+        onImportRequested: {
+            activeImportTransfer = transfer;
+
+            if (activeImportTransfer.state === ContentTransfer.Charged) {
+                importItems = activeImportTransfer.items;
 
                 if (firstRun) {
                     console.debug("Delaying content-hub import")
@@ -155,7 +169,7 @@ Item {
             }
 
             // tell content-hub we are finished with the files
-            activeTransfer.finalize();
+            activeImportTransfer.finalize();
         }
     }
 
