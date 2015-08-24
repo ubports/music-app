@@ -224,7 +224,9 @@ MainView {
 
         if (!args.values.url) {
             // load the previous queue as there are no args
-            newPlayer.mediaPlayer.playlist.load("~/.local/share/com.ubuntu.music/queue.m3u", "m3u")
+            // TODO: should not be hardcoded
+            // FIXME: doesn't work
+            newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
 
             // use onloaded() and onLoadFailed() to confirm it is complete
             // TODO: test if sync/async as future events may change the queue

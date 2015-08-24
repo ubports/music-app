@@ -118,8 +118,9 @@ Item {
             }
 
             function saveQueue(start, end) {
-                // FIXME: doesn't actually do anything
-                save(Qt.resolvedUrl("~/.local/share/com.ubuntu.music/queue.m3u"), "m3u");
+                // TODO: should not be hardcoded
+                // FIXME: doesn't work
+                save("/home/phablet/.local/share/com.ubuntu.music/queue.m3u");
             }
         }
 
