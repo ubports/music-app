@@ -281,7 +281,7 @@ MainView {
     property alias queueIndex: startupSettings.queueIndex
     property bool noMusic: allSongsModel.rowCount === 0 && allSongsModelModel.status === SongsModel.Ready && loadedUI
     property bool emptyState: noMusic && !firstRun && !contentHub.processing
-    property Page emptyPage: undefined
+    property Page emptyPage
 
     signal listItemSwiping(int i)
 
@@ -714,9 +714,7 @@ MainView {
         }
         asynchronous: true
         source: "components/MusicToolbar.qml"
-        visible: mainPageStack.currentPage.title !== i18n.tr("Now playing") &&
-                 mainPageStack.currentPage.title !== i18n.tr("Queue") &&
-                 mainPageStack.currentPage.title !== i18n.tr("Select playlist") &&
+        visible: (mainPageStack.currentPage.showToolbar || mainPageStack.currentPage.showToolbar === undefined) &&
                  !firstRun &&
                  !noMusic
         z: 200  // put on top of everything else
