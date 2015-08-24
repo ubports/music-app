@@ -39,27 +39,8 @@ MusicPage {
             id: defaultState
             name: "default"
             actions: [
-                Action {
-                    iconName: "tick"
-                    onTriggered: {
-                        var items = [];
-
-                        for (var i=0; i < trackList.selectedItems.length; i++) {
-                            items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(trackList.selectedItems[i]).filename}));
-                        }
-
-                        transfer.items = items;
-                        transfer.state = ContentTransfer.Charged;
-
-                        mainPageStack.pop()
-                    }
-                },
-                Action {
-                    id: searchAction
-                    enabled: songsModelFilter.count > 0
-                    iconName: "search"
-                    onTriggered: contentHubExportPage.state = "search"
-                }
+                tickAction,
+                searchAction,
             ]
             backAction: Action {
                 iconName: "close"
@@ -79,9 +60,48 @@ MusicPage {
         },
         SearchHeadState {
             id: searchHeader
+            actions: [
+                tickAction,
+            ]
             thisPage: contentHubExportPage
+
+            onQueryChanged: trackList.clearSelection()
         }
     ]
+    transitions: [
+        Transition {
+            from: "search"
+            to: "default"
+            ScriptAction {
+                script: trackList.clearSelection()
+            }
+        }
+    ]
+
+
+    Action {
+        id: searchAction
+        enabled: songsModelFilter.count > 0
+        iconName: "search"
+        onTriggered: contentHubExportPage.state = "search"
+    }
+    Action {
+        id: tickAction
+        enabled: trackList.selectedItems.length > 0
+        iconName: "tick"
+        onTriggered: {
+            var items = [];
+
+            for (var i=0; i < trackList.selectedItems.length; i++) {
+                items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(trackList.selectedItems[i]).filename}));
+            }
+
+            transfer.items = items;
+            transfer.state = ContentTransfer.Charged;
+
+            mainPageStack.pop()
+        }
+    }
 
     property var contentItemComponent
     property var transfer
