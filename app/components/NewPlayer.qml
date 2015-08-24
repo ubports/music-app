@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtMultimedia 5.5
+import QtMultimedia 5.4
 import QtQuick 2.4
 import Qt.labs.settings 1.0
 
