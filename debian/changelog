@@ -5,6 +5,7 @@ music-app (2.2ubuntu1) UNRELEASED; urgency=medium
   * Fix to allow the LibraryEmptyState to work again (LP: #1478162)
   * Fix typo in README.autopilot and clarify the instructions
   * Show all README files in QtCreator
+  * Force playlist tracks to sync (LP: #1483962)
 
   [ Andrew Hayzen ]
   * Fix for console errors when using the parent changed helpers

@@ -76,6 +76,8 @@ Item {
         query = Playlists.getPlaylists
         param = null
 
+        // Set syncFactor to the default and set the list to populate
+        worker.syncFactor = 5
         worker.list = Playlists.getPlaylists();
     }
 
@@ -86,6 +88,9 @@ Item {
         query = Playlists.getPlaylistTracks
         param = playlist
 
+        // Set syncFactor to 500 to get the worker to fetch many items at once and
+        // set the list to populate
+        worker.syncFactor = 500
         worker.list = Playlists.getPlaylistTracks(playlist);
     }
 
@@ -96,6 +101,8 @@ Item {
         query = Library.getRecent
         param = null
 
+        // Set syncFactor to the default and set the list to populate
+        worker.syncFactor = 5
         worker.list = Library.getRecent();
     }
 }
