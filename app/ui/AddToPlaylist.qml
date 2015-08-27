@@ -46,6 +46,7 @@ MusicPage {
     title: i18n.tr("Select playlist")
     searchable: true
     searchResultsCount: addToPlaylistModelFilter.count
+    showToolbar: false
     state: "default"
     states: [
         PlaylistsHeadState {

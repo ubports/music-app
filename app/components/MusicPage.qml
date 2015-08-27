@@ -33,6 +33,7 @@ Page {
     property Dialog currentDialog
     property bool searchable: false
     property int searchResultsCount
+    property bool showToolbar: true
 
     Label {
         anchors {
