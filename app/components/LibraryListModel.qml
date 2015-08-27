@@ -88,9 +88,9 @@ Item {
         query = Playlists.getPlaylistTracks
         param = playlist
 
-        // Set syncFactor to 0 to get worker to fetch all items and set the list to
-        // populate
-        worker.syncFactor = 0
+        // Set syncFactor to 500 to get the worker to fetch many items at once and
+        // set the list to populate
+        worker.syncFactor = 500
         worker.list = Playlists.getPlaylistTracks(playlist);
     }
 
