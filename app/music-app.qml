@@ -61,12 +61,6 @@ MainView {
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
-
-        // If this the Walkthrough, then don't process the key event here
-        if (mainPageStack.currentPage.isFirstRun !== undefined) {
-            return;
-        }
-
         if(event.key === Qt.Key_Escape) {
             if (mainPageStack.currentMusicPage.currentDialog !== null) {
                 PopupUtils.close(mainPageStack.currentMusicPage.currentDialog)

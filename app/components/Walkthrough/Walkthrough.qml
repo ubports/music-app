@@ -50,6 +50,9 @@ Page {
             nextSlide()
             break;
         }
+
+        // Prevent the event from propagating to the MainView
+        event.accepted = true
     }
 
     // Go to next slide, if possible
