@@ -6,6 +6,7 @@ music-app (2.2ubuntu1) UNRELEASED; urgency=medium
   * Fix typo in README.autopilot and clarify the instructions
   * Show all README files in QtCreator
   * Force playlist tracks to sync (LP: #1483962)
+  * Allow arrow keys to control the initial walkthrough (LP: #1482760)
 
   [ Andrew Hayzen ]
   * Fix for console errors when using the parent changed helpers
