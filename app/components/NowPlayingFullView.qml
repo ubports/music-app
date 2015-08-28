@@ -52,7 +52,7 @@ Item {
                 id: albumImage
                 anchors.centerIn: parent
                 covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaAlbum}]
-                size: parent.height
+                size: parent.width > parent.height ? parent.height : parent.width
             }
         }
 
