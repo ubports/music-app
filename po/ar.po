@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-05-14 23:42+0000\n"
+"PO-Revision-Date: 2015-08-28 15:36+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,20 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2015-08-25 05:59+0000\n"
+"X-Launchpad-Export-Date: 2015-08-29 05:43+0000\n"
 "X-Generator: Launchpad (build 17690)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr ""
+msgstr "موافق"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
-msgstr ""
+msgstr "الملف المستورد غير موجود"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr ""
+msgstr "انتظر"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
@@ -40,26 +40,26 @@ msgstr "إلغاء"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "ينتظر الملف(ات)..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "إعادة تسمية قائمة التشغيل"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "إدخِل اسم قائمة التشغيل"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr "غيّر"
+msgstr "تغيير"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr ""
+msgstr "هذه القائمة موجودة بالفعل"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
@@ -77,27 +77,27 @@ msgstr "أنشئ"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "حذف القائمة نهائيا؟"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "هذا الإجراء لا يمكن التراجع عنه"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:28
 msgid "Remove"
-msgstr "أزِل"
+msgstr "إزالة"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:27
 msgid "Select All"
-msgstr ""
+msgstr "اختر الكل"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:93
 msgid "Add to playlist"
-msgstr "أضف إلى قائمة تشغيل"
+msgstr "إضافة إلى قائمة التشغيل"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:56
 msgid "Add to queue"
@@ -109,11 +109,11 @@ msgstr "احذف"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:86
 msgid "Cancel selection"
-msgstr ""
+msgstr "إلغاء الاختيار"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "ابحث في الموسيقى"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:82
@@ -128,7 +128,7 @@ msgstr ""
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:114
 msgid "Failed to move file"
-msgstr ""
+msgstr "فشل فى نقل الملف"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
@@ -141,7 +141,7 @@ msgstr "لا أغاني تم تشغيلها اليوم"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
-msgstr ""
+msgstr "أضف إلى الاصطفاف"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
@@ -149,15 +149,15 @@ msgstr "يُحمّل..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "لم يُعثر على أي عنصر"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "انقر لخلط الموسيقى عشوائيا"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "لم يُعثر على قوائم تشغيل"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -174,26 +174,28 @@ msgstr "تشغيل الكل"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:42
 msgid "Queue all"
-msgstr ""
+msgstr "اصطفاف الكل"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:42
 msgid "Shuffle"
-msgstr ""
+msgstr "خلط عشوائي"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
-msgstr ""
+msgstr "مرحبا بك في تطبيق الموسيقى"
 
 #: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"استمتع بالموسيقى المُفضلة لديك مع تطبيق أوبونتو للموسيقى. قُم بجولة قصيرة عن "
+"كيفية استخدام التطبيق أو انقر تخطّي للبدء بالاستماع الآن."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "استورد موسيقاك"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:117
@@ -201,10 +203,12 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"قم بتوصيل جهازك بأي حاسوب وقم بسحب الملفات إلى مُجلد الموسيقى أو أدخِل فلاشة "
+"تحتوي على ملفات موسيقى."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "تنزيل موسيقى جديدة"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
@@ -212,11 +216,11 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "ابدأ"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
-msgstr ""
+msgstr "تخطّي"
 
 #: ../app/music-app.qml:155
 msgid "Next"
@@ -252,7 +256,7 @@ msgstr "العودة إلى آخر صفحة"
 
 #: ../app/music-app.qml:178
 msgid "Previous"
-msgstr "السابق"
+msgstr "السابقة"
 
 #: ../app/music-app.qml:179
 msgid "Previous Track"
@@ -278,13 +282,13 @@ msgstr "التصحيح: "
 #: ../app/music-app.qml:371 ../app/music-app.qml:986
 #: ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "مُشغّل الآن"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:371 ../app/music-app.qml:403 ../app/music-app.qml:987
 #: ../app/music-app.qml:991 ../app/ui/NowPlaying.qml:40
 msgid "Queue"
-msgstr ""
+msgstr "الاصطفاف"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:46
@@ -334,7 +338,7 @@ msgstr "فنان مجهول"
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
 #: ../app/ui/Recent.qml:98
 msgid "Album"
-msgstr ""
+msgstr "الألبوم"
 
 #: ../app/ui/ArtistView.qml:104
 #, qt-format
@@ -353,11 +357,11 @@ msgstr "الفنانين"
 
 #: ../app/ui/Artists.qml:108
 msgid "Artist"
-msgstr ""
+msgstr "الفنان"
 
 #: ../app/ui/ContentHubExport.qml:33
 msgid "Export Song"
-msgstr ""
+msgstr "تصدير الأغنية"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -368,16 +372,16 @@ msgstr "الأنواع"
 #: ../app/ui/SongsView.qml:235 ../app/ui/SongsView.qml:272
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:334
 msgid "Genre"
-msgstr ""
+msgstr "النوع"
 
 #: ../app/ui/LibraryEmptyState.qml:106
 msgid "No music found"
-msgstr ""
+msgstr "لم يُعثر على موسيقى"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:108
 msgid "Clear queue"
-msgstr ""
+msgstr "مسح الاصطفاف"
 
 #: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
 #: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
@@ -388,7 +392,7 @@ msgstr ""
 #: ../app/ui/SongsView.qml:319 ../app/ui/SongsView.qml:322
 #: ../app/ui/SongsView.qml:336
 msgid "Playlist"
-msgstr ""
+msgstr "قائمة التشغيل"
 
 #: ../app/ui/Songs.qml:37
 msgid "Songs"
@@ -396,8 +400,8 @@ msgstr "أغاني"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "تطبيق موسيقى لأوبونتو"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "موسيقى;أغانى;تشغيل;مقطوعات;مشغل;نغمات;"
