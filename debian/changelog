@@ -1,4 +1,14 @@
-music-app (2.2ubuntu1) UNRELEASED; urgency=medium
+music-app (2.3) UNRELEASED; urgency=medium
+
+  [ Bartosz Kosiorek ]
+  *  Reduce size of images (with tinypng.com) to decrease click size and improve performance
+
+ -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Sat, 05 Sep 2015 21:24:54 +0200
+
+music-app (2.2) vivid; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Bump framework to 15.04
 
   [ Victor Thompson ]
   * Fix SongsView album art for albums and genres (LP: #1477366)
@@ -12,15 +22,6 @@ music-app (2.2ubuntu1) UNRELEASED; urgency=medium
   [ Andrew Hayzen ]
   * Fix for console errors when using the parent changed helpers
   * Add support for a content-hub source in both single and multiple selection modes (LP: #1357324)
-
-  [ Bartosz Kosiorek ]
-  *  Reduce size of images (with tinypng.com) to decrease click size and improve performance
-
- -- Victor Thompson <victor.thompson@gmail.com>  Thu, 23 Jul 2015 21:08:38 -0500
-
-music-app (2.2) vivid; urgency=medium
-  [ Andrew Hayzen ]
-  * Bump framework to 15.04
   
  -- Andrew Hayzen <ahayzen@gmail.com>  Sat, 27 Jun 2015 21:30:23 +0100
 
