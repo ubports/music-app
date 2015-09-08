@@ -14,7 +14,7 @@
     "maintainer": "Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>",
     "name": "@PROJECT_NAME@",
     "title": "Music",
-    "version": "2.3.@BZR_REVNO@",
+    "version": "2.2.@BZR_REVNO@",
     "x-source": {
         "vcs-bzr": "@BZR_SOURCE@",
         "vcs-bzr-revno": "@BZR_REVNO@"

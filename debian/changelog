@@ -1,9 +1,9 @@
-music-app (2.3) UNRELEASED; urgency=medium
+music-app (2.2ubuntu1) UNRELEASED; urgency=medium
 
   [ Bartosz Kosiorek ]
   *  Reduce size of images (with tinypng.com) to decrease click size and improve performance
 
- -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Sat, 05 Sep 2015 21:24:54 +0200
+ -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Tue, 08 Sep 2015 10:08:49 +0200
 
 music-app (2.2) vivid; urgency=medium
 
