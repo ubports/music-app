@@ -20,7 +20,6 @@ import QtMultimedia 5.4
 import QtQuick 2.4
 import Qt.labs.settings 1.0
 
-
 Item {
     objectName: "player"
 
@@ -75,9 +74,9 @@ Item {
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
-                if (start === currentIndex) {
-                    currentMeta = metaForSource(currentSource)
-                }
+                //if (start === currentIndex) {
+                //    currentMeta = metaForSource(currentSource)
+                //}
             }
             onMediaInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
@@ -129,9 +128,20 @@ Item {
         onDurationChanged: _calcProgress()
         onPositionChanged: _calcProgress()
 
+        onStatusChanged: {
+            if (status == MediaPlayer.EndOfMedia) {
+                console.debug("End of media, stopping.")
+                stop();
+
+                playlist.currentIndex = 0;
+            }
+        }
+
         function _calcProgress() {
             if (duration > 0) {
                 progress = position / duration;
+            } else if (position >= duration) {
+                progress = 0;
             } else {
                 progress = 0;
             }

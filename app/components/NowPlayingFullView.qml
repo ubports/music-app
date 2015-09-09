@@ -185,7 +185,7 @@ Item {
             id: progressSliderMusic
             anchors.left: parent.left
             anchors.right: parent.right
-            maximumValue: newPlayer.mediaPlayer.duration  // load value at startup
+            maximumValue: newPlayer.mediaPlayer.duration || 1  // fallback to 1 when 0 so that the progress bar works
             objectName: "progressSliderShape"
             style: UbuntuBlueSliderStyle {}
             value: newPlayer.mediaPlayer.position  // load value at startup
@@ -227,7 +227,8 @@ Item {
                         musicToolbarFullDurationLabel.text = durationToString(newPlayer.mediaPlayer.duration)
 
                         progressSliderMusic.value = newPlayer.mediaPlayer.position
-                        progressSliderMusic.maximumValue = newPlayer.mediaPlayer.duration
+                        // fallback to 1 when 0 so that the progress bar works
+                        progressSliderMusic.maximumValue = newPlayer.mediaPlayer.duration || 1
                     }
 
                     progressSliderMusic.seeked = false;
