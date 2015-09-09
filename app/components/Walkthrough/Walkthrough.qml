@@ -39,6 +39,36 @@ Page {
     // Property to signal walkthrough completion
     signal finished
 
+    // Global keyboard shortcuts
+    focus: true
+    Keys.onPressed: {
+        switch (event.key) {
+        case Qt.Key_Left:   //  Left   Previous slide
+            previousSlide()
+            break;
+        case Qt.Key_Right:  //  Right  Next slide
+            nextSlide()
+            break;
+        }
+
+        // Prevent the event from propagating to the MainView
+        event.accepted = true
+    }
+
+    // Go to next slide, if possible
+    function nextSlide() {
+        if (listView.currentIndex < 2) {
+            listView.currentIndex++
+        }
+    }
+
+    // Go to previous slide, if possible
+    function previousSlide() {
+        if (listView.currentIndex > 0) {
+            listView.currentIndex--
+        }
+    }
+
     // ListView to show the slides
     ListView {
         id: listView
@@ -163,7 +193,7 @@ Page {
         visible: listView.currentIndex !== 2
         width: height
 
-        onClicked: listView.currentIndex++
+        onClicked: nextSlide()
 
         Rectangle {
             anchors {
@@ -179,4 +209,6 @@ Page {
             }
         }
     }
+
+    Component.onCompleted: forceActiveFocus()
 }

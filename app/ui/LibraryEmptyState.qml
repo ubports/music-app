@@ -62,7 +62,7 @@ Page {
                         fillMode: Image.PreserveAspectFit
                         height: units.gu(10)
                         smooth: true
-                        source: "../graphics/music_empty_download.png"
+                        source: "../graphics/music_download_icon.png"
                     }
                 }
 
@@ -93,7 +93,7 @@ Page {
                     fillMode: Image.PreserveAspectFit
                     height: units.gu(7)
                     smooth: true
-                    source: "../graphics/music_empty_SD.png"
+                    source: "../graphics/sd_phone_icon.png"
                 }
             }
 
