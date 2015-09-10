@@ -131,10 +131,20 @@ Item {
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia) {
                 console.debug("End of media, stopping.")
+                playlist.currentIndex = 0;
                 stop();
 
-                playlist.currentIndex = 0;
+                _calcProgress();  // ensures progress bar has reset
             }
+        }
+
+        onStopped: {  // hit when pressing next() on last track with repeat off
+            console.debug("onStopped.")
+            stop();
+            playlist.currentIndex = 0;
+            stop();
+
+            _calcProgress();  // ensures progress bar has reset
         }
 
         function _calcProgress() {
