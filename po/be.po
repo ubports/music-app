@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-05-14 23:42+0000\n"
+"PO-Revision-Date: 2015-09-14 13:30+0000\n"
 "Last-Translator: Arsień Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-08-25 05:59+0000\n"
-"X-Generator: Launchpad (build 17690)\n"
+"X-Launchpad-Export-Date: 2015-09-15 05:49+0000\n"
+"X-Generator: Launchpad (build 17737)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -45,12 +45,12 @@ msgstr "Чаканне файла(-ў)"
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Пераназваць спіс прайгравання"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Увядзіце назву ліста"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -68,7 +68,7 @@ msgstr "Калі ласка, увядзіце імя."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr ""
+msgstr "Новы спіс прайгравання"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
@@ -77,11 +77,11 @@ msgstr "Стварыць"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Канчаткова выдаліць спіс кампазіцый?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Наступствы дзеяння нельга будзе адмяніць"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:28
@@ -165,6 +165,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Атрымаеце як мага больш ад «Музыкі»: значок %1, каб пачаць стварэнне спісаў "
+"прайгравання для любога настрою і нагоды."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -174,7 +176,7 @@ msgstr "Граць усё"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:42
 msgid "Queue all"
-msgstr ""
+msgstr "Выбраць усе"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:42
@@ -183,17 +185,20 @@ msgstr "Выпадкова"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Вітакм у «Музыцы»"
 
 #: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Атрымлівайце задавальненне ад любімай музыкі з дапамогай праграмы «Музыка» "
+"Ubuntu. Азнаёмцеся з пачатковымі даведачнымі дадзенымі або націсніце кнопку "
+"«Прапусціць», каб перайсці да праслухоўвання."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Імпартаваць вашу музыку"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:117
@@ -201,22 +206,25 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Злучыце прыладу з любым кампутарам і проста перацягніце файлы ў тэчку музыкі "
+"або устаўце партатыўны носьбіт з музычнымі запісамі."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Атрымаць новую музыку"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
 msgstr ""
+"Непасрэдна імпартаваць музычныя творы, набытыя падчас падарожжаў у інтэрнэце."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Пачаць"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
-msgstr ""
+msgstr "Прапусціць"
 
 #: ../app/music-app.qml:155
 msgid "Next"
@@ -351,7 +359,7 @@ msgstr "Выканаўца"
 
 #: ../app/ui/ContentHubExport.qml:33
 msgid "Export Song"
-msgstr ""
+msgstr "Экспартаваць кампазіцыю"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
