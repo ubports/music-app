@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-09-23 14:14+0000\n"
+"PO-Revision-Date: 2015-09-24 10:03+0000\n"
 "Last-Translator: eltikin <eltikinuyghur@hotmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-09-24 06:00+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-09-25 05:55+0000\n"
+"X-Generator: Launchpad (build 17754)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr ""
+msgstr "تامام"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -108,11 +108,11 @@ msgstr "ئۆچۈر"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:86
 msgid "Cancel selection"
-msgstr ""
+msgstr "تاللاشنى ئەمەلدىن قالدۇر"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "مۇزىكا ئىزدەش"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:82
@@ -144,15 +144,15 @@ msgstr "قاتارغا قوش"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "ئوقۇۋاتىدۇ…"
+msgstr "يۈكلەۋاتىدۇ…"
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "تۈر تېپىلمىدى"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "بۇ يەرنى چېكىپ مۇزىكىنى قۇيۇڭ"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -178,7 +178,7 @@ msgstr "ھەممىسى"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:42
 msgid "Shuffle"
-msgstr ""
+msgstr "تەرتىپسىز"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
@@ -211,11 +211,11 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "باشلا"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
-msgstr ""
+msgstr "ئۆتكۈزۈۋەت"
 
 #: ../app/music-app.qml:155
 msgid "Next"
@@ -366,7 +366,7 @@ msgstr "مۇزىكا تېپىلمىدى"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:108
 msgid "Clear queue"
-msgstr ""
+msgstr "رەت تەرتىپىنى تازلا"
 
 #: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
 #: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
