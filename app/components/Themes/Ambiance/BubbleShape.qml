@@ -112,7 +112,7 @@ Item {
         anchors.fill: parent
         borderSource: "none"
         color: Theme.palette.normal.overlay
-        image: bubbleShape.clipContent ? shapeSource : null
+        source: bubbleShape.clipContent ? shapeSource : null
         visible: !square
     }
 
