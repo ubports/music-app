@@ -57,6 +57,7 @@ Rectangle {
     /* Previous button */
     MouseArea {
         id: nowPlayingPreviousButton
+        enabled: newPlayer.mediaPlayer.canGoPrevious
         anchors.right: nowPlayingPlayButton.left
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -74,7 +75,7 @@ Rectangle {
             color: "white"
             name: "media-skip-backward"
             objectName: "previousShape"
-            opacity: 1
+            opacity: parent.enabled ? 1 : .4
         }
     }
 
@@ -104,6 +105,7 @@ Rectangle {
         anchors.left: nowPlayingPlayButton.right
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
+        enabled: newPlayer.mediaPlayer.canGoNext
         height: units.gu(6)
         opacity: newPlayer.mediaPlayer.playlist.empty ? .4 : 1
         width: height
@@ -118,7 +120,7 @@ Rectangle {
             color: "white"
             name: "media-skip-forward"
             objectName: "forwardShape"
-            opacity: 1
+            opacity: parent.enabled ? 1 : .4
         }
     }
 

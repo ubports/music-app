@@ -123,6 +123,19 @@ Item {
             }
         }
 
+        // FIXME: Bind to settings.repeat/shuffle instead of playbackMode
+        // as that doesn't emit changes
+        property bool canGoPrevious: {
+            playlist.currentIndex !== 0 ||
+            settings.repeat ||
+            settings.shuffle
+        }
+        property bool canGoNext: {
+            playlist.currentIndex !== (playlist.mediaCount - 1) ||
+            settings.repeat ||
+            settings.shuffle
+        }
+
         property double progress: 0
 
         onDurationChanged: _calcProgress()
