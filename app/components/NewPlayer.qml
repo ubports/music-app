@@ -119,7 +119,8 @@ Item {
             function saveQueue(start, end) {
                 // TODO: should not be hardcoded
                 // FIXME: doesn't work
-                save("/home/phablet/.local/share/com.ubuntu.music/queue.m3u");
+                // FIXME: disabled for now to not cause errors/slow down
+                // save("/home/phablet/.local/share/com.ubuntu.music/queue.m3u");
             }
         }
 
