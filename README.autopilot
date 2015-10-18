@@ -2,23 +2,26 @@
 
 Music App follows a test driven development where autopilot tests are run before every merge into trunk. If you are submitting your bugfix/patch to the music app, please follow the following steps below to ensure that all tests pass before proposing a merge request.
 
-If you are looking for more info about Autopilot or writing AP tests for the music app, here are some useful links to help you,
+If you are looking for more info about Autopilot or writing AP tests for the music app, here are some useful links to help you:
 
-- http://developer.ubuntu.com/api/devel/ubuntu-14.10/python/autopilot/
-- http://developer.ubuntu.com/api/devel/ubuntu-14.10/python/autopilot-emulator/
+- http://developer.ubuntu.com/start/quality
+- https://developer.ubuntu.com/api/autopilot/python/1.5.0/
+
+For help and options on running tests, see:
+
+- https://developer.ubuntu.com/en/start/platform/guides/running-autopilot-tests/
 
 ## Prerequisites
 
 Install the following autopilot packages required to run the tests,
-$ sudo apt-get install python-autopilot libautopilot-qt ubuntu-ui-toolkit-autopilot python3-autopilot-vis
-
+$ sudo apt-get install python3-autopilot libautopilot-qt ubuntu-ui-toolkit-autopilot python3-autopilot-vis
 
 ## Running tests on the desktop
 
 Using terminal:
 
 *  Branch the music app code, for example,
-    $ bzr branch lp:music-ap
+    $ bzr branch lp:music-app
     
 *  Navigate to the tests/autopilot directory.
     $ cd music-app/tests/autopilot
@@ -46,5 +49,14 @@ NOTE: Prior to running the tests on the device, you will need to do the followin
 
 Using autopkg:
 
-1. navigate to the directory where the music-app branch is and run:
-  $ adt-run music-app --click=com.ubuntu.music --- ssh -s adb
+*  Branch the Music app code, for example,
+    $ bzr branch lp:music-app
+
+*  Navigate to the source directory.
+    $ cd music-app
+
+*  Build a click package
+    $ click-buddy .
+
+*  Run the tests on device (assumes only one click package in the directory)
+    $ adt-run . *.click --- ssh -s adb -- -p <PASSWORD>

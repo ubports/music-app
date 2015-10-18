@@ -1,5 +1,8 @@
 {
     "destination": [
         "music"
+    ],
+    "source": [
+        "music"
     ]
 }

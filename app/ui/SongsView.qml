@@ -68,7 +68,7 @@ MusicPage {
                 if (songStackPage.visible) {
                     albumTracksModel.filterPlaylistTracks(line2)
                     covers = Playlists.getPlaylistCovers(line2)
-                } else {
+                } else if (songStackPage.page) {
                     songStackPage.page.childrenChanged = true;
                 }
             }
@@ -88,10 +88,8 @@ MusicPage {
     function recentChangedHelper()
     {
         // if parent Recent then set changed otherwise refilter
-        if (songStackPage.page.title === i18n.tr("Recent")) {
-            if (songStackPage.page !== undefined) {
-                songStackPage.page.changed = true
-            }
+        if (songStackPage.page && songStackPage.page.title === i18n.tr("Recent")) {
+            songStackPage.page.changed = true
         } else {
             recentModel.filterRecent()
         }
@@ -102,10 +100,8 @@ MusicPage {
         force = force === undefined ? false : force  // default force to false
 
         // if parent Playlists then set changed otherwise refilter
-        if (songStackPage.page.title === i18n.tr("Playlists")) {
-            if (songStackPage.page !== undefined) {
-                songStackPage.page.changed = true
-            }
+        if (songStackPage.page && songStackPage.page.title === i18n.tr("Playlists")) {
+            songStackPage.page.changed = true
         } else {
             playlistModel.filterPlaylists()
         }
@@ -164,9 +160,6 @@ MusicPage {
                 playlistChangedHelper()  // update recent/playlist models
 
                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                // refresh cover art
-                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
             }
         }
     ]
@@ -189,6 +182,14 @@ MusicPage {
         model: isAlbum ? songsModel : albumTracksModel.model
         objectName: "songspage-listview"
         width: parent.width
+
+        onCountChanged: {
+            // If the number of songs in this playlist has changed, refresh the cover art
+            if (songStackPage.line1 === i18n.tr("Playlist")) {
+                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2) 
+            }
+        }
+
         header: BlurredHeader {
             id: blurredHeader
             rightColumn: Column {
@@ -346,9 +347,6 @@ MusicPage {
                                 playlistChangedHelper()  // update recent/playlist models
 
                                 albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-
-                                // refresh cover art
-                                songStackPage.covers = Playlists.getPlaylistCovers(songStackPage.line2)
                             }
                         }
                     ]

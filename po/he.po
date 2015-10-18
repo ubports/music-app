@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-14 19:15-0500\n"
-"PO-Revision-Date: 2015-05-14 23:44+0000\n"
+"POT-Creation-Date: 2015-08-21 20:40+0100\n"
+"PO-Revision-Date: 2015-08-31 15:29+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-16 05:51+0000\n"
-"X-Generator: Launchpad (build 17628)\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:40+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -83,18 +83,18 @@ msgid "This cannot be undone"
 msgstr ""
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
-#: ../app/components/ListItemActions/Remove.qml:27
+#: ../app/components/ListItemActions/Remove.qml:28
 msgid "Remove"
 msgstr "הסרה"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:27
 msgid "Select All"
-msgstr ""
+msgstr "בחירת הכול"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
-#: ../app/ui/NowPlaying.qml:92
+#: ../app/ui/NowPlaying.qml:93
 msgid "Add to playlist"
 msgstr "הוספה לרשימת הנגינה"
 
@@ -108,24 +108,24 @@ msgstr "מחיקה"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:86
 msgid "Cancel selection"
-msgstr ""
+msgstr "ביטול הבחירה"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "חיפוש מוזיקה"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../app/components/Helpers/ContentHubHelper.qml:68
+#: ../app/components/Helpers/ContentHubHelper.qml:82
 msgid "Filepath must start with"
 msgstr ""
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../app/components/Helpers/ContentHubHelper.qml:94
+#: ../app/components/Helpers/ContentHubHelper.qml:108
 msgid "Filepath must be a file"
 msgstr "נתיב הקובץ חייב להיות קובץ"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../app/components/Helpers/ContentHubHelper.qml:100
+#: ../app/components/Helpers/ContentHubHelper.qml:114
 msgid "Failed to move file"
 msgstr "העברת הקובץ נכשלה"
 
@@ -138,7 +138,7 @@ msgstr "שירים התנגנו היום"
 msgid "No songs played today"
 msgstr "לא התנגנו שירים היום"
 
-#: ../app/components/ListItemActions/AddToQueue.qml:27
+#: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
 msgstr "הוספה לתור"
 
@@ -146,9 +146,9 @@ msgstr "הוספה לתור"
 msgid "Loading..."
 msgstr "בטעינה…"
 
-#: ../app/components/MusicPage.qml:41
+#: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "לא נמצאו פריטים"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "לא נמצאו רשימות השמעה"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -178,11 +178,11 @@ msgstr ""
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:42
 msgid "Shuffle"
-msgstr ""
+msgstr "ערבוב"
 
 #: ../app/components/Walkthrough/Slide1.qml:58
 msgid "Welcome to Music"
-msgstr ""
+msgstr "ברוך בואך לנגן המוזיקה"
 
 #: ../app/components/Walkthrough/Slide1.qml:72
 msgid ""
@@ -192,7 +192,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "יבוא המוזיקה שלך"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:117
@@ -200,99 +200,100 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"ניתן לחבר את ההתקן שלך לכל מחשב שהוא ולגרור קבצים לתיקיית המוזיקה בפשטות או "
+"להכניס אמצעי מדיה נתיקים עם מוזיקה."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "הורדת מוזיקה חדשה"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "יבוא של מוזיקה שרכשת בעת גלישה באינטרנט ישירות."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "התחלה"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:84
 msgid "Skip"
-msgstr ""
+msgstr "דילוג"
 
-#: ../app/music-app.qml:154
+#: ../app/music-app.qml:155
 msgid "Next"
 msgstr "הבא"
 
-#: ../app/music-app.qml:155
+#: ../app/music-app.qml:156
 msgid "Next Track"
 msgstr "הרצועה הבאה"
 
-#: ../app/music-app.qml:161
+#: ../app/music-app.qml:162
 msgid "Pause"
 msgstr "השהיה"
 
-#: ../app/music-app.qml:161
+#: ../app/music-app.qml:162
 msgid "Play"
 msgstr "נגינה"
 
-#: ../app/music-app.qml:163
+#: ../app/music-app.qml:164
 msgid "Pause Playback"
 msgstr "עצירת ההשמעה"
 
-#: ../app/music-app.qml:163
+#: ../app/music-app.qml:164
 msgid "Continue or start playback"
 msgstr "להמשיך או להתחיל בנגינה"
 
-#: ../app/music-app.qml:168
+#: ../app/music-app.qml:169
 msgid "Back"
 msgstr "חזרה"
 
-#: ../app/music-app.qml:169
+#: ../app/music-app.qml:170
 msgid "Go back to last page"
 msgstr "חזרה לעמוד האחרון"
 
-#: ../app/music-app.qml:177
+#: ../app/music-app.qml:178
 msgid "Previous"
 msgstr "הקודם"
 
-#: ../app/music-app.qml:178
+#: ../app/music-app.qml:179
 msgid "Previous Track"
 msgstr "הרצועה הקודמת"
 
-#: ../app/music-app.qml:183
+#: ../app/music-app.qml:184
 msgid "Stop"
 msgstr "עצירה"
 
-#: ../app/music-app.qml:184
+#: ../app/music-app.qml:185
 msgid "Stop Playback"
 msgstr "עצירת הניגון"
 
-#: ../app/music-app.qml:275 com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:276 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "מוזיקה"
 
-#: ../app/music-app.qml:294
+#: ../app/music-app.qml:306
 msgid "Debug: "
 msgstr "ניפוי שגיאות: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:359 ../app/music-app.qml:690 ../app/music-app.qml:961
-#: ../app/ui/NowPlaying.qml:37
+#: ../app/music-app.qml:371 ../app/music-app.qml:986
+#: ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "מושמע כעת"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:359 ../app/music-app.qml:391 ../app/music-app.qml:691
-#: ../app/music-app.qml:962 ../app/music-app.qml:966
-#: ../app/ui/NowPlaying.qml:39
+#: ../app/music-app.qml:371 ../app/music-app.qml:403 ../app/music-app.qml:987
+#: ../app/music-app.qml:991 ../app/ui/NowPlaying.qml:40
 msgid "Queue"
-msgstr ""
+msgstr "תור"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:692 ../app/ui/AddToPlaylist.qml:46
+#: ../app/ui/AddToPlaylist.qml:46
 msgid "Select playlist"
 msgstr "בחירת רשימת נגינה"
 
-#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:86
-#: ../app/ui/SongsView.qml:283 ../app/ui/SongsView.qml:284
+#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:87
+#: ../app/ui/SongsView.qml:292 ../app/ui/SongsView.qml:293
 #, qt-format
 msgid "%1 song"
 msgid_plural "%1 songs"
@@ -301,13 +302,13 @@ msgstr[1] "%1 שירים"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../app/ui/AddToPlaylist.qml:100 ../app/ui/Playlists.qml:38
-#: ../app/ui/SongsView.qml:90
+#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:38
+#: ../app/ui/SongsView.qml:103
 msgid "Playlists"
 msgstr "רשימות נגינה"
 
-#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:37
-#: ../app/ui/SongsView.qml:100
+#: ../app/ui/AddToPlaylist.qml:109 ../app/ui/Recent.qml:37
+#: ../app/ui/SongsView.qml:91
 msgid "Recent"
 msgstr "בשימוש לאחרונה"
 
@@ -316,19 +317,19 @@ msgid "Albums"
 msgstr "אלבומים"
 
 #: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
-#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:81
-#: ../app/ui/SongsView.qml:240
+#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:82
+#: ../app/ui/SongsView.qml:249
 msgid "Unknown Album"
 msgstr "אלבום לא ידוע"
 
 #: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
 #: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
-#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:261
+#: ../app/ui/Recent.qml:83 ../app/ui/SongsView.qml:270
 msgid "Unknown Artist"
 msgstr "אמן לא ידוע"
 
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
-#: ../app/ui/Recent.qml:97
+#: ../app/ui/Recent.qml:98
 msgid "Album"
 msgstr "אלבום"
 
@@ -347,14 +348,18 @@ msgstr "אמנים"
 msgid "Artist"
 msgstr "אמן"
 
+#: ../app/ui/ContentHubExport.qml:33
+msgid "Export Song"
+msgstr "יצוא שיר"
+
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
 msgstr "סגנונות"
 
 #: ../app/ui/Genres.qml:110 ../app/ui/Genres.qml:112
-#: ../app/ui/SongsView.qml:192 ../app/ui/SongsView.qml:211
-#: ../app/ui/SongsView.qml:226 ../app/ui/SongsView.qml:263
-#: ../app/ui/SongsView.qml:282 ../app/ui/SongsView.qml:326
+#: ../app/ui/SongsView.qml:201 ../app/ui/SongsView.qml:220
+#: ../app/ui/SongsView.qml:235 ../app/ui/SongsView.qml:272
+#: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:334
 msgid "Genre"
 msgstr "סגנון"
 
@@ -363,17 +368,18 @@ msgid "No music found"
 msgstr "לא נמצאה מוזיקה"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/ui/NowPlaying.qml:107
+#: ../app/ui/NowPlaying.qml:108
 msgid "Clear queue"
-msgstr ""
+msgstr "פינוי התור"
 
-#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
-#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:69
-#: ../app/ui/SongsView.qml:110 ../app/ui/SongsView.qml:150
-#: ../app/ui/SongsView.qml:194 ../app/ui/SongsView.qml:213
-#: ../app/ui/SongsView.qml:225 ../app/ui/SongsView.qml:262
-#: ../app/ui/SongsView.qml:310 ../app/ui/SongsView.qml:313
-#: ../app/ui/SongsView.qml:328
+#: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
+#: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
+#: ../app/ui/SongsView.qml:82 ../app/ui/SongsView.qml:114
+#: ../app/ui/SongsView.qml:154 ../app/ui/SongsView.qml:188
+#: ../app/ui/SongsView.qml:203 ../app/ui/SongsView.qml:222
+#: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
+#: ../app/ui/SongsView.qml:319 ../app/ui/SongsView.qml:322
+#: ../app/ui/SongsView.qml:336
 msgid "Playlist"
 msgstr "רשימת נגינה"
 
