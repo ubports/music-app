@@ -33,4 +33,14 @@ Rectangle {
         height: units.gu(3)
         width: units.gu(3)
     }
+
+    Rectangle {  // FIXME: pad.lv/1507339 Workaround for gap between end of listitem and first action
+        anchors {
+            bottom: parent.bottom
+            right: parent.left
+            top: parent.top
+        }
+        color: currentColor
+        width: units.gu(0.5)
+    }
 }
