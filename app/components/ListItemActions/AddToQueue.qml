@@ -19,7 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import "../../logic/meta-database.js" as Library
 
 Action {
