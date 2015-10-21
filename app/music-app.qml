@@ -39,6 +39,7 @@ MainView {
 
     backgroundColor: styleMusic.mainView.backgroundColor
     headerColor: styleMusic.mainView.headerColor
+    theme.name: "Ubuntu.Components.Themes.SuruDark"
 
     property bool useDeprecatedToolbar: false  // FIXME: keep SDK autopilot helpers happy
 
