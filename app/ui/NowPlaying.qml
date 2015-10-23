@@ -138,9 +138,12 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: mainView.header.height
+            topMargin: headerHeight
         }
-        height: parent.height - mainView.header.height - units.gu(9.5)
+
+        property real headerHeight: units.gu(6)
+
+        height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
