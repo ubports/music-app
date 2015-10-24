@@ -5,6 +5,7 @@ music-app (2.2ubuntu2) UNRELEASED; urgency=medium
 
   [ Victor Thompson ]
   * Remove some deprecated code for the UbuntuShape image property.
+  * Update app to use the Ubuntu Components version 1.3 (LP: #1508363)
 
  -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Tue, 08 Sep 2015 10:08:49 +0200
 
@@ -18,7 +19,6 @@ music-app (2.2ubuntu1) vivid; urgency=medium
   * Force playlist tracks to sync (LP: #1483962)
   * Allow arrow keys to control the initial walkthrough (LP: #1482760)
   * Always fit the cover art to vertically fill the BlurredBackground
-  * Update app to use the Ubuntu Components version 1.3 (LP: #1508363)
 
   [ Andrew Hayzen ]
   * Fix for console errors when using the parent changed helpers
