@@ -369,7 +369,7 @@ MainView {
 
         if (!clear) {
             // If same track and on Now playing page then toggle
-            if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
+            if (mainPageStack.currentPage.title === i18n.tr("Now playing")
                     && trackQueue.model.get(player.currentIndex) !== undefined
                     && Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
                 player.toggle()
@@ -398,11 +398,6 @@ MainView {
         }
         else {
             player.playSong(trackQueue.model.get(index).filename, index);
-        }
-
-        // Show the Now playing page and make sure the track is visible
-        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
-            tabs.pushNowPlaying();
         }
     }
 
@@ -984,13 +979,8 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
-                        && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
                     mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
-                }
-
-                if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
-                    mainPageStack.currentPage.isListView = false;  // ensure full view
                 }
             }
         } // end of tabs
