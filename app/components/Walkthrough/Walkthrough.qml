@@ -38,6 +38,12 @@ Page {
 
     // Property to signal walkthrough completion
     signal finished
+    
+    // Do not show the Page Header
+    head {
+        visible: false
+        locked: true
+    }
 
     // Global keyboard shortcuts
     focus: true

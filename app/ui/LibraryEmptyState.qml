@@ -26,6 +26,12 @@ Page {
         fill: parent
     }
 
+    // Do not show the Page Header
+    head {
+        visible: false
+        locked: true
+    }
+
     // Overlay to show when no tracks detected on the device
     Rectangle {
         id: libraryEmpty
