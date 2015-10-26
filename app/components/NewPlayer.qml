@@ -103,9 +103,13 @@ Item {
             // TODO: AP needs queue length
 
             function addSourcesFromModel(model) {
+                var sources = []
+
                 for (var i=0; i < model.rowCount; i++) {
-                    addSource(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
+                    sources.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
+
+                addSources(sources);
             }
 
             function removeSources(items) {

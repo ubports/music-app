@@ -62,9 +62,13 @@ PageHeadState {
             visible: addToQueue
 
             onTriggered: {
+                var sources = [];
+
                 for (var i=0; i < listview.selectedItems.length; i++) {
-                    newPlayer.mediaPlayer.playlist.addSource(Qt.resolvedUrl(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData).filename));
+                    sources.push(Qt.resolvedUrl(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData).filename));
                 }
+
+                newPlayer.mediaPlayer.playlist.addSources(sources);
 
                 listview.closeSelection()
             }
