@@ -71,7 +71,7 @@ MultiSelectListView {
             onTriggered: newPlayer.mediaPlayer.playlist.removeSource(index)
         }
         multiselectable: true
-        // reorderable: true  // FIXME: sort out reordering we need moveSource(from, to);
+        reorderable: true  // FIXME: needs testing, sort out reordering we need moveSource(from, to);
         rightSideActions: [
             AddToPlaylist{
             }
