@@ -70,7 +70,7 @@ function addQueueList(items) {
         var ind = getNextIndex(tx);
 
         for (var i = 0; i < items.length; i++) {
-            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
+            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i]]);
         }
     }
     );
@@ -156,8 +156,15 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            if (musicStore.lookup(decodeFileURI(rs.rows.item(i).filename)) != null) {
-                res.push(makeDict(musicStore.lookup(decodeFileURI(rs.rows.item(i).filename))));
+            var filename = rs.rows.item(i).filename;
+
+            // Strip file:// from path as ms2 only accepts /home
+            if (filename.indexOf("file://") == 0) {
+                filename = filename.substr(7);
+            }
+
+            if (musicStore.lookup(decodeFileURI(filename)) != null) {
+                res.push(Qt.resolvedUrl(filename));
             }
         }
     });

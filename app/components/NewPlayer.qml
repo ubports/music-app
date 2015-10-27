@@ -20,6 +20,9 @@ import QtMultimedia 5.4
 import QtQuick 2.4
 import Qt.labs.settings 1.0
 
+import QtQuick.LocalStorage 2.0
+import "../logic/meta-database.js" as Library
+
 Item {
     objectName: "player"
 
@@ -125,6 +128,19 @@ Item {
                 // FIXME: doesn't work
                 // FIXME: disabled for now to not cause errors/slow down
                 // save("/home/phablet/.local/share/com.ubuntu.music/queue.m3u");
+
+                // FIXME: using old queueList for now, move to load()/save() long term
+                if (mainView.loadedUI) {
+                    Library.clearQueue();
+
+                    var sources = [];
+
+                    for (var i=0; i < mediaPlayerPlaylist.mediaCount; i++) {
+                        sources.push(mediaPlayerPlaylist.source(i));
+                    }
+
+                    Library.addQueueList(sources);
+                }
             }
         }
 

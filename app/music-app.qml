@@ -58,6 +58,11 @@ MainView {
         }
     }
 
+    Connections {
+        target: newPlayer.mediaPlayer.playlist
+        onCurrentIndexChanged: startupSettings.queueIndex = newPlayer.mediaPlayer.playlist.currentIndex
+    }
+
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
@@ -218,6 +223,7 @@ MainView {
         customdebug("Version "+appVersion) // print the curren version
 
         Library.createRecent()  // initialize recent
+        Library.createQueue()  // create queue if it doesn't exist
 
         // initialize playlists
         Playlists.initializePlaylist()
@@ -226,10 +232,18 @@ MainView {
             // load the previous queue as there are no args
             // TODO: should not be hardcoded
             // FIXME: doesn't work
-            newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
+            //newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
 
             // use onloaded() and onLoadFailed() to confirm it is complete
             // TODO: test if sync/async as future events may change the queue
+
+            // FIXME: using old queueList for now, move to load()/save() long term
+            if (!Library.isQueueEmpty()) {
+                newPlayer.mediaPlayer.playlist.addSources(Library.getQueue());
+
+                newPlayer.mediaPlayer.playlist.currentIndex = queueIndex;
+                newPlayer.mediaPlayer.pause();
+            }
         }
 
         // everything else
@@ -418,7 +432,7 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < newPlayer.mediaPlayer.playlist.count; i++) {
-                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.get(i).filename)) === null) {
+                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.source(i).filename)) === null) {
                         removed.push(i)
                     }
                 }
