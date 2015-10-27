@@ -52,7 +52,7 @@ class MusicApp(object):
         # Use only objectName due to bug 1350532 as it is MainView12
         self.main_view = self.app.wait_select_single(
             objectName="musicMainView")
-        self.player = self.app.select_single(Player, objectName='player')
+        self.player = self.app.select_single(NewPlayer, objectName='player')
 
     def get_add_to_playlist_page(self):
         return self.app.wait_select_single(AddToPlaylist,
@@ -93,8 +93,7 @@ class MusicApp(object):
             Playlists, objectName='playlistsPage')
 
     def get_queue_count(self):
-        return self.main_view.select_single("LibraryListModel",
-                                            objectName="trackQueue").count
+        return self.player.count
 
     def get_songs_view(self):
         return self.app.wait_select_single(SongsView, objectName="songsPage")
@@ -251,8 +250,8 @@ class AddToPlaylist(MusicPage):
                 objectName="addToPlaylistCardItem" + str(i)))
 
 
-class Player(UbuntuUIToolkitCustomProxyObjectBase):
-    """Autopilot helper for Player"""
+class NewPlayer(UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for NewPlayer"""
 
 
 class NowPlaying(MusicPage):
@@ -261,7 +260,7 @@ class NowPlaying(MusicPage):
         super(NowPlaying, self).__init__(*args)
 
         root = self.get_root_instance()
-        self.player = root.select_single(Player, objectName="player")
+        self.player = root.select_single(NewPlayer, objectName="player")
 
         self.visible.wait_for(True)
 

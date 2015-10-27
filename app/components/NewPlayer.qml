@@ -26,6 +26,7 @@ import "../logic/meta-database.js" as Library
 Item {
     objectName: "player"
 
+    property alias count: mediaPlayerPlaylist.mediaCount
     property var currentMeta: ({})
     property alias mediaPlayer: mediaPlayer
     property alias repeat: settings.repeat
