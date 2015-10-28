@@ -138,9 +138,9 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: mainView.header.height
+            topMargin: units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
-        height: parent.height - mainView.header.height - units.gu(9.5)
+        height: parent.height - units.gu(6.125) - units.gu(9.5)  // FIXME: 6.125 is the header.height
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }

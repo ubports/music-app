@@ -124,7 +124,7 @@ MusicPage {
     Loader {
         anchors {
             fill: parent
-            topMargin: -playlistsPage.header.height
+            topMargin: -units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
         active: playlistModel.model.count === 0 && playlistModel.workerComplete
         asynchronous: true
