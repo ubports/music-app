@@ -389,9 +389,8 @@ MainView {
 
         newPlayer.mediaPlayer.playlist.clear();
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
-        newPlayer.shuffle = true;  // FIXME: may need pending stuff
-        newPlayer.mediaPlayer.playlist.shuffle();
-        newPlayer.mediaPlayer.play();
+        newPlayer.shuffle = true;
+        newPlayer.mediaPlayer.playlist.setPendingShuffle(model.count);
     }
 
     // Wrapper function around decodeURIComponent() to prevent exceptions

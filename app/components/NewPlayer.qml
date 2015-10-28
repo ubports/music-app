@@ -75,6 +75,7 @@ Item {
 
             property int pendingCurrentIndex: -1
             property var pendingCurrentState: null
+            property int pendingShuffle: -1
 
             onCurrentSourceChanged: currentMeta = metaForSource(currentSource)
             onMediaChanged: {
@@ -87,7 +88,7 @@ Item {
             }
             onMediaInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
-                if (start === 0 && currentIndex === -1 && (pendingCurrentIndex < 1)) {
+                if (start === 0 && currentIndex === -1 && pendingCurrentIndex < 1 && pendingShuffle === -1) {
                     currentIndex = 0;
 
                     pendingCurrentIndex = -1;
@@ -100,6 +101,15 @@ Item {
 
                     pendingCurrentIndex = -1;
                     processPendingCurrentState();
+                }
+
+                // Check if there is pending shuffle
+                // pendingShuffle holds the expected size of the model
+                if (pendingShuffle > -1 && pendingShuffle <= mediaCount) {
+                    mediaPlayerPlaylist.shuffle();
+
+                    pendingShuffle = -1;
+                    mediaPlayer.next();  // play a random track
                 }
 
                 saveQueue()
@@ -138,6 +148,7 @@ Item {
                     mediaPlayer.play();
                 } else if (pendingCurrentState === MediaPlayer.PausedState) {
                     console.debug("Loading pending state pause()");
+                    mediaPlayer.pause();
                 } else if (pendingCurrentState === MediaPlayer.StoppedState) {
                     console.debug("Loading pending state stop()");
                     mediaPlayer.stop();
@@ -189,6 +200,16 @@ Item {
 
                 if (pendingCurrentIndex === -1) {
                     processPendingCurrentState();
+                }
+            }
+
+            function setPendingShuffle(modelSize) {
+                // Run shuffle() when the modelSize is reached
+                if (modelSize <= mediaCount) {
+                    mediaPlayerPlaylist.shuffle();
+                    mediaPlayer.next();
+                } else {
+                    pendingShuffle = modelSize;
                 }
             }
         }
