@@ -73,6 +73,9 @@ Item {
                 }
             }
 
+            property int pendingCurrentIndex: -1
+            property var pendingCurrentState: null
+
             onCurrentSourceChanged: currentMeta = metaForSource(currentSource)
             onMediaChanged: {
                 saveQueue()
@@ -84,8 +87,19 @@ Item {
             }
             onMediaInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
-                if (start === 0 && currentIndex === -1) {
+                if (start === 0 && currentIndex === -1 && (pendingCurrentIndex < 1)) {
                     currentIndex = 0;
+
+                    pendingCurrentIndex = -1;
+                    processPendingCurrentState();
+                }
+
+                // Check if the pendingCurrentIndex is now valid
+                if (pendingCurrentIndex !== -1 && pendingCurrentIndex < mediaCount) {
+                    currentIndex = pendingCurrentIndex;
+
+                    pendingCurrentIndex = -1;
+                    processPendingCurrentState();
                 }
 
                 saveQueue()
@@ -116,6 +130,22 @@ Item {
                 addSources(sources);
             }
 
+            function processPendingCurrentState() {
+                // Process the pending current PlaybackState
+
+                if (pendingCurrentState === MediaPlayer.PlayingState) {
+                    console.debug("Loading pending state play()");
+                    mediaPlayer.play();
+                } else if (pendingCurrentState === MediaPlayer.PausedState) {
+                    console.debug("Loading pending state pause()");
+                } else if (pendingCurrentState === MediaPlayer.StoppedState) {
+                    console.debug("Loading pending state stop()");
+                    mediaPlayer.stop();
+                }
+
+                pendingCurrentState = null;
+            }
+
             function removeSources(items) {
                 items.sort();
 
@@ -141,6 +171,24 @@ Item {
                     }
 
                     Library.addQueueList(sources);
+                }
+            }
+
+            function setCurrentIndex(index) {
+                // Set the currentIndex but if the mediaCount is too low then wait
+                if (index < mediaPlayerPlaylist.mediaCount) {
+                    mediaPlayerPlaylist.currentIndex = index;
+                } else {
+                    pendingCurrentIndex = index;
+                }
+            }
+
+            function setPendingCurrentState(pendingState) {
+                // Set the PlaybackState to set once pendingCurrentIndex is set
+                pendingCurrentState = pendingState;
+
+                if (pendingCurrentIndex === -1) {
+                    processPendingCurrentState();
                 }
             }
         }

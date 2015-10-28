@@ -58,7 +58,7 @@ MainView {
         }
     }
 
-    Connections {
+    Connections {  // save the current queueIndex for when the app restarts
         target: newPlayer.mediaPlayer.playlist
         onCurrentIndexChanged: startupSettings.queueIndex = newPlayer.mediaPlayer.playlist.currentIndex
     }
@@ -241,8 +241,8 @@ MainView {
             if (!Library.isQueueEmpty()) {
                 newPlayer.mediaPlayer.playlist.addSources(Library.getQueue());
 
-                newPlayer.mediaPlayer.playlist.currentIndex = queueIndex;
-                newPlayer.mediaPlayer.pause();
+                newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
+                newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);  // TODO: confirm this works if index changes after
             }
         }
 
@@ -357,10 +357,10 @@ MainView {
 
         newPlayer.mediaPlayer.playlist.clear();  // clear the old model
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
-        newPlayer.mediaPlayer.playlist.currentIndex = index;
+        newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
 
         if (play) {
-            newPlayer.mediaPlayer.play();
+            newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
 
             // Show the Now playing page and make sure the track is visible
             tabs.pushNowPlaying();
@@ -371,8 +371,8 @@ MainView {
         if (newPlayer.mediaPlayer.playlist.currentIndex === index) {
             newPlayer.mediaPlayer.toggle();
         }  else {
-            newPlayer.mediaPlayer.playlist.currentIndex = index;
-            newPlayer.mediaPlayer.play();
+            newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
+            newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
         }
 
         // Show the Now playing page and make sure the track is visible
@@ -389,7 +389,7 @@ MainView {
 
         newPlayer.mediaPlayer.playlist.clear();
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
-        newPlayer.shuffle = true;
+        newPlayer.shuffle = true;  // FIXME: may need pending stuff
         newPlayer.mediaPlayer.playlist.shuffle();
         newPlayer.mediaPlayer.play();
     }
