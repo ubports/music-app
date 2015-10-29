@@ -45,8 +45,6 @@ ListItem {
     }
 
     onPressAndHold: {
-        // FIXME: pad.lv/1468100 drag a listitem with no leadingActions to right, then press and hold causes no signal
-
         if (reorderable) {
             ListView.view.ViewItems.dragMode = !ListView.view.ViewItems.dragMode
         }
