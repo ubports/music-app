@@ -162,7 +162,7 @@ class Walkthrough(Page):
 
     @click_object
     def skip(self):
-        return self.wait_select_single("Label", objectName="skipLabel")
+        return self.wait_select_single("UCLabel", objectName="skipLabel")
 
 
 class Albums(MusicPage):
@@ -339,7 +339,8 @@ class ArtistView(MusicPage):
                                        + str(i))
 
     def get_artist(self):
-        return self.wait_select_single("Label", objectName="artistLabel").text
+        return self.wait_select_single("UCLabel",
+                                       objectName="artistLabel").text
 
 
 class SongsView(MusicPage):
@@ -354,7 +355,7 @@ class SongsView(MusicPage):
         return self.get_track(i)
 
     def get_header_artist_label(self):
-        return self.wait_select_single("Label",
+        return self.wait_select_single("UCLabel",
                                        objectName="songsPageHeaderAlbumArtist")
 
     def get_track(self, i):
