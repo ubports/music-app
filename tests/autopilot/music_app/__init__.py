@@ -110,8 +110,8 @@ class MusicApp(object):
             Songs, objectName='songsPage')
 
     def get_walkthrough_page(self):
-        return self.main_view.select_many(Walkthrough,
-                                          objectName="walkthroughPage")[0]
+        return self.main_view.wait_select_single(Walkthrough,
+                                                 objectName="walkthroughPage")
 
     @property
     def loaded(self):
@@ -160,7 +160,7 @@ class Walkthrough(Page):
 
     @click_object
     def skip(self):
-        return self.wait_select_single("Label", objectName="skipLabel")
+        return self.wait_select_single("UCLabel", objectName="skipLabel")
 
 
 class Albums(MusicPage):
