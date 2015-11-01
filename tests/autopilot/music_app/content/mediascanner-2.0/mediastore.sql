@@ -18,11 +18,12 @@ CREATE TABLE media (
     latitude DOUBLE,
     longitude DOUBLE,
     has_thumbnail INTEGER CHECK (has_thumbnail IN (0, 1)),
+    mtime INTEGER,
     type INTEGER CHECK (type IN (1, 2, 3)) -- MediaType enum
 );
-INSERT INTO `media` VALUES('/home/phablet/Music/1.ogg','audio/ogg','1409807154:648352','Gran Vals',1902,'Francisco Tárrega','','Francisco Tárrega','',0,0,202,0,0,'0.0','0.0',0,1);
-INSERT INTO `media` VALUES('/home/phablet/Music/2.ogg','audio/ogg','1409807154:658363','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,0,0,'0.0','0.0',0,1);
-INSERT INTO `media` VALUES('/home/phablet/Music/3.mp3','audio/mpeg','1409807154:658363','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,0,0,'0.0','0.0',0,1);
+INSERT INTO `media` VALUES('/home/phablet/Music/1.ogg','audio/ogg','1409807154:648352','Gran Vals',1902,'Francisco Tárrega','','Francisco Tárrega','',0,0,202,0,0,'0.0','0.0',0,1409807154,1);
+INSERT INTO `media` VALUES('/home/phablet/Music/2.ogg','audio/ogg','1409807154:658363','Swansong','','Josh Woodward','','Josh Woodward','',0,0,62,0,0,'0.0','0.0',0,1409807154,1);
+INSERT INTO `media` VALUES('/home/phablet/Music/3.mp3','audio/mpeg','1409807154:658363','TestMP3Title','','TestMP3Artist','TestMP3Album','TestMP3Artist','',0,0,6,0,0,'0.0','0.0',0,1409807154,1);
 
 CREATE INDEX media_type_idx ON media(type);
 CREATE INDEX media_song_info_idx ON media(type, album_artist, album, disc_number, track_number, title) WHERE type = 0;
