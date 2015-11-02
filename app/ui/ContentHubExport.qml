@@ -157,11 +157,13 @@ MusicPage {
             multiselectable: true
 
             onSelectedChanged: {
-                if (singular && selected && (trackList.selectedCache === -1 || trackList.selectedCache !== index)) {
-                    trackList.ViewItems.selectedIndices = [index];
-                    trackList.selectedCache = index;
-                } else if (singular && !selected && trackList.selectedCache === index) {
-                    trackList.selectedCache = -1;
+                if (singular) {
+                    if (selected && (trackList.selectedCache === -1 || trackList.selectedCache !== index)) {
+                        trackList.ViewItems.selectedIndices = [index];
+                        trackList.selectedCache = index;
+                    } else if (!selected && trackList.selectedCache === index) {
+                        trackList.selectedCache = -1;
+                    }
                 }
             }
         }
