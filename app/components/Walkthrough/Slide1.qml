@@ -21,7 +21,7 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 
 // Slide 1
 Component {
@@ -37,11 +37,12 @@ Component {
                 horizontalCenter: parent.horizontalCenter
             }
             height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
-            image: Image {
+            radius: "medium"
+            source:  Image {
                 id: centerImage
                 source: Qt.resolvedUrl("../../graphics/music-app@30.png")
             }
-            radius: "medium"
+
             width: height
         }
 

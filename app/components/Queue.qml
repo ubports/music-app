@@ -19,7 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import "Delegates"
 import "Flickables"
 import "ListItemActions"
@@ -36,9 +36,6 @@ MultiSelectListView {
     }
     model: newPlayer.mediaPlayer.playlist
     objectName: "nowPlayingqueueList"
-
-    property int normalHeight: units.gu(6)
-    property int transitionDuration: 250  // transition length of animations
 
     onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
@@ -64,50 +61,51 @@ MultiSelectListView {
                 text: metaModel.author
             }
         }
-        height: queueList.normalHeight
-        objectName: "nowPlayingListItem" + index
-        state: ""
-        leftSideAction: Remove {
-            onTriggered: newPlayer.mediaPlayer.playlist.removeSource(index)
+        leadingActions: ListItemActions {
+            actions: [
+                Remove {
+                    onTriggered: newPlayer.mediaPlayer.playlist.removeSource(index)
+                }
+            ]
         }
         multiselectable: true
+        objectName: "nowPlayingListItem" + index
+        state: ""
         reorderable: true  // FIXME: needs testing, sort out reordering we need moveSource(from, to);
-        rightSideActions: [
-            AddToPlaylist{
+        trailingActions: ListItemActions {
+            actions: [
+                AddToPlaylist {
+                }
+            ]
+            delegate: ActionDelegate {
+
             }
-        ]
+        }
 
         onItemClicked: {
             customdebug("File: " + model.source) // debugger
             trackQueueClick(index);
         }
-        onReorder: {
-            console.debug("Move: ", from, to);
+    }
 
-            // Our custom reorder component does -1 on the 'to' if the item is moved 'down'
-            if (to > from) {
-                to += 1;
-            }
 
-            // If the item has gone 'up' then the remove index needs to be +1
-            // as a new item will be inserted before the item to be removed
-            if (to <= from) {
-                from += 1;
-            }
+    onReorder: {
+        console.debug("Move: ", from, to);
 
-            newPlayer.mediaPlayer.playlist.insertSource(to, model.source);
-            newPlayer.mediaPlayer.playlist.removeSource(from);
+        newPlayer.mediaPlayer.playlist.insertSource(to, model.source);
+        newPlayer.mediaPlayer.playlist.removeSource(from);
 
-            /*
-            // Maintain currentIndex with current song
-            if (from === newPlayer.mediaPlayer.playlist.currentIndex) {
-                newPlayer.mediaPlayer.playlist.currentIndex = to;
-            } else if (from < newPlayer.mediaPlayer.playlist.currentIndex && to >= newPlayer.mediaPlayer.playlist.currentIndex) {
-                newPlayer.mediaPlayer.playlist.currentIndex -= 1;
-            } else if (from > newPlayer.mediaPlayer.playlist.currentIndex && to <= newPlayer.mediaPlayer.playlist.currentIndex) {
-                newPlayer.mediaPlayer.playlist.currentIndex += 1;
-            }
-            */
+        /*
+        // Maintain currentIndex with current song
+        if (from === player.currentIndex) {
+            player.currentIndex = to;
+        } else if (from < player.currentIndex && to >= player.currentIndex) {
+            player.currentIndex -= 1;
+        } else if (from > player.currentIndex && to <= player.currentIndex) {
+            player.currentIndex += 1;
         }
+
+        queueIndex = player.currentIndex
+        */
     }
 }

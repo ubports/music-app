@@ -6,7 +6,9 @@
 # by the Free Software Foundation.
 
 """music-app tests and emulators - top level package."""
-from ubuntuuitoolkit import MainView, UbuntuUIToolkitCustomProxyObjectBase
+from ubuntuuitoolkit import (
+    MainView, UbuntuUIToolkitCustomProxyObjectBase, UCListItem
+)
 
 
 class MusicAppException(Exception):
@@ -159,7 +161,7 @@ class Walkthrough(Page):
 
     @click_object
     def skip(self):
-        return self.wait_select_single("Label", objectName="skipLabel")
+        return self.wait_select_single("UCLabel", objectName="skipLabel")
 
 
 class Albums(MusicPage):
@@ -222,9 +224,6 @@ class Playlists(MusicPage):
     def get_playlist(self, i):
         return (self.wait_select_single("Card",
                 objectName="playlistCardItem" + str(i)))
-
-    def click_delete_playlist_action(self):
-            self.main_view.get_header().click_action_button("deletePlaylist")
 
 
 class AddToPlaylist(MusicPage):
@@ -336,7 +335,8 @@ class ArtistView(MusicPage):
                                        + str(i))
 
     def get_artist(self):
-        return self.wait_select_single("Label", objectName="artistLabel").text
+        return self.wait_select_single("UCLabel",
+                                       objectName="artistLabel").text
 
 
 class SongsView(MusicPage):
@@ -346,12 +346,15 @@ class SongsView(MusicPage):
 
         self.visible.wait_for(True)
 
+    def click_delete_playlist_action(self):
+        self.main_view.get_header().click_action_button("deletePlaylist")
+
     @click_object
     def click_track(self, i):
         return self.get_track(i)
 
     def get_header_artist_label(self):
-        return self.wait_select_single("Label",
+        return self.wait_select_single("UCLabel",
                                        objectName="songsPageHeaderAlbumArtist")
 
     def get_track(self, i):
@@ -382,41 +385,19 @@ class MusicToolbar(UbuntuUIToolkitCustomProxyObjectBase):
         now_playing_page.visible.wait_for(True)
 
 
-class MusicListItem(UbuntuUIToolkitCustomProxyObjectBase):
-    @click_object
+class MusicListItem(UCListItem):
     def click_add_to_playlist_action(self):
-        return self.wait_select_single(objectName="addToPlaylistAction")
+        return self.trigger_trailing_action("addToPlaylistAction")
 
-    @click_object
     def click_add_to_queue_action(self):
-        return self.wait_select_single(objectName="addToQueueAction")
+        return self.trigger_trailing_action("addToQueueAction")
 
-    @click_object
-    def confirm_removal(self):
-        return self.wait_select_single(objectName="swipeDeleteAction")
+    def click_remove_action(self):
+        return self.trigger_leading_action("swipeDeleteAction",
+                                           self.wait_until_destroyed)
 
     def get_label_text(self, name):
         return self.wait_select_single(objectName=name).text
-
-    def swipe_reveal_actions(self):
-        x, y, width, height = self.globalRect
-        start_x = x + (width * 0.8)
-        stop_x = x + (width * 0.2)
-        start_y = stop_y = y + (height // 2)
-
-        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
-
-        self.swipping.wait_for(False)
-
-    def swipe_to_delete(self):
-        x, y, width, height = self.globalRect
-        start_x = x + (width * 0.2)
-        stop_x = x + (width * 0.8)
-        start_y = stop_y = y + (height // 2)
-
-        self.pointing_device.drag(start_x, start_y, stop_x, stop_y)
-
-        self.swipping.wait_for(False)
 
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):

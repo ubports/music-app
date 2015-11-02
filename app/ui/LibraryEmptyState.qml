@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 
 Page {
     id: libraryEmptyPage
@@ -26,12 +26,18 @@ Page {
         fill: parent
     }
 
+    // Do not show the Page Header
+    head {
+        visible: false
+        locked: true
+    }
+
     // Overlay to show when no tracks detected on the device
     Rectangle {
         id: libraryEmpty
         anchors {
             fill: parent
-            topMargin: -libraryEmptyPage.header.height
+            topMargin: -units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
         color: mainView.backgroundColor
 

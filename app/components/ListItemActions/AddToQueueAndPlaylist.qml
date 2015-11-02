@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2012-2015 Canonical, Ltd.
+ * Copyright (C) 2015
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,11 +17,18 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
+import "../Delegates"
 
-CheckBox {
-    checked: root.selected
-    width: implicitWidth
-    // disable item mouse area to avoid conflicts with parent mouse area
-    __mouseArea.enabled: false
+ListItemActions {
+    actions: [
+        AddToQueue {
+
+        },
+        AddToPlaylist {
+        }
+    ]
+    delegate: ActionDelegate {
+
+    }
 }

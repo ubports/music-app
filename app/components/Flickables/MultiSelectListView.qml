@@ -18,34 +18,53 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 
 MusicListView {
-    property var selectedItems: []
+    // Can't access ViewItems externally
+    // so we need to expose if in multiselect mode for the header states
+    state: ViewItems.selectMode ? "multiselectable" : "normal"
 
     signal clearSelection()
     signal closeSelection()
+    signal reorder(int from, int to)
     signal selectAll()
 
-    onClearSelection: selectedItems = []
+    onClearSelection: ViewItems.selectedIndices = []
     onCloseSelection: {
         clearSelection()
-        state = "normal"
+        ViewItems.selectMode = false
+        ViewItems.dragMode = false
     }
     onSelectAll: {
-        var tmp = selectedItems
+        var tmp = []
 
         for (var i=0; i < model.count; i++) {
-            if (tmp.indexOf(i) === -1) {
-                tmp.push(i)
-            }
+            tmp.push(i)
         }
 
-        selectedItems = tmp
+        ViewItems.selectedIndices = tmp
     }
-    onVisibleChanged: {
-        if (!visible) {
-            closeSelection()
+
+    // Can't access ViewItems externally
+    // so for the header actions we need to expose the selectedIndices
+    function getSelectedIndices() {
+        var indicies = ViewItems.selectedIndices.slice();
+
+        indicies.sort();  // ensure indicies are in-order
+
+        return indicies;
+    }
+
+    ViewItems.selectMode: false
+    ViewItems.dragMode: false
+    ViewItems.onDragUpdated: {
+        // Only update the model when the listitem is dropped, not 'live'
+        if (event.status == ListItemDrag.Moving) {
+            event.accept = false
+        } else if (event.status == ListItemDrag.Dropped) {
+            model.move(event.from, event.to, 1);
+            reorder(event.from, event.to)
         }
     }
 }

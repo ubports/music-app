@@ -19,7 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import "../components"
 import "../components/HeadState"
 import "../logic/meta-database.js" as Library
@@ -130,7 +130,6 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-
                 // TODO: test!
                 newPlayer.mediaPlayer.playlist.removeSources(selectedItems.slice());
             }
@@ -142,9 +141,9 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: mainView.header.height
+            topMargin: units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
-        height: parent.height - mainView.header.height - units.gu(9.5)
+        height: parent.height - units.gu(6.125) - units.gu(9.5)  // FIXME: 6.125 is the header.height
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }

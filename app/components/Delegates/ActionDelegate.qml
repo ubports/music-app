@@ -1,7 +1,6 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2015
  *      Andrew Hayzen <ahayzen@gmail.com>
- *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,28 +18,29 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 
-Dialog {
-    id: dialogContentHubNotFound
+Rectangle {
+    color: currentColor
+    width: height
 
-    Label {
-        color: styleMusic.common.black
-        text: i18n.tr("Imported file not found")
-    }
-
-    Button {
-        text: i18n.tr("Wait")
-        onClicked: {
-            PopupUtils.close(dialogContentHubNotFound)
-
-            contentHubWaitForFile.dialog = PopupUtils.open(Qt.resolvedUrl("ContentHubWaitDialog.qml"), mainView)
-            contentHubWaitForFile.start();
+    Icon {
+        anchors {
+            centerIn: parent
         }
+        objectName: action.objectName
+        color: pressed ? UbuntuColors.blue : styleMusic.common.white
+        name: action.iconName
+        height: units.gu(3)
+        width: units.gu(3)
     }
 
-    Button {
-        text: i18n.tr("Cancel")
-        onClicked: PopupUtils.close(dialogContentHubNotFound)
+    Rectangle {  // FIXME: pad.lv/1507339 Workaround for gap between end of listitem and first action
+        anchors {
+            bottom: parent.bottom
+            right: parent.left
+            top: parent.top
+        }
+        color: currentColor
+        width: units.gu(0.5)
     }
 }

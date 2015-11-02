@@ -17,7 +17,8 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
+import "../Flickables"
 
 PageHeadState {
     id: selectionState
@@ -26,7 +27,7 @@ PageHeadState {
             iconName: "select"
             text: i18n.tr("Select All")
             onTriggered: {
-                if (listview.selectedItems.length === listview.model.count) {
+                if (listview.getSelectedIndices().length === listview.model.count) {
                     listview.clearSelection()
                 } else {
                     listview.selectAll()
@@ -34,18 +35,19 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "add-to-playlist"
             text: i18n.tr("Add to playlist")
             onTriggered: {
                 var items = []
+                var indicies = listview.getSelectedIndices();
 
-                for (var i=0; i < listview.selectedItems.length; i++) {
+                for (var i=0; i < indicies.length; i++) {
                     // TODO: improve! probably take outside of the for loop or try and make playlist accept .get()
                     if (listview.model === newPlayer.mediaPlayer.playlist) {
-                        items.push(makeDict(newPlayer.metaForSource(listview.model.source(listview.selectedItems[i]))));
+                        items.push(makeDict(newPlayer.metaForSource(listview.model.source(indicies[i]))));
                     } else {
-                        items.push(makeDict(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData)));
+                        items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
                     }
                 }
 
@@ -56,16 +58,17 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "add"
             text: i18n.tr("Add to queue")
             visible: addToQueue
 
             onTriggered: {
                 var sources = [];
+                var indicies = listview.getSelectedIndices();
 
-                for (var i=0; i < listview.selectedItems.length; i++) {
-                    sources.push(Qt.resolvedUrl(listview.model.get(listview.selectedItems[i], listview.model.RoleModelData).filename));
+                for (var i=0; i < indicies.length; i++) {
+                    sources.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
                 }
 
                 newPlayer.mediaPlayer.playlist.addSources(sources);
@@ -74,13 +77,13 @@ PageHeadState {
             }
         },
         Action {
-            enabled: listview !== null ? listview.selectedItems.length > 0 : false
+            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
             iconName: "delete"
             text: i18n.tr("Delete")
             visible: removable
 
             onTriggered: {
-                removed(listview.selectedItems)
+                removed(listview.getSelectedIndices())
 
                 listview.closeSelection()
             }
@@ -90,10 +93,7 @@ PageHeadState {
     backAction: Action {
         text: i18n.tr("Cancel selection")
         iconName: "back"
-        onTriggered: {
-            listview.clearSelection()
-            listview.state = "normal"
-        }
+        onTriggered: listview.closeSelection()
     }
     head: thisPage.head
     name: "selection"
@@ -105,9 +105,9 @@ PageHeadState {
     }
 
     property bool addToQueue: true
-    property ListView listview
+    property MultiSelectListView listview
     property bool removable: false
     property Page thisPage
 
-    signal removed(var selectedItems)
+    signal removed(var selectedIndices)
 }

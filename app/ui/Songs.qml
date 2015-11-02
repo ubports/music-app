@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtMultimedia 5.0
@@ -65,7 +65,6 @@ MusicPage {
             fill: parent
             topMargin: units.gu(2)
         }
-        highlightFollowsCurrentItem: false
         objectName: "trackstab-listview"
         model: SortFilterModel {
             id: songsModelFilter
@@ -113,12 +112,8 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
-            rightSideActions: [
-                AddToQueue {
-                },
-                AddToPlaylist {
-                }
-            ]
+            trailingActions: AddToQueueAndPlaylist {
+            }
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
