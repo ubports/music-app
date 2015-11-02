@@ -18,9 +18,9 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
 import QtQuick.LocalStorage 2.0
@@ -229,11 +229,11 @@ MusicPage {
                     }
                 }
             }
-            property int baseHeight: header.width > units.gu(60) ? units.gu(33.5) : ((header.width - units.gu(5)) / 2) + units.gu(12)
+            property int baseHeight: songStackPage.width > units.gu(60) ? units.gu(33.5) : ((songStackPage.width - units.gu(5)) / 2) + units.gu(12)
             coverSources: songStackPage.covers
             height: songStackPage.line1 !== i18n.tr("Playlist") &&
                     songStackPage.line1 !== i18n.tr("Genre") &&
-                    header.width <= units.gu(60) ?
+                    songStackPage.width <= units.gu(60) ?
                         baseHeight + units.gu(3) : baseHeight
             bottomColumn: Column {
                 Label {

@@ -21,7 +21,7 @@
  */
 
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Page {
@@ -38,6 +38,12 @@ Page {
 
     // Property to signal walkthrough completion
     signal finished
+    
+    // Do not show the Page Header
+    head {
+        visible: false
+        locked: true
+    }
 
     // Global keyboard shortcuts
     focus: true
