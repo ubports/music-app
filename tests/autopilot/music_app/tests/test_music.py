@@ -694,6 +694,9 @@ class TestMainWindow(MusicAppTestCase):
 
         now_playing_page.click_previous_button()  # click previous
 
+        # resume the track (to ensure position updates)
+        now_playing_page.click_play_button()
+
         self.player.position.wait_for(LessThan(5000))  # wait until < 5s
 
         # Check that the source is the same
