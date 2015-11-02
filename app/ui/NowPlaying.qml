@@ -19,7 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import "../components"
 import "../components/HeadState"
 import "../logic/meta-database.js" as Library
@@ -138,9 +138,12 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: mainView.header.height
+            topMargin: headerHeight
         }
-        height: parent.height - mainView.header.height - units.gu(9.5)
+
+        property real headerHeight: units.gu(6)
+
+        height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
