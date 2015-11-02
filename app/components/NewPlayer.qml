@@ -181,7 +181,9 @@ Item {
                         sources.push(mediaPlayerPlaylist.source(i));
                     }
 
-                    Library.addQueueList(sources);
+                    if (sources.length > 0) {
+                        Library.addQueueList(sources);
+                    }
                 }
             }
 
