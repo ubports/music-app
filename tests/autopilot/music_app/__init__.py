@@ -226,9 +226,6 @@ class Playlists(MusicPage):
         return (self.wait_select_single("Card",
                 objectName="playlistCardItem" + str(i)))
 
-    def click_delete_playlist_action(self):
-            self.main_view.get_header().click_action_button("deletePlaylist")
-
 
 class AddToPlaylist(MusicPage):
     """ Autopilot helper for add to playlist page """
@@ -349,6 +346,9 @@ class SongsView(MusicPage):
         super(SongsView, self).__init__(*args)
 
         self.visible.wait_for(True)
+
+    def click_delete_playlist_action(self):
+        self.main_view.get_header().click_action_button("deletePlaylist")
 
     @click_object
     def click_track(self, i):

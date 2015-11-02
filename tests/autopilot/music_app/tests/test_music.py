@@ -513,7 +513,8 @@ class TestMainWindow(MusicAppTestCase):
         playlists_page.click_playlist(0)
 
         # click the delete icon
-        playlists_page.click_delete_playlist_action()
+        playlists_songs_page = self.app.get_songs_view()
+        playlists_songs_page.click_delete_playlist_action()
 
         # get dialog
         delete_dialog = self.app.get_delete_playlist_dialog()
