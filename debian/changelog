@@ -6,6 +6,7 @@ music-app (2.2ubuntu2) UNRELEASED; urgency=medium
   [ Victor Thompson ]
   * Remove some deprecated code for the UbuntuShape image property.
   * Update app to use the Ubuntu Components version 1.3 (LP: #1508363)
+  * Update canned mediastore.db schema version from 8 to 9 (LP: #1511585).
 
   [ Andrew Hayzen ]
   * Switch to using the new uc1.3 listitems within the SDK
