@@ -87,13 +87,14 @@ MusicPage {
     }
     Action {
         id: tickAction
-        enabled: trackList.selectedItems.length > 0
+        enabled: trackList.getSelectedIndices().length > 0
         iconName: "tick"
         onTriggered: {
             var items = [];
+            var indicies = trackList.getSelectedIndices();
 
-            for (var i=0; i < trackList.selectedItems.length; i++) {
-                items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(trackList.selectedItems[i]).filename}));
+            for (var i=0; i < indicies.length; i++) {
+                items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(indicies[i]).filename}));
             }
 
             transfer.items = items;
@@ -128,8 +129,7 @@ MusicPage {
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
-
-        property int singularCache: -1
+        ViewItems.selectMode: true
 
         delegate: MusicListItem {
             id: track
@@ -153,18 +153,13 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
-            selectionMode: true
 
-            onSelectedChanged: {
-                // in singular mode only allow one item to be selected
-                if (singular && selected && trackList.singularCache === -1) {
-                    trackList.singularCache = index;
-
-                    trackList.clearSelection();
-                    selected = true;
-
-                    trackList.singularCache = -1;
+            MouseArea {  // in singular mode only allow one item to be selected
+                anchors {
+                    fill: parent
                 }
+                enabled: singular
+                onClicked: trackList.ViewItems.selectedIndices = [index];
             }
         }
 
