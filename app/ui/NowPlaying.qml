@@ -156,7 +156,7 @@ MusicPage {
             topMargin: headerHeight
         }
 
-        property real headerHeight: units.gu(10)
+        property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
 
         height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
