@@ -160,7 +160,7 @@ class Walkthrough(Page):
 
     @click_object
     def skip(self):
-        return self.wait_select_single("Label", objectName="skipLabel")
+        return self.wait_select_single("UCLabel", objectName="skipLabel")
 
 
 class Albums(MusicPage):
