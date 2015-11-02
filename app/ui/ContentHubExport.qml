@@ -131,6 +131,8 @@ MusicPage {
         }
         ViewItems.selectMode: true
 
+        property int selectedCache: -1
+
         delegate: MusicListItem {
             id: track
             objectName: "tracksPageListItem" + index
@@ -154,12 +156,13 @@ MusicPage {
             imageSource: {"art": model.art}
             multiselectable: true
 
-            MouseArea {  // in singular mode only allow one item to be selected
-                anchors {
-                    fill: parent
+            onSelectedChanged: {
+                if (singular && selected && (trackList.selectedCache === -1 || trackList.selectedCache !== index)) {
+                    trackList.ViewItems.selectedIndices = [index];
+                    trackList.selectedCache = index;
+                } else if (singular && !selected && trackList.selectedCache === index) {
+                    trackList.selectedCache = -1;
                 }
-                enabled: singular
-                onClicked: trackList.ViewItems.selectedIndices = [index];
             }
         }
 
