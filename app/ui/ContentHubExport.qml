@@ -87,13 +87,14 @@ MusicPage {
     }
     Action {
         id: tickAction
-        enabled: trackList.selectedItems.length > 0
+        enabled: trackList.getSelectedIndices().length > 0
         iconName: "tick"
         onTriggered: {
             var items = [];
+            var indicies = trackList.getSelectedIndices();
 
-            for (var i=0; i < trackList.selectedItems.length; i++) {
-                items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(trackList.selectedItems[i]).filename}));
+            for (var i=0; i < indicies.length; i++) {
+                items.push(contentItemComponent.createObject(contentHubExportPage, {url: songsModelFilter.get(indicies[i]).filename}));
             }
 
             transfer.items = items;
@@ -128,8 +129,9 @@ MusicPage {
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
+        ViewItems.selectMode: true
 
-        property int singularCache: -1
+        property int selectedCache: -1
 
         delegate: MusicListItem {
             id: track
@@ -153,17 +155,15 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
-            selectionMode: true
 
             onSelectedChanged: {
-                // in singular mode only allow one item to be selected
-                if (singular && selected && trackList.singularCache === -1) {
-                    trackList.singularCache = index;
-
-                    trackList.clearSelection();
-                    selected = true;
-
-                    trackList.singularCache = -1;
+                if (singular) {
+                    if (selected && (trackList.selectedCache === -1 || trackList.selectedCache !== index)) {
+                        trackList.ViewItems.selectedIndices = [index];
+                        trackList.selectedCache = index;
+                    } else if (!selected && trackList.selectedCache === index) {
+                        trackList.selectedCache = -1;
+                    }
                 }
             }
         }

@@ -128,7 +128,7 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                trackQueue.removeQueueList(selectedItems.slice())
+                trackQueue.removeQueueList(selectedIndices.slice())
             }
         }
     ]
@@ -138,12 +138,9 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: headerHeight
+            topMargin: units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
-
-        property real headerHeight: units.gu(6)
-
-        height: parent.height - headerHeight - units.gu(9.5)
+        height: parent.height - units.gu(6.125) - units.gu(9.5)  // FIXME: 6.125 is the header.height
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
