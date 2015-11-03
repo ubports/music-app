@@ -20,7 +20,6 @@
 import QtMultimedia 5.0
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import QtQuick.LocalStorage 2.0
 import "../logic/meta-database.js" as Library
 import "../logic/playlists.js" as Playlists
@@ -124,7 +123,7 @@ MusicPage {
     Loader {
         anchors {
             fill: parent
-            topMargin: -playlistsPage.header.height
+            topMargin: -units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
         active: playlistModel.model.count === 0 && playlistModel.workerComplete
         asynchronous: true

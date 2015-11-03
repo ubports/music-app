@@ -19,7 +19,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
@@ -155,7 +154,7 @@ MusicPage {
             thisPage: songStackPage
 
             onRemoved: {
-                Playlists.removeFromPlaylist(songStackPage.line2, selectedItems)
+                Playlists.removeFromPlaylist(songStackPage.line2, selectedIndices)
 
                 playlistChangedHelper()  // update recent/playlist models
 
@@ -315,18 +314,12 @@ MusicPage {
                 }
             }
             height: units.gu(6)
-
-            leftSideAction: songStackPage.line1 === i18n.tr("Playlist")
+            leadingActions: songStackPage.line1 === i18n.tr("Playlist")
                             ? playlistRemoveAction.item : null
             multiselectable: true
             reorderable: songStackPage.line1 === i18n.tr("Playlist")
-            rightSideActions: [
-                AddToQueue {
-
-                },
-                AddToPlaylist {
-                }
-            ]
+            trailingActions: AddToQueueAndPlaylist {
+            }
 
             onItemClicked: {
                 trackClicked(albumtrackslist.model, index)  // play track
@@ -341,24 +334,21 @@ MusicPage {
 
                 recentChangedHelper();
             }
-            onReorder: {
-                console.debug("Move: ", from, to);
-
-                Playlists.move(songStackPage.line2, from, to)
-
-                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-            }
 
             Loader {
                 id: playlistRemoveAction
-                sourceComponent: Remove {
-                    onTriggered: {
-                        Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
+                sourceComponent: ListItemActions {
+                    actions: [
+                        Remove {
+                            onTriggered: {
+                                Playlists.removeFromPlaylist(songStackPage.line2, [model.i])
 
-                        playlistChangedHelper()  // update recent/playlist models
+                                playlistChangedHelper()  // update recent/playlist models
 
-                        albumTracksModel.filterPlaylistTracks(songStackPage.line2)
-                    }
+                                albumTracksModel.filterPlaylistTracks(songStackPage.line2)
+                            }
+                        }
+                    ]
                 }
             }
 
@@ -369,6 +359,14 @@ MusicPage {
                     songStackPage.year = new Date(model.date).toLocaleString(Qt.locale(),'yyyy');
                 }
             }
+        }
+
+        onReorder: {
+            console.debug("Move: ", from, to);
+
+            Playlists.move(songStackPage.line2, from, to)
+
+            albumTracksModel.filterPlaylistTracks(songStackPage.line2)
         }
     }
 

@@ -143,7 +143,7 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                trackQueue.removeQueueList(selectedItems.slice())
+                trackQueue.removeQueueList(selectedIndices.slice())
             }
         }
     ]

@@ -37,7 +37,7 @@ Page {
         id: libraryEmpty
         anchors {
             fill: parent
-            topMargin: -libraryEmptyPage.header.height
+            topMargin: -units.gu(6.125)  // FIXME: 6.125 is the header.height
         }
         color: mainView.backgroundColor
 

@@ -37,9 +37,6 @@ MultiSelectListView {
     model: trackQueue.model
     objectName: "nowPlayingqueueList"
 
-    property int normalHeight: units.gu(6)
-    property int transitionDuration: 250  // transition length of animations
-
     onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
     delegate: MusicListItem {
@@ -62,41 +59,44 @@ MultiSelectListView {
                 text: model.author
             }
         }
-        height: queueList.normalHeight
-        objectName: "nowPlayingListItem" + index
-        state: ""
-        leftSideAction: Remove {
-            onTriggered: trackQueue.removeQueueList([index])
+        leadingActions: ListItemActions {
+            actions: [
+                Remove {
+                    onTriggered: trackQueue.removeQueueList([index])
+                }
+            ]
         }
         multiselectable: true
+        objectName: "nowPlayingListItem" + index
         reorderable: true
-        rightSideActions: [
-            AddToPlaylist{
+        trailingActions: ListItemActions {
+            actions: [
+                AddToPlaylist {
+                }
+            ]
+            delegate: ActionDelegate {
+
             }
-        ]
+        }
 
         onItemClicked: {
             customdebug("File: " + model.filename) // debugger
             trackQueueClick(index);  // toggle track state
         }
-        onReorder: {
-            console.debug("Move: ", from, to);
+    }
 
-            trackQueue.model.move(from, to, 1);
-            Library.moveQueueItem(from, to);
+    onReorder: {
+        Library.moveQueueItem(from, to);
 
-            // Maintain currentIndex with current song
-            if (from === player.currentIndex) {
-                player.currentIndex = to;
-            }
-            else if (from < player.currentIndex && to >= player.currentIndex) {
-                player.currentIndex -= 1;
-            }
-            else if (from > player.currentIndex && to <= player.currentIndex) {
-                player.currentIndex += 1;
-            }
-
-            queueIndex = player.currentIndex
+        // Maintain currentIndex with current song
+        if (from === player.currentIndex) {
+            player.currentIndex = to;
+        } else if (from < player.currentIndex && to >= player.currentIndex) {
+            player.currentIndex -= 1;
+        } else if (from > player.currentIndex && to <= player.currentIndex) {
+            player.currentIndex += 1;
         }
+
+        queueIndex = player.currentIndex
     }
 }
