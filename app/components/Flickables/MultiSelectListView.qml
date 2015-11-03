@@ -25,6 +25,8 @@ MusicListView {
     // so we need to expose if in multiselect mode for the header states
     state: ViewItems.selectMode ? "multiselectable" : "normal"
 
+    property bool autoModelMove: true
+
     signal clearSelection()
     signal closeSelection()
     signal reorder(int from, int to)
@@ -63,7 +65,10 @@ MusicListView {
         if (event.status == ListItemDrag.Moving) {
             event.accept = false
         } else if (event.status == ListItemDrag.Dropped) {
-            model.move(event.from, event.to, 1);
+            if (autoModelMove) {
+                model.move(event.from, event.to, 1);
+            }
+
             reorder(event.from, event.to)
         }
     }

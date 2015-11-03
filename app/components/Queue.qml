@@ -31,6 +31,7 @@ MultiSelectListView {
     anchors {
         fill: parent
     }
+    autoModelMove: false
     footer: Item {
         height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
     }
@@ -92,20 +93,6 @@ MultiSelectListView {
     onReorder: {
         console.debug("Move: ", from, to);
 
-        newPlayer.mediaPlayer.playlist.insertSource(to, model.source);
-        newPlayer.mediaPlayer.playlist.removeSource(from);
-
-        /*
-        // Maintain currentIndex with current song
-        if (from === player.currentIndex) {
-            player.currentIndex = to;
-        } else if (from < player.currentIndex && to >= player.currentIndex) {
-            player.currentIndex -= 1;
-        } else if (from > player.currentIndex && to <= player.currentIndex) {
-            player.currentIndex += 1;
-        }
-
-        queueIndex = player.currentIndex
-        */
+        newPlayer.mediaPlayer.playlist.moveSource(from, to);
     }
 }
