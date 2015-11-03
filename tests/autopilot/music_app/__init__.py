@@ -27,7 +27,7 @@ def ensure_now_playing_full(func):
     """Wrapper which ensures the now playing is full before clicking"""
     def func_wrapper(self, *args, **kwargs):
         if self.isListView:
-            self.click_toggle_view()
+            self.click_full_view()
 
         return func(self, *args, **kwargs)
 
@@ -38,7 +38,7 @@ def ensure_now_playing_list(func):
     """Wrapper which ensures the now playing is list before clicking"""
     def func_wrapper(self, *args, **kwargs):
         if not self.isListView:
-            self.click_toggle_view()
+            self.click_queue_view()
 
         return func(self, *args, **kwargs)
 
@@ -289,8 +289,11 @@ class NowPlaying(MusicPage):
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
-    def click_toggle_view(self):
-        self.main_view.get_header().click_action_button("toggleView")
+    def click_full_view(self):
+        self.main_view.get_header().switch_to_section_by_index(0)
+
+    def click_queue_view(self):
+        self.main_view.get_header().switch_to_section_by_index(1)
 
     @ensure_now_playing_list
     def get_track(self, i):
