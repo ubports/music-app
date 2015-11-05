@@ -53,12 +53,9 @@ MusicPage {
                     }
                 })
             }
-        }
-    }
-
-    onVisibleChanged: {
-        if (!visible) {
-            head.sections.selectedIndex = 0
+        } else {
+            // Close multiselection mode.
+            queueListLoader.item.closeSelection()
         }
     }
 
