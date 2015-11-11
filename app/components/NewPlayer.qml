@@ -78,7 +78,7 @@ Item {
             property var pendingCurrentState: null
             property int pendingShuffle: -1
 
-            onCurrentSourceChanged: currentMeta = metaForSource(currentSource)
+            onCurrentItemSourceChanged: currentMeta = metaForSource(currentSource)
             onMediaChanged: {
                 saveQueue()
 
@@ -87,7 +87,7 @@ Item {
                 //    currentMeta = metaForSource(currentSource)
                 //}
             }
-            onMediaInserted: {
+            onItemInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
                 if (start === 0 && currentIndex === -1 && pendingCurrentIndex < 1 && pendingShuffle === -1) {
                     currentIndex = 0;
@@ -120,7 +120,7 @@ Item {
                     currentMeta = metaForSource(currentSource)
                 }
             }
-            onMediaRemoved: {
+            onItemRemoved: {
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
