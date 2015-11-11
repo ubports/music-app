@@ -73,12 +73,12 @@ Item {
                 }
             }
 
-            readonly property int count: mediaCount  // header actions etc depend on the model having 'count'
+            readonly property int count: itemCount  // header actions etc depend on the model having 'count'
             property int pendingCurrentIndex: -1
             property var pendingCurrentState: null
             property int pendingShuffle: -1
 
-            onCurrentItemSourceChanged: currentMeta = metaForSource(currentSource)
+            onCurrentItemSourceChanged: currentMeta = metaForSource(currentItemSource)
             onItemChanged: {
                 saveQueue()
 
