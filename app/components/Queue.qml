@@ -65,14 +65,14 @@ MultiSelectListView {
         leadingActions: ListItemActions {
             actions: [
                 Remove {
-                    onTriggered: newPlayer.mediaPlayer.playlist.removeSource(index)
+                    onTriggered: newPlayer.mediaPlayer.playlist.removeItem(index)
                 }
             ]
         }
         multiselectable: true
         objectName: "nowPlayingListItem" + index
         state: ""
-        reorderable: true  // FIXME: needs testing, sort out reordering we need moveSource(from, to);
+        reorderable: true  // FIXME: needs testing, sort out reordering we need moveItem(from, to);
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
@@ -93,6 +93,6 @@ MultiSelectListView {
     onReorder: {
         console.debug("Move: ", from, to);
 
-        newPlayer.mediaPlayer.playlist.moveSource(from, to);
+        newPlayer.mediaPlayer.playlist.moveItem(from, to);
     }
 }

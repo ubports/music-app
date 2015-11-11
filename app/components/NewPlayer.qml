@@ -82,7 +82,7 @@ Item {
             onMediaChanged: {
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 //if (start === currentIndex) {
                 //    currentMeta = metaForSource(currentSource)
                 //}
@@ -115,7 +115,7 @@ Item {
 
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
                     currentMeta = metaForSource(currentSource)
                 }
@@ -123,7 +123,7 @@ Item {
             onMediaRemoved: {
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
                     currentMeta = metaForSource(currentSource)
                 }
@@ -131,14 +131,14 @@ Item {
 
             // TODO: AP needs queue length
 
-            function addSourcesFromModel(model) {
+            function addItems(model) {
                 var sources = []
 
                 for (var i=0; i < model.rowCount; i++) {
                     sources.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
 
-                addSources(sources);
+                addItems(sources);
             }
 
             function processPendingCurrentState() {
@@ -158,11 +158,11 @@ Item {
                 pendingCurrentState = null;
             }
 
-            function removeSources(items) {
+            function removeItems(items) {
                 items.sort();
 
                 for (var i=0; i < items.length; i++) {
-                    removeSource(items[i] - i);
+                    removeItems(items[i] - i);
                 }
             }
 
