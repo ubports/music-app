@@ -97,7 +97,7 @@ Item {
                 }
 
                 // Check if the pendingCurrentIndex is now valid
-                if (pendingCurrentIndex !== -1 && pendingCurrentIndex < mediaCount) {
+                if (pendingCurrentIndex !== -1 && pendingCurrentIndex < itemCount) {
                     currentIndex = pendingCurrentIndex;
 
                     pendingCurrentIndex = -1;
@@ -117,7 +117,7 @@ Item {
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
-                    currentMeta = metaForSource(currentSource)
+                    currentMeta = metaForSource(currentItemSource)
                 }
             }
             onItemRemoved: {
@@ -125,7 +125,7 @@ Item {
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
-                    currentMeta = metaForSource(currentSource)
+                    currentMeta = metaForSource(currentItemSource)
                 }
             }
 
