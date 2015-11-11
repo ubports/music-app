@@ -131,7 +131,7 @@ Item {
 
             // TODO: AP needs queue length
 
-            function addItems(model) {
+            function addPlaylistItems(model) {
                 var sources = []
 
                 for (var i=0; i < model.rowCount; i++) {
