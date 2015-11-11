@@ -39,7 +39,7 @@ Item {
         target: newPlayer.mediaPlayer
         property bool songCounted: false
 
-        onSourceChanged: songCounted = false
+        onSourceItemChanged: songCounted = false
 
         onPositionChanged: {
             // Increment song count on Welcome screen if song has been

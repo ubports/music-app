@@ -64,7 +64,7 @@ Item {
             }
 
             // enqueue
-            newPlayer.mediaPlayer.playlist.addSource(Qt.resolvedUrl(track.filename));
+            newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(track.filename));
 
             // play first URI
             if (play) {

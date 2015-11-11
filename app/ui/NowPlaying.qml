@@ -131,7 +131,7 @@ MusicPage {
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
                 // TODO: test!
-                newPlayer.mediaPlayer.playlist.removeSources(selectedIndices.slice());
+                newPlayer.mediaPlayer.playlist.removeItems(selectedIndices.slice());
             }
         }
     ]
