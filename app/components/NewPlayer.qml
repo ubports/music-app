@@ -26,7 +26,7 @@ import "../logic/meta-database.js" as Library
 Item {
     objectName: "player"
 
-    property alias count: mediaPlayerPlaylist.mediaCount
+    property alias count: mediaPlayerPlaylist.itemCount
     property var currentMeta: ({})
     property alias mediaPlayer: mediaPlayer
     property alias repeat: settings.repeat
@@ -79,7 +79,7 @@ Item {
             property int pendingShuffle: -1
 
             onCurrentItemSourceChanged: currentMeta = metaForSource(currentSource)
-            onMediaChanged: {
+            onItemChanged: {
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
