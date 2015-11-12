@@ -80,7 +80,7 @@ Item {
 
             onCurrentItemSourceChanged: currentMeta = metaForSource(currentItemSource)
             onItemChanged: {
-                console.debug("*** Saving play queue");
+                console.debug("*** Saving play queue in onItemChanged");
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
@@ -114,6 +114,7 @@ Item {
                     mediaPlayer.next();  // play a random track
                 }
 
+                console.debug("*** Saving play queue in onItemInserted");
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
@@ -122,6 +123,7 @@ Item {
                 }
             }
             onItemRemoved: {
+                console.debug("*** Saving play queue in onItemRemoved");
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
