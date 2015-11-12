@@ -248,6 +248,7 @@ MainView {
             }
             else {
                 console.debug("Queue is empty, not loading any recent tracks");
+            }
         }
 
         // everything else
