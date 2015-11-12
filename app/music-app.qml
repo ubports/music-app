@@ -240,6 +240,7 @@ MainView {
 
             // FIXME: using old queueList for now, move to load()/save() long term
             if (!Library.isQueueEmpty()) {
+                console.debug("*** Restoring library queue");
                 newPlayer.mediaPlayer.playlist.addItems(Library.getQueue());
 
                 newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
