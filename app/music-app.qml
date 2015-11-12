@@ -246,6 +246,8 @@ MainView {
                 newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
                 newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);  // TODO: confirm this works if index changes after
             }
+            else {
+                console.debug("Queue is empty, not loading any recent tracks");
         }
 
         // everything else

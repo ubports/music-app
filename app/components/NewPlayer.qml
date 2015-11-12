@@ -107,7 +107,7 @@ Item {
 
                 // Check if there is pending shuffle
                 // pendingShuffle holds the expected size of the model
-                if (pendingShuffle > -1 && pendingShuffle <= mediaCount) {
+                if (pendingShuffle > -1 && pendingShuffle <= itemCount) {
                     mediaPlayerPlaylist.shuffle();
 
                     pendingShuffle = -1;
@@ -181,8 +181,8 @@ Item {
 
                     var sources = [];
 
-                    for (var i=0; i < mediaPlayerPlaylist.mediaCount; i++) {
-                        sources.push(mediaPlayerPlaylist.source(i));
+                    for (var i=0; i < mediaPlayerPlaylist.itemCount; i++) {
+                        sources.push(mediaPlayerPlaylist.itemSource(i));
                     }
 
                     if (sources.length > 0) {
@@ -192,8 +192,8 @@ Item {
             }
 
             function setCurrentIndex(index) {
-                // Set the currentIndex but if the mediaCount is too low then wait
-                if (index < mediaPlayerPlaylist.mediaCount) {
+                // Set the currentIndex but if the itemCount is too low then wait
+                if (index < mediaPlayerPlaylist.itemCount) {
                     mediaPlayerPlaylist.currentIndex = index;
                 } else {
                     pendingCurrentIndex = index;
@@ -211,7 +211,7 @@ Item {
 
             function setPendingShuffle(modelSize) {
                 // Run shuffle() when the modelSize is reached
-                if (modelSize <= mediaCount) {
+                if (modelSize <= itemCount) {
                     mediaPlayerPlaylist.shuffle();
                     mediaPlayer.next();
                 } else {
@@ -228,7 +228,7 @@ Item {
             settings.shuffle
         }
         property bool canGoNext: {
-            playlist.currentIndex !== (playlist.mediaCount - 1) ||
+            playlist.currentIndex !== (playlist.itemCount - 1) ||
             settings.repeat ||
             settings.shuffle
         }
