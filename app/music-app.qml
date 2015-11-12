@@ -240,7 +240,7 @@ MainView {
 
             // FIXME: using old queueList for now, move to load()/save() long term
             if (!Library.isQueueEmpty()) {
-                newPlayer.mediaPlayer.playlist.addPlaylistItems(Library.getQueue());
+                newPlayer.mediaPlayer.playlist.addItems(Library.getQueue());
 
                 newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
                 newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);  // TODO: confirm this works if index changes after
