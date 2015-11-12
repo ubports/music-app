@@ -80,6 +80,7 @@ Item {
 
             onCurrentItemSourceChanged: currentMeta = metaForSource(currentItemSource)
             onItemChanged: {
+                console.debug("*** Saving play queue");
                 saveQueue()
 
                 // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
