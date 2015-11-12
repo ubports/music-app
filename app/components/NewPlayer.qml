@@ -162,7 +162,7 @@ Item {
                 items.sort();
 
                 for (var i=0; i < items.length; i++) {
-                    removeItems(items[i] - i);
+                    removeItem(items[i] - i);
                 }
             }
 
