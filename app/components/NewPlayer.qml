@@ -134,7 +134,7 @@ Item {
 
             // TODO: AP needs queue length
 
-            function addSourceFromModel(model) {
+            function addSourcesFromModel(model) {
                 var sources = []
 
                 for (var i=0; i < model.rowCount; i++) {
