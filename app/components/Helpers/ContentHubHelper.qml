@@ -225,7 +225,7 @@ Item {
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(decodeFileURI(searchPaths[i]))
 
-                    newPlayer.mediaPlayer.playlist.addSource(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])));
+                    newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])));
                 }
 
                 trackQueueClick(0);

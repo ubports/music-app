@@ -170,7 +170,7 @@ Rectangle {
                     fontSize: "small"
                     font.weight: Font.DemiBold
                     text: newPlayer.currentMeta.title === ""
-                          ? newPlayer.mediaPlayer.playlist.currentSource
+                          ? newPlayer.mediaPlayer.playlist.currentItemSource
                           : newPlayer.currentMeta.title
                 }
 

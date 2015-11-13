@@ -26,7 +26,7 @@ import "../logic/meta-database.js" as Library
 Item {
     objectName: "player"
 
-    property alias count: mediaPlayerPlaylist.mediaCount
+    property alias count: mediaPlayerPlaylist.itemCount
     property var currentMeta: ({})
     property alias mediaPlayer: mediaPlayer
     property alias repeat: settings.repeat
@@ -73,21 +73,22 @@ Item {
                 }
             }
 
-            readonly property int count: mediaCount  // header actions etc depend on the model having 'count'
+            readonly property int count: itemCount  // header actions etc depend on the model having 'count'
             property int pendingCurrentIndex: -1
             property var pendingCurrentState: null
             property int pendingShuffle: -1
 
-            onCurrentSourceChanged: currentMeta = metaForSource(currentSource)
-            onMediaChanged: {
+            onCurrentItemSourceChanged: currentMeta = metaForSource(currentItemSource)
+            onItemChanged: {
+                console.debug("*** Saving play queue in onItemChanged");
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 //if (start === currentIndex) {
                 //    currentMeta = metaForSource(currentSource)
                 //}
             }
-            onMediaInserted: {
+            onItemInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
                 if (start === 0 && currentIndex === -1 && pendingCurrentIndex < 1 && pendingShuffle === -1) {
                     currentIndex = 0;
@@ -97,7 +98,7 @@ Item {
                 }
 
                 // Check if the pendingCurrentIndex is now valid
-                if (pendingCurrentIndex !== -1 && pendingCurrentIndex < mediaCount) {
+                if (pendingCurrentIndex !== -1 && pendingCurrentIndex < itemCount) {
                     currentIndex = pendingCurrentIndex;
 
                     pendingCurrentIndex = -1;
@@ -106,26 +107,28 @@ Item {
 
                 // Check if there is pending shuffle
                 // pendingShuffle holds the expected size of the model
-                if (pendingShuffle > -1 && pendingShuffle <= mediaCount) {
+                if (pendingShuffle > -1 && pendingShuffle <= itemCount) {
                     mediaPlayerPlaylist.shuffle();
 
                     pendingShuffle = -1;
                     mediaPlayer.next();  // play a random track
                 }
 
+                console.debug("*** Saving play queue in onItemInserted");
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
-                    currentMeta = metaForSource(currentSource)
+                    currentMeta = metaForSource(currentItemSource)
                 }
             }
-            onMediaRemoved: {
+            onItemRemoved: {
+                console.debug("*** Saving play queue in onItemRemoved");
                 saveQueue()
 
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentSourceChanged is not emitted
+                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
                 if (start === currentIndex) {
-                    currentMeta = metaForSource(currentSource)
+                    currentMeta = metaForSource(currentItemSource)
                 }
             }
 
@@ -138,7 +141,7 @@ Item {
                     sources.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
 
-                addSources(sources);
+                addItems(sources);
             }
 
             function processPendingCurrentState() {
@@ -158,11 +161,11 @@ Item {
                 pendingCurrentState = null;
             }
 
-            function removeSources(items) {
+            function removeItems(items) {
                 items.sort();
 
                 for (var i=0; i < items.length; i++) {
-                    removeSource(items[i] - i);
+                    removeItem(items[i] - i);
                 }
             }
 
@@ -178,8 +181,8 @@ Item {
 
                     var sources = [];
 
-                    for (var i=0; i < mediaPlayerPlaylist.mediaCount; i++) {
-                        sources.push(mediaPlayerPlaylist.source(i));
+                    for (var i=0; i < mediaPlayerPlaylist.itemCount; i++) {
+                        sources.push(mediaPlayerPlaylist.itemSource(i));
                     }
 
                     if (sources.length > 0) {
@@ -189,8 +192,8 @@ Item {
             }
 
             function setCurrentIndex(index) {
-                // Set the currentIndex but if the mediaCount is too low then wait
-                if (index < mediaPlayerPlaylist.mediaCount) {
+                // Set the currentIndex but if the itemCount is too low then wait
+                if (index < mediaPlayerPlaylist.itemCount) {
                     mediaPlayerPlaylist.currentIndex = index;
                 } else {
                     pendingCurrentIndex = index;
@@ -208,7 +211,7 @@ Item {
 
             function setPendingShuffle(modelSize) {
                 // Run shuffle() when the modelSize is reached
-                if (modelSize <= mediaCount) {
+                if (modelSize <= itemCount) {
                     mediaPlayerPlaylist.shuffle();
                     mediaPlayer.next();
                 } else {
@@ -225,7 +228,7 @@ Item {
             settings.shuffle
         }
         property bool canGoNext: {
-            playlist.currentIndex !== (playlist.mediaCount - 1) ||
+            playlist.currentIndex !== (playlist.itemCount - 1) ||
             settings.repeat ||
             settings.shuffle
         }

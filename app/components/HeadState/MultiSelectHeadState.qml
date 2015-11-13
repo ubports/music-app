@@ -71,7 +71,7 @@ PageHeadState {
                     sources.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
                 }
 
-                newPlayer.mediaPlayer.playlist.addSources(sources);
+                newPlayer.mediaPlayer.playlist.addItems(sources);
 
                 listview.closeSelection()
             }

@@ -240,10 +240,14 @@ MainView {
 
             // FIXME: using old queueList for now, move to load()/save() long term
             if (!Library.isQueueEmpty()) {
-                newPlayer.mediaPlayer.playlist.addSources(Library.getQueue());
+                console.debug("*** Restoring library queue");
+                newPlayer.mediaPlayer.playlist.addItems(Library.getQueue());
 
                 newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
                 newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);  // TODO: confirm this works if index changes after
+            }
+            else {
+                console.debug("Queue is empty, not loading any recent tracks");
             }
         }
 
@@ -350,7 +354,7 @@ MainView {
         if (!clear) {  // FIXME: is this even used anymore? trackQueueClick instead?
             // If same track and on Now playing page then toggle
             if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
-                    && Qt.resolvedUrl(newPlayer.mediaPlayer.playlist.currentSource) === file) {
+                    && Qt.resolvedUrl(newPlayer.mediaPlayer.playlist.currentItemSource) === file) {
                 newPlayer.mediaPlayer.toggle()
                 return;
             }
@@ -440,7 +444,7 @@ MainView {
                 // If there are removed tracks then remove them from the queue and store
                 if (removed.length > 0) {
                     console.debug("Removed queue:", JSON.stringify(removed))
-                    newPlayer.mediaPlayer.playlist.removeSources(removed.slice());
+                    newPlayer.mediaPlayer.playlist.removeItems(removed.slice());
                 }
 
                 // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist
