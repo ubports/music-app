@@ -94,7 +94,7 @@ MusicPage {
                     onTriggered: {
                         var items = []
 
-                        items.push(makeDict(newPlayer.metaForSource(newPlayer.mediaPlayer.playlist.currentSource)));
+                        items.push(makeDict(newPlayer.metaForSource(newPlayer.mediaPlayer.playlist.currentItemSource)));
 
                         mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
                                            {"chosenElements": items})

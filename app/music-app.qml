@@ -335,7 +335,7 @@ MainView {
             album: model.album,
             art: model.art,
             author: model.author,
-            filename: model.filename,
+            filename: model.filename || model.source,
             title: model.title
         };
     }

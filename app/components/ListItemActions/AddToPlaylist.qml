@@ -25,10 +25,12 @@ Action {
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
 
+    property var modelOverride: null
+
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 
         mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                           {"chosenElements": [makeDict(model)]})
+                           {"chosenElements": [modelOverride || makeDict(model)]})
     }
 }

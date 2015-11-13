@@ -230,6 +230,11 @@ function getPlaylistTracks(playlist) {
             for (j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
 
+                // If this came from a source strip the file://
+                if (dbItem.filename.indexOf("file://") === 0) {
+                    dbItem.filename = dbItem.filename.substr(7);
+                }
+
                 if (musicStore.lookup(decodeFileURI(dbItem.filename)) === null) {
                     erroneousTracks.push(dbItem.i);
                 } else {

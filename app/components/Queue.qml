@@ -44,8 +44,6 @@ MultiSelectListView {
         id: queueListItem
         color: newPlayer.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
         column: Column {
-            property var metaModel: newPlayer.metaForSource(model.source)
-
             Label {
                 id: trackTitle
                 color: newPlayer.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
@@ -76,12 +74,15 @@ MultiSelectListView {
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
+                    modelOverride: metaModel
                 }
             ]
             delegate: ActionDelegate {
 
             }
         }
+
+        property var metaModel: newPlayer.metaForSource(model.source)
 
         onItemClicked: {
             customdebug("File: " + model.source) // debugger

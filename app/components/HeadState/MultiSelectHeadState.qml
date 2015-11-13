@@ -45,7 +45,7 @@ PageHeadState {
                 for (var i=0; i < indicies.length; i++) {
                     // TODO: improve! probably take outside of the for loop or try and make playlist accept .get()
                     if (listview.model === newPlayer.mediaPlayer.playlist) {
-                        items.push(makeDict(newPlayer.metaForSource(listview.model.source(indicies[i]))));
+                        items.push(makeDict(newPlayer.metaForSource(listview.model.itemSource(indicies[i]))));
                     } else {
                         items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
                     }
