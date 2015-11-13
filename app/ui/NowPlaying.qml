@@ -170,4 +170,13 @@ MusicPage {
         height: units.gu(10)
         source: "../components/NowPlayingToolbar.qml"
     }
+
+    Connections {
+        target: newPlayer.mediaPlayer.playlist
+        onEmptyChanged: {
+            if (empty) {
+                mainPageStack.pop()
+            }
+        }
+    }
 }

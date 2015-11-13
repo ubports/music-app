@@ -73,6 +73,7 @@ Item {
                 }
             }
 
+            readonly property bool empty: itemCount === 0
             readonly property int count: itemCount  // header actions etc depend on the model having 'count'
             property int pendingCurrentIndex: -1
             property var pendingCurrentState: null
