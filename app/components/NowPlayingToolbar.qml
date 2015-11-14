@@ -37,7 +37,6 @@ Rectangle {
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: newPlayer.repeat ? 1 : .4
         width: height
         onClicked: newPlayer.repeat = !newPlayer.repeat
 
@@ -50,7 +49,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-repeat"
             objectName: "repeatShape"
-            opacity: newPlayer.repeat ? 1 : .4
+            opacity: newPlayer.repeat ? 1 : .2
         }
     }
 
@@ -62,7 +61,6 @@ Rectangle {
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: newPlayer.mediaPlayer.playlist.empty ? .4 : 1
         width: height
         onClicked: newPlayer.mediaPlayer.playlist.previous()  // FIXME:
 
@@ -75,7 +73,7 @@ Rectangle {
             color: "white"
             name: "media-skip-backward"
             objectName: "previousShape"
-            opacity: parent.enabled ? 1 : .4
+            opacity: parent.enabled ? 1 : .2
         }
     }
 
@@ -107,7 +105,6 @@ Rectangle {
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         enabled: newPlayer.mediaPlayer.canGoNext
         height: units.gu(6)
-        opacity: newPlayer.mediaPlayer.playlist.empty ? .4 : 1
         width: height
         onClicked: newPlayer.mediaPlayer.playlist.next()  // FIXME:
 
@@ -120,7 +117,7 @@ Rectangle {
             color: "white"
             name: "media-skip-forward"
             objectName: "forwardShape"
-            opacity: parent.enabled ? 1 : .4
+            opacity: parent.enabled ? 1 : .2
         }
     }
 
@@ -131,7 +128,6 @@ Rectangle {
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
-        opacity: newPlayer.shuffle ? 1 : .4
         width: height
         onClicked: newPlayer.shuffle = !newPlayer.shuffle
 
@@ -144,7 +140,7 @@ Rectangle {
             color: "white"
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
-            opacity: newPlayer.shuffle ? 1 : .4
+            opacity: newPlayer.shuffle ? 1 : .2
         }
     }
 
