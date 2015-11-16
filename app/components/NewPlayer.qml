@@ -253,10 +253,6 @@ Item {
 
         onStopped: {  // hit when pressing next() on last track with repeat off
             console.debug("onStopped.")
-            stop();
-            playlist.currentIndex = 0;
-            stop();
-
             _calcProgress();  // ensures progress bar has reset
         }
 
