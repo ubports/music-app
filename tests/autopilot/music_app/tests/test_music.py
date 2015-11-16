@@ -685,19 +685,23 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
 
         self.player.isPlaying.wait_for(True)  # ensure the track is playing
-        self.player.position.wait_for(GreaterThan(5000))  # wait until > 5s
+
+        # wait until > 5s
+        self.player.mediaPlayer.position.wait_for(GreaterThan(5000))
 
         now_playing_page.click_play_button()  # pause the track
         self.player.isPlaying.wait_for(False)  # ensure the track has paused
 
-        source = self.player.source  # store current source
+        source = self.player.currentMeta.filename  # store current source
 
         now_playing_page.click_previous_button()  # click previous
 
         # resume the track (to ensure position updates)
         now_playing_page.click_play_button()
 
-        self.player.position.wait_for(LessThan(5000))  # wait until < 5s
+        # wait until < 5s
+        self.player.mediaPlayer.position.wait_for(LessThan(5000))
 
         # Check that the source is the same
-        self.assertThat(self.player.source, Eventually(Equals(source)))
+        self.assertThat(self.player.currentMeta.filename,
+                        Eventually(Equals(source)))

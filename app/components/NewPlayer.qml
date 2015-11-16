@@ -137,8 +137,6 @@ Item {
                 }
             }
 
-            // TODO: AP needs queue length
-
             function addSourcesFromModel(model) {
                 var sources = []
 
