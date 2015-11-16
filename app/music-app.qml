@@ -982,6 +982,10 @@ MainView {
                 if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
                     mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
                 }
+
+                if (mainPageStack.currentPage.isListView === true) {
+                    mainPageStack.currentPage.isListView = false;  // ensure full view
+                }
             }
         } // end of tabs
     }
