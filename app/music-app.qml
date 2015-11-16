@@ -353,7 +353,7 @@ MainView {
 
         if (!clear) {  // FIXME: is this even used anymore? trackQueueClick instead?
             // If same track and on Now playing page then toggle
-            if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
+            if (mainPageStack.currentPage.title === i18n.tr("Now playing")
                     && Qt.resolvedUrl(newPlayer.mediaPlayer.playlist.currentItemSource) === file) {
                 newPlayer.mediaPlayer.toggle()
                 return;
@@ -378,11 +378,6 @@ MainView {
         }  else {
             newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
             newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
-        }
-
-        // Show the Now playing page and make sure the track is visible
-        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
-            tabs.pushNowPlaying();
         }
     }
 
@@ -855,12 +850,11 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
-                        && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
                     mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
                 }
 
-                if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
+                if (mainPageStack.currentPage.isListView === true) {
                     mainPageStack.currentPage.isListView = false;  // ensure full view
                 }
             }

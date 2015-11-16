@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-05-14 23:47+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"PO-Revision-Date: 2015-11-10 04:50+0000\n"
+"Last-Translator: Mutlu Can YILMAZ <mtlcnylmz@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-25 05:59+0000\n"
-"X-Generator: Launchpad (build 17690)\n"
+"X-Launchpad-Export-Date: 2015-11-11 05:56+0000\n"
+"X-Generator: Launchpad (build 17843)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -355,7 +355,7 @@ msgstr "Sanatçı"
 
 #: ../app/ui/ContentHubExport.qml:33
 msgid "Export Song"
-msgstr ""
+msgstr "Şarkı Dışa Aktar"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
