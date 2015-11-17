@@ -68,7 +68,7 @@ Item {
 
             // play first URI
             if (play) {
-                trackQueueClick(newPlayer.mediaPlayer.playlist.mediaCount - 1);
+                trackQueueClick(newPlayer.mediaPlayer.playlist.itemCount - 1);
             }
         }
 

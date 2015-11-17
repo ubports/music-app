@@ -61,11 +61,11 @@ MusicPage {
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
-        if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.mediaCount) {
+        if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.itemCount) {
             positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
         } else {
             queueListLoader.item.onCountChanged.connect(function() {
-                if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.mediaCount) {
+                if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.itemCount) {
                     positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
                 }
             })
