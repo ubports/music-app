@@ -60,7 +60,7 @@ PageHeadState {
                 // FIXME: Workaround for pad.lv/1514143 (keyboard show/hide on view moving)
                 // by locking the header and forcing a topMargin of page to the header height
                 headerState.head.locked = state === headerState.name;
-                thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0
+                thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0  // FIXME: 6.125 is header.height
             }
 
             onVisibleChanged: {
