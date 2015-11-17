@@ -13,9 +13,12 @@ music-app (2.2ubuntu2) UNRELEASED; urgency=medium
   * Update canned mediastore.db schema version from 9 to 10.
   * Add directions for updating and debugging schema version changes.
   * Add initial page sections to Now Playing view (LP: #1447428)
+  * Resolve FIXMEs/TODOs in main qml file
+  * Resolve DEPRECATED warnings in Theme files
 
   [ Andrew Hayzen ]
   * Switch to using the new uc1.3 listitems within the SDK
+  * Workaround for bug 1514143 by locking the header when searching (LP: #1514143)
 
  -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Tue, 08 Sep 2015 10:08:49 +0200
 
