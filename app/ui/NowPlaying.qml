@@ -30,12 +30,14 @@ MusicPage {
     flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
     showToolbar: false
-    title: isListView ? queueTitle : nowPlayingTitle
+    title: nowPlayingTitle
     visible: false
 
     property bool isListView: false
     // TRANSLATORS: this appears in the header with limited space (around 20 characters)
     property string nowPlayingTitle: i18n.tr("Now playing") 
+    // TRANSLATORS: this appears in the header with limited space (around 20 characters)
+    property string fullViewTitle: i18n.tr("Full view") 
     // TRANSLATORS: this appears in the header with limited space (around 20 characters)
     property string queueTitle: i18n.tr("Queue") 
 
@@ -51,6 +53,9 @@ MusicPage {
                     }
                 })
             }
+        } else {
+            // Close multiselection mode.
+            queueListLoader.item.closeSelection()
         }
     }
 
@@ -72,6 +77,20 @@ MusicPage {
         queueListLoader.item.positionViewAtIndex(index, ListView.Center);
     }
 
+    PageHeadSections {
+        id: defaultStateSections
+        model: [fullViewTitle, queueTitle]
+        selectedIndex: isListView
+    }
+
+    head {
+        sections {
+            model: defaultStateSections.model
+            selectedIndex: defaultStateSections.selectedIndex
+            onSelectedIndexChanged: isListView = !isListView
+        }
+    }
+
     state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
     states: [
         PageHeadState {
@@ -79,13 +98,6 @@ MusicPage {
 
             name: "default"
             actions: [
-                Action {
-                    objectName: "toggleView"
-                    iconName: isListView ? "stock_image" : "view-list-symbolic"
-                    onTriggered: {
-                        isListView = !isListView
-                    }
-                },
                 Action {
                     enabled: trackQueue.model.count > 0
                     iconName: "add-to-playlist"
@@ -138,9 +150,12 @@ MusicPage {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: units.gu(6.125)  // FIXME: 6.125 is the header.height
+            topMargin: headerHeight
         }
-        height: parent.height - units.gu(6.125) - units.gu(9.5)  // FIXME: 6.125 is the header.height
+
+        property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
+
+        height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
