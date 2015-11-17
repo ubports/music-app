@@ -384,6 +384,8 @@ MainView {
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
         newPlayer.shuffle = true;
         newPlayer.mediaPlayer.playlist.setPendingShuffle(model.count);
+
+        tabs.pushNowPlaying();
     }
 
     // Wrapper function around decodeURIComponent() to prevent exceptions
