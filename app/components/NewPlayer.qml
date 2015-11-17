@@ -228,7 +228,8 @@ Item {
         property bool canGoPrevious: {
             playlist.currentIndex !== 0 ||
             settings.repeat ||
-            settings.shuffle
+            settings.shuffle ||
+            position > 5000
         }
         property bool canGoNext: {
             playlist.currentIndex !== (playlist.itemCount - 1) ||
