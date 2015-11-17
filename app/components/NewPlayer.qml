@@ -116,7 +116,8 @@ Item {
                     mediaPlayerPlaylist.shuffle();
 
                     pendingShuffle = -1;
-                    mediaPlayer.next();  // play a random track
+                    mediaPlayerPlaylist.next();  // find a random track
+                    mediaPlayer.play();  // next does not enforce play
                 }
 
                 console.debug("*** Saving play queue in onItemInserted");
@@ -216,7 +217,8 @@ Item {
                 // Run shuffle() when the modelSize is reached
                 if (modelSize <= itemCount) {
                     mediaPlayerPlaylist.shuffle();
-                    mediaPlayer.next();
+                    mediaPlayerPlaylist.next();  // find a random track
+                    mediaPlayer.play();  // next does not enforce play
                 } else {
                     pendingShuffle = modelSize;
                 }
