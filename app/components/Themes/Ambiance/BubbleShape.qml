@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,7 +28,7 @@ Item {
     /*!
       The background color of the bubble.
      */
-    property color color: square ? Theme.palette.normal.background : Theme.palette.normal.overlay
+    property color color: square ? theme.palette.normal.background : theme.palette.normal.overlay
 
     property point target
     property string direction: "down"
@@ -104,14 +104,14 @@ Item {
         anchors.fill: parent
         anchors.margins: square ? -units.gu(1) : -units.dp(2)
         anchors.topMargin: square ? 0 : anchors.margins
-        source: !square ? "artwork/bubble_shadow.sci" : "artwork/header_overflow_dropshadow.sci"
+        source: !square ? Qt.resolvedUrl("../artwork/bubble_shadow.sci") : Qt.resolvedUrl("../artwork/header_overflow_dropshadow.sci")
         opacity: 0.8
     }
 
     UbuntuShape {
         anchors.fill: parent
-        borderSource: "none"
-        color: Theme.palette.normal.overlay
+        aspect: UbuntuShape.Flat
+        backgroundColor: theme.palette.normal.overlay
         source: bubbleShape.clipContent ? shapeSource : null
         visible: !square
     }
@@ -166,7 +166,7 @@ Item {
             y: -height
             transformOrigin: Item.Bottom
             rotation: directionToRotation(bubbleShape.direction)
-            source: "artwork/bubble_arrow.png"
+            source: Qt.resolvedUrl("../artwork/bubble_arrow.png")
         }
     }
 }

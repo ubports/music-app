@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -36,7 +36,7 @@ Item {
     implicitWidth: units.gu(38)
     implicitHeight: units.gu(5)
 
-    UbuntuShape {
+    UbuntuShapeOverlay {
         id: background
         anchors {
             verticalCenter: parent.verticalCenter
@@ -44,17 +44,11 @@ Item {
             left: parent.left
         }
         height: units.dp(4)
-
-        color: "white"
-    }
-
-    PartialColorizeUbuntuShape {
-        anchors.fill: background
-        sourceItem: background
-        progress: thumb.x / thumb.barMinusThumbWidth
-        leftColor: foregroundColor
-        rightColor: backgroundColor
-        mirror: Qt.application.layoutDirection == Qt.RightToLeft
+        backgroundColor: sliderStyle.backgroundColor
+        overlayColor: sliderStyle.foregroundColor
+        overlayRect: Qt.application.layoutDirection == Qt.LeftToRight ?
+            Qt.rect(0.0, 0.0, thumb.x / thumb.barMinusThumbWidth, 1.0) :
+            Qt.rect(1.0 - (thumb.x / thumb.barMinusThumbWidth), 0.0, 1.0, 1.0)
     }
 
     UbuntuShape {
@@ -87,13 +81,16 @@ Item {
         width: units.gu(2)
         height: units.gu(2)
         opacity: 0.97
-        color: Theme.palette.normal.overlay
+        backgroundColor: theme.palette.normal.overlay
     }
 
     BubbleShape {
         id: bubbleShape
 
-        width: units.gu(8)
+        property real minimumWidth: units.gu(8)
+        property real horizontalPadding: units.gu(1)
+
+        width: Math.max(minimumWidth, label.implicitWidth + 2*horizontalPadding)
         height: units.gu(6)
 
         // FIXME: very temporary implementation
@@ -119,8 +116,8 @@ Item {
             id: label
             anchors.centerIn: parent
             text: styledItem.formatValue(SliderUtils.liveValue(styledItem))
-            fontSize: "large"
-            color: Theme.palette.normal.overlayText
+            textSize: Label.Large
+            color: theme.palette.normal.overlayText
         }
     }
 }
