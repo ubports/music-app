@@ -118,7 +118,7 @@ MusicPage {
                     objectName: "clearQueue"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
-                    onTriggered: newPlayer.mediaPlayer.playlist.clear()  // FIXME: stop audio?
+                    onTriggered: newPlayer.mediaPlayer.playlist.clear_wrapper()  // FIXME: stop audio?
                 }
             ]
             PropertyChanges {

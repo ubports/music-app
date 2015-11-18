@@ -126,8 +126,6 @@ Item {
                 // Check if there is pending shuffle
                 // pendingShuffle holds the expected size of the model
                 if (pendingShuffle > -1 && pendingShuffle <= itemCount) {
-                    shuffle();
-
                     pendingShuffle = -1;
 
                     if (canGoNext) {
@@ -162,6 +160,16 @@ Item {
                 }
 
                 addItems(sources);
+            }
+
+            // Wrap the clear() method because we need to call stop first
+            function clear_wrapper() {
+                // Stop the current playback (this ensures that play is run later)
+                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                    mediaPlayer.stop();
+                }
+
+                clear();
             }
 
             function processPendingCurrentState() {
@@ -230,13 +238,12 @@ Item {
             }
 
             function setPendingShuffle(modelSize) {
-                // Run shuffle() when the modelSize is reached
+                // Run next() and play() when the modelSize is reached
                 if (modelSize <= itemCount) {
-                    shuffle();
-
                     if (canGoNext) {
                         mediaPlayerPlaylist.next();  // find a random track
                     }
+
                     mediaPlayer.play();  // next does not enforce play
                 } else {
                     pendingShuffle = modelSize;

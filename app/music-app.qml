@@ -347,7 +347,8 @@ MainView {
         };
     }
 
-    function trackClicked(model, index, play, clear) {
+    // Clear the queue, queue this model and play the specific index
+    function trackClicked(model, index, play) {
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;
@@ -356,22 +357,14 @@ MainView {
         var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
 
         play = play === undefined ? true : play  // default play to true
-        clear = clear === undefined ? false : clear  // force clear and will ignore toggle()
 
-        if (!clear) {  // FIXME: is this even used anymore? trackQueueClick instead?
-            // If same track and on Now playing page then toggle
-            if (mainPageStack.currentPage.title === i18n.tr("Now playing")
-                    && Qt.resolvedUrl(newPlayer.mediaPlayer.playlist.currentItemSource) === file) {
-                newPlayer.mediaPlayer.toggle()
-                return;
-            }
-        }
-
-        newPlayer.mediaPlayer.playlist.clear();  // clear the old model
+        newPlayer.mediaPlayer.playlist.clear_wrapper();  // clear the old model
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
         newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
 
         if (play) {
+            // Set the pending state for the playlist
+            // this will be set once the currentIndex has been appened to the playlist
             newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
 
             // Show the Now playing page and make sure the track is visible
@@ -379,6 +372,8 @@ MainView {
         }
     }
 
+    // Play or pause a current track in the queue
+    // - the index has been tapped by the user
     function trackQueueClick(index) {
         if (newPlayer.mediaPlayer.playlist.currentIndex === index) {
             newPlayer.mediaPlayer.toggle();
@@ -388,15 +383,21 @@ MainView {
         }
     }
 
+    // Clear the queue and play a random track from this model
+    // - use has selected "Shuffle" in album/artists or "Tap to play random"
     function playRandomSong(model)
     {
+        // If no model is given use all the tracks
         if (model === undefined) {
             model = allSongsModel;
         }
 
-        newPlayer.mediaPlayer.playlist.clear();
+        newPlayer.mediaPlayer.playlist.clear_wrapper();
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
         newPlayer.shuffle = true;
+
+        // Once the model count has been reached in the queue
+        // shuffle the model
         newPlayer.mediaPlayer.playlist.setPendingShuffle(model.count);
 
         tabs.pushNowPlaying();
@@ -515,7 +516,7 @@ MainView {
             if (status === SongsModel.Ready) {
                 // Play album it tracks exist
                 if (rowCount > 0 && selectedAlbum) {
-                    trackClicked(songsAlbumArtistModel, 0, true, true);
+                    trackClicked(songsAlbumArtistModel, 0, true);
 
                     // Add album to recent list
                     Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")

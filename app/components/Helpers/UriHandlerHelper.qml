@@ -60,7 +60,7 @@ Item {
         } else {
             if (play) {
                 // clear play queue
-                newPlayer.mediaPlayer.playlist.clear()
+                newPlayer.mediaPlayer.playlist.clear_wrapper()
             }
 
             // enqueue

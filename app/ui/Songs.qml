@@ -117,7 +117,7 @@ MusicPage {
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
-                    newPlayer.mediaPlayer.playlist.clear();
+                    newPlayer.mediaPlayer.playlist.clear_wrapper();
                     newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(songsModelFilter.get(index).filename));
                     trackQueueClick(0)
                 } else {
