@@ -77,8 +77,21 @@ Item {
                 }
             }
 
-            readonly property bool empty: itemCount === 0
+            // FIXME: Bind to settings.repeat/shuffle instead of playbackMode
+            // as that doesn't emit changes
+            readonly property bool canGoPrevious: {
+                currentIndex !== 0 ||
+                settings.repeat ||
+                settings.shuffle ||
+                mediaPlayer.position > 5000
+            }
+            readonly property bool canGoNext: {
+                currentIndex !== (itemCount - 1) ||
+                settings.repeat ||
+                settings.shuffle
+            }
             readonly property int count: itemCount  // header actions etc depend on the model having 'count'
+            readonly property bool empty: itemCount === 0
             property int pendingCurrentIndex: -1
             property var pendingCurrentState: null
             property int pendingShuffle: -1
@@ -113,10 +126,13 @@ Item {
                 // Check if there is pending shuffle
                 // pendingShuffle holds the expected size of the model
                 if (pendingShuffle > -1 && pendingShuffle <= itemCount) {
-                    mediaPlayerPlaylist.shuffle();
+                    shuffle();
 
                     pendingShuffle = -1;
-                    mediaPlayerPlaylist.next();  // find a random track
+
+                    if (canGoNext) {
+                        next();  // find a random track
+                    }
                     mediaPlayer.play();  // next does not enforce play
                 }
 
@@ -216,27 +232,16 @@ Item {
             function setPendingShuffle(modelSize) {
                 // Run shuffle() when the modelSize is reached
                 if (modelSize <= itemCount) {
-                    mediaPlayerPlaylist.shuffle();
-                    mediaPlayerPlaylist.next();  // find a random track
+                    shuffle();
+
+                    if (canGoNext) {
+                        mediaPlayerPlaylist.next();  // find a random track
+                    }
                     mediaPlayer.play();  // next does not enforce play
                 } else {
                     pendingShuffle = modelSize;
                 }
             }
-        }
-
-        // FIXME: Bind to settings.repeat/shuffle instead of playbackMode
-        // as that doesn't emit changes
-        property bool canGoPrevious: {
-            playlist.currentIndex !== 0 ||
-            settings.repeat ||
-            settings.shuffle ||
-            position > 5000
-        }
-        property bool canGoNext: {
-            playlist.currentIndex !== (playlist.itemCount - 1) ||
-            settings.repeat ||
-            settings.shuffle
         }
 
         property double progress: 0

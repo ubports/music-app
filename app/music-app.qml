@@ -92,10 +92,16 @@ MainView {
         else if(event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_Left:   //  Ctrl+Left   Previous Song
-                newPlayer.mediaPlayer.playlist.previous();
+                if (newPlayer.mediaPlayer.playlist.canGoPrevious) {
+                    newPlayer.mediaPlayer.playlist.previous();
+                }
+
                 break;
             case Qt.Key_Right:  //  Ctrl+Right  Next Song
-                newPlayer.mediaPlayer.playlist.next();
+                if (newPlayer.mediaPlayer.playlist.canGoNext) {
+                    newPlayer.mediaPlayer.playlist.next();
+                }
+
                 break;
             /*
             case Qt.Key_Up:  //     Ctrl+Up     Volume up
@@ -159,7 +165,11 @@ MainView {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: newPlayer.mediaPlayer.playlist.next()
+        onTriggered: {
+            if (newPlayer.mediaPlayer.playlist.canGoNext) {
+                newPlayer.mediaPlayer.playlist.next()
+            }
+        }
     }
     Action {
         id: playsAction
@@ -182,7 +192,11 @@ MainView {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
-        onTriggered: newPlayer.mediaPlayer.playlist.previous()
+        onTriggered: {
+            if (newPlayer.mediaPlayer.playlist.canGoPrevious) {
+                newPlayer.mediaPlayer.playlist.previous()
+            }
+        }
     }
     /*
     Action {

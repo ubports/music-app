@@ -56,7 +56,7 @@ Rectangle {
     /* Previous button */
     MouseArea {
         id: nowPlayingPreviousButton
-        enabled: newPlayer.mediaPlayer.canGoPrevious
+        enabled: newPlayer.mediaPlayer.playlist.canGoPrevious
         anchors.right: nowPlayingPlayButton.left
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
@@ -103,7 +103,7 @@ Rectangle {
         anchors.left: nowPlayingPlayButton.right
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-        enabled: newPlayer.mediaPlayer.canGoNext
+        enabled: newPlayer.mediaPlayer.playlist.canGoNext
         height: units.gu(6)
         width: height
         onClicked: newPlayer.mediaPlayer.playlist.next()  // FIXME:
