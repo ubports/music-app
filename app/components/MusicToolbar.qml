@@ -197,7 +197,7 @@ Rectangle {
                     rightMargin: units.gu(3)
                     verticalCenter: parent.verticalCenter
                 }
-                color: "#FFF"
+                color: playerControlsPlayButtonMouseArea.pressed ? UbuntuColors.blue : "white"
                 height: units.gu(4)
                 name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
@@ -217,6 +217,7 @@ Rectangle {
 
             /* Mouse area for the play button (ontop of the jump to now playing) */
             MouseArea {
+                id: playerControlsPlayButtonMouseArea
                 anchors {
                     bottom: parent.bottom
                     horizontalCenter: playerControlsPlayButton.horizontalCenter

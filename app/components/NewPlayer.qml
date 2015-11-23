@@ -79,16 +79,16 @@ Item {
 
             // FIXME: Bind to settings.repeat/shuffle instead of playbackMode
             // as that doesn't emit changes
-            readonly property bool canGoPrevious: {
+            readonly property bool canGoPrevious: {  // FIXME: pad.lv/1517580 use previousIndex() > -1 after mh implements it
                 currentIndex !== 0 ||
                 settings.repeat ||
-                settings.shuffle ||
+                settings.shuffle ||  // FIXME: pad.lv/1517580 not way to know when we are at the end of a shuffle yet
                 mediaPlayer.position > 5000
             }
-            readonly property bool canGoNext: {
+            readonly property bool canGoNext: {  // FIXME: pad.lv/1517580 use nextIndex() > -1 after mh implements it
                 currentIndex !== (itemCount - 1) ||
                 settings.repeat ||
-                settings.shuffle
+                settings.shuffle  // FIXME: pad.lv/1517580 not way to know when we are at the end of a shuffle yet
             }
             readonly property int count: itemCount  // header actions etc depend on the model having 'count'
             readonly property bool empty: itemCount === 0

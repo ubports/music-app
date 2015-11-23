@@ -46,7 +46,7 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "white"
+            color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-playlist-repeat"
             objectName: "repeatShape"
             opacity: newPlayer.repeat ? 1 : .2
@@ -70,7 +70,7 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "white"
+            color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-skip-backward"
             objectName: "previousShape"
             opacity: parent.enabled ? 1 : .2
@@ -91,7 +91,7 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "white"
+            color: parent.pressed ? UbuntuColors.blue : "white"
             name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
             objectName: "playShape"
         }
@@ -114,7 +114,7 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "white"
+            color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-skip-forward"
             objectName: "forwardShape"
             opacity: parent.enabled ? 1 : .2
@@ -137,7 +137,7 @@ Rectangle {
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "white"
+            color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
             opacity: newPlayer.shuffle ? 1 : .2
