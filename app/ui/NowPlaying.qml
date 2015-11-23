@@ -103,6 +103,8 @@ MusicPage {
                     iconName: "add-to-playlist"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Add to playlist")
+                    visible: !isListView
+
                     onTriggered: {
                         var items = []
 
@@ -118,6 +120,8 @@ MusicPage {
                     objectName: "clearQueue"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
+                    visible: isListView
+
                     onTriggered: newPlayer.mediaPlayer.playlist.clear_wrapper()  // FIXME: stop audio?
                 }
             ]
