@@ -190,6 +190,7 @@ Item {
             }
 
             function removeItems(items) {
+                // FIXME: broken due to async but will be fixed when removeItems(list) exists
                 items.sort();
 
                 for (var i=0; i < items.length; i++) {
@@ -257,7 +258,7 @@ Item {
         onPositionChanged: _calcProgress()
 
         onStatusChanged: {
-            if (status == MediaPlayer.EndOfMedia) {
+            if (status == MediaPlayer.EndOfMedia && !settings.repeat) {
                 console.debug("End of media, stopping.")
                 playlist.currentIndex = 0;
                 stop();
