@@ -37,9 +37,8 @@ Item {
     Connections {
         id: userMetricPlayerConnection
         target: newPlayer.mediaPlayer
-        property bool songCounted: false
 
-        onSourceChanged: songCounted = false
+        property bool songCounted: false
 
         onPositionChanged: {
             // Increment song count on Welcome screen if song has been
@@ -50,5 +49,10 @@ Item {
                 console.debug("Increment UserMetrics")
             }
         }
+    }
+
+    Connections {
+        target: newPlayer.mediaPlayer.playlist
+        onCurrentItemSourceChanged: userMetricPlayerConnection.songCounted = false
     }
 }
