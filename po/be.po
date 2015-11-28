@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-24 14:06-0500\n"
-"PO-Revision-Date: 2015-10-27 10:28+0000\n"
+"PO-Revision-Date: 2015-11-27 09:17+0000\n"
 "Last-Translator: Siamion Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-11-17 05:55+0000\n"
-"X-Generator: Launchpad (build 17847)\n"
+"X-Launchpad-Export-Date: 2015-11-28 05:03+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -77,7 +77,7 @@ msgstr "Стварыць"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr "Канчаткова выдаліць спіс кампазіцый?"
+msgstr "Канчаткова выдаліць спіс прайгравання?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
@@ -118,7 +118,7 @@ msgstr "Пошук музыкі"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:82
 msgid "Filepath must start with"
-msgstr "Шлях да файла павінен пачынацца з"
+msgstr "Шлях да файла мусіць пачынацца з"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:108
@@ -128,7 +128,7 @@ msgstr "Шлях да файла мусіць быць файлам"
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:114
 msgid "Failed to move file"
-msgstr "Не атрымалася перанесьці файл"
+msgstr "Не атрымалася перанесці файл"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
@@ -307,7 +307,7 @@ msgstr[2] "%1 кампазіцыяў"
 #: ../app/ui/AddToPlaylist.qml:98 ../app/ui/Playlists.qml:37
 #: ../app/ui/SongsView.qml:103
 msgid "Playlists"
-msgstr "Плэйлісты"
+msgstr "Спісы прайгравання"
 
 #: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:36
 #: ../app/ui/SongsView.qml:91
@@ -368,12 +368,12 @@ msgstr "Жанр"
 
 #: ../app/ui/LibraryEmptyState.qml:112
 msgid "No music found"
-msgstr "Музыка ня знойдзеная"
+msgstr "Музыка не знойдзеная"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Поўны прагляд"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
@@ -402,7 +402,7 @@ msgstr "Кампазіцыі"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Музыснае прыкладанне для Ubuntu"
+msgstr "Музычнае прыкладанне для Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
