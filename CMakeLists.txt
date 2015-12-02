@@ -60,9 +60,11 @@ message("Found ${I18N_SRC_FILES}")
 
 file(GLOB SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     *.qml *.js *.png *.js *.json)
+     *.qml *.js *.png *.js)
 install(DIRECTORY app DESTINATION ${DATA_DIR})
 install(FILES ${SRC_FILES} ${ICON_FILE} DESTINATION ${DATA_DIR})
+
+install(FILES music-app-content.json DESTINATION ${CMAKE_INSTALL_PREFIX}/share/content-hub/peers/ RENAME music-app)
 
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in)
 
@@ -72,7 +74,7 @@ add_custom_target(${DESKTOP_FILE} ALL
 )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
-    DESTINATION ${DESKTOP_DIR})
+    DESTINATION ${DESKTOP_DIR} RENAME music-app.desktop)
 
 install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 
