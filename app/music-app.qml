@@ -38,10 +38,7 @@ MainView {
     id: mainView
 
     backgroundColor: styleMusic.mainView.backgroundColor
-    headerColor: styleMusic.mainView.headerColor
     theme.name: "Ubuntu.Components.Themes.SuruDark"
-
-    property bool useDeprecatedToolbar: false  // FIXME: keep SDK autopilot helpers happy
 
     // Startup settings
     Settings {
@@ -267,15 +264,11 @@ MainView {
         if (args.values.url) {
             uriHandler.process(args.values.url, true);
         }
-
-        // TODO: Workaround for pad.lv/1356779, force the theme's backgroundText color
-        // to work with the app's backgroundColor
-        Theme.palette.normal.backgroundText = "#81888888"
     }
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.2'
+    property string appVersion: '2.3'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
@@ -369,7 +362,7 @@ MainView {
 
         if (!clear) {
             // If same track and on Now playing page then toggle
-            if ((mainPageStack.currentPage.title === i18n.tr("Now playing") || mainPageStack.currentPage.title === i18n.tr("Queue"))
+            if (mainPageStack.currentPage.title === i18n.tr("Now playing")
                     && trackQueue.model.get(player.currentIndex) !== undefined
                     && Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
                 player.toggle()
@@ -398,11 +391,6 @@ MainView {
         }
         else {
             player.playSong(trackQueue.model.get(index).filename, index);
-        }
-
-        // Show the Now playing page and make sure the track is visible
-        if (mainPageStack.currentPage.title !== i18n.tr("Queue")) {
-            tabs.pushNowPlaying();
         }
     }
 
@@ -984,12 +972,11 @@ MainView {
             function pushNowPlaying()
             {
                 // only push if on a different page
-                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")
-                        && mainPageStack.currentPage.title !== i18n.tr("Queue")) {
+                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
                     mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
                 }
 
-                if (mainPageStack.currentPage.title === i18n.tr("Queue")) {
+                if (mainPageStack.currentPage.isListView === true) {
                     mainPageStack.currentPage.isListView = false;  // ensure full view
                 }
             }

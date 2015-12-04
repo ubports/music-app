@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-10-27 10:28+0000\n"
+"POT-Creation-Date: 2015-10-24 14:06-0500\n"
+"PO-Revision-Date: 2015-11-27 09:17+0000\n"
 "Last-Translator: Siamion Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-10-28 05:58+0000\n"
-"X-Generator: Launchpad (build 17833)\n"
+"X-Launchpad-Export-Date: 2015-11-28 05:03+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -38,7 +38,7 @@ msgstr "Чакайце"
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:33
 msgid "Waiting for file(s)..."
 msgstr "Чаканне файла(-ў)"
 
@@ -77,14 +77,14 @@ msgstr "Стварыць"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr "Канчаткова выдаліць спіс кампазіцый?"
+msgstr "Канчаткова выдаліць спіс прайгравання?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
 msgstr "Наступствы дзеяння нельга будзе адмяніць"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
-#: ../app/components/ListItemActions/Remove.qml:28
+#: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
 msgstr "Прыбраць"
 
@@ -95,7 +95,7 @@ msgstr "Абраць усё"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
-#: ../app/ui/NowPlaying.qml:93
+#: ../app/ui/NowPlaying.qml:108
 msgid "Add to playlist"
 msgstr "Дадаць у плэйліст"
 
@@ -118,7 +118,7 @@ msgstr "Пошук музыкі"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:82
 msgid "Filepath must start with"
-msgstr "Шлях да файла павінен пачынацца з"
+msgstr "Шлях да файла мусіць пачынацца з"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:108
@@ -128,7 +128,7 @@ msgstr "Шлях да файла мусіць быць файлам"
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:114
 msgid "Failed to move file"
-msgstr "Не атрымалася перанесьці файл"
+msgstr "Не атрымалася перанесці файл"
 
 #. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
@@ -183,11 +183,11 @@ msgstr "Выбраць усе"
 msgid "Shuffle"
 msgstr "Выпадкова"
 
-#: ../app/components/Walkthrough/Slide1.qml:58
+#: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
 msgstr "Вітаем у \"Музыцы\""
 
-#: ../app/components/Walkthrough/Slide1.qml:72
+#: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
@@ -201,7 +201,7 @@ msgid "Import your music"
 msgstr "Імпартаваць вашу музыку"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
-#: ../app/ui/LibraryEmptyState.qml:117
+#: ../app/ui/LibraryEmptyState.qml:123
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
@@ -222,84 +222,78 @@ msgstr ""
 msgid "Start"
 msgstr "Пачаць"
 
-#: ../app/components/Walkthrough/Walkthrough.qml:84
+#: ../app/components/Walkthrough/Walkthrough.qml:120
 msgid "Skip"
 msgstr "Мінуць"
 
-#: ../app/music-app.qml:155
+#: ../app/music-app.qml:156
 msgid "Next"
 msgstr "Далей"
 
-#: ../app/music-app.qml:156
+#: ../app/music-app.qml:157
 msgid "Next Track"
 msgstr "Наступная кампазіцыя"
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Pause"
 msgstr "Прыпыніць"
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Play"
 msgstr "Прайграць"
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Pause Playback"
 msgstr "Прыпыніць прайграванне"
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Continue or start playback"
 msgstr "Працягнуць або пачаць прайграванне"
 
-#: ../app/music-app.qml:169
+#: ../app/music-app.qml:170
 msgid "Back"
 msgstr "Назад"
 
-#: ../app/music-app.qml:170
+#: ../app/music-app.qml:171
 msgid "Go back to last page"
 msgstr "Вярнуцца на апошнюю старонку"
 
-#: ../app/music-app.qml:178
+#: ../app/music-app.qml:179
 msgid "Previous"
 msgstr "Назад"
 
-#: ../app/music-app.qml:179
+#: ../app/music-app.qml:180
 msgid "Previous Track"
 msgstr "Папярэдняя кампазіцыя"
 
-#: ../app/music-app.qml:184
+#: ../app/music-app.qml:185
 msgid "Stop"
 msgstr "Спыніць"
 
-#: ../app/music-app.qml:185
+#: ../app/music-app.qml:186
 msgid "Stop Playback"
 msgstr "Спыніць прайграванне"
 
-#: ../app/music-app.qml:276 com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:277 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Музыка"
 
-#: ../app/music-app.qml:306
+#: ../app/music-app.qml:307
 msgid "Debug: "
 msgstr "Наладка: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:986
+#: ../app/music-app.qml:372 ../app/music-app.qml:982
 #: ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
 msgstr "Зараз грае"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:403 ../app/music-app.qml:987
-#: ../app/music-app.qml:991 ../app/ui/NowPlaying.qml:40
-msgid "Queue"
-msgstr "Чарга"
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/ui/AddToPlaylist.qml:46
+#: ../app/ui/AddToPlaylist.qml:45
 msgid "Select playlist"
 msgstr "Выбраць плэйліст"
 
-#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:87
+#: ../app/ui/AddToPlaylist.qml:93 ../app/ui/Playlists.qml:86
 #: ../app/ui/SongsView.qml:292 ../app/ui/SongsView.qml:293
 #, qt-format
 msgid "%1 song"
@@ -310,12 +304,12 @@ msgstr[2] "%1 кампазіцыяў"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:38
+#: ../app/ui/AddToPlaylist.qml:98 ../app/ui/Playlists.qml:37
 #: ../app/ui/SongsView.qml:103
 msgid "Playlists"
-msgstr "Плэйлісты"
+msgstr "Спісы прайгравання"
 
-#: ../app/ui/AddToPlaylist.qml:109 ../app/ui/Recent.qml:37
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:36
 #: ../app/ui/SongsView.qml:91
 msgid "Recent"
 msgstr "Нядаўнія"
@@ -324,24 +318,24 @@ msgstr "Нядаўнія"
 msgid "Albums"
 msgstr "Альбомы"
 
-#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
-#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:82
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:128
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Recent.qml:81
 #: ../app/ui/SongsView.qml:249
 msgid "Unknown Album"
 msgstr "Невядомы альбом"
 
-#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
-#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
-#: ../app/ui/Recent.qml:83 ../app/ui/SongsView.qml:270
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:84
+#: ../app/ui/ArtistView.qml:140 ../app/ui/Artists.qml:79
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:270
 msgid "Unknown Artist"
 msgstr "Невядомы выканаўца"
 
-#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
-#: ../app/ui/Recent.qml:98
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:139
+#: ../app/ui/Recent.qml:97
 msgid "Album"
 msgstr "Альбом"
 
-#: ../app/ui/ArtistView.qml:104
+#: ../app/ui/ArtistView.qml:103
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
@@ -349,11 +343,11 @@ msgstr[0] "%1 Альбом"
 msgstr[1] "%1 Альбома"
 msgstr[2] "%1 Альбомаў"
 
-#: ../app/ui/Artists.qml:38
+#: ../app/ui/Artists.qml:37
 msgid "Artists"
 msgstr "Выканаўцы"
 
-#: ../app/ui/Artists.qml:108
+#: ../app/ui/Artists.qml:107
 msgid "Artist"
 msgstr "Выканаўца"
 
@@ -372,17 +366,27 @@ msgstr "Жанры"
 msgid "Genre"
 msgstr "Жанр"
 
-#: ../app/ui/LibraryEmptyState.qml:106
+#: ../app/ui/LibraryEmptyState.qml:112
 msgid "No music found"
-msgstr "Музыка ня знойдзеная"
+msgstr "Музыка не знойдзеная"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:40
+msgid "Full view"
+msgstr "Поўны прагляд"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:42
+msgid "Queue"
+msgstr "Чарга"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/ui/NowPlaying.qml:108
+#: ../app/ui/NowPlaying.qml:123
 msgid "Clear queue"
 msgstr "Ачысціць чаргу"
 
-#: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
-#: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:67
 #: ../app/ui/SongsView.qml:82 ../app/ui/SongsView.qml:114
 #: ../app/ui/SongsView.qml:154 ../app/ui/SongsView.qml:188
 #: ../app/ui/SongsView.qml:203 ../app/ui/SongsView.qml:222
@@ -398,7 +402,7 @@ msgstr "Кампазіцыі"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Музыснае прыкладанне для Ubuntu"
+msgstr "Музычнае прыкладанне для Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"

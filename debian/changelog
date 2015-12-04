@@ -1,4 +1,14 @@
-music-app (2.2ubuntu2) UNRELEASED; urgency=medium
+music-app (2.3) UNRELEASED; urgency=medium
+
+  [ Andrew Hayzen ]
+  * Release 2.2ubuntu2 and start on 2.3
+
+  [ Victor Thompson ]
+  * Remove repeater for getting album titles in Artists.qml (LP: #1515067).
+
+ -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:11:35 +0000
+
+music-app (2.2ubuntu2) vivid; urgency=medium
 
   [ Bartosz Kosiorek ]
   *  Reduce size of images (with tinypng.com) to decrease click size and improve performance
@@ -9,12 +19,15 @@ music-app (2.2ubuntu2) UNRELEASED; urgency=medium
   * Update canned mediastore.db schema version from 8 to 9 (LP: #1511585).
   * Update canned mediastore.db schema version from 9 to 10.
   * Add directions for updating and debugging schema version changes.
-  * Remove repeater for getting album titles in Artists.qml (LP: #1515067).
+  * Add initial page sections to Now Playing view (LP: #1447428)
+  * Resolve FIXMEs/TODOs in main qml file
+  * Resolve DEPRECATED warnings in Theme files
 
   [ Andrew Hayzen ]
   * Switch to using the new uc1.3 listitems within the SDK
+  * Workaround for bug 1514143 by locking the header when searching (LP: #1514143)
 
- -- Bartosz Kosiorek <gang65@poczta.onet.pl>  Tue, 08 Sep 2015 10:08:49 +0200
+ -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:10:59 +0000
 
 music-app (2.2ubuntu1) vivid; urgency=medium
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-21 20:40+0100\n"
+"POT-Creation-Date: 2015-10-24 14:06-0500\n"
 "PO-Revision-Date: 2015-05-14 23:45+0000\n"
 "Last-Translator: Victor Thompson <Unknown>\n"
 "Language-Team: Malayalam <ml@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-25 05:59+0000\n"
-"X-Generator: Launchpad (build 17690)\n"
+"X-Launchpad-Export-Date: 2015-11-17 05:55+0000\n"
+"X-Generator: Launchpad (build 17847)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:33
 msgid "Waiting for file(s)..."
 msgstr ""
 
@@ -83,7 +83,7 @@ msgid "This cannot be undone"
 msgstr ""
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
-#: ../app/components/ListItemActions/Remove.qml:28
+#: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
-#: ../app/ui/NowPlaying.qml:93
+#: ../app/ui/NowPlaying.qml:108
 msgid "Add to playlist"
 msgstr "പ്ലേലിസ്റ്റിലേക്ക് ചേര്‍ക്കുക"
 
@@ -180,11 +180,11 @@ msgstr ""
 msgid "Shuffle"
 msgstr ""
 
-#: ../app/components/Walkthrough/Slide1.qml:58
+#: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
 msgstr ""
 
-#: ../app/components/Walkthrough/Slide1.qml:72
+#: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
@@ -195,7 +195,7 @@ msgid "Import your music"
 msgstr ""
 
 #: ../app/components/Walkthrough/Slide2.qml:67
-#: ../app/ui/LibraryEmptyState.qml:117
+#: ../app/ui/LibraryEmptyState.qml:123
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
@@ -213,84 +213,78 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: ../app/components/Walkthrough/Walkthrough.qml:84
+#: ../app/components/Walkthrough/Walkthrough.qml:120
 msgid "Skip"
 msgstr ""
 
-#: ../app/music-app.qml:155
+#: ../app/music-app.qml:156
 msgid "Next"
 msgstr ""
 
-#: ../app/music-app.qml:156
+#: ../app/music-app.qml:157
 msgid "Next Track"
 msgstr ""
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Pause"
 msgstr ""
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Play"
 msgstr ""
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Pause Playback"
 msgstr ""
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Continue or start playback"
 msgstr ""
 
-#: ../app/music-app.qml:169
+#: ../app/music-app.qml:170
 msgid "Back"
 msgstr ""
 
-#: ../app/music-app.qml:170
+#: ../app/music-app.qml:171
 msgid "Go back to last page"
 msgstr ""
 
-#: ../app/music-app.qml:178
+#: ../app/music-app.qml:179
 msgid "Previous"
 msgstr ""
 
-#: ../app/music-app.qml:179
+#: ../app/music-app.qml:180
 msgid "Previous Track"
 msgstr ""
 
-#: ../app/music-app.qml:184
+#: ../app/music-app.qml:185
 msgid "Stop"
 msgstr ""
 
-#: ../app/music-app.qml:185
+#: ../app/music-app.qml:186
 msgid "Stop Playback"
 msgstr ""
 
-#: ../app/music-app.qml:276 com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:277 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr ""
 
-#: ../app/music-app.qml:306
+#: ../app/music-app.qml:307
 msgid "Debug: "
 msgstr ""
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:986
+#: ../app/music-app.qml:372 ../app/music-app.qml:982
 #: ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
 msgstr ""
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:403 ../app/music-app.qml:987
-#: ../app/music-app.qml:991 ../app/ui/NowPlaying.qml:40
-msgid "Queue"
-msgstr ""
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/ui/AddToPlaylist.qml:46
+#: ../app/ui/AddToPlaylist.qml:45
 msgid "Select playlist"
 msgstr "പ്ലേലിസ്റ്റ് തെരെഞ്ഞടുക്കുക"
 
-#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:87
+#: ../app/ui/AddToPlaylist.qml:93 ../app/ui/Playlists.qml:86
 #: ../app/ui/SongsView.qml:292 ../app/ui/SongsView.qml:293
 #, qt-format
 msgid "%1 song"
@@ -300,12 +294,12 @@ msgstr[1] "%1 ഗാനങ്ങള്‍"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:38
+#: ../app/ui/AddToPlaylist.qml:98 ../app/ui/Playlists.qml:37
 #: ../app/ui/SongsView.qml:103
 msgid "Playlists"
 msgstr "പ്ലേലിസ്റ്റുകള്‍"
 
-#: ../app/ui/AddToPlaylist.qml:109 ../app/ui/Recent.qml:37
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:36
 #: ../app/ui/SongsView.qml:91
 msgid "Recent"
 msgstr ""
@@ -314,35 +308,35 @@ msgstr ""
 msgid "Albums"
 msgstr "ഗാനശേഖരങ്ങള്‍"
 
-#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
-#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:82
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:128
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Recent.qml:81
 #: ../app/ui/SongsView.qml:249
 msgid "Unknown Album"
 msgstr ""
 
-#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
-#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
-#: ../app/ui/Recent.qml:83 ../app/ui/SongsView.qml:270
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:84
+#: ../app/ui/ArtistView.qml:140 ../app/ui/Artists.qml:79
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:270
 msgid "Unknown Artist"
 msgstr ""
 
-#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
-#: ../app/ui/Recent.qml:98
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:139
+#: ../app/ui/Recent.qml:97
 msgid "Album"
 msgstr ""
 
-#: ../app/ui/ArtistView.qml:104
+#: ../app/ui/ArtistView.qml:103
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 ആല്‍ബം"
 msgstr[1] "%1 ആല്‍ബങ്ങള്‍"
 
-#: ../app/ui/Artists.qml:38
+#: ../app/ui/Artists.qml:37
 msgid "Artists"
 msgstr "കലാകാരന്‍മാര്‍"
 
-#: ../app/ui/Artists.qml:108
+#: ../app/ui/Artists.qml:107
 msgid "Artist"
 msgstr ""
 
@@ -361,17 +355,27 @@ msgstr ""
 msgid "Genre"
 msgstr ""
 
-#: ../app/ui/LibraryEmptyState.qml:106
+#: ../app/ui/LibraryEmptyState.qml:112
 msgid "No music found"
 msgstr ""
 
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:40
+msgid "Full view"
+msgstr ""
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:42
+msgid "Queue"
+msgstr ""
+
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/ui/NowPlaying.qml:108
+#: ../app/ui/NowPlaying.qml:123
 msgid "Clear queue"
 msgstr ""
 
-#: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
-#: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:67
 #: ../app/ui/SongsView.qml:82 ../app/ui/SongsView.qml:114
 #: ../app/ui/SongsView.qml:154 ../app/ui/SongsView.qml:188
 #: ../app/ui/SongsView.qml:203 ../app/ui/SongsView.qml:222

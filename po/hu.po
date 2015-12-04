@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-21 20:40+0100\n"
-"PO-Revision-Date: 2015-08-25 11:50+0000\n"
+"POT-Creation-Date: 2015-10-24 14:06-0500\n"
+"PO-Revision-Date: 2015-11-24 08:43+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-26 06:16+0000\n"
-"X-Generator: Launchpad (build 17690)\n"
+"X-Launchpad-Export-Date: 2015-11-25 05:36+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -37,7 +37,7 @@ msgstr "Várakozás"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:33
 msgid "Waiting for file(s)..."
 msgstr "Várakozás a fájlokra…"
 
@@ -80,10 +80,10 @@ msgstr "Lejátszólista végleges törlése?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr "Ez nem vonható vissza"
+msgstr "Nem vonható vissza"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
-#: ../app/components/ListItemActions/Remove.qml:28
+#: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
 msgstr "Eltávolítás"
 
@@ -94,7 +94,7 @@ msgstr "Összes kijelölése"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:39
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
-#: ../app/ui/NowPlaying.qml:93
+#: ../app/ui/NowPlaying.qml:108
 msgid "Add to playlist"
 msgstr "Lejátszólistához"
 
@@ -164,8 +164,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
-"Hozzon ki többet az alkalmazásból. A %1 ikonnal készíthet lejátszólistát "
-"bármilyen alkalomhoz vagy aktuális hangulatához."
+"Hozzon ki többet az alkalmazásból. A %1 ikonnal készíthet új lejátszólistát "
+"bármilyen alkalomhoz, vagy akár az aktuális hangulataihoz is."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -182,17 +182,17 @@ msgstr "Sorhoz adás"
 msgid "Shuffle"
 msgstr "Keverés"
 
-#: ../app/components/Walkthrough/Slide1.qml:58
+#: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
 msgstr "Üdvözöljük a zenelejátszóban"
 
-#: ../app/components/Walkthrough/Slide1.qml:72
+#: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
 "Élvezze kedvenc zenéit az Ubuntu zenelejátszó alkalmazásával. Kövesse végig "
-"a rövid bemutatót, vagy kattintson a kihagyásra, és kezdjen bele a "
+"a rövid bemutatót, vagy kattintson a kihagyásra és kezdjen bele a "
 "zenehallgatásba."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
@@ -200,7 +200,7 @@ msgid "Import your music"
 msgstr "Zenék importálása"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
-#: ../app/ui/LibraryEmptyState.qml:117
+#: ../app/ui/LibraryEmptyState.qml:123
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
@@ -214,90 +214,85 @@ msgstr "Új zenék letöltése"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "Böngészés közben vásárolt zenéit közvetlenül importálhatja."
+msgstr ""
+"A böngészés közben vásárolt zenéit közvetlenül importálhatja az alkalmazásba."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
 msgstr "Kezdés"
 
-#: ../app/components/Walkthrough/Walkthrough.qml:84
+#: ../app/components/Walkthrough/Walkthrough.qml:120
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: ../app/music-app.qml:155
+#: ../app/music-app.qml:156
 msgid "Next"
 msgstr "Következő"
 
-#: ../app/music-app.qml:156
+#: ../app/music-app.qml:157
 msgid "Next Track"
 msgstr "Következő szám"
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Pause"
 msgstr "Szünet"
 
-#: ../app/music-app.qml:162
+#: ../app/music-app.qml:163
 msgid "Play"
 msgstr "Lejátszás"
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Pause Playback"
 msgstr "Lejátszás szüneteltetése"
 
-#: ../app/music-app.qml:164
+#: ../app/music-app.qml:165
 msgid "Continue or start playback"
 msgstr "Folytatás vagy a lejátszás indítása"
 
-#: ../app/music-app.qml:169
+#: ../app/music-app.qml:170
 msgid "Back"
 msgstr "Vissza"
 
-#: ../app/music-app.qml:170
+#: ../app/music-app.qml:171
 msgid "Go back to last page"
 msgstr "Vissza az előző oldalra"
 
-#: ../app/music-app.qml:178
+#: ../app/music-app.qml:179
 msgid "Previous"
 msgstr "Előző"
 
-#: ../app/music-app.qml:179
+#: ../app/music-app.qml:180
 msgid "Previous Track"
 msgstr "Előző szám"
 
-#: ../app/music-app.qml:184
+#: ../app/music-app.qml:185
 msgid "Stop"
 msgstr "Leállítás"
 
-#: ../app/music-app.qml:185
+#: ../app/music-app.qml:186
 msgid "Stop Playback"
 msgstr "Lejátszás leállítása"
 
-#: ../app/music-app.qml:276 com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:277 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "Zene"
 
-#: ../app/music-app.qml:306
+#: ../app/music-app.qml:307
 msgid "Debug: "
 msgstr "Hibakeresés: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:986
+#: ../app/music-app.qml:372 ../app/music-app.qml:982
 #: ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
 msgstr "Most játszott"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:371 ../app/music-app.qml:403 ../app/music-app.qml:987
-#: ../app/music-app.qml:991 ../app/ui/NowPlaying.qml:40
-msgid "Queue"
-msgstr "Lejátszási sor"
-
-#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/ui/AddToPlaylist.qml:46
+#: ../app/ui/AddToPlaylist.qml:45
 msgid "Select playlist"
 msgstr "Lista kiválasztása"
 
-#: ../app/ui/AddToPlaylist.qml:94 ../app/ui/Playlists.qml:87
+#: ../app/ui/AddToPlaylist.qml:93 ../app/ui/Playlists.qml:86
 #: ../app/ui/SongsView.qml:292 ../app/ui/SongsView.qml:293
 #, qt-format
 msgid "%1 song"
@@ -307,12 +302,12 @@ msgstr[1] "%1 szám"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:38
+#: ../app/ui/AddToPlaylist.qml:98 ../app/ui/Playlists.qml:37
 #: ../app/ui/SongsView.qml:103
 msgid "Playlists"
 msgstr "Lejátszólisták"
 
-#: ../app/ui/AddToPlaylist.qml:109 ../app/ui/Recent.qml:37
+#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:36
 #: ../app/ui/SongsView.qml:91
 msgid "Recent"
 msgstr "Legutóbbi"
@@ -321,35 +316,35 @@ msgstr "Legutóbbi"
 msgid "Albums"
 msgstr "Albumok"
 
-#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:129
-#: ../app/ui/ArtistView.qml:142 ../app/ui/Recent.qml:82
+#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:128
+#: ../app/ui/ArtistView.qml:141 ../app/ui/Recent.qml:81
 #: ../app/ui/SongsView.qml:249
 msgid "Unknown Album"
 msgstr "Ismeretlen album"
 
-#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:85
-#: ../app/ui/ArtistView.qml:141 ../app/ui/Artists.qml:80
-#: ../app/ui/Recent.qml:83 ../app/ui/SongsView.qml:270
+#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:84
+#: ../app/ui/ArtistView.qml:140 ../app/ui/Artists.qml:79
+#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:270
 msgid "Unknown Artist"
 msgstr "Ismeretlen előadó"
 
-#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:140
-#: ../app/ui/Recent.qml:98
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:139
+#: ../app/ui/Recent.qml:97
 msgid "Album"
 msgstr "Album"
 
-#: ../app/ui/ArtistView.qml:104
+#: ../app/ui/ArtistView.qml:103
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 album"
 msgstr[1] "%1 album"
 
-#: ../app/ui/Artists.qml:38
+#: ../app/ui/Artists.qml:37
 msgid "Artists"
 msgstr "Előadók"
 
-#: ../app/ui/Artists.qml:108
+#: ../app/ui/Artists.qml:107
 msgid "Artist"
 msgstr "Előadó"
 
@@ -368,17 +363,27 @@ msgstr "Műfajok"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: ../app/ui/LibraryEmptyState.qml:106
+#: ../app/ui/LibraryEmptyState.qml:112
 msgid "No music found"
 msgstr "Nem található zene"
 
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:40
+msgid "Full view"
+msgstr "Teljes nézet"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:42
+msgid "Queue"
+msgstr "Lejátszási sor"
+
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/ui/NowPlaying.qml:108
+#: ../app/ui/NowPlaying.qml:123
 msgid "Clear queue"
 msgstr "Sor törlése"
 
-#: ../app/ui/Playlists.qml:99 ../app/ui/Playlists.qml:100
-#: ../app/ui/Recent.qml:83 ../app/ui/Recent.qml:98 ../app/ui/SongsView.qml:67
+#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
+#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:67
 #: ../app/ui/SongsView.qml:82 ../app/ui/SongsView.qml:114
 #: ../app/ui/SongsView.qml:154 ../app/ui/SongsView.qml:188
 #: ../app/ui/SongsView.qml:203 ../app/ui/SongsView.qml:222
