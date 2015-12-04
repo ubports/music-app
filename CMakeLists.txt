@@ -38,6 +38,8 @@ if(CLICK_MODE)
     configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json apparmor.json
             music-app-content.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
+        DESTINATION ${DESKTOP_DIR})
 else(CLICK_MODE)
     set(DATA_DIR ${CMAKE_INSTALL_DATADIR}/${APP_HARDCODE})
     set(EXEC ${APP_HARDCODE})
@@ -48,6 +50,9 @@ else(CLICK_MODE)
         DESTINATION ${CMAKE_INSTALL_BINDIR})
     set(DESKTOP_DIR ${CMAKE_INSTALL_DATADIR}/applications)
     set(URLS_DIR ${CMAKE_INSTALL_DATADIR}/url-dispatcher/urls)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
+        DESTINATION ${DESKTOP_DIR} RENAME music-app.desktop)
+    install(FILES music-app-content.json DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers/ RENAME music-app)
 endif(CLICK_MODE)
 
 file(GLOB_RECURSE I18N_SRC_FILES
@@ -60,7 +65,7 @@ message("Found ${I18N_SRC_FILES}")
 
 file(GLOB SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     *.qml *.js *.png *.js *.json)
+     *.qml *.js *.png *.js)
 install(DIRECTORY app DESTINATION ${DATA_DIR})
 install(FILES ${SRC_FILES} ${ICON_FILE} DESTINATION ${DATA_DIR})
 
@@ -70,9 +75,6 @@ add_custom_target(${DESKTOP_FILE} ALL
     COMMENT "Merging translations into ${DESKTOP_FILE}"
     COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE}
 )
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
-    DESTINATION ${DESKTOP_DIR})
 
 install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 
