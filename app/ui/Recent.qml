@@ -63,8 +63,10 @@ MusicPage {
         ]
     }
 
-    CardView {
-        id: recentCardView
+    MusicGridView {
+        id: recentGridView
+        itemWidth: units.gu(15)
+        heightOffset: units.gu(7)
         model: recentModel.model
         delegate: Card {
             id: albumCard

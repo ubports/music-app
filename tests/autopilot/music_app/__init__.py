@@ -212,7 +212,7 @@ class Playlists(MusicPage):
 
     def get_count(self):
         return self.wait_select_single(
-            "CardView", objectName="playlistsCardView").count
+            "MusicGridView", objectName="playlistsGridView").count
 
     def click_new_playlist_action(self):
             self.main_view.get_header(
@@ -243,7 +243,7 @@ class AddToPlaylist(MusicPage):
 
     def get_count(self):  # careful not to conflict until Page11 is fixed
         return self.wait_select_single(
-            "CardView", objectName="addToPlaylistCardView").count
+            "MusicGridView", objectName="addToPlaylistGridView").count
 
     def get_playlist(self, i):
         return (self.wait_select_single("Card",

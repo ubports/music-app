@@ -37,18 +37,10 @@ MusicPage {
     property var covers: []
     property bool loaded: false  // used to detect difference between first and further loads
 
-    CardView {
+    MusicGridView {
         id: artistAlbumView
-        anchors {
-            fill: parent
-        }
-        getter: function (i) {
-            return {
-                "art": albumsModel.get(i, AlbumsModel.RoleArt),
-                "artist": albumsModel.get(i, AlbumsModel.RoleArtist),
-                "title": albumsModel.get(i, AlbumsModel.RoleTitle),
-            };
-        }
+        itemWidth: units.gu(12)
+        heightOffset: units.gu(5.5)
         header: BlurredHeader {
             id: blurredHeader
             rightColumn: Column {
@@ -109,7 +101,6 @@ MusicPage {
                 store: musicStore
             }
         }
-        itemWidth: units.gu(12)
         model: AlbumsModel {
             id: albumsModel
             albumArtist: artistViewPage.artist

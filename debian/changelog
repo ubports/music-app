@@ -2,6 +2,7 @@ music-app (2.3) UNRELEASED; urgency=medium
 
   [ Andrew Hayzen ]
   * Release 2.2ubuntu2 and start on 2.3
+  * Switch to using Qt GridView instead of custom CardView
 
   [ Ken VanDine ]
   * Install the content-hub json file in the correct place for peer registry

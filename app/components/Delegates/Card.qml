@@ -22,11 +22,8 @@ import "../"
 
 Item {
     id: card
-    height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
-
-    /* Required by ColumnFlow */
-    property int index
-    property var model
+    height: parent.parent.cellHeight
+    width: parent.parent.cellWidth
 
     property alias coverSources: coverGrid.covers
     property alias primaryText: primaryLabel.text
@@ -38,26 +35,14 @@ Item {
 
     /* Animations */
     Behavior on height {
-        UbuntuNumberAnimation {
-
+        NumberAnimation {
+            duration: UbuntuAnimation.FastDuration
         }
     }
 
     Behavior on width {
-        UbuntuNumberAnimation {
-
-        }
-    }
-
-    Behavior on x {
-        UbuntuNumberAnimation {
-
-        }
-    }
-
-    Behavior on y {
-        UbuntuNumberAnimation {
-
+        NumberAnimation {
+            duration: UbuntuAnimation.FastDuration
         }
     }
 
@@ -85,7 +70,7 @@ Item {
         }
 
         Item {
-            height: units.gu(1)
+            height: units.gu(.5)
             width: units.gu(1)
         }
 
@@ -100,8 +85,9 @@ Item {
             color: "#FFF"
             elide: Text.ElideRight
             fontSize: "small"
+            height: units.gu(1.5)
             opacity: 1.0
-            wrapMode: Text.WordWrap
+            wrapMode: Text.NoWrap
         }
 
         Label {
@@ -115,12 +101,13 @@ Item {
             color: "#FFF"
             elide: Text.ElideRight
             fontSize: "small"
+            height: units.gu(1.5)
             opacity: 0.4
-            wrapMode: Text.WordWrap
+            wrapMode: Text.NoWrap
         }
 
         Item {
-            height: units.gu(1.5)
+            height: units.gu(1) + cardColumn.spacing
             width: units.gu(1)
         }
     }
@@ -132,22 +119,22 @@ Item {
             fill: bg
         }
         color: "#000"
-        opacity: 0
+        opacity: cardMouseArea.pressed ? 0.3 : 0
 
         Behavior on opacity {
-            UbuntuNumberAnimation {
-
+            NumberAnimation {
+                duration: UbuntuAnimation.FastDuration
             }
         }
     }
 
     /* Capture mouse events */
     MouseArea {
+        id: cardMouseArea
         anchors {
             fill: parent
         }
         onClicked: card.clicked(mouse)
         onPressAndHold: card.pressAndHold(mouse)
-        onPressedChanged: overlay.opacity = pressed ? 0.3 : 0
     }
 }

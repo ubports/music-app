@@ -66,8 +66,10 @@ MusicPage {
         onTriggered: playlistModel.filterPlaylists()
     }
 
-    CardView {
+    MusicGridView {
         id: playlistslist
+        itemWidth: units.gu(15)
+        heightOffset: units.gu(7)
         model: SortFilterModel {
             // Sorting disabled as it is incorrect on first run (due to workers?)
             // and SQL sorts the data correctly
@@ -77,7 +79,7 @@ MusicPage {
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
-        objectName: "playlistsCardView"
+        objectName: "playlistsGridView"
         delegate: Card {
             id: playlistCard
             coverSources: Playlists.getPlaylistCovers(model.name)

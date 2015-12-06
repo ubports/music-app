@@ -49,8 +49,11 @@ MusicPage {
     // qml doesn't optimise using the parent type
     property bool bug1341671workaround: true
 
-    CardView {
-        id: albumCardView
+    MusicGridView {
+        id: albumGridView
+        itemWidth: units.gu(15)
+        heightOffset: units.gu(7)
+
         model: SortFilterModel {
             id: albumsModelFilter
             property alias rowCount: albumsModel.rowCount
