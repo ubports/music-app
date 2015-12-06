@@ -525,7 +525,8 @@ class TestMainWindow(MusicAppTestCase):
         playlists_page = self.app.get_playlists_page()
 
         # verify that the playlist has been removed
-        self.assertThat(playlists_page.get_count(), Equals(playlist_count))
+        self.assertThat(playlists_page.get_count(),
+                        Eventually(Equals(playlist_count)))
 
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
