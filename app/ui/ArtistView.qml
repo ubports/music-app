@@ -31,7 +31,6 @@ import "../components/ViewButton"
 MusicPage {
     id: artistViewPage
     objectName: "artistViewPage"
-    visible: false
 
     property string artist: ""
     property var covers: []
@@ -40,7 +39,7 @@ MusicPage {
     MusicGridView {
         id: artistAlbumView
         itemWidth: units.gu(12)
-        heightOffset: units.gu(5.5)
+        heightOffset: units.gu(7)
         header: BlurredHeader {
             id: blurredHeader
             rightColumn: Column {

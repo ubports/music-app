@@ -56,7 +56,7 @@ MusicPage {
     MusicGridView {
         id: artistGridView
         itemWidth: units.gu(12)
-        heightOffset: units.gu(5.5)
+        heightOffset: units.gu(7)
         model: SortFilterModel {
             id: artistsModelFilter
             property alias rowCount: artistsModel.rowCount

@@ -52,7 +52,7 @@ MusicPage {
     MusicGridView {
         id: genreGridView
         itemWidth: units.gu(12)
-        heightOffset: units.gu(5.5)
+        heightOffset: units.gu(7)
         model: SortFilterModel {
             id: genresModelFilter
             model: GenresModel {

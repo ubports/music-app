@@ -74,6 +74,9 @@ Item {
             width: units.gu(1)
         }
 
+        // Labels are ~1.5GU per line
+        // We are limiting to 3 lines long
+        // with the preference on the first label
         Label {
             id: primaryLabel
             anchors {
@@ -85,9 +88,9 @@ Item {
             color: "#FFF"
             elide: Text.ElideRight
             fontSize: "small"
-            height: units.gu(1.5)
             opacity: 1.0
-            wrapMode: Text.NoWrap
+            maximumLineCount: 2
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
         Label {
@@ -101,9 +104,10 @@ Item {
             color: "#FFF"
             elide: Text.ElideRight
             fontSize: "small"
-            height: units.gu(1.5)
+            // Allow wrapping of 2 lines unless primary has been wrapped
+            maximumLineCount: primaryLabel.lineCount > 1 ? 1 : 2
             opacity: 0.4
-            wrapMode: Text.NoWrap
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
         Item {

@@ -71,7 +71,7 @@ MusicPage {
     MusicGridView {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
-        heightOffset: units.gu(7)
+        heightOffset: units.gu(9.5)
         model: SortFilterModel {
             // Sorting disabled as it is incorrect on first run (due to workers?)
             // and SQL sorts the data correctly
