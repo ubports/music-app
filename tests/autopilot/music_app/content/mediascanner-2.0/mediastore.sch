@@ -27,6 +27,7 @@ CREATE INDEX media_artist_idx ON media(type, artist) WHERE type = 1;
 CREATE INDEX media_genre_idx ON media(type, genre) WHERE type = 1;
 CREATE INDEX media_mtime_idx ON media(type, mtime);
 CREATE TABLE media_attic (
+    id INTEGER PRIMARY KEY,
     filename TEXT UNIQUE NOT NULL,
     content_type TEXT,
     etag TEXT,

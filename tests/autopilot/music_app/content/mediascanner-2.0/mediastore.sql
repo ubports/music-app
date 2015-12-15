@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 DELETE FROM `schemaVersion`;
-INSERT INTO `schemaVersion` VALUES(10);
+INSERT INTO `schemaVersion` VALUES(9);
 
 DROP TABLE media;
 CREATE TABLE media (
