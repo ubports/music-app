@@ -37,7 +37,7 @@ CREATE TABLE broken_files (
     filename TEXT PRIMARY KEY NOT NULL,
     etag TEXT NOT NULL
 );
-DROP TABLE media(
+DROP TABLE media;
 CREATE TABLE media (
     filename TEXT PRIMARY KEY NOT NULL CHECK (filename LIKE '/%'),
     content_type TEXT,
