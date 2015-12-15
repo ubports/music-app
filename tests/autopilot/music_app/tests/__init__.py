@@ -34,13 +34,9 @@ from ubuntuuitoolkit import base
 
 logger = logging.getLogger(__name__)
 
-
-class BaseTestCaseWithPatchedHome(AutopilotTestCase):
-
+class BaseTestClassWithPatchedHome(AutopilotTestCase):
     """A common test case class that provides several useful methods for
-    music-app tests.
-
-    """
+    music-app tests."""
 
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
@@ -59,11 +55,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             test_type = 'click'
         return launch, test_type
 
-    def setUp(self):
-        super(BaseTestCaseWithPatchedHome, self).setUp()
-        self.launcher, self.test_type = self.get_launcher_method_and_type()
-        self.home_dir = self._patch_home()
-        self._create_music_library()
+    
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
@@ -140,6 +132,33 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
             logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
+
+
+    def _file_find_replace(self, in_filename, find, replace):
+        # replace all occurences of string find with string replace
+        # in the given file
+        out_filename = in_filename + ".tmp"
+        infile = open(in_filename, 'rb')
+        outfile = open(out_filename, 'wb')
+        for line in infile:
+            outfile.write(line.replace(str.encode(find), str.encode(replace)))
+        infile.close()
+        outfile.close()
+
+        # remove original file and copy new file back
+        os.remove(in_filename)
+        os.rename(out_filename, in_filename)
+
+
+class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
+    
+    """ Base test case class for music-app, with viable audio files loaded."""
+
+    def setUp(self):
+        super(BaseTestClassWithPatchedHome, self).setUp()
+        self.launcher, self.test_type = self.get_launcher_method_and_type()
+        self.home_dir = self._patch_home()
+        self._create_music_library()
 
     def _create_music_library(self):
         logger.debug("Creating music library for %s test" % self.test_type)
@@ -196,122 +215,17 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         logger.debug(
             "Mediascanner database copied, files " +
             str(os.listdir(mediascannerpath)))
-
-    def _file_find_replace(self, in_filename, find, replace):
-        # replace all occurences of string find with string replace
-        # in the given file
-        out_filename = in_filename + ".tmp"
-        infile = open(in_filename, 'rb')
-        outfile = open(out_filename, 'wb')
-        for line in infile:
-            outfile.write(line.replace(str.encode(find), str.encode(replace)))
-        infile.close()
-        outfile.close()
-
-        # remove original file and copy new file back
-        os.remove(in_filename)
-        os.rename(out_filename, in_filename)
-
-class EmptyLibraryWithPatchedHome(AutopilotTestCase):
     
-    working_dir = os.getcwd()
-    local_location_dir = os.path.dirname(os.path.dirname(working_dir))
-    local_location = local_location_dir + "/app/music-app.qml"
-    installed_location = "/usr/share/music-app/app/music-app.qml"
 
-    def get_launcher_method_and_type(self):
-        if os.path.exists(self.local_location):
-            launch = self.launch_test_local
-            test_type = 'local'
-        elif os.path.exists(self.installed_location):
-            launch = self.launch_test_installed
-            test_type = 'deb'
-        else:
-            launch = self.launch_test_click
-            test_type = 'click'
-        return launch, test_type
+class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
 
+    """ Base test case class for music-app with empty library. """
+    
     def setUp(self):
-        super(EmptyLibraryWithPatchedHome, self).setUp()
+        super(BaseTestClassWithPatchedHome, self).setUp()
         self.launcher, self.test_type = self.get_launcher_method_and_type()
         self.home_dir = self._patch_home()
         self._create_empty_music_library()
-
-    @autopilot_logging.log_action(logger.info)
-    def launch_test_local(self):
-        return self.launch_test_application(
-            base.get_qmlscene_launch_command(),
-            self.local_location,
-            "debug",
-            app_type='qt',
-            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
-
-    @autopilot_logging.log_action(logger.info)
-    def launch_test_installed(self):
-        return self.launch_test_application(
-            base.get_qmlscene_launch_command(),
-            self.installed_location,
-            "debug",
-            app_type='qt',
-            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
-
-    @autopilot_logging.log_action(logger.info)
-    def launch_test_click(self):
-        return self.launch_click_package(
-            "com.ubuntu.music",
-            emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
-
-    def _copy_xauthority_file(self, directory):
-        """ Copy .Xauthority file to directory, if it exists in /home
-        """
-        # If running under xvfb, as jenkins does,
-        # xsession will fail to start without xauthority file
-        # Thus if the Xauthority file is in the home directory
-        # make sure we copy it to our temp home directory
-
-        xauth = os.path.expanduser(os.path.join(os.environ.get('HOME'),
-                                   '.Xauthority'))
-        if os.path.isfile(xauth):
-            logger.debug("Copying .Xauthority to %s" % directory)
-            shutil.copyfile(
-                os.path.expanduser(os.path.join(os.environ.get('HOME'),
-                                   '.Xauthority')),
-                os.path.join(directory, '.Xauthority'))
-
-    def _patch_home(self):
-        """ mock /home for testing purposes to preserve user data
-        """
-
-        # if running on non-phablet device,
-        # run in temp folder to avoid mucking up home
-        # bug 1316746
-        # bug 1376423
-        if self.test_type is 'click':
-            # just use home for now on devices
-            temp_dir = os.environ.get('HOME')
-
-            # before each test, remove the app's databases
-            local_dir = os.path.join(temp_dir, '.local/share/com.ubuntu.music')
-
-            if (os.path.exists(local_dir)):
-                shutil.rmtree(local_dir)
-
-            local_dir = os.path.join(temp_dir, '.config/com.ubuntu.music')
-
-            if (os.path.exists(local_dir)):
-                shutil.rmtree(local_dir)
-        else:
-            temp_dir_fixture = fixtures.TempDir()
-            self.useFixture(temp_dir_fixture)
-            temp_dir = temp_dir_fixture.path
-
-            # before we set fixture, copy xauthority if needed
-            self._copy_xauthority_file(temp_dir)
-            self.useFixture(fixtures.EnvironmentVariable('HOME',
-                                                         newvalue=temp_dir))
-
-            logger.debug("Patched home to fake home directory %s" % temp_dir)
-        return temp_dir
 
     def _patch_mediascanner_home(self, content_dir, mediascannerpath):
         # do some inline db patching
@@ -367,22 +281,6 @@ class EmptyLibraryWithPatchedHome(AutopilotTestCase):
 
         if self.test_type is not 'click':
             self._patch_mediascanner_home(content_dir, mediascannerpath)
-
-    def _file_find_replace(self, in_filename, find, replace):
-        # replace all occurences of string find with string replace
-        # in the given file
-        out_filename = in_filename + ".tmp"
-        infile = open(in_filename, 'rb')
-        outfile = open(out_filename, 'wb')
-        for line in infile:
-            outfile.write(line.replace(str.encode(find), str.encode(replace)))
-        infile.close()
-        outfile.close()
-
-        # remove original file and copy new file back
-        os.remove(in_filename)
-        os.rename(out_filename, in_filename)
-
 
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
