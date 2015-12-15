@@ -1,7 +1,7 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE 'schemaVersion' (version INTEGER);
---DELETE FROM 'schemaVersion';
+DELETE FROM 'schemaVersion';
 INSERT INTO 'schemaVersion' VALUES(9);
 CREATE TABLE media_attic (
     id INTEGER PRIMARY KEY,
