@@ -1,8 +1,9 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE 'schemaVersion' (version INTEGER);
+CREATE TABLE IF NOT EXISTS'schemaVersion' (version INTEGER);
 DELETE FROM 'schemaVersion';
 INSERT INTO 'schemaVersion' VALUES(9);
+DROP TABLE media_attic;
 CREATE TABLE media_attic (
     id INTEGER PRIMARY KEY,
     filename TEXT UNIQUE NOT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE broken_files (
     filename TEXT PRIMARY KEY NOT NULL,
     etag TEXT NOT NULL
 );
+DROP TABLE media(
 CREATE TABLE media (
     filename TEXT PRIMARY KEY NOT NULL CHECK (filename LIKE '/%'),
     content_type TEXT,
