@@ -136,7 +136,7 @@ class MusicApp(object):
         self.get_now_playing_page().visible.wait_for(True)
 
     def get_LibraryEmptyState(self):
-        libraryEmpty = self.app.select_single(LibraryEmptyState, objectName="emptyLibrary")
+        libraryEmpty = self.app.wait_select_single(LibraryEmptyState, objectName="emptyLibrary")
         return libraryEmpty
         
 class LibraryEmptyState(UbuntuUIToolkitCustomProxyObjectBase):

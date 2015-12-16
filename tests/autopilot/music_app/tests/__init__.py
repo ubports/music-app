@@ -255,7 +255,8 @@ class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
         logger.debug(
             "Mediascanner database copied, files " +
             str(os.listdir(mediascannerpath)))
-
+    
+    
     def _create_empty_music_library(self):
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
