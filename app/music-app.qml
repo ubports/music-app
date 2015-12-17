@@ -358,9 +358,9 @@ MainView {
 
         play = play === undefined ? true : play  // default play to true
 
-        newPlayer.mediaPlayer.playlist.clear_wrapper();  // clear the old model
-        newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
+        newPlayer.mediaPlayer.playlist.clearWrapper();  // clear the old model
         newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
+        newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
 
         if (play) {
             // Set the pending state for the playlist
@@ -392,7 +392,7 @@ MainView {
             model = allSongsModel;
         }
 
-        newPlayer.mediaPlayer.playlist.clear_wrapper();
+        newPlayer.mediaPlayer.playlist.clearWrapper();
         newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
         newPlayer.shuffle = true;
 
@@ -449,7 +449,7 @@ MainView {
                 // If there are removed tracks then remove them from the queue and store
                 if (removed.length > 0) {
                     console.debug("Removed queue:", JSON.stringify(removed))
-                    newPlayer.mediaPlayer.playlist.removeItems(removed.slice());
+                    newPlayer.mediaPlayer.playlist.removeItemsWrapper(removed.slice());
                 }
 
                 // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist

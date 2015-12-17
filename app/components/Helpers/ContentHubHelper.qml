@@ -220,7 +220,7 @@ Item {
             else {
                 stopTimer();
 
-                newPlayer.mediaPlayer.playlist.clear_wrapper();
+                newPlayer.mediaPlayer.playlist.clearWrapper();
 
                 for (i=0; i < searchPaths.length; i++) {
                     model = musicStore.lookup(decodeFileURI(searchPaths[i]))

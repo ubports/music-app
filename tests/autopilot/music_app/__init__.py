@@ -54,7 +54,6 @@ class MusicApp(object):
         # Use only objectName due to bug 1350532 as it is MainView12
         self.main_view = self.app.wait_select_single(
             objectName="musicMainView")
-        self.player = self.app.select_single(NewPlayer, objectName='player')
 
     def get_add_to_playlist_page(self):
         return self.app.wait_select_single(AddToPlaylist,
@@ -119,6 +118,11 @@ class MusicApp(object):
         return (not self.main_view.select_single("ActivityIndicator",
                 objectName="LoadingSpinner").running and
                 self.main_view.select_single("*", "allSongsModel").populated)
+
+    @property
+    def player(self):
+        # Get new player each time as data changes (eg currentMeta)
+        return self.app.select_single(NewPlayer, objectName='player')
 
     def populate_queue(self):
         tracksPage = self.get_songs_page()  # switch to track tab
@@ -258,9 +262,6 @@ class NowPlaying(MusicPage):
     def __init__(self, *args):
         super(NowPlaying, self).__init__(*args)
 
-        root = self.get_root_instance()
-        self.player = root.select_single(NewPlayer, objectName="player")
-
         self.visible.wait_for(True)
 
     @ensure_now_playing_full
@@ -298,6 +299,12 @@ class NowPlaying(MusicPage):
     def get_track(self, i):
         return (self.wait_select_single(MusicListItem,
                 objectName="nowPlayingListItem" + str(i)))
+
+    @property
+    def player(self):
+        # Get new player each time as data changes (eg currentMeta)
+        root = self.get_root_instance()
+        return root.select_single(NewPlayer, objectName="player")
 
     @ensure_now_playing_full
     def seek_to(self, percentage):

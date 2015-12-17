@@ -122,7 +122,7 @@ MusicPage {
                     text: i18n.tr("Clear queue")
                     visible: isListView
 
-                    onTriggered: newPlayer.mediaPlayer.playlist.clear_wrapper()  // FIXME: stop audio?
+                    onTriggered: newPlayer.mediaPlayer.playlist.clearWrapper()  // FIXME: stop audio?
                 }
             ]
             PropertyChanges {
@@ -141,8 +141,7 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                // TODO: test!
-                newPlayer.mediaPlayer.playlist.removeItems(selectedIndices.slice());
+                newPlayer.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
             }
         }
     ]

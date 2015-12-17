@@ -163,7 +163,7 @@ Item {
             }
 
             // Wrap the clear() method because we need to call stop first
-            function clear_wrapper() {
+            function clearWrapper() {
                 // Stop the current playback (this ensures that play is run later)
                 if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
                     mediaPlayer.stop();
@@ -189,12 +189,34 @@ Item {
                 pendingCurrentState = null;
             }
 
-            function removeItems(items) {
-                // FIXME: broken due to async but will be fixed when removeItems(list) exists
-                items.sort();
+            function removeItemsWrapper(items) {
+                var previous = -1, end = -1;
 
+                // Sort indexes backwards so we don't have to deal with offsets when removing
+                items.sort(function(a,b) { return b-a; });
+
+                console.debug("TOREMOVE", JSON.stringify(items));
+
+                // Merge ranges of indexes into sets of start, end points
                 for (var i=0; i < items.length; i++) {
-                    removeItem(items[i] - i);
+                    if (end == -1) {  // first value found set to first
+                        end = items[i];
+                    } else if (previous - 1 !== items[i]) {  // set has ended (next is not 1 lower)
+                        console.debug("REMOVE", previous, end);
+
+                        newPlayer.mediaPlayer.playlist.removeItems(previous, end);
+
+                        end = items[i];  // set new high value for the next set
+                    }
+
+                    previous = items[i];  // last value to check if next is 1 lower
+                }
+
+                // Remove last set in list as well
+                if (items.length > 0) {
+                    console.debug("REMOVE", items[items.length - 1], end);
+
+                    newPlayer.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
                 }
             }
 
@@ -222,6 +244,7 @@ Item {
 
             function setCurrentIndex(index) {
                 // Set the currentIndex but if the itemCount is too low then wait
+                // TODO: Make always pending when there was a clear before?
                 if (index < mediaPlayerPlaylist.itemCount) {
                     mediaPlayerPlaylist.currentIndex = index;
                 } else {
