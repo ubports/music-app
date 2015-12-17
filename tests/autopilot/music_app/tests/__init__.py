@@ -81,8 +81,8 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
     def _copy_xauthority_file(self, directory):
-        """ Copy .Xauthority file to directory, if it exists in /home
-        """
+        """ Copy .Xauthority file to directory, if it exists in /home"""
+        
         # If running under xvfb, as jenkins does,
         # xsession will fail to start without xauthority file
         # Thus if the Xauthority file is in the home directory
@@ -100,7 +100,6 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
     def _patch_home(self):
         """ mock /home for testing purposes to preserve user data"""
         
-
         # if running on non-phablet device,
         # run in temp folder to avoid mucking up home
         # bug 1316746
