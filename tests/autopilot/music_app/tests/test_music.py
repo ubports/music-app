@@ -34,7 +34,7 @@ class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
         library = self.app.get_LibraryEmptyState()
 
         #check if the correct page(LibraryEmptyState) is being shown
-        self.assertThat(library.isVisible, Eventually(Equals(True)))
+        self.assertThat(library.visible, Eventually(Equals(True)))
     
 
 class TestMainWindow(MusicAppTestCase):

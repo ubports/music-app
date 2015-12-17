@@ -144,6 +144,9 @@ class LibraryEmptyState(UbuntuUIToolkitCustomProxyObjectBase):
     def __init__(self, *args):
         super(LibraryEmptyState, self).__init__(*args)
 
+    #def isVisible(self):
+        
+
 class Page(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
     def __init__(self, *args):

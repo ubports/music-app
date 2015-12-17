@@ -23,6 +23,7 @@ import Ubuntu.Components 1.3
 Page {
     id: libraryEmptyPage
     objectName: "emptyLibrary"
+    visible: false
     anchors {
         fill: parent
     }
