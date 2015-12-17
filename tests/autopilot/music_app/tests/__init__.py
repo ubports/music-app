@@ -22,6 +22,7 @@ import shutil
 import sqlite3
 import logging
 import music_app
+import sys
 
 import fixtures
 from music_app import MusicApp
@@ -55,7 +56,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             test_type = 'click'
         return launch, test_type
 
-    
+
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
@@ -133,6 +134,69 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
 
+    def _create_music_library(self, db_dir):
+        logger.debug("Creating music library for %s test" % self.test_type)
+        logger.debug("Home set to %s" % self.home_dir)
+        musicpath = os.path.join(self.home_dir, 'Music')
+        logger.debug("Music path set to %s" % musicpath)
+        mediascannerpath = os.path.join(self.home_dir,
+                                        '.cache/mediascanner-2.0')
+        logger.debug("Mediascanner path set to %s" % mediascannerpath)
+
+        if not os.path.exists(musicpath):
+            os.makedirs(musicpath)
+
+        # set content path
+        content_dir = os.path.join(os.path.dirname(music_app.__file__),
+                                                 'content', db_dir)
+        songs_dir = os.path.join(content_dir, 'songs')
+        logger.debug("Content dir set to %s" % content_dir)
+
+        # copy content
+        if os.path.isdir(songs_dir):
+            shutil.copy(os.path.join(songs_dir, '1.ogg'), musicpath)
+            shutil.copy(os.path.join(songs_dir, '2.ogg'), musicpath)
+            shutil.copy(os.path.join(songs_dir, '3.mp3'), musicpath)
+
+            logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+
+        if self.test_type is not 'click':
+            self._patch_mediascanner_home(content_dir, mediascannerpath)
+
+    def _patch_mediascanner_home(self, content_dir, mediascannerpath):
+        # do some inline db patching
+        # patch mediaindex to proper home
+        # these values are dependent upon our sampled db
+        shutil.copytree(content_dir, mediascannerpath)
+
+        logger.debug("Patching fake mediascanner database in %s" %
+                     mediascannerpath)
+        logger.debug(
+            "Mediascanner database files " +
+            str(os.listdir(mediascannerpath)))
+
+        relhome = self.home_dir[1:]
+        dblocation = "home/phablet"
+
+        # patch mediaindex
+        self._file_find_replace(mediascannerpath +
+                                "/mediastore.sql", dblocation, relhome)
+
+        con = sqlite3.connect(mediascannerpath + "/mediastore.db")
+        f = open(mediascannerpath + "/mediastore.sql", 'rb')
+        sql = f.read().decode("utf-8")
+        cur = con.cursor()
+        try:
+            cur.executescript(sql)
+            con.commit()
+        except:
+            logger.debug("Mediscanner patching failed %s" % sys.exc_info()[0])
+            raise
+        con.close()
+
+        logger.debug(
+            "Mediascanner database copied, files " +
+            str(os.listdir(mediascannerpath)))
 
     def _file_find_replace(self, in_filename, find, replace):
         # replace all occurences of string find with string replace
@@ -151,137 +215,25 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
 
 
 class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
-    
+
     """ Base test case class for music-app, with viable audio files loaded."""
 
     def setUp(self):
         super(BaseTestClassWithPatchedHome, self).setUp()
         self.launcher, self.test_type = self.get_launcher_method_and_type()
         self.home_dir = self._patch_home()
-        self._create_music_library()
-
-    def _create_music_library(self):
-        logger.debug("Creating music library for %s test" % self.test_type)
-        logger.debug("Home set to %s" % self.home_dir)
-        musicpath = os.path.join(self.home_dir, 'Music')
-        logger.debug("Music path set to %s" % musicpath)
-        mediascannerpath = os.path.join(self.home_dir,
-                                        '.cache/mediascanner-2.0')
-        if not os.path.exists(musicpath):
-            os.makedirs(musicpath)
-        logger.debug("Mediascanner path set to %s" % mediascannerpath)
-
-        # set content path
-        content_dir = os.path.join(os.path.dirname(music_app.__file__),
-                                   'content')
-
-        logger.debug("Content dir set to %s" % content_dir)
-
-        # copy content
-        shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
-        shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
-        shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-
-        logger.debug("Music copied, files " + str(os.listdir(musicpath)))
-
-        if self.test_type is not 'click':
-            self._patch_mediascanner_home(content_dir, mediascannerpath)
-
-    def _patch_mediascanner_home(self, content_dir, mediascannerpath):
-        # do some inline db patching
-        # patch mediaindex to proper home
-        # these values are dependent upon our sampled db
-        shutil.copytree(
-            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
-        logger.debug("Patching fake mediascanner database in %s" %
-                     mediascannerpath)
-        logger.debug(
-            "Mediascanner database files " +
-            str(os.listdir(mediascannerpath)))
-
-        relhome = self.home_dir[1:]
-        dblocation = "home/phablet"
-        # patch mediaindex
-        self._file_find_replace(mediascannerpath +
-                                "/mediastore.sql", dblocation, relhome)
-
-        con = sqlite3.connect(mediascannerpath + "/mediastore.db")
-        f = open(mediascannerpath + "/mediastore.sql", 'rb')
-        sql = f.read().decode("utf-8")
-        cur = con.cursor()
-        cur.executescript(sql)
-        con.close()
-
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
-    
+        self._create_music_library('mediascanner-2.0')
 
 class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
 
     """ Base test case class for music-app with empty library. """
-    
+
     def setUp(self):
         super(BaseTestClassWithPatchedHome, self).setUp()
         self.launcher, self.test_type = self.get_launcher_method_and_type()
         self.home_dir = self._patch_home()
-        self._create_empty_music_library()
+        self._create_music_library('blank-mediascanner-2.0')
 
-    def _patch_mediascanner_home(self, content_dir, mediascannerpath):
-        # do some inline db patching
-        # patch mediaindex to proper home
-        # these values are dependent upon our sampled db
-        shutil.copytree(
-            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
-        logger.debug("Patching fake mediascanner database in %s" %
-                     mediascannerpath)
-        logger.debug(
-            "Mediascanner database files " +
-            str(os.listdir(mediascannerpath)))
-
-        relhome = self.home_dir[1:]
-        dblocation = "home/phablet"
-        # patch mediaindex
-        self._file_find_replace(mediascannerpath +
-                                "/blank_mediastore.sql", dblocation, relhome)
-
-        con = sqlite3.connect(mediascannerpath + "/blank_mediastore.db")
-        f = open(mediascannerpath + "/blank_mediastore.sql", 'rb')
-        sql = f.read().decode("utf-8")
-        cur = con.cursor()
-        cur.executescript(sql)
-        con.close()
-
-        logger.debug(
-            "Mediascanner database copied, files " +
-            str(os.listdir(mediascannerpath)))
-    
-    
-    def _create_empty_music_library(self):
-        logger.debug("Creating music library for %s test" % self.test_type)
-        logger.debug("Home set to %s" % self.home_dir)
-        musicpath = os.path.join(self.home_dir, 'Music')
-        logger.debug("Music path set to %s" % musicpath)
-        mediascannerpath = os.path.join(self.home_dir,
-                                        '.cache/mediascanner-2.0')
-        if not os.path.exists(musicpath):
-            os.makedirs(musicpath)
-        logger.debug("Mediascanner path set to %s" % mediascannerpath)
-
-        # set content path
-        content_dir = os.path.join(os.path.dirname(music_app.__file__),
-                                   'content')
-
-        logger.debug("Content dir set to %s" % content_dir)
-
-        # don't copy content
-        #shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
-        #shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
-        #shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
-        #logger.debug("Music copied, files " + str(os.listdir(musicpath)))
-
-        if self.test_type is not 'click':
-            self._patch_mediascanner_home(content_dir, mediascannerpath)
 
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
@@ -291,10 +243,11 @@ class MusicAppTestCase(BaseTestCaseWithPatchedHome):
         super(MusicAppTestCase, self).setUp()
         self.app = MusicApp(self.launcher())
 
+
 class MusicAppTestCaseEmptyLibrary(EmptyLibraryWithPatchedHome):
 
     """Test case that launches the music-app with no music: an empty library."""
-    
+
     def setUp(self):
         super(MusicAppTestCaseEmptyLibrary, self).setUp()
         self.app = MusicApp(self.launcher())
