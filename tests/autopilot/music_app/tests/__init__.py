@@ -151,7 +151,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
         logger.debug("Content dir set to %s" % content_dir)
 
         # copy content
-        if os.path.isdir(songs_dir):
+        if os.path.isdir(songs_dir) and db_dir == 'mediascanner-2.0':
             shutil.copy(os.path.join(songs_dir, '1.ogg'), musicpath)
             shutil.copy(os.path.join(songs_dir, '2.ogg'), musicpath)
             shutil.copy(os.path.join(songs_dir, '3.mp3'), musicpath)
