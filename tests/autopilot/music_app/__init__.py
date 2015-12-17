@@ -143,8 +143,6 @@ class LibraryEmptyState(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for LibraryEmptyState"""
     def __init__(self, *args):
         super(LibraryEmptyState, self).__init__(*args)
-
-    #def isVisible(self):
         
 
 class Page(UbuntuUIToolkitCustomProxyObjectBase):

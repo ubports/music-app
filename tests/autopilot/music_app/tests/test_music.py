@@ -26,9 +26,6 @@ class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
 
     def test_display_message_when_no_music(self):
         """When no music is detected, the app must display a certain message"""
-        
-        #skip walkthrough
-        #self.app.get_walkthrough_page().skip()
 
         #obtain the LibraryEmptyState page
         library = self.app.get_LibraryEmptyState()
