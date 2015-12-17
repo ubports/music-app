@@ -6,6 +6,9 @@ music-app (2.3) UNRELEASED; urgency=medium
   [ Ken VanDine ]
   * Install the content-hub json file in the correct place for peer registry
 
+  [ Girish Rawat ]
+  * Expanded and updated READMEs
+
  -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:11:35 +0000
 
 music-app (2.2ubuntu2) vivid; urgency=medium
