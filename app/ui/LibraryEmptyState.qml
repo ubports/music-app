@@ -33,7 +33,7 @@ Page {
         locked: true
     }
 
-    // Hack for autopilot otherwise Albums appears as MusicPage
+    // Hack for autopilot otherwise LibraryEmptyState appears as Page
     // due to bug 1341671 it is required that there is a property so that
     // qml doesn't optimise using the parent type
     property bool bug1341671workaround: true
