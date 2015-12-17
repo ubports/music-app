@@ -56,8 +56,6 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             test_type = 'click'
         return launch, test_type
 
-
-
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
         return self.launch_test_application(
@@ -100,8 +98,8 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
                 os.path.join(directory, '.Xauthority'))
 
     def _patch_home(self):
-        """ mock /home for testing purposes to preserve user data
-        """
+        """ mock /home for testing purposes to preserve user data"""
+        
 
         # if running on non-phablet device,
         # run in temp folder to avoid mucking up home
@@ -213,7 +211,6 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
 
-
 class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
 
     """ Base test case class for music-app, with viable audio files loaded."""
@@ -234,7 +231,6 @@ class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
         self.home_dir = self._patch_home()
         self._create_music_library('blank-mediascanner-2.0')
 
-
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
     """Base test case that launches the music-app."""
@@ -243,7 +239,6 @@ class MusicAppTestCase(BaseTestCaseWithPatchedHome):
         super(MusicAppTestCase, self).setUp()
         self.app = MusicApp(self.launcher())
 
-
 class MusicAppTestCaseEmptyLibrary(EmptyLibraryWithPatchedHome):
 
     """Test case that launches the music-app with no music: an empty library."""
@@ -251,9 +246,3 @@ class MusicAppTestCaseEmptyLibrary(EmptyLibraryWithPatchedHome):
     def setUp(self):
         super(MusicAppTestCaseEmptyLibrary, self).setUp()
         self.app = MusicApp(self.launcher())
-
-
-
-
-
-
