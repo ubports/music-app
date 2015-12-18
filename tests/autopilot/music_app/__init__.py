@@ -345,8 +345,8 @@ class ArtistView(MusicPage):
     @click_object
     def click_artist(self, i):
         return self.wait_select_single("Card",
-                                       objectName="albumsPageGridItem"
-                                       + str(i))
+                                       objectName="albumsPageGridItem" +
+                                       str(i))
 
     def get_artist(self):
         return self.wait_select_single("UCLabel",
