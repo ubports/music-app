@@ -35,6 +35,7 @@ from ubuntuuitoolkit import base
 
 logger = logging.getLogger(__name__)
 
+
 class BaseTestClassWithPatchedHome(AutopilotTestCase):
     """A common test case class that provides several useful methods for
     music-app tests."""
@@ -82,7 +83,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
 
     def _copy_xauthority_file(self, directory):
         """ Copy .Xauthority file to directory, if it exists in /home"""
-        
+
         # If running under xvfb, as jenkins does,
         # xsession will fail to start without xauthority file
         # Thus if the Xauthority file is in the home directory
@@ -99,7 +100,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
 
     def _patch_home(self):
         """ mock /home for testing purposes to preserve user data"""
-        
+
         # if running on non-phablet device,
         # run in temp folder to avoid mucking up home
         # bug 1316746
@@ -145,7 +146,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
 
         # set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
-                                                 'content', db_dir)
+                                   'content', db_dir)
         songs_dir = os.path.join(content_dir, 'songs')
         logger.debug("Content dir set to %s" % content_dir)
 
@@ -165,7 +166,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             except OSError:
                 pass
 
-            logger.debug("Music deleted, files " +str(os/listdir(musicpath)))
+            logger.debug("Music deleted, files " + str(os.listdir(musicpath)))
 
         if self.test_type is not 'click':
             self._patch_mediascanner_home(content_dir, mediascannerpath)
@@ -220,6 +221,7 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
         os.remove(in_filename)
         os.rename(out_filename, in_filename)
 
+
 class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
 
     """ Base test case class for music-app, with viable audio files loaded."""
@@ -229,6 +231,7 @@ class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
         self.launcher, self.test_type = self.get_launcher_method_and_type()
         self.home_dir = self._patch_home()
         self._create_music_library('mediascanner-2.0')
+
 
 class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
 
@@ -240,6 +243,7 @@ class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
         self.home_dir = self._patch_home()
         self._create_music_library('blank-mediascanner-2.0')
 
+
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
     """Base test case that launches the music-app."""
@@ -248,9 +252,11 @@ class MusicAppTestCase(BaseTestCaseWithPatchedHome):
         super(MusicAppTestCase, self).setUp()
         self.app = MusicApp(self.launcher())
 
+
 class MusicAppTestCaseEmptyLibrary(EmptyLibraryWithPatchedHome):
 
-    """Test case that launches the music-app with no music: an empty library."""
+    """Test case that launches the music-app with no music:
+    an empty library."""
 
     def setUp(self):
         super(MusicAppTestCaseEmptyLibrary, self).setUp()

@@ -18,6 +18,7 @@ from music_app.tests import MusicAppTestCase, MusicAppTestCaseEmptyLibrary
 
 logger = logging.getLogger(__name__)
 
+
 class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
 
     def setUp(self):
@@ -27,12 +28,12 @@ class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
     def test_display_message_when_no_music(self):
         """When no music is detected, the app must display a certain Page"""
 
-        #obtain the LibraryEmptyState page
+        # obtain the LibraryEmptyState page
         library = self.app.get_LibraryEmptyState()
 
-        #check if the correct page(LibraryEmptyState) is being shown
+        # check if the correct page(LibraryEmptyState) is being shown
         self.assertThat(library.visible, Eventually(Equals(True)))
-    
+
 
 class TestMainWindow(MusicAppTestCase):
 

@@ -136,13 +136,15 @@ class MusicApp(object):
         self.get_now_playing_page().visible.wait_for(True)
 
     def get_LibraryEmptyState(self):
-        return self.app.wait_select_single(LibraryEmptyState, objectName="emptyLibrary")
-        
+        return self.app.wait_select_single(LibraryEmptyState,
+                                           objectName="emptyLibrary")
+
+
 class LibraryEmptyState(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for LibraryEmptyState"""
     def __init__(self, *args):
         super(LibraryEmptyState, self).__init__(*args)
-        
+
 
 class Page(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
