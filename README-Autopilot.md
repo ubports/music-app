@@ -10,7 +10,7 @@ If you are looking for more info about Autopilot or writing AP tests for the mus
 
 For help and options on running tests, see:
 
-- [https://developer.ubuntu.com/en/start/platform/guides/running-autopilot-tests/](https://developer.ubuntu.com/en/start/platform/guides/running-autopilot-tests/)
+- [Autopilot tests](https://developer.ubuntu.com/en/start/platform/guides/running-autopilot-tests/)
 
 Prerequisites
 =============
@@ -30,7 +30,7 @@ Using terminal:
     
 *  Navigate to the tests/autopilot directory.
 
-$ cd music-app/tests/autopilot
+    $ cd music-app/tests/autopilot
 
 *  run all tests.
 
@@ -76,7 +76,8 @@ Using autopkg:
     $ cd music-app
 
 *  Build a click package
-`$ click-buddy` .
+    
+    $ click-buddy .
 
 *  Run the tests on device (assumes only one click package in the directory)
 

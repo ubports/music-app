@@ -1,5 +1,5 @@
-Building and running on Vivid Desktop (15.04)
-=============================================
+Building and running on Desktop
+===============================
 
 Building and running the Ubuntu Music App is quite simple. You will require
 Ubuntu 15.04 and higher to run on the desktop.
@@ -8,7 +8,7 @@ Ubuntu 15.04 and higher to run on the desktop.
 
     $ bzr branch lp:music-app branch-name
     $ cd branch-name
-    $ qmlscene ../app/music-app.qml
+    $ qmlscene app/music-app.qml
 
 Submitting a patch upstream
 ===========================
@@ -58,8 +58,7 @@ Before reproducing crash it is good to create symbols table for gdb, by using co
 
    
 
-    $ cd branch-name
-    $ cmake -DCMAKE_BUILD_TYPE=Debug .. && make -j3	
+    $ cd branch-name	
 
 To run GDB:
 
@@ -69,7 +68,7 @@ To run GDB:
 
 At this point, you are inside the gdb prompt. Run your application as you normally would.
 
-     run ../app/music-app.qml
+     run app/music-app.qml
 
 Your app is now running and monitored by GDB. Reproduce the steps in your app to make it crash. Once it does crash,
 
