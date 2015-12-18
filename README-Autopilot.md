@@ -81,7 +81,7 @@ Using autopkg:
 
 *  Run the tests on device (assumes only one click package in the directory)
 
-$ adt-run . *.click --- ssh -s adb -- -p <PASSWORD>
+    $ adt-run . *.click --- ssh -s adb -- -p <PASSWORD>
 
 *  Resolving mediascanner2 schema issues when tests fail
 

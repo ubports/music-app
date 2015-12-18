@@ -68,7 +68,7 @@ To run GDB:
 
 At this point, you are inside the gdb prompt. Run your application as you normally would.
 
-     run app/music-app.qml
+     $ app/music-app.qml
 
 Your app is now running and monitored by GDB. Reproduce the steps in your app to make it crash. Once it does crash,
 

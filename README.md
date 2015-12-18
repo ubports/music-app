@@ -13,7 +13,7 @@ A complete list of dependencies for the project can be found in music-app/debian
 
 The following essential packages are also required to develop this app:
 * [ubuntu-sdk](http://developer.ubuntu.com/start)
-* intltool   - run  `$ sudo apt-get install intltool` 
+* intltool   - run  `sudo apt-get install intltool` 
 
 Useful Links
 ============
