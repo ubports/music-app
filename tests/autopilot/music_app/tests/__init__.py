@@ -157,12 +157,11 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             shutil.copy(os.path.join(songs_dir, '3.mp3'), musicpath)
 
             logger.debug("Music copied, files " + str(os.listdir(musicpath)))
-
-        if os.path.isdir(songs_dir) and db_dir == 'blank-mediascanner-2.0':
+        elif not os.path.isdir(songs_dir):
             try:
-                os.remove(os.path.join(songs_dir, '1.ogg'), musicpath)
-                os.remove(os.path.join(songs_dir, '2.ogg'), musicpath)
-                os.remove(os.path.join(songs_dir, '3.mp3'), musicpath)
+                os.remove(os.path.join(songs_dir, '1.ogg'))
+                os.remove(os.path.join(songs_dir, '2.ogg'))
+                os.remove(os.path.join(songs_dir, '3.mp3'))
             except OSError:
                 pass
 

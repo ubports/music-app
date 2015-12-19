@@ -1,1 +1,1 @@
-INSERT INTO schemaVersion VALUES(9)
+INSERT INTO schemaVersion VALUES(10)
