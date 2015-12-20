@@ -2,7 +2,7 @@ BEGIN TRANSACTION;
 DELETE FROM `schemaVersion`;
 INSERT INTO `schemaVersion` VALUES(10);
 
-DROP TABLE  media;
+DROP TABLE media;
 CREATE TABLE media (
     filename TEXT PRIMARY KEY NOT NULL CHECK (filename LIKE '/%'),
     content_type TEXT,

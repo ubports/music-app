@@ -135,7 +135,7 @@ class MusicApp(object):
         # wait for now playing page to be visible
         self.get_now_playing_page().visible.wait_for(True)
 
-    def get_LibraryEmptyState(self):
+    def get_library_empty_state_page(self):
         return self.app.wait_select_single(LibraryEmptyState,
                                            objectName="emptyLibrary")
 

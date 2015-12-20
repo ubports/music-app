@@ -22,7 +22,6 @@ import shutil
 import sqlite3
 import logging
 import music_app
-import sys
 
 import fixtures
 from music_app import MusicApp
@@ -157,10 +156,17 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
             shutil.copy(os.path.join(songs_dir, '3.mp3'), musicpath)
 
             logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        # delete content if previously copied
         elif not os.path.isdir(songs_dir):
             try:
                 os.remove(os.path.join(songs_dir, '1.ogg'))
+            except OSError:
+                pass
+            try:
                 os.remove(os.path.join(songs_dir, '2.ogg'))
+            except OSError:
+                pass
+            try:
                 os.remove(os.path.join(songs_dir, '3.mp3'))
             except OSError:
                 pass
@@ -196,8 +202,8 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
         try:
             cur.executescript(sql)
             con.commit()
-        except:
-            logger.debug("Mediscanner patching failed %s" % sys.exc_info()[0])
+        except Exception as e:
+            logger.debug("Mediscanner patching failed %s" % e)
             raise
         con.close()
 
