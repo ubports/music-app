@@ -202,9 +202,9 @@ Item {
                     if (end == -1) {  // first value found set to first
                         end = items[i];
                     } else if (previous - 1 !== items[i]) {  // set has ended (next is not 1 lower)
-                        console.debug("REMOVE", end, previous);
+                        console.debug("REMOVE", previous, end);
 
-                        newPlayer.mediaPlayer.playlist.removeItems(end, previous);
+                        newPlayer.mediaPlayer.playlist.removeItems(previous, end);
 
                         end = items[i];  // set new high value for the next set
                     }
@@ -214,9 +214,9 @@ Item {
 
                 // Remove last set in list as well
                 if (items.length > 0) {
-                    console.debug("REMOVE", end, items[items.length - 1]);
+                    console.debug("REMOVE", items[items.length - 1], end);
 
-                    newPlayer.mediaPlayer.playlist.removeItems(end, items[items.length - 1]);
+                    newPlayer.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
                 }
             }
 
