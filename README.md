@@ -21,5 +21,5 @@ Here are some useful links with regards to the Music App development.
 
 * [Home Page](https://developer.ubuntu.com/en/community/core-apps/music/)
 * [Music App Wiki](https://wiki.ubuntu.com/Touch/CoreApps/Music)
-* [Designs](https://docs.google.com/presentation/d/1L3eGhOe-0eEmKtUurthpUEaweFradSFb3t6W-KiIZMU/edit#slide=id.g3e005603e_420)
+* [Designs](https://developer.ubuntu.com/en/community/core-apps/music/#design)
 * [Project page](https://launchpad.net/music-app) 
