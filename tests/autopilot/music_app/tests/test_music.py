@@ -29,7 +29,7 @@ class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
         """When no music is detected, the app must display a certain Page"""
 
         # obtain the LibraryEmptyState page
-        library = self.app.get_LibraryEmptyState()
+        library = self.app.get_library_empty_state()
 
         # check if the correct page(LibraryEmptyState) is being shown
         self.assertThat(library.visible, Eventually(Equals(True)))
