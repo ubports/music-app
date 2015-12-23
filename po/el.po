@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-24 14:06-0500\n"
-"PO-Revision-Date: 2015-05-14 23:43+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"PO-Revision-Date: 2015-12-08 19:57+0000\n"
+"Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-11-17 05:55+0000\n"
-"X-Generator: Launchpad (build 17847)\n"
+"X-Launchpad-Export-Date: 2015-12-09 05:52+0000\n"
+"X-Generator: Launchpad (build 17862)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -350,7 +350,7 @@ msgstr "Καλλιτέχνης"
 
 #: ../app/ui/ContentHubExport.qml:33
 msgid "Export Song"
-msgstr ""
+msgstr "Εξαγωγή τραγουδιού"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -370,7 +370,7 @@ msgstr "Δε βρέθηκε μουσική"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Πλήρης προβολή"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42

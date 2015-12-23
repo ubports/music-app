@@ -1,13 +1,18 @@
 music-app (2.3) UNRELEASED; urgency=medium
 
+  [ Andrew Hayzen ]
   * Release 2.2ubuntu2 and start on 2.3
+  * Add support for media-hub background playlists
+
+  [ Ken VanDine ]
+  * Install the content-hub json file in the correct place for peer registry
+
+  [ Girish Rawat ]
+  * Expanded and updated READMEs
 
  -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:11:35 +0000
 
 music-app (2.2ubuntu2) vivid; urgency=medium
-
-  [ Andrew Hayzen ]
-  * Add support for media-hub background playlists
 
   [ Bartosz Kosiorek ]
   *  Reduce size of images (with tinypng.com) to decrease click size and improve performance
