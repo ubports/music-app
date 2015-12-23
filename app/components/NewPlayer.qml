@@ -128,9 +128,7 @@ Item {
                 if (pendingShuffle > -1 && pendingShuffle <= itemCount) {
                     pendingShuffle = -1;
 
-                    if (canGoNext) {
-                        next();  // find a random track
-                    }
+                    nextWrapper();  // find a random track
                     mediaPlayer.play();  // next does not enforce play
                 }
 
@@ -172,9 +170,22 @@ Item {
                 clear();
             }
 
+            // Wrap the next() method so we can check canGoNext
+            function nextWrapper() {
+                if (canGoNext) {
+                    next();
+                }
+            }
+
+            // Wrap the previous() method so we can check canGoPrevious
+            function previousWrapper() {
+                if (canGoPrevious) {
+                    previous();
+                }
+            }
+
             function processPendingCurrentState() {
                 // Process the pending current PlaybackState
-
                 if (pendingCurrentState === MediaPlayer.PlayingState) {
                     console.debug("Loading pending state play()");
                     mediaPlayer.play();
@@ -264,10 +275,7 @@ Item {
             function setPendingShuffle(modelSize) {
                 // Run next() and play() when the modelSize is reached
                 if (modelSize <= itemCount) {
-                    if (canGoNext) {
-                        mediaPlayerPlaylist.next();  // find a random track
-                    }
-
+                    mediaPlayerPlaylist.nextWrapper();  // find a random track
                     mediaPlayer.play();  // next does not enforce play
                 } else {
                     pendingShuffle = modelSize;

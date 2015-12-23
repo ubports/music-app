@@ -158,7 +158,7 @@ function getQueue() {
         for(var i = 0; i < rs.rows.length; i++) {
             var filename = rs.rows.item(i).filename;
 
-            // Strip file:// from path as ms2 only accepts /home
+            // ms2 doesn't expect the URI scheme so strip file://
             if (filename.indexOf("file://") == 0) {
                 filename = filename.substr(7);
             }

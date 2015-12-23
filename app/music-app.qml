@@ -92,25 +92,17 @@ MainView {
         else if(event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_Left:   //  Ctrl+Left   Previous Song
-                if (newPlayer.mediaPlayer.playlist.canGoPrevious) {
-                    newPlayer.mediaPlayer.playlist.previous();
-                }
-
+                newPlayer.mediaPlayer.playlist.previousWrapper();
                 break;
             case Qt.Key_Right:  //  Ctrl+Right  Next Song
-                if (newPlayer.mediaPlayer.playlist.canGoNext) {
-                    newPlayer.mediaPlayer.playlist.next();
-                }
-
+                newPlayer.mediaPlayer.playlist.nextWrapper();
                 break;
-            /*
             case Qt.Key_Up:  //     Ctrl+Up     Volume up
                 newPlayer.mediaPlayer.volume = newPlayer.mediaPlayer.volume + .1 > 1 ? 1 : newPlayer.mediaPlayer.volume + .1
                 break;
             case Qt.Key_Down:  //   Ctrl+Down   Volume down
                 newPlayer.mediaPlayer.volume = newPlayer.mediaPlayer.volume - .1 < 0 ? 0 : newPlayer.mediaPlayer.volume - .1
                 break;
-            */
             case Qt.Key_R:  //      Ctrl+R      Repeat toggle
                 newPlayer.mediaPlayer.repeat = !newPlayer.mediaPlayer.repeat
                 break;
@@ -165,11 +157,7 @@ MainView {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: {
-            if (newPlayer.mediaPlayer.playlist.canGoNext) {
-                newPlayer.mediaPlayer.playlist.next()
-            }
-        }
+        onTriggered: newPlayer.mediaPlayer.playlist.nextWrapper()
     }
     Action {
         id: playsAction
@@ -192,22 +180,16 @@ MainView {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
-        onTriggered: {
-            if (newPlayer.mediaPlayer.playlist.canGoPrevious) {
-                newPlayer.mediaPlayer.playlist.previous()
-            }
-        }
+        onTriggered: newPlayer.mediaPlayer.playlist.previousWrapper()
     }
-    /*
     Action {
         id: stopAction
         text: i18n.tr("Stop")
         keywords: i18n.tr("Stop Playback")
         onTriggered: newPlayer.mediaPlayer.stop()
     }
-    */
 
-    actions: [nextAction, playsAction, prevAction, backAction]
+    actions: [nextAction, playsAction, prevAction, stopAction, backAction]
 
     UriHandlerHelper {
         id: uriHandler
@@ -242,20 +224,18 @@ MainView {
 
         if (!args.values.url) {
             // load the previous queue as there are no args
-            // TODO: should not be hardcoded
-            // FIXME: doesn't work
-            //newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
 
+            // FIXME: load and save do not work yet pad.lv/1510225
+            // so use our localstorage method for now
+            // newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
             // use onloaded() and onLoadFailed() to confirm it is complete
-            // TODO: test if sync/async as future events may change the queue
 
-            // FIXME: using old queueList for now, move to load()/save() long term
             if (!Library.isQueueEmpty()) {
                 console.debug("*** Restoring library queue");
                 newPlayer.mediaPlayer.playlist.addItems(Library.getQueue());
 
                 newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
-                newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);  // TODO: confirm this works if index changes after
+                newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);
             }
             else {
                 console.debug("Queue is empty, not loading any recent tracks");
