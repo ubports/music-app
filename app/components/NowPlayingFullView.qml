@@ -133,10 +133,10 @@ Item {
 
                 if (Math.abs(diff) < units.gu(4)) {
                     return;
-                } else if (diff < 0 && newPlayer.mediaPlayer.playlist.canGoNext) {
-                    newPlayer.mediaPlayer.playlist.next()
-                } else if (diff > 0 && newPlayer.mediaPlayer.playlist.canGoPrevious) {
-                    newPlayer.mediaPlayer.playlist.previous()
+                } else if (diff < 0) {
+                    newPlayer.mediaPlayer.playlist.nextWrapper()
+                } else if (diff > 0) {
+                    newPlayer.mediaPlayer.playlist.previousWrapper()
                 }
             }
         }

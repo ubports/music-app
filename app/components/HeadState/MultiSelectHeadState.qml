@@ -43,12 +43,7 @@ PageHeadState {
                 var indicies = listview.getSelectedIndices();
 
                 for (var i=0; i < indicies.length; i++) {
-                    // TODO: improve! probably take outside of the for loop or try and make playlist accept .get()
-                    if (listview.model === newPlayer.mediaPlayer.playlist) {
-                        items.push(makeDict(newPlayer.metaForSource(listview.model.itemSource(indicies[i]))));
-                    } else {
-                        items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
-                    }
+                    items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
                 }
 
                 mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
@@ -64,14 +59,14 @@ PageHeadState {
             visible: addToQueue
 
             onTriggered: {
-                var sources = [];
+                var items = [];
                 var indicies = listview.getSelectedIndices();
 
                 for (var i=0; i < indicies.length; i++) {
-                    sources.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
+                    items.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
                 }
 
-                newPlayer.mediaPlayer.playlist.addItems(sources);
+                newPlayer.mediaPlayer.playlist.addItems(items);
 
                 listview.closeSelection()
             }

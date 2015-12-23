@@ -417,11 +417,9 @@ MainView {
                 var i
                 var removed = []
 
-                // TODO: needs testing
-
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < newPlayer.mediaPlayer.playlist.count; i++) {
-                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.source(i).filename)) === null) {
+                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.itemSource(i))) === null) {
                         removed.push(i)
                     }
                 }

@@ -230,7 +230,7 @@ function getPlaylistTracks(playlist) {
             for (j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
 
-                // If this came from a source strip the file://
+                // ms2 doesn't expect the URI scheme so strip file://
                 if (dbItem.filename.indexOf("file://") === 0) {
                     dbItem.filename = dbItem.filename.substr(7);
                 }

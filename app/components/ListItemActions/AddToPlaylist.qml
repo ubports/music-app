@@ -25,6 +25,8 @@ Action {
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
 
+    // Used when model can't be given to add to playlist
+    // for example in the Queue it is called metaModel not model
     property var modelOverride: null
 
     onTriggered: {

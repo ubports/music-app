@@ -262,16 +262,6 @@ Rectangle {
                 color: UbuntuColors.blue
                 height: parent.height
                 width: newPlayer.mediaPlayer.progress * playerControlsProgressBar.width
-
-                /*
-                  FIXME: needed?
-
-                Connections {
-                    target: newPlayer.mediaPlayer
-                    onPositionChanged: playerControlsProgressBarHint.width = (newPlayer.mediaPlayer.position / newPlayer.mediaPlayer.duration) * playerControlsProgressBar.width
-                    onStopped: playerControlsProgressBarHint.width = 0;
-                }
-                */
             }
         }
     }

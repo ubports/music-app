@@ -170,6 +170,11 @@ Item {
                 clear();
             }
 
+            // Replicates a model.get() on a ms2 model
+            function get(index, role) {
+                return metaForSource(itemSource(index));
+            }
+
             // Wrap the next() method so we can check canGoNext
             function nextWrapper() {
                 if (canGoNext) {
@@ -206,14 +211,14 @@ Item {
                 // Sort indexes backwards so we don't have to deal with offsets when removing
                 items.sort(function(a,b) { return b-a; });
 
-                console.debug("TOREMOVE", JSON.stringify(items));
+                console.debug("To Remove", JSON.stringify(items));
 
                 // Merge ranges of indexes into sets of start, end points
                 for (var i=0; i < items.length; i++) {
                     if (end == -1) {  // first value found set to first
                         end = items[i];
                     } else if (previous - 1 !== items[i]) {  // set has ended (next is not 1 lower)
-                        console.debug("REMOVE", previous, end);
+                        console.debug("RemoveItems", previous, end);
 
                         newPlayer.mediaPlayer.playlist.removeItems(previous, end);
 
@@ -225,7 +230,7 @@ Item {
 
                 // Remove last set in list as well
                 if (items.length > 0) {
-                    console.debug("REMOVE", items[items.length - 1], end);
+                    console.debug("RemoveItems", items[items.length - 1], end);
 
                     newPlayer.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
                 }

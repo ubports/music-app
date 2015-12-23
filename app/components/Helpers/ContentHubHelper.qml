@@ -222,11 +222,14 @@ Item {
 
                 newPlayer.mediaPlayer.playlist.clearWrapper();
 
-                for (i=0; i < searchPaths.length; i++) {
-                    model = musicStore.lookup(decodeFileURI(searchPaths[i]))
+                var items = [];
 
-                    newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])));
+                for (i=0; i < searchPaths.length; i++) {
+                    // Don't need to check if in ms2 as that is done above
+                    items.push(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])))
                 }
+
+                newPlayer.mediaPlayer.playlist.addItems(items);
 
                 trackQueueClick(0);
             }

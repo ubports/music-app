@@ -31,7 +31,7 @@ MultiSelectListView {
     anchors {
         fill: parent
     }
-    autoModelMove: false
+    autoModelMove: false  // ensures we use moveItem() not move() in onReorder
     footer: Item {
         height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
     }
@@ -70,11 +70,11 @@ MultiSelectListView {
         multiselectable: true
         objectName: "nowPlayingListItem" + index
         state: ""
-        reorderable: true  // FIXME: needs testing, sort out reordering we need moveItem(from, to);
+        reorderable: true
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
-                    modelOverride: metaModel
+                    modelOverride: metaModel  // model is not exposed with metadata so use metaModel
                 }
             ]
             delegate: ActionDelegate {

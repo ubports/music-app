@@ -122,7 +122,7 @@ MusicPage {
                     text: i18n.tr("Clear queue")
                     visible: isListView
 
-                    onTriggered: newPlayer.mediaPlayer.playlist.clearWrapper()  // FIXME: stop audio?
+                    onTriggered: newPlayer.mediaPlayer.playlist.clearWrapper()
                 }
             ]
             PropertyChanges {

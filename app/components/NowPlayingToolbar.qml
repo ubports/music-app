@@ -62,7 +62,7 @@ Rectangle {
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.mediaPlayer.playlist.previous()  // FIXME:
+        onClicked: newPlayer.mediaPlayer.playlist.previousWrapper()
 
         Icon {
             id: nowPlayingPreviousIndicator
@@ -106,7 +106,7 @@ Rectangle {
         enabled: newPlayer.mediaPlayer.playlist.canGoNext
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.mediaPlayer.playlist.next()  // FIXME:
+        onClicked: newPlayer.mediaPlayer.playlist.nextWrapper()
 
         Icon {
             id: nowPlayingNextIndicator
