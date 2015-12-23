@@ -36,6 +36,7 @@ Item {
     property alias repeat: settings.repeat
     property alias shuffle: settings.shuffle
 
+    // Return the metadata for the source given from mediascanner2
     function metaForSource(source) {
         var blankMeta = {
             album: "",
@@ -62,12 +63,11 @@ Item {
         property bool shuffle: false
     }
 
-    // https://code.launchpad.net/~phablet-team/kubuntu-packaging/qtmultimedia-opensource-src-playlist-support/+merge/262229
     MediaPlayer {
         id: mediaPlayer
         playlist: Playlist {
             id: mediaPlayerPlaylist
-            playbackMode: {  // FIXME: doesn't see to work
+            playbackMode: {
                 if (settings.shuffle) {
                     Playlist.Random
                 } else if (settings.repeat) {
@@ -77,7 +77,6 @@ Item {
                 }
             }
 
-            // FIXME: Bind to settings.repeat/shuffle instead of playbackMode
             // as that doesn't emit changes
             readonly property bool canGoPrevious: {  // FIXME: pad.lv/1517580 use previousIndex() > -1 after mh implements it
                 currentIndex !== 0 ||
@@ -100,11 +99,6 @@ Item {
             onItemChanged: {
                 console.debug("*** Saving play queue in onItemChanged");
                 saveQueue()
-
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
-                //if (start === currentIndex) {
-                //    currentMeta = metaForSource(currentSource)
-                //}
             }
             onItemInserted: {
                 // When add to queue is done on an empty list currentIndex needs to be set
@@ -134,30 +128,20 @@ Item {
 
                 console.debug("*** Saving play queue in onItemInserted");
                 saveQueue()
-
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
-                if (start === currentIndex) {
-                    currentMeta = metaForSource(currentItemSource)
-                }
             }
             onItemRemoved: {
                 console.debug("*** Saving play queue in onItemRemoved");
                 saveQueue()
-
-                // FIXME: shouldn't be needed? seems to be a bug where when appending currentItemChanged is not emitted
-                if (start === currentIndex) {
-                    currentMeta = metaForSource(currentItemSource)
-                }
             }
 
-            function addSourcesFromModel(model) {
-                var sources = []
+            function addItemsFromModel(model) {
+                var items = []
 
                 for (var i=0; i < model.rowCount; i++) {
-                    sources.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
+                    items.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
 
-                addItems(sources);
+                addItems(items);
             }
 
             // Wrap the clear() method because we need to call stop first
@@ -189,8 +173,8 @@ Item {
                 }
             }
 
+            // Process the pending current PlaybackState
             function processPendingCurrentState() {
-                // Process the pending current PlaybackState
                 if (pendingCurrentState === MediaPlayer.PlayingState) {
                     console.debug("Loading pending state play()");
                     mediaPlayer.play();
@@ -205,6 +189,7 @@ Item {
                 pendingCurrentState = null;
             }
 
+            // Wrapper for removeItems(from, to) so that we can use removeItems(list) until it is implemented upstream
             function removeItemsWrapper(items) {
                 var previous = -1, end = -1;
 
@@ -214,12 +199,12 @@ Item {
                 console.debug("To Remove", JSON.stringify(items));
 
                 // Merge ranges of indexes into sets of start, end points
+                // and call removeItems as we go along
                 for (var i=0; i < items.length; i++) {
                     if (end == -1) {  // first value found set to first
                         end = items[i];
                     } else if (previous - 1 !== items[i]) {  // set has ended (next is not 1 lower)
                         console.debug("RemoveItems", previous, end);
-
                         newPlayer.mediaPlayer.playlist.removeItems(previous, end);
 
                         end = items[i];  // set new high value for the next set
@@ -231,19 +216,16 @@ Item {
                 // Remove last set in list as well
                 if (items.length > 0) {
                     console.debug("RemoveItems", items[items.length - 1], end);
-
                     newPlayer.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
                 }
             }
 
             function saveQueue(start, end) {
-                // TODO: should not be hardcoded
-                // FIXME: doesn't work
-                // FIXME: disabled for now to not cause errors/slow down
+                // FIXME: load and save do not work yet pad.lv/1510225
+                // so use our localstorage method for now
                 // save("/home/phablet/.local/share/com.ubuntu.music/queue.m3u");
-
-                // FIXME: using old queueList for now, move to load()/save() long term
                 if (mainView.loadedUI) {
+                    // Don't be intelligent, just clear and rebuild the queue for now
                     Library.clearQueue();
 
                     var sources = [];
@@ -260,7 +242,6 @@ Item {
 
             function setCurrentIndex(index) {
                 // Set the currentIndex but if the itemCount is too low then wait
-                // TODO: Make always pending when there was a clear before?
                 if (index < mediaPlayerPlaylist.itemCount) {
                     mediaPlayerPlaylist.currentIndex = index;
                 } else {

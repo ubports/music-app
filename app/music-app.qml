@@ -340,7 +340,7 @@ MainView {
 
         newPlayer.mediaPlayer.playlist.clearWrapper();  // clear the old model
         newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
-        newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
+        newPlayer.mediaPlayer.playlist.addItemsFromModel(model);
 
         if (play) {
             // Set the pending state for the playlist
@@ -373,7 +373,7 @@ MainView {
         }
 
         newPlayer.mediaPlayer.playlist.clearWrapper();
-        newPlayer.mediaPlayer.playlist.addSourcesFromModel(model);
+        newPlayer.mediaPlayer.playlist.addItemsFromModel(model);
         newPlayer.shuffle = true;
 
         // Once the model count has been reached in the queue
