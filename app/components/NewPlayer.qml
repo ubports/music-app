@@ -277,8 +277,11 @@ Item {
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia && !settings.repeat) {
                 console.debug("End of media, stopping.")
-                playlist.currentIndex = 0;
                 stop();
+
+                // ensure at index zero and do it after stopping otherwise
+                // next() is called and it ends up at currentIndex = 1
+                playlist.currentIndex = 0;
 
                 _calcProgress();  // ensures progress bar has reset
             }
