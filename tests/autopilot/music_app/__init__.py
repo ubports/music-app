@@ -122,7 +122,7 @@ class MusicApp(object):
     @property
     def player(self):
         # Get new player each time as data changes (eg currentMeta)
-        return self.app.select_single(NewPlayer, objectName='player')
+        return self.app.select_single(Player, objectName='player')
 
     def populate_queue(self):
         tracksPage = self.get_songs_page()  # switch to track tab
@@ -253,8 +253,8 @@ class AddToPlaylist(MusicPage):
                 objectName="addToPlaylistCardItem" + str(i)))
 
 
-class NewPlayer(UbuntuUIToolkitCustomProxyObjectBase):
-    """Autopilot helper for NewPlayer"""
+class Player(UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for Player"""
 
 
 class NowPlaying(MusicPage):
@@ -304,7 +304,7 @@ class NowPlaying(MusicPage):
     def player(self):
         # Get new player each time as data changes (eg currentMeta)
         root = self.get_root_instance()
-        return root.select_single(NewPlayer, objectName="player")
+        return root.select_single(Player, objectName="player")
 
     @ensure_now_playing_full
     def seek_to(self, percentage):

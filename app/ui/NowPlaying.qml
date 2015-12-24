@@ -61,12 +61,12 @@ MusicPage {
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
-        if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.itemCount) {
-            positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
+        if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
+            positionAt(player.mediaPlayer.playlist.currentIndex);
         } else {
             queueListLoader.item.onCountChanged.connect(function() {
-                if (queueListLoader.item.count === newPlayer.mediaPlayer.playlist.itemCount) {
-                    positionAt(newPlayer.mediaPlayer.playlist.currentIndex);
+                if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
+                    positionAt(player.mediaPlayer.playlist.currentIndex);
                 }
             })
         }
@@ -99,7 +99,7 @@ MusicPage {
             name: "default"
             actions: [
                 Action {
-                    enabled: !newPlayer.mediaPlayer.playlist.empty
+                    enabled: !player.mediaPlayer.playlist.empty
                     iconName: "add-to-playlist"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Add to playlist")
@@ -108,21 +108,21 @@ MusicPage {
                     onTriggered: {
                         var items = []
 
-                        items.push(makeDict(newPlayer.metaForSource(newPlayer.mediaPlayer.playlist.currentItemSource)));
+                        items.push(makeDict(player.metaForSource(player.mediaPlayer.playlist.currentItemSource)));
 
                         mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
                                            {"chosenElements": items})
                     }
                 },
                 Action {
-                    enabled: !newPlayer.mediaPlayer.playlist.empty
+                    enabled: !player.mediaPlayer.playlist.empty
                     iconName: "delete"
                     objectName: "clearQueue"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
                     visible: isListView
 
-                    onTriggered: newPlayer.mediaPlayer.playlist.clearWrapper()
+                    onTriggered: player.mediaPlayer.playlist.clearWrapper()
                 }
             ]
             PropertyChanges {
@@ -141,7 +141,7 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                newPlayer.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
+                player.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
             }
         }
     ]
@@ -185,9 +185,9 @@ MusicPage {
     }
 
     Connections {
-        target: newPlayer.mediaPlayer.playlist
+        target: player.mediaPlayer.playlist
         onEmptyChanged: {
-            if (newPlayer.mediaPlayer.playlist.empty) {
+            if (player.mediaPlayer.playlist.empty) {
                 mainPageStack.goBack()
             }
         }

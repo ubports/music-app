@@ -38,7 +38,7 @@ Rectangle {
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.repeat = !newPlayer.repeat
+        onClicked: player.repeat = !player.repeat
 
         Icon {
             id: repeatIcon
@@ -49,20 +49,20 @@ Rectangle {
             color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-playlist-repeat"
             objectName: "repeatShape"
-            opacity: newPlayer.repeat ? 1 : .2
+            opacity: player.repeat ? 1 : .2
         }
     }
 
     /* Previous button */
     MouseArea {
         id: nowPlayingPreviousButton
-        enabled: newPlayer.mediaPlayer.playlist.canGoPrevious
+        enabled: player.mediaPlayer.playlist.canGoPrevious
         anchors.right: nowPlayingPlayButton.left
         anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.mediaPlayer.playlist.previousWrapper()
+        onClicked: player.mediaPlayer.playlist.previousWrapper()
 
         Icon {
             id: nowPlayingPreviousIndicator
@@ -83,7 +83,7 @@ Rectangle {
         anchors.centerIn: parent
         height: units.gu(10)
         width: height
-        onClicked: newPlayer.mediaPlayer.toggle()
+        onClicked: player.mediaPlayer.toggle()
 
         Icon {
             id: nowPlayingPlayIndicator
@@ -92,7 +92,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: parent.pressed ? UbuntuColors.blue : "white"
-            name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
+            name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
             objectName: "playShape"
         }
     }
@@ -103,10 +103,10 @@ Rectangle {
         anchors.left: nowPlayingPlayButton.right
         anchors.leftMargin: units.gu(1)
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-        enabled: newPlayer.mediaPlayer.playlist.canGoNext
+        enabled: player.mediaPlayer.playlist.canGoNext
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.mediaPlayer.playlist.nextWrapper()
+        onClicked: player.mediaPlayer.playlist.nextWrapper()
 
         Icon {
             id: nowPlayingNextIndicator
@@ -129,7 +129,7 @@ Rectangle {
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         height: units.gu(6)
         width: height
-        onClicked: newPlayer.shuffle = !newPlayer.shuffle
+        onClicked: player.shuffle = !player.shuffle
 
         Icon {
             id: shuffleIcon
@@ -140,7 +140,7 @@ Rectangle {
             color: parent.pressed ? UbuntuColors.blue : "white"
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
-            opacity: newPlayer.shuffle ? 1 : .2
+            opacity: player.shuffle ? 1 : .2
         }
     }
 
@@ -164,7 +164,7 @@ Rectangle {
             }
             color: UbuntuColors.blue
             height: parent.height
-            width: newPlayer.mediaPlayer.progress * playerControlsProgressBar.width
+            width: player.mediaPlayer.progress * playerControlsProgressBar.width
         }
     }
 }

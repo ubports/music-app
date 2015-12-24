@@ -36,14 +36,14 @@ Item {
     // Connections for usermetrics
     Connections {
         id: userMetricPlayerConnection
-        target: newPlayer.mediaPlayer
+        target: player.mediaPlayer
 
         property bool songCounted: false
 
         onPositionChanged: {
             // Increment song count on Welcome screen if song has been
             // playing for over 10 seconds.
-            if (newPlayer.mediaPlayer.position > 10000 && !songCounted) {
+            if (player.mediaPlayer.position > 10000 && !songCounted) {
                 songCounted = true
                 songsMetric.increment()
                 console.debug("Increment UserMetrics")
@@ -52,7 +52,7 @@ Item {
     }
 
     Connections {
-        target: newPlayer.mediaPlayer.playlist
+        target: player.mediaPlayer.playlist
         onCurrentItemSourceChanged: userMetricPlayerConnection.songCounted = false
     }
 }

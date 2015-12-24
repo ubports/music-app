@@ -29,6 +29,6 @@ Action {
 
     onTriggered: {
         console.debug("Debug: Add track to queue: " + model)
-        newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(model.filename))
+        player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(model.filename))
     }
 }

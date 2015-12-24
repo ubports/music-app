@@ -220,7 +220,7 @@ Item {
             else {
                 stopTimer();
 
-                newPlayer.mediaPlayer.playlist.clearWrapper();
+                player.mediaPlayer.playlist.clearWrapper();
 
                 var items = [];
 
@@ -229,7 +229,7 @@ Item {
                     items.push(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])))
                 }
 
-                newPlayer.mediaPlayer.playlist.addItems(items);
+                player.mediaPlayer.playlist.addItems(items);
 
                 trackQueueClick(0);
             }

@@ -205,7 +205,7 @@ Item {
                         end = items[i];
                     } else if (previous - 1 !== items[i]) {  // set has ended (next is not 1 lower)
                         console.debug("RemoveItems", previous, end);
-                        newPlayer.mediaPlayer.playlist.removeItems(previous, end);
+                        player.mediaPlayer.playlist.removeItems(previous, end);
 
                         end = items[i];  // set new high value for the next set
                     }
@@ -216,7 +216,7 @@ Item {
                 // Remove last set in list as well
                 if (items.length > 0) {
                     console.debug("RemoveItems", items[items.length - 1], end);
-                    newPlayer.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
+                    player.mediaPlayer.playlist.removeItems(items[items.length - 1], end);
                 }
             }
 

@@ -42,7 +42,7 @@ Rectangle {
         anchors {
             fill: parent
         }
-        state: newPlayer.mediaPlayer.playlist.empty ? "disabled" : "enabled"
+        state: player.mediaPlayer.playlist.empty ? "disabled" : "enabled"
         states: [
             State {
                 name: "disabled"
@@ -104,7 +104,7 @@ Rectangle {
                 }
                 color: "#FFF"
                 height: units.gu(4)
-                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
+                name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
                 width: height
@@ -116,10 +116,10 @@ Rectangle {
                     fill: parent
                 }
                 onClicked: {
-                    if (newPlayer.mediaPlayer.playlist.empty) {
+                    if (player.mediaPlayer.playlist.empty) {
                         playRandomSong();
                     } else {
-                        newPlayer.mediaPlayer.toggle();
+                        player.mediaPlayer.toggle();
                     }
                 }
             }
@@ -143,7 +143,7 @@ Rectangle {
                      left: parent.left
                      top: parent.top
                  }
-                 covers: [newPlayer.currentMeta]
+                 covers: [player.currentMeta]
                  size: parent.height
             }
 
@@ -169,9 +169,9 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     font.weight: Font.DemiBold
-                    text: newPlayer.currentMeta.title === ""
-                          ? newPlayer.mediaPlayer.playlist.currentItemSource
-                          : newPlayer.currentMeta.title
+                    text: player.currentMeta.title === ""
+                          ? player.mediaPlayer.playlist.currentItemSource
+                          : player.currentMeta.title
                 }
 
                 /* Artist of track */
@@ -185,7 +185,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     opacity: 0.4
-                    text: newPlayer.currentMeta.author
+                    text: player.currentMeta.author
                 }
             }
 
@@ -199,7 +199,7 @@ Rectangle {
                 }
                 color: playerControlsPlayButtonMouseArea.pressed ? UbuntuColors.blue : "white"
                 height: units.gu(4)
-                name: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
+                name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
                 width: height
@@ -223,7 +223,7 @@ Rectangle {
                     horizontalCenter: playerControlsPlayButton.horizontalCenter
                     top: parent.top
                 }
-                onClicked: newPlayer.mediaPlayer.toggle()
+                onClicked: player.mediaPlayer.toggle()
                 width: units.gu(8)
 
                 Rectangle {
@@ -261,7 +261,7 @@ Rectangle {
                 }
                 color: UbuntuColors.blue
                 height: parent.height
-                width: newPlayer.mediaPlayer.progress * playerControlsProgressBar.width
+                width: player.mediaPlayer.progress * playerControlsProgressBar.width
             }
         }
     }

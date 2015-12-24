@@ -60,15 +60,15 @@ Item {
         } else {
             if (play) {
                 // clear play queue
-                newPlayer.mediaPlayer.playlist.clearWrapper()
+                player.mediaPlayer.playlist.clearWrapper()
             }
 
             // enqueue
-            newPlayer.mediaPlayer.playlist.addItem(Qt.resolvedUrl(track.filename));
+            player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(track.filename));
 
             // play first URI
             if (play) {
-                trackQueueClick(newPlayer.mediaPlayer.playlist.itemCount - 1);
+                trackQueueClick(player.mediaPlayer.playlist.itemCount - 1);
             }
         }
 

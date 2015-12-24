@@ -57,8 +57,8 @@ MainView {
     }
 
     Connections {  // save the current queueIndex for when the app restarts
-        target: newPlayer.mediaPlayer.playlist
-        onCurrentIndexChanged: startupSettings.queueIndex = newPlayer.mediaPlayer.playlist.currentIndex
+        target: player.mediaPlayer.playlist
+        onCurrentIndexChanged: startupSettings.queueIndex = player.mediaPlayer.playlist.currentIndex
     }
 
     // Global keyboard shortcuts
@@ -78,33 +78,33 @@ MainView {
 
             switch (event.key) {
             case Qt.Key_Right:  //  Alt+Right   Seek forward +10secs
-                position = newPlayer.mediaPlayer.position + 10000 < newPlayer.mediaPlayer.duration
-                        ? newPlayer.mediaPlayer.position + 10000 : newPlayer.mediaPlayer.duration;
-                newPlayer.mediaPlayer.seek(position);
+                position = player.mediaPlayer.position + 10000 < player.mediaPlayer.duration
+                        ? player.mediaPlayer.position + 10000 : player.mediaPlayer.duration;
+                player.mediaPlayer.seek(position);
                 break;
             case Qt.Key_Left:  //   Alt+Left    Seek backwards -10secs
-                position = newPlayer.mediaPlayer.position - 10000 > 0
-                        ? newPlayer.mediaPlayer.position - 10000 : 0;
-                newPlayer.mediaPlayer.seek(position);
+                position = player.mediaPlayer.position - 10000 > 0
+                        ? player.mediaPlayer.position - 10000 : 0;
+                player.mediaPlayer.seek(position);
                 break;
             }
         }
         else if(event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_Left:   //  Ctrl+Left   Previous Song
-                newPlayer.mediaPlayer.playlist.previousWrapper();
+                player.mediaPlayer.playlist.previousWrapper();
                 break;
             case Qt.Key_Right:  //  Ctrl+Right  Next Song
-                newPlayer.mediaPlayer.playlist.nextWrapper();
+                player.mediaPlayer.playlist.nextWrapper();
                 break;
             case Qt.Key_Up:  //     Ctrl+Up     Volume up
-                newPlayer.mediaPlayer.volume = newPlayer.mediaPlayer.volume + .1 > 1 ? 1 : newPlayer.mediaPlayer.volume + .1
+                player.mediaPlayer.volume = player.mediaPlayer.volume + .1 > 1 ? 1 : player.mediaPlayer.volume + .1
                 break;
             case Qt.Key_Down:  //   Ctrl+Down   Volume down
-                newPlayer.mediaPlayer.volume = newPlayer.mediaPlayer.volume - .1 < 0 ? 0 : newPlayer.mediaPlayer.volume - .1
+                player.mediaPlayer.volume = player.mediaPlayer.volume - .1 < 0 ? 0 : player.mediaPlayer.volume - .1
                 break;
             case Qt.Key_R:  //      Ctrl+R      Repeat toggle
-                newPlayer.mediaPlayer.repeat = !newPlayer.mediaPlayer.repeat
+                player.mediaPlayer.repeat = !player.mediaPlayer.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
                 if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "default") {
@@ -121,13 +121,13 @@ MainView {
                 tabs.pushNowPlaying()
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
-                newPlayer.mediaPlayer.toggle();
+                player.mediaPlayer.toggle();
                 break;
             case Qt.Key_Q:  //      Ctrl+Q      Quit the app
                 Qt.quit();
                 break;
             case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
-                newPlayer.mediaPlayer.shuffle = !newPlayer.mediaPlayer.shuffle
+                player.mediaPlayer.shuffle = !player.mediaPlayer.shuffle
                 break;
             }
         }
@@ -157,15 +157,15 @@ MainView {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: newPlayer.mediaPlayer.playlist.nextWrapper()
+        onTriggered: player.mediaPlayer.playlist.nextWrapper()
     }
     Action {
         id: playsAction
-        text: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState
+        text: player.mediaPlayer.playbackState === MediaPlayer.PlayingState
               ? i18n.tr("Pause") : i18n.tr("Play")
-        keywords: newPlayer.mediaPlayer.playbackState === MediaPlayer.PlayingState
+        keywords: player.mediaPlayer.playbackState === MediaPlayer.PlayingState
                   ? i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
-        onTriggered: newPlayer.mediaPlayer.toggle()
+        onTriggered: player.mediaPlayer.toggle()
     }
     Action {
         id: backAction
@@ -180,13 +180,13 @@ MainView {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
-        onTriggered: newPlayer.mediaPlayer.playlist.previousWrapper()
+        onTriggered: player.mediaPlayer.playlist.previousWrapper()
     }
     Action {
         id: stopAction
         text: i18n.tr("Stop")
         keywords: i18n.tr("Stop Playback")
-        onTriggered: newPlayer.mediaPlayer.stop()
+        onTriggered: player.mediaPlayer.stop()
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
@@ -227,15 +227,15 @@ MainView {
 
             // FIXME: load and save do not work yet pad.lv/1510225
             // so use our localstorage method for now
-            // newPlayer.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
+            // player.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
             // use onloaded() and onLoadFailed() to confirm it is complete
 
             if (!Library.isQueueEmpty()) {
                 console.debug("*** Restoring library queue");
-                newPlayer.mediaPlayer.playlist.addItems(Library.getQueue());
+                player.mediaPlayer.playlist.addItems(Library.getQueue());
 
-                newPlayer.mediaPlayer.playlist.setCurrentIndex(queueIndex);
-                newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);
+                player.mediaPlayer.playlist.setCurrentIndex(queueIndex);
+                player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);
             }
             else {
                 console.debug("Queue is empty, not loading any recent tracks");
@@ -338,14 +338,14 @@ MainView {
 
         play = play === undefined ? true : play  // default play to true
 
-        newPlayer.mediaPlayer.playlist.clearWrapper();  // clear the old model
-        newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
-        newPlayer.mediaPlayer.playlist.addItemsFromModel(model);
+        player.mediaPlayer.playlist.clearWrapper();  // clear the old model
+        player.mediaPlayer.playlist.setCurrentIndex(index);
+        player.mediaPlayer.playlist.addItemsFromModel(model);
 
         if (play) {
             // Set the pending state for the playlist
             // this will be set once the currentIndex has been appened to the playlist
-            newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
+            player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
 
             // Show the Now playing page and make sure the track is visible
             tabs.pushNowPlaying();
@@ -355,11 +355,11 @@ MainView {
     // Play or pause a current track in the queue
     // - the index has been tapped by the user
     function trackQueueClick(index) {
-        if (newPlayer.mediaPlayer.playlist.currentIndex === index) {
-            newPlayer.mediaPlayer.toggle();
+        if (player.mediaPlayer.playlist.currentIndex === index) {
+            player.mediaPlayer.toggle();
         }  else {
-            newPlayer.mediaPlayer.playlist.setCurrentIndex(index);
-            newPlayer.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
+            player.mediaPlayer.playlist.setCurrentIndex(index);
+            player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
         }
     }
 
@@ -372,13 +372,13 @@ MainView {
             model = allSongsModel;
         }
 
-        newPlayer.mediaPlayer.playlist.clearWrapper();
-        newPlayer.mediaPlayer.playlist.addItemsFromModel(model);
-        newPlayer.shuffle = true;
+        player.mediaPlayer.playlist.clearWrapper();
+        player.mediaPlayer.playlist.addItemsFromModel(model);
+        player.shuffle = true;
 
         // Once the model count has been reached in the queue
         // shuffle the model
-        newPlayer.mediaPlayer.playlist.setPendingShuffle(model.count);
+        player.mediaPlayer.playlist.setPendingShuffle(model.count);
 
         tabs.pushNowPlaying();
     }
@@ -418,8 +418,8 @@ MainView {
                 var removed = []
 
                 // Find tracks from the queue that aren't in ms2 anymore
-                for (i=0; i < newPlayer.mediaPlayer.playlist.count; i++) {
-                    if (musicStore.lookup(decodeFileURI(newPlayer.mediaPlayer.playlist.itemSource(i))) === null) {
+                for (i=0; i < player.mediaPlayer.playlist.count; i++) {
+                    if (musicStore.lookup(decodeFileURI(player.mediaPlayer.playlist.itemSource(i))) === null) {
                         removed.push(i)
                     }
                 }
@@ -427,7 +427,7 @@ MainView {
                 // If there are removed tracks then remove them from the queue and store
                 if (removed.length > 0) {
                     console.debug("Removed queue:", JSON.stringify(removed))
-                    newPlayer.mediaPlayer.playlist.removeItemsWrapper(removed.slice());
+                    player.mediaPlayer.playlist.removeItemsWrapper(removed.slice());
                 }
 
                 // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist
@@ -513,8 +513,8 @@ MainView {
     }
 
     // WHERE THE MAGIC HAPPENS
-    NewPlayer {
-        id: newPlayer
+    Player {
+        id: player
     }
 
     // TODO: Used by playlisttracks move to U1DB

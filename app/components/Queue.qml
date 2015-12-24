@@ -35,18 +35,18 @@ MultiSelectListView {
     footer: Item {
         height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
     }
-    model: newPlayer.mediaPlayer.playlist
+    model: player.mediaPlayer.playlist
     objectName: "nowPlayingqueueList"
 
     onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
     delegate: MusicListItem {
         id: queueListItem
-        color: newPlayer.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
+        color: player.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
         column: Column {
             Label {
                 id: trackTitle
-                color: newPlayer.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
+                color: player.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
                 fontSize: "small"
                 objectName: "titleLabel"
                 text: metaModel.title
@@ -63,7 +63,7 @@ MultiSelectListView {
         leadingActions: ListItemActions {
             actions: [
                 Remove {
-                    onTriggered: newPlayer.mediaPlayer.playlist.removeItem(index)
+                    onTriggered: player.mediaPlayer.playlist.removeItem(index)
                 }
             ]
         }
@@ -82,7 +82,7 @@ MultiSelectListView {
             }
         }
 
-        property var metaModel: newPlayer.metaForSource(model.source)
+        property var metaModel: player.metaForSource(model.source)
 
         onItemClicked: {
             customdebug("File: " + model.source) // debugger
@@ -94,6 +94,6 @@ MultiSelectListView {
     onReorder: {
         console.debug("Move: ", from, to);
 
-        newPlayer.mediaPlayer.playlist.moveItem(from, to);
+        player.mediaPlayer.playlist.moveItem(from, to);
     }
 }
