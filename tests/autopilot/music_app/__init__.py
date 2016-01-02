@@ -256,6 +256,10 @@ class AddToPlaylist(MusicPage):
 class Player(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Player"""
 
+    @property
+    def currentMeta(self):
+        return self.select_single("*", objectName="currentMeta")
+
 
 class NowPlaying(MusicPage):
     """ Autopilot helper for now playing page """
@@ -269,6 +273,9 @@ class NowPlaying(MusicPage):
     def click_forward_button(self):
         return self.wait_select_single("*", objectName="forwardShape")
 
+    def click_full_view(self):
+        self.main_view.get_header().switch_to_section_by_index(0)
+
     @ensure_now_playing_full
     @click_object
     def click_play_button(self):
@@ -278,6 +285,9 @@ class NowPlaying(MusicPage):
     @click_object
     def click_previous_button(self):
         return self.wait_select_single("*", objectName="previousShape")
+
+    def click_queue_view(self):
+        self.main_view.get_header().switch_to_section_by_index(1)
 
     @ensure_now_playing_full
     @click_object
@@ -289,11 +299,9 @@ class NowPlaying(MusicPage):
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
-    def click_full_view(self):
-        self.main_view.get_header().switch_to_section_by_index(0)
-
-    def click_queue_view(self):
-        self.main_view.get_header().switch_to_section_by_index(1)
+    @click_object
+    def click_track(self, i):
+        return self.get_track(i)
 
     @ensure_now_playing_list
     def get_track(self, i):
@@ -341,8 +349,8 @@ class ArtistView(MusicPage):
     @click_object
     def click_artist(self, i):
         return self.wait_select_single("Card",
-                                       objectName="albumsPageGridItem"
-                                       + str(i))
+                                       objectName="albumsPageGridItem" +
+                                       str(i))
 
     def get_artist(self):
         return self.wait_select_single("UCLabel",

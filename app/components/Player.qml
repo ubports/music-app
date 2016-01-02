@@ -26,15 +26,30 @@ import "../logic/meta-database.js" as Library
 Item {
     objectName: "player"
 
-    // For autopilot
-    readonly property bool isPlaying: mediaPlayer.playbackState === MediaPlayer.PlayingState
+    // For autopilot as we can't access the MediaPlayer object pad.lv/1269578
+    readonly property bool isPlaying: mediaPlayerObject.playbackState === MediaPlayer.PlayingState
     readonly property alias count: mediaPlayerPlaylist.itemCount
     readonly property alias currentIndex: mediaPlayerPlaylist.currentIndex
+    readonly property alias currentItemSource: mediaPlayerPlaylist.currentItemSource
+    readonly property alias position: mediaPlayerObject.position
 
-    property var currentMeta: ({})
-    property alias mediaPlayer: mediaPlayer
+    // FIXME: pad.lv/1269578 use Item as autopilot cannot 'see' a var/QtObject
+    property alias currentMeta: currentMetaItem
+
+    property alias mediaPlayer: mediaPlayerObject
     property alias repeat: settings.repeat
     property alias shuffle: settings.shuffle
+
+    Item {
+        id: currentMetaItem
+        objectName: "currentMeta"
+
+        property string album: ""
+        property string art: ""
+        property string author: ""
+        property string filename: ""
+        property string title: ""
+    }
 
     // Return the metadata for the source given from mediascanner2
     function metaForSource(source) {
@@ -64,7 +79,7 @@ Item {
     }
 
     MediaPlayer {
-        id: mediaPlayer
+        id: mediaPlayerObject
         playlist: Playlist {
             id: mediaPlayerPlaylist
             playbackMode: {
@@ -82,7 +97,7 @@ Item {
                 currentIndex !== 0 ||
                 settings.repeat ||
                 settings.shuffle ||  // FIXME: pad.lv/1517580 not way to know when we are at the end of a shuffle yet
-                mediaPlayer.position > 5000
+                mediaPlayerObject.position > 5000
             }
             readonly property bool canGoNext: {  // FIXME: pad.lv/1517580 use nextIndex() > -1 after mh implements it
                 currentIndex !== (itemCount - 1) ||
@@ -95,7 +110,15 @@ Item {
             property var pendingCurrentState: null
             property int pendingShuffle: -1
 
-            onCurrentItemSourceChanged: currentMeta = metaForSource(currentItemSource)
+            onCurrentItemSourceChanged: {
+                var meta = metaForSource(currentItemSource);
+
+                currentMeta.album = meta.album;
+                currentMeta.art = meta.art;
+                currentMeta.author = meta.author;
+                currentMeta.filename = meta.filename;
+                currentMeta.title = meta.title;
+            }
             onItemChanged: {
                 console.debug("*** Saving play queue in onItemChanged");
                 saveQueue()
@@ -123,7 +146,7 @@ Item {
                     pendingShuffle = -1;
 
                     nextWrapper();  // find a random track
-                    mediaPlayer.play();  // next does not enforce play
+                    mediaPlayerObject.play();  // next does not enforce play
                 }
 
                 console.debug("*** Saving play queue in onItemInserted");
@@ -147,8 +170,8 @@ Item {
             // Wrap the clear() method because we need to call stop first
             function clearWrapper() {
                 // Stop the current playback (this ensures that play is run later)
-                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
-                    mediaPlayer.stop();
+                if (mediaPlayerObject.playbackState === MediaPlayer.PlayingState) {
+                    mediaPlayerObject.stop();
                 }
 
                 clear();
@@ -177,13 +200,13 @@ Item {
             function processPendingCurrentState() {
                 if (pendingCurrentState === MediaPlayer.PlayingState) {
                     console.debug("Loading pending state play()");
-                    mediaPlayer.play();
+                    mediaPlayerObject.play();
                 } else if (pendingCurrentState === MediaPlayer.PausedState) {
                     console.debug("Loading pending state pause()");
-                    mediaPlayer.pause();
+                    mediaPlayerObject.pause();
                 } else if (pendingCurrentState === MediaPlayer.StoppedState) {
                     console.debug("Loading pending state stop()");
-                    mediaPlayer.stop();
+                    mediaPlayerObject.stop();
                 }
 
                 pendingCurrentState = null;
@@ -262,7 +285,7 @@ Item {
                 // Run next() and play() when the modelSize is reached
                 if (modelSize <= itemCount) {
                     mediaPlayerPlaylist.nextWrapper();  // find a random track
-                    mediaPlayer.play();  // next does not enforce play
+                    mediaPlayerObject.play();  // next does not enforce play
                 } else {
                     pendingShuffle = modelSize;
                 }
