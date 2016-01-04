@@ -364,7 +364,7 @@ MainView {
     }
 
     // Clear the queue and play a random track from this model
-    // - use has selected "Shuffle" in album/artists or "Tap to play random"
+    // - user has selected "Shuffle" in album/artists or "Tap to play random"
     function playRandomSong(model)
     {
         // If no model is given use all the tracks
