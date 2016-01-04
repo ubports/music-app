@@ -1,0 +1,28 @@
+plugin: resource
+id: music-recent/system-image
+_summary: [Automated] gather system information
+command: system-image-cli -i
+_description:
+ Gather system info
+
+id: music-recent/recent-appears
+plugin: manual
+_summary: Test recent tab appears
+estimated_duration: 600
+_description:
+    Test recent tab appears
+    1. Goto the album view
+    2. Select an album and play all
+        Expect the recent tab to appear
+    3. Navigate to the recent tab ensure that the album is correct
+
+id: music-recent/recent-disappears
+plugin: manual
+_summary: Test recent tab disappears
+estimated_duration: 600
+_description:
+    Test recent tab disappears
+    1. Ensure that the recent tab is visible and switch to the tab
+    2. Select clear all action
+        Expect to be switched to the albums tab
+        Expect the recent tab to have been removed

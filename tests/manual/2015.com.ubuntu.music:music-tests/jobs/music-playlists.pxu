@@ -1,0 +1,73 @@
+plugin: resource
+id: music-playlists/system-image
+_summary: [Automated] gather system information
+command: system-image-cli -i
+_description:
+ Gather system info
+
+id: music-playlists/create-playlists
+plugin: manual
+_summary: Test create playlist
+estimated_duration: 600
+_description:
+    Test create playlist
+    1. Open music app
+    2. Navigate to playlist view
+        Expect empty playlist:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101416.png
+    3. Tap "+" button in top right
+        Expect "New Playlist" dialog:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-204544.png
+    4. Tap in the input field
+        Expect to see the OSK appear:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205144.png
+    5. Type "Best songs"
+    6. Press Create
+        Expect to see empty playlist:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205248.png
+
+id: music-playlists/add-tracks-to-playlist
+plugin: manual
+_summary: Test add tracks to playlist
+estimated_duration: 600
+_description:
+    Test add tracks to playlist
+    1. Navigate to Songs view
+    2. Slide left a song
+        Expect to see buttons revealed:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205354.png
+    3. Tap last icon (add to playlist)
+        Expect to be taken to "Select playlist" view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205514.png
+    4. Select previously created playlist "Best songs"
+        Expect to be taken back to previous view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205552.png
+    5. Navigate to albums view
+    6. Tap on an album
+        Expect to see the individual album view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205713.png
+    7. Long press on a track
+        Expect multi-select boxes and buttons to appear:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205819.png
+    8. Tap multiple songs
+    9. Tap 'burger' menu in the top right, choose "Add to playlist"
+        Expect to be taken to the "Select playlist" view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-205923.png
+    10. Tap previously create playlist
+         Expect to be taken back to individual album view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-210010.png
+    11. Navigate to Playlist view
+    12. Tap previously created playlist
+         Expect to see songs previously selected:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-210333.png
+
+id: music-playlists/remove-playlist
+plugin: manual
+_summary: Test removing playlist
+estimated_duration: 600
+_description:
+    Test removing playlist
+    1. Navigate to Playlist view
+    2. Tap previously created playlist
+    3. Tap rubbish bin in top toolbar
+        Expect to get a confirmation prompt:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-210424.png
+    4. Tap 'Remove' button
+        Expect playlist to be removed:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-210520.png
+
+id: music-playlists/tab-persist
+plugin: manual
+_summary: Test tab index is persists a restart
+estimated_duration: 600
+_description:
+    Test tab index is persists a restart
+    1. Start the app and switch to a tab (eg playlists)
+    2. Close the app and restart it
+        Expect the app to start on the same tab
