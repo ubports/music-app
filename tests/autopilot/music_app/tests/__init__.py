@@ -159,17 +159,17 @@ class BaseTestClassWithPatchedHome(AutopilotTestCase):
         # delete content if previously copied
         elif not os.path.isdir(songs_dir):
             try:
-                os.remove(os.path.join(songs_dir, '1.ogg'))
-            except OSError:
-                pass
+                os.remove(os.path.join(musicpath, '1.ogg'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
             try:
-                os.remove(os.path.join(songs_dir, '2.ogg'))
-            except OSError:
-                pass
+                os.remove(os.path.join(musicpath, '2.ogg'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
             try:
-                os.remove(os.path.join(songs_dir, '3.mp3'))
-            except OSError:
-                pass
+                os.remove(os.path.join(musicpath, '3.mp3'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
 
             logger.debug("Music deleted, files " + str(os.listdir(musicpath)))
 
