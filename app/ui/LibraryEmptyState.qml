@@ -22,6 +22,7 @@ import Ubuntu.Components 1.3
 
 Page {
     id: libraryEmptyPage
+    objectName: "emptyLibrary"
     anchors {
         fill: parent
     }
@@ -31,6 +32,11 @@ Page {
         visible: false
         locked: true
     }
+
+    // Hack for autopilot otherwise LibraryEmptyState appears as Page
+    // due to bug 1341671 it is required that there is a property so that
+    // qml doesn't optimise using the parent type
+    property bool bug1341671workaround: true
 
     // Overlay to show when no tracks detected on the device
     Rectangle {
@@ -105,6 +111,7 @@ Page {
 
             Label {
                 color: styleMusic.libraryEmpty.labelColor
+                objectName: "titleText"
                 elide: Text.ElideRight
                 fontSize: "x-large"
                 horizontalAlignment: Text.AlignLeft
@@ -116,6 +123,7 @@ Page {
 
             Label {
                 color: styleMusic.libraryEmpty.labelColor
+                objectName:"descriptiveText"
                 elide: Text.ElideRight
                 fontSize: "large"
                 horizontalAlignment: Text.AlignLeft

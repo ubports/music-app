@@ -14,9 +14,25 @@ from autopilot.matchers import Eventually
 from testtools.matchers import Equals, GreaterThan, LessThan, NotEquals
 
 
-from music_app.tests import MusicAppTestCase
+from music_app.tests import MusicAppTestCase, MusicAppTestCaseEmptyLibrary
 
 logger = logging.getLogger(__name__)
+
+
+class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
+
+    def setUp(self):
+        super(TestEmptyLibrary, self).setUp()
+        self.app.get_walkthrough_page().skip()
+
+    def test_display_message_when_no_music(self):
+        """When no music is detected, the app must display a certain Page"""
+
+        # obtain the LibraryEmptyState page
+        library = self.app.get_library_empty_state_page()
+
+        # check if the correct page(LibraryEmptyState) is being shown
+        self.assertThat(library.visible, Eventually(Equals(True)))
 
 
 class TestMainWindow(MusicAppTestCase):
