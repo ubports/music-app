@@ -118,6 +118,8 @@ Item {
                 currentMeta.author = meta.author;
                 currentMeta.filename = meta.filename;
                 currentMeta.title = meta.title;
+
+                mediaPlayerObject._calcProgress();
             }
             onItemChanged: {
                 console.debug("*** Saving play queue in onItemChanged");

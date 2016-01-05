@@ -262,6 +262,27 @@ Rectangle {
                 color: UbuntuColors.blue
                 height: parent.height
                 width: player.mediaPlayer.progress * playerControlsProgressBar.width
+
+                // FIXME: Workaround for pad.lv/1494031 by querying gst as it does not
+                // emit until it changes to the PLAYING state. But by asking for a
+                // value we get gst to perform a query and return a result
+                // However this has to be done once the source is set, hence the delay
+                //
+                // NOTE: This does not solve when the currentIndex is removed though
+                Timer {
+                    id: refreshProgressTimer
+                    interval: 16
+                    repeat: player.mediaPlayer.duration === undefined
+                    onTriggered: playerControlsProgressBarHint.width = player.mediaPlayer.progress * playerControlsProgressBar.width
+                }
+
+                Connections {
+                    target: player.mediaPlayer.playlist
+                    // Call timer when source or index changes
+                    // so we call even if there are duplicate sources or source removal
+                    onCurrentItemSourceChanged: refreshProgressTimer.start()
+                    onCurrentIndexChanged: refreshProgressTimer.start()
+                }
             }
         }
     }
