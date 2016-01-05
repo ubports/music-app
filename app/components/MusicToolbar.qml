@@ -271,8 +271,8 @@ Rectangle {
                 // NOTE: This does not solve when the currentIndex is removed though
                 Timer {
                     id: refreshProgressTimer
-                    interval: 16
-                    repeat: player.mediaPlayer.duration === undefined
+                    interval: 48
+                    repeat: false
                     onTriggered: playerControlsProgressBarHint.width = player.mediaPlayer.progress * playerControlsProgressBar.width
                 }
 
