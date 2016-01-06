@@ -63,6 +63,10 @@ ListItem {
 
     ListItemLayout {
         id: listItemLayout
+
+        padding.bottom: image.visible ? units.gu(.5) : units.gu(1.5)
+        padding.top: image.visible ? units.gu(.5) : units.gu(1.5)
+
         subtitle.color: styleMusic.common.subtitle
         subtitle.fontSize: "x-small"
         subtitle.wrapMode: Text.WrapAnywhere
