@@ -64,8 +64,11 @@ ListItem {
     ListItemLayout {
         id: listItemLayout
         subtitle.color: styleMusic.common.subtitle
+        subtitle.fontSize: "x-small"
         subtitle.wrapMode: Text.WrapAnywhere
+
         title.color: styleMusic.common.music
+        title.fontSize: "small"
         title.wrapMode: Text.WrapAnywhere
 
         Image {
