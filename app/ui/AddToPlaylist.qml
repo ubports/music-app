@@ -58,6 +58,13 @@ MusicPage {
         }
     ]
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     property var chosenElements: []
 
     onVisibleChanged: {

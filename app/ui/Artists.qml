@@ -48,6 +48,13 @@ MusicPage {
         }
     ]
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     // Hack for autopilot otherwise Artists appears as MusicPage
     // due to bug 1341671 it is required that there is a property so that
     // qml doesn't optimise using the parent type

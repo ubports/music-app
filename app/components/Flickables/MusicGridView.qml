@@ -22,6 +22,7 @@ GridView {
     id: gridView
     anchors {
         fill: parent
+        topMargin: units.gu(6.125)  // FIXME: 6.125 is header.height
     }
     cellHeight: cellSize + heightOffset
     cellWidth: cellSize + widthOffset
