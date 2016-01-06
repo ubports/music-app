@@ -21,8 +21,11 @@ import Ubuntu.Components 1.3
 GridView {
     id: gridView
     anchors {
+        bottomMargin: units.gu(1)
         fill: parent
-        topMargin: units.gu(6.125)  // FIXME: 6.125 is header.height
+        leftMargin: units.gu(1)
+        rightMargin: units.gu(1)
+        topMargin: units.gu(6.125) + units.gu(2)  // FIXME: 6.125 is header.height
     }
     cellHeight: cellSize + heightOffset
     cellWidth: cellSize + widthOffset
@@ -39,8 +42,8 @@ GridView {
         }
     }
 
-    readonly property int columns: parseInt(parent.width / itemWidth) || 1  // never drop to 0
-    readonly property int cellSize: parent.width / columns
+    readonly property int columns: parseInt(width / itemWidth) || 1  // never drop to 0
+    readonly property int cellSize: width / columns
     property int itemWidth: units.gu(15)
     property int heightOffset: 0
     property int widthOffset: 0
