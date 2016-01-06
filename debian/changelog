@@ -1,11 +1,17 @@
 music-app (2.3) UNRELEASED; urgency=medium
-
+  
   [ Andrew Hayzen ]
   * Release 2.2ubuntu2 and start on 2.3
   * Switch to using Qt GridView instead of custom CardView
 
   [ Ken VanDine ]
   * Install the content-hub json file in the correct place for peer registry
+
+  [ Vamshi Balanaga ]
+  * Add test to make sure that the LibraryEmptyState page is visible when no audio is  detected on the device (LP: #1261587).
+
+  [ Girish Rawat ]
+  * Expanded and updated READMEs
 
  -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:11:35 +0000
 

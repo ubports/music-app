@@ -27,6 +27,7 @@ CREATE INDEX media_artist_idx ON media(type, artist) WHERE type = 1;
 CREATE INDEX media_genre_idx ON media(type, genre) WHERE type = 1;
 CREATE INDEX media_mtime_idx ON media(type, mtime);
 CREATE TABLE media_attic (
+    id INTEGER PRIMARY KEY,
     filename TEXT UNIQUE NOT NULL,
     content_type TEXT,
     etag TEXT,
@@ -48,7 +49,7 @@ CREATE TABLE media_attic (
     type INTEGER   -- 0=Audio, 1=Video
 );
 CREATE VIRTUAL TABLE media_fts
-USING fts4(content='media', title, artist, album, tokenize=mozporter);
+USING fts4(content='media', title, artist, album, tokenize=porter);
 CREATE TABLE 'media_fts_segments'(blockid INTEGER PRIMARY KEY, block BLOB);
 CREATE TABLE 'media_fts_segdir'(level INTEGER,idx INTEGER,start_block INTEGER,leaves_end_block INTEGER,end_block INTEGER,root BLOB,PRIMARY KEY(level, idx));
 CREATE TABLE 'media_fts_docsize'(docid INTEGER PRIMARY KEY, size BLOB);

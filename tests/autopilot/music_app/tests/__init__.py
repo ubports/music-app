@@ -35,12 +35,9 @@ from ubuntuuitoolkit import base
 logger = logging.getLogger(__name__)
 
 
-class BaseTestCaseWithPatchedHome(AutopilotTestCase):
-
+class BaseTestClassWithPatchedHome(AutopilotTestCase):
     """A common test case class that provides several useful methods for
-    music-app tests.
-
-    """
+    music-app tests."""
 
     working_dir = os.getcwd()
     local_location_dir = os.path.dirname(os.path.dirname(working_dir))
@@ -58,12 +55,6 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             launch = self.launch_test_click
             test_type = 'click'
         return launch, test_type
-
-    def setUp(self):
-        super(BaseTestCaseWithPatchedHome, self).setUp()
-        self.launcher, self.test_type = self.get_launcher_method_and_type()
-        self.home_dir = self._patch_home()
-        self._create_music_library()
 
     @autopilot_logging.log_action(logger.info)
     def launch_test_local(self):
@@ -90,8 +81,8 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             emulator_base=ubuntuuitoolkit.UbuntuUIToolkitCustomProxyObjectBase)
 
     def _copy_xauthority_file(self, directory):
-        """ Copy .Xauthority file to directory, if it exists in /home
-        """
+        """ Copy .Xauthority file to directory, if it exists in /home"""
+
         # If running under xvfb, as jenkins does,
         # xsession will fail to start without xauthority file
         # Thus if the Xauthority file is in the home directory
@@ -107,8 +98,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
                 os.path.join(directory, '.Xauthority'))
 
     def _patch_home(self):
-        """ mock /home for testing purposes to preserve user data
-        """
+        """ mock /home for testing purposes to preserve user data"""
 
         # if running on non-phablet device,
         # run in temp folder to avoid mucking up home
@@ -141,29 +131,47 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
             logger.debug("Patched home to fake home directory %s" % temp_dir)
         return temp_dir
 
-    def _create_music_library(self):
+    def _create_music_library(self, db_dir):
         logger.debug("Creating music library for %s test" % self.test_type)
         logger.debug("Home set to %s" % self.home_dir)
         musicpath = os.path.join(self.home_dir, 'Music')
         logger.debug("Music path set to %s" % musicpath)
         mediascannerpath = os.path.join(self.home_dir,
                                         '.cache/mediascanner-2.0')
+        logger.debug("Mediascanner path set to %s" % mediascannerpath)
+
         if not os.path.exists(musicpath):
             os.makedirs(musicpath)
-        logger.debug("Mediascanner path set to %s" % mediascannerpath)
 
         # set content path
         content_dir = os.path.join(os.path.dirname(music_app.__file__),
-                                   'content')
-
+                                   'content', db_dir)
+        songs_dir = os.path.join(content_dir, 'songs')
         logger.debug("Content dir set to %s" % content_dir)
 
         # copy content
-        shutil.copy(os.path.join(content_dir, '1.ogg'), musicpath)
-        shutil.copy(os.path.join(content_dir, '2.ogg'), musicpath)
-        shutil.copy(os.path.join(content_dir, '3.mp3'), musicpath)
+        if os.path.isdir(songs_dir) and db_dir == 'mediascanner-2.0':
+            shutil.copy(os.path.join(songs_dir, '1.ogg'), musicpath)
+            shutil.copy(os.path.join(songs_dir, '2.ogg'), musicpath)
+            shutil.copy(os.path.join(songs_dir, '3.mp3'), musicpath)
 
-        logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+            logger.debug("Music copied, files " + str(os.listdir(musicpath)))
+        # delete content if previously copied
+        elif not os.path.isdir(songs_dir):
+            try:
+                os.remove(os.path.join(musicpath, '1.ogg'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
+            try:
+                os.remove(os.path.join(musicpath, '2.ogg'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
+            try:
+                os.remove(os.path.join(musicpath, '3.mp3'))
+            except OSError as e:
+                logger.debug("Error removing" + str(e))
+
+            logger.debug("Music deleted, files " + str(os.listdir(musicpath)))
 
         if self.test_type is not 'click':
             self._patch_mediascanner_home(content_dir, mediascannerpath)
@@ -172,8 +180,8 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         # do some inline db patching
         # patch mediaindex to proper home
         # these values are dependent upon our sampled db
-        shutil.copytree(
-            os.path.join(content_dir, 'mediascanner-2.0'), mediascannerpath)
+        shutil.copytree(content_dir, mediascannerpath)
+
         logger.debug("Patching fake mediascanner database in %s" %
                      mediascannerpath)
         logger.debug(
@@ -182,6 +190,7 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
 
         relhome = self.home_dir[1:]
         dblocation = "home/phablet"
+
         # patch mediaindex
         self._file_find_replace(mediascannerpath +
                                 "/mediastore.sql", dblocation, relhome)
@@ -190,7 +199,12 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         f = open(mediascannerpath + "/mediastore.sql", 'rb')
         sql = f.read().decode("utf-8")
         cur = con.cursor()
-        cur.executescript(sql)
+        try:
+            cur.executescript(sql)
+            con.commit()
+        except Exception as e:
+            logger.debug("Mediscanner patching failed %s" % e)
+            raise
         con.close()
 
         logger.debug(
@@ -213,10 +227,42 @@ class BaseTestCaseWithPatchedHome(AutopilotTestCase):
         os.rename(out_filename, in_filename)
 
 
+class BaseTestCaseWithPatchedHome(BaseTestClassWithPatchedHome):
+
+    """ Base test case class for music-app, with viable audio files loaded."""
+
+    def setUp(self):
+        super(BaseTestClassWithPatchedHome, self).setUp()
+        self.launcher, self.test_type = self.get_launcher_method_and_type()
+        self.home_dir = self._patch_home()
+        self._create_music_library('mediascanner-2.0')
+
+
+class EmptyLibraryWithPatchedHome(BaseTestClassWithPatchedHome):
+
+    """ Base test case class for music-app with empty library. """
+
+    def setUp(self):
+        super(BaseTestClassWithPatchedHome, self).setUp()
+        self.launcher, self.test_type = self.get_launcher_method_and_type()
+        self.home_dir = self._patch_home()
+        self._create_music_library('blank-mediascanner-2.0')
+
+
 class MusicAppTestCase(BaseTestCaseWithPatchedHome):
 
     """Base test case that launches the music-app."""
 
     def setUp(self):
         super(MusicAppTestCase, self).setUp()
+        self.app = MusicApp(self.launcher())
+
+
+class MusicAppTestCaseEmptyLibrary(EmptyLibraryWithPatchedHome):
+
+    """Test case that launches the music-app with no music:
+    an empty library."""
+
+    def setUp(self):
+        super(MusicAppTestCaseEmptyLibrary, self).setUp()
         self.app = MusicApp(self.launcher())

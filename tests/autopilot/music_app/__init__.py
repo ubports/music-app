@@ -135,6 +135,16 @@ class MusicApp(object):
         # wait for now playing page to be visible
         self.get_now_playing_page().visible.wait_for(True)
 
+    def get_library_empty_state_page(self):
+        return self.app.wait_select_single(LibraryEmptyState,
+                                           objectName="emptyLibrary")
+
+
+class LibraryEmptyState(UbuntuUIToolkitCustomProxyObjectBase):
+    """Autopilot helper for LibraryEmptyState"""
+    def __init__(self, *args):
+        super(LibraryEmptyState, self).__init__(*args)
+
 
 class Page(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Pages."""
@@ -335,8 +345,8 @@ class ArtistView(MusicPage):
     @click_object
     def click_artist(self, i):
         return self.wait_select_single("Card",
-                                       objectName="albumsPageGridItem"
-                                       + str(i))
+                                       objectName="albumsPageGridItem" +
+                                       str(i))
 
     def get_artist(self):
         return self.wait_select_single("UCLabel",
