@@ -294,6 +294,7 @@ Item {
             }
         }
 
+        property bool endOfMedia: false
         property double progress: 0
 
         onDurationChanged: _calcProgress()
@@ -302,18 +303,34 @@ Item {
         onStatusChanged: {
             if (status == MediaPlayer.EndOfMedia && !settings.repeat) {
                 console.debug("End of media, stopping.")
+
+                // Tells the onStopped to set the curentIndex = 0
+                endOfMedia = true;
+
                 stop();
-
-                // ensure at index zero and do it after stopping otherwise
-                // next() is called and it ends up at currentIndex = 1
-                playlist.currentIndex = 0;
-
-                _calcProgress();  // ensures progress bar has reset
             }
         }
 
         onStopped: {  // hit when pressing next() on last track with repeat off
             console.debug("onStopped.")
+
+            // FIXME: Workaround for pad.lv/1494031 in the stopped state
+            // we do not get position/duration info so if there are items in
+            // the queue and we have stopped instead pause
+            if (playlist.itemCount > 0) {
+                // We have just ended media so jump to start of playlist
+                if (endOfMedia) {
+                    playlist.currentIndex = 0;
+
+                    // Play then pause otherwise when we come from EndOfMedia
+                    // if calls next() until EndOfMedia again
+                    play();
+                }
+
+                pause();
+            }
+
+            endOfMedia = false;  // always reset endOfMedia
             _calcProgress();  // ensures progress bar has reset
         }
 
