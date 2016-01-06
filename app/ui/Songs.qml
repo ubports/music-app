@@ -97,7 +97,7 @@ MusicPage {
             multiselectable: true
             title.text: model.title
             title.objectName: "tracktitle"
-            subtitle: model.author
+            subtitle.text: model.author
             trailingActions: AddToQueueAndPlaylist {
             }
 
