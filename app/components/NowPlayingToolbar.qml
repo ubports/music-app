@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtMultimedia 5.0
+import QtMultimedia 5.6
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
