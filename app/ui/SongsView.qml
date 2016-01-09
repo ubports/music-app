@@ -301,9 +301,13 @@ MusicPage {
                             ? playlistRemoveAction.item : null
             multiselectable: true
             reorderable: songStackPage.line1 === i18n.tr("Playlist")
-            title.text: model.title
-            title.objectName: "songspage-tracktitle"
-            subtitle.text: model.author
+            subtitle {
+                text: model.author
+            }
+            title {
+                objectName: "songspage-tracktitle"
+                text: model.title
+            }
             trailingActions: AddToQueueAndPlaylist {
             }
 

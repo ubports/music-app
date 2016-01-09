@@ -95,9 +95,13 @@ MusicPage {
             objectName: "tracksPageListItem" + index
             imageSource: {"art": model.art}
             multiselectable: true
-            title.text: model.title
-            title.objectName: "tracktitle"
-            subtitle.text: model.author
+            subtitle {
+                text: model.author
+            }
+            title {
+                objectName: "tracktitle"
+                text: model.title
+            }
             trailingActions: AddToQueueAndPlaylist {
             }
 

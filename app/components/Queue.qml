@@ -52,11 +52,15 @@ MultiSelectListView {
         multiselectable: true
         objectName: "nowPlayingListItem" + index
         reorderable: true
-        title.color: player.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
-        title.text: model.title
-        title.objectName: "titleLabel"
-        subtitle.text: model.author
-        subtitle.objectName: "artistLabel"
+        subtitle {
+            objectName: "artistLabel"
+            text: model.author
+        }
+        title {
+            color: player.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
+            objectName: "titleLabel"
+            text: model.title
+        }
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
