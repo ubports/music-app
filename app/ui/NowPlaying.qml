@@ -148,6 +148,7 @@ MusicPage {
 
     Loader {
         anchors {
+            bottom: nowPlayingToolbarLoader.top
             left: parent.left
             right: parent.right
             top: parent.top
@@ -156,7 +157,6 @@ MusicPage {
 
         property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
 
-        height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
@@ -164,8 +164,11 @@ MusicPage {
     Loader {
         id: queueListLoader
         anchors {
-            bottomMargin: nowPlayingToolbarLoader.height + units.gu(2)
-            fill: parent
+            bottom: nowPlayingToolbarLoader.top
+            bottomMargin: units.gu(2)
+            left: parent.left
+            right: parent.right
+            top: parent.top
             topMargin: units.gu(2)
         }
         asynchronous: true

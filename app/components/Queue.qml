@@ -43,6 +43,7 @@ MultiSelectListView {
     delegate: MusicListItem {
         id: queueListItem
         color: player.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
+        height: units.gu(7)
         leadingActions: ListItemActions {
             actions: [
                 Remove {
