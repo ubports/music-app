@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -44,14 +44,22 @@ MusicPage {
         }
     ]
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     // Hack for autopilot otherwise Albums appears as MusicPage
     // due to bug 1341671 it is required that there is a property so that
     // qml doesn't optimise using the parent type
     property bool bug1341671workaround: true
 
-    CardView {
-        id: genreCardView
+    MusicGridView {
+        id: genreGridView
         itemWidth: units.gu(12)
+        heightOffset: units.gu(7)
         model: SortFilterModel {
             id: genresModelFilter
             model: GenresModel {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -34,6 +34,13 @@ MusicPage {
     objectName: "recentPage"
     title: i18n.tr("Recent")
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     property bool changed: false
     property bool childrenChanged: false
 
@@ -63,8 +70,10 @@ MusicPage {
         ]
     }
 
-    CardView {
-        id: recentCardView
+    MusicGridView {
+        id: recentGridView
+        itemWidth: units.gu(15)
+        heightOffset: units.gu(9.5)
         model: recentModel.model
         delegate: Card {
             id: albumCard
