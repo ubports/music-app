@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014, 2015
+ * Copyright (C) 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,11 +22,8 @@ import "../"
 
 Item {
     id: card
-    height: cardColumn.childrenRect.height + 2 * bg.anchors.margins
-
-    /* Required by ColumnFlow */
-    property int index
-    property var model
+    height: parent.parent.cellHeight
+    width: parent.parent.cellWidth
 
     property alias coverSources: coverGrid.covers
     property alias primaryText: primaryLabel.text
@@ -38,26 +35,14 @@ Item {
 
     /* Animations */
     Behavior on height {
-        UbuntuNumberAnimation {
-
+        NumberAnimation {
+            duration: UbuntuAnimation.FastDuration
         }
     }
 
     Behavior on width {
-        UbuntuNumberAnimation {
-
-        }
-    }
-
-    Behavior on x {
-        UbuntuNumberAnimation {
-
-        }
-    }
-
-    Behavior on y {
-        UbuntuNumberAnimation {
-
+        NumberAnimation {
+            duration: UbuntuAnimation.FastDuration
         }
     }
 
@@ -85,10 +70,13 @@ Item {
         }
 
         Item {
-            height: units.gu(1)
+            height: units.gu(.5)
             width: units.gu(1)
         }
 
+        // Labels are ~1.5GU per line
+        // We are limiting to 3 lines long
+        // with the preference on the first label
         Label {
             id: primaryLabel
             anchors {
@@ -101,7 +89,8 @@ Item {
             elide: Text.ElideRight
             fontSize: "small"
             opacity: 1.0
-            wrapMode: Text.WordWrap
+            maximumLineCount: 2
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
         Label {
@@ -115,12 +104,14 @@ Item {
             color: "#FFF"
             elide: Text.ElideRight
             fontSize: "small"
+            // Allow wrapping of 2 lines unless primary has been wrapped
+            maximumLineCount: primaryLabel.lineCount > 1 ? 1 : 2
             opacity: 0.4
-            wrapMode: Text.WordWrap
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
         Item {
-            height: units.gu(1.5)
+            height: units.gu(1) + cardColumn.spacing
             width: units.gu(1)
         }
     }
@@ -132,22 +123,22 @@ Item {
             fill: bg
         }
         color: "#000"
-        opacity: 0
+        opacity: cardMouseArea.pressed ? 0.3 : 0
 
         Behavior on opacity {
-            UbuntuNumberAnimation {
-
+            NumberAnimation {
+                duration: UbuntuAnimation.FastDuration
             }
         }
     }
 
     /* Capture mouse events */
     MouseArea {
+        id: cardMouseArea
         anchors {
             fill: parent
         }
         onClicked: card.clicked(mouse)
         onPressAndHold: card.pressAndHold(mouse)
-        onPressedChanged: overlay.opacity = pressed ? 0.3 : 0
     }
 }

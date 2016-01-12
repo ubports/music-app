@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013, 2014, 2015 Canonical
+# Copyright 2013, 2014, 2015, 2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -535,7 +535,8 @@ class TestMainWindow(MusicAppTestCase):
         playlists_page = self.app.get_playlists_page()
 
         # verify that the playlist has been removed
-        self.assertThat(playlists_page.get_count(), Equals(playlist_count))
+        self.assertThat(playlists_page.get_count(),
+                        Eventually(Equals(playlist_count)))
 
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
