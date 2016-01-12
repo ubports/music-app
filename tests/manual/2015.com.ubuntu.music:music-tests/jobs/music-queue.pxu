@@ -1,0 +1,44 @@
+plugin: resource
+id: music-queue/system-image
+_summary: [Automated] gather system information
+command: system-image-cli -i
+_description:
+ Gather system info
+
+id: music-queue/deletion-music
+plugin: manual
+_summary: Test deletion of music from queue
+estimated_duration: 600
+_description:
+    Test deletion of music from queue
+    1. Open music app
+    2. Select an album and play all
+        Expect the album to start playing and that single album to be in the queue
+    3. Delete the entire album from the device
+        Expect the view to be 'popped' back to the Albums view
+        Expect the music to be stopped and the queue to be empty
+
+id: music-queue/sd-card-remove
+plugin: manual
+_summary: Test removing SD Card during playback
+estimated_duration: 600
+_description:
+    Test removing SD Card during playback
+    1. (only applicable on devices with sdcard support)
+    2. Add some songs to an SD card
+    3. Queue up an album which is on the SD card
+    4. Start playing tracks from the queue
+    5. Remove the SD Card
+        Expect tracks which are no longer accessible should disappear from the queue
+
+id: music-queue/restart
+plugin: manual
+_summary: Test queue persists a restart
+estimated_duration: 600
+_description:
+    Test queue persists a restart
+    1. Start the app
+    2. Add a few albums to the queue
+    3. Take note of the queue and current track
+    4. Restart the app
+        Expect the queue to be restored and the same track to be selected

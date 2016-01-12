@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Nekhelesh Ramananthan <krnekhelesh@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -23,16 +23,19 @@ import "../"
 
 ListItem {
     color: styleMusic.mainView.backgroundColor
+    height: listItemLayout.height
     highlightColor: Qt.lighter(color, 1.2)
 
     // Store the currentColor so that actions can bind to it
     property var currentColor: highlighted ? highlightColor : color
 
-    property alias column: musicRow.column
-    property alias imageSource: musicRow.imageSource
+    property alias imageSource: image.imageSource
 
     property bool multiselectable: false
     property bool reorderable: false
+
+    property alias subtitle: listItemLayout.subtitle
+    property alias title: listItemLayout.title
 
     signal itemClicked()
 
@@ -58,27 +61,52 @@ ListItem {
         visible: false
     }
 
-    MusicRow {
-        id: musicRow
-        anchors {
-            fill: parent
-            // When not in selectMode we want a margin between the Image and the left edge
-            // when in selectMode the checkbox has its own margin so we don't want a double margin
-            leftMargin: selectMode ? 0 : units.gu(2)
-            rightMargin: selectMode ? 0 : units.gu(2)
-        }
+    ListItemLayout {
+        id: listItemLayout
 
-        // Animate margin changes so it isn't noticible
-        Behavior on anchors.leftMargin {
-            NumberAnimation {
+        padding.bottom: image.visible ? units.gu(.5) : units.gu(1.5)
+        padding.top: image.visible ? units.gu(.5) : units.gu(1.5)
 
+        subtitle.color: styleMusic.common.subtitle
+        subtitle.fontSize: "x-small"
+        subtitle.wrapMode: Text.WrapAnywhere
+
+        title.color: styleMusic.common.music
+        title.fontSize: "small"
+        title.wrapMode: Text.WrapAnywhere
+
+        Image {
+            id: image
+            anchors {
+                verticalCenter: parent.verticalCenter
             }
-        }
-
-        Behavior on anchors.rightMargin {
-            NumberAnimation {
-
+            asynchronous: true
+            fillMode: Image.PreserveAspectCrop
+            height: width
+            SlotsLayout.position: SlotsLayout.Leading
+            source: {
+                if (imageSource !== undefined && imageSource !== "") {
+                    if (imageSource.art !== undefined) {
+                        imageSource.art
+                    } else {
+                        "image://albumart/artist=" + imageSource.author + "&album=" + imageSource.album
+                    }
+                } else {
+                    ""
+                }
             }
+            sourceSize.height: height
+            sourceSize.width: width
+            width: units.gu(6)
+            visible: imageSource !== undefined
+
+            onStatusChanged: {
+                if (status === Image.Error) {
+                    source = Qt.resolvedUrl("../graphics/music-app-cover@30.png")
+                }
+            }
+
+            property var imageSource
         }
     }
 }

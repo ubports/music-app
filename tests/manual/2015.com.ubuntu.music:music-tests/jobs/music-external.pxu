@@ -1,0 +1,62 @@
+plugin: resource
+id: music-external/system-image
+_summary: [Automated] gather system information
+command: system-image-cli -i
+_description:
+ Gather system info
+
+id: music-external/uri-handler
+plugin: manual
+_summary: Test music appears in scope and can be launched
+estimated_duration: 600
+_description:
+    Test music appears in scope and can be launched
+    1. Switch to music scope
+        Expect to see artists:-  http://people.canonical.com/~alan/screenshots/device-2014-11-17-101609.png
+        Sometimes the search in the scope doesn't seem to load.  I'll recreate and file that later since it's the scope and not the app
+    2. Tap artist
+        Expect to see zoomed in view of artist and below it, some albums:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101722.png
+    3. Tap album
+        Expect to see a zoomed in view of the album including a list of tracks and button to play in music app:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101752.png
+    4. Tap "Play in music app"
+        Expect to see music app launch and a track to start playing:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101818.png
+
+id: music-external/content-hub
+plugin: manual
+_summary: Test music can be imported via content-hub
+estimated_duration: 600
+_description:
+    Test music can be imported via content-hub
+    1. Open the browser, navigate to jamendo.com
+    2. Find a song to download
+    3. Select to "Open with" the Music app
+    4. When the download is finished, select "Open"
+        Expect the music app to open
+        Expect the track to be imported into ~/Music/Imported
+        Expect the current queue to be cleared and replaced by the item(s) imported via content-hub
+        Expect the first song in the import to start playing
+
+id: music-external/headphones
+plugin: manual
+_summary: Test music plays in headphones
+estimated_duration: 600
+_description:
+    Test music plays in headphones
+    1. Play music in app
+    2. Attach headphones
+        Expect music to play through headphones
+    3. Detach headphones
+        Expect the music to pause
+    4. Select play
+        Expect music to play through internal speaker
+
+id: music-external/infographics
+plugin: manual
+_summary: Test welcome screen stats
+estimated_duration: 600
+_description:
+    Test welcome screen stats
+    1. Note: This should be done after the above tests have been completed, and music has been played successfully
+    2. Tap power button to lock screen
+    3. Tap power button to wake phone
+        Expect to see user metrics of songs played (may need to tap-tap this screen to loop round to "songs played today"):- http://people.canonical.com/~alan/screenshots/device-2014-11-17-210613.png

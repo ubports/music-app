@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -43,23 +43,6 @@ MultiSelectListView {
     delegate: MusicListItem {
         id: queueListItem
         color: player.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
-        column: Column {
-            Label {
-                id: trackTitle
-                color: player.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
-                fontSize: "small"
-                objectName: "titleLabel"
-                text: metaModel.title
-            }
-
-            Label {
-                id: trackArtist
-                color: styleMusic.common.subtitle
-                fontSize: "x-small"
-                objectName: "artistLabel"
-                text: metaModel.author
-            }
-        }
         leadingActions: ListItemActions {
             actions: [
                 Remove {
@@ -71,6 +54,15 @@ MultiSelectListView {
         objectName: "nowPlayingListItem" + index
         state: ""
         reorderable: true
+        subtitle {
+            objectName: "artistLabel"
+            text: metaModel.author
+        }
+        title {
+            color: player.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
+            objectName: "titleLabel"
+            text: metaModel.title
+        }
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
