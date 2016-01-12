@@ -175,7 +175,7 @@ class TestMainWindow(MusicAppTestCase):
         # goal is to go back and forth and ensure 2 different songs
         now_playing_page.click_forward_button()
 
-        # bgplaylists does not auto play after next/previous
+        # MediaPlayer Playlist does not auto play after next/previous
         now_playing_page.click_play_button()
 
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
@@ -198,7 +198,7 @@ class TestMainWindow(MusicAppTestCase):
         # select previous and ensure the track is playing
         now_playing_page.click_previous_button()
 
-        # bgplaylists does not auto play after next/previous
+        # MediaPlayer Playlist does not auto play after next/previous
         now_playing_page.click_play_button()
 
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
