@@ -136,25 +136,16 @@ MusicPage {
         delegate: MusicListItem {
             id: track
             objectName: "tracksPageListItem" + index
-            column: Column {
-                Label {
-                    id: trackTitle
-                    color: styleMusic.common.music
-                    fontSize: "small"
-                    objectName: "tracktitle"
-                    text: model.title
-                }
-
-                Label {
-                    id: trackArtist
-                    color: styleMusic.common.subtitle
-                    fontSize: "x-small"
-                    text: model.author
-                }
-            }
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
+            subtitle {
+                text: model.author
+            }
+            title {
+                objectName: "tracktitle"
+                text: model.title
+            }
 
             onSelectedChanged: {
                 if (singular) {

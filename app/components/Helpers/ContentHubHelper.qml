@@ -154,9 +154,6 @@ Item {
                     contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                     contentHubWaitForFile.processId = processId;
                     contentHubWaitForFile.start();
-
-                    // Stop queue loading in bg
-                    queueLoaderWorker.canLoad = false
                 } else {
                     contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
                     contentHubWaitForFile.count = 0;
@@ -232,6 +229,9 @@ Item {
                 player.mediaPlayer.playlist.addItems(items);
 
                 trackQueueClick(0);
+
+                // Show the Now playing page and make sure the track is visible
+                tabs.pushNowPlaying();
             }
         }
     }
