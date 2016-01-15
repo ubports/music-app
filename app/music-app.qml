@@ -419,7 +419,14 @@ MainView {
 
                 // Find tracks from the queue that aren't in ms2 anymore
                 for (i=0; i < player.mediaPlayer.playlist.count; i++) {
-                    if (musicStore.lookup(decodeFileURI(player.mediaPlayer.playlist.itemSource(i))) === null) {
+                    var file = decodeFileURI(player.mediaPlayer.playlist.itemSource(i));
+
+                    // ms2 doesn't expect the URI scheme so strip file://
+                    if (file.indexOf("file://") === 0) {
+                        file = file.substr(7);
+                    }
+
+                    if (musicStore.lookup(file) === null) {
                         removed.push(i)
                     }
                 }
