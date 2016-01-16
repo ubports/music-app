@@ -162,6 +162,11 @@ Item {
             function addItemsFromModel(model) {
                 var items = []
 
+                // TODO: remove once playlists uses U1DB
+                if (model.hasOwnProperty("linkLibraryListModel")) {
+                    model = model.linkLibraryListModel;
+                }
+
                 for (var i=0; i < model.rowCount; i++) {
                     items.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
