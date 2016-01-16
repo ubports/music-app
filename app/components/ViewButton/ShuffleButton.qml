@@ -28,7 +28,11 @@ Button {
 
     property var model
 
-    onClicked: playRandomSong(model)
+    onClicked: {
+        if (model.count > 0) {
+            playRandomSong(model)
+        }
+    }
 
     Text {
         anchors {
