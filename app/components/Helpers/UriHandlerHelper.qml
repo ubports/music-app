@@ -69,6 +69,7 @@ Item {
             // play first URI
             if (play) {
                 trackQueueClick(player.mediaPlayer.playlist.itemCount - 1);
+                tabs.pushNowPlaying();  // ensure now playing is shown for first
             }
         }
 
