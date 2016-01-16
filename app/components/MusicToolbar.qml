@@ -273,7 +273,9 @@ Rectangle {
                     id: refreshProgressTimer
                     interval: 48
                     repeat: false
-                    onTriggered: playerControlsProgressBarHint.width = player.mediaPlayer.progress * playerControlsProgressBar.width
+
+                    // Use binding so the width updates and value isn't saved
+                    onTriggered: playerControlsProgressBarHint.width = Qt.binding(function() { return player.mediaPlayer.progress * playerControlsProgressBar.width; })
                 }
 
                 Connections {
