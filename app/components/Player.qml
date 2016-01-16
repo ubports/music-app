@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
