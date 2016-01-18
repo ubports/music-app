@@ -429,6 +429,11 @@ class MusicListItem(UCListItem):
 
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
+    def __init__(self, *args):
+        super(Dialog, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
     @click_object
     def click_new_playlist_dialog_create_button(self):
         return self.wait_select_single(
