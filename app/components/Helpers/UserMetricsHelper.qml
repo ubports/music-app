@@ -53,6 +53,7 @@ Item {
 
     Connections {
         target: player.mediaPlayer.playlist
+        onCurrentIndexChanged: userMetricPlayerConnection.songCounted = false
         onCurrentItemSourceChanged: userMetricPlayerConnection.songCounted = false
     }
 }
