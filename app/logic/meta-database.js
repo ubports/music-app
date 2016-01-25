@@ -158,14 +158,17 @@ function getQueue() {
         for(var i = 0; i < rs.rows.length; i++) {
             var filename = rs.rows.item(i).filename;
 
-            // ms2 doesn't expect the URI scheme so strip file://
-            if (filename.indexOf("file://") == 0) {
-                filename = filename.substr(7);
+            if (filename !== null) {
+                // ms2 doesn't expect the URI scheme so strip file://
+                if (filename.indexOf("file://") == 0) {
+                    filename = filename.substr(7);
+                }
+
+                if (musicStore.lookup(decodeFileURI(filename)) != null) {
+                    res.push(Qt.resolvedUrl(filename));
+                }
             }
 
-            if (musicStore.lookup(decodeFileURI(filename)) != null) {
-                res.push(Qt.resolvedUrl(filename));
-            }
         }
     });
     return res;
