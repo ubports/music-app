@@ -158,30 +158,24 @@ class TestMainWindow(MusicAppTestCase):
 
         now_playing_page = self.app.get_now_playing_page()
 
-        # save original song data for later
-        orig_title = self.player.currentMeta.title
-        orig_artist = self.player.currentMeta.author
-
-        # check original track
+        # check the track was playing
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-        logger.debug("Original Song %s, %s" % (orig_title, orig_artist))
 
         # select pause and check the player has stopped
         now_playing_page.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+        # save original song data for later
+        orig_title = self.player.currentMeta.title
+        orig_artist = self.player.currentMeta.author
+        logger.debug("Original Song %s, %s" % (orig_title, orig_artist))
 
         now_playing_page.set_shuffle(False)  # ensure shuffe is off
 
         # goal is to go back and forth and ensure 2 different songs
         now_playing_page.click_forward_button()
 
-        # MediaPlayer Playlist does not auto play after next/previous
-        now_playing_page.click_play_button()
-
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-
-        # select pause and check the player has stopped
-        now_playing_page.click_play_button()
+        # check the player is still stopped
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure different song
@@ -193,18 +187,8 @@ class TestMainWindow(MusicAppTestCase):
         logger.debug("Next Song %s, %s" % (self.player.currentMeta.title,
                                            self.player.currentMeta.author))
 
-        now_playing_page.seek_to(0)  # seek to 0 (start)
-
-        # select previous and ensure the track is playing
+        # select previous and ensure the track is stopped
         now_playing_page.click_previous_button()
-
-        # MediaPlayer Playlist does not auto play after next/previous
-        now_playing_page.click_play_button()
-
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-
-        # select pause and check the player has stopped
-        now_playing_page.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure we're back to original song
