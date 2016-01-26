@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014, 2015
+ * Copyright (C) 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -154,9 +154,6 @@ Item {
                     contentHubWaitForFile.searchPaths = contentHub.searchPaths;
                     contentHubWaitForFile.processId = processId;
                     contentHubWaitForFile.start();
-
-                    // Stop queue loading in bg
-                    queueLoaderWorker.canLoad = false
                 } else {
                     contentHubWaitForFile.searchPaths.push.apply(contentHubWaitForFile.searchPaths, contentHub.searchPaths);
                     contentHubWaitForFile.count = 0;
@@ -220,15 +217,21 @@ Item {
             else {
                 stopTimer();
 
-                trackQueue.clear();
+                player.mediaPlayer.playlist.clearWrapper();
+
+                var items = [];
 
                 for (i=0; i < searchPaths.length; i++) {
-                    model = musicStore.lookup(decodeFileURI(searchPaths[i]))
-
-                    trackQueue.append(makeDict(model));
+                    // Don't need to check if in ms2 as that is done above
+                    items.push(Qt.resolvedUrl(decodeURIComponent(searchPaths[i])))
                 }
 
+                player.mediaPlayer.playlist.addItems(items);
+
                 trackQueueClick(0);
+
+                // Show the Now playing page and make sure the track is visible
+                tabs.pushNowPlaying();
             }
         }
     }

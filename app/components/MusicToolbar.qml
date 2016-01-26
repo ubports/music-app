@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.4
-import QtMultimedia 5.0
+import QtMultimedia 5.6
 import Ubuntu.Components 1.3
 
 Rectangle {
@@ -42,7 +42,7 @@ Rectangle {
         anchors {
             fill: parent
         }
-        state: trackQueue.model.count === 0 ? "disabled" : "enabled"
+        state: player.mediaPlayer.playlist.empty ? "disabled" : "enabled"
         states: [
             State {
                 name: "disabled"
@@ -104,7 +104,7 @@ Rectangle {
                 }
                 color: "#FFF"
                 height: units.gu(4)
-                name: player.playbackState === MediaPlayer.PlayingState ?
+                name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
                 width: height
@@ -116,11 +116,10 @@ Rectangle {
                     fill: parent
                 }
                 onClicked: {
-                    if (trackQueue.model.count === 0) {
+                    if (player.mediaPlayer.playlist.empty) {
                         playRandomSong();
-                    }
-                    else {
-                        player.toggle();
+                    } else {
+                        player.mediaPlayer.toggle();
                     }
                 }
             }
@@ -144,7 +143,7 @@ Rectangle {
                      left: parent.left
                      top: parent.top
                  }
-                 covers: [{art: player.currentMetaArt, author: player.currentMetaArtist, album: player.currentMetaArt}]
+                 covers: [player.currentMeta]
                  size: parent.height
             }
 
@@ -170,8 +169,9 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     font.weight: Font.DemiBold
-                    text: player.currentMetaTitle === ""
-                          ? player.source : player.currentMetaTitle
+                    text: player.currentMeta.title === ""
+                          ? player.mediaPlayer.playlist.currentItemSource
+                          : player.currentMeta.title
                 }
 
                 /* Artist of track */
@@ -185,7 +185,7 @@ Rectangle {
                     elide: Text.ElideRight
                     fontSize: "small"
                     opacity: 0.4
-                    text: player.currentMetaArtist
+                    text: player.currentMeta.author
                 }
             }
 
@@ -197,9 +197,9 @@ Rectangle {
                     rightMargin: units.gu(3)
                     verticalCenter: parent.verticalCenter
                 }
-                color: "#FFF"
+                color: playerControlsPlayButtonMouseArea.pressed ? UbuntuColors.blue : "white"
                 height: units.gu(4)
-                name: player.playbackState === MediaPlayer.PlayingState ?
+                name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ?
                           "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
                 width: height
@@ -217,12 +217,13 @@ Rectangle {
 
             /* Mouse area for the play button (ontop of the jump to now playing) */
             MouseArea {
+                id: playerControlsPlayButtonMouseArea
                 anchors {
                     bottom: parent.bottom
                     horizontalCenter: playerControlsPlayButton.horizontalCenter
                     top: parent.top
                 }
-                onClicked: player.toggle()
+                onClicked: player.mediaPlayer.toggle()
                 width: units.gu(8)
 
                 Rectangle {
@@ -260,16 +261,29 @@ Rectangle {
                 }
                 color: UbuntuColors.blue
                 height: parent.height
-                width: player.duration > 0 ? (player.position / player.duration) * playerControlsProgressBar.width : 0
+                width: player.mediaPlayer.progress * playerControlsProgressBar.width
+
+                // FIXME: Workaround for pad.lv/1494031 by querying gst as it does not
+                // emit until it changes to the PLAYING state. But by asking for a
+                // value we get gst to perform a query and return a result
+                // However this has to be done once the source is set, hence the delay
+                //
+                // NOTE: This does not solve when the currentIndex is removed though
+                Timer {
+                    id: refreshProgressTimer
+                    interval: 48
+                    repeat: false
+
+                    // Use binding so the width updates and value isn't saved
+                    onTriggered: playerControlsProgressBarHint.width = Qt.binding(function() { return player.mediaPlayer.progress * playerControlsProgressBar.width; })
+                }
 
                 Connections {
-                    target: player
-                    onPositionChanged: {
-                        playerControlsProgressBarHint.width = (player.position / player.duration) * playerControlsProgressBar.width
-                    }
-                    onStopped: {
-                        playerControlsProgressBarHint.width = 0;
-                    }
+                    target: player.mediaPlayer.playlist
+                    // Call timer when source or index changes
+                    // so we call even if there are duplicate sources or source removal
+                    onCurrentItemSourceChanged: refreshProgressTimer.start()
+                    onCurrentIndexChanged: refreshProgressTimer.start()
                 }
             }
         }

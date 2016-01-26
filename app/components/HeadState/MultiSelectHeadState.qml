@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -59,14 +59,14 @@ PageHeadState {
             visible: addToQueue
 
             onTriggered: {
-                var items = []
+                var items = [];
                 var indicies = listview.getSelectedIndices();
 
                 for (var i=0; i < indicies.length; i++) {
-                    items.push(listview.model.get(indicies[i], listview.model.RoleModelData));
+                    items.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
                 }
 
-                trackQueue.appendList(items)
+                player.mediaPlayer.playlist.addItems(items);
 
                 listview.closeSelection()
             }

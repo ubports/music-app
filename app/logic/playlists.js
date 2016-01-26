@@ -1,6 +1,8 @@
 /*
- * Copyright (C) 2013   Daniel Holm <d.holmen@gmail.com>
- *                      Victor Thompson <victor.thompson@gmail.com>
+ * Copyright (C) 2013, 2016
+ *      Andrew Hayzen <ahayzen@gmail.com>
+ *      Daniel Holm <d.holmen@gmail.com>
+ *      Victor Thompson <victor.thompson@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -229,6 +231,11 @@ function getPlaylistTracks(playlist) {
                                    [playlist])
             for (j = 0; j < rs.rows.length; j++) {
                 var dbItem = rs.rows.item(j)
+
+                // ms2 doesn't expect the URI scheme so strip file://
+                if (dbItem.filename.indexOf("file://") === 0) {
+                    dbItem.filename = dbItem.filename.substr(7);
+                }
 
                 if (musicStore.lookup(decodeFileURI(dbItem.filename)) === null) {
                     erroneousTracks.push(dbItem.i);

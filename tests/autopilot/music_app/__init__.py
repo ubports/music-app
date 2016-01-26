@@ -54,7 +54,6 @@ class MusicApp(object):
         # Use only objectName due to bug 1350532 as it is MainView12
         self.main_view = self.app.wait_select_single(
             objectName="musicMainView")
-        self.player = self.app.select_single(Player, objectName='player')
 
     def get_add_to_playlist_page(self):
         return self.app.wait_select_single(AddToPlaylist,
@@ -95,8 +94,7 @@ class MusicApp(object):
             Playlists, objectName='playlistsPage')
 
     def get_queue_count(self):
-        return self.main_view.select_single("LibraryListModel",
-                                            objectName="trackQueue").count
+        return self.player.count
 
     def get_songs_view(self):
         return self.app.wait_select_single(SongsView, objectName="songsPage")
@@ -120,6 +118,11 @@ class MusicApp(object):
         return (not self.main_view.select_single("ActivityIndicator",
                 objectName="LoadingSpinner").running and
                 self.main_view.select_single("*", "allSongsModel").populated)
+
+    @property
+    def player(self):
+        # Get new player each time as data changes (eg currentMeta)
+        return self.app.select_single(Player, objectName='player')
 
     def populate_queue(self):
         tracksPage = self.get_songs_page()  # switch to track tab
@@ -263,14 +266,15 @@ class AddToPlaylist(MusicPage):
 class Player(UbuntuUIToolkitCustomProxyObjectBase):
     """Autopilot helper for Player"""
 
+    @property
+    def currentMeta(self):
+        return self.select_single("*", objectName="currentMeta")
+
 
 class NowPlaying(MusicPage):
     """ Autopilot helper for now playing page """
     def __init__(self, *args):
         super(NowPlaying, self).__init__(*args)
-
-        root = self.get_root_instance()
-        self.player = root.select_single(Player, objectName="player")
 
         self.visible.wait_for(True)
 
@@ -278,6 +282,9 @@ class NowPlaying(MusicPage):
     @click_object
     def click_forward_button(self):
         return self.wait_select_single("*", objectName="forwardShape")
+
+    def click_full_view(self):
+        self.main_view.get_header().switch_to_section_by_index(0)
 
     @ensure_now_playing_full
     @click_object
@@ -289,6 +296,9 @@ class NowPlaying(MusicPage):
     def click_previous_button(self):
         return self.wait_select_single("*", objectName="previousShape")
 
+    def click_queue_view(self):
+        self.main_view.get_header().switch_to_section_by_index(1)
+
     @ensure_now_playing_full
     @click_object
     def click_repeat_button(self):
@@ -299,16 +309,20 @@ class NowPlaying(MusicPage):
     def click_shuffle_button(self):
         return self.wait_select_single("*", objectName="shuffleShape")
 
-    def click_full_view(self):
-        self.main_view.get_header().switch_to_section_by_index(0)
-
-    def click_queue_view(self):
-        self.main_view.get_header().switch_to_section_by_index(1)
+    @click_object
+    def click_track(self, i):
+        return self.get_track(i)
 
     @ensure_now_playing_list
     def get_track(self, i):
         return (self.wait_select_single(MusicListItem,
                 objectName="nowPlayingListItem" + str(i)))
+
+    @property
+    def player(self):
+        # Get new player each time as data changes (eg currentMeta)
+        root = self.get_root_instance()
+        return root.select_single(Player, objectName="player")
 
     @ensure_now_playing_full
     def seek_to(self, percentage):
@@ -415,6 +429,11 @@ class MusicListItem(UCListItem):
 
 
 class Dialog(UbuntuUIToolkitCustomProxyObjectBase):
+    def __init__(self, *args):
+        super(Dialog, self).__init__(*args)
+
+        self.visible.wait_for(True)
+
     @click_object
     def click_new_playlist_dialog_create_button(self):
         return self.wait_select_single(

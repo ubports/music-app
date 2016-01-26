@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -70,7 +70,7 @@ function addQueueList(items) {
         var ind = getNextIndex(tx);
 
         for (var i = 0; i < items.length; i++) {
-            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i].filename]);
+            tx.executeSql('INSERT OR REPLACE INTO queue (ind, filename) VALUES (?,?);', [i + ind, items[i]]);
         }
     }
     );
@@ -156,9 +156,19 @@ function getQueue() {
     db.transaction( function(tx) {
         var rs = tx.executeSql("SELECT * FROM queue ORDER BY ind ASC");
         for(var i = 0; i < rs.rows.length; i++) {
-            if (musicStore.lookup(decodeFileURI(rs.rows.item(i).filename)) != null) {
-                res.push(makeDict(musicStore.lookup(decodeFileURI(rs.rows.item(i).filename))));
+            var filename = rs.rows.item(i).filename;
+
+            if (filename !== null) {
+                // ms2 doesn't expect the URI scheme so strip file://
+                if (filename.indexOf("file://") == 0) {
+                    filename = filename.substr(7);
+                }
+
+                if (musicStore.lookup(decodeFileURI(filename)) != null) {
+                    res.push(Qt.resolvedUrl(filename));
+                }
             }
+
         }
     });
     return res;

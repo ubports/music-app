@@ -31,39 +31,43 @@ MultiSelectListView {
     anchors {
         fill: parent
     }
+    autoModelMove: false  // ensures we use moveItem() not move() in onReorder
     footer: Item {
         height: mainView.height - (styleMusic.common.expandHeight + queueList.currentHeight) + units.gu(8)
     }
-    model: trackQueue.model
+    model: player.mediaPlayer.playlist
     objectName: "nowPlayingqueueList"
 
     onCountChanged: customdebug("Queue: Now has: " + queueList.count + " tracks")
 
     delegate: MusicListItem {
         id: queueListItem
-        color: player.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
+        color: player.mediaPlayer.playlist.currentIndex === index ? "#2c2c34" : styleMusic.mainView.backgroundColor
+        height: units.gu(7)
         leadingActions: ListItemActions {
             actions: [
                 Remove {
-                    onTriggered: trackQueue.removeQueueList([index])
+                    onTriggered: player.mediaPlayer.playlist.removeItem(index)
                 }
             ]
         }
         multiselectable: true
         objectName: "nowPlayingListItem" + index
+        state: ""
         reorderable: true
         subtitle {
             objectName: "artistLabel"
-            text: model.author
+            text: metaModel.author
         }
         title {
-            color: player.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
+            color: player.mediaPlayer.playlist.currentIndex === index ? UbuntuColors.blue : styleMusic.common.music
             objectName: "titleLabel"
-            text: model.title
+            text: metaModel.title
         }
         trailingActions: ListItemActions {
             actions: [
                 AddToPlaylist {
+                    modelOverride: metaModel  // model is not exposed with metadata so use metaModel
                 }
             ]
             delegate: ActionDelegate {
@@ -71,24 +75,18 @@ MultiSelectListView {
             }
         }
 
+        property var metaModel: player.metaForSource(model.source)
+
         onItemClicked: {
-            customdebug("File: " + model.filename) // debugger
-            trackQueueClick(index);  // toggle track state
+            customdebug("File: " + model.source) // debugger
+            trackQueueClick(index);
         }
     }
 
+
     onReorder: {
-        Library.moveQueueItem(from, to);
+        console.debug("Move: ", from, to);
 
-        // Maintain currentIndex with current song
-        if (from === player.currentIndex) {
-            player.currentIndex = to;
-        } else if (from < player.currentIndex && to >= player.currentIndex) {
-            player.currentIndex -= 1;
-        } else if (from > player.currentIndex && to <= player.currentIndex) {
-            player.currentIndex += 1;
-        }
-
-        queueIndex = player.currentIndex
+        player.mediaPlayer.playlist.moveItem(from, to);
     }
 }

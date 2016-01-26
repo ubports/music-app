@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -36,21 +36,24 @@ Item {
     // Connections for usermetrics
     Connections {
         id: userMetricPlayerConnection
-        target: player
-        property bool songCounted: false
+        target: player.mediaPlayer
 
-        onSourceChanged: {
-            songCounted = false
-        }
+        property bool songCounted: false
 
         onPositionChanged: {
             // Increment song count on Welcome screen if song has been
             // playing for over 10 seconds.
-            if (player.position > 10000 && !songCounted) {
+            if (player.mediaPlayer.position > 10000 && !songCounted) {
                 songCounted = true
                 songsMetric.increment()
                 console.debug("Increment UserMetrics")
             }
         }
+    }
+
+    Connections {
+        target: player.mediaPlayer.playlist
+        onCurrentIndexChanged: userMetricPlayerConnection.songCounted = false
+        onCurrentItemSourceChanged: userMetricPlayerConnection.songCounted = false
     }
 }

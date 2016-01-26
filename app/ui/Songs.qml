@@ -21,7 +21,6 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
@@ -107,8 +106,8 @@ MusicPage {
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
-                    trackQueue.clear()
-                    trackQueue.append(songsModelFilter.get(index))
+                    player.mediaPlayer.playlist.clearWrapper();
+                    player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(songsModelFilter.get(index).filename));
                     trackQueueClick(0)
                 } else {
                     trackClicked(songsModelFilter, index)  // play track
