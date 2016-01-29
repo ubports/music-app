@@ -91,7 +91,7 @@ MusicPage {
             coverSources: Playlists.getPlaylistCovers(model.name)
             objectName: "playlistCardItem" + index
             primaryText: model.name
-            secondaryText: i18n.tr("%1 song", "%1 songs", model.count).arg(model.count)
+            secondaryText: i18n.tr("%1 track", "%1 tracks", model.count).arg(model.count)
 
             onClicked: {
                 albumTracksModel.filterPlaylistTracks(model.name)

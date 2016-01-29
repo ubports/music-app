@@ -288,8 +288,8 @@ MusicPage {
                     fontSize: "small"
                     maximumLineCount: 1
                     text: isAlbum && line1 !== i18n.tr("Genre")
-                          ? (year !== "" ? year + " | " : "") + i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
-                          : i18n.tr("%1 song", "%1 songs", albumtrackslist.count).arg(albumtrackslist.count)
+                          ? (year !== "" ? year + " | " : "") + i18n.tr("%1 track", "%1 tracks", albumtrackslist.count).arg(albumtrackslist.count)
+                          : i18n.tr("%1 track", "%1 tracks", albumtrackslist.count).arg(albumtrackslist.count)
                     wrapMode: Text.NoWrap
                 }
             }

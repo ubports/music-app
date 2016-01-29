@@ -30,7 +30,7 @@ import "../components/HeadState"
 
 MusicPage {
     id: contentHubExportPage
-    title: i18n.tr("Export Song")
+    title: i18n.tr("Export Track")
     searchResultsCount: songsModelFilter.count
     showToolbar: false
     state: "default"
