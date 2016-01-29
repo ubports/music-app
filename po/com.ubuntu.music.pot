@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-28 20:12-0600\n"
+"POT-Creation-Date: 2016-01-28 20:27-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,7 @@ msgid "tracks played today"
 msgstr ""
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
-msgid "No songs played today"
+msgid "No tracks played today"
 msgstr ""
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
