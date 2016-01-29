@@ -54,6 +54,10 @@ Item {
         onExportRequested: {
             activeExportTransfer = transfer;
 
+            if (mainPageStack.currentPage.objectName === "contentHubExportPage") {
+                mainPageStack.pop()
+            }
+
             mainPageStack.push(Qt.resolvedUrl("../../ui/ContentHubExport.qml"), {contentItemComponent: resultComponent, transfer: activeExportTransfer});
         }
 
