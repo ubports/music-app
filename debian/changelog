@@ -1,4 +1,11 @@
-music-app (2.3) UNRELEASED; urgency=medium
+music-app (2.4) UNRELEASED; urgency=medium
+
+  [ Victor Thompson ]
+  * Release 2.3 and start 2.4
+
+ -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:55 -0600
+
+music-app (2.3) vivid; urgency=medium
 
   [ Andrew Hayzen ]
   * Release 2.2ubuntu2 and start on 2.3
@@ -17,7 +24,7 @@ music-app (2.3) UNRELEASED; urgency=medium
   [ Girish Rawat ]
   * Expanded and updated READMEs
 
- -- Andrew Hayzen <ahayzen@gmail.com>  Thu, 03 Dec 2015 14:11:35 +0000
+ -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:13 -0600
 
 music-app (2.2ubuntu2) vivid; urgency=medium
 
