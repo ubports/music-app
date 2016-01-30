@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014, 2015
+ * Copyright (C) 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -29,6 +29,6 @@ Action {
 
     onTriggered: {
         console.debug("Debug: Add track to queue: " + model)
-        trackQueue.append(model)
+        player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(model.filename))
     }
 }

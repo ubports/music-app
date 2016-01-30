@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -21,7 +21,6 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.MediaScanner 0.1
 import Ubuntu.Thumbnailer 0.1
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
@@ -93,32 +92,22 @@ MusicPage {
         delegate: MusicListItem {
             id: track
             objectName: "tracksPageListItem" + index
-            column: Column {
-                Label {
-                    id: trackTitle
-                    color: styleMusic.common.music
-                    fontSize: "small"
-                    objectName: "tracktitle"
-                    text: model.title
-                }
-
-                Label {
-                    id: trackArtist
-                    color: styleMusic.common.subtitle
-                    fontSize: "x-small"
-                    text: model.author
-                }
-            }
-            height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
+            subtitle {
+                text: model.author
+            }
+            title {
+                objectName: "tracktitle"
+                text: model.title
+            }
             trailingActions: AddToQueueAndPlaylist {
             }
 
             onItemClicked: {
                 if (songsPage.state === "search") {  // only play single track when searching
-                    trackQueue.clear()
-                    trackQueue.append(songsModelFilter.get(index))
+                    player.mediaPlayer.playlist.clearWrapper();
+                    player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(songsModelFilter.get(index).filename));
                     trackQueueClick(0)
                 } else {
                     trackClicked(songsModelFilter, index)  // play track

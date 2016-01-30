@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -30,5 +30,9 @@ Button {
 
     property var model
 
-    onClicked: trackClicked(model, 0)  // play track
+    onClicked: {
+        if (model.count > 0) {
+            trackClicked(model, 0)  // play track
+        }
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -38,14 +38,6 @@ Item {
     }
 
     function processAlbum(uri) {
-        // Stop queue loading in the background
-        queueLoaderWorker.canLoad = false
-
-        if (queueLoaderWorker.processing > 0) {
-            waitForWorker.workerStop(queueLoaderWorker, processAlbum, [uri])
-            return;
-        }
-
         selectedAlbum = true;
         var split = uri.split("/");
 
@@ -60,34 +52,27 @@ Item {
     }
 
     function processFile(uri, play) {
-        // Stop queue loading in the background
-        queueLoaderWorker.canLoad = false
-
-        if (queueLoaderWorker.processing > 0) {
-            waitForWorker.workerStop(queueLoaderWorker, processFile, [uri, play])
-            return;
-        }
-
         // Lookup track in songs model
         var track = musicStore.lookup(decodeFileURI(uri));
 
         if (!track) {
             console.debug("Unknown file " + uri + ", skipping")
-            return;
+        } else {
+            if (play) {
+                // clear play queue
+                player.mediaPlayer.playlist.clearWrapper()
+            }
+
+            // enqueue
+            player.mediaPlayer.playlist.addItem(Qt.resolvedUrl(track.filename));
+
+            // play first URI
+            if (play) {
+                trackQueueClick(player.mediaPlayer.playlist.itemCount - 1);
+                tabs.pushNowPlaying();  // ensure now playing is shown for first
+            }
         }
 
-        if (play) {
-            // clear play queue
-            trackQueue.clear()
-        }
-
-        // enqueue
-        trackQueue.append(makeDict(track));
-
-        // play first URI
-        if (play) {
-            trackQueueClick(trackQueue.model.count - 1);
-        }
     }
 
     function process(uri, play) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014, 2015
+ * Copyright (C) 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -25,10 +25,14 @@ Action {
     objectName: "addToPlaylistAction"
     text: i18n.tr("Add to playlist")
 
+    // Used when model can't be given to add to playlist
+    // for example in the Queue it is called metaModel not model
+    property var modelOverride: null
+
     onTriggered: {
         console.debug("Debug: Add track to playlist");
 
         mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                           {"chosenElements": [makeDict(model)]})
+                           {"chosenElements": [modelOverride || makeDict(model)]})
     }
 }

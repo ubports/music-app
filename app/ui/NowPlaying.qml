@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -61,12 +61,12 @@ MusicPage {
 
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
-        if (queueListLoader.item.count === trackQueue.model.count) {
-            positionAt(player.currentIndex);
+        if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
+            positionAt(player.mediaPlayer.playlist.currentIndex);
         } else {
             queueListLoader.item.onCountChanged.connect(function() {
-                if (queueListLoader.item.count === trackQueue.model.count) {
-                    positionAt(player.currentIndex);
+                if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
+                    positionAt(player.mediaPlayer.playlist.currentIndex);
                 }
             })
         }
@@ -99,29 +99,30 @@ MusicPage {
             name: "default"
             actions: [
                 Action {
-                    enabled: trackQueue.model.count > 0
+                    enabled: !player.mediaPlayer.playlist.empty
                     iconName: "add-to-playlist"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Add to playlist")
+                    visible: !isListView
+
                     onTriggered: {
                         var items = []
 
-                        items.push(makeDict(trackQueue.model.get(player.currentIndex)));
+                        items.push(makeDict(player.metaForSource(player.mediaPlayer.playlist.currentItemSource)));
 
                         mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
                                            {"chosenElements": items})
                     }
                 },
                 Action {
-                    enabled: trackQueue.model.count > 0
+                    enabled: !player.mediaPlayer.playlist.empty
                     iconName: "delete"
                     objectName: "clearQueue"
                     // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
                     text: i18n.tr("Clear queue")
-                    onTriggered: {
-                        mainPageStack.goBack()
-                        trackQueue.clear()
-                    }
+                    visible: isListView
+
+                    onTriggered: player.mediaPlayer.playlist.clearWrapper()
                 }
             ]
             PropertyChanges {
@@ -140,13 +141,14 @@ MusicPage {
                 // Remove the tracks from the queue
                 // Use slice() to copy the list
                 // so that the indexes don't change as they are removed
-                trackQueue.removeQueueList(selectedIndices.slice())
+                player.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
             }
         }
     ]
 
     Loader {
         anchors {
+            bottom: nowPlayingToolbarLoader.top
             left: parent.left
             right: parent.right
             top: parent.top
@@ -155,7 +157,6 @@ MusicPage {
 
         property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
 
-        height: parent.height - headerHeight - units.gu(9.5)
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
@@ -163,8 +164,11 @@ MusicPage {
     Loader {
         id: queueListLoader
         anchors {
-            bottomMargin: nowPlayingToolbarLoader.height + units.gu(2)
-            fill: parent
+            bottom: nowPlayingToolbarLoader.top
+            bottomMargin: units.gu(2)
+            left: parent.left
+            right: parent.right
+            top: parent.top
             topMargin: units.gu(2)
         }
         asynchronous: true
@@ -181,5 +185,14 @@ MusicPage {
         }
         height: units.gu(10)
         source: "../components/NowPlayingToolbar.qml"
+    }
+
+    Connections {
+        target: player.mediaPlayer.playlist
+        onEmptyChanged: {
+            if (player.mediaPlayer.playlist.empty) {
+                mainPageStack.goBack()
+            }
+        }
     }
 }

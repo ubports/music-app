@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -31,85 +31,94 @@ import "../components/ViewButton"
 MusicPage {
     id: artistViewPage
     objectName: "artistViewPage"
-    visible: false
 
     property string artist: ""
     property var covers: []
     property bool loaded: false  // used to detect difference between first and further loads
 
-    CardView {
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
+    MusicGridView {
         id: artistAlbumView
-        anchors {
-            fill: parent
-        }
-        getter: function (i) {
-            return {
-                "art": albumsModel.get(i, AlbumsModel.RoleArt),
-                "artist": albumsModel.get(i, AlbumsModel.RoleArtist),
-                "title": albumsModel.get(i, AlbumsModel.RoleTitle),
-            };
-        }
-        header: BlurredHeader {
-            id: blurredHeader
-            rightColumn: Column {
-                spacing: units.gu(2)
-                ShuffleButton {
-                    model: songArtistModel
-                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
-                }
-                QueueAllButton {
-                    model: songArtistModel
-                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
-                }
-                PlayAllButton {
-                    model: songArtistModel
-                    width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
-                }
-            }
-            coverSources: artistViewPage.covers
-            height: blurredHeader.width > units.gu(60) ? units.gu(33.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
-            bottomColumn: Column {
-                Label {
-                    id: artistLabel
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    color: styleMusic.common.music
-                    elide: Text.ElideRight
-                    fontSize: "x-large"
-                    maximumLineCount: 1
-                    objectName: "artistLabel"
-                    text: artist != "" ? artist : i18n.tr("Unknown Artist")
-                    wrapMode: Text.NoWrap
-                }
-
-                Item {
-                    height: units.gu(1)
-                    width: parent.width
-                }
-
-                Label {
-                    id: artistCount
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    color: styleMusic.common.subtitle
-                    elide: Text.ElideRight
-                    fontSize: "small"
-                    maximumLineCount: 1
-                    text: i18n.tr("%1 album", "%1 albums", albumsModel.count).arg(albumsModel.count)
-                }
-            }
-
-            SongsModel {
-                id: songArtistModel
-                albumArtist: artistViewPage.artist
-                store: musicStore
-            }
-        }
         itemWidth: units.gu(12)
+        heightOffset: units.gu(7)
+        header: Item {
+            height: blurredHeader.height
+            width: parent.width
+
+            // Put BlurredHeader in contain so we can remove the margins
+            BlurredHeader {
+                id: blurredHeader
+                anchors {
+                    left: parent.left
+                    margins: -units.gu(1)
+                    right: parent.right
+                    top: parent.top
+                }
+                bottomColumn: Column {
+                    Label {
+                        id: artistLabel
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        color: styleMusic.common.music
+                        elide: Text.ElideRight
+                        fontSize: "x-large"
+                        maximumLineCount: 1
+                        objectName: "artistLabel"
+                        text: artist != "" ? artist : i18n.tr("Unknown Artist")
+                        wrapMode: Text.NoWrap
+                    }
+
+                    Item {
+                        height: units.gu(1)
+                        width: parent.width
+                    }
+
+                    Label {
+                        id: artistCount
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        color: styleMusic.common.subtitle
+                        elide: Text.ElideRight
+                        fontSize: "small"
+                        maximumLineCount: 1
+                        text: i18n.tr("%1 album", "%1 albums", albumsModel.count).arg(albumsModel.count)
+                    }
+                }
+                coverSources: artistViewPage.covers
+                height: blurredHeader.width > units.gu(60) ? units.gu(33.5) : ((blurredHeader.width - units.gu(5)) / 2) + units.gu(12)
+                rightColumn: Column {
+                    spacing: units.gu(2)
+                    ShuffleButton {
+                        model: songArtistModel
+                        width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
+                    }
+                    QueueAllButton {
+                        model: songArtistModel
+                        width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
+                    }
+                    PlayAllButton {
+                        model: songArtistModel
+                        width: blurredHeader.width > units.gu(60) ? units.gu(23.5) : (blurredHeader.width - units.gu(13)) / 2
+                    }
+                }
+
+                SongsModel {
+                    id: songArtistModel
+                    albumArtist: artistViewPage.artist
+                    store: musicStore
+                }
+            }
+        }
         model: AlbumsModel {
             id: albumsModel
             albumArtist: artistViewPage.artist

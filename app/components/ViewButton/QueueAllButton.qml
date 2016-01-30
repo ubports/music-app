@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -28,7 +28,11 @@ Button {
 
     property var model
 
-    onClicked: addQueueFromModel(model)
+    onClicked: {
+        if (model.count > 0) {
+            player.mediaPlayer.playlist.addItemsFromModel(model)
+        }
+    }
 
     Text {
         anchors {

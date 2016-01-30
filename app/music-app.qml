@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -22,7 +22,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.MediaScanner 0.1
 import Qt.labs.settings 1.0
-import QtMultimedia 5.0
+import QtMultimedia 5.6
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
 import "logic/stored-request.js" as StoredRequest
@@ -56,6 +56,11 @@ MainView {
         }
     }
 
+    Connections {  // save the current queueIndex for when the app restarts
+        target: player.mediaPlayer.playlist
+        onCurrentIndexChanged: startupSettings.queueIndex = player.mediaPlayer.playlist.currentIndex
+    }
+
     // Global keyboard shortcuts
     focus: true
     Keys.onPressed: {
@@ -73,33 +78,33 @@ MainView {
 
             switch (event.key) {
             case Qt.Key_Right:  //  Alt+Right   Seek forward +10secs
-                position = player.position + 10000 < player.duration
-                        ? player.position + 10000 : player.duration;
-                player.seek(position);
+                position = player.mediaPlayer.position + 10000 < player.mediaPlayer.duration
+                        ? player.mediaPlayer.position + 10000 : player.mediaPlayer.duration;
+                player.mediaPlayer.seek(position);
                 break;
             case Qt.Key_Left:  //   Alt+Left    Seek backwards -10secs
-                position = player.position - 10000 > 0
-                        ? player.position - 10000 : 0;
-                player.seek(position);
+                position = player.mediaPlayer.position - 10000 > 0
+                        ? player.mediaPlayer.position - 10000 : 0;
+                player.mediaPlayer.seek(position);
                 break;
             }
         }
         else if(event.modifiers === Qt.ControlModifier) {
             switch (event.key) {
             case Qt.Key_Left:   //  Ctrl+Left   Previous Song
-                player.previousSong(true);
+                player.mediaPlayer.playlist.previousWrapper();
                 break;
             case Qt.Key_Right:  //  Ctrl+Right  Next Song
-                player.nextSong(true, true);
+                player.mediaPlayer.playlist.nextWrapper();
                 break;
             case Qt.Key_Up:  //     Ctrl+Up     Volume up
-                player.volume = player.volume + .1 > 1 ? 1 : player.volume + .1
+                player.mediaPlayer.volume = player.mediaPlayer.volume + .1 > 1 ? 1 : player.mediaPlayer.volume + .1
                 break;
             case Qt.Key_Down:  //   Ctrl+Down   Volume down
-                player.volume = player.volume - .1 < 0 ? 0 : player.volume - .1
+                player.mediaPlayer.volume = player.mediaPlayer.volume - .1 < 0 ? 0 : player.mediaPlayer.volume - .1
                 break;
             case Qt.Key_R:  //      Ctrl+R      Repeat toggle
-                player.repeat = !player.repeat
+                player.mediaPlayer.repeat = !player.mediaPlayer.repeat
                 break;
             case Qt.Key_F:  //      Ctrl+F      Show Search popup
                 if (mainPageStack.currentMusicPage.searchable && mainPageStack.currentMusicPage.state === "default") {
@@ -116,13 +121,13 @@ MainView {
                 tabs.pushNowPlaying()
                 break;
             case Qt.Key_P:  //      Ctrl+P      Toggle playing state
-                player.toggle();
+                player.mediaPlayer.toggle();
                 break;
             case Qt.Key_Q:  //      Ctrl+Q      Quit the app
                 Qt.quit();
                 break;
             case Qt.Key_U:  //      Ctrl+U      Shuffle toggle
-                player.shuffle = !player.shuffle
+                player.mediaPlayer.shuffle = !player.mediaPlayer.shuffle
                 break;
             }
         }
@@ -152,15 +157,15 @@ MainView {
         id: nextAction
         text: i18n.tr("Next")
         keywords: i18n.tr("Next Track")
-        onTriggered: player.nextSong()
+        onTriggered: player.mediaPlayer.playlist.nextWrapper()
     }
     Action {
         id: playsAction
-        text: player.playbackState === MediaPlayer.PlayingState ?
-                  i18n.tr("Pause") : i18n.tr("Play")
-        keywords: player.playbackState === MediaPlayer.PlayingState ?
-                      i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
-        onTriggered: player.toggle()
+        text: player.mediaPlayer.playbackState === MediaPlayer.PlayingState
+              ? i18n.tr("Pause") : i18n.tr("Play")
+        keywords: player.mediaPlayer.playbackState === MediaPlayer.PlayingState
+                  ? i18n.tr("Pause Playback") : i18n.tr("Continue or start playback")
+        onTriggered: player.mediaPlayer.toggle()
     }
     Action {
         id: backAction
@@ -175,13 +180,13 @@ MainView {
         id: prevAction
         text: i18n.tr("Previous")
         keywords: i18n.tr("Previous Track")
-        onTriggered: player.previousSong()
+        onTriggered: player.mediaPlayer.playlist.previousWrapper()
     }
     Action {
         id: stopAction
         text: i18n.tr("Stop")
         keywords: i18n.tr("Stop Playback")
-        onTriggered: player.stop()
+        onTriggered: player.mediaPlayer.stop()
     }
 
     actions: [nextAction, playsAction, prevAction, stopAction, backAction]
@@ -203,23 +208,6 @@ MainView {
     width: units.gu(100)
     height: units.gu(80)
 
-    WorkerModelLoader {
-        id: queueLoaderWorker
-        canLoad: false
-        model: trackQueue.model
-        syncFactor: 10
-
-        onPreLoadCompleteChanged: {
-            if (preLoadComplete) {
-                player.currentIndex = queueIndex
-
-                if (list[queueIndex] !== undefined) {
-                    player.setSource(list[queueIndex].filename)
-                }
-            }
-        }
-    }
-
     WorkerWaiter {
         id: waitForWorker
     }
@@ -229,14 +217,29 @@ MainView {
         customdebug("Version "+appVersion) // print the curren version
 
         Library.createRecent()  // initialize recent
+        Library.createQueue()  // create queue if it doesn't exist
 
         // initialize playlists
         Playlists.initializePlaylist()
 
         if (!args.values.url) {
-            // allow the queue loader to start
-            queueLoaderWorker.canLoad = !Library.isQueueEmpty()
-            queueLoaderWorker.list = Library.getQueue()
+            // load the previous queue as there are no args
+
+            // FIXME: load and save do not work yet pad.lv/1510225
+            // so use our localstorage method for now
+            // player.mediaPlayer.playlist.load("/home/phablet/.local/share/com.ubuntu.music/queue.m3u")
+            // use onloaded() and onLoadFailed() to confirm it is complete
+
+            if (!Library.isQueueEmpty()) {
+                console.debug("*** Restoring library queue");
+                player.mediaPlayer.playlist.addItems(Library.getQueue());
+
+                player.mediaPlayer.playlist.setCurrentIndex(queueIndex);
+                player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PausedState);
+            }
+            else {
+                console.debug("Queue is empty, not loading any recent tracks");
+            }
         }
 
         // everything else
@@ -268,7 +271,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.3'
+    property string appVersion: '2.4'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
@@ -301,23 +304,6 @@ MainView {
         }
     }
 
-    function addQueueFromModel(model)
-    {
-        // TODO: remove once playlists uses U1DB
-        if (model.hasOwnProperty("linkLibraryListModel")) {
-            model = model.linkLibraryListModel;
-        }
-
-        var items = []
-
-        for (var i=0; i < model.rowCount; i++) {
-            items.push(model.get(i, model.RoleModelData))
-        }
-
-        // Add model to queue storage
-        trackQueue.appendList(items)
-    }
-
     // Converts an duration in ms to a formated string ("minutes:seconds")
     function durationToString(duration) {
         var minutes = Math.floor((duration/1000) / 60);
@@ -336,20 +322,13 @@ MainView {
             album: model.album,
             art: model.art,
             author: model.author,
-            filename: model.filename,
+            filename: model.filename || model.source,
             title: model.title
         };
     }
 
-    function trackClicked(model, index, play, clear) {
-        // Stop queue loading in the background
-        queueLoaderWorker.canLoad = false
-
-        if (queueLoaderWorker.processing > 0) {
-            waitForWorker.workerStop(queueLoaderWorker, trackClicked, [model, index, play, clear])
-            return;
-        }
-
+    // Clear the queue, queue this model and play the specific index
+    function trackClicked(model, index, play) {
         // TODO: remove once playlists uses U1DB
         if (model.hasOwnProperty("linkLibraryListModel")) {
             model = model.linkLibraryListModel;
@@ -358,64 +337,50 @@ MainView {
         var file = Qt.resolvedUrl(model.get(index, model.RoleModelData).filename);
 
         play = play === undefined ? true : play  // default play to true
-        clear = clear === undefined ? false : clear  // force clear and will ignore player.toggle()
 
-        if (!clear) {
-            // If same track and on Now playing page then toggle
-            if (mainPageStack.currentPage.title === i18n.tr("Now playing")
-                    && trackQueue.model.get(player.currentIndex) !== undefined
-                    && Qt.resolvedUrl(trackQueue.model.get(player.currentIndex).filename) === file) {
-                player.toggle()
-                return;
-            }
-        }
-
-        trackQueue.clear();  // clear the old model
-
-        addQueueFromModel(model);
+        player.mediaPlayer.playlist.clearWrapper();  // clear the old model
+        player.mediaPlayer.playlist.setCurrentIndex(index);
+        player.mediaPlayer.playlist.addItemsFromModel(model);
 
         if (play) {
-            player.playSong(file, index);
+            // Set the pending state for the playlist
+            // this will be set once the currentIndex has been appened to the playlist
+            player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
 
             // Show the Now playing page and make sure the track is visible
             tabs.pushNowPlaying();
         }
-        else {
-            player.setSource(file);
-        }
     }
 
+    // Play or pause a current track in the queue
+    // - the index has been tapped by the user
     function trackQueueClick(index) {
-        if (player.currentIndex === index) {
-            player.toggle();
-        }
-        else {
-            player.playSong(trackQueue.model.get(index).filename, index);
+        if (player.mediaPlayer.playlist.currentIndex === index) {
+            player.mediaPlayer.toggle();
+        }  else {
+            player.mediaPlayer.playlist.setCurrentIndex(index);
+            player.mediaPlayer.playlist.setPendingCurrentState(MediaPlayer.PlayingState);
         }
     }
 
-    function playRandomSong(shuffle)
+    // Clear the queue and play a random track from this model
+    // - user has selected "Shuffle" in album/artists or "Tap to play random"
+    function playRandomSong(model)
     {
-        trackQueue.clear();
+        // If no model is given use all the tracks
+        if (model === undefined) {
+            model = allSongsModel;
+        }
 
-        var now = new Date();
-        var seed = now.getSeconds();
-        var index = Math.floor(allSongsModel.rowCount * Math.random(seed));
-
-        player.shuffle = shuffle === undefined ? true : shuffle;
-
-        trackClicked(allSongsModel, index, true)
-    }
-
-    function shuffleModel(model)
-    {
-        var now = new Date();
-        var seed = now.getSeconds();
-        var index = Math.floor(model.count * Math.random(seed));
-
+        player.mediaPlayer.playlist.clearWrapper();
+        player.mediaPlayer.playlist.addItemsFromModel(model);
         player.shuffle = true;
 
-        trackClicked(model, index, true)
+        // Once the model count has been reached in the queue
+        // shuffle the model
+        player.mediaPlayer.playlist.setPendingShuffle(model.count);
+
+        tabs.pushNowPlaying();
     }
 
     // Wrapper function around decodeURIComponent() to prevent exceptions
@@ -453,8 +418,15 @@ MainView {
                 var removed = []
 
                 // Find tracks from the queue that aren't in ms2 anymore
-                for (i=0; i < trackQueue.model.count; i++) {
-                    if (musicStore.lookup(decodeFileURI(trackQueue.model.get(i).filename)) === null) {
+                for (i=0; i < player.mediaPlayer.playlist.count; i++) {
+                    var file = decodeFileURI(player.mediaPlayer.playlist.itemSource(i));
+
+                    // ms2 doesn't expect the URI scheme so strip file://
+                    if (file.indexOf("file://") === 0) {
+                        file = file.substr(7);
+                    }
+
+                    if (musicStore.lookup(file) === null) {
                         removed.push(i)
                     }
                 }
@@ -462,7 +434,7 @@ MainView {
                 // If there are removed tracks then remove them from the queue and store
                 if (removed.length > 0) {
                     console.debug("Removed queue:", JSON.stringify(removed))
-                    trackQueue.removeQueueList(removed)
+                    player.mediaPlayer.playlist.removeItemsWrapper(removed.slice());
                 }
 
                 // Loop through playlists, getPlaylistTracks will remove any tracks that don't exist
@@ -529,7 +501,7 @@ MainView {
             if (status === SongsModel.Ready) {
                 // Play album it tracks exist
                 if (rowCount > 0 && selectedAlbum) {
-                    trackClicked(songsAlbumArtistModel, 0, true, true);
+                    trackClicked(songsAlbumArtistModel, 0, true);
 
                     // Add album to recent list
                     Library.addRecent(songsAlbumArtistModel.get(0, SongsModel.RoleModelData).album, "album")
@@ -576,105 +548,6 @@ MainView {
                     recentTabRepeater.itemAt(i).populated = true
                 }
             }
-        }
-    }
-
-    // list of tracks on startup. This is just during development
-    LibraryListModel {
-        id: trackQueue
-        objectName: "trackQueue"
-
-        function append(listElement)
-        {
-            model.append(makeDict(listElement))
-            Library.addQueueItem(listElement.filename)
-        }
-
-        function appendList(items)
-        {
-            for (var i=0; i < items.length; i++) {
-                model.append(makeDict(items[i]))
-            }
-
-            Library.addQueueList(items)
-        }
-
-        function clear()
-        {
-            Library.clearQueue()
-            model.clear()
-
-            queueIndex = 0  // reset otherwise when you append and play 1 track it doesn't update correctly
-        }
-
-        // Optimised removeQueue for removing multiple tracks from the queue
-        function removeQueueList(items)
-        {
-            var i;
-
-            // Remove from the saved queue database
-            Library.removeQueueList(items)
-
-            // Sort the item indexes as loops below assume *numeric* sort
-            items.sort(function(a,b) { return a - b })
-
-            // Remove from the listmodel
-            var startCount = trackQueue.model.count
-
-            for (i=0; i < items.length; i++) {
-                // use diff in count as sometimes the row is removed from the model
-                trackQueue.model.remove(items[i] - (startCount - trackQueue.model.count));
-            }
-
-            // Update the currentIndex and playing status
-
-            if (trackQueue.model.count === 0) {
-                // Nothing in the queue so stop and pop the queue
-                player.stop()
-                mainPageStack.goBack()
-            } else if (items.indexOf(player.currentIndex) > -1) {
-                // Current track was removed
-
-                var newIndex;
-
-                // Find the first index that still exists before the currentIndex
-                for (i=player.currentIndex - 1; i > -1; i--) {
-                    if (items.indexOf(i) === -1) {
-                        break;
-                    }
-                }
-
-                newIndex = i;
-
-                // Shuffle index down as tracks were removed before the current
-                for (i=newIndex; i > -1; i--) {
-                    if (items.indexOf(i) !== -1) {
-                        newIndex--;
-                    }
-                }
-
-                // Set this as the current track
-                player.currentIndex = newIndex
-
-                // Play the next track
-                player.nextSong(player.isPlaying);
-            } else {
-                // Current track not in removed list
-                // Check if the index needs to be shuffled down due to removals
-
-                var before = 0
-
-                for (i=0; i < items.length; i++) {
-                    if (items[i] < player.currentIndex) {
-                        before++;
-                    }
-                }
-
-                // Update the index
-                player.currentIndex -= before;
-            }
-
-            queueIndex = player.currentIndex;  // ensure saved index is up to date
         }
     }
 

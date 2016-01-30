@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtMultimedia 5.0
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQuick.LocalStorage 2.0
@@ -58,6 +57,13 @@ MusicPage {
         }
     ]
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     property var chosenElements: []
 
     onVisibleChanged: {
@@ -68,9 +74,10 @@ MusicPage {
         }
     }
 
-    CardView {
+    MusicGridView {
         id: addtoPlaylistView
         itemWidth: units.gu(12)
+        heightOffset: units.gu(9.5)
         model: SortFilterModel {
             // Sorting disabled as it is incorrect on first run (due to workers?)
             // and SQL sorts the data correctly
@@ -80,7 +87,7 @@ MusicPage {
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
-        objectName: "addToPlaylistCardView"
+        objectName: "addToPlaylistGridView"
         delegate: Card {
             id: playlist
             coverSources: Playlists.getPlaylistCovers(playlist.name)

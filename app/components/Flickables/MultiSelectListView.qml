@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -24,6 +24,10 @@ MusicListView {
     // Can't access ViewItems externally
     // so we need to expose if in multiselect mode for the header states
     state: ViewItems.selectMode ? "multiselectable" : "normal"
+
+    // Describes if model.move() should be called when a list item drag is completed
+    // this is not required on the Queue as onReorder performs playlist.moveItem()
+    property bool autoModelMove: true
 
     signal clearSelection()
     signal closeSelection()
@@ -63,7 +67,10 @@ MusicListView {
         if (event.status == ListItemDrag.Moving) {
             event.accept = false
         } else if (event.status == ListItemDrag.Dropped) {
-            model.move(event.from, event.to, 1);
+            if (autoModelMove) {  // check the model should auto move
+                model.move(event.from, event.to, 1);
+            }
+
             reorder(event.from, event.to)
         }
     }

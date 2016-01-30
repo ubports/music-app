@@ -1,0 +1,131 @@
+plugin: resource
+id: music-library/system-image
+_summary: [Automated] gather system information
+command: system-image-cli -i
+_description:
+ Gather system info
+
+id: music-library/empty-state
+plugin: manual
+_summary: Test to check that the empty state for the library is shown
+estimated_duration: 600
+_description:
+    Test to check that the empty state for the library is shown
+    1. Launch music app with no music on device (and no or empty SD card if applicable)
+    2. Expected empty state screen
+        http://people.canonical.com/~alan/screenshots/device-2015-01-23-094554.png
+
+id: music-library/music-appears
+plugin: manual
+_summary: Test music appearing when on device
+estimated_duration: 600
+_description:
+    Test music appearing when on device
+    1. Launch music app
+    2. Unlock device
+    3. On desktop navigate to Devices -> Device name -> Music
+    4. Copy music over USB cable via MTP to Music folder
+        Note: Only MP3 and FLAC files.
+    5. Expect to see music appearing inside the application with appropriate artwork (this may take a while as mediascanner looks for music)
+
+id: music-library/music-appears-views
+plugin: manual
+_summary: Test music appears appropriately in each view
+estimated_duration: 600
+_description:
+    Test music appears appropriately in each view
+    1. Launch music app - expect populated views
+    2. Switch to Artists view
+        Expect to see artists listed in card view:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101312.png
+    3. Switch to Albums view
+        Expect to see album covers:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101331.png
+    4. Switch to Genres view
+        Expect to see (multiple if copied) genres with (multiple if appropriate) album cover art:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101348.png
+    5. Switch to Songs view
+        Expect to see a list of all songs on the device including album art:- http://people.canonical.com/~alan/screenshots/device-2014-11-17-101402.png
+    6. Expect recent to not exist in the tabs
+    7. Switch to Playlists view
+        Expect empty view Playlists:- http://people.canonical.com/~alan/screenshots/device-2015-01-23-094234.png
+
+id: music-library/music-appears-sd-card
+plugin: manual
+_summary: Test music appearing when on sdcard
+estimated_duration: 600
+_description:
+    Test music appearing when on sdcard
+    1. (only applicable on devices with sdcard support)
+    2. Unlock device
+        then wait a few moments for the SD card to show up
+    3. On desktop navigate to Devices -> Device name -> SDCARD -> Music
+    4. Copy music over USB cable via MTP to Music folder
+    5. Launch Music app
+    6. Expect music to show up in Songs, Artists and Albums view in Music app
+
+id: music-library/deletion-of-music
+plugin: manual
+_summary: Test deletion of music
+estimated_duration: 600
+_description:
+    Test deletion of music
+    1. Open music app, observe music in Albums view
+    2. Ensure phone is unlocked
+    3. Connect phone via USB
+    4. On desktop navigate to Devices -> Device name -> Music and delete an entire album folder
+        Cannot delete via mtp, will file separately (right click delete in nautilus)
+    5. Expect the album disappears from the music player shortly afterwards
+
+id: music-library/search-albums
+plugin: manual
+_summary: Test Search Albums
+estimated_duration: 600
+_description:
+    Test Search Albums
+    1. Navigate to Albums view
+    2. Press search button in toolbar
+    3. Type a partial search term
+        Expect to see results:- http://people.canonical.com/~alan/screenshots/device-2015-01-12-102618.png
+
+id: music-library/search-artists
+plugin: manual
+_summary: Test Search Artists
+estimated_duration: 600
+_description:
+    Test Search Artists
+    1. Navigate to Artists view
+    2. Press search button in toolbar
+    3. Type a partial search term
+        Expect to see results:- http://people.canonical.com/~alan/screenshots/device-2015-01-12-102729.png
+
+id: music-library/search-songs
+plugin: manual
+_summary: Test Search Songs
+estimated_duration: 600
+_description:
+    Test Search Songs
+    1. Navigate to Songs view
+    2. Press search button in toolbar
+    3. Type a partial search term
+        Expect to see results:- http://people.canonical.com/~alan/screenshots/device-2015-01-12-102836.png
+
+id: music-library/search-genres
+plugin: manual
+_summary: Test Search Genres
+estimated_duration: 600
+_description:
+    Test Search Genres
+    1. Navigate to Genres view
+    2. Press search button in toolbar
+    3. Type a partial search term
+        Expect to see results:- http://people.canonical.com/~alan/screenshots/device-2015-01-12-102927.png
+
+id: music-library/search-playlists
+plugin: manual
+_summary: Test Search Genres
+estimated_duration: 600
+_description:
+    Test Search Genres
+    1. Note: This relies on an earlier test where a playlist was created
+    2. Navigate to Playlist view
+    3. Press search button in toolbar
+    4. Type a partial search term
+        Expect to see results:- http://people.canonical.com/~alan/screenshots/device-2015-01-12-103017.png

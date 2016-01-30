@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013, 2014, 2015 Canonical
+# Copyright 2013, 2014, 2015, 2016 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,9 +14,25 @@ from autopilot.matchers import Eventually
 from testtools.matchers import Equals, GreaterThan, LessThan, NotEquals
 
 
-from music_app.tests import MusicAppTestCase
+from music_app.tests import MusicAppTestCase, MusicAppTestCaseEmptyLibrary
 
 logger = logging.getLogger(__name__)
+
+
+class TestEmptyLibrary(MusicAppTestCaseEmptyLibrary):
+
+    def setUp(self):
+        super(TestEmptyLibrary, self).setUp()
+        self.app.get_walkthrough_page().skip()
+
+    def test_display_message_when_no_music(self):
+        """When no music is detected, the app must display a certain Page"""
+
+        # obtain the LibraryEmptyState page
+        library = self.app.get_library_empty_state_page()
+
+        # check if the correct page(LibraryEmptyState) is being shown
+        self.assertThat(library.visible, Eventually(Equals(True)))
 
 
 class TestMainWindow(MusicAppTestCase):
@@ -61,9 +77,9 @@ class TestMainWindow(MusicAppTestCase):
         self.app.populate_queue()  # populate queue
 
         # Check current meta data is correct
-        self.assertThat(self.player.currentMetaTitle,
+        self.assertThat(self.player.currentMeta.title,
                         Eventually(Equals(self.tracks[0]["title"])))
-        self.assertThat(self.player.currentMetaArtist,
+        self.assertThat(self.player.currentMeta.author,
                         Eventually(Equals(self.tracks[0]["artist"])))
 
     def test_play_pause_library(self):
@@ -142,52 +158,44 @@ class TestMainWindow(MusicAppTestCase):
 
         now_playing_page = self.app.get_now_playing_page()
 
-        # save original song data for later
-        org_title = self.player.currentMetaTitle
-        org_artist = self.player.currentMetaArtist
-
-        # check original track
+        # check the track was playing
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-        logger.debug("Original Song %s, %s" % (org_title, org_artist))
 
         # select pause and check the player has stopped
         now_playing_page.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+
+        # save original song data for later
+        orig_title = self.player.currentMeta.title
+        orig_artist = self.player.currentMeta.author
+        logger.debug("Original Song %s, %s" % (orig_title, orig_artist))
 
         now_playing_page.set_shuffle(False)  # ensure shuffe is off
 
         # goal is to go back and forth and ensure 2 different songs
         now_playing_page.click_forward_button()
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
-        # select pause and check the player has stopped
-        now_playing_page.click_play_button()
+        # check the player is still stopped
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure different song
-        self.assertThat(self.player.currentMetaTitle,
-                        Eventually(NotEquals(org_title)))
-        self.assertThat(self.player.currentMetaArtist,
-                        Eventually(NotEquals(org_artist)))
+        self.assertThat(self.player.currentMeta.title,
+                        Eventually(NotEquals(orig_title)))
+        self.assertThat(self.player.currentMeta.author,
+                        Eventually(NotEquals(orig_artist)))
 
-        logger.debug("Next Song %s, %s" % (self.player.currentMetaTitle,
-                                           self.player.currentMetaArtist))
+        logger.debug("Next Song %s, %s" % (self.player.currentMeta.title,
+                                           self.player.currentMeta.author))
 
-        now_playing_page.seek_to(0)  # seek to 0 (start)
-
-        # select previous and ensure the track is playing
+        # select previous and ensure the track is stopped
         now_playing_page.click_previous_button()
-        self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
-
-        # select pause and check the player has stopped
-        now_playing_page.click_play_button()
         self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
 
         # ensure we're back to original song
-        self.assertThat(self.player.currentMetaTitle,
-                        Eventually(Equals(org_title)))
-        self.assertThat(self.player.currentMetaArtist,
-                        Eventually(Equals(org_artist)))
+        self.assertThat(self.player.currentMeta.title,
+                        Eventually(Equals(orig_title)))
+        self.assertThat(self.player.currentMeta.author,
+                        Eventually(Equals(orig_artist)))
 
     def test_mp3(self):
         """ Test that mp3 "plays" or at least doesn't crash on load """
@@ -215,7 +223,7 @@ class TestMainWindow(MusicAppTestCase):
                         Eventually(Equals(initial_tracks_count + 1)))
 
         # Ensure the current track is mp3
-        self.assertThat(self.player.source.endswith("mp3"),
+        self.assertThat(self.player.currentItemSource.endswith("mp3"),
                         Equals(True))
 
         # Start playing the track (click from toolbar)
@@ -228,9 +236,9 @@ class TestMainWindow(MusicAppTestCase):
         toolbar.click_play_button()
 
         # Check current meta data is correct
-        self.assertThat(self.player.currentMetaTitle,
+        self.assertThat(self.player.currentMeta.title,
                         Eventually(Equals(self.tracks[i]["title"])))
-        self.assertThat(self.player.currentMetaArtist,
+        self.assertThat(self.player.currentMeta.author,
                         Eventually(Equals(self.tracks[i]["artist"])))
 
     def test_shuffle(self):
@@ -242,29 +250,30 @@ class TestMainWindow(MusicAppTestCase):
 
         now_playing_page = self.app.get_now_playing_page()
 
+        now_playing_page.set_repeat(True)
+        now_playing_page.set_shuffle(True)
+
         # pause the track if it is playing
         if self.player.isPlaying:
             now_playing_page.click_play_button()
 
         self.player.isPlaying.wait_for(False)
 
-        now_playing_page.set_shuffle(True)  # enable shuffle
-
-        # save original song metadata
-        org_title = self.player.currentMetaTitle
-        org_artist = self.player.currentMetaArtist
-
-        logger.debug("Original Song %s, %s" % (org_title, org_artist))
-
         count = 0
+        previous_index = -1
 
-        # loop while the track is the same if different then a shuffle occurred
-        while (org_title == self.player.currentMetaTitle and
-               org_artist == self.player.currentMetaArtist):
+        # Keep going until the index is not previous + 1 (with wrapping)
+        # or previous == currentIndex (to ensure shuffle is working)
+        while ((previous_index + 1) % self.player.count ==
+               self.player.currentIndex or
+               previous_index == self.player.currentIndex):
             logger.debug("count %s" % (count))
 
             # check count is valid
             self.assertThat(count, LessThan(100))
+
+            # store this index as the previous
+            previous_index = self.player.currentIndex
 
             # select next track
             now_playing_page.click_forward_button()
@@ -273,28 +282,13 @@ class TestMainWindow(MusicAppTestCase):
             if self.player.isPlaying:
                 now_playing_page.click_play_button()
 
-            # check it is paused
-            self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
+            self.player.isPlaying.wait_for(False)
 
-            # save current file so we can check it goes back
-            source = self.player.currentMetaFile
+            # toggle shuffle to increase random
+            now_playing_page.set_shuffle(False)
+            now_playing_page.set_shuffle(True)
 
-            # select previous track while will break if this previous track
-            # is different and therefore a shuffle has occurred
-            now_playing_page.click_previous_button()
-
-            # pause the track if it is playing
-            if self.player.isPlaying:
-                now_playing_page.click_play_button()
-
-            # check it is paused
-            self.assertThat(self.player.isPlaying, Eventually(Equals(False)))
-
-            # check the file has actually changed
-            self.assertThat(self.player.currentMetaFile,
-                            Eventually(NotEquals(source)))
-
-            count += 1  # increment count
+            count += 1
 
     def test_show_albums_page(self):
         """tests navigating to the Albums tab and displaying the album page"""
@@ -525,7 +519,8 @@ class TestMainWindow(MusicAppTestCase):
         playlists_page = self.app.get_playlists_page()
 
         # verify that the playlist has been removed
-        self.assertThat(playlists_page.get_count(), Equals(playlist_count))
+        self.assertThat(playlists_page.get_count(),
+                        Eventually(Equals(playlist_count)))
 
     def test_artists_tab_album(self):
         """tests navigating to the Artists tab and playing an album"""
@@ -631,7 +626,7 @@ class TestMainWindow(MusicAppTestCase):
             now_playing_page.click_forward_button()
 
         # Make sure we loop back to first song after last song ends
-        self.assertThat(self.player.currentMetaTitle,
+        self.assertThat(self.player.currentMeta.title,
                         Eventually(Equals(self.tracks[0]["title"])))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
@@ -650,7 +645,7 @@ class TestMainWindow(MusicAppTestCase):
             now_playing_page.click_forward_button()
 
         # Make sure we loop back to first song after last song ends
-        self.assertThat(self.player.currentMetaTitle,
+        self.assertThat(self.player.currentMeta.title,
                         Eventually(Equals(self.tracks[0]["title"])))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
@@ -664,16 +659,16 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page.set_shuffle(False)
         now_playing_page.set_repeat(True)
 
-        initial_song = self.player.currentMetaTitle
+        initial_song = self.player.currentMeta.title
         now_playing_page.click_previous_button()
 
         # If we're far enough into a song, pressing prev just takes us to the
         # beginning of that track.  In that case, hit prev again to actually
         # skip over the track.
-        if self.player.currentMetaTitle == initial_song:
+        if self.player.currentMeta.title == initial_song:
             now_playing_page.click_previous_button()
 
-        self.assertThat(self.player.currentMetaTitle,
+        self.assertThat(self.player.currentMeta.title,
                         Eventually(Equals(self.tracks[-1]["title"])))
         self.assertThat(self.player.isPlaying, Eventually(Equals(True)))
 
@@ -685,19 +680,23 @@ class TestMainWindow(MusicAppTestCase):
         now_playing_page = self.app.get_now_playing_page()
 
         self.player.isPlaying.wait_for(True)  # ensure the track is playing
-        self.player.position.wait_for(GreaterThan(5000))  # wait until > 5s
+
+        # wait until > 5s
+        self.player.position.wait_for(GreaterThan(5000))
 
         now_playing_page.click_play_button()  # pause the track
         self.player.isPlaying.wait_for(False)  # ensure the track has paused
 
-        source = self.player.source  # store current source
+        source = self.player.currentMeta.filename  # store current source
 
         now_playing_page.click_previous_button()  # click previous
 
         # resume the track (to ensure position updates)
         now_playing_page.click_play_button()
 
-        self.player.position.wait_for(LessThan(5000))  # wait until < 5s
+        # wait until < 5s
+        self.player.position.wait_for(LessThan(5000))
 
         # Check that the source is the same
-        self.assertThat(self.player.source, Eventually(Equals(source)))
+        self.assertThat(self.player.currentMeta.filename,
+                        Eventually(Equals(source)))

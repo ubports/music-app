@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013, 2014, 2015
+ * Copyright (C) 2013, 2014, 2015, 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Daniel Holm <d.holmen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
@@ -20,7 +20,6 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import QtMultimedia 5.0
 import QtQuick.LocalStorage 2.0
 import "../logic/playlists.js" as Playlists
 import "../components"
@@ -50,6 +49,13 @@ MusicPage {
         }
     ]
 
+    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
+    anchors {
+        fill: undefined
+    }
+    height: mainView.height
+    width: mainView.width
+
     property bool changed: false
     property bool childrenChanged: false
 
@@ -66,8 +72,10 @@ MusicPage {
         onTriggered: playlistModel.filterPlaylists()
     }
 
-    CardView {
+    MusicGridView {
         id: playlistslist
+        itemWidth: units.gu(15)
+        heightOffset: units.gu(9.5)
         model: SortFilterModel {
             // Sorting disabled as it is incorrect on first run (due to workers?)
             // and SQL sorts the data correctly
@@ -77,7 +85,7 @@ MusicPage {
             filter.pattern: new RegExp(searchHeader.query, "i")
             filterCaseSensitivity: Qt.CaseInsensitive
         }
-        objectName: "playlistsCardView"
+        objectName: "playlistsGridView"
         delegate: Card {
             id: playlistCard
             coverSources: Playlists.getPlaylistCovers(model.name)
