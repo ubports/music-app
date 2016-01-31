@@ -10,7 +10,6 @@ music-app (2.3) vivid; urgency=medium
 
   [ Andrew Hayzen ]
   * Release 2.2ubuntu2 and start on 2.3
-  * Bump framework to 15.04.3-qml
   * Use ListItemLayout for listitems to improve performance and match design guidelines (LP: #1526247).
   * Switch to using Qt GridView instead of custom CardView
   * Add support for media-hub background playlists
