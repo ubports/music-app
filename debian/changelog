@@ -2,8 +2,8 @@ music-app (2.4) UNRELEASED; urgency=medium
 
   [ Victor Thompson ]
   * Release 2.3 and start 2.4
-  * Change translation strings from song to track
-  * Ensure that only one ContentHubExport page is open
+  * Change translation strings from song to track (LP: #1378143).
+  * Ensure that only one ContentHubExport page is open (LP: #1538863).
 
  -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:55 -0600
 
