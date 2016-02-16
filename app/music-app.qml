@@ -282,7 +282,7 @@ MainView {
 
     signal listItemSwiping(int i)
 
-    property bool wideAspect: width >= units.gu(70) && loadedUI
+    property bool wideAspect: width >= units.gu(95) && loadedUI
     property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS
