@@ -29,6 +29,59 @@ Page {
         bottomMargin: musicToolbar.visible ? musicToolbar.height : 0
         fill: parent
     }
+    head {  // hide default header
+        locked: true
+        visible: false
+    }
+    header: PageHeader {
+        id: pageHeader
+        contents: thisPage.head.contents
+        flickable: thisPage.flickable
+        title: thisPage.title
+        leadingActionBar {
+            actions: {
+                if (thisPage.head.backAction !== null) {
+                    thisPage.head.backAction
+                } else if (mainPageStack.currentPage === tabs) {
+                    tabs.tabActions
+                } else if (mainPageStack.depth > 1) {
+                    backActionComponent
+                } else {
+                    null
+                }
+            }
+        }
+        sections {
+            model: thisPage.head.sections.model
+            selectedIndex: thisPage.head.sections.selectedIndex
+        }
+        trailingActionBar {
+            actions: thisPage.head.actions
+        }
+
+//        Binding {
+//            target: pageHeader.leadingActionBar
+//            property: "actions"
+//            value: thisPage.head.backAction
+//        }
+
+        Binding {
+            target: thisPage.head.sections
+            property: "selectedIndex"
+            value: pageHeader.sections.selectedIndex
+        }
+
+        Action {
+            id: tabsActionComponent
+            iconName: "navigation-menu"
+        }
+
+        Action {
+            id: backActionComponent
+            iconName: "back"
+            onTriggered: mainPageStack.pop()
+        }
+    }
 
     property Dialog currentDialog
     property bool searchable: false

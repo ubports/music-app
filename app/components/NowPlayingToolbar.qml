@@ -30,19 +30,23 @@ Rectangle {
     }
     color: styleMusic.common.black
 
+    property alias bottomProgressHint: playerControlsProgressBar.visible
+    property int itemSize: units.gu(6)
+    property int spacing: units.gu(1)
+
     /* Repeat button */
     MouseArea {
         id: nowPlayingRepeatButton
         anchors.right: nowPlayingPreviousButton.left
-        anchors.rightMargin: units.gu(1)
+        anchors.rightMargin: spacing
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-        height: units.gu(6)
+        height: itemSize
         width: height
         onClicked: player.repeat = !player.repeat
 
         Icon {
             id: repeatIcon
-            height: units.gu(3)
+            height: itemSize / 2
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -58,15 +62,15 @@ Rectangle {
         id: nowPlayingPreviousButton
         enabled: player.mediaPlayer.playlist.canGoPrevious
         anchors.right: nowPlayingPlayButton.left
-        anchors.rightMargin: units.gu(1)
+        anchors.rightMargin: spacing
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-        height: units.gu(6)
+        height: itemSize
         width: height
         onClicked: player.mediaPlayer.playlist.previousWrapper()
 
         Icon {
             id: nowPlayingPreviousIndicator
-            height: units.gu(3)
+            height: itemSize / 2
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -81,13 +85,13 @@ Rectangle {
     MouseArea {
         id: nowPlayingPlayButton
         anchors.centerIn: parent
-        height: units.gu(10)
+        height: itemSize + 2 * spacing
         width: height
         onClicked: player.mediaPlayer.toggle()
 
         Icon {
             id: nowPlayingPlayIndicator
-            height: units.gu(6)
+            height: itemSize
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -101,16 +105,16 @@ Rectangle {
     MouseArea {
         id: nowPlayingNextButton
         anchors.left: nowPlayingPlayButton.right
-        anchors.leftMargin: units.gu(1)
+        anchors.leftMargin: spacing
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
         enabled: player.mediaPlayer.playlist.canGoNext
-        height: units.gu(6)
+        height: itemSize
         width: height
         onClicked: player.mediaPlayer.playlist.nextWrapper()
 
         Icon {
             id: nowPlayingNextIndicator
-            height: units.gu(3)
+            height: itemSize / 2
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -125,15 +129,15 @@ Rectangle {
     MouseArea {
         id: nowPlayingShuffleButton
         anchors.left: nowPlayingNextButton.right
-        anchors.leftMargin: units.gu(1)
+        anchors.leftMargin: spacing
         anchors.verticalCenter: nowPlayingPlayButton.verticalCenter
-        height: units.gu(6)
+        height: itemSize
         width: height
         onClicked: player.shuffle = !player.shuffle
 
         Icon {
             id: shuffleIcon
-            height: units.gu(3)
+            height: itemSize / 2
             width: height
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter

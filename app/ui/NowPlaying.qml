@@ -59,6 +59,18 @@ MusicPage {
         }
     }
 
+    onVisibleChanged: {
+        if (wideAspect) {
+            popWaitTimer.start()
+        }
+    }
+
+    Timer {  // FIXME: workaround for when entering wideAspect coming back from a stacked page (AddToPlaylist) and the page being deleted breaks the stacked page
+        id: popWaitTimer
+        interval: 250
+        onTriggered: mainPageStack.popPage(nowPlaying);
+    }
+
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
         if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
@@ -185,6 +197,16 @@ MusicPage {
         }
         height: units.gu(10)
         source: "../components/NowPlayingToolbar.qml"
+    }
+
+    Connections {
+        target: mainView
+        onWideAspectChanged: {
+            // Do not pop if not visible (eg on AddToPlaylist)
+            if (wideAspect && nowPlaying.visible) {
+                mainPageStack.popPage(nowPlaying);
+            }
+        }
     }
 
     Connections {

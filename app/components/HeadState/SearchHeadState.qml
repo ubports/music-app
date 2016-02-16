@@ -19,22 +19,23 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-PageHeadState {
+State {
     id: headerState
     name: "search"
-    head: thisPage.head
-    backAction: Action {
+    property list<Action> actions
+    property Action backAction: Action {
         id: leaveSearchAction
         text: "back"
         iconName: "back"
         onTriggered: thisPage.state = "default"
     }
-    contents: TextField {
+    property Item contents: TextField {
         id: searchField
         anchors {
             left: parent ? parent.left : undefined
             right: parent ? parent.right : undefined
             rightMargin: units.gu(2)
+            verticalCenter: parent ? parent.verticalCenter : undefined
         }
         color: styleMusic.common.black
         hasClearButton: true
@@ -55,12 +56,14 @@ PageHeadState {
             onStateChanged: {  // ensure the search is reset (eg pressing Esc)
                 if (state === "default") {
                     searchField.text = ""
+                } else if (state === headerState.name) {
+                    searchField.forceActiveFocus()  // FIXME: doesn't work
                 }
 
                 // FIXME: Workaround for pad.lv/1514143 (keyboard show/hide on view moving)
                 // by locking the header and forcing a topMargin of page to the header height
-                headerState.head.locked = state === headerState.name;
-                thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0  // FIXME: 6.125 is header.height
+                thisPage.head.locked = state === headerState.name;
+                //thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0  // FIXME: 6.125 is header.height
             }
 
             onVisibleChanged: {
@@ -76,4 +79,19 @@ PageHeadState {
 
     property Page thisPage
     property alias query: searchField.text
+
+    PropertyChanges {
+        target: thisPage.header
+        contents: headerState.contents
+    }
+
+    PropertyChanges {
+        target: thisPage.header.leadingActionBar
+        actions: headerState.backAction
+    }
+
+    PropertyChanges {
+        target: thisPage.header.trailingActionBar
+        actions: headerState.actions
+    }
 }
