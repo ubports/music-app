@@ -22,29 +22,16 @@ import Ubuntu.Components 1.3
 
 import "HeadState"
 
-Page {
+Rectangle {
     id: nowPlayingSidebar
     anchors {
         fill: parent
     }
-    head {  // hide default header
-        locked: true
-        visible: false
-    }
-    header: PageHeader {
-        leadingActionBar {
-            actions: nowPlayingSidebar.head.backAction
-        }
-        flickable: queue
-        trailingActionBar {
-            actions: nowPlayingSidebar.head.actions
-        }
-    }
+    color: "#2c2c34"
     state: queue.state === "multiselectable" ? "selection" : "default"
     states: [
         PageHeadState {
             id: defaultState
-
             name: "default"
             actions: [
                 Action {
@@ -73,8 +60,11 @@ Page {
                 }
             ]
             PropertyChanges {
-                target: nowPlayingSidebar.head
-                backAction: defaultState.backAction
+                target: pageHeader.leadingActionBar
+                actions: defaultState.backAction
+            }
+            PropertyChanges {
+                target: pageHeader.trailingActionBar
                 actions: defaultState.actions
             }
         },
@@ -92,12 +82,22 @@ Page {
             }
         }
     ]
+    property alias header: pageHeader
 
-    Rectangle {
-        anchors {
-            fill: parent
+    PageHeader {
+        id: pageHeader
+        leadingActionBar {
+            actions: nowPlayingSidebar.head.backAction
         }
-        color: "#2c2c34"
+        flickable: queue
+        trailingActionBar {
+            actions: nowPlayingSidebar.head.actions
+        }
+        z: 100  // put on top of content
+
+        StyleHints {
+            backgroundColor: mainView.headerColor
+        }
     }
 
     Queue {
@@ -126,8 +126,6 @@ Page {
                 }
                 bottomProgressHint: false
                 height: itemSize + 2 * spacing + units.gu(2)
-                itemSize: units.gu(5)
-                spacing: units.gu(0.5)
                 width: parent.width
             }
         }

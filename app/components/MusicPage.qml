@@ -59,6 +59,10 @@ Page {
             actions: thisPage.head.actions
         }
 
+        StyleHints {
+            backgroundColor: mainView.headerColor
+        }
+
 //        Binding {
 //            target: pageHeader.leadingActionBar
 //            property: "actions"

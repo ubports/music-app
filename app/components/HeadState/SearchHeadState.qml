@@ -19,22 +19,20 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-State {
+PageHeadState {
     id: headerState
     name: "search"
-    property list<Action> actions
-    property Action backAction: Action {
+    backAction: Action {
         id: leaveSearchAction
         text: "back"
         iconName: "back"
         onTriggered: thisPage.state = "default"
     }
-    property Item contents: TextField {
+    contents: TextField {
         id: searchField
         anchors {
             left: parent ? parent.left : undefined
             right: parent ? parent.right : undefined
-            rightMargin: units.gu(2)
             verticalCenter: parent ? parent.verticalCenter : undefined
         }
         color: styleMusic.common.black
@@ -77,7 +75,7 @@ State {
         }
     }
 
-    property Page thisPage
+    property Item thisPage
     property alias query: searchField.text
 
     PropertyChanges {

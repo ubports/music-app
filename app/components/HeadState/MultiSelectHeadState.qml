@@ -90,19 +90,22 @@ PageHeadState {
         iconName: "back"
         onTriggered: listview.closeSelection()
     }
-    head: thisPage.head
     name: "selection"
 
     PropertyChanges {
-        target: thisPage.head
-        backAction: selectionState.backAction
+        target: thisPage.header.leadingActionBar
+        actions: selectionState.backAction
+    }
+
+    PropertyChanges {
+        target: thisPage.header.trailingActionBar
         actions: selectionState.actions
     }
 
     property bool addToQueue: true
     property MultiSelectListView listview
     property bool removable: false
-    property Page thisPage
+    property Item thisPage
 
     signal removed(var selectedIndices)
 }

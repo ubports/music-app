@@ -22,8 +22,8 @@ import Ubuntu.Components.Popups 1.3
 
 
 PageHeadState {
+    id: headerState
     name: "default"
-    head: thisPage.head
     actions: [
         Action {
             id: newPlaylistAction
@@ -43,5 +43,10 @@ PageHeadState {
 
     property alias newPlaylistEnabled: newPlaylistAction.enabled
     property alias searchEnabled: searchAction.enabled
-    property Page thisPage
+    property Item thisPage
+
+    PropertyChanges {
+        target: thisPage.header.trailingActionBar
+        actions: headerState.actions
+    }
 }

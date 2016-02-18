@@ -900,7 +900,7 @@ MainView {
         asynchronous: true
         source: "components/NowPlayingSidebar.qml"
         visible: width > 0
-        width: units.gu(30)
+        width: units.gu(40)
 
         property bool shown: loadedUI && wideAspect && player.mediaPlayer.playlist.itemCount > 0
 

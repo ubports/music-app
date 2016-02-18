@@ -21,8 +21,8 @@ import Ubuntu.Components 1.3
 
 
 PageHeadState {
+    id: headerState
     name: "default"
-    head: thisPage.head
     actions: Action {
         id: searchAction
         iconName: "search"
@@ -30,5 +30,10 @@ PageHeadState {
     }
 
     property alias searchEnabled: searchAction.enabled
-    property Page thisPage
+    property Item thisPage
+
+    PropertyChanges {
+        target: thisPage.header.trailingActionBar
+        actions: headerState.actions
+    }
 }
