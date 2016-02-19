@@ -115,8 +115,10 @@ Rectangle {
                 anchors {
                     fill: undefined
                 }
+                backgroundColor: "#2c2c34"
                 clip: true
-                height: units.gu(30)
+                height: units.gu(47)
+                sidebar: true
                 width: parent.width
             }
 
@@ -125,6 +127,7 @@ Rectangle {
                     fill: undefined
                 }
                 bottomProgressHint: false
+                color: "#2c2c34"
                 height: itemSize + 2 * spacing + units.gu(2)
                 width: parent.width
             }

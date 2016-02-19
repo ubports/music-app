@@ -29,6 +29,9 @@ Item {
         fill: parent
     }
 
+    property string backgroundColor: styleMusic.common.black
+    property bool sidebar: false
+
     BlurredBackground {
         id: blurredBackground
         anchors {
@@ -37,7 +40,8 @@ Item {
             top: parent.top
         }
         art: albumImage.firstSource
-        height: parent.height - units.gu(7)
+        color: backgroundColor
+        height: parent.height - (sidebar ? units.gu(7) + nowPlayingWideAspectLabelsBackground.height  : units.gu(7))
 
         Item {
             id: albumImageContainer
@@ -53,70 +57,6 @@ Item {
                 anchors.centerIn: parent
                 covers: [player.currentMeta]
                 size: parent.height
-            }
-        }
-
-        Rectangle {
-            id: nowPlayingWideAspectLabelsBackground
-            anchors.bottom: parent.bottom
-            color: styleMusic.common.black
-            height: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(10) : units.gu(13)
-            opacity: 0.8
-            width: parent.width
-        }
-
-        /* Column for labels in wideAspect */
-        Column {
-            id: nowPlayingWideAspectLabels
-            spacing: units.gu(1)
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                right: parent.right
-                rightMargin: units.gu(2)
-                top: nowPlayingWideAspectLabelsBackground.top
-                topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(2) : units.gu(1.5)
-            }
-
-            /* Title of track */
-            Label {
-                id: nowPlayingWideAspectTitle
-                anchors {
-                    left: parent.left
-                    leftMargin: units.gu(1)
-                    right: parent.right
-                    rightMargin: units.gu(1)
-                }
-                color: styleMusic.playerControls.labelColor
-                elide: Text.ElideRight
-                fontSize: "x-large"
-                maximumLineCount: 2
-                objectName: "playercontroltitle"
-                text: {
-                    if (player.mediaPlayer.playlist.empty) {
-                        ""
-                    } else if (player.currentMeta.title === "") {
-                        player.mediaPlayer.playlist.currentSource
-                    } else {
-                        player.currentMeta.title
-                    }
-                }
-                wrapMode: Text.WordWrap
-            }
-
-            /* Artist of track */
-            Label {
-                id: nowPlayingWideAspectArtist
-                anchors {
-                    left: parent.left
-                    leftMargin: units.gu(1)
-                    right: parent.right
-                    rightMargin: units.gu(1)
-                }
-                color: styleMusic.nowPlaying.labelSecondaryColor
-                elide: Text.ElideRight
-                fontSize: "small"
-                text: player.mediaPlayer.playlist.empty ? "" : player.currentMeta.author
             }
         }
 
@@ -142,6 +82,74 @@ Item {
         }
     }
 
+    Rectangle {
+        id: nowPlayingWideAspectLabelsBackground
+        anchors {
+            bottom: sidebar ? undefined : blurredBackground.bottom
+            left: parent.left
+            right: parent.right
+            top: sidebar ? blurredBackground.bottom : undefined
+        }
+        color: backgroundColor
+        height: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(10) : units.gu(13)
+        opacity: sidebar ? 1.0 : 0.8
+    }
+
+    /* Column for labels in wideAspect */
+    Column {
+        id: nowPlayingWideAspectLabels
+        spacing: units.gu(1)
+        anchors {
+            left: parent.left
+            leftMargin: units.gu(2)
+            right: parent.right
+            rightMargin: units.gu(2)
+            top: nowPlayingWideAspectLabelsBackground.top
+            topMargin: nowPlayingWideAspectTitle.lineCount === 1 ? units.gu(2) : units.gu(1.5)
+        }
+
+        /* Title of track */
+        Label {
+            id: nowPlayingWideAspectTitle
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(1)
+                right: parent.right
+                rightMargin: units.gu(1)
+            }
+            color: styleMusic.playerControls.labelColor
+            elide: Text.ElideRight
+            fontSize: "x-large"
+            maximumLineCount: 2
+            objectName: "playercontroltitle"
+            text: {
+                if (player.mediaPlayer.playlist.empty) {
+                    ""
+                } else if (player.currentMeta.title === "") {
+                    player.mediaPlayer.playlist.currentSource
+                } else {
+                    player.currentMeta.title
+                }
+            }
+            wrapMode: Text.WordWrap
+        }
+
+        /* Artist of track */
+        Label {
+            id: nowPlayingWideAspectArtist
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(1)
+                right: parent.right
+                rightMargin: units.gu(1)
+            }
+            color: styleMusic.nowPlaying.labelSecondaryColor
+            elide: Text.ElideRight
+            fontSize: "small"
+            text: player.mediaPlayer.playlist.empty ? "" : player.currentMeta.author
+        }
+    }
+
     /* Background for progress bar component */
     Rectangle {
         id: musicToolbarFullProgressBackground
@@ -149,9 +157,9 @@ Item {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            top: blurredBackground.bottom
+            top: sidebar ? nowPlayingWideAspectLabelsBackground.bottom : blurredBackground.bottom
         }
-        color: styleMusic.common.black
+        color: backgroundColor
     }
 
     /* Progress bar component */
@@ -161,7 +169,7 @@ Item {
         anchors.leftMargin: units.gu(3)
         anchors.right: parent.right
         anchors.rightMargin: units.gu(3)
-        anchors.top: blurredBackground.bottom
+        anchors.top: sidebar ? nowPlayingWideAspectLabelsBackground.bottom : blurredBackground.bottom
         anchors.topMargin: units.gu(1)
         height: units.gu(3)
         width: parent.width

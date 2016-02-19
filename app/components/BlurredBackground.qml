@@ -26,13 +26,14 @@ Item {
     width: parent.width
 
     property string art
+    property string color: "black"
 
     // dark layer
     Rectangle {
         anchors {
             fill: parent
         }
-        color: "black" 
+        color: parent.color
     }
 
     // the album art
