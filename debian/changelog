@@ -4,6 +4,7 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Release 2.3 and start 2.4
   * Remove repeater for getting album titles in Artists.qml (LP: #1515067).
   * Change translation strings from song to track (LP: #1378143).
+  * Ensure that only one ContentHubExport page is open (LP: #1538863).
 
  -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:55 -0600
 
