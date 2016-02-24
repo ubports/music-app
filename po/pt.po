@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-01-28 20:27-0600\n"
-"PO-Revision-Date: 2015-11-19 12:01+0000\n"
+"PO-Revision-Date: 2016-02-23 09:30+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-22 05:59+0000\n"
+"X-Launchpad-Export-Date: 2016-02-24 05:51+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
@@ -132,11 +132,11 @@ msgstr "Falha ao mover ficheiro"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "músicas tocadas hoje"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Sem músicas tocadas hoje"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -295,8 +295,8 @@ msgstr "Selecionar playlist"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 track"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 música"
+msgstr[1] "%1 músicas"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -348,7 +348,7 @@ msgstr "Artista"
 
 #: ../app/ui/ContentHubExport.qml:33
 msgid "Export Track"
-msgstr ""
+msgstr "Exportar música"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -393,7 +393,7 @@ msgstr "Playlist"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Músicas"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
