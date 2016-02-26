@@ -102,7 +102,7 @@ ListItem {
 
             onStatusChanged: {
                 if (status === Image.Error) {
-                    source = Qt.resolvedUrl("../graphics/music-app-cover@30.png")
+                    source = Qt.resolvedUrl("../../graphics/music-app-cover@30.png")
                 }
             }
 
