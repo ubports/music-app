@@ -140,6 +140,7 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
+            pressAndHoldEnabled: false  // Block PressAndHold from working
             subtitle {
                 text: model.author
             }

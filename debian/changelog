@@ -7,6 +7,9 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Ensure that only one ContentHubExport page is open (LP: #1538863).
   * Fix fallback image path in MusicListItem (LP: #1549580).
 
+  [ Andrew Hayzen ]
+  * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)
+
  -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:55 -0600
 
 music-app (2.3) vivid; urgency=medium
