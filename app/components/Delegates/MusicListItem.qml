@@ -32,6 +32,7 @@ ListItem {
     property alias imageSource: image.imageSource
 
     property bool multiselectable: false
+    property bool pressAndHoldEnabled: true
     property bool reorderable: false
 
     property alias subtitle: listItemLayout.subtitle
@@ -48,12 +49,14 @@ ListItem {
     }
 
     onPressAndHold: {
-        if (reorderable) {
-            ListView.view.ViewItems.dragMode = !ListView.view.ViewItems.dragMode
-        }
+        if (pressAndHoldEnabled) {
+            if (reorderable) {
+                ListView.view.ViewItems.dragMode = !ListView.view.ViewItems.dragMode
+            }
 
-        if (multiselectable) {
-            ListView.view.ViewItems.selectMode = !ListView.view.ViewItems.selectMode
+            if (multiselectable) {
+                ListView.view.ViewItems.selectMode = !ListView.view.ViewItems.selectMode
+            }
         }
     }
 
