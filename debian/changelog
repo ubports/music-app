@@ -6,6 +6,7 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Change translation strings from song to track (LP: #1378143).
   * Ensure that only one ContentHubExport page is open (LP: #1538863).
   * Fix fallback image path in MusicListItem (LP: #1549580).
+  * Fix regression where AddToPlaylist.qml no long supports plural track counts (LP: #1550832).
   * Remove offset from the top of AddToPlaylist.qml (LP: #1538832).
 
   [ Andrew Hayzen ]
