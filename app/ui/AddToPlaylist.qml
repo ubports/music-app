@@ -61,7 +61,6 @@ MusicPage {
     anchors {
         fill: undefined
     }
-
     height: mainView.height + musicToolbar.height
     width: mainView.width
 
