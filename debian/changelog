@@ -6,6 +6,7 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Change translation strings from song to track (LP: #1378143).
   * Ensure that only one ContentHubExport page is open (LP: #1538863).
   * Fix fallback image path in MusicListItem (LP: #1549580).
+  * Remove offset from the top of AddToPlaylist.qml (LP: #1538832).
 
   [ Andrew Hayzen ]
   * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)
