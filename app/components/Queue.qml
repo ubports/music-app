@@ -29,7 +29,9 @@ import "../logic/meta-database.js" as Library
 MultiSelectListView {
     id: queueList
     anchors {
+        bottomMargin: units.gu(1)
         fill: parent
+        topMargin: units.gu(1)
     }
     autoModelMove: false  // ensures we use moveItem() not move() in onReorder
     footer: Item {

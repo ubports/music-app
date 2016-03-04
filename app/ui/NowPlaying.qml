@@ -30,8 +30,40 @@ MusicPage {
     flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
     objectName: "nowPlayingPage"
     showToolbar: false
+    state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
+    states: [
+        QueueHeadState {
+            thisHeader {
+                sections {
+                    model: defaultStateSections.model
+                    selectedIndex: defaultStateSections.selectedIndex
+                    onSelectedIndexChanged: isListView = !isListView
+                }
+            }
+            thisPage: nowPlaying
+        },
+        MultiSelectHeadState {
+            addToQueue: false
+            listview: queueListLoader.item
+            removable: true
+            thisHeader {
+                sections {
+                    model: defaultStateSections.model
+                    selectedIndex: defaultStateSections.selectedIndex
+                    onSelectedIndexChanged: isListView = !isListView
+                }
+            }
+            thisPage: nowPlaying
+
+            onRemoved: {
+                // Remove the tracks from the queue
+                // Use slice() to copy the list
+                // so that the indexes don't change as they are removed
+                player.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
+            }
+        }
+    ]
     title: nowPlayingTitle
-    visible: false
 
     property bool isListView: false
     // TRANSLATORS: this appears in the header with limited space (around 20 characters)
@@ -71,6 +103,14 @@ MusicPage {
         onTriggered: mainPageStack.popPage(nowPlaying);
     }
 
+    PageHeadSections {
+        id: defaultStateSections
+        model: [fullViewTitle, queueTitle]
+
+        // Set at startup to avoid binding loop
+        Component.onCompleted: selectedIndex = isListView ? 1 : 0
+    }
+
     // Ensure that the listview has loaded before attempting to positionAt
     function ensureListViewLoaded() {
         if (queueListLoader.item.count === player.mediaPlayer.playlist.itemCount) {
@@ -89,82 +129,16 @@ MusicPage {
         queueListLoader.item.positionViewAtIndex(index, ListView.Center);
     }
 
-    PageHeadSections {
-        id: defaultStateSections
-        model: [fullViewTitle, queueTitle]
-        selectedIndex: isListView
+    function setListView(listView) {
+        defaultStateSections.selectedIndex = listView ? 1 : 0;
     }
-
-    head {
-        sections {
-            model: defaultStateSections.model
-            selectedIndex: defaultStateSections.selectedIndex
-            onSelectedIndexChanged: isListView = !isListView
-        }
-    }
-
-    state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
-    states: [
-        PageHeadState {
-            id: defaultState
-
-            name: "default"
-            actions: [
-                Action {
-                    enabled: !player.mediaPlayer.playlist.empty
-                    iconName: "add-to-playlist"
-                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-                    text: i18n.tr("Add to playlist")
-                    visible: !isListView
-
-                    onTriggered: {
-                        var items = []
-
-                        items.push(makeDict(player.metaForSource(player.mediaPlayer.playlist.currentItemSource)));
-
-                        mainPageStack.push(Qt.resolvedUrl("AddToPlaylist.qml"),
-                                           {"chosenElements": items})
-                    }
-                },
-                Action {
-                    enabled: !player.mediaPlayer.playlist.empty
-                    iconName: "delete"
-                    objectName: "clearQueue"
-                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-                    text: i18n.tr("Clear queue")
-                    visible: isListView
-
-                    onTriggered: player.mediaPlayer.playlist.clearWrapper()
-                }
-            ]
-            PropertyChanges {
-                target: nowPlaying.head
-                backAction: defaultState.backAction
-                actions: defaultState.actions
-            }
-        },
-        MultiSelectHeadState {
-            addToQueue: false
-            listview: queueListLoader.item
-            removable: true
-            thisPage: nowPlaying
-
-            onRemoved: {
-                // Remove the tracks from the queue
-                // Use slice() to copy the list
-                // so that the indexes don't change as they are removed
-                player.mediaPlayer.playlist.removeItemsWrapper(selectedIndices.slice());
-            }
-        }
-    ]
 
     Loader {
         anchors {
             bottom: nowPlayingToolbarLoader.top
             left: parent.left
             right: parent.right
-            top: parent.top
-            topMargin: headerHeight
+            top: nowPlaying.header.bottom
         }
 
         property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
@@ -177,11 +151,9 @@ MusicPage {
         id: queueListLoader
         anchors {
             bottom: nowPlayingToolbarLoader.top
-            bottomMargin: units.gu(2)
             left: parent.left
             right: parent.right
-            top: parent.top
-            topMargin: units.gu(2)
+            top: parent.top  // Don't use header.bottom otherwise flickery
         }
         asynchronous: true
         source: "../components/Queue.qml"

@@ -20,92 +20,101 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import "../Flickables"
 
-PageHeadState {
-    id: selectionState
-    actions: [
-        Action {
-            iconName: "select"
-            text: i18n.tr("Select All")
-            onTriggered: {
-                if (listview.getSelectedIndices().length === listview.model.count) {
-                    listview.clearSelection()
-                } else {
-                    listview.selectAll()
-                }
-            }
-        },
-        Action {
-            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
-            iconName: "add-to-playlist"
-            text: i18n.tr("Add to playlist")
-            onTriggered: {
-                var items = []
-                var indicies = listview.getSelectedIndices();
-
-                for (var i=0; i < indicies.length; i++) {
-                    items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
-                }
-
-                mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
-                                   {"chosenElements": items})
-
-                listview.closeSelection()
-            }
-        },
-        Action {
-            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
-            iconName: "add"
-            text: i18n.tr("Add to queue")
-            visible: addToQueue
-
-            onTriggered: {
-                var items = [];
-                var indicies = listview.getSelectedIndices();
-
-                for (var i=0; i < indicies.length; i++) {
-                    items.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
-                }
-
-                player.mediaPlayer.playlist.addItems(items);
-
-                listview.closeSelection()
-            }
-        },
-        Action {
-            enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
-            iconName: "delete"
-            text: i18n.tr("Delete")
-            visible: removable
-
-            onTriggered: {
-                removed(listview.getSelectedIndices())
-
-                listview.closeSelection()
-            }
-        }
-
-    ]
-    backAction: Action {
-        text: i18n.tr("Cancel selection")
-        iconName: "back"
-        onTriggered: listview.closeSelection()
-    }
+State {
     name: "selection"
-
-    PropertyChanges {
-        target: thisPage.header.leadingActionBar
-        actions: selectionState.backAction
-    }
-
-    PropertyChanges {
-        target: thisPage.header.trailingActionBar
-        actions: selectionState.actions
-    }
 
     property bool addToQueue: true
     property MultiSelectListView listview
     property bool removable: false
+    property PageHeader thisHeader: PageHeader {
+        id: selectionState
+        flickable: thisPage.flickable
+        leadingActionBar {
+            actions: [
+                Action {
+                    text: i18n.tr("Cancel selection")
+                    iconName: "back"
+                    onTriggered: listview.closeSelection()
+                }
+            ]
+        }
+        title: thisPage.title
+        trailingActionBar {
+            actions: [
+                Action {
+                    iconName: "select"
+                    text: i18n.tr("Select All")
+                    onTriggered: {
+                        if (listview.getSelectedIndices().length === listview.model.count) {
+                            listview.clearSelection()
+                        } else {
+                            listview.selectAll()
+                        }
+                    }
+                },
+                Action {
+                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
+                    iconName: "add-to-playlist"
+                    text: i18n.tr("Add to playlist")
+                    onTriggered: {
+                        var items = []
+                        var indicies = listview.getSelectedIndices();
+
+                        for (var i=0; i < indicies.length; i++) {
+                            items.push(makeDict(listview.model.get(indicies[i], listview.model.RoleModelData)));
+                        }
+
+                        mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
+                                           {"chosenElements": items})
+
+                        listview.closeSelection()
+                    }
+                },
+                Action {
+                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
+                    iconName: "add"
+                    text: i18n.tr("Add to queue")
+                    visible: addToQueue
+
+                    onTriggered: {
+                        var items = [];
+                        var indicies = listview.getSelectedIndices();
+
+                        for (var i=0; i < indicies.length; i++) {
+                            items.push(Qt.resolvedUrl(listview.model.get(indicies[i], listview.model.RoleModelData).filename));
+                        }
+
+                        player.mediaPlayer.playlist.addItems(items);
+
+                        listview.closeSelection()
+                    }
+                },
+                Action {
+                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
+                    iconName: "delete"
+                    text: i18n.tr("Delete")
+                    visible: removable
+
+                    onTriggered: {
+                        removed(listview.getSelectedIndices())
+
+                        listview.closeSelection()
+                    }
+                }
+            ]
+        }
+        visible: thisPage.state === "selection"
+
+        StyleHints {
+            backgroundColor: mainView.headerColor
+        }
+    }
     property Item thisPage
 
     signal removed(var selectedIndices)
+
+    PropertyChanges {
+        target: thisPage
+        header: thisHeader
+    }
 }

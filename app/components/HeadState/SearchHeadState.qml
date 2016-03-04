@@ -19,77 +19,78 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-PageHeadState {
-    id: headerState
+State {
     name: "search"
-    backAction: Action {
-        id: leaveSearchAction
-        text: "back"
-        iconName: "back"
-        onTriggered: thisPage.state = "default"
-    }
-    contents: TextField {
-        id: searchField
-        anchors {
-            left: parent ? parent.left : undefined
-            right: parent ? parent.right : undefined
-            verticalCenter: parent ? parent.verticalCenter : undefined
+
+    property PageHeader thisHeader: PageHeader {
+        id: headerState
+        contents: TextField {
+            id: searchField
+            anchors {
+                left: parent ? parent.left : undefined
+                right: parent ? parent.right : undefined
+                verticalCenter: parent ? parent.verticalCenter : undefined
+            }
+            color: styleMusic.common.black
+            focus: true
+            hasClearButton: true
+            inputMethodHints: Qt.ImhNoPredictiveText
+            placeholderText: i18n.tr("Search music")
+
+            // Use the page onVisible as the text field goes visible=false when switching states
+            // This is used when popping from the pageStack and returning back to a page with search
+            Connections {
+                target: thisPage
+
+                onStateChanged: {  // ensure the search is reset (eg pressing Esc)
+                    if (state === "default") {
+                        searchField.text = ""
+                    }
+
+                    // FIXME: Workaround for pad.lv/1514143 (keyboard show/hide on view moving)
+                    // by locking the header and forcing a topMargin of page to the header height
+                    thisPage.head.locked = state === headerState.name;
+                    //thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0  // FIXME: 6.125 is header.height
+                }
+
+                onVisibleChanged: {
+                    // clear when the page becomes visible not invisible
+                    // if invisible is used the delegates can be destroyed which
+                    // have created the pushed component
+                    if (visible) {
+                        thisPage.state = "default"
+                    }
+                }
+            }
         }
-        color: styleMusic.common.black
-        hasClearButton: true
-        inputMethodHints: Qt.ImhNoPredictiveText
-        placeholderText: i18n.tr("Search music")
+        flickable: thisPage.flickable
+        leadingActionBar {
+            actions: [
+                Action {
+                    id: leaveSearchAction
+                    text: "back"
+                    iconName: "back"
+                    onTriggered: thisPage.state = "default"
+                }
+            ]
+        }
+        visible: thisPage.state === "search"
 
         onVisibleChanged: {
             if (visible) {
-                forceActiveFocus()
+                searchField.forceActiveFocus()
             }
         }
 
-        // Use the page onVisible as the text field goes visible=false when switching states
-        // This is used when popping from the pageStack and returning back to a page with search
-        Connections {
-            target: thisPage
-
-            onStateChanged: {  // ensure the search is reset (eg pressing Esc)
-                if (state === "default") {
-                    searchField.text = ""
-                } else if (state === headerState.name) {
-                    searchField.forceActiveFocus()  // FIXME: doesn't work
-                }
-
-                // FIXME: Workaround for pad.lv/1514143 (keyboard show/hide on view moving)
-                // by locking the header and forcing a topMargin of page to the header height
-                thisPage.head.locked = state === headerState.name;
-                //thisPage.anchors.topMargin = state === headerState.name ? units.gu(6.125) : 0  // FIXME: 6.125 is header.height
-            }
-
-            onVisibleChanged: {
-                // clear when the page becomes visible not invisible
-                // if invisible is used the delegates can be destroyed which
-                // have created the pushed component
-                if (visible) {
-                    thisPage.state = "default"
-                }
-            }
+        StyleHints {
+            backgroundColor: mainView.headerColor
         }
     }
-
     property Item thisPage
     property alias query: searchField.text
 
     PropertyChanges {
-        target: thisPage.header
-        contents: headerState.contents
-    }
-
-    PropertyChanges {
-        target: thisPage.header.leadingActionBar
-        actions: headerState.backAction
-    }
-
-    PropertyChanges {
-        target: thisPage.header.trailingActionBar
-        actions: headerState.actions
+        target: thisPage
+        header: thisHeader
     }
 }

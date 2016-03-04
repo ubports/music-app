@@ -35,14 +35,10 @@ Page {
     }
     header: PageHeader {
         id: pageHeader
-        contents: thisPage.head.contents
-        flickable: thisPage.flickable
         title: thisPage.title
         leadingActionBar {
             actions: {
-                if (thisPage.head.backAction !== null) {
-                    thisPage.head.backAction
-                } else if (mainPageStack.currentPage === tabs) {
+                if (mainPageStack.currentPage === tabs) {
                     tabs.tabActions
                 } else if (mainPageStack.depth > 1) {
                     backActionComponent
@@ -51,33 +47,9 @@ Page {
                 }
             }
         }
-        sections {
-            model: thisPage.head.sections.model
-            selectedIndex: thisPage.head.sections.selectedIndex
-        }
-        trailingActionBar {
-            actions: thisPage.head.actions
-        }
 
         StyleHints {
             backgroundColor: mainView.headerColor
-        }
-
-//        Binding {
-//            target: pageHeader.leadingActionBar
-//            property: "actions"
-//            value: thisPage.head.backAction
-//        }
-
-        Binding {
-            target: thisPage.head.sections
-            property: "selectedIndex"
-            value: pageHeader.sections.selectedIndex
-        }
-
-        Action {
-            id: tabsActionComponent
-            iconName: "navigation-menu"
         }
 
         Action {

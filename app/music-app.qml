@@ -115,7 +115,7 @@ MainView {
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
-                mainPageStack.currentPage.isListView = true
+                mainPageStack.currentPage.setListView(true)
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show Now playing
                 tabs.pushNowPlaying()
@@ -877,7 +877,7 @@ MainView {
                     }
 
                     if (mainPageStack.currentPage.isListView === true) {
-                        mainPageStack.currentPage.isListView = false;  // ensure full view
+                        mainPageStack.currentPage.setListView(false);  // ensure full view
                     }
                 }
             }

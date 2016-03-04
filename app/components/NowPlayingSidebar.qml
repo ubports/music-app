@@ -30,48 +30,22 @@ Rectangle {
     color: "#2c2c34"
     state: queue.state === "multiselectable" ? "selection" : "default"
     states: [
-        PageHeadState {
-            id: defaultState
-            name: "default"
-            actions: [
-                Action {
-                    enabled: !player.mediaPlayer.playlist.empty
-                    iconName: "add-to-playlist"
-                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-                    text: i18n.tr("Add to playlist")
-
-                    onTriggered: {
-                        var items = []
-
-                        items.push(makeDict(player.metaForSource(player.mediaPlayer.playlist.currentItemSource)));
-
-                        mainPageStack.push(Qt.resolvedUrl("../ui/AddToPlaylist.qml"),
-                                           {"chosenElements": items})
-                    }
-                },
-                Action {
-                    enabled: !player.mediaPlayer.playlist.empty
-                    iconName: "delete"
-                    objectName: "clearQueue"
-                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-                    text: i18n.tr("Clear queue")
-
-                    onTriggered: player.mediaPlayer.playlist.clearWrapper()
+        QueueHeadState {
+            thisHeader {
+                leadingActionBar {
+                    actions: []  // hide tab bar
                 }
-            ]
-            PropertyChanges {
-                target: pageHeader.leadingActionBar
-                actions: defaultState.backAction
+                z: 100  // put on top of content
             }
-            PropertyChanges {
-                target: pageHeader.trailingActionBar
-                actions: defaultState.actions
-            }
+            thisPage: nowPlayingSidebar
         },
         MultiSelectHeadState {
             addToQueue: false
             listview: queue
             removable: true
+            thisHeader {
+                z: 100  // put on top of content
+            }
             thisPage: nowPlayingSidebar
 
             onRemoved: {
@@ -82,9 +56,8 @@ Rectangle {
             }
         }
     ]
-    property alias header: pageHeader
-
-    PageHeader {
+    property alias flickable: queue  // fake normal Page
+    property Item header: PageHeader {
         id: pageHeader
         leadingActionBar {
             actions: nowPlayingSidebar.head.backAction
@@ -99,9 +72,34 @@ Rectangle {
             backgroundColor: mainView.headerColor
         }
     }
+    property Item previousHeader: null
+    property string title: ""  // fake normal Page
+
+    onHeaderChanged: {  // Copy what SDK does to parent header correctly
+        if (previousHeader) {
+            previousHeader.parent = null
+        }
+
+        header.parent = nowPlayingSidebar
+        previousHeader = header;
+    }
+
+    Loader {
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        height: units.gu(6.125)
+        sourceComponent: header
+    }
 
     Queue {
         id: queue
+        anchors {
+            bottomMargin: 0
+            topMargin: 0
+        }
         clip: true
         isSidebar: true
         header: Column {
