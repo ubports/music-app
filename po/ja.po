@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-24 14:06-0500\n"
-"PO-Revision-Date: 2015-05-14 23:45+0000\n"
+"POT-Creation-Date: 2016-02-27 19:11-0600\n"
+"PO-Revision-Date: 2016-02-28 10:22+0000\n"
 "Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-01-12 05:44+0000\n"
-"X-Generator: Launchpad (build 17881)\n"
+"X-Launchpad-Export-Date: 2016-02-29 06:01+0000\n"
+"X-Generator: Launchpad (build 17925)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -37,19 +37,19 @@ msgstr "待機"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: ../app/components/Dialog/ContentHubWaitDialog.qml:33
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
 msgstr ""
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "プレイリスト名を変更"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "プレイリス ト名を入力"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -76,37 +76,37 @@ msgstr "作成"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "プレイリストを完全に削除しますか？"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "元に戻すことはできません"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
 msgstr "削除"
 
-#: ../app/components/HeadState/MultiSelectHeadState.qml:27
+#: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "すべて選択する"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/components/HeadState/MultiSelectHeadState.qml:39
+#: ../app/components/HeadState/MultiSelectHeadState.qml:40
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
-#: ../app/ui/NowPlaying.qml:108
+#: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
 msgstr "プレイリストに追加"
 
-#: ../app/components/HeadState/MultiSelectHeadState.qml:56
+#: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
 msgstr "再生リストに追加"
 
-#: ../app/components/HeadState/MultiSelectHeadState.qml:74
+#: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
 msgstr "削除"
 
-#: ../app/components/HeadState/MultiSelectHeadState.qml:86
+#: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
 msgstr ""
 
@@ -115,28 +115,28 @@ msgid "Search music"
 msgstr ""
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../app/components/Helpers/ContentHubHelper.qml:82
+#: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
 msgstr ""
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../app/components/Helpers/ContentHubHelper.qml:108
+#: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
 msgstr "ファイルパスはファイルを指定してください"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../app/components/Helpers/ContentHubHelper.qml:114
+#: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
 msgstr "ファイルの移動に失敗"
 
-#. TRANSLATORS: this refers to a number of songs greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
+#. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
-msgid "songs played today"
-msgstr "今日再生した曲"
+msgid "tracks played today"
+msgstr ""
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
-msgid "No songs played today"
-msgstr "今日再生した曲はありません"
+msgid "No tracks played today"
+msgstr ""
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -148,22 +148,22 @@ msgstr "読み込み中..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "見つかりませんでした"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "シャッフル再生"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "プレイリストが見つかりませんでした"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
-msgstr ""
+msgstr "気分や場所に合わせたプレイリストを作成するなら %1 アイコンをタップしてください。"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -171,135 +171,137 @@ msgid "Play all"
 msgstr "すべて再生"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../app/components/ViewButton/QueueAllButton.qml:42
+#: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "すべてキューへ"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
-#: ../app/components/ViewButton/ShuffleButton.qml:42
+#: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
 msgstr ""
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Musicについて"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"UbuntuのMusicアプリでは、お気に入りの音楽を楽しめます。最初にちょっとした説明を行いますが、すぐに音楽を楽しみたい場合は「スキップ」を選択してく"
+"ださい。"
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "音楽を取り込む"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
-#: ../app/ui/LibraryEmptyState.qml:123
+#: ../app/ui/LibraryEmptyState.qml:131
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
-msgstr ""
+msgstr "デバイスをコンピューターに接続し、Musicフォルダーにファイルを移動するか、音楽の入ったリムーバブルメディアを接続してください。"
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "新しい音楽をダウンロードする"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "視聴中のオンラインの曲を直接取り込みます。"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
 msgstr ""
 
-#: ../app/components/Walkthrough/Walkthrough.qml:120
+#: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
 msgstr ""
 
-#: ../app/music-app.qml:156
+#: ../app/music-app.qml:158
 msgid "Next"
 msgstr "次へ"
 
-#: ../app/music-app.qml:157
+#: ../app/music-app.qml:159
 msgid "Next Track"
 msgstr "次のトラック"
 
-#: ../app/music-app.qml:163
+#: ../app/music-app.qml:165
 msgid "Pause"
 msgstr "一時停止"
 
-#: ../app/music-app.qml:163
+#: ../app/music-app.qml:165
 msgid "Play"
 msgstr "再生"
 
-#: ../app/music-app.qml:165
+#: ../app/music-app.qml:167
 msgid "Pause Playback"
 msgstr "再生を一時停止"
 
-#: ../app/music-app.qml:165
+#: ../app/music-app.qml:167
 msgid "Continue or start playback"
 msgstr "再生する"
 
-#: ../app/music-app.qml:170
+#: ../app/music-app.qml:172
 msgid "Back"
 msgstr "戻る"
 
-#: ../app/music-app.qml:171
+#: ../app/music-app.qml:173
 msgid "Go back to last page"
 msgstr "最後のページに戻る"
 
-#: ../app/music-app.qml:179
+#: ../app/music-app.qml:181
 msgid "Previous"
 msgstr "前へ"
 
-#: ../app/music-app.qml:180
+#: ../app/music-app.qml:182
 msgid "Previous Track"
 msgstr "前のトラック"
 
-#: ../app/music-app.qml:185
+#: ../app/music-app.qml:187
 msgid "Stop"
 msgstr "停止"
 
-#: ../app/music-app.qml:186
+#: ../app/music-app.qml:188
 msgid "Stop Playback"
 msgstr "再生を停止"
 
-#: ../app/music-app.qml:277 com.ubuntu.music_music.desktop.in.in.h:1
+#: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
 msgstr "音楽"
 
-#: ../app/music-app.qml:307
+#: ../app/music-app.qml:303
 msgid "Debug: "
 msgstr "デバッグ: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/music-app.qml:372 ../app/music-app.qml:982
-#: ../app/ui/NowPlaying.qml:38
+#: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
 msgstr ""
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
-#: ../app/ui/AddToPlaylist.qml:45
+#: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
 msgstr "プレイリストを選択"
 
-#: ../app/ui/AddToPlaylist.qml:93 ../app/ui/Playlists.qml:86
-#: ../app/ui/SongsView.qml:292 ../app/ui/SongsView.qml:293
+#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
+#: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
-msgid "%1 song"
-msgid_plural "%1 songs"
-msgstr[0] "%1 曲"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
-#: ../app/ui/AddToPlaylist.qml:98 ../app/ui/Playlists.qml:37
-#: ../app/ui/SongsView.qml:103
+#: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
+#: ../app/ui/SongsView.qml:102
 msgid "Playlists"
 msgstr "プレイリスト"
 
-#: ../app/ui/AddToPlaylist.qml:108 ../app/ui/Recent.qml:36
-#: ../app/ui/SongsView.qml:91
+#: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
+#: ../app/ui/SongsView.qml:90
 msgid "Recent"
 msgstr "最近再生したファイル"
 
@@ -307,85 +309,85 @@ msgstr "最近再生したファイル"
 msgid "Albums"
 msgstr "アルバム"
 
-#: ../app/ui/Albums.qml:72 ../app/ui/ArtistView.qml:128
-#: ../app/ui/ArtistView.qml:141 ../app/ui/Recent.qml:81
-#: ../app/ui/SongsView.qml:249
+#: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
+#: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
+#: ../app/ui/SongsView.qml:248
 msgid "Unknown Album"
 msgstr "不明なアルバム"
 
-#: ../app/ui/Albums.qml:73 ../app/ui/ArtistView.qml:84
-#: ../app/ui/ArtistView.qml:140 ../app/ui/Artists.qml:79
-#: ../app/ui/Recent.qml:82 ../app/ui/SongsView.qml:270
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
+#: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
+#: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
 msgstr "不明なアーティスト"
 
-#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:139
-#: ../app/ui/Recent.qml:97
+#: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
+#: ../app/ui/Recent.qml:104
 msgid "Album"
 msgstr "アルバム"
 
-#: ../app/ui/ArtistView.qml:103
+#: ../app/ui/ArtistView.qml:94
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
 msgstr[0] "%1 アルバム"
 
-#: ../app/ui/Artists.qml:37
+#: ../app/ui/Artists.qml:36
 msgid "Artists"
 msgstr "アーティスト"
 
-#: ../app/ui/Artists.qml:107
+#: ../app/ui/Artists.qml:94
 msgid "Artist"
 msgstr "アーティスト"
 
-#: ../app/ui/ContentHubExport.qml:33
-msgid "Export Song"
+#: ../app/ui/ContentHubExport.qml:34
+msgid "Export Track"
 msgstr ""
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
 msgstr "ジャンル"
 
-#: ../app/ui/Genres.qml:110 ../app/ui/Genres.qml:112
-#: ../app/ui/SongsView.qml:201 ../app/ui/SongsView.qml:220
-#: ../app/ui/SongsView.qml:235 ../app/ui/SongsView.qml:272
-#: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:334
+#: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
+#: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
+#: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
+#: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
 msgstr "ジャンル"
 
-#: ../app/ui/LibraryEmptyState.qml:112
+#: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
 msgstr "曲が見つかりません"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "詳細"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "キュー"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
-#: ../app/ui/NowPlaying.qml:123
+#: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "キューを削除"
 
-#: ../app/ui/Playlists.qml:98 ../app/ui/Playlists.qml:99
-#: ../app/ui/Recent.qml:82 ../app/ui/Recent.qml:97 ../app/ui/SongsView.qml:67
-#: ../app/ui/SongsView.qml:82 ../app/ui/SongsView.qml:114
-#: ../app/ui/SongsView.qml:154 ../app/ui/SongsView.qml:188
-#: ../app/ui/SongsView.qml:203 ../app/ui/SongsView.qml:222
-#: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
-#: ../app/ui/SongsView.qml:319 ../app/ui/SongsView.qml:322
-#: ../app/ui/SongsView.qml:336
+#: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
+#: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
+#: ../app/ui/SongsView.qml:81 ../app/ui/SongsView.qml:113
+#: ../app/ui/SongsView.qml:153 ../app/ui/SongsView.qml:187
+#: ../app/ui/SongsView.qml:202 ../app/ui/SongsView.qml:221
+#: ../app/ui/SongsView.qml:233 ../app/ui/SongsView.qml:270
+#: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
+#: ../app/ui/SongsView.qml:319
 msgid "Playlist"
 msgstr "プレイリスト"
 
-#: ../app/ui/Songs.qml:37
-msgid "Songs"
-msgstr "曲"
+#: ../app/ui/Songs.qml:36
+msgid "Tracks"
+msgstr ""
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

@@ -33,7 +33,7 @@ import "../components/ListItemActions"
 MusicPage {
     id: songsPage
     objectName: "songsPage"
-    title: i18n.tr("Songs")
+    title: i18n.tr("Tracks")
     searchable: true
     searchResultsCount: songsModelFilter.count
     state: "default"

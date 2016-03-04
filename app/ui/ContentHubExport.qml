@@ -30,7 +30,8 @@ import "../components/HeadState"
 
 MusicPage {
     id: contentHubExportPage
-    title: i18n.tr("Export Song")
+    objectName: "contentHubExportPage"
+    title: i18n.tr("Export Track")
     searchResultsCount: songsModelFilter.count
     showToolbar: false
     state: "default"
@@ -139,6 +140,7 @@ MusicPage {
             height: units.gu(7)
             imageSource: {"art": model.art}
             multiselectable: true
+            pressAndHoldEnabled: false  // Block PressAndHold from working
             subtitle {
                 text: model.author
             }

@@ -64,7 +64,7 @@ MusicPage {
         fill: undefined
         top: parent.top
     }
-    height: mainPageStack.height
+    height: mainPageStack.height + musicToolbar.height
     width: mainPageStack.width
 
     property var chosenElements: []
@@ -99,7 +99,7 @@ MusicPage {
             property string count: model.count
 
             primaryText: playlist.name
-            secondaryText: i18n.tr("%1 song", "%1 songs", playlist.count).arg(playlist.count)
+            secondaryText: i18n.tr("%1 track", "%1 tracks", playlist.count).arg(playlist.count)
 
             onClicked: {
                 Playlists.addToPlaylistList(name, chosenElements)

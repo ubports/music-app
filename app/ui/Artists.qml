@@ -84,30 +84,10 @@ MusicPage {
         }
         delegate: Card {
             id: artistCard
-            coverSources: [{art: "image://artistart/artist=" + model.artist + "&album=" + artistCard.album}]
+            coverSources: [{art: "image://artistart/artist=" + model.artist + "&album="}]
             objectName: "artistsPageGridItem" + index
             primaryText: model.artist != "" ? model.artist : i18n.tr("Unknown Artist")
             secondaryTextVisible: false
-
-            property string album: ""
-
-            AlbumsModel {
-                id: albumArtistModel
-                albumArtist: model.artist
-                store: musicStore
-            }
-
-            Repeater {
-                id: albumArtistModelRepeater
-                model: albumArtistModel
-                delegate: Item {
-                    property string album: model.title
-                }
-
-                onItemAdded: {
-                    artistCard.album = item.album
-                }
-            }
 
             onClicked: {
                 mainPageStack.push(Qt.resolvedUrl("ArtistView.qml"),
