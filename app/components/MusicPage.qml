@@ -35,7 +35,7 @@ Page {
     }
     header: PageHeader {
         id: pageHeader
-        title: thisPage.title
+        flickable: thisPage.flickable
         leadingActionBar {
             actions: {
                 if (mainPageStack.currentPage === tabs) {
@@ -47,6 +47,7 @@ Page {
                 }
             }
         }
+        title: thisPage.title
 
         StyleHints {
             backgroundColor: mainView.headerColor
