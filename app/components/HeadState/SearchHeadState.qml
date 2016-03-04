@@ -84,6 +84,7 @@ State {
 
         StyleHints {
             backgroundColor: mainView.headerColor
+            dividerColor: Qt.lighter(mainView.headerColor, 1.25)
         }
     }
     property Item thisPage
