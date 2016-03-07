@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-02-27 15:41+0000\n"
+"PO-Revision-Date: 2016-03-06 17:27+0000\n"
 "Last-Translator: Amed Çeko Jiyan <amedcj@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-29 06:01+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-07 06:01+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -253,131 +253,131 @@ msgstr "Paşve"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
-msgstr ""
+msgstr "Vegere rûpela dawiyê"
 
 #: ../app/music-app.qml:181
 msgid "Previous"
-msgstr ""
+msgstr "Paşve"
 
 #: ../app/music-app.qml:182
 msgid "Previous Track"
-msgstr ""
+msgstr "Parçeya perê"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr ""
+msgstr "Rawestîne"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
-msgstr ""
+msgstr "Playbackê rawestîne"
 
 #: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Muzîk"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
-msgstr ""
+msgstr "Çareseriya çewtiyan "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "Niha lê dide"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr ""
+msgstr "Playlîstê hilbijêre"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 parçe"
+msgstr[1] "%1 parçe"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr ""
+msgstr "Playlîst"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr ""
+msgstr "Yên dawiyê"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr ""
+msgstr "Album"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
 #: ../app/ui/SongsView.qml:248
 msgid "Unknown Album"
-msgstr ""
+msgstr "Albuma nenas"
 
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
 #: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
 #: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Hunermendek nenas"
 
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 album"
 
 #: ../app/ui/Artists.qml:36
 msgid "Artists"
-msgstr ""
+msgstr "Hunermend"
 
 #: ../app/ui/Artists.qml:94
 msgid "Artist"
-msgstr ""
+msgstr "Hunermend"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Parçeyê eksport bike"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
-msgstr ""
+msgstr "Cure"
 
 #: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
 #: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
 #: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
 #: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
-msgstr ""
+msgstr "Cure"
 
 #: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
-msgstr ""
+msgstr "Muzîk nehat dîtin"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Dîtina tevahî"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "Dor"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "Dorê paqij bike"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -388,16 +388,16 @@ msgstr ""
 #: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
 #: ../app/ui/SongsView.qml:319
 msgid "Playlist"
-msgstr ""
+msgstr "Playlîst"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Parçe"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Sepaneke muzîkê ji bo Ubuntuyê"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "muzîl;stran;lêdan;parçe;lêder;tunes;"
