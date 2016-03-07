@@ -85,7 +85,7 @@ Rectangle {
     MouseArea {
         id: nowPlayingPlayButton
         anchors.centerIn: parent
-        height: itemSize + 2 * spacing
+        height: itemSize + (2 * spacing)
         width: height
         onClicked: player.mediaPlayer.toggle()
 

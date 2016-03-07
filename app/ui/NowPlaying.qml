@@ -28,6 +28,7 @@ import "../logic/playlists.js" as Playlists
 MusicPage {
     id: nowPlaying
     flickable: isListView ? queueListLoader.item : null  // Ensures that the header is shown in fullview
+    hasSections: true
     objectName: "nowPlayingPage"
     showToolbar: false
     state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
@@ -90,7 +91,6 @@ MusicPage {
             queueListLoader.item.closeSelection()
         }
     }
-
     onVisibleChanged: {
         if (wideAspect) {
             popWaitTimer.start()
@@ -140,9 +140,6 @@ MusicPage {
             right: parent.right
             top: nowPlaying.header.bottom
         }
-
-        property real headerHeight: units.gu(10.125) // FIXME: 10.125 is the header.height with the page sections
-
         source: "../components/NowPlayingFullView.qml"
         visible: !isListView
     }
