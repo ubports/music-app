@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-02-25 17:29+0000\n"
-"Last-Translator: Yumeka Saito <yumeka.0407@gmail.com>\n"
+"PO-Revision-Date: 2016-02-28 10:22+0000\n"
+"Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2016-02-28 05:49+0000\n"
+"X-Launchpad-Export-Date: 2016-02-29 06:01+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
@@ -152,7 +152,7 @@ msgstr "見つかりませんでした"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "シャッフル再生"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -163,7 +163,7 @@ msgstr "プレイリストが見つかりませんでした"
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
-msgstr ""
+msgstr "気分や場所に合わせたプレイリストを作成するなら %1 アイコンをタップしてください。"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -173,7 +173,7 @@ msgstr "すべて再生"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "すべてキューへ"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
@@ -182,32 +182,34 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Musicについて"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"UbuntuのMusicアプリでは、お気に入りの音楽を楽しめます。最初にちょっとした説明を行いますが、すぐに音楽を楽しみたい場合は「スキップ」を選択してく"
+"ださい。"
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "音楽を取り込む"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
 msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
-msgstr ""
+msgstr "デバイスをコンピューターに接続し、Musicフォルダーにファイルを移動するか、音楽の入ったリムーバブルメディアを接続してください。"
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "新しい音楽をダウンロードする"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "視聴中のオンラインの曲を直接取り込みます。"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -360,17 +362,17 @@ msgstr "曲が見つかりません"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "詳細"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "キュー"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "キューを削除"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
