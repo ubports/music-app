@@ -31,6 +31,9 @@ Item {
     // Property to set the size of the cover image
     property int size
 
+    // Property to determine if the fallback art should be used
+    property bool useFallbackArt: false
+
     property string firstSource
 
     onCoversChanged: {
@@ -56,7 +59,7 @@ Item {
                 fillMode: Image.PreserveAspectCrop
                 height: coverGrid.size / (coverGrid.covers.length > 1 ? 2 : 1)
                 width: coverGrid.size / (coverGrid.covers.length > 2 && !(coverGrid.covers.length === 3 && index === 2) ? 2 : 1)
-                source: coverGrid.covers.length !== 0 && coverGrid.covers[index] !== "" && coverGrid.covers[index] !== undefined
+                source: coverGrid.covers.length !== 0 && coverGrid.covers[index] !== "" && coverGrid.covers[index] !== undefined && ((coverGrid.covers[index].useFallbackArt !== undefined && !coverGrid.covers[index].useFallbackArt) || !useFallbackArt)
                         ? (coverGrid.covers[index].art !== undefined
                            ? coverGrid.covers[index].art
                            : "image://albumart/artist=" + coverGrid.covers[index].author + "&album=" + coverGrid.covers[index].album)
@@ -73,8 +76,17 @@ Item {
 
                 onStatusChanged: {
                     if (status === Image.Error) {
-                        source = Qt.resolvedUrl("../graphics/music-app-cover@30.png")
-                    } else if (status === Image.Ready && index === 0) {
+                        useFallbackArt = true
+
+                        // If this coverGrid is set to the Player's currentMeta,
+                        //  then override the player's flag to show the fallback art
+                        if (coverGrid.covers[index].useFallbackArt !== undefined)
+                        {
+                            coverGrid.covers[index].useFallbackArt = true
+                        }
+                    }
+
+                    if (status === Image.Ready && index === 0) {
                         firstSource = source
                     }
                 }

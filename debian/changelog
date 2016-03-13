@@ -9,6 +9,7 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Fix regression where AddToPlaylist.qml no long supports plural track counts (LP: #1550832).
   * Remove offset from the top of AddToPlaylist.qml (LP: #1538832).
   * Fix topMargin of the Playlists empty state so title is not obscurred (LP: #1538829).
+  * Fix fallback art when the it is linked to the Player's currentMeta (LP: #1549557).
 
   [ Andrew Hayzen ]
   * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)
