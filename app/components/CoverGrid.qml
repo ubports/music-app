@@ -79,7 +79,7 @@ Item {
                         useFallbackArt = true
 
                         // If this coverGrid is set to the Player's currentMeta,
-                        //  then override the player's flag to show the fallback art
+                        // then override the player's flag to show the fallback art
                         if (coverGrid.covers[index].useFallbackArt !== undefined)
                         {
                             coverGrid.covers[index].useFallbackArt = true
