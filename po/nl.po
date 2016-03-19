@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-01-28 20:27-0600\n"
+"POT-Creation-Date: 2016-02-27 19:11-0600\n"
 "PO-Revision-Date: 2015-09-03 08:36+0000\n"
 "Last-Translator: Hannie Dumoleyn <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-22 05:59+0000\n"
+"X-Launchpad-Export-Date: 2016-02-29 06:01+0000\n"
 "X-Generator: Launchpad (build 17925)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
@@ -115,17 +115,17 @@ msgid "Search music"
 msgstr "Muziek zoeken"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../app/components/Helpers/ContentHubHelper.qml:82
+#: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
 msgstr "Het pad naar het bestand moet starten met"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../app/components/Helpers/ContentHubHelper.qml:108
+#: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
 msgstr "Het doel moet een bestand zijn"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../app/components/Helpers/ContentHubHelper.qml:114
+#: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
 msgstr "Kon bestand niet verplaatsen"
 
@@ -294,7 +294,7 @@ msgstr "Selecteer een afspeellijst"
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
-msgid_plural "%1 track"
+msgid_plural "%1 tracks"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -342,11 +342,11 @@ msgstr[1] "%1 albums"
 msgid "Artists"
 msgstr "Artiesten"
 
-#: ../app/ui/Artists.qml:114
+#: ../app/ui/Artists.qml:94
 msgid "Artist"
 msgstr "Artiest"
 
-#: ../app/ui/ContentHubExport.qml:33
+#: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
 msgstr ""
 

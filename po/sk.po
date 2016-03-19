@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-01-28 20:27-0600\n"
-"PO-Revision-Date: 2015-05-14 23:46+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
+"POT-Creation-Date: 2016-02-27 19:11-0600\n"
+"PO-Revision-Date: 2016-03-04 10:25+0000\n"
+"Last-Translator: P_E_T_O <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2016-02-22 05:59+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-05 06:31+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -39,7 +39,7 @@ msgstr "Zrušiť"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Čaká sa na súbor/-y..."
+msgstr "Čaká sa na súbor/y..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -49,7 +49,7 @@ msgstr "Premenovať zoznam"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Zadaj meno playlistu"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -63,7 +63,7 @@ msgstr "Zoznam už existuje"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "Zadajte názov"
+msgstr "Prosím zadajte názov"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -89,7 +89,7 @@ msgstr "Odobrať"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "Vybrať všetko"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -115,28 +115,28 @@ msgid "Search music"
 msgstr "Hľadať hudbu"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../app/components/Helpers/ContentHubHelper.qml:82
+#: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
 msgstr "Cesta musí začínať"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../app/components/Helpers/ContentHubHelper.qml:108
+#: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
 msgstr "Cesta musí viesť k súboru"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../app/components/Helpers/ContentHubHelper.qml:114
+#: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
 msgstr "Nepodarilo sa presunúť súbor"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "skladby hrané dnes"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Dnes žiadne hrané skladby"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -144,7 +144,7 @@ msgstr "Pridať do poradia"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "Načítava sa…"
+msgstr "Načítavam..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
@@ -214,7 +214,7 @@ msgstr "Prevzatie novej hudby"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "Rovno naimportujte hudbu zakúpenú počas prehladania internetu."
+msgstr "Skladby zakúpené online, hneď naimportovať."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -246,7 +246,7 @@ msgstr "Pozastaviť prehrávanie"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Pokračuj alebo spusti prehrávanie"
 
 #: ../app/music-app.qml:172
 msgid "Back"
@@ -294,16 +294,17 @@ msgstr "Vybrať zoznam"
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
-msgid_plural "%1 track"
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "%1 tracks"
+msgstr[0] "%1 skladieb"
+msgstr[1] "%1 skladba"
+msgstr[2] "%1 skladby"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr "Zoznamy"
+msgstr "Zoznamy skladieb"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
@@ -324,7 +325,7 @@ msgstr "Neznámy album"
 #: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
 #: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
-msgstr "Neznámy interpret"
+msgstr "Neznámy umelec"
 
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
@@ -341,19 +342,19 @@ msgstr[2] "%1 albumy"
 
 #: ../app/ui/Artists.qml:36
 msgid "Artists"
-msgstr "Interpreti"
+msgstr "Umelci"
 
-#: ../app/ui/Artists.qml:114
+#: ../app/ui/Artists.qml:94
 msgid "Artist"
-msgstr "Interpret"
+msgstr "Umelec"
 
-#: ../app/ui/ContentHubExport.qml:33
+#: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Exportovať skladbu"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
-msgstr ""
+msgstr "Žánre"
 
 #: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
 #: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
@@ -369,12 +370,12 @@ msgstr "Žiadna hudba sa nenašla"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Úplné zobrazenie"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr "Poradie prehrávania"
+msgstr "Poradie"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
@@ -394,7 +395,7 @@ msgstr "Zoznam"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Skladby"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -402,4 +403,4 @@ msgstr "Hudobná aplikácia pre Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "hudba;skladby;piesne;prehrávanie;stopy;prehrávač;melódie;pesničky;"
+msgstr "hudba;skladby;hraj;stopy;prehrávač;melódia;"

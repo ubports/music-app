@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-01-28 20:27-0600\n"
-"PO-Revision-Date: 2015-11-19 19:19+0000\n"
+"POT-Creation-Date: 2016-02-27 19:11-0600\n"
+"PO-Revision-Date: 2016-03-10 20:04+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2016-02-22 05:59+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-11 05:57+0000\n"
+"X-Generator: Launchpad (build 17939)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -115,28 +115,28 @@ msgid "Search music"
 msgstr "ሙዚቃ መፈለጊያ"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
-#: ../app/components/Helpers/ContentHubHelper.qml:82
+#: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
 msgstr "የ ፋይል መንገድ መጀመር አለበት በ"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
-#: ../app/components/Helpers/ContentHubHelper.qml:108
+#: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
 msgstr "የ ፋይል መንገድ ፋይል መሆን አለበት"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
-#: ../app/components/Helpers/ContentHubHelper.qml:114
+#: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
 msgstr "ፋይሉን ማንቀሳቀስ አልተቻለም"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "ዛሬ የ ተጫወቱ ተረኞች"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "ዛሬ ምንም ተረኞች አልተጫወቱም"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -293,9 +293,9 @@ msgstr "የማጫወቻ ዝርዝር ይምረጡ"
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
-msgid_plural "%1 track"
-msgstr[0] ""
-msgstr[1] ""
+msgid_plural "%1 tracks"
+msgstr[0] "%1 ተረኛ"
+msgstr[1] "%1 ተረኞች"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -341,13 +341,13 @@ msgstr[1] "%1 አልበሞች"
 msgid "Artists"
 msgstr "ተዋንያን"
 
-#: ../app/ui/Artists.qml:114
+#: ../app/ui/Artists.qml:94
 msgid "Artist"
 msgstr "ተዋናይ"
 
-#: ../app/ui/ContentHubExport.qml:33
+#: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "ተረኛ መላኪያ"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -392,7 +392,7 @@ msgstr "የማጫወቻ ዝርዝር"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "ተረኞች"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"

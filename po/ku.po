@@ -1,162 +1,162 @@
-# Azerbaijani translation for music-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Kurdish translation for music-app
+# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the music-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-05-14 23:42+0000\n"
-"Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
-"Language-Team: Azerbaijani <az@li.org>\n"
+"PO-Revision-Date: 2016-03-06 17:27+0000\n"
+"Last-Translator: Amed Çeko Jiyan <amedcj@gmail.com>\n"
+"Language-Team: Kurdish <ku@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2016-02-29 06:01+0000\n"
-"X-Generator: Launchpad (build 17925)\n"
+"X-Launchpad-Export-Date: 2016-03-07 06:01+0000\n"
+"X-Generator: Launchpad (build 17936)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr ""
+msgstr "BAŞ E"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
-msgstr ""
+msgstr "Pelê îthalkirî nehat dîtin"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr ""
+msgstr "Li bendê be"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "İmtina"
+msgstr "Betal"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Li benda pelê/an e..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Navê playlîstê biguherîne"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Navê playlîstê binivîse"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr "Dəyişdir"
+msgstr "Biguherîne"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr "Çalğı siyahısı onsuzda var"
+msgstr "Playlîst jixwe heye"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr ""
+msgstr "Tika ye navekî binivîse"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr "Yeni oxunma siyahısı"
+msgstr "Playlîsta nû"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
-msgstr "Yarat"
+msgstr "Biafirîne"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Bila playlîst heta hetayê bê jêbirin?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Ev nayê vegerandin"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr ""
+msgstr "Rake"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "Hemûyan hilbijêre"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr "Oxunma siyahısına əlavə et"
+msgstr "Têxe playlîstê"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
-msgstr ""
+msgstr "Bixe dorê"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
-msgstr "Sil"
+msgstr "Jê bibe"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr ""
+msgstr "Vebijarka betalkirinê"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Li muzîkê bigere"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Pêwîst e pelrêça pelî bi vê dest pê bike"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Pêwîst e pelrêç pelek be"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
-msgstr "Faylı köçürmək alınmadı"
+msgstr "Rakirina pelî bi ser neket"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "parçeyên îro hatine lêdan"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "îro tu parçe nehatiye lêdan"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
-msgstr ""
+msgstr "Bixe dorê"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "Yüklənir..."
+msgstr "Tê barkirin..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "Tu hêman nehat dîtin"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Ji bo têkelkirina muzîkê bitikîne"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "Tu playlîst nehat dîtin"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -164,35 +164,39 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Ji bo ku playlîstê li gorî hemû rewşên giyanî çêkî çevenga %1ê bitikîne û ji "
+"muzîkê zêdetir wergire."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
 msgid "Play all"
-msgstr "Hamısını oxut"
+msgstr "Hemûyan lê bide"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "Hemûyan bixe dorê"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
-msgstr ""
+msgstr "Têkel bike"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Bi xêr hatî muzîkê"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Bi Sepana Muzîkê ya Ubuntuyê kêfa muzîkê bike. Ji bo ku bizanî ka çawa dest "
+"pê bikî, beşdarî geştê bibe yan jî aniha dest bi guhdarîkirinê bike."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Muzîka xwe bîne navê"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -200,178 +204,180 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Cîhaza xwe bi kompîterekê ve girê bide û pelan bikişîne nav peldanka Muzîkê "
+"yan jî amûreke medyayê ya ku muzîk tê de heye, têxê."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Muzîkên nû jêbar bike"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Muzîkên di gera online de hatine kirîn rasterast bîne navê"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Dest pê bike"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "Derbas be"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "Növbəti"
+msgstr "Pêşve"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
-msgstr "Növbəti Mahnı"
+msgstr "Parçeya pêşve"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Fasilə"
+msgstr "Rawestîne"
 
 #: ../app/music-app.qml:165
 msgid "Play"
-msgstr "Oxut"
+msgstr "Lê bide"
 
 #: ../app/music-app.qml:167
 msgid "Pause Playback"
-msgstr ""
+msgstr "Playbackê rawestîne"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Playbackê dewam bike yan rawestîne"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "Geri"
+msgstr "Paşve"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
-msgstr "Əvvəlki səhifəyə qayıt"
+msgstr "Vegere rûpela dawiyê"
 
 #: ../app/music-app.qml:181
 msgid "Previous"
-msgstr "Əvvəlki"
+msgstr "Paşve"
 
 #: ../app/music-app.qml:182
 msgid "Previous Track"
-msgstr "Əvvəlki Mahnı"
+msgstr "Parçeya perê"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Dayan"
+msgstr "Rawestîne"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
-msgstr ""
+msgstr "Playbackê rawestîne"
 
 #: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr "Musiqi"
+msgstr "Muzîk"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
-msgstr ""
+msgstr "Çareseriya çewtiyan "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "Niha lê dide"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Oxunma siyahısını seç"
+msgstr "Playlîstê hilbijêre"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 parçe"
+msgstr[1] "%1 parçe"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr "Oxunma siyahısı"
+msgstr "Playlîst"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Ən son"
+msgstr "Yên dawiyê"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr "Albomlar"
+msgstr "Album"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
 #: ../app/ui/SongsView.qml:248
 msgid "Unknown Album"
-msgstr "Naməlum Albom"
+msgstr "Albuma nenas"
 
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
 #: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
 #: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
-msgstr "Naməlum İfaçı"
+msgstr "Hunermendek nenas"
 
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr "Albom"
+msgstr "Album"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] "%1 albom"
-msgstr[1] "%1 albomlar"
+msgstr[0] "%1 album"
+msgstr[1] "%1 album"
 
 #: ../app/ui/Artists.qml:36
 msgid "Artists"
-msgstr "İfaçılar"
+msgstr "Hunermend"
 
 #: ../app/ui/Artists.qml:94
 msgid "Artist"
-msgstr "İfaçı"
+msgstr "Hunermend"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Parçeyê eksport bike"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
-msgstr "Janrlar"
+msgstr "Cure"
 
 #: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
 #: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
 #: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
 #: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
-msgstr ""
+msgstr "Cure"
 
 #: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
-msgstr ""
+msgstr "Muzîk nehat dîtin"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Dîtina tevahî"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "Dor"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "Dorê paqij bike"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -382,16 +388,16 @@ msgstr ""
 #: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
 #: ../app/ui/SongsView.qml:319
 msgid "Playlist"
-msgstr "Çalğı siyahısı"
+msgstr "Playlîst"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Parçe"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Ubuntu üçün musiqi tətbiqetməsi."
+msgstr "Sepaneke muzîkê ji bo Ubuntuyê"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "muzîl;stran;lêdan;parçe;lêder;tunes;"
