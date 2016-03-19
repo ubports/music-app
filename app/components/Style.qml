@@ -48,8 +48,8 @@ QtObject {
     property QtObject dialog: QtObject {
         property color confirmButtonColor: UbuntuColors.green;
         property color confirmRemoveButtonColor: UbuntuColors.red;
-        property color cancelButtonColor: UbuntuColors.coolGrey;
-        property color normalTextFieldColor: common.white
+        property color cancelButtonColor: UbuntuColors.jet;
+        property color normalTextFieldColor: common.white;
     }
 
     property QtObject libraryEmpty: QtObject {
