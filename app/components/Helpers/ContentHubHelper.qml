@@ -20,7 +20,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Content 1.1
+import Ubuntu.Content 1.3
 import "../../logic/stored-request.js" as StoredRequest
 
 
