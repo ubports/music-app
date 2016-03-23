@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Canonical Ltd.
+ * Copyright 2016 Canonical Ltd.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,12 @@ import Ubuntu.Components 1.3
 Item {
     id: sliderStyle
 
-    property color foregroundColor: UbuntuColors.blue // CUSTOM
-    property color backgroundColor: styleMusic.mainView.backgroundColor // CUSTOM
+    // CUSTOM: This was defined as UbuntuColors.blue
+    //property color foregroundColor: theme.palette.normal.activity
+    property color foregroundColor: UbuntuColors.blue
+    // CUSTOM: This was defined as UbuntuColors.ash (#888888)
+    //property color backgroundColor: theme.palette.normal.base
+    property color backgroundColor: "#888888"
 
     property real thumbSpacing: units.gu(0)
     property Item bar: background
@@ -43,8 +47,9 @@ Item {
             right: parent.right
             left: parent.left
         }
-        height: units.dp(4)
+        height: units.dp(2)
         backgroundColor: sliderStyle.backgroundColor
+        aspect: UbuntuShape.Flat
         overlayColor: sliderStyle.foregroundColor
         overlayRect: Qt.application.layoutDirection == Qt.LeftToRight ?
             Qt.rect(0.0, 0.0, thumb.x / thumb.barMinusThumbWidth, 1.0) :
@@ -80,18 +85,23 @@ Item {
         }
         width: units.gu(2)
         height: units.gu(2)
-        opacity: 0.97
-        backgroundColor: theme.palette.normal.overlay
+        // CUSTOM: This was defined as #FFFFFFolors.blue
+        //backgroundColor: theme.palette.normal.raised
+        backgroundColor: "#FFFFFF"
+
+        // CUSTOM: Commented out to avoid pulling in more dependencies
+        //FocusShape {
+        //}
     }
 
     BubbleShape {
         id: bubbleShape
 
-        property real minimumWidth: units.gu(8)
+        property real minimumWidth: units.gu(6)
         property real horizontalPadding: units.gu(1)
 
-        width: Math.max(minimumWidth, label.implicitWidth + 2*horizontalPadding)
-        height: units.gu(6)
+        width: label.implicitWidth + 2*horizontalPadding
+        height: label.implicitHeight + 2*horizontalPadding
 
         // FIXME: very temporary implementation
         property real minX: 0.0
@@ -116,7 +126,7 @@ Item {
             id: label
             anchors.centerIn: parent
             text: styledItem.formatValue(SliderUtils.liveValue(styledItem))
-            textSize: Label.Large
+            textSize: Label.Medium
             color: theme.palette.normal.overlayText
         }
     }
