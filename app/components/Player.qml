@@ -49,6 +49,7 @@ Item {
         property string author: ""
         property string filename: ""
         property string title: ""
+        property bool useFallbackArt: false
     }
 
     // Return the metadata for the source given from mediascanner2
@@ -118,6 +119,7 @@ Item {
                 currentMeta.author = meta.author;
                 currentMeta.filename = meta.filename;
                 currentMeta.title = meta.title;
+                currentMeta.useFallbackArt = false;
 
                 mediaPlayerObject._calcProgress();
             }
