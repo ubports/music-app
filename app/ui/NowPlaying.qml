@@ -35,7 +35,7 @@ MusicPage {
     states: [
         QueueHeadState {
             thisHeader {
-                sections {
+                extension: Sections {
                     model: defaultStateSections.model
                     selectedIndex: defaultStateSections.selectedIndex
                     onSelectedIndexChanged: isListView = !isListView
@@ -48,7 +48,7 @@ MusicPage {
             listview: queueListLoader.item
             removable: true
             thisHeader {
-                sections {
+                extension: Sections {
                     model: defaultStateSections.model
                     selectedIndex: defaultStateSections.selectedIndex
                     onSelectedIndexChanged: isListView = !isListView

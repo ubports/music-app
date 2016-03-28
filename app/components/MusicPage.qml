@@ -35,6 +35,13 @@ Page {
     }
     header: PageHeader {
         id: pageHeader
+        extension: Sections {
+            // Create a fake head section when needed
+            // resolves issues with parent.top binding to the incorrect place
+            // when head sections are then added by the state
+            model: hasSections ? [" "] : []
+        }
+
         flickable: thisPage.flickable
         leadingActionBar {
             actions: {
@@ -47,13 +54,6 @@ Page {
                 }
             }
         }
-        sections {
-            // Create a fake head section when needed
-            // resolves issues with parent.top binding to the incorrect place
-            // when head sections are then added by the state
-            model: hasSections ? [" "] : []
-        }
-
         title: thisPage.title
 
         StyleHints {
