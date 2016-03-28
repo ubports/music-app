@@ -53,9 +53,9 @@ State {
                     }
                 },
                 Action {
-                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
                     iconName: "add-to-playlist"
                     text: i18n.tr("Add to playlist")
+                    visible: listview !== null ? listview.getSelectedIndices().length > 0 : false
                     onTriggered: {
                         var items = []
                         var indicies = listview.getSelectedIndices();
@@ -71,10 +71,9 @@ State {
                     }
                 },
                 Action {
-                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
                     iconName: "add"
                     text: i18n.tr("Add to queue")
-                    visible: addToQueue
+                    visible: listview !== null ? (listview.getSelectedIndices().length > 0) && addToQueue: false
 
                     onTriggered: {
                         var items = [];
@@ -90,10 +89,9 @@ State {
                     }
                 },
                 Action {
-                    enabled: listview !== null ? listview.getSelectedIndices().length > 0 : false
                     iconName: "delete"
                     text: i18n.tr("Delete")
-                    visible: removable
+                    visible: listview !== null ? (listview.getSelectedIndices().length > 0) && removable : false
 
                     onTriggered: {
                         removed(listview.getSelectedIndices())

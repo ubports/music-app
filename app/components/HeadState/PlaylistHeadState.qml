@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -21,12 +21,10 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
 State {
-    name: "default"
+    id: playlistHeadState
+    name: "playlist"
 
-    property alias newPlaylistEnabled: newPlaylistAction.visible
-    property alias searchEnabled: searchAction.visible
     property PageHeader thisHeader: PageHeader {
-        id: headerState
         flickable: thisPage.flickable
         leadingActionBar {
             actions: {
@@ -41,25 +39,24 @@ State {
         trailingActionBar {
             actions: [
                 Action {
-                    id: newPlaylistAction
-                    objectName: "newPlaylistButton"
-                    iconName: "add"
+                    objectName: "editPlaylist"
+                    iconName: "edit"
                     onTriggered: {
-                        customdebug("New playlist.")
-                        thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
+                        thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/EditPlaylistDialog.qml"), mainView)
+                        thisPage.currentDialog.oldPlaylistName = line2
                     }
                 },
                 Action {
-                    id: searchAction
-                    iconName: "search"
+                    objectName: "deletePlaylist"
+                    iconName: "delete"
                     onTriggered: {
-                        thisPage.state = "search";
-                        thisPage.header.contents.forceActiveFocus();
+                        thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/RemovePlaylistDialog.qml"), mainView)
+                        thisPage.currentDialog.oldPlaylistName = line2
                     }
                 }
             ]
         }
-        visible: thisPage.state === "default"
+        visible: thisPage.state === "playlist"
 
         Action {
             id: backActionComponent

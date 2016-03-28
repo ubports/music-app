@@ -31,7 +31,6 @@ State {
                 right: parent ? parent.right : undefined
                 verticalCenter: parent ? parent.verticalCenter : undefined
             }
-            color: styleMusic.common.black
             focus: true
             hasClearButton: true
             inputMethodHints: Qt.ImhNoPredictiveText

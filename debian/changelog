@@ -8,10 +8,16 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Fix fallback image path in MusicListItem (LP: #1549580).
   * Fix regression where AddToPlaylist.qml no long supports plural track counts (LP: #1550832).
   * Remove offset from the top of AddToPlaylist.qml (LP: #1538832).
+  * Fix topMargin of the Playlists empty state so title is not obscurred (LP: #1538829).
+  * Fix fallback art when the it is linked to the Player's currentMeta (LP: #1549557).
+  * Update a number of components to work properly with new color palette in the SDK (LP: #1550096).
 
   [ Andrew Hayzen ]
   * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)
   * Implement convergent mode with now playing and queue as a sidebar (LP: #1253761)
+
+  [ Ken VanDine ]
+  * Bump Ubuntu.Content import to 1.3 to fix theme issue
 
  -- Victor <victor@victor-virtual-machine>  Wed, 27 Jan 2016 19:40:55 -0600
 

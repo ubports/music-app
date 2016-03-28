@@ -110,43 +110,13 @@ MusicPage {
         }
     }
 
-    state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "album")
+    state: albumtrackslist.state === "multiselectable" ? "selection" : (songStackPage.line1 === i18n.tr("Playlist") ? "playlist" : "default")
     states: [
-        PageHeadState {
-            id: albumState
-            name: "album"
-            PropertyChanges {
-                target: songStackPage.head
-                backAction: albumState.backAction
-                actions: albumState.actions
-            }
+        EmptyHeadState {
+            thisPage: songStackPage
         },
-        PageHeadState {
-            id: playlistState
-            name: "playlist"
-            actions: [
-                Action {
-                    objectName: "editPlaylist"
-                    iconName: "edit"
-                    onTriggered: {
-                        currentDialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/EditPlaylistDialog.qml"), mainView)
-                        currentDialog.oldPlaylistName = line2
-                    }
-                },
-                Action {
-                    objectName: "deletePlaylist"
-                    iconName: "delete"
-                    onTriggered: {
-                        currentDialog = PopupUtils.open(Qt.resolvedUrl("../components/Dialog/RemovePlaylistDialog.qml"), mainView)
-                        currentDialog.oldPlaylistName = line2
-                    }
-                }
-            ]
-            PropertyChanges {
-                target: songStackPage.head
-                backAction: playlistState.backAction
-                actions: playlistState.actions
-            }
+        PlaylistHeadState {
+            thisPage: songStackPage
         },
         MultiSelectHeadState {
             listview: albumtrackslist

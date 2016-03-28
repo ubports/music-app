@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -18,15 +18,11 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 
 State {
     name: "default"
 
-    property alias newPlaylistEnabled: newPlaylistAction.visible
-    property alias searchEnabled: searchAction.visible
     property PageHeader thisHeader: PageHeader {
-        id: headerState
         flickable: thisPage.flickable
         leadingActionBar {
             actions: {
@@ -38,27 +34,6 @@ State {
             }
         }
         title: thisPage.title
-        trailingActionBar {
-            actions: [
-                Action {
-                    id: newPlaylistAction
-                    objectName: "newPlaylistButton"
-                    iconName: "add"
-                    onTriggered: {
-                        customdebug("New playlist.")
-                        thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
-                    }
-                },
-                Action {
-                    id: searchAction
-                    iconName: "search"
-                    onTriggered: {
-                        thisPage.state = "search";
-                        thisPage.header.contents.forceActiveFocus();
-                    }
-                }
-            ]
-        }
         visible: thisPage.state === "default"
 
         Action {

@@ -26,11 +26,18 @@ import "../logic/meta-database.js" as Library
 import "../components"
 import "../components/Delegates"
 import "../components/Flickables"
+import "../components/HeadState"
 import "../components/ViewButton"
 
 MusicPage {
     id: artistViewPage
     objectName: "artistViewPage"
+    state: "default"
+    states: [
+        EmptyHeadState {
+            thisPage: artistViewPage
+        }
+    ]
 
     property string artist: ""
     property var covers: []

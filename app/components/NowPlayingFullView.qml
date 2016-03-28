@@ -195,7 +195,7 @@ Item {
             anchors.right: parent.right
             maximumValue: player.mediaPlayer.duration || 1  // fallback to 1 when 0 so that the progress bar works
             objectName: "progressSliderShape"
-            style: UbuntuBlueSliderStyle {}
+            style: SliderStyle {}
             value: player.mediaPlayer.position  // load value at startup
 
             function formatValue(v) {
