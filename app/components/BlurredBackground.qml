@@ -26,13 +26,15 @@ Item {
     width: parent.width
 
     property string art
+    // need to expose color so sidebar can set its own
+    property string color: "black"
 
     // dark layer
     Rectangle {
         anchors {
             fill: parent
         }
-        color: "black" 
+        color: parent.color
     }
 
     // the album art

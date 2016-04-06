@@ -14,6 +14,7 @@ music-app (2.4) UNRELEASED; urgency=medium
 
   [ Andrew Hayzen ]
   * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)
+  * Implement convergent mode with now playing and queue as a sidebar (LP: #1253761)
 
   [ Ken VanDine ]
   * Bump Ubuntu.Content import to 1.3 to fix theme issue

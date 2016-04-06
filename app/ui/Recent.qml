@@ -31,14 +31,53 @@ import "../components/Flickables"
 MusicPage {
     id: recentPage
     objectName: "recentPage"
+    header: PageHeader {
+        flickable: recentPage.flickable
+        leadingActionBar {
+            actions: {
+                if (mainPageStack.currentPage === tabs) {
+                    tabs.tabActions
+                } else if (mainPageStack.depth > 1) {
+                    backActionComponent
+                }
+            }
+        }
+        title: recentPage.title
+        trailingActionBar {
+            actions: [
+                Action {
+                    enabled: recentModel.model.count > 0
+                    iconName: "delete"
+                    onTriggered: {
+                        Library.clearRecentHistory()
+                        recentModel.filterRecent()
+                    }
+                }
+            ]
+        }
+
+        Action {
+            id: backActionComponent
+            iconName: "back"
+            onTriggered: mainPageStack.pop()
+        }
+
+        StyleHints {
+            backgroundColor: mainView.headerColor
+            dividerColor: Qt.darker(mainView.headerColor, 1.1)
+        }
+    }
     title: i18n.tr("Recent")
 
     // FIXME: workaround for pad.lv/1531016 (gridview juddery)
     anchors {
+        bottom: parent.bottom
         fill: undefined
+        left: parent.left
+        top: parent.top
     }
-    height: mainView.height
-    width: mainView.width
+    height: mainPageStack.height
+    width: mainPageStack.width
 
     property bool changed: false
     property bool childrenChanged: false
@@ -54,19 +93,6 @@ MusicPage {
         id: refreshWaitTimer
         interval: 250
         onTriggered: recentModel.filterRecent()
-    }
-
-    head {
-        actions: [
-            Action {
-                enabled: recentModel.model.count > 0
-                iconName: "delete"
-                onTriggered: {
-                    Library.clearRecentHistory()
-                    recentModel.filterRecent()
-                }
-            }
-        ]
     }
 
     MusicGridView {
