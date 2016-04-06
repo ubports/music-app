@@ -11,6 +11,7 @@ music-app (2.4) UNRELEASED; urgency=medium
   * Fix topMargin of the Playlists empty state so title is not obscurred (LP: #1538829).
   * Fix fallback art when the it is linked to the Player's currentMeta (LP: #1549557).
   * Update a number of components to work properly with new color palette in the SDK (LP: #1550096).
+  * Fix the Search TextField component color so the text is not invisible when field is not in focus (LP: #1550096).
 
   [ Andrew Hayzen ]
   * Fix so that a press and hold cannot disable selection in the ContentHubExport.qml (LP: #1538838)

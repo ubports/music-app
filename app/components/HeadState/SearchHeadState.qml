@@ -31,6 +31,7 @@ State {
                 right: parent ? parent.right : undefined
                 verticalCenter: parent ? parent.verticalCenter : undefined
             }
+            color: UbuntuColors.ash
             focus: true
             hasClearButton: true
             inputMethodHints: Qt.ImhNoPredictiveText
