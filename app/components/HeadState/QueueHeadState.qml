@@ -21,8 +21,11 @@ import Ubuntu.Components 1.3
 
 
 State {
-    name: "default"
+    id: state
+    name: stateName
 
+    // Need to be able to change state name and State.name is not notifyable
+    property string stateName: "default"
     property PageHeader thisHeader: PageHeader {
         id: headerState
         flickable: thisPage.flickable
@@ -64,7 +67,7 @@ State {
                 }
             ]
         }
-        visible: thisPage.state === "default"
+        visible: thisPage.state === state.stateName
 
         Action {
             id: backActionComponent

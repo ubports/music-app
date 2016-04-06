@@ -31,15 +31,52 @@ MusicPage {
     hasSections: true
     objectName: "nowPlayingPage"
     showToolbar: false
-    state: isListView && queueListLoader.item.state === "multiselectable" ? "selection" : "default"
+    state: {
+        if (isListView) {
+            if (queueListLoader.item.state === "multiselectable") {
+                "selection"
+            } else {
+                "default"
+            }
+        } else {
+            "fullview"
+        }
+    }
     states: [
+        // FIXME: fullview has its own state for now as changing the flickable
+        // property sometimes causes the header to disappear
+        QueueHeadState {
+            stateName: "fullview"
+            thisHeader {
+                extension: Sections {
+                    model: defaultStateSections.model
+                    selectedIndex: 0
+
+                    onSelectedIndexChanged: {
+                        if (selectedIndex == 1) {
+                            isListView = !isListView;
+                            selectedIndex = 0;
+                        }
+                    }
+                }
+                flickable: null
+            }
+            thisPage: nowPlaying
+        },
         QueueHeadState {
             thisHeader {
                 extension: Sections {
                     model: defaultStateSections.model
-                    selectedIndex: defaultStateSections.selectedIndex
-                    onSelectedIndexChanged: isListView = !isListView
+                    selectedIndex: 1
+
+                    onSelectedIndexChanged: {
+                        if (selectedIndex == 0) {
+                            isListView = !isListView;
+                            selectedIndex = 1;
+                        }
+                    }
                 }
+                flickable: queueListLoader.item
             }
             thisPage: nowPlaying
         },
@@ -50,8 +87,14 @@ MusicPage {
             thisHeader {
                 extension: Sections {
                     model: defaultStateSections.model
-                    selectedIndex: defaultStateSections.selectedIndex
-                    onSelectedIndexChanged: isListView = !isListView
+                    selectedIndex: 1
+
+                    onSelectedIndexChanged: {
+                        if (selectedIndex == 0) {
+                            isListView = !isListView;
+                            selectedIndex = 1;
+                        }
+                    }
                 }
             }
             thisPage: nowPlaying
@@ -106,6 +149,8 @@ MusicPage {
     PageHeadSections {
         id: defaultStateSections
         model: [fullViewTitle, queueTitle]
+
+        onSelectedIndexChanged: isListView = selectedIndex == 1
 
         // Set at startup to avoid binding loop
         Component.onCompleted: selectedIndex = isListView ? 1 : 0
