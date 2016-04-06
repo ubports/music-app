@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2016
  *      Andrew Hayzen <ahayzen@gmail.com>
  *      Victor Thompson <victor.thompson@gmail.com>
  *
@@ -18,13 +18,14 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+
 
 State {
-    name: "default"
+    id: state
+    name: stateName
 
-    property alias newPlaylistEnabled: newPlaylistAction.visible
-    property alias searchEnabled: searchAction.visible
+    // Need to be able to change state name and State.name is not notifyable
+    property string stateName: "default"
     property PageHeader thisHeader: PageHeader {
         id: headerState
         flickable: thisPage.flickable
@@ -41,25 +42,32 @@ State {
         trailingActionBar {
             actions: [
                 Action {
-                    id: newPlaylistAction
-                    objectName: "newPlaylistButton"
-                    iconName: "add"
+                    enabled: !player.mediaPlayer.playlist.empty
+                    iconName: "add-to-playlist"
+                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+                    text: i18n.tr("Add to playlist")
+
                     onTriggered: {
-                        customdebug("New playlist.")
-                        thisPage.currentDialog = PopupUtils.open(Qt.resolvedUrl("../Dialog/NewPlaylistDialog.qml"), mainView)
+                        var items = []
+
+                        items.push(makeDict(player.metaForSource(player.mediaPlayer.playlist.currentItemSource)));
+
+                        mainPageStack.push(Qt.resolvedUrl("../../ui/AddToPlaylist.qml"),
+                                           {"chosenElements": items})
                     }
                 },
                 Action {
-                    id: searchAction
-                    iconName: "search"
-                    onTriggered: {
-                        thisPage.state = "search";
-                        thisPage.header.contents.forceActiveFocus();
-                    }
+                    enabled: !player.mediaPlayer.playlist.empty
+                    iconName: "delete"
+                    objectName: "clearQueue"
+                    // TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+                    text: i18n.tr("Clear queue")
+
+                    onTriggered: player.mediaPlayer.playlist.clearWrapper()
                 }
             ]
         }
-        visible: thisPage.state === "default"
+        visible: thisPage.state === state.stateName
 
         Action {
             id: backActionComponent

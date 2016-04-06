@@ -20,15 +20,52 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 
-PageHeadState {
+State {
     name: "default"
-    head: thisPage.head
-    actions: Action {
-        id: searchAction
-        iconName: "search"
-        onTriggered: thisPage.state = "search"
-    }
 
     property alias searchEnabled: searchAction.enabled
-    property Page thisPage
+    property PageHeader thisHeader: PageHeader {
+        id: headerState
+        flickable: thisPage.flickable
+        leadingActionBar {
+            actions: {
+                if (mainPageStack.currentPage === tabs) {
+                    tabs.tabActions
+                } else if (mainPageStack.depth > 1) {
+                    backActionComponent
+                }
+            }
+        }
+        title: thisPage.title
+        trailingActionBar {
+            actions: [
+                Action {
+                    id: searchAction
+                    iconName: "search"
+                    onTriggered: {
+                        thisPage.state = "search";
+                        thisPage.header.contents.forceActiveFocus();
+                    }
+                }
+            ]
+        }
+        visible: thisPage.state === "default"
+
+        Action {
+            id: backActionComponent
+            iconName: "back"
+            onTriggered: mainPageStack.pop()
+        }
+
+        StyleHints {
+            backgroundColor: mainView.headerColor
+            dividerColor: Qt.darker(mainView.headerColor, 1.1)
+        }
+    }
+    property Item thisPage
+
+    PropertyChanges {
+        target: thisPage
+        header: thisHeader
+    }
 }

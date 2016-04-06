@@ -36,34 +36,39 @@ MusicPage {
     showToolbar: false
     state: "default"
     states: [
-        PageHeadState {
-            id: defaultState
-            name: "default"
-            actions: [
-                tickAction,
-                searchAction,
-            ]
-            backAction: Action {
-                iconName: "close"
-                onTriggered: {
-                    transfer.items = [];
-                    transfer.state = ContentTransfer.Aborted;
+        EmptyHeadState {
+            thisHeader {
+                leadingActionBar {
+                    actions: [
+                        Action {
+                            iconName: "close"
+                            onTriggered: {
+                                transfer.items = [];
+                                transfer.state = ContentTransfer.Aborted;
 
-                    mainPageStack.pop()
+                                mainPageStack.pop()
+                            }
+                        }
+                    ]
+                }
+                trailingActionBar {
+                    actions: [
+                        tickAction,
+                        searchAction,
+                    ]
                 }
             }
-
-            PropertyChanges {
-                target: contentHubExportPage.head
-                backAction: defaultState.backAction
-                actions: defaultState.actions
-            }
+            thisPage: contentHubExportPage
         },
         SearchHeadState {
             id: searchHeader
-            actions: [
-                tickAction,
-            ]
+            thisHeader {
+                trailingActionBar {
+                    actions: [
+                        tickAction,
+                    ]
+                }
+            }
             thisPage: contentHubExportPage
 
             onQueryChanged: trackList.clearSelection()
@@ -84,7 +89,10 @@ MusicPage {
         id: searchAction
         enabled: songsModelFilter.count > 0
         iconName: "search"
-        onTriggered: contentHubExportPage.state = "search"
+        onTriggered: {
+            contentHubExportPage.state = "search"
+            contentHubExportPage.header.contents.forceActiveFocus();
+        }
     }
     Action {
         id: tickAction

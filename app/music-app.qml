@@ -115,7 +115,7 @@ MainView {
                 break;
             case Qt.Key_J:  //      Ctrl+J      Jump to playing song
                 tabs.pushNowPlaying()
-                mainPageStack.currentPage.isListView = true
+                mainPageStack.currentPage.setListView(true)
                 break;
             case Qt.Key_N:  //      Ctrl+N      Show Now playing
                 tabs.pushNowPlaying()
@@ -282,7 +282,7 @@ MainView {
 
     signal listItemSwiping(int i)
 
-    property bool wideAspect: width >= units.gu(70) && loadedUI
+    property bool wideAspect: width >= units.gu(95) && loadedUI
     property bool loadedUI: false  // property to detect if the UI has finished
 
     // FUNCTIONS
@@ -567,23 +567,16 @@ MainView {
         }
     }
 
-    Loader {
-        id: musicToolbar
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-        }
-        asynchronous: true
-        source: "components/MusicToolbar.qml"
-        visible: (mainPageStack.currentPage.showToolbar || mainPageStack.currentPage.showToolbar === undefined) &&
-                 !firstRun &&
-                 !noMusic
-        z: 200  // put on top of everything else
-    }
-
     PageStack {
         id: mainPageStack
+        anchors {
+            bottom: parent.bottom
+            fill: undefined
+            left: parent.left
+            right: nowPlayingSidebarLoader.left
+            top: parent.top
+        }
+        clip: true  // otherwise listitems actions overflow
 
         // Properties storing the current page info
         property Page currentMusicPage: null  // currentPage can be Tabs
@@ -644,6 +637,39 @@ MainView {
             }
 
             property Tab lastTab: selectedTab
+            property list<Action> tabActions: [
+                Action {
+                    enabled: recentTabRepeater.count > 0
+                    text: enabled ? recentTabRepeater.itemAt(0).title : ""
+                    visible: enabled
+
+                    onTriggered: {
+                        if (enabled) {
+                            tabs.selectedTabIndex = recentTabRepeater.itemAt(0).index
+                        }
+                    }
+                },
+                Action {
+                    text: artistsTab.title
+                    onTriggered: tabs.selectedTabIndex = artistsTab.index
+                },
+                Action {
+                    text: albumsTab.title
+                    onTriggered: tabs.selectedTabIndex = albumsTab.index
+                },
+                Action {
+                    text: genresTab.title
+                    onTriggered: tabs.selectedTabIndex = genresTab.index
+                },
+                Action {
+                    text: songsTab.title
+                    onTriggered: tabs.selectedTabIndex = songsTab.index
+                },
+                Action {
+                    text: playlistsTab.title
+                    onTriggered: tabs.selectedTabIndex = playlistsTab.index
+                }
+            ]
 
             onSelectedTabChanged: {
                 // pause loading of the models in the old tab
@@ -844,16 +870,68 @@ MainView {
 
             function pushNowPlaying()
             {
-                // only push if on a different page
-                if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
-                    mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
-                }
+                if (!wideAspect) {
+                    // only push if on a different page
+                    if (mainPageStack.currentPage.title !== i18n.tr("Now playing")) {
+                        mainPageStack.push(Qt.resolvedUrl("ui/NowPlaying.qml"), {})
+                    }
 
-                if (mainPageStack.currentPage.isListView === true) {
-                    mainPageStack.currentPage.isListView = false;  // ensure full view
+                    if (mainPageStack.currentPage.isListView === true) {
+                        mainPageStack.currentPage.setListView(false);  // ensure full view
+                    }
                 }
             }
         } // end of tabs
+    }
+
+    //
+    // Components that are ontop of the PageStack
+    //
+
+    Loader {
+        id: nowPlayingSidebarLoader
+        active: shown || anchors.leftMargin < 0
+        anchors {  // start offscreen
+            bottom: parent.bottom
+            left: parent.right
+            leftMargin: shown && status === Loader.Ready ? -width : 0
+            top: parent.top
+        }
+        asynchronous: true
+        source: "components/NowPlayingSidebar.qml"
+        visible: width > 0
+        width: units.gu(40)
+
+        property bool shown: loadedUI && wideAspect && player.mediaPlayer.playlist.itemCount > 0
+
+        Behavior on anchors.leftMargin {
+            NumberAnimation {
+
+            }
+        }
+    }
+
+    Loader {
+        id: musicToolbar
+        active: !wideAspect || anchors.topMargin < 0
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.bottom
+            topMargin: !wideAspect && status === Loader.Ready ? -height : 0
+        }
+        asynchronous: true
+        source: "components/MusicToolbar.qml"
+        visible: (mainPageStack.currentPage && (mainPageStack.currentPage.showToolbar || mainPageStack.currentPage.showToolbar === undefined)) &&
+                 !firstRun &&
+                 !noMusic &&
+                 anchors.topMargin < 0
+
+        Behavior on anchors.topMargin {
+            NumberAnimation {
+
+            }
+        }
     }
 
     LoadingSpinnerComponent {

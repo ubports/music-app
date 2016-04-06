@@ -26,11 +26,18 @@ import "../logic/meta-database.js" as Library
 import "../components"
 import "../components/Delegates"
 import "../components/Flickables"
+import "../components/HeadState"
 import "../components/ViewButton"
 
 MusicPage {
     id: artistViewPage
     objectName: "artistViewPage"
+    state: "default"
+    states: [
+        EmptyHeadState {
+            thisPage: artistViewPage
+        }
+    ]
 
     property string artist: ""
     property var covers: []
@@ -38,10 +45,13 @@ MusicPage {
 
     // FIXME: workaround for pad.lv/1531016 (gridview juddery)
     anchors {
+        bottom: parent.bottom
         fill: undefined
+        left: parent.left
+        top: parent.top
     }
-    height: mainView.height
-    width: mainView.width
+    height: mainPageStack.height
+    width: mainPageStack.width
 
     MusicGridView {
         id: artistAlbumView

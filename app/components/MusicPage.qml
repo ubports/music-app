@@ -29,8 +29,47 @@ Page {
         bottomMargin: musicToolbar.visible ? musicToolbar.height : 0
         fill: parent
     }
+    head {  // hide default header
+        locked: true
+        visible: false
+    }
+    header: PageHeader {
+        id: pageHeader
+        extension: Sections {
+            // Create a fake head section when needed
+            // resolves issues with parent.top binding to the incorrect place
+            // when head sections are then added by the state
+            model: hasSections ? [" "] : []
+        }
+
+        flickable: thisPage.flickable
+        leadingActionBar {
+            actions: {
+                if (mainPageStack.currentPage === tabs) {
+                    tabs.tabActions
+                } else if (mainPageStack.depth > 1) {
+                    backActionComponent
+                } else {
+                    null
+                }
+            }
+        }
+        title: thisPage.title
+
+        StyleHints {
+            backgroundColor: mainView.headerColor
+            dividerColor: Qt.darker(mainView.headerColor, 1.1)
+        }
+
+        Action {
+            id: backActionComponent
+            iconName: "back"
+            onTriggered: mainPageStack.pop()
+        }
+    }
 
     property Dialog currentDialog
+    property bool hasSections: false
     property bool searchable: false
     property int searchResultsCount
     property bool showToolbar: true

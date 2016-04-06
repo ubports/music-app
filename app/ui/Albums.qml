@@ -46,10 +46,13 @@ MusicPage {
 
     // FIXME: workaround for pad.lv/1531016 (gridview juddery)
     anchors {
+        bottom: parent.bottom
         fill: undefined
+        left: parent.left
+        top: parent.top
     }
-    height: mainView.height
-    width: mainView.width
+    height: mainPageStack.height
+    width: mainPageStack.width
 
     // Hack for autopilot otherwise Albums appears as MusicPage
     // due to bug 1341671 it is required that there is a property so that
