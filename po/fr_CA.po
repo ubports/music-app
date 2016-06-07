@@ -1,0 +1,408 @@
+# French (Canada) translation for music-app
+# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
+# This file is distributed under the same license as the music-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: music-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-02-27 19:11-0600\n"
+"PO-Revision-Date: 2016-06-06 20:14+0000\n"
+"Last-Translator: Ubuntu-QC-1 <Unknown>\n"
+"Language-Team: French (Canada) <fr_CA@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Launchpad-Export-Date: 2016-06-07 05:40+0000\n"
+"X-Generator: Launchpad (build 18097)\n"
+
+#: ../app/components/Dialog/ContentHubErrorDialog.qml:35
+msgid "OK"
+msgstr "OK"
+
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
+msgid "Imported file not found"
+msgstr "Le fichier importé est introuvable"
+
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
+msgid "Wait"
+msgstr "Patienter"
+
+#: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
+#: ../app/components/Dialog/EditPlaylistDialog.qml:76
+#: ../app/components/Dialog/NewPlaylistDialog.qml:71
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:60
+msgid "Cancel"
+msgstr "Annuler"
+
+#: ../app/components/Dialog/ContentHubWaitDialog.qml:34
+msgid "Waiting for file(s)..."
+msgstr "En attente de fichier(s)..."
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
+#: ../app/components/Dialog/EditPlaylistDialog.qml:30
+msgid "Rename playlist"
+msgstr "Renommer la liste de lecture"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:37
+#: ../app/components/Dialog/NewPlaylistDialog.qml:34
+msgid "Enter playlist name"
+msgstr "Saisir le nom de la liste de lecture"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:46
+msgid "Change"
+msgstr "Modifier"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:67
+#: ../app/components/Dialog/NewPlaylistDialog.qml:60
+msgid "Playlist already exists"
+msgstr "La liste de lecture existe déjà"
+
+#: ../app/components/Dialog/EditPlaylistDialog.qml:71
+#: ../app/components/Dialog/NewPlaylistDialog.qml:65
+msgid "Please type in a name."
+msgstr "Veuillez saisir un nom."
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:30
+msgid "New playlist"
+msgstr "Nouvelle liste de lecture"
+
+#: ../app/components/Dialog/NewPlaylistDialog.qml:44
+msgid "Create"
+msgstr "Créer"
+
+#. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:31
+msgid "Permanently delete playlist?"
+msgstr "Supprimer définitivement la liste de lecture?"
+
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:32
+msgid "This cannot be undone"
+msgstr "Cela ne peut pas être annulé"
+
+#: ../app/components/Dialog/RemovePlaylistDialog.qml:37
+#: ../app/components/ListItemActions/Remove.qml:27
+msgid "Remove"
+msgstr "Supprimer"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:28
+msgid "Select All"
+msgstr "Sélectionner tout"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/components/HeadState/MultiSelectHeadState.qml:40
+#: ../app/components/ListItemActions/AddToPlaylist.qml:26
+#: ../app/ui/NowPlaying.qml:105
+msgid "Add to playlist"
+msgstr "Ajouter à la liste de lecture"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:58
+msgid "Add to queue"
+msgstr "Ajouter à la file d'attente"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:77
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../app/components/HeadState/MultiSelectHeadState.qml:89
+msgid "Cancel selection"
+msgstr "Annuler la sélection"
+
+#: ../app/components/HeadState/SearchHeadState.qml:42
+msgid "Search music"
+msgstr "Rechercher de la musique"
+
+#. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
+#: ../app/components/Helpers/ContentHubHelper.qml:86
+msgid "Filepath must start with"
+msgstr "Le chemin de fichier doit commencer par"
+
+#. TRANSLATORS: This string represents that a blank filepath destination has been used
+#: ../app/components/Helpers/ContentHubHelper.qml:112
+msgid "Filepath must be a file"
+msgstr "Le chemin de fichier doit être un fichier"
+
+#. TRANSLATORS: This string represents that there was failure moving the file to the target destination
+#: ../app/components/Helpers/ContentHubHelper.qml:118
+msgid "Failed to move file"
+msgstr "Échec de déplacement du fichier"
+
+#. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
+#: ../app/components/Helpers/UserMetricsHelper.qml:31
+msgid "tracks played today"
+msgstr "pistes lues aujourd'hui"
+
+#: ../app/components/Helpers/UserMetricsHelper.qml:32
+msgid "No tracks played today"
+msgstr "Aucune piste lue aujourd'hui"
+
+#: ../app/components/ListItemActions/AddToQueue.qml:28
+msgid "Add to Queue"
+msgstr "Ajouter à la file d'attente"
+
+#: ../app/components/LoadingSpinnerComponent.qml:47
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: ../app/components/MusicPage.qml:42
+msgid "No items found"
+msgstr "Aucun élément trouvé"
+
+#: ../app/components/MusicToolbar.qml:91
+msgid "Tap to shuffle music"
+msgstr "Toquer pour mélanger la musique"
+
+#: ../app/components/PlaylistsEmptyState.qml:42
+msgid "No playlists found"
+msgstr "Aucune liste de lecture trouvée"
+
+#: ../app/components/PlaylistsEmptyState.qml:53
+#, qt-format
+msgid ""
+"Get more out of Music by tapping the %1 icon to start making playlists for "
+"every mood and occasion."
+msgstr ""
+"Profitez davantage de Musique en toquant l'icône %1 pour commencer à créer "
+"des listes de lecture pour chaque humeur et occasion."
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/PlayAllButton.qml:28
+msgid "Play all"
+msgstr "Tout lire"
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/QueueAllButton.qml:46
+msgid "Queue all"
+msgstr "Tout en file d'attente"
+
+#. TRANSLATORS: this appears in a button with limited space (around 14 characters)
+#: ../app/components/ViewButton/ShuffleButton.qml:46
+msgid "Shuffle"
+msgstr "Mélanger"
+
+#: ../app/components/Walkthrough/Slide1.qml:59
+msgid "Welcome to Music"
+msgstr "Bienvenue dans Musique"
+
+#: ../app/components/Walkthrough/Slide1.qml:73
+msgid ""
+"Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
+"to get started or press skip to start listening now."
+msgstr ""
+"Profitez de votre musique préférée avec l'appli Musique d'Ubuntu. Suivez une "
+"courte visite guidée ou pesez sur Ignorer pour commencer votre écoute "
+"maintenant."
+
+#: ../app/components/Walkthrough/Slide2.qml:54
+msgid "Import your music"
+msgstr "Importer votre musique"
+
+#: ../app/components/Walkthrough/Slide2.qml:67
+#: ../app/ui/LibraryEmptyState.qml:131
+msgid ""
+"Connect your device to any computer and simply drag files to the Music "
+"folder or insert removable media with music."
+msgstr ""
+"Connectez votre appareil à n'importe quel ordinateur et faites glisser "
+"simplement des fichiers dans le dossier Musique ou insérez un support "
+"amovible contenant de la musique."
+
+#: ../app/components/Walkthrough/Slide3.qml:54
+msgid "Download new music"
+msgstr "Télécharger des nouveaux morceaux"
+
+#: ../app/components/Walkthrough/Slide3.qml:67
+msgid "Directly import music bought while browsing online."
+msgstr ""
+"Importer directement de la musique achetée lors de la navigation en ligne."
+
+#: ../app/components/Walkthrough/Slide3.qml:81
+msgid "Start"
+msgstr "Commencer"
+
+#: ../app/components/Walkthrough/Walkthrough.qml:119
+msgid "Skip"
+msgstr "Ignorer"
+
+#: ../app/music-app.qml:158
+msgid "Next"
+msgstr "Suivant"
+
+#: ../app/music-app.qml:159
+msgid "Next Track"
+msgstr "Piste suivante"
+
+#: ../app/music-app.qml:165
+msgid "Pause"
+msgstr "Pause"
+
+#: ../app/music-app.qml:165
+msgid "Play"
+msgstr "Lecture"
+
+#: ../app/music-app.qml:167
+msgid "Pause Playback"
+msgstr "Mettre en pause"
+
+#: ../app/music-app.qml:167
+msgid "Continue or start playback"
+msgstr "Continuer ou commencer la lecture"
+
+#: ../app/music-app.qml:172
+msgid "Back"
+msgstr "Retour"
+
+#: ../app/music-app.qml:173
+msgid "Go back to last page"
+msgstr "Revenir à la dernière page"
+
+#: ../app/music-app.qml:181
+msgid "Previous"
+msgstr "Précédent"
+
+#: ../app/music-app.qml:182
+msgid "Previous Track"
+msgstr "Piste précédente"
+
+#: ../app/music-app.qml:187
+msgid "Stop"
+msgstr "Arrêter"
+
+#: ../app/music-app.qml:188
+msgid "Stop Playback"
+msgstr "Arrêter la lecture"
+
+#: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
+msgid "Music"
+msgstr "Musique"
+
+#: ../app/music-app.qml:303
+msgid "Debug: "
+msgstr "Débogage : "
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
+msgid "Now playing"
+msgstr "Lecture en cours"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/AddToPlaylist.qml:43
+msgid "Select playlist"
+msgstr "Choisir une liste"
+
+#: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
+#: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
+#, qt-format
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "%1 piste"
+msgstr[1] "%1 pistes"
+
+#. TRANSLATORS: this is the name of the playlists page shown in the tab header.
+#. Remember to keep the translation short to fit the screen width
+#: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
+#: ../app/ui/SongsView.qml:102
+msgid "Playlists"
+msgstr "Listes de lecture"
+
+#: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
+#: ../app/ui/SongsView.qml:90
+msgid "Recent"
+msgstr "Écoutés récemment"
+
+#: ../app/ui/Albums.qml:32
+msgid "Albums"
+msgstr "Albums"
+
+#: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
+#: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
+#: ../app/ui/SongsView.qml:248
+msgid "Unknown Album"
+msgstr "Album inconnu"
+
+#: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
+#: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
+#: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
+msgid "Unknown Artist"
+msgstr "Artiste inconnu"
+
+#: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
+#: ../app/ui/Recent.qml:104
+msgid "Album"
+msgstr "Album"
+
+#: ../app/ui/ArtistView.qml:94
+#, qt-format
+msgid "%1 album"
+msgid_plural "%1 albums"
+msgstr[0] "%1 album"
+msgstr[1] "%1 albums"
+
+#: ../app/ui/Artists.qml:36
+msgid "Artists"
+msgstr "Artistes"
+
+#: ../app/ui/Artists.qml:94
+msgid "Artist"
+msgstr "Artiste"
+
+#: ../app/ui/ContentHubExport.qml:34
+msgid "Export Track"
+msgstr "Exporter la piste"
+
+#: ../app/ui/Genres.qml:32
+msgid "Genres"
+msgstr "Genres"
+
+#: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
+#: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
+#: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
+#: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
+msgid "Genre"
+msgstr "Genre"
+
+#: ../app/ui/LibraryEmptyState.qml:119
+msgid "No music found"
+msgstr "Aucune musique trouvée"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:40
+msgid "Full view"
+msgstr "Vue complète"
+
+#. TRANSLATORS: this appears in the header with limited space (around 20 characters)
+#: ../app/ui/NowPlaying.qml:42
+msgid "Queue"
+msgstr "File d'attente"
+
+#. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
+#: ../app/ui/NowPlaying.qml:122
+msgid "Clear queue"
+msgstr "Vider la file"
+
+#: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
+#: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
+#: ../app/ui/SongsView.qml:81 ../app/ui/SongsView.qml:113
+#: ../app/ui/SongsView.qml:153 ../app/ui/SongsView.qml:187
+#: ../app/ui/SongsView.qml:202 ../app/ui/SongsView.qml:221
+#: ../app/ui/SongsView.qml:233 ../app/ui/SongsView.qml:270
+#: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
+#: ../app/ui/SongsView.qml:319
+msgid "Playlist"
+msgstr "Liste de lecture"
+
+#: ../app/ui/Songs.qml:36
+msgid "Tracks"
+msgstr "Pistes"
+
+#: com.ubuntu.music_music.desktop.in.in.h:2
+msgid "A music application for Ubuntu"
+msgstr "Une application de musique pour Ubuntu"
+
+#: com.ubuntu.music_music.desktop.in.in.h:3
+msgid "music;songs;play;tracks;player;tunes;"
+msgstr ""
+"musique;chansons;chanson;lire;piste;pistes;morceau;morceaux;lecteur;toune;tou"
+"nes;"
