@@ -5,7 +5,7 @@ Maintainer: Ubuntu App Cats <ubuntu-touch-coreapps@lists.launchpad.net>
 Build-Depends: cmake,
                debhelper (>= 9),
                intltool,
-               python3,
+               python3:any,
                qt5-default,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/music-app
