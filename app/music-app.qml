@@ -446,10 +446,8 @@ MainView {
 
                 // TODO: improve in refactoring to be able detect when a track is removed
                 // Update playlists page
-                if (playlistsPage.visible) {
+                if (tabs.selectedTab == playlistsTab) {
                     playlistModel.filterPlaylists()
-                } else {
-                    playlistsPage.changed = true
                 }
             }
         }
@@ -587,7 +585,7 @@ MainView {
         // Go back up the stack if possible
         function goBack() {
             // Ensure in the case that goBack is called programmatically that any dialogs are closed
-            if (mainPageStack.currentMusicPage.currentDialog !== null) {
+            if (mainPageStack.currentMusicPage && mainPageStack.currentMusicPage.currentDialog !== null) {
                 PopupUtils.close(mainPageStack.currentMusicPage.currentDialog)
             }
 
@@ -711,11 +709,15 @@ MainView {
                         id: recentTab
                         objectName: "recentTab"
                         anchors.fill: parent
-                        title: page.title
+                        title: i18n.tr("Recent")
 
                         // Tab content begins here
-                        page: Recent {
-                            id: recentPage
+                        page: Loader {
+                            width: mainPageStack.width
+                            height: mainPageStack.height
+                            active: tabs.selectedTab == recentTab
+                            source: Qt.resolvedUrl("ui/Recent.qml")
+                            asynchronous: true
                         }
                     }
                 }
@@ -758,11 +760,15 @@ MainView {
                 id: artistsTab
                 objectName: "artistsTab"
                 anchors.fill: parent
-                title: page.title
+                title: i18n.tr("Artists")
 
                 // tab content
-                page: Artists {
-                    id: artistsPage
+                page: Loader {
+                    width: mainPageStack.width
+                    height: mainPageStack.height
+                    active: tabs.selectedTab == artistsTab
+                    source: Qt.resolvedUrl("ui/Artists.qml")
+                    asynchronous: true
                 }
             }
 
@@ -775,11 +781,15 @@ MainView {
                 id: albumsTab
                 objectName: "albumsTab"
                 anchors.fill: parent
-                title: page.title
+                title: i18n.tr("Albums")
 
                 // Tab content begins here
-                page: Albums {
-                    id: albumsPage
+                page: Loader {
+                    width: mainPageStack.width
+                    height: mainPageStack.height
+                    active: tabs.selectedTab == albumsTab
+                    source: Qt.resolvedUrl("ui/Albums.qml")
+                    asynchronous: true
                 }
             }
 
@@ -792,11 +802,15 @@ MainView {
                 id: genresTab
                 objectName: "genresTab"
                 anchors.fill: parent
-                title: page.title
+                title: i18n.tr("Genres")
 
                 // Tab content begins here
-                page: Genres {
-                    id: genresPage
+                page: Loader {
+                    width: mainPageStack.width
+                    height: mainPageStack.height
+                    active: tabs.selectedTab == genresTab
+                    source: Qt.resolvedUrl("ui/Genres.qml")
+                    asynchronous: true
                 }
             }
 
@@ -809,11 +823,15 @@ MainView {
                 id: songsTab
                 objectName: "songsTab"
                 anchors.fill: parent
-                title: page.title
+                title: i18n.tr("Tracks")
 
                 // Tab content begins here
-                page: Songs {
-                    id: tracksPage
+                page: Loader {
+                    width: mainPageStack.width
+                    height: mainPageStack.height
+                    active: tabs.selectedTab == songsTab
+                    source: Qt.resolvedUrl("ui/Songs.qml")
+                    asynchronous: true
                 }
             }
 
@@ -826,11 +844,15 @@ MainView {
                 id: playlistsTab
                 objectName: "playlistsTab"
                 anchors.fill: parent
-                title: page.title
+                title: i18n.tr("Playlists")
 
                 // Tab content begins here
-                page: Playlists {
-                    id: playlistsPage
+                page: Loader {
+                    width: mainPageStack.width
+                    height: mainPageStack.height
+                    active: tabs.selectedTab == playlistsTab
+                    source: Qt.resolvedUrl("ui/Playlists.qml")
+                    asynchronous: true
                 }
             }
 

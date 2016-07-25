@@ -69,16 +69,6 @@ MusicPage {
     }
     title: i18n.tr("Recent")
 
-    // FIXME: workaround for pad.lv/1531016 (gridview juddery)
-    anchors {
-        bottom: parent.bottom
-        fill: undefined
-        left: parent.left
-        top: parent.top
-    }
-    height: mainPageStack.height
-    width: mainPageStack.width
-
     property bool changed: false
     property bool childrenChanged: false
 
