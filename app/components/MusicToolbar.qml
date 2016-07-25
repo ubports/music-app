@@ -108,6 +108,7 @@ Rectangle {
                           "media-playback-pause" : "media-playback-start"
                 objectName: "disabledSmallPlayShape"
                 width: height
+                asynchronous: true
             }
 
             /* Click to shuffle music */
@@ -203,6 +204,7 @@ Rectangle {
                           "media-playback-pause" : "media-playback-start"
                 objectName: "playShape"
                 width: height
+                asynchronous: true
             }
 
             /* Mouse area to jump to now playing */

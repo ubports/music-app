@@ -187,6 +187,7 @@ Page {
         name: "chevron"
         visible: listView.currentIndex !== 2
         width: height
+        asynchronous: true
     }
 
     MouseArea {

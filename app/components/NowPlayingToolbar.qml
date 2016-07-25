@@ -54,6 +54,7 @@ Rectangle {
             name: "media-playlist-repeat"
             objectName: "repeatShape"
             opacity: player.repeat ? 1 : .2
+            asynchronous: true
         }
     }
 
@@ -78,6 +79,7 @@ Rectangle {
             name: "media-skip-backward"
             objectName: "previousShape"
             opacity: parent.enabled ? 1 : .2
+            asynchronous: true
         }
     }
 
@@ -98,6 +100,7 @@ Rectangle {
             color: parent.pressed ? UbuntuColors.blue : "white"
             name: player.mediaPlayer.playbackState === MediaPlayer.PlayingState ? "media-playback-pause" : "media-playback-start"
             objectName: "playShape"
+            asynchronous: true
         }
     }
 
@@ -122,6 +125,7 @@ Rectangle {
             name: "media-skip-forward"
             objectName: "forwardShape"
             opacity: parent.enabled ? 1 : .2
+            asynchronous: true
         }
     }
 
@@ -145,6 +149,7 @@ Rectangle {
             name: "media-playlist-shuffle"
             objectName: "shuffleShape"
             opacity: player.shuffle ? 1 : .2
+            asynchronous: true
         }
     }
 

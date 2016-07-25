@@ -33,6 +33,7 @@ Item {
         name: "navigation-menu"  // TODO: use proper image
         height: width
         width: units.gu(3)
+        asynchronous: true
     }
 
     MouseArea {
