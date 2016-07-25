@@ -39,6 +39,7 @@ Component {
             height: (parent.height - bodyText.contentHeight - introductionText.height - 4*units.gu(4))/2
             fillMode: Image.PreserveAspectFit
             source: Qt.resolvedUrl("../../graphics/sd_phone_icon.png")
+            asynchronous: true
         }
 
         Label {

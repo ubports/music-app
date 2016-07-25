@@ -171,6 +171,7 @@ Page {
                 height: width
                 source: listView.currentIndex == index ?  "../../graphics/Ellipse@27.png" : "../../graphics/Ellipse_15_opacity@27.png"
                 width: units.gu(1.5)
+                asynchronous: true
             }
         }
     }

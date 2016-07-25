@@ -41,6 +41,7 @@ Component {
             source:  Image {
                 id: centerImage
                 source: Qt.resolvedUrl("../../graphics/music-app@30.png")
+                asynchronous: true
             }
 
             width: height

@@ -39,6 +39,7 @@ Component {
             height: (parent.height - introductionText.height - finalMessage.contentHeight - 4.5*units.gu(4))/2
             fillMode: Image.PreserveAspectFit
             source: Qt.resolvedUrl("../../graphics/music_download_icon.png")
+            asynchronous: true
         }
 
         Label {
