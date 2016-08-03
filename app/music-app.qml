@@ -271,7 +271,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.4'
+    property string appVersion: '2.5'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
