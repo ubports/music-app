@@ -14,7 +14,6 @@ Vcs-Bzr: https://code.launchpad.net/~music-app-dev/music-app/trunk
 Package: music-app
 Architecture: all
 Depends: mediascanner2.0,
-         gstreamer0.10-fluendo-mp3,
          gstreamer1.0-fluendo-mp3,
          qmlscene,
          qml-module-qt-labs-settings,
