@@ -56,12 +56,14 @@ State {
                     }
                 }
             ]
+            objectName: "playlistTrailingActionBar"
         }
         visible: thisPage.state === "playlist"
 
         Action {
             id: backActionComponent
             iconName: "back"
+            objectName: "backAction"
             onTriggered: mainPageStack.pop()
         }
 

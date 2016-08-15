@@ -65,6 +65,7 @@ Page {
         Action {
             id: backActionComponent
             iconName: "back"
+            objectName: "backAction"
             onTriggered: mainPageStack.pop()
         }
     }

@@ -50,6 +50,7 @@ MusicPage {
             thisHeader {
                 extension: Sections {
                     model: defaultStateSections.model
+                    objectName: "nowPlayingSections"
                     selectedIndex: 0
 
                     onSelectedIndexChanged: {
@@ -67,6 +68,7 @@ MusicPage {
             thisHeader {
                 extension: Sections {
                     model: defaultStateSections.model
+                    objectName: "nowPlayingSections"
                     selectedIndex: 1
 
                     onSelectedIndexChanged: {
@@ -87,6 +89,7 @@ MusicPage {
             thisHeader {
                 extension: Sections {
                     model: defaultStateSections.model
+                    objectName: "nowPlayingSections"
                     selectedIndex: 1
 
                     onSelectedIndexChanged: {

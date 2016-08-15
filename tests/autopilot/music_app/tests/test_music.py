@@ -123,7 +123,7 @@ class TestMainWindow(MusicAppTestCase):
                         Equals(self.tracks[0]["title"]))
 
         # click on close button to close the page and now playing page
-        self.app.main_view.go_back()
+        self.app.main_view.go_back_wrapper()
 
         # click the play button (toolbar) to start playing
         toolbar.click_play_button()
@@ -310,7 +310,7 @@ class TestMainWindow(MusicAppTestCase):
                         Eventually(Equals(tracks[0]["artist"])))
 
         # click on close button to close songs page
-        self.app.main_view.go_back()
+        self.app.main_view.go_back_wrapper()
 
         # check that the albums page is now visible
         self.assertThat(albums_page.visible, Eventually(Equals(True)))
@@ -358,7 +358,7 @@ class TestMainWindow(MusicAppTestCase):
                         Equals(tracks[0]["title"]))
 
         # click on close button to close nowplaying page
-        self.app.main_view.go_back()
+        self.app.main_view.go_back_wrapper()
 
         # check that the songs page is now visible
         self.assertThat(songs_page.visible, Eventually(Equals(True)))
