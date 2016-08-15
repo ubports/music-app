@@ -468,6 +468,9 @@ class TestMainWindow(MusicAppTestCase):
         # select playlist to add song to
         add_to_playlist_page.click_playlist(0)
 
+        # wait for tracks page to become visible
+        tracks_page.visible.wait_for(True)
+
         # open playlists page
         playlists_page = self.app.get_playlists_page()
 
