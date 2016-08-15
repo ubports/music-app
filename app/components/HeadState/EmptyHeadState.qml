@@ -30,6 +30,8 @@ State {
                     tabs.tabActions
                 } else if (mainPageStack.depth > 1) {
                     backActionComponent
+                } else {
+                    null
                 }
             }
             objectName: "tabsLeadingActionBar"
