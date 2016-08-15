@@ -896,7 +896,6 @@ MainView {
 
     Loader {
         id: nowPlayingSidebarLoader
-        active: shown || anchors.leftMargin < 0
         anchors {  // start offscreen
             bottom: parent.bottom
             left: parent.right
@@ -904,7 +903,10 @@ MainView {
             top: parent.top
         }
         asynchronous: true
-        source: "components/NowPlayingSidebar.qml"
+        // use source as empty string instead of active false otherwise item
+        // isn't fully unloaded and appears in autopilot twice
+        // http://doc.qt.io/qt-5/qml-qtquick-loader.html#source-prop
+        source: shown || anchors.leftMargin < 0 ? "components/NowPlayingSidebar.qml" : ""
         visible: width > 0
         width: units.gu(40)
 
@@ -919,7 +921,6 @@ MainView {
 
     Loader {
         id: musicToolbar
-        active: !wideAspect || anchors.topMargin < 0
         anchors {
             left: parent.left
             right: parent.right
@@ -927,7 +928,10 @@ MainView {
             topMargin: !wideAspect && status === Loader.Ready ? -height : 0
         }
         asynchronous: true
-        source: "components/MusicToolbar.qml"
+        // use source as empty string instead of active false otherwise item
+        // isn't fully unloaded and appears in autopilot twice
+        // http://doc.qt.io/qt-5/qml-qtquick-loader.html#source-prop
+        source: !wideAspect || anchors.topMargin < 0 ? "components/MusicToolbar.qml" : ""
         visible: (mainPageStack.currentPage && (mainPageStack.currentPage.showToolbar || mainPageStack.currentPage.showToolbar === undefined)) &&
                  !firstRun &&
                  !noMusic &&
