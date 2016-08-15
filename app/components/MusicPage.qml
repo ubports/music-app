@@ -53,6 +53,7 @@ Page {
                     null
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
 

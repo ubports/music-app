@@ -640,6 +640,7 @@ MainView {
             property list<Action> tabActions: [
                 Action {
                     enabled: recentTabRepeater.count > 0
+                    objectName: "recentTabAction"
                     text: enabled ? recentTabRepeater.itemAt(0).title : ""
                     visible: enabled
 
@@ -650,22 +651,27 @@ MainView {
                     }
                 },
                 Action {
+                    objectName: "artistsTabAction"
                     text: artistsTab.title
                     onTriggered: tabs.selectedTabIndex = artistsTab.index
                 },
                 Action {
+                    objectName: "albumsTabAction"
                     text: albumsTab.title
                     onTriggered: tabs.selectedTabIndex = albumsTab.index
                 },
                 Action {
+                    objectName: "genresTabAction"
                     text: genresTab.title
                     onTriggered: tabs.selectedTabIndex = genresTab.index
                 },
                 Action {
+                    objectName: "songsTabAction"
                     text: songsTab.title
                     onTriggered: tabs.selectedTabIndex = songsTab.index
                 },
                 Action {
+                    objectName: "playlistsTabAction"
                     text: playlistsTab.title
                     onTriggered: tabs.selectedTabIndex = playlistsTab.index
                 }

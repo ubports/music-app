@@ -41,6 +41,7 @@ MusicPage {
                     backActionComponent
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: recentPage.title
         trailingActionBar {

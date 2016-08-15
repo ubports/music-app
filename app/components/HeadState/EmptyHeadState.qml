@@ -32,6 +32,7 @@ State {
                     backActionComponent
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
         visible: thisPage.state === "default"

@@ -60,7 +60,7 @@ class MusicApp(object):
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
-        self.main_view.switch_to_tab('albumsTab')
+        self.main_view.switch_to_tab_wrapper('albumsTabAction')
 
         return self.main_view.wait_select_single(
             Albums, objectName='albumsPage')
@@ -70,7 +70,7 @@ class MusicApp(object):
             ArtistView, objectName='artistViewPage')
 
     def get_artists_page(self):
-        self.main_view.switch_to_tab('artistsTab')
+        self.main_view.switch_to_tab_wrapper('artistsTabAction')
 
         return self.main_view.wait_select_single(
             Artists, objectName='artistsPage')
@@ -88,7 +88,7 @@ class MusicApp(object):
                                            objectName="nowPlayingPage")
 
     def get_playlists_page(self):
-        self.main_view.switch_to_tab('playlistsTab')
+        self.main_view.switch_to_tab_wrapper('playlistsTabAction')
 
         return self.main_view.wait_select_single(
             Playlists, objectName='playlistsPage')
@@ -104,7 +104,7 @@ class MusicApp(object):
                                            objectName="musicToolbarObject")
 
     def get_songs_page(self):
-        self.main_view.switch_to_tab('songsTab')
+        self.main_view.switch_to_tab_wrapper('songsTabAction')
 
         return self.main_view.wait_select_single(
             Songs, objectName='songsPage')
@@ -463,3 +463,11 @@ class MainView(MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
+
+    def switch_to_tab_wrapper(self, objectName):
+        # We use leadingActionBar instead of Tabs so create wrapper
+        actionBar = self.wait_select_single(
+            "ActionBar", objectName="tabsLeadingActionBar", visible=True,
+        )
+
+        return actionBar.click_action_button(objectName)

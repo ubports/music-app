@@ -35,6 +35,7 @@ State {
                     backActionComponent
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
         trailingActionBar {
