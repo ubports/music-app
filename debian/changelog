@@ -2,6 +2,8 @@ music-app (2.5) UNRELEASED; urgency=medium
 
   * Release 2.4 and start 2.5
   * Remove gstreamer0.10-fluendo-mp3 plugin from control as 1.0 should instead be used
+  * Fix for autopilot using switch_to_tab instead of leadingActionBar (LP: #1613328).
+  * Fix for duplicate Toolbars being created, confusing autopilot
 
  -- Andrew Hayzen <ahayzen@gmail.com>  Wed, 03 Aug 2016 21:57:36 +0100
 

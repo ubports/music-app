@@ -34,6 +34,7 @@ Rectangle {
             thisHeader {
                 leadingActionBar {
                     actions: []  // hide tab bar
+                    objectName: "sideLeadingActionBar"
                 }
                 z: 100  // put on top of content
             }
@@ -61,6 +62,7 @@ Rectangle {
         id: pageHeader
         leadingActionBar {
             actions: nowPlayingSidebar.head.backAction
+            objectName: "sideLeadingActionBar"
         }
         flickable: queue
         trailingActionBar {

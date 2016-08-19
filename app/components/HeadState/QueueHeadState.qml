@@ -35,8 +35,11 @@ State {
                     tabs.tabActions
                 } else if (mainPageStack.depth > 1) {
                     backActionComponent
+                } else {
+                    null
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
         trailingActionBar {
@@ -72,6 +75,7 @@ State {
         Action {
             id: backActionComponent
             iconName: "back"
+            objectName: "backAction"
             onTriggered: mainPageStack.pop()
         }
 

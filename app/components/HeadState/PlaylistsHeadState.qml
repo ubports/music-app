@@ -34,8 +34,11 @@ State {
                     tabs.tabActions
                 } else if (mainPageStack.depth > 1) {
                     backActionComponent
+                } else {
+                    null
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
         trailingActionBar {
@@ -58,12 +61,14 @@ State {
                     }
                 }
             ]
+            objectName: "playlistTrailingActionBar"
         }
         visible: thisPage.state === "default"
 
         Action {
             id: backActionComponent
             iconName: "back"
+            objectName: "backAction"
             onTriggered: mainPageStack.pop()
         }
 
