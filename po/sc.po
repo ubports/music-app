@@ -8,34 +8,34 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-10-26 08:58+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-09-06 12:23+0000\n"
+"Last-Translator: amm <Unknown>\n"
 "Language-Team: Sardinian <sc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
-"X-Launchpad-Export-Date: 2016-08-27 06:18+0000\n"
+"X-Launchpad-Export-Date: 2016-09-07 07:21+0000\n"
 "X-Generator: Launchpad (build 18179)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr ""
+msgstr "Andat bene"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
-msgstr ""
+msgstr "No s'est agatadu su file importadu"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr ""
+msgstr "Iseta"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr ""
+msgstr "Cantzella"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
@@ -44,119 +44,119 @@ msgstr ""
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Muda su nùmene de sa playlist"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Inserta·nche su nùmene de sa playlist"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr ""
+msgstr "Modìfica"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Custa playlist esistet giai"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr ""
+msgstr "Inserta·nche unu nùmene"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr ""
+msgstr "Playlist noa"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Cheres cantzellare custa playlist definitivamente?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Custa atzione no la podes anullare"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr ""
+msgstr "Boga"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "Seletziona totu"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr ""
+msgstr "Agiunghe a sa playlist"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
-msgstr ""
+msgstr "Agiunghe a s'elencu"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
-msgstr ""
+msgstr "Cantzella"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr ""
+msgstr "Cantzella seletzione"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Chirca mùsica"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Su percursu depet cumintzare cun"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Su percursu depet èssere un'archìviu"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
-msgstr ""
+msgstr "No s'est pòdidu movere s'archìviu"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "cantzones reprodùidas oe"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Oe no s'est reprodùida peruna cantzone"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
-msgstr ""
+msgstr "Imbia a s'elencu"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr ""
+msgstr "S'est carrighende..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "No s'est agatadu perunu cuntenutu"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Toca pro reprodùere in modalidade casuale"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "No s'est agatada peruna playlist"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -168,21 +168,21 @@ msgstr ""
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
 msgid "Play all"
-msgstr ""
+msgstr "Reprodue totu"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "Imbia totu a s'elencu"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
-msgstr ""
+msgstr "Casuale"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Bene bènnidu a Mùsica"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
@@ -192,7 +192,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Importa mùsica"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Iscàrriga àtera mùsica"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
@@ -211,19 +211,19 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Cumintza"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "Brinca"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr ""
+msgstr "Imbeniente"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
-msgstr ""
+msgstr "Cantzone imbeniente"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
@@ -231,7 +231,7 @@ msgstr ""
 
 #: ../app/music-app.qml:165
 msgid "Play"
-msgstr ""
+msgstr "Reprodue"
 
 #: ../app/music-app.qml:167
 msgid "Pause Playback"
@@ -239,35 +239,35 @@ msgstr ""
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Sighi o cumintza sa riprodutzione"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr ""
+msgstr "In segus"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
-msgstr ""
+msgstr "Bae a s'ùrtima pàgina"
 
 #: ../app/music-app.qml:181
 msgid "Previous"
-msgstr ""
+msgstr "Pretzedente"
 
 #: ../app/music-app.qml:182
 msgid "Previous Track"
-msgstr ""
+msgstr "Cantzone pretzedente"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr ""
+msgstr "Firma"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
-msgstr ""
+msgstr "Firma sa riprodutzione"
 
 #: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Mùsica"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
@@ -276,68 +276,68 @@ msgstr ""
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "S'est reproduende"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr ""
+msgstr "Seletziona playlist"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 cantzone"
+msgstr[1] "%1 cantzones"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr ""
+msgstr "Playlist"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr ""
+msgstr "Reghentes"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr ""
+msgstr "Albums"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
 #: ../app/ui/SongsView.qml:248
 msgid "Unknown Album"
-msgstr ""
+msgstr "Album disconnotu"
 
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
 #: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
 #: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Artista disconnotu"
 
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 album"
+msgstr[1] "%1 albums"
 
 #: ../app/ui/Artists.qml:36
 msgid "Artists"
-msgstr ""
+msgstr "Artistas"
 
 #: ../app/ui/Artists.qml:94
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
@@ -345,33 +345,33 @@ msgstr ""
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
-msgstr ""
+msgstr "Istiles"
 
 #: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
 #: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
 #: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
 #: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
-msgstr ""
+msgstr "Istile"
 
 #: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
-msgstr ""
+msgstr "No s'est agatada peruna cantzone"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Visualizatzione intrea"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "Elencu"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "Cantzella elencu"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -382,16 +382,16 @@ msgstr ""
 #: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
 #: ../app/ui/SongsView.qml:319
 msgid "Playlist"
-msgstr ""
+msgstr "Playlist"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Cantzones"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Una aplicatzione de mùsica pro Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "mùsica;cantzones;reprodùe;reprodutzione;album"
