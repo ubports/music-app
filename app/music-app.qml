@@ -675,6 +675,9 @@ MainView {
                 }
             ]
 
+            property bool completed: false
+            Component.onCompleted: completed = true
+
             onSelectedTabChanged: {
                 // pause loading of the models in the old tab
                 if (lastTab !== null && lastTab !== selectedTab) {
@@ -772,7 +775,9 @@ MainView {
                 page: Loader {
                     width: mainPageStack.width
                     height: mainPageStack.height
-                    active: tabs.selectedTab == artistsTab
+                    // condition on tabs.completed necessary to avoid QTBUG 54657
+                    // https://bugreports.qt.io/browse/QTBUG-54657
+                    active: tabs.completed && tabs.selectedTab == artistsTab
                     source: Qt.resolvedUrl("ui/Artists.qml")
                     asynchronous: true
                 }
@@ -793,7 +798,9 @@ MainView {
                 page: Loader {
                     width: mainPageStack.width
                     height: mainPageStack.height
-                    active: tabs.selectedTab == albumsTab
+                    // condition on tabs.completed necessary to avoid QTBUG 54657
+                    // https://bugreports.qt.io/browse/QTBUG-54657
+                    active: tabs.completed && tabs.selectedTab == albumsTab
                     source: Qt.resolvedUrl("ui/Albums.qml")
                     asynchronous: true
                 }
@@ -814,7 +821,9 @@ MainView {
                 page: Loader {
                     width: mainPageStack.width
                     height: mainPageStack.height
-                    active: tabs.selectedTab == genresTab
+                    // condition on tabs.completed necessary to avoid QTBUG 54657
+                    // https://bugreports.qt.io/browse/QTBUG-54657
+                    active: tabs.completed && tabs.selectedTab == genresTab
                     source: Qt.resolvedUrl("ui/Genres.qml")
                     asynchronous: true
                 }
@@ -835,7 +844,9 @@ MainView {
                 page: Loader {
                     width: mainPageStack.width
                     height: mainPageStack.height
-                    active: tabs.selectedTab == songsTab
+                    // condition on tabs.completed necessary to avoid QTBUG 54657
+                    // https://bugreports.qt.io/browse/QTBUG-54657
+                    active: tabs.completed && tabs.selectedTab == songsTab
                     source: Qt.resolvedUrl("ui/Songs.qml")
                     asynchronous: true
                 }
@@ -856,7 +867,9 @@ MainView {
                 page: Loader {
                     width: mainPageStack.width
                     height: mainPageStack.height
-                    active: tabs.selectedTab == playlistsTab
+                    // condition on tabs.completed necessary to avoid QTBUG 54657
+                    // https://bugreports.qt.io/browse/QTBUG-54657
+                    active: tabs.completed && tabs.selectedTab == playlistsTab
                     source: Qt.resolvedUrl("ui/Playlists.qml")
                     asynchronous: true
                 }
