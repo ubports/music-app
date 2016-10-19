@@ -53,6 +53,7 @@ Page {
                     null
                 }
             }
+            objectName: "tabsLeadingActionBar"
         }
         title: thisPage.title
 
@@ -64,6 +65,7 @@ Page {
         Action {
             id: backActionComponent
             iconName: "back"
+            objectName: "backAction"
             onTriggered: mainPageStack.pop()
         }
     }

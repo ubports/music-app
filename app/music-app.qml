@@ -271,7 +271,7 @@ MainView {
 
     // VARIABLES
     property string musicName: i18n.tr("Music")
-    property string appVersion: '2.4'
+    property string appVersion: '2.5'
     property bool toolbarShown: musicToolbar.visible
     property bool selectedAlbum: false
     property alias firstRun: startupSettings.firstRun
@@ -638,6 +638,7 @@ MainView {
             property list<Action> tabActions: [
                 Action {
                     enabled: recentTabRepeater.count > 0
+                    objectName: "recentTabAction"
                     text: enabled ? recentTabRepeater.itemAt(0).title : ""
                     visible: enabled
 
@@ -648,22 +649,27 @@ MainView {
                     }
                 },
                 Action {
+                    objectName: "artistsTabAction"
                     text: artistsTab.title
                     onTriggered: tabs.selectedTabIndex = artistsTab.index
                 },
                 Action {
+                    objectName: "albumsTabAction"
                     text: albumsTab.title
                     onTriggered: tabs.selectedTabIndex = albumsTab.index
                 },
                 Action {
+                    objectName: "genresTabAction"
                     text: genresTab.title
                     onTriggered: tabs.selectedTabIndex = genresTab.index
                 },
                 Action {
+                    objectName: "songsTabAction"
                     text: songsTab.title
                     onTriggered: tabs.selectedTabIndex = songsTab.index
                 },
                 Action {
+                    objectName: "playlistsTabAction"
                     text: playlistsTab.title
                     onTriggered: tabs.selectedTabIndex = playlistsTab.index
                 }
@@ -912,7 +918,6 @@ MainView {
 
     Loader {
         id: nowPlayingSidebarLoader
-        active: shown || anchors.leftMargin < 0
         anchors {  // start offscreen
             bottom: parent.bottom
             left: parent.right
@@ -920,7 +925,10 @@ MainView {
             top: parent.top
         }
         asynchronous: true
-        source: "components/NowPlayingSidebar.qml"
+        // use source as empty string instead of active false otherwise item
+        // isn't fully unloaded and appears in autopilot twice
+        // http://doc.qt.io/qt-5/qml-qtquick-loader.html#source-prop
+        source: shown || anchors.leftMargin < 0 ? "components/NowPlayingSidebar.qml" : ""
         visible: width > 0
         width: units.gu(40)
 
@@ -935,7 +943,6 @@ MainView {
 
     Loader {
         id: musicToolbar
-        active: !wideAspect || anchors.topMargin < 0
         anchors {
             left: parent.left
             right: parent.right
@@ -943,7 +950,10 @@ MainView {
             topMargin: !wideAspect && status === Loader.Ready ? -height : 0
         }
         asynchronous: true
-        source: "components/MusicToolbar.qml"
+        // use source as empty string instead of active false otherwise item
+        // isn't fully unloaded and appears in autopilot twice
+        // http://doc.qt.io/qt-5/qml-qtquick-loader.html#source-prop
+        source: !wideAspect || anchors.topMargin < 0 ? "components/MusicToolbar.qml" : ""
         visible: (mainPageStack.currentPage && (mainPageStack.currentPage.showToolbar || mainPageStack.currentPage.showToolbar === undefined)) &&
                  !firstRun &&
                  !noMusic &&

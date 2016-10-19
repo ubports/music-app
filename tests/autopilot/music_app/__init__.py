@@ -60,7 +60,7 @@ class MusicApp(object):
                                            objectName="addToPlaylistPage")
 
     def get_albums_page(self):
-        self.main_view.switch_to_tab('albumsTab')
+        self.main_view.switch_to_tab_wrapper('albumsTabAction')
 
         return self.main_view.wait_select_single(
             Albums, objectName='albumsPage')
@@ -70,7 +70,7 @@ class MusicApp(object):
             ArtistView, objectName='artistViewPage')
 
     def get_artists_page(self):
-        self.main_view.switch_to_tab('artistsTab')
+        self.main_view.switch_to_tab_wrapper('artistsTabAction')
 
         return self.main_view.wait_select_single(
             Artists, objectName='artistsPage')
@@ -88,7 +88,7 @@ class MusicApp(object):
                                            objectName="nowPlayingPage")
 
     def get_playlists_page(self):
-        self.main_view.switch_to_tab('playlistsTab')
+        self.main_view.switch_to_tab_wrapper('playlistsTabAction')
 
         return self.main_view.wait_select_single(
             Playlists, objectName='playlistsPage')
@@ -100,11 +100,12 @@ class MusicApp(object):
         return self.app.wait_select_single(SongsView, objectName="songsPage")
 
     def get_toolbar(self):
-        return self.app.wait_select_single(MusicToolbar,
-                                           objectName="musicToolbarObject")
+        return self.app.wait_select_single(
+            MusicToolbar, objectName="musicToolbarObject", visible=True,
+        )
 
     def get_songs_page(self):
-        self.main_view.switch_to_tab('songsTab')
+        self.main_view.switch_to_tab_wrapper('songsTabAction')
 
         return self.main_view.wait_select_single(
             Songs, objectName='songsPage')
@@ -228,8 +229,9 @@ class Playlists(MusicPage):
             "MusicGridView", objectName="playlistsGridView").count
 
     def click_new_playlist_action(self):
-            self.main_view.get_header(
-                ).click_action_button("newPlaylistButton")
+        self.wait_select_single(
+            "ActionBar", objectName="playlistTrailingActionBar", visible=True,
+        ).click_action_button("newPlaylistButton")
 
     @click_object
     def click_playlist(self, i):
@@ -248,7 +250,9 @@ class AddToPlaylist(MusicPage):
         self.visible.wait_for(True)
 
     def click_new_playlist_action(self):
-        self.main_view.get_header().click_action_button("newPlaylistButton")
+        self.wait_select_single(
+            "ActionBar", objectName="playlistTrailingActionBar", visible=True,
+        ).click_action_button("newPlaylistButton")
 
     @click_object
     def click_playlist(self, i):
@@ -284,7 +288,7 @@ class NowPlaying(MusicPage):
         return self.wait_select_single("*", objectName="forwardShape")
 
     def click_full_view(self):
-        self.main_view.get_header().switch_to_section_by_index(0)
+        self.get_sections().click_section_button(0)
 
     @ensure_now_playing_full
     @click_object
@@ -297,7 +301,7 @@ class NowPlaying(MusicPage):
         return self.wait_select_single("*", objectName="previousShape")
 
     def click_queue_view(self):
-        self.main_view.get_header().switch_to_section_by_index(1)
+        self.get_sections().click_section_button(1)
 
     @ensure_now_playing_full
     @click_object
@@ -312,6 +316,11 @@ class NowPlaying(MusicPage):
     @click_object
     def click_track(self, i):
         return self.get_track(i)
+
+    def get_sections(self):
+        return self.wait_select_single(
+            "Sections", objectName="nowPlayingSections", visible=True,
+        )
 
     @ensure_now_playing_list
     def get_track(self, i):
@@ -375,7 +384,9 @@ class SongsView(MusicPage):
         self.visible.wait_for(True)
 
     def click_delete_playlist_action(self):
-        self.main_view.get_header().click_action_button("deletePlaylist")
+        self.wait_select_single(
+            "ActionBar", objectName="playlistTrailingActionBar", visible=True,
+        ).click_action_button("deletePlaylist")
 
     @click_object
     def click_track(self, i):
@@ -463,3 +474,14 @@ class MainView(MainView):
         spinner = self.wait_select_single("ActivityIndicator",
                                           objectName="LoadingSpinner")
         spinner.running.wait_for(False)
+
+    def go_back_wrapper(self):
+        self.wait_select_single(
+            "ActionBar", objectName="tabsLeadingActionBar", visible=True,
+        ).click_action_button("backAction")
+
+    def switch_to_tab_wrapper(self, objectName):
+        # We use leadingActionBar instead of Tabs so create wrapper
+        self.wait_select_single(
+            "ActionBar", objectName="tabsLeadingActionBar", visible=True,
+        ).click_action_button(objectName)
