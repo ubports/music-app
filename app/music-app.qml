@@ -726,7 +726,6 @@ MainView {
                             height: mainPageStack.height
                             active: tabs.selectedTab == recentTab
                             source: Qt.resolvedUrl("ui/Recent.qml")
-                            asynchronous: true
                         }
                     }
                 }
@@ -779,7 +778,6 @@ MainView {
                     // https://bugreports.qt.io/browse/QTBUG-54657
                     active: tabs.completed && tabs.selectedTab == artistsTab
                     source: Qt.resolvedUrl("ui/Artists.qml")
-                    asynchronous: true
                 }
             }
 
@@ -802,7 +800,6 @@ MainView {
                     // https://bugreports.qt.io/browse/QTBUG-54657
                     active: tabs.completed && tabs.selectedTab == albumsTab
                     source: Qt.resolvedUrl("ui/Albums.qml")
-                    asynchronous: true
                 }
             }
 
@@ -825,7 +822,6 @@ MainView {
                     // https://bugreports.qt.io/browse/QTBUG-54657
                     active: tabs.completed && tabs.selectedTab == genresTab
                     source: Qt.resolvedUrl("ui/Genres.qml")
-                    asynchronous: true
                 }
             }
 
@@ -848,7 +844,6 @@ MainView {
                     // https://bugreports.qt.io/browse/QTBUG-54657
                     active: tabs.completed && tabs.selectedTab == songsTab
                     source: Qt.resolvedUrl("ui/Songs.qml")
-                    asynchronous: true
                 }
             }
 
@@ -871,7 +866,6 @@ MainView {
                     // https://bugreports.qt.io/browse/QTBUG-54657
                     active: tabs.completed && tabs.selectedTab == playlistsTab
                     source: Qt.resolvedUrl("ui/Playlists.qml")
-                    asynchronous: true
                 }
             }
 
