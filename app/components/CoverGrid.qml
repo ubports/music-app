@@ -89,6 +89,10 @@ Item {
                         firstSource = source
                     }
                 }
+                opacity: status == Image.Ready ? 1.0 : 0.0
+                Behavior on opacity {
+                    UbuntuNumberAnimation {}
+                }
             }
         }
     }
