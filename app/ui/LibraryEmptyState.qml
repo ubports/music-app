@@ -75,6 +75,7 @@ Page {
                         height: units.gu(10)
                         smooth: true
                         source: "../graphics/music_download_icon.png"
+                        asynchronous: true
                     }
                 }
 
@@ -93,6 +94,7 @@ Page {
                         height: units.gu(6)
                         smooth: true
                         source: "../graphics/div.png"
+                        asynchronous: true
                     }
                 }
 
@@ -106,6 +108,7 @@ Page {
                     height: units.gu(7)
                     smooth: true
                     source: "../graphics/sd_phone_icon.png"
+                    asynchronous: true
                 }
             }
 
