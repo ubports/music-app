@@ -9,6 +9,7 @@
 from ubuntuuitoolkit import (
     MainView, UbuntuUIToolkitCustomProxyObjectBase, UCListItem
 )
+from autopilot.introspection import dbus
 
 
 class MusicAppException(Exception):
@@ -482,6 +483,11 @@ class MainView(MainView):
 
     def switch_to_tab_wrapper(self, objectName):
         # We use leadingActionBar instead of Tabs so create wrapper
-        self.wait_select_single(
+        action_bar = self.wait_select_single(
             "ActionBar", objectName="tabsLeadingActionBar", visible=True,
-        ).click_action_button(objectName)
+        )
+        try:
+            action_bar.click_action_button(objectName)
+        except dbus.StateNotFoundError:
+            # the popover was deleted when clicking the button
+            pass
