@@ -9,7 +9,7 @@ confinement: devmode
 
 apps:
   music-app:
-    command: desktop-launch qmlscene $SNAP/usr/share/music-app/app/music-app.qml
+    command: desktop-launch $SNAP/bin/music-app
     desktop: usr/share/applications/music-app.desktop
     plugs:
      - home
@@ -42,11 +42,16 @@ parts:
     build-packages:
       - cmake
       - intltool
+    stage-packages:
+      - libgpm2  # otherwise we get errors in the console
+      - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
     prime:
       - usr/bin/music-app
+      - usr/lib/*/libgpm*
+      - usr/lib/*/gstreamer-1.0
       - usr/share/applications/music-app.desktop
       - usr/share/content-hub/peers/music-app
-      - usr/share/locale
+      # - usr/share/locale  # for now don't include locale as this doesn't work anyway?
       - usr/share/music-app
       - usr/share/url-dispatcher/urls/music-app.url-dispatcher
       
@@ -56,7 +61,10 @@ parts:
     source: snap/
     plugin: dump
     prime:
+      - bin
       - mir-libs
       - ubuntu-app-platform
+    organize:
+      music-app.wrapper: bin/music-app
     after: [music-app]
 
