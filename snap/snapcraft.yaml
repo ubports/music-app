@@ -1,0 +1,62 @@
+name: music-app
+version: '2.5'
+summary: A music application for ubuntu
+description: |
+  A music application for ubuntu
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode
+
+apps:
+  music-app:
+    command: desktop-launch qmlscene $SNAP/usr/share/music-app/app/music-app.qml
+    desktop: usr/share/applications/music-app.desktop
+    plugs:
+     - home
+     - mir
+     - mir-libs
+     - mpris
+     - opengl
+     - pulseaudio
+     - unity7
+     - unity8
+
+plugs:
+  mir-libs:
+    interface: content
+    content: mir0 
+    target: mir-libs
+    default-provider: mir-libs
+
+  platform:
+    interface: content
+    content: ubuntu-app-platform1
+    target:  ubuntu-app-platform
+    default-provider: ubuntu-app-platform
+
+parts:
+  music-app:
+    plugin: cmake
+    source: .
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr, -DCLICK_MODE=off]
+    build-packages:
+      - cmake
+      - intltool
+    prime:
+      - usr/bin/music-app
+      - usr/share/applications/music-app.desktop
+      - usr/share/content-hub/peers/music-app
+      - usr/share/locale
+      - usr/share/music-app
+      - usr/share/url-dispatcher/urls/music-app.url-dispatcher
+      
+    after: [desktop-ubuntu-app-platform]
+
+  environment:
+    source: snap/
+    plugin: dump
+    prime:
+      - mir-libs
+      - ubuntu-app-platform
+    after: [music-app]
+
