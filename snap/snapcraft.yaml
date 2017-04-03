@@ -52,7 +52,7 @@ parts:
       - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
     prime:
       - usr/bin/music-app
-      - usr/lib/*/libav*
+      - usr/lib/*/libav*ffmpeg*
       - usr/lib/*/libgpm*
       - usr/lib/*/gstreamer-1.0
       - usr/share/applications/music-app.desktop
