@@ -53,10 +53,13 @@ parts:
     prime:
       - usr/bin/music-app
       - usr/lib/*/libav*ffmpeg*
+      - usr/lib/*/libfaad*
       - usr/lib/*/libgpm*
+      - usr/lib/*/libgst*
       - usr/lib/*/gstreamer-1.0
       - usr/share/applications/music-app.desktop
       - usr/share/content-hub/peers/music-app
+      - usr/share/gstreamer-1.0
       # - usr/share/locale  # for now don't include locale as this doesn't work anyway?
       - usr/share/music-app
       - usr/share/url-dispatcher/urls/music-app.url-dispatcher
