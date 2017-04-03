@@ -45,11 +45,14 @@ parts:
     stage-packages:
       - libgpm2  # otherwise we get errors in the console
       - gstreamer1.0-fluendo-mp3  # to play mp3's
-      - gstreamer1.0-plugins-bad  # otherwise we don't get m4a and friends
-      - gstreamer1.0-plugins-good  # explicitly include for now
+      # explicitly include the codecs for now
+      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-good
       - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
     prime:
       - usr/bin/music-app
+      - usr/lib/*/libav*
       - usr/lib/*/libgpm*
       - usr/lib/*/gstreamer-1.0
       - usr/share/applications/music-app.desktop
