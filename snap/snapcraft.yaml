@@ -44,6 +44,7 @@ parts:
       - intltool
     stage-packages:
       - libgpm2  # otherwise we get errors in the console
+      - gstreamer1.0-fluendo-mp3  # to play mp3's
       - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
     prime:
       - usr/bin/music-app
