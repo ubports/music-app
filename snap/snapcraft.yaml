@@ -49,12 +49,35 @@ parts:
       - gstreamer1.0-plugins-bad-faad
       - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
     prime:
-      - usr/bin/music-app
-      # allow the paths for the codecs
-      - usr/lib/*/libfaad*
+      # allow libgpm2
+      # http://packages.ubuntu.com/xenial/amd64/libgpm2/filelist
       - usr/lib/*/libgpm*
-      - usr/lib/*/libgst*
-      - usr/lib/*/gstreamer-1.0
+      # allow libfaad2
+      # http://packages.ubuntu.com/xenial/amd64/libfaad2/filelist
+      - usr/lib/*/libfaad*
+      # allow libgstreamer-plugins-bad
+      # http://packages.ubuntu.com/xenial-updates/amd64/libgstreamer-plugins-bad1.0-0/filelist
+      - usr/lib/*/libgstadaptivedemux*
+      - usr/lib/*/libgstbad*
+      - usr/lib/*/libgstcodecparsers*
+      - usr/lib/*/libgstgl*
+      - usr/lib/*/libgstinsertbin*
+      - usr/lib/*/libgstmpegts*
+      - usr/lib/*/libgstplayer*
+      - usr/lib/*/libgsturidownload*
+      - usr/lib/*/libgstwayland*
+      # allow gstreamer1.0-plugins-bad-faad
+      # http://packages.ubuntu.com/xenial-updates/amd64/gstreamer1.0-plugins-bad-faad/filelist
+      - usr/lib/*/gstreamer-1.0/libgstfaad*
+      # allow gstreamer1.0-fluendo-mp3
+      # http://packages.ubuntu.com/xenial/amd64/gstreamer1.0-fluendo-mp3/filelist
+      - usr/lib/*/gstreamer-1.0/libgstflump3dec*
+      # allow gstreamer1.0-pulseaudio
+      # http://packages.ubuntu.com/xenial-updates/amd64/gstreamer1.0-pulseaudio/filelist
+      - usr/lib/*/gstreamer-1.0/libgstpulse*
+
+      # music-app files
+      - usr/bin/music-app
       - usr/share/applications/music-app.desktop
       - usr/share/content-hub/peers/music-app
       # - usr/share/locale  # for now don't include locale as this doesn't work anyway?
