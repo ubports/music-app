@@ -9,7 +9,7 @@ confinement: devmode
 
 apps:
   music-app:
-    command: desktop-launch $SNAP/bin/music-app
+    command: desktop-launch $SNAP/bin/music-app $@
     desktop: usr/share/applications/music-app.desktop
     plugs:
      - home
