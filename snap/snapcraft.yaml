@@ -1,0 +1,99 @@
+name: music-app
+version: '2.5'
+summary: A music application for ubuntu
+description: |
+  A music application for ubuntu
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode
+
+apps:
+  music-app:
+    command: desktop-launch $SNAP/bin/music-app $@
+    desktop: usr/share/applications/music-app.desktop
+    plugs:
+     - home
+     - mir
+     - mir-libs
+     - mpris
+     - opengl
+     - pulseaudio
+     - unity7
+     - unity8
+
+plugs:
+  mir-libs:
+    interface: content
+    content: mir0 
+    target: mir-libs
+    default-provider: mir-libs
+
+  platform:
+    interface: content
+    content: ubuntu-app-platform1
+    target:  ubuntu-app-platform
+    default-provider: ubuntu-app-platform
+
+parts:
+  music-app:
+    plugin: cmake
+    source: .
+    configflags: [-DCMAKE_INSTALL_PREFIX=/usr, -DCLICK_MODE=off]
+    build-packages:
+      - cmake
+      - intltool
+    stage-packages:
+      - libgpm2  # otherwise we get errors in the console
+      # explicitly include the codecs for now
+      - gstreamer1.0-fluendo-mp3  # to play mp3's
+      - gstreamer1.0-plugins-bad-faad
+      - gstreamer1.0-pulseaudio  # not in UAP, otherwise we try to use jack-server
+    prime:
+      # allow libgpm2
+      # http://packages.ubuntu.com/xenial/amd64/libgpm2/filelist
+      - usr/lib/*/libgpm*
+      # allow libfaad2
+      # http://packages.ubuntu.com/xenial/amd64/libfaad2/filelist
+      - usr/lib/*/libfaad*
+      # allow libgstreamer-plugins-bad
+      # http://packages.ubuntu.com/xenial-updates/amd64/libgstreamer-plugins-bad1.0-0/filelist
+      - usr/lib/*/libgstadaptivedemux*
+      - usr/lib/*/libgstbad*
+      - usr/lib/*/libgstcodecparsers*
+      - usr/lib/*/libgstgl*
+      - usr/lib/*/libgstinsertbin*
+      - usr/lib/*/libgstmpegts*
+      - usr/lib/*/libgstplayer*
+      - usr/lib/*/libgsturidownload*
+      - usr/lib/*/libgstwayland*
+      # allow gstreamer1.0-plugins-bad-faad
+      # http://packages.ubuntu.com/xenial-updates/amd64/gstreamer1.0-plugins-bad-faad/filelist
+      - usr/lib/*/gstreamer-1.0/libgstfaad*
+      # allow gstreamer1.0-fluendo-mp3
+      # http://packages.ubuntu.com/xenial/amd64/gstreamer1.0-fluendo-mp3/filelist
+      - usr/lib/*/gstreamer-1.0/libgstflump3dec*
+      # allow gstreamer1.0-pulseaudio
+      # http://packages.ubuntu.com/xenial-updates/amd64/gstreamer1.0-pulseaudio/filelist
+      - usr/lib/*/gstreamer-1.0/libgstpulse*
+
+      # music-app files
+      - usr/bin/music-app
+      - usr/share/applications/music-app.desktop
+      - usr/share/content-hub/peers/music-app
+      # - usr/share/locale  # for now don't include locale as this doesn't work anyway?
+      - usr/share/music-app
+      - usr/share/url-dispatcher/urls/music-app.url-dispatcher
+      
+    after: [desktop-ubuntu-app-platform]
+
+  environment:
+    source: snap/
+    plugin: dump
+    prime:
+      - bin
+      - mir-libs
+      - ubuntu-app-platform
+    organize:
+      music-app.wrapper: bin/music-app
+    after: [music-app]
+

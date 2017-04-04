@@ -1,0 +1,12 @@
+#!/bin/sh
+
+SNAP_MEDIASCANNER_DIR=$SNAP_USER_DATA/.cache/mediascanner-2.0
+
+if [ ! -L $SNAP_MEDIASCANNER_DIR ]; then
+  rm -f $SNAP_MEDIASCANNER_DIR
+  ln -s /home/$USER/.cache/mediascanner-2.0 $SNAP_MEDIASCANNER_DIR
+fi
+
+export APP_ID=music-app
+
+exec qmlscene $SNAP/usr/share/music-app/app/music-app.qml $@

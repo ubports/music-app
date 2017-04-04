@@ -40,6 +40,7 @@ if(CLICK_MODE)
             music-app-content.json DESTINATION ${CMAKE_INSTALL_PREFIX})
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
         DESTINATION ${DESKTOP_DIR})
+    install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 else(CLICK_MODE)
     set(DATA_DIR ${CMAKE_INSTALL_DATADIR}/${APP_HARDCODE})
     set(EXEC ${APP_HARDCODE})
@@ -53,6 +54,7 @@ else(CLICK_MODE)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
         DESTINATION ${DESKTOP_DIR} RENAME music-app.desktop)
     install(FILES music-app-content.json DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers/ RENAME music-app)
+    install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR} RENAME music-app.url-dispatcher)
 endif(CLICK_MODE)
 
 file(GLOB_RECURSE I18N_SRC_FILES
@@ -75,8 +77,6 @@ add_custom_target(${DESKTOP_FILE} ALL
     COMMENT "Merging translations into ${DESKTOP_FILE}"
     COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE}
 )
-
-install(FILES ${URLS_FILE} DESTINATION ${URLS_DIR})
 
 # Tests
 enable_testing()
