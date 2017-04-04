@@ -9,4 +9,4 @@ fi
 
 export APP_ID=music-app
 
-exec qmlscene $SNAP/usr/share/music-app/app/music-app.qml --desktop_file_hint=unity8
+exec qmlscene $SNAP/usr/share/music-app/app/music-app.qml
