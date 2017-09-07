@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-07 21:20+0000\n"
+"PO-Revision-Date: 2017-09-07 21:33+0000\n"
 "Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/music-"
 "app/cs/>\n"
@@ -41,7 +41,7 @@ msgstr "Zrušit"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Čekání na soubor(y)"
+msgstr "Čekání na soubor(y)…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -60,7 +60,7 @@ msgstr "Změnit"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr "Seznam skladeb již existuje"
+msgstr "Playlist již existuje"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
@@ -69,7 +69,7 @@ msgstr "Prosím, zadejte jméno."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr "Nový seznam skladeb"
+msgstr "Nový playlist"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
@@ -98,7 +98,7 @@ msgstr "Vybrat vše"
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr "Přidat do seznamu skladeb"
+msgstr "Přidat do playlistu"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
@@ -154,7 +154,7 @@ msgstr "Nenalezeny žádné položky"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr "Poklepáním skladby přeházíte"
+msgstr "Poklepáním skladby promícháte"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -289,7 +289,7 @@ msgstr "Právě hraje"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Vybrat seznam skladeb"
+msgstr "Vybrat playlist"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
@@ -305,7 +305,7 @@ msgstr[2] "%1 skladby"
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr "Seznamy skladeb"
+msgstr "Playlisty"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
@@ -400,8 +400,8 @@ msgstr "Skladby"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Hudební přehrávat pro Ubuntu"
+msgstr "Přehrávač hudby pro Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "hudba;písně;hrát;stopy;přehrávač;melodie"
+msgstr "hudba;skladby;hrát;stopy;přehrávač;melodie;"
