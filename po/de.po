@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-03-12 13:53+0000\n"
-"Last-Translator: Denis Graipel <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2017-09-07 17:36+0000\n"
+"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
+"Language-Team: German <https://translate.ubports.com/projects/ubports/music-"
+"app/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -85,7 +87,7 @@ msgstr "Das kann nicht rückgängig gemacht werden"
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Löschen"
+msgstr "Entfernen"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
@@ -127,7 +129,7 @@ msgstr "Dateipfad muss eine Datei sein"
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
-msgstr "Datei verschieben fehlgeschlagen."
+msgstr "Verschieben der Datei fehlgeschlagen"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
