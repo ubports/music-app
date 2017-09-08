@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-08 12:12+0000\n"
+"PO-Revision-Date: 2017-09-08 17:25+0000\n"
 "Last-Translator: Jeff <jeffi27@live.at>\n"
 "Language-Team: Albanian <https://translate.ubports.com/projects/ubports"
 "/music-app/sq/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -37,7 +37,7 @@ msgstr "Prisni"
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "Anullo"
+msgstr "Anulo"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
@@ -98,7 +98,7 @@ msgstr "Zgjidhë të gjitha"
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr "Fut tek playlista"
+msgstr "Fut tek lista dëgjuese"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
@@ -106,11 +106,11 @@ msgstr "Fut në pritje"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
-msgstr "Fshije"
+msgstr "Fshijë"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "Anulo zgjidhjen"
+msgstr "Anulo zgjedhjen"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -224,7 +224,7 @@ msgstr "Fillo"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr "Kapërcejë"
+msgstr "Kaloje"
 
 #: ../app/music-app.qml:158
 msgid "Next"
@@ -240,7 +240,7 @@ msgstr "Pauzë"
 
 #: ../app/music-app.qml:165
 msgid "Play"
-msgstr "Luaj"
+msgstr "Dëgjo"
 
 #: ../app/music-app.qml:167
 msgid "Pause Playback"
@@ -314,7 +314,7 @@ msgstr "Së fundi dëgjuar"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr "Albumet"
+msgstr "Albumët"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
@@ -331,7 +331,7 @@ msgstr "Artist i panjohurë"
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr "Albumi"
+msgstr "Album"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
@@ -375,7 +375,7 @@ msgstr "Pamje të plotë"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr "Pritje"
+msgstr "Në Pritje"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
