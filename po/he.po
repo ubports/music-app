@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-08-31 15:29+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <he@li.org>\n"
+"PO-Revision-Date: 2017-09-15 23:27+0000\n"
+"Last-Translator: Eran <etherpulse@gmail.com>\n"
+"Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/music-"
+"app/he/>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -39,17 +41,17 @@ msgstr "ביטול"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "ממתין לקבצים…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "שינוי שם רשימה"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "הכניסו שם רשימה"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -76,11 +78,11 @@ msgstr "יצירה"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "למחוק את הרשימה לצמיתות?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "לא ניתן לשחזר פעולה זאת"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
@@ -89,7 +91,7 @@ msgstr "הסרה"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "בחירת הכול"
+msgstr "בחירת הכל"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -108,7 +110,7 @@ msgstr "מחיקה"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "ביטול הבחירה"
+msgstr "ביטול בחירה"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
