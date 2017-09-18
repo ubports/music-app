@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-08 17:25+0000\n"
+"PO-Revision-Date: 2017-09-18 03:35+0000\n"
 "Last-Translator: Jeff <jeffi27@live.at>\n"
 "Language-Team: Albanian <https://translate.ubports.com/projects/ubports"
 "/music-app/sq/>\n"
@@ -268,7 +268,7 @@ msgstr "Titulli i mëparshëm"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Ndalo"
+msgstr "Ndal"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
