@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-09-03 08:36+0000\n"
-"Last-Translator: Hannie Dumoleyn <Unknown>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2017-09-23 22:14+0000\n"
+"Last-Translator: Mappack Owner <mappack@null.net>\n"
+"Language-Team: Dutch <https://translate.ubports.com/projects/ubports/music-"
+"app/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -132,11 +134,11 @@ msgstr "Kon bestand niet verplaatsen"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "vandaag afgespeelde tracks"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Geen tracks afgespeeld vandaag"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -250,7 +252,7 @@ msgstr "Afspelen starten of voortzetten"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "Terug"
+msgstr "Vorige"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
@@ -295,8 +297,8 @@ msgstr "Selecteer een afspeellijst"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 track"
+msgstr[1] "%1 tracks"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -348,7 +350,7 @@ msgstr "Artiest"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Track Exporteren"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -367,8 +369,9 @@ msgstr "Geen muziek gevonden"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
+#, fuzzy
 msgid "Full view"
-msgstr ""
+msgstr "Volledige weergave"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
@@ -393,7 +396,7 @@ msgstr "Afspeellijst"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Tracks"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -402,5 +405,5 @@ msgstr "Een muziekapp voor Ubuntu"
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
 msgstr ""
-"music;songs;play;tracks;player;tunes;muziek;nummers;afspelen;liedjes;speler;d"
-"euntjes;"
+"music;songs;play;tracks;player;tunes;muziek;nummers;afspelen;liedjes;speler;"
+"deuntjes;"
