@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-07 17:36+0000\n"
-"Last-Translator: Florian Leeber <flori@bin.org.in>\n"
+"PO-Revision-Date: 2017-09-23 15:24+0000\n"
+"Last-Translator: Twinkybot <me@twinkybot.org>\n"
 "Language-Team: German <https://translate.ubports.com/projects/ubports/music-"
 "app/de/>\n"
 "Language: de\n"
@@ -236,7 +236,7 @@ msgstr "Nächster Titel"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Pause"
+msgstr "Pausieren"
 
 #: ../app/music-app.qml:165
 msgid "Play"
@@ -268,7 +268,7 @@ msgstr "Vorheriger Titel"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Anhalten"
+msgstr "Stopp"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
