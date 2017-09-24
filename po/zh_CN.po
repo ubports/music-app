@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-04-28 16:26+0000\n"
-"Last-Translator: Aron Xu <Unknown>\n"
-"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"PO-Revision-Date: 2017-09-24 07:24+0000\n"
+"Last-Translator: Mutse Young <yyhoo2.young@gmail.com>\n"
+"Language-Team: Chinese (Simplified) "
+"<https://translate.ubports.com/projects/ubports/music-app/zh_Hans/>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -188,7 +190,9 @@ msgstr "欢迎来到音乐世界"
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
-msgstr "使用 Ubuntu 的音乐应用享受您最喜爱的音乐。您可以花几分钟了解本应用或点击“跳过”开始欣赏音乐。"
+msgstr ""
+"使用 Ubuntu 的音乐应用享受您最喜爱的音乐。您可以花几分钟了解本应用或点击“跳"
+"过”开始欣赏音乐。"
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
@@ -211,7 +215,7 @@ msgstr "直接导入在线购买的音乐。"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "开始"
+msgstr "启动"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
