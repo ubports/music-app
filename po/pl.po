@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-16 23:06+0000\n"
-"Last-Translator: Beton <betonn@protonmail.com>\n"
+"PO-Revision-Date: 2017-09-27 22:22+0000\n"
+"Last-Translator: Daniel Frańczak <danielfranczak5@wp.pl>\n"
 "Language-Team: Polish <https://translate.ubports.com/projects/ubports/music-"
 "app/pl/>\n"
 "Language: pl\n"
@@ -185,7 +185,7 @@ msgstr "Odtwarzaj losowo"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr "Witamy w programie Muzyka!"
+msgstr "Witamy w programie Muzyka"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
@@ -227,7 +227,7 @@ msgstr "Pomiń"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "Następny"
+msgstr "Dalej"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
@@ -235,7 +235,7 @@ msgstr "Następny utwór"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Pauza"
+msgstr "Wstrzymaj"
 
 #: ../app/music-app.qml:165
 msgid "Play"
@@ -310,7 +310,7 @@ msgstr "Listy odtwarzania"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Ostatnio odtwarzane"
+msgstr "Ostatnie"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
