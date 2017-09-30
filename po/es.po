@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-11 06:10+0000\n"
+"PO-Revision-Date: 2017-09-30 08:35+0000\n"
 "Last-Translator: Francisco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <https://translate.ubports.com/projects/ubports/music-"
 "app/es/>\n"
@@ -310,7 +310,7 @@ msgstr "Listas"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Reciente"
+msgstr "Recientes"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
