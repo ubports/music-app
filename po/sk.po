@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-20 22:36+0000\n"
+"PO-Revision-Date: 2017-09-30 06:50+0000\n"
 "Last-Translator: Peter Valachovič <peter.valachovic@gmail.com>\n"
 "Language-Team: Slovak <https://translate.ubports.com/projects/ubports/music-"
 "app/sk/>\n"
@@ -65,7 +65,7 @@ msgstr "Zoznam už existuje"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "Prosím zadajte názov"
+msgstr "Prosím zadajte názov."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -167,7 +167,7 @@ msgid ""
 "every mood and occasion."
 msgstr ""
 "Viac z hudby získate klepnutím na ikonu %1 a začnite si robiť zoznamy pre "
-"každú náladu a príležitosť"
+"každú náladu a príležitosť."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
