@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-17 10:16+0000\n"
-"Last-Translator: Ivan Semkin <ivan@semkin.ru>\n"
+"PO-Revision-Date: 2017-09-30 14:35+0000\n"
+"Last-Translator: Nelly Simkova <stylinsonnelly@gmail.com>\n"
 "Language-Team: Russian <https://translate.ubports.com/projects/ubports/music-"
 "app/ru/>\n"
 "Language: ru\n"
@@ -134,14 +134,13 @@ msgstr "Не удалось переместить файл"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
-#, fuzzy
 msgid "tracks played today"
-msgstr "треки играют сегодня"
+msgstr "треки, которые были проиграны сегодня"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 #, fuzzy
 msgid "No tracks played today"
-msgstr "Нет треков играющих сегодня"
+msgstr "Нет треков, которые были проиграны сегодня"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
