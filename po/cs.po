@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-18 19:27+0000\n"
+"PO-Revision-Date: 2017-10-06 08:34+0000\n"
 "Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
 "Language-Team: Czech <https://translate.ubports.com/projects/ubports/music-"
 "app/cs/>\n"
@@ -78,7 +78,7 @@ msgstr "Vytvořit"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr "Odstranit playlist natrvalo?"
+msgstr "Smazat playlist natrvalo?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
@@ -119,7 +119,7 @@ msgstr "Hledat skladbu"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr "Cesta musí začínat"
+msgstr "Cesta k souboru musí začínat"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
@@ -146,7 +146,7 @@ msgstr "Přidat do fronty"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "Načítání..."
+msgstr "Načítání…"
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
@@ -193,12 +193,12 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
-"Užívejte si Vaše oblíbené skladby v aplikaci hudba od Ubuntu. Prohlédněte si "
+"Užívejte si vaše oblíbené skladby v aplikaci hudba od Ubuntu. Prohlédněte si "
 "krátký návod anebo přeskočte a začněte rovnou poslouchat."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr "Importovat Vaše skladby"
+msgstr "Importovat vaše skladby"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -206,20 +206,20 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
-"Připojte Váš telefon k počítači a jednoduše přetáhněte soubory do složky "
+"Připojte váš telefon k počítači a jednoduše přetáhněte soubory do složky "
 "hudba anebo vložte vyměnitelné médium s hudbou."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr "Stahnout novou hudbu"
+msgstr "Stáhnout novou hudbu"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "Automaticky stahnout skladby zakoupené online."
+msgstr "Automaticky stáhnout zakoupené skladby při prohlížení internetu."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Spustit"
+msgstr "Start"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
@@ -247,7 +247,7 @@ msgstr "Pozastavit přehrávání"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr "Pokračovat v přehrávání"
+msgstr "Pokračovat anebo spustit přehrávání"
 
 #: ../app/music-app.qml:172
 msgid "Back"
@@ -279,7 +279,7 @@ msgstr "Hudba"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
-msgstr "Debug: "
+msgstr "Pročistit: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
@@ -297,8 +297,8 @@ msgstr "Vybrat playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 skladba"
-msgstr[1] "%1 skladeb"
-msgstr[2] "%1 skladby"
+msgstr[1] "%1 skladby"
+msgstr[2] "%1 skladeb"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -400,7 +400,7 @@ msgstr "Skladby"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Přehrávač hudby pro Ubuntu"
+msgstr "Hudební přehrávač pro Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
