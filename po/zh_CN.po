@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-27 19:06+0000\n"
-"Last-Translator: Rekols <rekols@foxmail.com>\n"
+"PO-Revision-Date: 2017-10-21 05:49+0000\n"
+"Last-Translator: Mutse Young <yyhoo2.young@gmail.com>\n"
 "Language-Team: Chinese (Simplified) "
 "<https://translate.ubports.com/projects/ubports/music-app/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -146,7 +146,7 @@ msgstr "添加到播放队列"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "读取中..."
+msgstr "加载中..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
@@ -247,7 +247,7 @@ msgstr "继续或开始播放"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "后退"
+msgstr "返回"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
