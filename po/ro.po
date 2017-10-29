@@ -6,22 +6,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-08-31 17:12+0000\n"
-"Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
-"Language-Team: Romanian <ro@li.org>\n"
+"PO-Revision-Date: 2017-10-29 22:10+0000\n"
+"Last-Translator: Brînzariu Cristian <info@ebeton.ro>\n"
+"Language-Team: Romanian <https://translate.ubports.com/projects/ubports"
+"/music-app/ro/>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
-"== 0) && (n != 0))) ? 2: 1));\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "În regulă"
+msgstr "Ok"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -90,7 +92,7 @@ msgstr "Șterge"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Selectare totală"
+msgstr "Selectează tot"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -219,7 +221,7 @@ msgstr "Importați direct muzica cumpărată în timp ce navigați online."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Start"
+msgstr "Pornește"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
@@ -267,7 +269,7 @@ msgstr "Piesa precedentă"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Stop"
+msgstr "Oprește"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
