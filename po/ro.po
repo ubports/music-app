@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-10-29 22:10+0000\n"
+"PO-Revision-Date: 2017-11-05 21:45+0000\n"
 "Last-Translator: Brînzariu Cristian <info@ebeton.ro>\n"
 "Language-Team: Romanian <https://translate.ubports.com/projects/ubports"
 "/music-app/ro/>\n"
@@ -135,11 +135,11 @@ msgstr "Eșec la mutarea fișierului"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "melodii ascultate azi"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Nu ai ascultat nici o melodie azi"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -229,7 +229,7 @@ msgstr "Se omite"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "Înainte"
+msgstr "Următorul"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
@@ -298,8 +298,9 @@ msgstr "Selectați lista de redare"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 melodie"
+msgstr[1] "%1 melodii"
+msgstr[2] "%1 de melodii"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -352,7 +353,7 @@ msgstr "Artist"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Exportă fișierul audio"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -372,7 +373,7 @@ msgstr "Nu a fost găsită muzică"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Vizualizare completă"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
@@ -397,7 +398,7 @@ msgstr "Listă de redare"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Fișiere audio"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
