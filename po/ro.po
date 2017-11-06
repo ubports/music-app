@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-11-05 21:45+0000\n"
+"PO-Revision-Date: 2017-11-06 23:10+0000\n"
 "Last-Translator: Brînzariu Cristian <info@ebeton.ro>\n"
 "Language-Team: Romanian <https://translate.ubports.com/projects/ubports"
 "/music-app/ro/>\n"
@@ -225,7 +225,7 @@ msgstr "Pornește"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr "Se omite"
+msgstr "Omite"
 
 #: ../app/music-app.qml:158
 msgid "Next"
