@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-11-22 17:26+0000\n"
+"PO-Revision-Date: 2017-11-23 20:28+0000\n"
 "Last-Translator: Pablo Foche <pablo.foche@gmail.com>\n"
 "Language-Team: Esperanto <https://translate.ubports.com/projects/ubports"
 "/music-app/eo/>\n"
@@ -219,7 +219,7 @@ msgstr "Rekte importi muzikon aĉetitan dum retumado."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Komenci"
+msgstr "Startigi"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
