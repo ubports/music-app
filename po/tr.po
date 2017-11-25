@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-11-22 14:09+0000\n"
-"Last-Translator: Mevlüt Erdem Güven <merdem2002@yandex.com>\n"
+"PO-Revision-Date: 2017-11-25 19:34+0000\n"
+"Last-Translator: Taka Turgut <takaturgut@gmail.com>\n"
 "Language-Team: Turkish <https://translate.ubports.com/projects/ubports/music-"
 "app/tr/>\n"
 "Language: tr\n"
@@ -118,6 +118,7 @@ msgstr "Müzik ara"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
+#, fuzzy
 msgid "Filepath must start with"
 msgstr "Dosya yolu şunla başlamalı:"
 
@@ -215,6 +216,7 @@ msgid "Download new music"
 msgstr "Yeni müzik indir"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
+#, fuzzy
 msgid "Directly import music bought while browsing online."
 msgstr "Çevrimiçi gezinirken satın alınan müziği doğrudan içe aktar"
 
@@ -224,7 +226,7 @@ msgstr "Başlat"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr "Atla"
+msgstr "Geç"
 
 #: ../app/music-app.qml:158
 msgid "Next"
