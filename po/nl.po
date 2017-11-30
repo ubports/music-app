@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-11-01 23:34+0000\n"
-"Last-Translator: Terence Sambo <arubislander@zonnet.nl>\n"
+"PO-Revision-Date: 2017-11-30 19:00+0000\n"
+"Last-Translator: Mappack Owner <mappack@null.net>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/music-"
 "app/nl/>\n"
 "Language: nl\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "Ok"
+msgstr "Oké"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -30,7 +30,7 @@ msgstr "Geïmporteerd bestand niet gevonden"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr "Wachten"
+msgstr "Wacht"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
@@ -54,8 +54,9 @@ msgid "Enter playlist name"
 msgstr "Voer afspeellijstnaam in"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
+#, fuzzy
 msgid "Change"
-msgstr "Wijzigen"
+msgstr "Wijzig"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
@@ -72,8 +73,9 @@ msgid "New playlist"
 msgstr "Nieuwe afspeellijst"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
+#, fuzzy
 msgid "Create"
-msgstr "Aanmaken"
+msgstr "Maak aan"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
