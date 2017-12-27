@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-03-10 20:04+0000\n"
-"Last-Translator: samson <Unknown>\n"
-"Language-Team: Amharic <am@li.org>\n"
+"PO-Revision-Date: 2017-12-27 14:44+0000\n"
+"Last-Translator: Samson <sambelet@yahoo.com>\n"
+"Language-Team: Amharic <https://translate.ubports.com/projects/ubports/music-"
+"app/am/>\n"
+"Language: am\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -39,7 +41,7 @@ msgstr "መሰረዣ"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "በመጠበቅ ላይ ፋይል(ሎች)"
+msgstr "በ መጠበቅ ላይ ፋይል(ሎች)..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -164,8 +166,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
-"መታ በማድረግ ተጨማሪ ነገሮችን ስለ ሙዚቃ ያግኙ  %1 ምልክቱን በመጫን ለ እያንዳንዱ ሁኔታ እና ስሜት የማጫወቻ ዝርዝር "
-"ያሰናዱ"
+"መታ በ ማድረግ ተጨማሪ ነገሮችን ስለ ሙዚቃ ያግኙ  %1 ምልክቱን በ መጫን ለ እያንዳንዱ ሁኔታ እና ስሜት የ ማጫወቻ "
+"ዝርዝር ያሰናዱ"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -191,8 +193,8 @@ msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
-"እርስዎ የሚወዷቸውን ሙዚቃ በ ኡቡንቱ ሙዚቃማጫወቻ በመስማት ይደሰቱ: አጭር ጉብኝት ያድርጉ ወይንም መዝለያውን ተጭነው "
-"ሙዚቃ ያዳምጡ"
+"እርስዎ የሚወዷቸውን ሙዚቃ በ ኡቡንቱ ሙዚቃማጫወቻ በ መስማት ይደሰቱ: አጭር ጉብኝት ያድርጉ ወይንም መዝለያውን ተጭነው "
+"ሙዚቃ ያዳምጡ:"
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
@@ -204,8 +206,8 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
-"የ እርስዎን አካላት ከ ኮምፒዩተር ጋር ያገናኙ እና በቀላሉ ፋይሎችን በመጎተት ወደ ሙዚቃ ፎልደር ውስጥ ይጨምሩ: ወይንም "
-"የሚወልቁ የሙዚቃ መገናኛዎችን ይሰኩ"
+"የ እርስዎን አካላት ከ ኮምፒዩተር ጋር ያገናኙ እና በ ቀላሉ ፋይሎችን በ መጎተት ወደ ሙዚቃ ፎልደር ውስጥ ይጨምሩ: "
+"ወይንም የሚወልቁ የ ሙዚቃ መገናኛዎችን ይሰኩ:"
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
@@ -213,7 +215,7 @@ msgstr "አዲስ ሙዚቃ ያውርዱ"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "ኢንተርኔትን በመቃኘት ላይ እንዳሉ የገዙዋቸውን ሙዚቃ በ ቀጥታ ማምጫ"
+msgstr "ኢንተርኔትን በ መቃኘት ላይ እንዳሉ የገዙዋቸውን ሙዚቃ በ ቀጥታ ማምጫ"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -307,7 +309,7 @@ msgstr "የማጫወቻ ዝርዝር"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "የቅርብ ጊዜ"
+msgstr "የ ቅርብ ጊዜ"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
@@ -400,4 +402,4 @@ msgstr "ለ ኡቡንቱ የሙዚቃ መተግበሪያ"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "ሙዚቃ:ዘፈኖች:ማጫወቻ:ተረኞች:ማጫወቻው:ዜማ:"
+msgstr "ሙዚቃ;ዘፈኖች;ማጫወቻ;ተረኞች;ማጫወቻዜማ;"
