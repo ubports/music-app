@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-17 16:46+0000\n"
+"PO-Revision-Date: 2017-12-29 17:07+0000\n"
 "Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
 "/music-app/sc/>\n"
@@ -87,11 +87,11 @@ msgstr "Custa atzione no la podes anullare"
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Boga"
+msgstr "Cantzella"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Seletziona totu"
+msgstr "Seletziona totus"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -110,7 +110,7 @@ msgstr "Cantzella"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "Cantzella seletzione"
+msgstr "Annulla sa seletzione"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
