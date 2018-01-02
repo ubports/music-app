@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-10-29 18:23+0000\n"
+"PO-Revision-Date: 2018-01-02 12:27+0000\n"
 "Last-Translator: Anne Onyme <anneonyme017@openmailbox.org>\n"
 "Language-Team: French <https://translate.ubports.com/projects/ubports/music-"
 "app/fr/>\n"
@@ -154,7 +154,7 @@ msgstr "Aucun élément trouvé"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr "Appuyer pour mélanger la musique"
+msgstr "Appuyez pour mélanger la musique"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -292,7 +292,7 @@ msgstr "Lecture en cours"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Sélectionner une liste"
+msgstr "Sélectionnez une liste"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
