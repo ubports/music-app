@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-10-06 06:24+0000\n"
-"Last-Translator: Twinkybot <me@twinkybot.org>\n"
+"PO-Revision-Date: 2018-01-03 12:43+0000\n"
+"Last-Translator: Peter Nerlich <peter.nerlich+ubports@googlemail.com>\n"
 "Language-Team: German <https://translate.ubports.com/projects/ubports/music-"
 "app/de/>\n"
 "Language: de\n"
@@ -82,7 +82,7 @@ msgstr "Wiedergabeliste unwiderruflich löschen?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr "Das kann nicht rückgängig gemacht werden"
+msgstr "Dies kann nicht rückgängig gemacht werden"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
@@ -361,7 +361,7 @@ msgstr "Genres"
 #: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
 #: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
-msgstr "Musikrichtung"
+msgstr "Genre"
 
 #: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
