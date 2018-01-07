@@ -6,21 +6,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-03-02 18:57+0000\n"
-"Last-Translator: Jean-Marc <Unknown>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2018-01-02 12:27+0000\n"
+"Last-Translator: Anne Onyme <anneonyme017@openmailbox.org>\n"
+"Language-Team: French <https://translate.ubports.com/projects/ubports/music-"
+"app/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "OK"
+msgstr "Valider"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -152,7 +154,7 @@ msgstr "Aucun élément trouvé"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr "Appuyer pour mélanger la musique"
+msgstr "Appuyez pour mélanger la musique"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -236,7 +238,7 @@ msgstr "Morceau suivant"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Pause"
+msgstr "Mettre en pause"
 
 #: ../app/music-app.qml:165
 msgid "Play"
@@ -268,7 +270,7 @@ msgstr "Morceau précédent"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Arrêt"
+msgstr "Arrêter"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
@@ -290,7 +292,7 @@ msgstr "Lecture en cours"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Sélectionner une liste"
+msgstr "Sélectionnez une liste"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
@@ -310,7 +312,7 @@ msgstr "Listes de lecture"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Écoutés récemment"
+msgstr "Récent"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"

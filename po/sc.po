@@ -6,21 +6,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-09-06 12:23+0000\n"
-"Last-Translator: amm <Unknown>\n"
-"Language-Team: Sardinian <sc@li.org>\n"
+"PO-Revision-Date: 2017-12-29 17:07+0000\n"
+"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
+"Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
+"/music-app/sc/>\n"
+"Language: sc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n!=1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "Andat bene"
+msgstr "AB"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -35,7 +37,7 @@ msgstr "Iseta"
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "Cantzella"
+msgstr "Annulla"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
@@ -53,7 +55,7 @@ msgstr "Inserta·nche su nùmene de sa playlist"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr "Modìfica"
+msgstr "Muda"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
@@ -85,11 +87,11 @@ msgstr "Custa atzione no la podes anullare"
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Boga"
+msgstr "Cantzella"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Seletziona totu"
+msgstr "Seletziona totus"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -108,7 +110,7 @@ msgstr "Cantzella"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "Cantzella seletzione"
+msgstr "Annulla sa seletzione"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -227,7 +229,7 @@ msgstr "Cantzone imbeniente"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr ""
+msgstr "Pàusa"
 
 #: ../app/music-app.qml:165
 msgid "Play"

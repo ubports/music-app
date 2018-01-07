@@ -6,157 +6,159 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-05-14 23:44+0000\n"
-"Last-Translator: Leo Arias <leo.arias@canonical.com>\n"
-"Language-Team: Esperanto <eo@li.org>\n"
+"PO-Revision-Date: 2017-11-23 20:28+0000\n"
+"Last-Translator: Pablo Foche <pablo.foche@gmail.com>\n"
+"Language-Team: Esperanto <https://translate.ubports.com/projects/ubports"
+"/music-app/eo/>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr ""
+msgstr "Jes"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
-msgstr ""
+msgstr "Importita dosiero ne trovebla"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr ""
+msgstr "Atendu"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr ""
+msgstr "Nuligi"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Atendante dosiero(j)n..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Alinomigi ludliston"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Enigu ludlistan nomon"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr ""
+msgstr "Ŝanĝi"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr ""
+msgstr "Ludlisto jam ekzistas"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr ""
+msgstr "Bv. tajpi nomon."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr ""
+msgstr "Nova ludlisto"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
-msgstr ""
+msgstr "Krei"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Ĉu vi volas forigi la ludliston permanente?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Ĉi tio estas nemalfarebla"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "Elekti ĉiujn"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr ""
+msgstr "Aldoni al ludlisto"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
-msgstr ""
+msgstr "Aldoni al atendovico"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
-msgstr ""
+msgstr "Forigi"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr ""
+msgstr "Nuligi selekton"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Serĉi muzikon"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr ""
+msgstr "Dosiervojo devas komenci per"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
-msgstr ""
+msgstr "Vi devas enigi dosiervojon"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:118
 msgid "Failed to move file"
-msgstr ""
+msgstr "Eraro dum la dosier-movo"
 
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "trakoj luditaj hodiaŭ"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Neniu trako ludita hodiaŭ"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
-msgstr ""
+msgstr "Aldoni al atendovico"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr ""
+msgstr "Ŝarĝante..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "Neniu ero trovita"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Premu por miksi muzikon"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "Neniu ludlisto trovita"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -164,35 +166,39 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Profitu pli de Muziko premante la piktogramon %1 por komenci krei ludlistojn "
+"por ĉiuj atmosferoj kaj okazoj."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
 msgid "Play all"
-msgstr ""
+msgstr "Ludi ĉiujn"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "Envicigi ĉiujn"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
-msgstr ""
+msgstr "Miksaĵo"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Bonvenon al Muziko"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Ĝuu vian preferatan muzikon dank'al la ubuntua aplikaĵo Muziko. Faru "
+"mallongan lernoviziton aŭ premu sur preterpaŝi por ekaŭskulti nun."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Importi vian muzikon"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -200,178 +206,180 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Konektu vian aparaton al iu komputilo kaj simple ŝovu dosierojn al la Muzika "
+"dosiero aŭ enmetu demeteblan memorilon kun muziko."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Elŝuti novan muzikon"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Rekte importi muzikon aĉetitan dum retumado."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Startigi"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "Preterpaŝi"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr ""
+msgstr "Sekva"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
-msgstr ""
+msgstr "Sekva trako"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr ""
+msgstr "Paŭzo"
 
 #: ../app/music-app.qml:165
 msgid "Play"
-msgstr ""
+msgstr "Ludi"
 
 #: ../app/music-app.qml:167
 msgid "Pause Playback"
-msgstr ""
+msgstr "Paŭzi ludadon"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr ""
+msgstr "Daŭrigi aŭ komenci ludadon"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr ""
+msgstr "Reen"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
-msgstr ""
+msgstr "Reiri al lasta paĝo"
 
 #: ../app/music-app.qml:181
 msgid "Previous"
-msgstr ""
+msgstr "Antaŭa"
 
 #: ../app/music-app.qml:182
 msgid "Previous Track"
-msgstr ""
+msgstr "Antaŭa trako"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr ""
+msgstr "Haltigi"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
-msgstr ""
+msgstr "Haltigi ludadon"
 
 #: ../app/music-app.qml:273 com.ubuntu.music_music.desktop.in.in.h:1
 msgid "Music"
-msgstr ""
+msgstr "Muziko"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
-msgstr ""
+msgstr "Senerarigo: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "Nun ludante"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr ""
+msgstr "Selekti ludliston"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 trako"
+msgstr[1] "%1 trakoj"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr ""
+msgstr "Ludlistoj"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr ""
+msgstr "Freŝdataj"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr ""
+msgstr "Albumoj"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
 #: ../app/ui/SongsView.qml:248
 msgid "Unknown Album"
-msgstr ""
+msgstr "Nekonita albumo"
 
 #: ../app/ui/Albums.qml:83 ../app/ui/ArtistView.qml:75
 #: ../app/ui/ArtistView.qml:148 ../app/ui/Artists.qml:86
 #: ../app/ui/Recent.qml:89 ../app/ui/SongsView.qml:269
 msgid "Unknown Artist"
-msgstr ""
+msgstr "Nekonita artisto"
 
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr ""
+msgstr "Albumo"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
 msgid "%1 album"
 msgid_plural "%1 albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 albumo"
+msgstr[1] "%1 albumoj"
 
 #: ../app/ui/Artists.qml:36
 msgid "Artists"
-msgstr ""
+msgstr "Artistoj"
 
 #: ../app/ui/Artists.qml:94
 msgid "Artist"
-msgstr ""
+msgstr "Artisto"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Eksporti trakon"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
-msgstr ""
+msgstr "Stiloj"
 
 #: ../app/ui/Genres.qml:118 ../app/ui/Genres.qml:120
 #: ../app/ui/SongsView.qml:200 ../app/ui/SongsView.qml:219
 #: ../app/ui/SongsView.qml:234 ../app/ui/SongsView.qml:271
 #: ../app/ui/SongsView.qml:290 ../app/ui/SongsView.qml:317
 msgid "Genre"
-msgstr ""
+msgstr "Stilo"
 
 #: ../app/ui/LibraryEmptyState.qml:119
 msgid "No music found"
-msgstr ""
+msgstr "Muziko ne estis trovita"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Plena vido"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "Atendovico"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "Purigi atendovicon"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -382,16 +390,16 @@ msgstr ""
 #: ../app/ui/SongsView.qml:300 ../app/ui/SongsView.qml:303
 #: ../app/ui/SongsView.qml:319
 msgid "Playlist"
-msgstr ""
+msgstr "Ludlisto"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Trakoj"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr ""
+msgstr "Muzika aplikaĵo por Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
+msgstr "muziko;kanzonoj,ludi,trakoj,ludilo,agordoj;"

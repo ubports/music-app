@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-11-20 18:40+0000\n"
-"Last-Translator: Mutlu Can YILMAZ <mtlcnylmz@gmail.com>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2017-11-26 18:03+0000\n"
+"Last-Translator: Arda Canbolat <oardacn@gmail.com>\n"
+"Language-Team: Turkish <https://translate.ubports.com/projects/ubports/music-"
+"app/tr/>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -117,7 +119,7 @@ msgstr "Müzik ara"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr "Dosya yolu şunla başlamalı:"
+msgstr "Dosya yolu şu ile başlamalı"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
@@ -132,11 +134,11 @@ msgstr "Dosyayı taşıma başarısız"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "bugün oynatılan parçalar"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Bugün parça oynatılmadı"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -214,7 +216,7 @@ msgstr "Yeni müzik indir"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "Çevrimiçi gezinirken satın alınan müziği doğrudan içe aktar"
+msgstr "Çevrimiçi gezinirken satın alınan müziği doğrudan içe aktarın."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -234,7 +236,7 @@ msgstr "Sonraki Parça"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Beklet"
+msgstr "Duraklat"
 
 #: ../app/music-app.qml:165
 msgid "Play"
@@ -295,8 +297,8 @@ msgstr "Çalma listesi seç"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 parça"
+msgstr[1] "%1 parça"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -348,7 +350,7 @@ msgstr "Sanatçı"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Parçayı dışa aktar"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -393,7 +395,7 @@ msgstr "Çalma Listesi"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Parçalar"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
@@ -401,4 +403,4 @@ msgstr "Ubuntu için müzik uygulaması"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "müzik;şarkılar;oynatma;parçalar;oynatıcı;tunes;"
+msgstr "müzik;şarkılar;oynatma;parçalar;oynatıcı;radyo;"

@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-04-15 15:20+0000\n"
-"Last-Translator: Emanuele Antonio Faraone <emanueleant03@gmail.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"PO-Revision-Date: 2017-10-02 18:34+0000\n"
+"Last-Translator: Mike <miguel2000@livecom.it>\n"
+"Language-Team: Italian <https://translate.ubports.com/projects/ubports/music-"
+"app/it/>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -28,7 +30,7 @@ msgstr "File importato non trovato"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:33
 msgid "Wait"
-msgstr "Attendere"
+msgstr "Attendi"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:43
 #: ../app/components/Dialog/EditPlaylistDialog.qml:76
@@ -89,7 +91,7 @@ msgstr "Rimuovi"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Seleziona tutto"
+msgstr "Seleziona tutti"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -100,7 +102,7 @@ msgstr "Aggiungi alla playlist"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
-msgstr "Metti in coda"
+msgstr "Aggiungi alla coda"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
@@ -226,7 +228,7 @@ msgstr "Salta"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "Successivo"
+msgstr "Avanti"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"

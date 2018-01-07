@@ -6,17 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-05-14 23:43+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"PO-Revision-Date: 2017-10-06 08:34+0000\n"
+"Last-Translator: Milan Korecký <milan.korecky@gmail.com>\n"
+"Language-Team: Czech <https://translate.ubports.com/projects/ubports/music-"
+"app/cs/>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -39,17 +41,17 @@ msgstr "Zrušit"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Čekání na soubor(y)"
+msgstr "Čekání na soubor(y)…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Přejmenovat playlist"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Zadejte název playlistu"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -58,7 +60,7 @@ msgstr "Změnit"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
 msgid "Playlist already exists"
-msgstr "Seznam skladeb již existuje"
+msgstr "Playlist již existuje"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
@@ -67,7 +69,7 @@ msgstr "Prosím, zadejte jméno."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
-msgstr "Nový seznam skladeb"
+msgstr "Nový playlist"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:44
 msgid "Create"
@@ -76,11 +78,11 @@ msgstr "Vytvořit"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Smazat playlist natrvalo?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Nelze vrátit zpět"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
@@ -89,14 +91,14 @@ msgstr "Odstranit"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr ""
+msgstr "Vybrat vše"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
 #: ../app/components/ListItemActions/AddToPlaylist.qml:26
 #: ../app/ui/NowPlaying.qml:105
 msgid "Add to playlist"
-msgstr "Přidat do seznamu skladeb"
+msgstr "Přidat do playlistu"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:58
 msgid "Add to queue"
@@ -108,16 +110,16 @@ msgstr "Smazat"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr ""
+msgstr "Zrušit výběr"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Hledat skladbu"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr "Cesta musí začínat"
+msgstr "Cesta k souboru musí začínat"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
@@ -132,11 +134,11 @@ msgstr "Nepodařilo se přesunout soubor"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "dnes přehrané skladby"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Dnes žádné přehrané skladby"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -144,19 +146,19 @@ msgstr "Přidat do fronty"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "Načítání..."
+msgstr "Načítání…"
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "Nenalezeny žádné položky"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Poklepáním skladby promícháte"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "Nenalezen žádný playlist"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -164,6 +166,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Získejte více z hudby poklepáním na %1 ikonu pro vytváření playlistů pro "
+"každou náladu a příležitost."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -173,26 +177,28 @@ msgstr "Přehrát vše"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "Zařadit vše do fronty"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
-msgstr ""
+msgstr "Promíchat"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Vítejte v aplikaci hudba"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Užívejte si vaše oblíbené skladby v aplikaci hudba od Ubuntu. Prohlédněte si "
+"krátký návod anebo přeskočte a začněte rovnou poslouchat."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Importovat vaše skladby"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -200,22 +206,24 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Připojte váš telefon k počítači a jednoduše přetáhněte soubory do složky "
+"hudba anebo vložte vyměnitelné médium s hudbou."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Stáhnout novou hudbu"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Automaticky stáhnout zakoupené skladby při prohlížení internetu."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "Přeskočit"
 
 #: ../app/music-app.qml:158
 msgid "Next"
@@ -239,7 +247,7 @@ msgstr "Pozastavit přehrávání"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
-msgstr "Pokračovat v přehrávání"
+msgstr "Pokračovat anebo spustit přehrávání"
 
 #: ../app/music-app.qml:172
 msgid "Back"
@@ -271,32 +279,33 @@ msgstr "Hudba"
 
 #: ../app/music-app.qml:303
 msgid "Debug: "
-msgstr "Debug: "
+msgstr "Pročistit: "
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/music-app.qml:848 ../app/ui/NowPlaying.qml:38
 msgid "Now playing"
-msgstr ""
+msgstr "Právě hraje"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Vybrat seznam skladeb"
+msgstr "Vybrat playlist"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 skladba"
+msgstr[1] "%1 skladby"
+msgstr[2] "%1 skladeb"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
 #: ../app/ui/AddToPlaylist.qml:104 ../app/ui/Playlists.qml:36
 #: ../app/ui/SongsView.qml:102
 msgid "Playlists"
-msgstr "Seznamy skladeb"
+msgstr "Playlisty"
 
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
@@ -342,7 +351,7 @@ msgstr "Umělec"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Exportovat skladbu"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -362,17 +371,17 @@ msgstr "Nebyla nalezena hudba"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Celá obrazovka"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
 msgid "Queue"
-msgstr ""
+msgstr "Fronta"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr ""
+msgstr "Vymazat frontu"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -387,12 +396,12 @@ msgstr "Seznam skladeb"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Skladby"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
-msgstr "Hudební přehrávat pro Ubuntu"
+msgstr "Hudební přehrávač pro Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "hudba;písně;hrát;stopy;přehrávač;melodie"
+msgstr "hudba;skladby;hrát;stopy;přehrávač;melodie;"
