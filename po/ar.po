@@ -6,18 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: music-app\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-08-28 15:36+0000\n"
-"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
-"Language-Team: Arabic <ar@li.org>\n"
+"PO-Revision-Date: 2018-02-05 05:17+0000\n"
+"Last-Translator: ubports_arabic <ubportsarabic@gmail.com>\n"
+"Language-Team: Arabic <https://translate.ubports.com/projects/ubports/music-"
+"app/ar/>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
-"3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -36,7 +38,7 @@ msgstr "انتظر"
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "إلغاء"
+msgstr "ألغاء"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
@@ -54,7 +56,7 @@ msgstr "إدخِل اسم قائمة التشغيل"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
-msgstr "تغيير"
+msgstr "تغير"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:67
 #: ../app/components/Dialog/NewPlaylistDialog.qml:60
@@ -90,7 +92,7 @@ msgstr "إزالة"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "اختر الكل"
+msgstr "تحديد كل"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -109,7 +111,7 @@ msgstr "احذف"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "إلغاء الاختيار"
+msgstr "الغاء التحديد"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -216,7 +218,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "ابدأ"
+msgstr "بداية"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
@@ -248,7 +250,7 @@ msgstr "استأنف أو ابدأ تشغيل المقطوعة"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "عودة"
+msgstr "للوراء"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
@@ -264,7 +266,7 @@ msgstr "المقطوعة السابقة"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "أوقف"
+msgstr "توقف"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
@@ -306,7 +308,7 @@ msgstr "قوائم التشغيل"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "الأخيرة"
+msgstr "الحالي"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
