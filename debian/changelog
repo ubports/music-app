@@ -1,4 +1,4 @@
-music-app (2.5) UNRELEASED; urgency=medium
+music-app (2.5) xenial; urgency=medium
 
   * Release 2.4 and start 2.5
   * Remove gstreamer0.10-fluendo-mp3 plugin from control as 1.0 should instead be used
