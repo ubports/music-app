@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-03-02 09:44+0000\n"
+"PO-Revision-Date: 2018-03-04 20:11+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/music-"
 "app/he/>\n"
@@ -41,7 +41,7 @@ msgstr "ביטול"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "ממתין לקבצים…"
+msgstr "בהמתנה לקבצים…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -51,7 +51,7 @@ msgstr "שינוי שם רשימה"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr "הכניסו שם רשימה"
+msgstr "נא להקליד שם רשימת נגינה"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -65,7 +65,7 @@ msgstr "רשימת הנגינה כבר קיימת"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "נא להזין שם."
+msgstr "נא להקליד שם."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -78,7 +78,7 @@ msgstr "יצירה"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr "למחוק את הרשימה לצמיתות?"
+msgstr "למחוק את רשימת הנגינה לצמיתות?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
@@ -110,7 +110,7 @@ msgstr "מחיקה"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "ביטול בחירה"
+msgstr "ביטול הבחירה"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr "יבוא המוזיקה שלך"
+msgstr "ייבוא המוזיקה שלך"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -235,7 +235,7 @@ msgstr "הרצועה הבאה"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "השהיה"
+msgstr "השהייה"
 
 #: ../app/music-app.qml:165
 msgid "Play"
