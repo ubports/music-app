@@ -173,7 +173,7 @@ Item {
                     items.push(Qt.resolvedUrl(model.get(i, model.RoleModelData).filename));
                 }
 
-                addItems(items);
+                player.mediaPlayer.playlist.addItems(items);
             }
 
             // Wrap the clear() method because we need to call stop first
