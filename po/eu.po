@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-10-29 17:11+0000\n"
+"PO-Revision-Date: 2018-03-11 18:21+0000\n"
 "Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
 "Language-Team: Basque <https://translate.ubports.com/projects/ubports/music-"
 "app/eu/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "ADOS"
+msgstr "Ados"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -91,7 +91,7 @@ msgstr "Ezabatu"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Hautatu dena"
+msgstr "Guztia Hautatu"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -110,7 +110,7 @@ msgstr "Ezabatu"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "Desegin hautaketa"
+msgstr "Hautapena ezeztatu"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -119,7 +119,7 @@ msgstr "Bilatu musika"
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
 msgid "Filepath must start with"
-msgstr "Fitxategiaren bide-izena honela hasi behar da:"
+msgstr "Fitxategiaren bide-izena honela hasi behar da"
 
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
@@ -134,11 +134,11 @@ msgstr "Huts egin du fitxategia lekuz aldatzeak"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "gaur erreproduzitutako pistak"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Gaur erreproduzituriko pistarik ez"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -172,7 +172,7 @@ msgstr ""
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
 msgid "Play all"
-msgstr "Erreproduzitu dena"
+msgstr "Guztia erreproduzitu"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
@@ -251,7 +251,7 @@ msgstr "Jarraitu edo hasi erreprodukzioa"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "Itzuli"
+msgstr "Atzera"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
@@ -289,15 +289,15 @@ msgstr "Orain erreproduzitzen"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/AddToPlaylist.qml:43
 msgid "Select playlist"
-msgstr "Hautatu erreproduzio-zerrenda"
+msgstr "Hautatu erreprodukzio-zerrenda"
 
 #: ../app/ui/AddToPlaylist.qml:99 ../app/ui/Playlists.qml:94
 #: ../app/ui/SongsView.qml:291 ../app/ui/SongsView.qml:292
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Pista %1"
+msgstr[1] "%1 pista"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -349,7 +349,7 @@ msgstr "Artista"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Pista exportatu"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -369,7 +369,7 @@ msgstr "Ez da musikarik aurkitu"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Ikuspegi osoa"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
@@ -394,7 +394,7 @@ msgstr "Erreprodukzio-zerrenda"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Pistak"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
