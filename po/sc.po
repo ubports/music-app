@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-04-27 22:05+0000\n"
-"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
+"PO-Revision-Date: 2018-04-27 22:06+0000\n"
+"Last-Translator: Flavia <flavia.efloris@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
 "/music-app/sc/>\n"
 "Language: sc\n"
@@ -350,7 +350,7 @@ msgstr "Artista"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Esporta petzu"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
