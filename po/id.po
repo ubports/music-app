@@ -8,20 +8,21 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-05-14 23:45+0000\n"
-"Last-Translator: Victor Thompson <Unknown>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"PO-Revision-Date: 2018-04-30 13:14+0000\n"
+"Last-Translator: Dito Kurnia P <ditokpl@gmail.com>\n"
+"Language-Team: Indonesian <https://translate.ubports.com/projects/ubports"
+"/music-app/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.15\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "Oke"
+msgstr "OK"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -212,11 +213,11 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr ""
+msgstr "Mulai"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "Lewati"
 
 #: ../app/music-app.qml:158
 msgid "Next"
@@ -260,7 +261,7 @@ msgstr "Trek Sebelumnya"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Berhenti"
+msgstr "Stop"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
@@ -302,7 +303,7 @@ msgstr "Daftar Putar"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Terkini"
+msgstr "Baru-baru Ini"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
