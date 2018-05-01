@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-11-06 08:06+0000\n"
-"Last-Translator: Mutse Young <yyhoo2.young@gmail.com>\n"
+"PO-Revision-Date: 2018-05-01 17:57+0000\n"
+"Last-Translator: Hugh Y <hugh_yan@live.com>\n"
 "Language-Team: Chinese (Simplified) "
 "<https://translate.ubports.com/projects/ubports/music-app/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -87,7 +87,7 @@ msgstr "此操作无法撤消"
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "删除"
+msgstr "移除"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
@@ -308,7 +308,7 @@ msgstr "最近使用过的"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
-msgstr "专辑"
+msgstr "相册"
 
 #: ../app/ui/Albums.qml:82 ../app/ui/ArtistView.qml:136
 #: ../app/ui/ArtistView.qml:149 ../app/ui/Recent.qml:88
@@ -325,7 +325,7 @@ msgstr "未知表演者"
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr "专辑"
+msgstr "相册"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
