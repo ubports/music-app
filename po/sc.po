@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-04-27 22:06+0000\n"
-"Last-Translator: Flavia <flavia.efloris@gmail.com>\n"
+"PO-Revision-Date: 2018-05-06 10:36+0000\n"
+"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
 "/music-app/sc/>\n"
 "Language: sc\n"
@@ -87,10 +87,9 @@ msgstr "Custa atzione no la podes anullare"
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Cantzella"
+msgstr "Boga"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
-#, fuzzy
 msgid "Select All"
 msgstr "Seletziona totus"
 
