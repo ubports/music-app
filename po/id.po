@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-04-30 13:14+0000\n"
+"PO-Revision-Date: 2018-05-09 04:54+0000\n"
 "Last-Translator: Dito Kurnia P <ditokpl@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.ubports.com/projects/ubports"
 "/music-app/id/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "OK"
+msgstr "OKE"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -46,12 +46,12 @@ msgstr "Menunggu berkas..."
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
 msgid "Rename playlist"
-msgstr ""
+msgstr "Ganti nama daftar putar"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:37
 #: ../app/components/Dialog/NewPlaylistDialog.qml:34
 msgid "Enter playlist name"
-msgstr ""
+msgstr "Masukkan nama daftar putar"
 
 #: ../app/components/Dialog/EditPlaylistDialog.qml:46
 msgid "Change"
@@ -78,11 +78,11 @@ msgstr "Buat"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr ""
+msgstr "Hapus daftar putar secara permanen?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr ""
+msgstr "Ini tidak dapat dibatalkan"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
@@ -114,7 +114,7 @@ msgstr "Batal memilih"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
-msgstr ""
+msgstr "Cari musik"
 
 #. TRANSLATORS: This string represents that the target destination filepath does not start with ~/Music/Imported/
 #: ../app/components/Helpers/ContentHubHelper.qml:86
@@ -134,11 +134,11 @@ msgstr "Gagal memindahkan berkas"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "trek diputar hari ini"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "TIdak ada trek diputar hari ini"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -150,15 +150,15 @@ msgstr "Memuat..."
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
-msgstr ""
+msgstr "Tidak ada item yang ditemukan"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr ""
+msgstr "Tap untuk mengacak musik"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
-msgstr ""
+msgstr "Tidak ada daftar putar yang ditemukan"
 
 #: ../app/components/PlaylistsEmptyState.qml:53
 #, qt-format
@@ -166,6 +166,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Dapatkan lebih banyak Musik dengan men-tap ikon %1 untuk memulai membuat "
+"daftar putar untuk setiap suasana hati dan kejadian."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -175,26 +177,28 @@ msgstr "Putar semua"
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/QueueAllButton.qml:46
 msgid "Queue all"
-msgstr ""
+msgstr "Antrekan semua"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/ShuffleButton.qml:46
 msgid "Shuffle"
-msgstr ""
+msgstr "Acak"
 
 #: ../app/components/Walkthrough/Slide1.qml:59
 msgid "Welcome to Music"
-msgstr ""
+msgstr "Selamat Datang di Musik"
 
 #: ../app/components/Walkthrough/Slide1.qml:73
 msgid ""
 "Enjoy your favorite music with Ubuntu's Music App. Take a short tour on how "
 "to get started or press skip to start listening now."
 msgstr ""
+"Nikmati musik favorit Anda dengan aplikasi Musik Ubuntu. Ikuti tur pendek "
+"tentang bagaimana memulai atau melewatinya untuk langsung mendengarkan musik."
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr ""
+msgstr "Impor musik Anda"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -202,14 +206,16 @@ msgid ""
 "Connect your device to any computer and simply drag files to the Music "
 "folder or insert removable media with music."
 msgstr ""
+"Hubungkan perangkat Anda ke setiap komputer dan dengan gampang menyeret file "
+"ke folder Musik atau memasukkan perangkat yang dapat dilepas dengan musik."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr ""
+msgstr "Unduh musik baru"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Langsung mengimpor musik yang dibeli ketika mencari daring."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -290,8 +296,7 @@ msgstr "Pilih daftar putar"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trek %1"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -342,7 +347,7 @@ msgstr "Artis"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Ekspor Trek"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -362,7 +367,7 @@ msgstr "Tak ada musik"
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:40
 msgid "Full view"
-msgstr ""
+msgstr "Tampilan penuh"
 
 #. TRANSLATORS: this appears in the header with limited space (around 20 characters)
 #: ../app/ui/NowPlaying.qml:42
@@ -387,7 +392,7 @@ msgstr "Daftar Putar"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Trek"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
