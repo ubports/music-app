@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-09 04:54+0000\n"
+"PO-Revision-Date: 2018-05-09 07:15+0000\n"
 "Last-Translator: Dito Kurnia P <ditokpl@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.ubports.com/projects/ubports"
 "/music-app/id/>\n"
@@ -91,7 +91,7 @@ msgstr "Hapus"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "Pilih Semua"
+msgstr "Pilih semua"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -110,7 +110,7 @@ msgstr "Hapus"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr "Batal memilih"
+msgstr "Batalkan pilihan"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -267,7 +267,7 @@ msgstr "Trek Sebelumnya"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Stop"
+msgstr "Berhenti"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
@@ -400,4 +400,4 @@ msgstr "Aplikasi musik untuk Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "music;songs;play;tracks;player;tunes;musik;lagu"
+msgstr "musik;lagu;putar;trek;player;tunes;"
