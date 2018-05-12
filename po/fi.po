@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-12 19:48+0000\n"
+"PO-Revision-Date: 2018-05-14 12:12+0000\n"
 "Last-Translator: Veli-Matti Rautiainen <velraut@gmail.com>\n"
 "Language-Team: Finnish <https://translate.ubports.com/projects/ubports/music-"
 "app/fi/>\n"
@@ -21,7 +21,6 @@ msgstr ""
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
-#, fuzzy
 msgid "OK"
 msgstr "Selvä"
 
