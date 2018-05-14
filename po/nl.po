@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-14 09:40+0000\n"
+"PO-Revision-Date: 2018-05-14 09:51+0000\n"
 "Last-Translator: Joachim Lazaroms <joachim.pc@gmail.com>\n"
 "Language-Team: Dutch <https://translate.ubports.com/projects/ubports/music-"
 "app/nl/>\n"
@@ -167,7 +167,7 @@ msgid ""
 "every mood and occasion."
 msgstr ""
 "Via de muziekapp kunt u ook afspeellijsten aanmaken voor een bepaalde "
-"stemming of gelegenheid door op het %1-pictogram te tikken."
+"stemming of gelegenheid door op het %1-icoon te drukken."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -199,7 +199,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide2.qml:54
 msgid "Import your music"
-msgstr "Uw muziek importeren"
+msgstr "Importeer uw muziek"
 
 #: ../app/components/Walkthrough/Slide2.qml:67
 #: ../app/ui/LibraryEmptyState.qml:131
@@ -220,7 +220,7 @@ msgstr "Online gekochte muziek direct importeren."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Starten"
+msgstr "Start"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
@@ -268,7 +268,7 @@ msgstr "Vorig nummer"
 
 #: ../app/music-app.qml:187
 msgid "Stop"
-msgstr "Stoppen"
+msgstr "Stop"
 
 #: ../app/music-app.qml:188
 msgid "Stop Playback"
