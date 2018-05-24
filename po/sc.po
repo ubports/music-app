@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-06 12:06+0000\n"
-"Last-Translator: Adrià <adriamartinmor@gmail.com>\n"
+"PO-Revision-Date: 2018-05-24 14:10+0000\n"
+"Last-Translator: Flavia <flavia.efloris@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
 "/music-app/sc/>\n"
 "Language: sc\n"
@@ -381,7 +381,7 @@ msgstr "Elencu"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr "Cantzella elencu"
+msgstr "Lìmpia s'elencu"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
