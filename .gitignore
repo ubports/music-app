@@ -17,3 +17,4 @@ CMakeFiles/
 *.desktop.in.in.h
 .excludes
 music-app.json
+build/
