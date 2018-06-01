@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-02-19 08:40+0000\n"
+"PO-Revision-Date: 2018-05-25 23:22+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://translate.ubports.com/projects/ubports/music-app/nb/>\n"
@@ -235,7 +235,7 @@ msgstr "Neste låt"
 
 #: ../app/music-app.qml:165
 msgid "Pause"
-msgstr "Pause"
+msgstr "Stans midlertidig"
 
 #: ../app/music-app.qml:165
 msgid "Play"

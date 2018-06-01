@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-03-11 18:21+0000\n"
-"Last-Translator: Aitzol Berasategi <aitzol76@gmail.com>\n"
+"PO-Revision-Date: 2018-05-11 20:39+0000\n"
+"Last-Translator: Mikel Larrea <developer@larreamikel.com>\n"
 "Language-Team: Basque <https://translate.ubports.com/projects/ubports/music-"
 "app/eu/>\n"
 "Language: eu\n"
@@ -37,7 +37,7 @@ msgstr "Itxaron"
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "Utzi"
+msgstr "Ezeztatu"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."

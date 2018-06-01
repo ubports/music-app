@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-04-27 22:06+0000\n"
+"PO-Revision-Date: 2018-05-25 10:12+0000\n"
 "Last-Translator: Flavia <flavia.efloris@gmail.com>\n"
 "Language-Team: Sardinian <https://translate.ubports.com/projects/ubports"
 "/music-app/sc/>\n"
@@ -41,7 +41,7 @@ msgstr "Annulla"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr ""
+msgstr "Isetende is archìvios..."
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -65,7 +65,7 @@ msgstr "Custa playlist esistet giai"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "Inserta·nche unu nùmene"
+msgstr "Inserta·nche unu nùmene."
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -78,19 +78,18 @@ msgstr "Crea"
 #. TRANSLATORS: this is a title of a dialog with a prompt to delete a playlist
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:31
 msgid "Permanently delete playlist?"
-msgstr "Cheres cantzellare custa playlist definitivamente?"
+msgstr "Boles cantzellare custa playlist de manera definitiva?"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:32
 msgid "This cannot be undone"
-msgstr "Custa atzione no la podes anullare"
+msgstr "Custa atzione non la podes annullare"
 
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Cantzella"
+msgstr "Fùlia"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
-#, fuzzy
 msgid "Select All"
 msgstr "Seletziona totus"
 
@@ -167,6 +166,8 @@ msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
 msgstr ""
+"Preme s'icona %1 pro creare playlist segundu s'umore tuo o pro calesi siat "
+"àtera ocasione."
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -207,7 +208,7 @@ msgid ""
 "folder or insert removable media with music."
 msgstr ""
 "Collega su dispositivu tuo a un'elaboradore de iscrivania e trìsina is "
-"archìvios in sa cartella Mùsica o inserta·nche unu dispositivu rimovìbile "
+"archìvios in sa cartella Mùsica o inserta-nche unu dispositivu rimovìbile "
 "cun mùsica."
 
 #: ../app/components/Walkthrough/Slide3.qml:54
@@ -216,7 +217,7 @@ msgstr "Iscàrriga àtera mùsica"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr ""
+msgstr "Importa in automàticu sa mùsica chi compras in lìnia."
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -244,7 +245,7 @@ msgstr "Reprodue"
 
 #: ../app/music-app.qml:167
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pone sa riprodutzione in pàusa"
 
 #: ../app/music-app.qml:167
 msgid "Continue or start playback"
@@ -380,7 +381,7 @@ msgstr "Elencu"
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/ui/NowPlaying.qml:122
 msgid "Clear queue"
-msgstr "Cantzella elencu"
+msgstr "Lìmpia s'elencu"
 
 #: ../app/ui/Playlists.qml:106 ../app/ui/Playlists.qml:107
 #: ../app/ui/Recent.qml:89 ../app/ui/Recent.qml:104 ../app/ui/SongsView.qml:66
@@ -403,4 +404,4 @@ msgstr "Una aplicatzione de mùsica pro Ubuntu"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr "mùsica;cantzones;reprodùe;reprodutzione;album"
+msgstr "mùsica;cantzones;reprodue;riprodutore;album;"
