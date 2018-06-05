@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-05 20:41+0000\n"
-"Last-Translator: Jolan <jo@jolanberard.com>\n"
+"PO-Revision-Date: 2018-06-05 15:52+0000\n"
+"Last-Translator: Rondy Andersson <rondarius@gmail.com>\n"
 "Language-Team: English (United Kingdom) "
 "<https://translate.ubports.com/projects/ubports/music-app/en_GB/>\n"
 "Language: en_GB\n"
@@ -37,7 +37,7 @@ msgstr "Wait"
 #: ../app/components/Dialog/NewPlaylistDialog.qml:71
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:60
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Avbryt"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
@@ -106,7 +106,7 @@ msgstr "Add to queue"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:77
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Radera"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
@@ -251,7 +251,7 @@ msgstr "Continue or start playback"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "Back"
+msgstr "Tillbaka"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"
