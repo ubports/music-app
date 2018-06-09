@@ -14,7 +14,7 @@
     "maintainer": "UBports <dev@ubports.com>",
     "name": "@PROJECT_NAME@",
     "title": "Music",
-    "version": "2.5.@BZR_REVNO@",
+    "version": "2.6.0",
     "x-source": {
         "vcs-bzr": "@BZR_SOURCE@",
         "vcs-bzr-revno": "@BZR_REVNO@"
