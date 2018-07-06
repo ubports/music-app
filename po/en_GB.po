@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-07-05 11:28+0000\n"
+"PO-Revision-Date: 2018-07-06 12:41+0000\n"
 "Last-Translator: konrad <kohofer@gmail.com>\n"
 "Language-Team: English (United Kingdom) "
 "<https://translate.ubports.com/projects/ubports/music-app/en_GB/>\n"
@@ -227,7 +227,7 @@ msgstr "Skip"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "Suiv."
+msgstr "Next"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
