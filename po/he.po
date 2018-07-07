@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-05-11 20:27+0000\n"
-"Last-Translator: Eran <etherpulse@gmail.com>\n"
+"PO-Revision-Date: 2018-06-03 17:17+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.ubports.com/projects/ubports/music-"
 "app/he/>\n"
 "Language: he\n"
@@ -251,7 +251,7 @@ msgstr "להמשיך או להתחיל בנגינה"
 
 #: ../app/music-app.qml:172
 msgid "Back"
-msgstr "אחורה"
+msgstr "חזרה"
 
 #: ../app/music-app.qml:173
 msgid "Go back to last page"

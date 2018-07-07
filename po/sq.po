@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-29 07:37+0000\n"
+"PO-Revision-Date: 2018-06-02 20:36+0000\n"
 "Last-Translator: Jeff <jeffi27@live.at>\n"
 "Language-Team: Albanian <https://translate.ubports.com/projects/ubports"
 "/music-app/sq/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "Ok"
+msgstr "OK"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -310,7 +310,7 @@ msgstr "Lista e dëgjimit"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Së fundi dëgjuar"
+msgstr "Kohët e fundit"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
