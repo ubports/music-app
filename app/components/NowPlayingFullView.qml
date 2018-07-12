@@ -51,33 +51,44 @@ Item {
             }
             height: parent.height
             width: parent.width
-
+            
             CoverGrid {
                 id: albumImage
                 anchors.centerIn: parent
                 covers: [player.currentMeta]
+                 opacity: coverSwipeArea.drag.active ? 1-Math.abs(albumImageContainer.x / (blurredBackground.width/2)) : 1
+                Behavior on opacity { NumberAnimation {duration:UbuntuAnimation.FastDuration}}
                 size: parent.height
             }
         }
 
         /* Detect cover art swipe */
         MouseArea {
+            id:coverSwipeArea
             anchors.fill: parent
             property string direction: "None"
             property real lastX: -1
-
-            onPressed: lastX = mouse.x
-
+            
+             drag.target: albumImageContainer;
+             drag.axis: Drag.XAxis
+             drag.minimumX: -blurredBackground.width
+             drag.maximumX: blurredBackground.width
+            
+            onPressed: { 
+                lastX = mouse.x
+                albumImageContainer.anchors.horizontalCenter = undefined;
+            }
             onReleased: {
                 var diff = mouse.x - lastX
+                albumImageContainer.anchors.horizontalCenter = blurredBackground.horizontalCenter;
 
-                if (Math.abs(diff) < units.gu(4)) {
+                if (Math.abs(diff) < (blurredBackground.width/2)) {
                     return;
                 } else if (diff < 0) {
                     player.mediaPlayer.playlist.nextWrapper()
                 } else if (diff > 0) {
                     player.mediaPlayer.playlist.previousWrapper()
-                }
+                }                               
             }
         }
     }
