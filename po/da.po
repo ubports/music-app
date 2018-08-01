@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2017-09-28 20:33+0000\n"
-"Last-Translator: Henrik Holm <hbir@post10.tele.dk>\n"
-"Language-Team: Danish <https://translate.ubports.com/projects/ubports/music-"
-"app/da/>\n"
+"PO-Revision-Date: 2018-08-01 13:43+0000\n"
+"Last-Translator: Tom Rausner <tomrausner@gmail.com>\n"
+"Language-Team: Danish <https://translate.ubports.com/projects/ubports/"
+"music-app/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.15\n"
+"X-Generator: Weblate 2.19.1\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
@@ -134,11 +134,11 @@ msgstr "Det mislykkedes at flytte filen"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "spor spillet idag"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Ingen spor spillet idag"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -296,8 +296,8 @@ msgstr "Vælg afspilningsliste"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 spor"
+msgstr[1] "%1 spor"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -309,7 +309,7 @@ msgstr "Afspilningslister"
 #: ../app/ui/AddToPlaylist.qml:114 ../app/ui/Recent.qml:34
 #: ../app/ui/SongsView.qml:90
 msgid "Recent"
-msgstr "Seneste"
+msgstr "Nylige"
 
 #: ../app/ui/Albums.qml:32
 msgid "Albums"
