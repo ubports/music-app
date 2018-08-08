@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-08-08 16:20+0000\n"
+"PO-Revision-Date: 2018-08-12 01:01+0000\n"
 "Last-Translator: ierihon <idekovets@mail.ru>\n"
 "Language-Team: Belarusian <https://translate.ubports.com/projects/ubports/"
 "music-app/be/>\n"
@@ -42,7 +42,7 @@ msgstr "Скасаваць"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Чаканне файла(-ў)"
+msgstr "Чаканне файла(-ў)…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -222,7 +222,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Пачаць"
+msgstr "Пуск"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
