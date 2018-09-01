@@ -8,21 +8,22 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2015-11-27 09:17+0000\n"
-"Last-Translator: Siamion Šachalevič <semen.shah@gmail.com>\n"
-"Language-Team: Belarusian <be@li.org>\n"
+"PO-Revision-Date: 2018-08-12 01:01+0000\n"
+"Last-Translator: ierihon <idekovets@mail.ru>\n"
+"Language-Team: Belarusian <https://translate.ubports.com/projects/ubports/"
+"music-app/be/>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.20\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
-msgstr "Добра"
+msgstr "ОК"
 
 #: ../app/components/Dialog/ContentHubNotFoundDialog.qml:29
 msgid "Imported file not found"
@@ -41,7 +42,7 @@ msgstr "Скасаваць"
 
 #: ../app/components/Dialog/ContentHubWaitDialog.qml:34
 msgid "Waiting for file(s)..."
-msgstr "Чаканне файла(-ў)"
+msgstr "Чаканне файла(-ў)…"
 
 #. TRANSLATORS: this is a title of a dialog with a prompt to rename a playlist
 #: ../app/components/Dialog/EditPlaylistDialog.qml:30
@@ -87,7 +88,7 @@ msgstr "Наступствы дзеяння нельга будзе адмяні
 #: ../app/components/Dialog/RemovePlaylistDialog.qml:37
 #: ../app/components/ListItemActions/Remove.qml:27
 msgid "Remove"
-msgstr "Прыбраць"
+msgstr "Выдаліць"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
@@ -134,11 +135,11 @@ msgstr "Не атрымалася перанесці файл"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr ""
+msgstr "трэкаў праслухана сёння"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
-msgstr ""
+msgstr "Няма праслуханых трэкаў сёння"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
@@ -221,7 +222,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
-msgstr "Пачаць"
+msgstr "Пуск"
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
@@ -298,8 +299,9 @@ msgstr "Выбраць плэйліст"
 #, qt-format
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 трэк"
+msgstr[1] "%1 трэкаў"
+msgstr[2] "%1 трэка"
 
 #. TRANSLATORS: this is the name of the playlists page shown in the tab header.
 #. Remember to keep the translation short to fit the screen width
@@ -352,7 +354,7 @@ msgstr "Выканаўца"
 
 #: ../app/ui/ContentHubExport.qml:34
 msgid "Export Track"
-msgstr ""
+msgstr "Экспартаваць трэк"
 
 #: ../app/ui/Genres.qml:32
 msgid "Genres"
@@ -397,7 +399,7 @@ msgstr "Спіс прайгравання"
 
 #: ../app/ui/Songs.qml:36
 msgid "Tracks"
-msgstr ""
+msgstr "Трэкі"
 
 #: com.ubuntu.music_music.desktop.in.in.h:2
 msgid "A music application for Ubuntu"
