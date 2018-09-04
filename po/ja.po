@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2016-02-28 10:22+0000\n"
-"Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
-"Language-Team: Japanese <ja@li.org>\n"
+"PO-Revision-Date: 2018-10-14 18:56+0000\n"
+"Last-Translator: ArashiHino <hinoaras.hi82@gmail.com>\n"
+"Language-Team: Japanese <https://translate.ubports.com/projects/ubports/"
+"music-app/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.0\n"
 "X-Launchpad-Export-Date: 2017-04-14 05:53+0000\n"
-"X-Generator: Launchpad (build 18352)\n"
 
 #: ../app/components/Dialog/ContentHubErrorDialog.qml:35
 msgid "OK"
@@ -90,7 +91,7 @@ msgstr "削除"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:28
 msgid "Select All"
-msgstr "すべて選択する"
+msgstr "全選択"
 
 #. TRANSLATORS: this action appears in the overflow drawer with limited space (around 18 characters)
 #: ../app/components/HeadState/MultiSelectHeadState.qml:40
@@ -109,7 +110,7 @@ msgstr "削除"
 
 #: ../app/components/HeadState/MultiSelectHeadState.qml:89
 msgid "Cancel selection"
-msgstr ""
+msgstr "選択を解除"
 
 #: ../app/components/HeadState/SearchHeadState.qml:42
 msgid "Search music"
@@ -222,7 +223,7 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Walkthrough.qml:119
 msgid "Skip"
-msgstr ""
+msgstr "スキップ"
 
 #: ../app/music-app.qml:158
 msgid "Next"
