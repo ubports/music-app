@@ -4,7 +4,7 @@ Building and running on Desktop
 Building and running the Ubuntu Music App is quite simple with clickable:
 
 ```
-clickable -e
+clickable desktop
 ```
 
 Debugging on the Desktop is recommended. The autopilot tests in this repository
