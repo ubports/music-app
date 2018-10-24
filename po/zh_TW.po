@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: music-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-27 19:11-0600\n"
-"PO-Revision-Date: 2018-10-23 15:21+0000\n"
+"PO-Revision-Date: 2018-10-28 00:00+0000\n"
 "Last-Translator: Louies <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.ubports.com/projects/"
 "ubports/music-app/zh_Hant/>\n"
@@ -65,7 +65,7 @@ msgstr "已有播放清單"
 #: ../app/components/Dialog/EditPlaylistDialog.qml:71
 #: ../app/components/Dialog/NewPlaylistDialog.qml:65
 msgid "Please type in a name."
-msgstr "請輸入名稱"
+msgstr "請輸入名稱。"
 
 #: ../app/components/Dialog/NewPlaylistDialog.qml:30
 msgid "New playlist"
@@ -124,7 +124,7 @@ msgstr "檔必須包含在以下路徑"
 #. TRANSLATORS: This string represents that a blank filepath destination has been used
 #: ../app/components/Helpers/ContentHubHelper.qml:112
 msgid "Filepath must be a file"
-msgstr "檔案路徑必須是檔案"
+msgstr "檔案路徑必須是文件"
 
 #. TRANSLATORS: This string represents that there was failure moving the file to the target destination
 #: ../app/components/Helpers/ContentHubHelper.qml:118
@@ -134,7 +134,7 @@ msgstr "未能移動檔案"
 #. TRANSLATORS: this refers to a number of tracks greater than one. The actual number will be prepended to the string automatically (plural forms are not yet fully supported in usermetrics, the library that displays that string)
 #: ../app/components/Helpers/UserMetricsHelper.qml:31
 msgid "tracks played today"
-msgstr "今日播放"
+msgstr "今天播放的曲目"
 
 #: ../app/components/Helpers/UserMetricsHelper.qml:32
 msgid "No tracks played today"
@@ -142,11 +142,11 @@ msgstr "今天沒有播放的曲目"
 
 #: ../app/components/ListItemActions/AddToQueue.qml:28
 msgid "Add to Queue"
-msgstr "加入至播放佇列"
+msgstr "加入至佇列"
 
 #: ../app/components/LoadingSpinnerComponent.qml:47
 msgid "Loading..."
-msgstr "載入中..."
+msgstr "載入中…"
 
 #: ../app/components/MusicPage.qml:42
 msgid "No items found"
@@ -154,7 +154,7 @@ msgstr "找不到項目"
 
 #: ../app/components/MusicToolbar.qml:91
 msgid "Tap to shuffle music"
-msgstr "點按可隨機播放音樂"
+msgstr "點擊可隨機播放音樂"
 
 #: ../app/components/PlaylistsEmptyState.qml:42
 msgid "No playlists found"
@@ -165,9 +165,7 @@ msgstr "找不到播放清單"
 msgid ""
 "Get more out of Music by tapping the %1 icon to start making playlists for "
 "every mood and occasion."
-msgstr ""
-"開發《音樂》的更多樂趣，請點按 %1 圖示開始製作適合哪種心情或場合聆聽的播放清"
-"單。"
+msgstr "點擊%1 圖示開始為每一種心情和場合製作播放清單，從而獲得更多音樂。"
 
 #. TRANSLATORS: this appears in a button with limited space (around 14 characters)
 #: ../app/components/ViewButton/PlayAllButton.qml:28
@@ -211,11 +209,11 @@ msgstr ""
 
 #: ../app/components/Walkthrough/Slide3.qml:54
 msgid "Download new music"
-msgstr "下載新音樂"
+msgstr "下載新的音樂"
 
 #: ../app/components/Walkthrough/Slide3.qml:67
 msgid "Directly import music bought while browsing online."
-msgstr "線上瀏覽時直接匯入購買的音樂。"
+msgstr "線上瀏覽時直接匯入已購買的音樂。"
 
 #: ../app/components/Walkthrough/Slide3.qml:81
 msgid "Start"
@@ -227,7 +225,7 @@ msgstr "略過"
 
 #: ../app/music-app.qml:158
 msgid "Next"
-msgstr "下一首"
+msgstr "下一個"
 
 #: ../app/music-app.qml:159
 msgid "Next Track"
@@ -259,7 +257,7 @@ msgstr "返回上一頁"
 
 #: ../app/music-app.qml:181
 msgid "Previous"
-msgstr "上"
+msgstr "上一個"
 
 #: ../app/music-app.qml:182
 msgid "Previous Track"
@@ -329,7 +327,7 @@ msgstr "未知的歌手"
 #: ../app/ui/Albums.qml:93 ../app/ui/ArtistView.qml:147
 #: ../app/ui/Recent.qml:104
 msgid "Album"
-msgstr "相簿"
+msgstr "專輯"
 
 #: ../app/ui/ArtistView.qml:94
 #, qt-format
@@ -400,6 +398,4 @@ msgstr "Ubuntu 音樂程式"
 
 #: com.ubuntu.music_music.desktop.in.in.h:3
 msgid "music;songs;play;tracks;player;tunes;"
-msgstr ""
-"music;songs;play;tracks;player;tunes;音樂;歌曲;播放;曲目;軌道;播放器;播放機;"
-"樂曲;曲調;"
+msgstr "音樂;歌曲;播放;曲目;播放器;曲調;"
